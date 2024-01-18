@@ -22,7 +22,7 @@
 
 <br>
 
-## 관련 이슈 번호 (optional)
+## 관련 이슈 (optional)
 
 <br>
 
