@@ -5,21 +5,30 @@
 //7일 이후 & 같은 해 MM-DD
 //7일 이후 & 다른 해 YYYY-MM-DD
 
-export default function timeDiff(date: Date) {
-  const now = new Date();
-  const diff = now.getTime() - date.getTime();
+export default function timeDiff(dateString: string) {
+  const dateObject = new Date(dateString);
+  const now = new Date(new Date().getTime() + 9 * 60 * 60 * 1000);
+  const diff = (now.getTime() - dateObject.getTime()) / 1000;
+
+  const year = dateObject.getFullYear().toString();
+  const month = dateObject.getMonth() + 1 < 10 ? '0' + (dateObject.getMonth() + 1) : '' + (dateObject.getMonth() + 1);
+  const day = dateObject.getDate() < 10 ? '0' + dateObject.getDate() : '' + dateObject.getDate();
+
+  console.log(now.getTime());
+  console.log(dateObject.getTime());
+  console.log(diff);
 
   if (diff < 60) {
-    return "방금 전";
+    return '방금 전';
   } else if (diff < 60 * 60) {
     return `${Math.floor(diff / 60)}분 전`;
   } else if (diff < 60 * 60 * 24) {
     return `${Math.floor(diff / (60 * 60))}시간 전`;
   } else if (diff < 60 * 60 * 24 * 7) {
     return `${Math.floor(diff / (60 * 60 * 24))}일 전`;
-  } else if (diff < 60 * 60 * 60 * 24 * 365) {
-    return `${Math.floor}일 전`;
+  } else if (diff < 60 * 60 * 24 * 365) {
+    return `${month}-${day}`;
   } else {
-    return "";
+    return `${year}-${month}-${day}`;
   }
 }
