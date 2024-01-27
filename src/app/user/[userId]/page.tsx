@@ -5,9 +5,11 @@
  - [x] mock 데이터 연결 (아이템)
  - [ ] 레이아웃 스타일링
  - [ ] 마이리스트/ 콜라보, 카테고리 레이아웃 컴포넌트 분리 (리팩토링)
- - [ ] 프로필 컴포넌트 분리 (리팩토링)
+ - [x] 프로필 컴포넌트 분리 (리팩토링)
  - [ ] 기타 조건 반영
  - [ ] onclick 기능 추가
+ - [ ] 피드페이지 스켈레톤 ui 적용
+ - [ ] 리스트 무한스트롤 적용
  */
 
 /**
@@ -25,13 +27,9 @@
  */
 
 import { USER_DATA_ME } from '../mockData/user'; // 삭제 예정
-import { LISTS_ME } from '../mockData/lists';
 
-import Categories from '../_components/Categories';
-import Card from '../_components/Card';
 import Profile from '../_components/Profile';
-
-import { ListType } from '../mockData/mockDataTypes';
+import Content from '../_components/Content';
 
 interface FeedPageProps {
   params: {
@@ -44,26 +42,10 @@ export default function FeedPage({ params }: FeedPageProps) {
 
   // userId로 유저 정보 가져오는 api 요청
 
-  // userId로 피드 정보 가져오는 api 요청
-
   return (
     <section>
       <Profile user={USER_DATA_ME} />
-      {/* 리스트 레이아웃 느낌 */}
-      <div>
-        <div>
-          <button>마이 리스트</button>
-          <button>콜라보 리스트</button>
-        </div>
-        <Categories />
-        <div>
-          {LISTS_ME.map((list: ListType) => (
-            <ul key={list.listId}>
-              <Card list={list} isOwner={USER_DATA_ME.isOwner} />
-            </ul>
-          ))}
-        </div>
-      </div>
+      <Content user={USER_DATA_ME} />
       {/* <button>생성 페이지 이동 플로팅 버튼</button> */}
     </section>
   );
