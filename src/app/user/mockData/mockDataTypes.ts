@@ -6,6 +6,18 @@
 
 // 공통 타입
 
+export interface UserType {
+  id: number;
+  backgroundImageUrl?: string; // mock 데이터 기준 optional
+  profileImageUrl?: string; // mock 데이터 기준 optional
+  nickname: string;
+  description: string;
+  followerCount: number;
+  followingCount: number;
+  isFollowed: boolean;
+  isOwner: boolean;
+}
+
 export interface ListType {
   listId: number;
   category: string;

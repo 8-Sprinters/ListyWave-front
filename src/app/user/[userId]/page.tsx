@@ -27,9 +27,9 @@
 import { USER_DATA_ME } from '../mockData/user'; // 삭제 예정
 import { LISTS_ME } from '../mockData/lists';
 
-import Action from '../_components/Action';
 import Categories from '../_components/Categories';
 import Card from '../_components/Card';
+import Profile from '../_components/Profile';
 
 import { ListType } from '../mockData/mockDataTypes';
 
@@ -48,16 +48,7 @@ export default function FeedPage({ params }: FeedPageProps) {
 
   return (
     <section>
-      <img src={USER_DATA_ME.profileImageUrl} alt="아바타" />
-      <div>
-        <h2>{USER_DATA_ME.nickname}</h2>
-        <p>{USER_DATA_ME.description}</p>
-        <div>
-          <span>{USER_DATA_ME.followingCount} 팔로잉</span>
-          <span>{USER_DATA_ME.followerCount} 팔로워</span>
-          <Action isFollowed={USER_DATA_ME.isFollowed} />
-        </div>
-      </div>
+      <Profile user={USER_DATA_ME} />
       {/* 리스트 레이아웃 느낌 */}
       <div>
         <div>
