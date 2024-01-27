@@ -1,10 +1,8 @@
-import { MOCKDATA_LIST, MOCKDATA_COMMENTS } from '../mockdata';
+import { MOCKDATA_LIST } from '../mockdata';
 import * as S from './ListInformation.css';
 import timeDiff from '@/lib/utils/timeDiff';
 
 const LIST = MOCKDATA_LIST[0];
-const COMMENT = MOCKDATA_COMMENTS[0];
-console.log(timeDiff(LIST.createdDate));
 
 function ListInformation() {
   return (

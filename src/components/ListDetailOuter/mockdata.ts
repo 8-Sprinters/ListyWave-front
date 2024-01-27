@@ -385,85 +385,92 @@ export const MOCKDATA_LIST = [
 
 export const MOCKDATA_COMMENTS = [
   {
-    id: 1,
-    userId: 24,
-    userName: '희원',
-    userProfileImageUrl: 'https://img.hankyung.com/photo/202006/03.22990548.1.jpg',
-    createdDate: '2024-01-25T06:50:12.962Z',
-    content: '전원우 고앵이!',
-    replies: [
+    totalCount: 2,
+    comments: [
       {
-        id: 3,
-        userId: 5,
-        userNickName: '나현',
-        userProfileImageUrl: 'https://cdn.pixabay.com/photo/2020/05/17/20/21/cat-5183427_1280.jpg',
-        createdDate: '2024-01-25T18:50:12.962Z',
-        content: '애기 고양이',
+        id: 1,
+        userId: 24,
+        userName: '전원우 아내',
+        userProfileImageUrl: 'https://img.hankyung.com/photo/202006/03.22990548.1.jpg',
+        createdDate: '2024-01-25T06:50:12.962Z',
+        content: '전원우 고앵이!',
+        replies: [
+          {
+            id: 3,
+            userId: 5,
+            userNickName: '나현',
+            userProfileImageUrl: 'https://cdn.pixabay.com/photo/2020/05/17/20/21/cat-5183427_1280.jpg',
+            createdDate: '2024-01-25T18:50:12.962Z',
+            content: '애기 고양이',
+          },
+        ],
       },
     ],
   },
   {
-    id: 2,
-    userId: 36,
-    userName: '승화',
-    userProfileImageUrl:
-      'https://yt3.googleusercontent.com/mFpxH8XLL_uupbtB1U489iAss84q-Phzdz9hZBZcxtQvlKH292PdCwtfd6Lf6YwCQHbtjvhSCXY=s900-c-k-c0x00ffffff-no-rj',
-    createdDate: '2024-01-24T06:50:12.962Z',
-    content: '여기 저도 너무 좋아하는 곳들이에요~~',
-    replies: [
+    totalCount: 5,
+    comments: [
       {
-        id: 3,
-        userId: 5,
-        userNickName: '나현',
-        userProfileImageUrl: 'https://cdn.pixabay.com/photo/2020/05/17/20/21/cat-5183427_1280.jpg',
-        createdDate: '2024-01-25T18:50:12.962Z',
-        content: '매니저님~ 혹시 여기 말고 또 추천해주실 카페 있으신가요?~',
-      },
-      {
-        id: 4,
+        id: 2,
         userId: 36,
-        userNickName: '승화',
+        userName: '승화',
         userProfileImageUrl:
           'https://yt3.googleusercontent.com/mFpxH8XLL_uupbtB1U489iAss84q-Phzdz9hZBZcxtQvlKH292PdCwtfd6Lf6YwCQHbtjvhSCXY=s900-c-k-c0x00ffffff-no-rj',
-        createdDate: '2024-01-26T18:50:12.962Z',
-        content: '물론이죠~ 00이라는 카페에 가보세요!!',
+        createdDate: '2024-01-24T06:50:12.962Z',
+        content: '여기 저도 너무 좋아하는 곳들이에요~~',
+        replies: [
+          {
+            id: 3,
+            userId: 5,
+            userNickName: '나현',
+            userProfileImageUrl: 'https://cdn.pixabay.com/photo/2020/05/17/20/21/cat-5183427_1280.jpg',
+            createdDate: '2024-01-25T18:50:12.962Z',
+            content: '매니저님~ 혹시 여기 말고 또 추천해주실 카페 있으신가요?~',
+          },
+          {
+            id: 4,
+            userId: 36,
+            userNickName: '승화',
+            userProfileImageUrl:
+              'https://yt3.googleusercontent.com/mFpxH8XLL_uupbtB1U489iAss84q-Phzdz9hZBZcxtQvlKH292PdCwtfd6Lf6YwCQHbtjvhSCXY=s900-c-k-c0x00ffffff-no-rj',
+            createdDate: '2024-01-26T18:50:12.962Z',
+            content: '물론이죠~ 00이라는 카페에 가보세요!!',
+          },
+        ],
       },
-    ],
-  },
-  {
-    id: 2,
-    userId: 36,
-    userName: '승화',
-    userProfileImageUrl:
-      'https://yt3.googleusercontent.com/mFpxH8XLL_uupbtB1U489iAss84q-Phzdz9hZBZcxtQvlKH292PdCwtfd6Lf6YwCQHbtjvhSCXY=s900-c-k-c0x00ffffff-no-rj',
-    createdDate: '2024-01-24T06:50:12.962Z',
-    content: '여기 저도 너무 좋아하는 곳들이에요~~',
-    replies: [
       {
-        id: 3,
-        userId: 5,
-        userNickName: '나현',
-        userProfileImageUrl: 'https://cdn.pixabay.com/photo/2020/05/17/20/21/cat-5183427_1280.jpg',
-        createdDate: '2024-01-25T18:50:12.962Z',
-        content: '매니저님~ 혹시 여기 말고 또 추천해주실 카페 있으신가요?~',
-      },
-      {
-        id: 4,
-        userId: 36,
-        userNickName: '승화',
+        id: 5,
+        userId: 37,
+        userName: '유진',
         userProfileImageUrl:
           'https://yt3.googleusercontent.com/mFpxH8XLL_uupbtB1U489iAss84q-Phzdz9hZBZcxtQvlKH292PdCwtfd6Lf6YwCQHbtjvhSCXY=s900-c-k-c0x00ffffff-no-rj',
-        createdDate: '2024-01-26T18:50:12.962Z',
-        content: '물론이죠~ 00이라는 카페에 가보세요!!',
+        createdDate: '2024-01-25T06:50:12.962Z',
+        content: '저 더 맛있는 데 알고 있어요~~',
+        replies: [
+          {
+            id: 3,
+            userId: 5,
+            userNickName: '나현',
+            userProfileImageUrl: 'https://cdn.pixabay.com/photo/2020/05/17/20/21/cat-5183427_1280.jpg',
+            createdDate: '2024-01-25T18:50:12.962Z',
+            content: '어디에요 당장 공유해주세요',
+          },
+        ],
       },
     ],
   },
   {
-    id: 2,
-    userId: 36,
-    userName: '나현',
-    userProfileImageUrl: 'https://cdn.pixabay.com/photo/2020/05/17/20/21/cat-5183427_1280.jpg',
-    createdDate: '2024-01-24T06:50:12.962Z',
-    content: '털기 성공??',
+    totalCount: 1,
+    comments: [
+      {
+        id: 2,
+        userId: 36,
+        userName: '나현',
+        userProfileImageUrl: 'https://cdn.pixabay.com/photo/2020/05/17/20/21/cat-5183427_1280.jpg',
+        createdDate: '2024-01-24T06:50:12.962Z',
+        content: '털기 성공??',
+        replies: null,
+      },
+    ],
   },
 ];
