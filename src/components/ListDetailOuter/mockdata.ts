@@ -26,6 +26,36 @@ export const MOCKDATA_LIST = [
         nickname: '현지',
         profileImageUrl: 'https://cdn.pixabay.com/photo/2023/07/16/12/32/cat-8130611_640.jpg',
       },
+      {
+        id: 2,
+        nickname: '도우너',
+        profileImageUrl: 'https://cdn.pixabay.com/photo/2023/07/16/12/32/cat-8130611_640.jpg',
+      },
+      {
+        id: 3,
+        nickname: '또치',
+        profileImageUrl: 'https://cdn.pixabay.com/photo/2023/07/16/12/32/cat-8130611_640.jpg',
+      },
+      {
+        id: 4,
+        nickname: 'Samuel',
+        profileImageUrl: 'https://cdn.pixabay.com/photo/2023/07/16/12/32/cat-8130611_640.jpg',
+      },
+      {
+        id: 5,
+        nickname: 'Clark',
+        profileImageUrl: 'https://cdn.pixabay.com/photo/2023/07/16/12/32/cat-8130611_640.jpg',
+      },
+      {
+        id: 6,
+        nickname: '나봉이',
+        profileImageUrl: 'https://cdn.pixabay.com/photo/2023/07/16/12/32/cat-8130611_640.jpg',
+      },
+      {
+        id: 7,
+        nickname: '미니언',
+        profileImageUrl: 'https://cdn.pixabay.com/photo/2023/07/16/12/32/cat-8130611_640.jpg',
+      },
     ],
     items: [
       {

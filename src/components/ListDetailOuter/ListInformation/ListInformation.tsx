@@ -1,3 +1,4 @@
+import Collaborators from '../Collaborators/Collaborators';
 import { MOCKDATA_LIST } from '../mockdata';
 import * as S from './ListInformation.css';
 import timeDiff from '@/lib/utils/timeDiff';
@@ -34,7 +35,7 @@ function ListInformation() {
         </div>
         <div className={S.CollaboratorWrapper}>
           <span className={S.CollaboratorTitle}>콜라보레이터</span>
-          <div className={S.CollaboratorComponent}></div>
+          <Collaborators collaborators={LIST.collaborators} />
         </div>
       </div>
     </>
