@@ -1,0 +1,228 @@
+export const ITEMS_01 = {
+  id: 1,
+  listId: 1000,
+  data: [
+    {
+      id: 1,
+      rank: 1,
+      title: '프랭크버거',
+      comment: '', // Nullable
+      link: '', // Nullable
+      imageUrl: '', // Nullable
+      // items 다른 속성 추가 될 수도 있음
+    },
+    {
+      id: 2,
+      rank: 2,
+      title: '캔모아',
+      comment: '',
+      link: '',
+      imageUrl: '',
+    },
+    {
+      id: 3,
+      rank: 3,
+      title: '젤라띠젤라띠',
+      comment: '',
+      link: '',
+      imageUrl: '',
+    },
+  ],
+};
+
+export const ITEMS_02 = {
+  id: 2,
+  listId: 1001,
+  data: [
+    {
+      id: 1,
+      rank: 1,
+      title: '스타벅스',
+      comment: '',
+      link: '',
+      imageUrl: '',
+    },
+    {
+      id: 2,
+      rank: 2,
+      title: '투썸플레이스',
+      comment: '',
+      link: '',
+      imageUrl: '',
+    },
+    {
+      id: 3,
+      rank: 3,
+      title: '원두볶는 사람들',
+      comment: '',
+      link: '',
+      imageUrl: '',
+    },
+    {
+      id: 4,
+      rank: 4,
+      title: '할리스커피',
+      comment: '',
+      link: '',
+      imageUrl: '',
+    },
+    {
+      id: 5,
+      rank: 5,
+      title: '탐앤탐스',
+      comment: '',
+      link: '',
+      imageUrl: '',
+    },
+    {
+      id: 6,
+      rank: 6,
+      title: '커스텀커피',
+      comment: '',
+      link: '',
+      imageUrl: '',
+    },
+  ],
+};
+
+export const ITEMS_03 = {
+  id: 3,
+  listId: 1002,
+  data: [
+    {
+      id: 1,
+      rank: 1,
+      title: '달러구트 꿈 백화점 1',
+      comment: '',
+      link: '',
+      imageUrl: '',
+    },
+    {
+      id: 2,
+      rank: 2,
+      title: '달러구트 꿈 백화점 2',
+      comment: '',
+      link: '',
+      imageUrl: '',
+    },
+    {
+      id: 3,
+      rank: 3,
+      title: '모순',
+      comment: '',
+      link: '',
+      imageUrl: '',
+    },
+    {
+      id: 4,
+      rank: 4,
+      title: '지구끝의 온실',
+      comment: '',
+      link: '',
+      imageUrl: '',
+    },
+    {
+      id: 5,
+      rank: 5,
+      title: '메리골드 마음 세탁소',
+      comment: '',
+      link: '',
+      imageUrl: '',
+    },
+    {
+      id: 6,
+      rank: 6,
+      title: '작별인사',
+      comment: '',
+      link: '',
+      imageUrl: '',
+    },
+    {
+      id: 7,
+      rank: 7,
+      title: '튜브',
+      comment: '',
+      link: '',
+      imageUrl: '',
+    },
+    {
+      id: 8,
+      rank: 8,
+      title: '아몬드',
+      comment: '',
+      link: '',
+      imageUrl: '',
+    },
+    {
+      id: 9,
+      rank: 9,
+      title: '백의 그림자',
+      comment: '',
+      link: '',
+      imageUrl: '',
+    },
+    {
+      id: 10,
+      rank: 10,
+      title: '내게 무해한 사람',
+      comment: '',
+      link: '',
+      imageUrl: '',
+    },
+  ],
+};
+
+export const ITEMS_04 = {
+  id: 4,
+  listId: 1003,
+  data: [
+    {
+      id: 1,
+      rank: 1,
+      title: '스타벅스',
+      comment: '',
+      link: '',
+      imageUrl: '',
+    },
+    {
+      id: 2,
+      rank: 2,
+      title: '투썸플레이스',
+      comment: '',
+      link: '',
+      imageUrl: '',
+    },
+    {
+      id: 3,
+      rank: 3,
+      title: '원두볶는 사람들',
+      comment: '',
+      link: '',
+      imageUrl: '',
+    },
+    {
+      id: 4,
+      rank: 4,
+      title: '할리스커피',
+      comment: '',
+      link: '',
+      imageUrl: '',
+    },
+    {
+      id: 5,
+      rank: 5,
+      title: '탐앤탐스',
+      comment: '',
+      link: '',
+      imageUrl: '',
+    },
+    {
+      id: 6,
+      rank: 6,
+      title: '커스텀커피',
+      comment: '',
+      link: '',
+      imageUrl: '',
+    },
+  ],
+};

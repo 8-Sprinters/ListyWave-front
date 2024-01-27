@@ -1,4 +1,13 @@
 /**
+ TODO
+ - [x] 리스트 mock data 만들기
+ - [ ] mock 데이터 연결
+ - [ ] 레이아웃 스타일링
+ - [ ] 기타 조건 반영
+ - [ ] onclick 기능 추가
+ */
+
+/**
  * /users/{userId}/feeds/ 단일 페이지 -> 프론트에서 userId 값 넘겨주기
  * /user 단일 엔드포인트 (+. accessToken // Nullable)
  *   ㄴ 기존 {userId} 없이 -> accessToken에서 검증하므로
@@ -12,9 +21,10 @@
  * case3) 비회원인 경우 -> accessToken이 없을테니 inOwner가 false
  */
 
-import { USER_DATA_ME } from "../mockData/user"; // 삭제 예정
+import { USER_DATA_ME } from '../mockData/user'; // 삭제 예정
 
-import Action from "../_components/Action";
+import Action from '../_components/Action';
+import Categories from '../_components/Categories';
 
 interface FeedPageProps {
   params: {
@@ -39,7 +49,15 @@ export default function FeedPage({ params }: FeedPageProps) {
           <Action isFollowed={USER_DATA_ME.isFollowed} />
         </div>
       </div>
-      <div>리스트</div>
+      {/* 리스트 레이아웃 느낌 */}
+      <div>
+        <div>
+          <button>마이 리스트</button>
+          <button>콜라보 리스트</button>
+        </div>
+        <Categories />
+        <div>{/* 리스트 */}</div>
+      </div>
       {/* <button>생성 페이지 이동 플로팅 버튼</button> */}
     </section>
   );
