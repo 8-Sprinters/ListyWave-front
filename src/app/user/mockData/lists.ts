@@ -1,5 +1,7 @@
 // 리스트 데이터
 
+import { ITEMS_01, ITEMS_02, ITEMS_03, ITEMS_04 } from './items';
+
 export const LISTS_ME = [
   {
     listId: 1000,
@@ -9,7 +11,7 @@ export const LISTS_ME = [
     ownerNickname: '파도타기',
     ownerProfileImageUrl: '',
     createdDate: '',
-    itemsId: 1,
+    items: ITEMS_01.data,
     isPublic: true,
   },
   {
@@ -20,7 +22,7 @@ export const LISTS_ME = [
     ownerNickname: '파도타기',
     ownerProfileImageUrl: '',
     createdDate: '',
-    itemsId: 2,
+    items: ITEMS_02.data,
     isPublic: false,
   },
   {
@@ -31,7 +33,7 @@ export const LISTS_ME = [
     ownerNickname: '파도타기',
     ownerProfileImageUrl: '',
     createdDate: '',
-    itemsId: 3,
+    items: ITEMS_03.data,
     isPublic: true,
   },
   {
@@ -42,7 +44,7 @@ export const LISTS_ME = [
     ownerNickname: '파도타기',
     ownerProfileImageUrl: '',
     createdDate: '',
-    itemsId: 4,
+    items: ITEMS_04.data,
     isPublic: true,
   },
 ];

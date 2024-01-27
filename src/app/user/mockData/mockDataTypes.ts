@@ -14,6 +14,16 @@ export interface ListType {
   ownerNickname: string;
   ownerProfileImageUrl?: string; // mock 데이터 기준 optional
   createdDate?: string; // mock 데이터 기준 optional
-  itemsId: number;
+  items: ItemType[];
   isPublic: boolean;
+}
+
+export interface ItemType {
+  id: number;
+  rank: number;
+  title: string;
+  comment?: string;
+  link?: string;
+  imageUrl?: string;
+  // items 다른 속성 추가 될 수도 있음
 }
