@@ -27,8 +27,8 @@ export const LISTS_ME = [
     listId: 1002,
     category: '도서', // 코드
     title: '내 기준 지루하지 않은 소설',
-    ownerId: 101, // userId
-    ownerNickname: '파도타기1',
+    ownerId: 100, // userId
+    ownerNickname: '파도타기',
     ownerProfileImageUrl: '',
     createdDate: '',
     itemsId: 3,

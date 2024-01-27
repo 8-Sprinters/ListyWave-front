@@ -1,7 +1,8 @@
 /**
  TODO
  - [x] 리스트 mock data 만들기
- - [ ] mock 데이터 연결
+ - [x] mock 데이터 연결 (리스트)
+ - [ ] mock 데이터 연결 (아이템)
  - [ ] 레이아웃 스타일링
  - [ ] 기타 조건 반영
  - [ ] onclick 기능 추가
@@ -22,9 +23,13 @@
  */
 
 import { USER_DATA_ME } from '../mockData/user'; // 삭제 예정
+import { LISTS_ME } from '../mockData/lists';
 
 import Action from '../_components/Action';
 import Categories from '../_components/Categories';
+import Card from '../_components/Card';
+
+import { ListType } from '../mockData/mockDataTypes';
 
 interface FeedPageProps {
   params: {
@@ -33,9 +38,11 @@ interface FeedPageProps {
 }
 
 export default function FeedPage({ params }: FeedPageProps) {
-  console.log(params.userId);
+  console.log(params.userId); // 삭제 예정
 
   // userId로 유저 정보 가져오는 api 요청
+
+  // userId로 피드 정보 가져오는 api 요청
 
   return (
     <section>
@@ -56,7 +63,13 @@ export default function FeedPage({ params }: FeedPageProps) {
           <button>콜라보 리스트</button>
         </div>
         <Categories />
-        <div>{/* 리스트 */}</div>
+        <div>
+          {LISTS_ME.map((list: ListType) => (
+            <ul key={list.listId}>
+              <Card list={list} isOwner={USER_DATA_ME.isOwner} />
+            </ul>
+          ))}
+        </div>
       </div>
       {/* <button>생성 페이지 이동 플로팅 버튼</button> */}
     </section>
