@@ -16,6 +16,12 @@ function Comments() {
 
   return (
     <div className={S.Wrapper}>
+      <form>
+        <div>
+          <input></input>
+          <button>등록</button>
+        </div>
+      </form>
       <div className={S.TotalCount}>{`${COMMENTS.totalCount}개의 댓글`}</div>
       {COMMENTS.comments.map((item, idx) => {
         return (
