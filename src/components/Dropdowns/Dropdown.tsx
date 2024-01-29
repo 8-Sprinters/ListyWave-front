@@ -18,11 +18,12 @@ const selectStyles = {
     maxWidth: '200px',
     backgroundColor: 'white',
     boxShadow: 'none',
-    border: state.isFocused ? '1px solid lightgray' : '1px solid white',
+    border: 0,
     borderRadius: '8px',
     cursor: 'pointer',
     '&:hover': {
       borderColor: 'none',
+      backgroundColor: 'lightgray',
     },
   }),
   singleValue: (provided: object) => ({

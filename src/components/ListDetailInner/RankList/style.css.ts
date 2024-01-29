@@ -88,6 +88,7 @@ export const simpleImage = style({
 
 export const detailImage = style({
   borderRadius: '10px',
+  border: '2px solid lightgray',
   width: '100%',
   height: 'auto',
   objectFit: 'cover',
