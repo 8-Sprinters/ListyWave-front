@@ -1,9 +1,13 @@
-import { ChangeEvent } from 'react';
 import * as styles from '@/components/ListDetailInner/Header/style.css';
 import Dropdown from '@/components/Dropdowns/Dropdown';
 
+interface OptionsProps {
+  value: string;
+  label: string;
+}
+
 interface HeaderProps {
-  handleChangeListType?: () => void;
+  handleChangeListType: (target: OptionsProps) => void | undefined;
 }
 
 const dropdownOptions = [

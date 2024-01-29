@@ -4,7 +4,7 @@ import Header from '@/components/ListDetailInner/Header/Header';
 import RankList from '@/components/ListDetailInner/RankList/RankList';
 import Footer from '@/components/ListDetailInner/Footer/Footer';
 import MOCKDATA_LIST from '@/components/ListDetailInner/MockData';
-import { ChangeEvent, useState } from 'react';
+import { useState } from 'react';
 import * as styles from '@/components/ListDetailInner/style.css';
 
 export interface ListItemProps {
@@ -12,8 +12,13 @@ export interface ListItemProps {
   rank?: number;
   title?: string;
   comment?: string;
-  link?: string;
-  imageUrl?: string;
+  link?: string | null;
+  imageUrl?: string | null;
+}
+
+interface OptionsProps {
+  value: string;
+  label: string;
 }
 
 // 테스트용 코드
@@ -23,9 +28,8 @@ function ListDetailInner() {
   const listData = initialValue;
 
   const [listType, setListType] = useState('simple');
-
-  const handleChangeListType = (e: ChangeEvent) => {
-    const value: string = e.value;
+  const handleChangeListType = (target: OptionsProps) => {
+    const value: string = target.value;
     setListType(value);
   };
 

@@ -1,6 +1,5 @@
 import { ListItemProps } from '@/components/ListDetailInner';
 import * as styles from '@/components/ListDetailInner/RankList/style.css';
-import { detailItemWrapper } from '@/components/ListDetailInner/RankList/style.css';
 
 interface RankListProps {
   listData: ListItemProps[];
