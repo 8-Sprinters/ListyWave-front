@@ -23,6 +23,7 @@
  * case2) 회원이고 && 다른사람일 때 -> 리스폰스에 isOwner가 false
  * case3) 비회원인 경우 -> accessToken이 없을테니 inOwner가 false
  */
+import '@/styles/globalStyles.css';
 
 import { USER_DATA_ME } from '../mockData/user'; // 삭제 예정
 
