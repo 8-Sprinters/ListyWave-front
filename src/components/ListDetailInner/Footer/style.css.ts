@@ -15,3 +15,7 @@ export const shareAndOthers = style({
   alignItems: 'center',
   gap: '20px',
 });
+
+export const buttonComponent = style({
+  cursor: 'pointer',
+});

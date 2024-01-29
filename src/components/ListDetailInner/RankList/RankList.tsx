@@ -1,41 +1,53 @@
 import { ListItemProps } from '@/components/ListDetailInner';
 import * as styles from '@/components/ListDetailInner/RankList/style.css';
+import { detailItemWrapper } from '@/components/ListDetailInner/RankList/style.css';
 
 interface RankListProps {
-  listData?: ListItemProps[];
+  listData: ListItemProps[];
   type?: string;
 }
 
+function SimpleList({ listData }: RankListProps) {
+  return listData.map((item) => {
+    return (
+      <div key={item.id} className={styles.simpleItemWrapper}>
+        <div className={styles.rankAndTitle}>
+          <div className={styles.rankText}>{item.rank}위</div>
+          <div className={styles.titleText}>{item.title}</div>
+        </div>
+        <div className={styles.simpleImageWrapper}>
+          {item.imageUrl && <img className={styles.simpleImage} src={item.imageUrl} alt="img설명" />}
+        </div>
+      </div>
+    );
+  });
+}
+function DetailList({ listData }: RankListProps) {
+  return listData.map((item) => {
+    return (
+      <div key={item.id} className={styles.detailItemWrapper}>
+        <div className={styles.rankAndTitle}>
+          <div className={styles.rankText}>{item.rank}위</div>
+          <div className={styles.titleText}>{item.title}</div>
+        </div>
+        <div className={styles.commentText}>{item.comment}</div>
+        <div className={styles.detailImageWrapper}>
+          {item.imageUrl && <img className={styles.detailImage} src={item.imageUrl} alt="img설명" />}
+        </div>
+      </div>
+    );
+  });
+}
 function RankList({ listData, type }: RankListProps) {
   return (
     <div className={styles.container}>
-      <div>
+      <div className={styles.listWrapper}>
         {listData ? (
           type == 'simple' ? (
-            listData.map((item) => {
-              return (
-                <div key={item.id}>
-                  <div key={item.id}>
-                    {item.rank}위 {item.title}
-                  </div>
-                </div>
-              );
-            })
+            <SimpleList listData={listData} />
           ) : (
             // type == 'detail'
-            listData.map((item) => {
-              return (
-                <div key={item.id}>
-                  <div>
-                    {item.rank}위 {item.title}
-                  </div>
-                  <div>{item.comment}</div>
-                  <div>
-                    <img src={item.imageUrl} alt="img설명" />
-                  </div>
-                </div>
-              );
-            })
+            <DetailList listData={listData} />
           )
         ) : (
           <div>데이터가 없습니다.</div>

@@ -6,7 +6,6 @@ import Footer from '@/components/ListDetailInner/Footer/Footer';
 import MOCKDATA_LIST from '@/components/ListDetailInner/MockData';
 import { ChangeEvent, useState } from 'react';
 import * as styles from '@/components/ListDetailInner/style.css';
-import { listAndFooter } from '@/components/ListDetailInner/style.css';
 
 export interface ListItemProps {
   id?: number;
@@ -25,8 +24,8 @@ function ListDetailInner() {
 
   const [listType, setListType] = useState('simple');
 
-  const handleChangeListType = (e: ChangeEvent<HTMLSelectElement>) => {
-    const value: string = e.target.value;
+  const handleChangeListType = (e: ChangeEvent) => {
+    const value: string = e.value;
     setListType(value);
   };
 
