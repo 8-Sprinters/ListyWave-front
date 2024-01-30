@@ -2914,6 +2914,13 @@
     modern-ahocorasick "^1.0.0"
     outdent "^0.8.0"
 
+"@vanilla-extract/dynamic@^2.1.0":
+  version "2.1.0"
+  resolved "https://registry.yarnpkg.com/@vanilla-extract/dynamic/-/dynamic-2.1.0.tgz#316d3bd4adfd5f5c9fb080445c41d55abe3b463c"
+  integrity sha512-8zl0IgBYRtgD1h+56Zu13wHTiMTJSVEa4F7RWX9vTB/5Xe2KtjoiqApy/szHPVFA56c+ex6A4GpCQjT1bKXbYw==
+  dependencies:
+    "@vanilla-extract/private" "^1.0.3"
+
 "@vanilla-extract/integration@^6.0.0", "@vanilla-extract/integration@^6.2.4":
   version "6.2.4"
   resolved "https://registry.yarnpkg.com/@vanilla-extract/integration/-/integration-6.2.4.tgz#bd8a5ec0916051c1ef5fb66d8484a5cad8d8c58d"

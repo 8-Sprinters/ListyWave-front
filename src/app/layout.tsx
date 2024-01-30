@@ -3,7 +3,7 @@
 import React from 'react';
 import { ReactNode } from 'react';
 
-import './global.css';
+import '@/styles/global.css';
 
 export default function TempLayout({ children }: { children: ReactNode }) {
   return (
@@ -12,6 +12,7 @@ export default function TempLayout({ children }: { children: ReactNode }) {
         <title>ListyWave</title>
       </head>
       <body>
+        <div id="modal-root" />
         <div>{children}</div>
       </body>
     </html>

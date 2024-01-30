@@ -10,7 +10,7 @@ interface Reply {
 }
 
 interface RepliesProps {
-  replies: Reply[];
+  replies: Reply[] | null;
 }
 
 function Replies({ replies }: RepliesProps) {

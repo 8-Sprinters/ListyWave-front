@@ -1,4 +1,4 @@
-import * as S from './Collaborators.css';
+import * as styles from './Collaborators.css';
 
 interface Collaborators {
   id?: number;
@@ -14,13 +14,13 @@ function Collaborators({ collaborators }: CollaboratorsProps) {
   const collaboratorsList = collaborators && collaborators?.length >= 3 ? collaborators?.slice(0, 3) : collaborators;
 
   return (
-    <div className={S.Wrapper}>
-      <div className={S.ProfileImg}>
+    <div className={styles.Wrapper}>
+      <div className={styles.ProfileImg}>
         <span>{`+${collaborators && collaborators?.length - 3}`}</span>
       </div>
       {collaboratorsList?.map((item, idx) => {
         return (
-          <div className={S.ProfileImg}>
+          <div className={styles.ProfileImg}>
             <span>{`${item.nickname.charAt(0)}`}</span>
           </div>
         );
