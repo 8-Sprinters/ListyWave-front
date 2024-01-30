@@ -13,6 +13,7 @@
 
 import { useSearchParams } from 'next/navigation';
 import { MouseEvent, useState } from 'react';
+import { MasonryGrid } from '@egjs/react-grid';
 
 import * as styles from './Content.css';
 
@@ -68,11 +69,11 @@ export default function Content({ user }: ContentProps) {
       </div>
       <Categories onClick={handleFetchListsOnCategory} />
       <div className={styles.cards}>
-        {LISTS_ME.map((list: ListType) => (
-          <ul key={list.listId}>
-            <Card list={list} isOwner={user.isOwner} />
-          </ul>
-        ))}
+        <MasonryGrid gap={16} defaultDirection={'end'} align={'start'}>
+          {LISTS_ME.map((list: ListType) => (
+            <Card key={list.listId} list={list} isOwner={user.isOwner} />
+          ))}
+        </MasonryGrid>
       </div>
     </div>
   );

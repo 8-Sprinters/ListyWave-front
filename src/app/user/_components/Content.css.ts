@@ -39,8 +39,4 @@ export const rightButton = style({
 
 export const cards = style({
   padding: '2.1rem',
-  display: 'grid',
-  gridTemplateColumns: 'repeat(2, 1fr)',
-  rowGap: '1.6rem',
-  columnGap: '1.8rem',
 });
