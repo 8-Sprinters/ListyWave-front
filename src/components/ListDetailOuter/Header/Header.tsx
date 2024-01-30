@@ -5,6 +5,10 @@ import * as styles from './Header.css';
 import ModalPortal from '@/components/ModalPortal';
 import BottomSheet from '@/components/ListDetailOuter/Bottomsheet/BottomSheet';
 
+import BackButton from '/public/icons/back_button.svg';
+import HistoryButton from '/public/icons/history_button.svg';
+import KebabButton from '/public/icons/vertical_kebab_button.svg';
+
 function Header() {
   const [isSheetActive, setSheetActive] = useState<boolean>(false);
 
@@ -25,12 +29,18 @@ function Header() {
           <BottomSheet onClose={handleModalClose} isActive={isSheetActive} />
         </ModalPortal>
       )}
-      <div className={styles.Wrapper}>
-        <button>{`<`}</button>
-        <div className={styles.Title}>리스트</div>
-        <div>
-          <button>O</button>
-          <button onClick={handleSheetActive}>|</button>
+      <div className={styles.wrapper}>
+        <button className={styles.buttonResetStyle}>
+          <BackButton className={styles.svgCommonStyles} />
+        </button>
+        <div className={styles.title}>리스트</div>
+        <div className={styles.headerRightWrapper}>
+          <button className={styles.buttonResetStyle}>
+            <HistoryButton className={styles.svgCommonStyles} />
+          </button>
+          <button className={styles.buttonResetStyle} onClick={handleSheetActive}>
+            <KebabButton className={styles.svgCommonStyles} />
+          </button>
         </div>
       </div>
     </>

@@ -1,11 +1,11 @@
 import { style } from '@vanilla-extract/css';
 
-export const Wrapper = style({
+export const wrapper = style({
   padding: '48px 38px',
 });
 
-export const CategoryWrapper = style({
-  marginBottom: '12px',
+export const categoryWrapper = style({
+  marginBottom: '25px',
 
   display: 'flex',
   justifyContent: 'flex-start',
@@ -14,47 +14,102 @@ export const CategoryWrapper = style({
   fontSize: '.75rem',
 });
 
-export const LabelWrapper = style({
+export const categoryContainer = style({
+  padding: '2px 12px',
+  marginRight: '12px',
+
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center',
+
+  borderRadius: '16px',
+  backgroundColor: '#F7F5FF',
+});
+
+export const category = style({
+  height: '24px',
+
+  display: 'flex',
+  alignItems: 'center',
+
+  color: '#3A00E5',
+  fontSize: '1.4rem',
+  fontWeight: 400,
+  letterSpacing: '-0.42px',
+  textTransform: 'uppercase',
+});
+
+export const labelWrapper = style({
   display: 'flex',
   justifyContent: 'flex-start',
   alignItems: 'center',
+  gap: '12px',
 });
 
-export const Label = style({
-  listStyle: 'none',
+export const labelContainer = style({
+  padding: '2px 12px',
+
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center',
+
+  borderRadius: '16px',
+  backgroundColor: '#3A00E5',
 });
 
-export const ListTitle = style({
-  marginBottom: '.75rem',
+export const label = style({
+  height: '24px',
 
-  fontSize: '1rem',
+  display: 'flex',
+  alignItems: 'center',
+
+  color: '#ffffff',
+  fontSize: '1.4rem',
+  fontWeight: 400,
+  letterSpacing: '-0.42px',
+  textTransform: 'uppercase',
+});
+
+export const listTitle = style({
+  marginBottom: '1.6rem',
+
+  fontSize: '2rem',
   fontWeight: 600,
 });
 
-export const ListDescription = style({
-  fontSize: '.75rem',
+export const listDescription = style({
+  fontSize: '1.5rem',
+  fontWeight: 500,
+  lineHeight: '25px',
   color: '#909090',
 });
 
-export const ListComponentTemporary = style({
+export const listComponentTemporary = style({
   padding: '0 38px',
 
   height: '604px',
 });
 
-export const BottomWrapper = style({
+export const bottomWrapper = style({
   padding: '21px 24px',
 
   display: 'flex',
   justifyContent: 'space-between',
 });
 
-export const BottomLeftWrapper = style({
+export const bottomLeftWrapper = style({
   display: 'flex',
-  gap: '4px',
+  alignItems: 'center',
+  gap: '7px',
 });
 
-export const ProfileImage = style({
+export const informationWrapper = style({
+  display: 'flex',
+  flexDirection: 'column',
+  gap: '2px',
+});
+
+export const profileImage = style({
   width: '36px',
   height: '36px',
 
@@ -62,27 +117,19 @@ export const ProfileImage = style({
   backgroundColor: '#909090',
 });
 
-export const ListOwnerNickname = style({
-  fontSize: '.75rem',
+export const listOwnerNickname = style({
+  fontSize: '1.2rem',
   fontWeight: 600,
 });
 
-export const ListCreatedTimeWrapper = style({
-  fontSize: '.75rem',
+export const infoDetailWrapper = style({
+  display: 'flex',
+  gap: '7.5px',
+
+  fontSize: '1rem',
   color: '#909090',
 });
 
-export const CollaboratorTitle = style({
-  fontSize: '.75rem',
-  fontWeight: 600,
-});
-
-export const CollaboratorWrapper = style({
+export const collaboratorWrapper = style({
   display: 'flex',
-});
-
-export const CollaboratorComponent = style({
-  width: '93px',
-  height: '38px',
-  backgroundColor: '#909090',
 });

@@ -3,7 +3,7 @@ import * as styles from './Collaborators.css';
 interface Collaborators {
   id?: number;
   nickname: string;
-  profileImageUrl: string;
+  profileImageUrl: string | null;
 }
 
 interface CollaboratorsProps {
@@ -14,18 +14,31 @@ function Collaborators({ collaborators }: CollaboratorsProps) {
   const collaboratorsList = collaborators && collaborators?.length >= 3 ? collaborators?.slice(0, 3) : collaborators;
 
   return (
-    <div className={styles.Wrapper}>
-      <div className={styles.ProfileImg}>
-        <span>{`+${collaborators && collaborators?.length - 3}`}</span>
-      </div>
-      {collaboratorsList?.map((item, idx) => {
-        return (
-          <div className={styles.ProfileImg}>
-            <span>{`${item.nickname.charAt(0)}`}</span>
+    <>
+      {collaborators && (
+        <div className={styles.collaboratorWrapper}>
+          <span className={styles.collaboratorTitle}>콜라보레이터</span>
+          <div className={styles.wrapper}>
+            <div className={styles.ProfileImg}>
+              <span className={styles.profileText}>{`${collaborators && collaborators?.length - 3}+`}</span>
+            </div>
+            {collaboratorsList?.map((item, idx) => {
+              return (
+                <>
+                  {item.profileImageUrl ? (
+                    <img className={styles.ProfileImg} src={item.profileImageUrl}></img>
+                  ) : (
+                    <div key={idx.toString()} className={styles.ProfileImg}>
+                      <span className={styles.profileText}>{`${item.nickname.charAt(0)}`}</span>
+                    </div>
+                  )}
+                </>
+              );
+            })}
           </div>
-        );
-      })}
-    </div>
+        </div>
+      )}
+    </>
   );
 }
 

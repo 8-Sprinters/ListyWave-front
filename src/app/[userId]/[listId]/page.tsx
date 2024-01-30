@@ -1,6 +1,6 @@
 'use client';
-import { useState } from 'react';
 
+import * as styles from './ListDetail.css';
 import Comments from '@/components/ListDetailOuter/Comments/Comments';
 import Header from '@/components/ListDetailOuter/Header/Header';
 import ListInformation from '@/components/ListDetailOuter/ListInformation/ListInformation';
@@ -8,7 +8,7 @@ import ListInformation from '@/components/ListDetailOuter/ListInformation/ListIn
 export default function ListDetail() {
   return (
     <>
-      <div>
+      <div className={styles.wrapper}>
         <Header />
         <ListInformation />
         <Comments />

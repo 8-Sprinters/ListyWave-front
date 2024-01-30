@@ -6,27 +6,26 @@ export const backGround = style({
   left: 0,
   bottom: 0,
   right: 0,
-  background: 'rgba(0,0,0,0.8)',
+  background: 'rgba(0,0,0,0.6)',
   zIndex: 999,
 });
 
-export const Wrapper = style({
-  padding: '38px 24px 30px',
+export const wrapper = style({
+  padding: '62px 28px 58px',
 
   position: 'fixed',
   bottom: 0,
   left: 0,
   right: 0,
 
-  display: 'block',
+  display: 'flex',
   flexDirection: 'column',
-  alignItems: 'center',
-  gap: '41.95px',
+  justifyContent: 'center',
+  gap: '42px',
 
   backgroundColor: '#ffffff',
-  borderTopLeftRadius: '8px',
-  borderTopRightRadius: '8px',
-  boxShadow: '10px 5px 5px 10px #909090',
+  borderTopLeftRadius: '50px',
+  borderTopRightRadius: '50px',
 
   transitionProperty: 'all',
   transitionDuration: '0.2s',
@@ -41,6 +40,29 @@ export const sheetActive = style({
   animation: `${slideIn} 0.2s ease-in-out`,
 });
 
+export const sheetItemWrapper = style({
+  display: 'flex',
+  justifyContent: 'space-between',
+  alignItems: 'center',
+});
+
+export const checkIcon = style({
+  display: 'none',
+
+  selectors: {
+    [`${sheetItemWrapper}:hover &`]: {
+      display: 'block',
+    },
+  },
+});
+
 export const sheetItem = style({
+  fontSize: '1.4rem',
   cursor: 'pointer',
+
+  selectors: {
+    [`${sheetItemWrapper}:hover &`]: {
+      color: '#FF5454',
+    },
+  },
 });

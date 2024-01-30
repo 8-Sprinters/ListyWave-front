@@ -13,7 +13,8 @@ export const MOCKDATA_LIST = [
       },
     ],
     title: '세븐틴 최애 멤버 Top 5',
-    description: '내가 좋아하는 세븐틴에서 최애 멤버 top5',
+    description:
+      '내가 좋아하는 세븐틴에서 최애 멤버 top5 내가 좋아하는 세븐틴에서 최애 멤버 top5 내가 좋아하는 세븐틴에서 최애 멤버 top5 내가 좋아하는 세븐틴에서 최애 멤버 top5',
     createdDate: '2022-01-15T11:00:05.817Z',
     lastUpdatedDate: '2024-01-20T13:00:05.817Z', // 가장 마지막에 저장된 히스토리의 날짜
     ownerId: 'tarea202001@gmail.com',
@@ -24,7 +25,7 @@ export const MOCKDATA_LIST = [
       {
         id: 1,
         nickname: '현지',
-        profileImageUrl: 'https://cdn.pixabay.com/photo/2023/07/16/12/32/cat-8130611_640.jpg',
+        profileImageUrl: null,
       },
       {
         id: 2,
@@ -103,6 +104,10 @@ export const MOCKDATA_LIST = [
       },
     ],
     isCollected: true,
+    isPublic: false,
+    backgroundColor: null,
+    collectCount: 34,
+    viewCount: 24,
   },
   {
     category: '장소',
@@ -173,6 +178,10 @@ export const MOCKDATA_LIST = [
       },
     ],
     isCollected: false,
+    isPublic: true,
+    backgroundColor: null,
+    collectCount: 10,
+    viewCount: 55,
   },
   {
     category: '음악',

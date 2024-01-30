@@ -7,6 +7,7 @@ globalStyle('html', {
 globalStyle('*', {
   boxSizing: 'border-box',
   fontFamily: 'Pretendard',
+  fontFeatureSettings: `'clig' off, 'liga' off`,
 });
 
 globalStyle('html, body, div, span, h1, h2, h3, h4, h5, h6, p, a, dl, dt, dd, ol, ul, li, form, label, table, button', {

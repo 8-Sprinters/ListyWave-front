@@ -1,6 +1,6 @@
 import { style } from '@vanilla-extract/css';
 
-export const Wrapper = style({
+export const wrapper = style({
   height: '90px',
   padding: '0 16px',
 
@@ -11,7 +11,26 @@ export const Wrapper = style({
   borderBottom: '1px solid rgba(0, 0, 0, 0.10)',
 });
 
-export const Title = style({
+export const title = style({
   fontWeight: 600,
-  fontSize: '1rem',
+  fontSize: '2rem',
+});
+
+export const buttonResetStyle = style({
+  width: '24px',
+  height: '24px',
+
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center',
+
+  background: 'none',
+});
+
+export const svgCommonStyles = style({});
+
+export const headerRightWrapper = style({
+  display: 'flex',
+  alignItems: 'center',
+  gap: '12px',
 });
