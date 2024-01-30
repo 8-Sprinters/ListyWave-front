@@ -1,16 +1,14 @@
 'use client';
 
-import { assignInlineVars } from '@vanilla-extract/dynamic';
+import { MouseEventHandler } from 'react';
 import * as styles from './BottomSheet.css';
 
 interface BottomSheetProps {
-  onClose: (e: Event) => void;
-  isSheetActive: Boolean;
+  onClose: MouseEventHandler<HTMLDivElement>;
+  isActive: boolean;
 }
 
 function BottomSheet({ onClose, isActive }: BottomSheetProps) {
-  const sheetActive = isActive ? 'S.sheetActive' : '';
-
   return (
     <div className={styles.backGround} onClick={onClose}>
       <div className={`${styles.Wrapper} ${isActive ? `${styles.sheetActive}` : ''}`}>

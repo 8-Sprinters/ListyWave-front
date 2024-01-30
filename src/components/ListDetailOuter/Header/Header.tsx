@@ -1,5 +1,5 @@
 'use client';
-import { useState } from 'react';
+import { useState, MouseEvent } from 'react';
 
 import * as styles from './Header.css';
 import ModalPortal from '@/components/ModalPortal';
@@ -12,7 +12,7 @@ function Header() {
     setSheetActive((prev: boolean) => !prev);
   };
 
-  const handleModalClose = (e: Event) => {
+  const handleModalClose = (e: MouseEvent) => {
     if (e.target === e.currentTarget) {
       setSheetActive(false);
     }

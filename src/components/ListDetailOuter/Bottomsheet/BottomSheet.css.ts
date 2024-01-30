@@ -7,6 +7,7 @@ export const backGround = style({
   bottom: 0,
   right: 0,
   background: 'rgba(0,0,0,0.8)',
+  zIndex: 999,
 });
 
 export const Wrapper = style({
