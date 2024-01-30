@@ -26,6 +26,7 @@ export interface ListType {
   ownerNickname: string;
   ownerProfileImageUrl?: string; // mock 데이터 기준 optional
   createdDate?: string; // mock 데이터 기준 optional
+  backgroundColor: string;
   items: ItemType[];
   isPublic: boolean;
 }

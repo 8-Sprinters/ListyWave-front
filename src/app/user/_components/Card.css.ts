@@ -1,11 +1,13 @@
-import { style } from '@vanilla-extract/css';
+import { style, createVar } from '@vanilla-extract/css';
+
+export const listColor = createVar();
 
 export const container = style({
   width: '185px',
   padding: '3rem 1.2rem',
 
   borderRadius: '1.5rem',
-  background: 'var(--Ellipse-1, #EBF4FF)',
+  backgroundColor: listColor,
 });
 
 export const title = style({
@@ -30,4 +32,9 @@ export const list = style({
   color: 'var(--text-text-grey-dark, #202020)',
   lineHeight: '2.5rem',
   letterSpacing: '-0.36px',
+});
+
+export const lockIcon = style({
+  display: 'flex',
+  justifyContent: 'flex-end',
 });

@@ -1,13 +1,12 @@
 /**
  TODO
- - [ ] 프로필 UI
- - [ ] 스타일 컨벤션 점검
+ - [x] 프로필 UI
+ - [x] 스타일 컨벤션 점검
  - [ ] 글로벌 스타일로 알맞게 수정
  - [ ] 디자인 최종본으로 수정
  */
 
 import { UserType } from '../mockData/mockDataTypes'; // 삭제 예정
-
 import * as style from './Profile.css';
 
 import Action from './Action';

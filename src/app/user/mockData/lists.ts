@@ -1,6 +1,6 @@
 // 리스트 데이터
 
-import { ITEMS_01, ITEMS_02, ITEMS_03, ITEMS_04 } from './items';
+import { ITEMS_01, ITEMS_02, ITEMS_03, ITEMS_04, ITEMS_05 } from './items';
 
 export const LISTS_ME = [
   {
@@ -11,6 +11,7 @@ export const LISTS_ME = [
     ownerNickname: '파도타기',
     ownerProfileImageUrl: '',
     createdDate: '',
+    backgroundColor: '#B7EEFF',
     items: ITEMS_01.data,
     isPublic: true,
   },
@@ -22,6 +23,7 @@ export const LISTS_ME = [
     ownerNickname: '파도타기',
     ownerProfileImageUrl: '',
     createdDate: '',
+    backgroundColor: '#FFF6A5',
     items: ITEMS_02.data,
     isPublic: false,
   },
@@ -33,6 +35,7 @@ export const LISTS_ME = [
     ownerNickname: '파도타기',
     ownerProfileImageUrl: '',
     createdDate: '',
+    backgroundColor: '#D0FF89B2',
     items: ITEMS_03.data,
     isPublic: true,
   },
@@ -44,7 +47,20 @@ export const LISTS_ME = [
     ownerNickname: '파도타기',
     ownerProfileImageUrl: '',
     createdDate: '',
+    backgroundColor: '#FFDCB2',
     items: ITEMS_04.data,
     isPublic: true,
+  },
+  {
+    listId: 1004,
+    category: '동식물', // 코드
+    title: '좋아하는 꽃',
+    ownerId: 100, // userId
+    ownerNickname: '파도타기',
+    ownerProfileImageUrl: '',
+    createdDate: '',
+    backgroundColor: '#E6C6FF',
+    items: ITEMS_05.data,
+    isPublic: false,
   },
 ];

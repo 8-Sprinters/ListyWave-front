@@ -224,5 +224,60 @@ export const ITEMS_04 = {
       link: '',
       imageUrl: '',
     },
+    {
+      id: 7,
+      rank: 7,
+      title: '빽다방',
+      comment: '',
+      link: '',
+      imageUrl: '',
+    },
+  ],
+};
+
+export const ITEMS_05 = {
+  id: 5,
+  listId: 1004,
+  data: [
+    {
+      id: 1,
+      rank: 1,
+      title: '도라지꽃',
+      comment: '',
+      link: '',
+      imageUrl: '',
+    },
+    {
+      id: 2,
+      rank: 2,
+      title: '라넌큘러스',
+      comment: '',
+      link: '',
+      imageUrl: '',
+    },
+    {
+      id: 3,
+      rank: 3,
+      title: '해바라기',
+      comment: '',
+      link: '',
+      imageUrl: '',
+    },
+    {
+      id: 4,
+      rank: 4,
+      title: '튤립',
+      comment: '',
+      link: '',
+      imageUrl: '',
+    },
+    {
+      id: 5,
+      rank: 5,
+      title: '카라',
+      comment: '',
+      link: '',
+      imageUrl: '',
+    },
   ],
 };

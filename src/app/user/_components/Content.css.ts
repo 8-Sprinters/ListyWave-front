@@ -1,8 +1,13 @@
 import { style } from '@vanilla-extract/css';
 
 export const container = style({
+  width: '100%',
+  marginTop: '40rem',
+
+  position: 'absolute',
+  top: 0,
+
   backgroundColor: '#FFF',
-  border: '1px solid gray',
   borderTopLeftRadius: '1.5rem',
   borderTopRightRadius: '1.5rem',
 });
@@ -20,6 +25,7 @@ export const leftButton = style({
   flexGrow: '1',
   borderTopLeftRadius: '1.5rem',
   backgroundColor: 'white',
+  borderTop: '1px solid rgba(0, 0, 0, 0.25)',
 
   fontSize: '1.6rem',
   fontWeight: '500',
@@ -32,6 +38,7 @@ export const rightButton = style({
   flexGrow: '1',
   borderTopRightRadius: '1.5rem',
   backgroundColor: 'white',
+  borderTop: '1px solid rgba(0, 0, 0, 0.25)',
 
   fontSize: '1.6rem',
   fontWeight: '500',
