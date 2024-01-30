@@ -1,4 +1,5 @@
 import * as styles from './Collaborators.css';
+import CollaboratorsPopOver from './CollaboratorsPopOver';
 
 interface Collaborators {
   id?: number;
@@ -17,6 +18,9 @@ function Collaborators({ collaborators }: CollaboratorsProps) {
     <>
       {collaborators && (
         <div className={styles.collaboratorWrapper}>
+          <div className={styles.collaboratorsPopOverWrapper}>
+            <CollaboratorsPopOver collaborators={collaborators} />
+          </div>
           <span className={styles.collaboratorTitle}>콜라보레이터</span>
           <div className={styles.wrapper}>
             <div className={styles.ProfileImg}>

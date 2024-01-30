@@ -1,6 +1,7 @@
 import { style } from '@vanilla-extract/css';
 
 export const collaboratorWrapper = style({
+  position: 'relative',
   display: 'flex',
 });
 
@@ -39,4 +40,14 @@ export const collaboratorTitle = style({
 
   fontSize: '1rem',
   fontWeight: 600,
+});
+
+export const collaboratorsPopOverWrapper = style({
+  display: 'none',
+
+  selectors: {
+    [`${collaboratorWrapper}:hover &`]: {
+      display: 'block',
+    },
+  },
 });

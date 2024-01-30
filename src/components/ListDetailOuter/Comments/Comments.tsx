@@ -7,10 +7,13 @@ const COMMENTS = MOCKDATA_COMMENTS[1];
 function Comments() {
   return (
     <div className={styles.wrapper}>
-      <form className={styles.formWrapper}>
-        <input className={styles.formInput}></input>
-        <button className={styles.formButton}>게시</button>
-      </form>
+      <div className={styles.formWrapper}>
+        <img className={styles.profileImage} />
+        <form className={styles.form}>
+          <input className={styles.formInput}></input>
+          <button className={styles.formButton}>게시</button>
+        </form>
+      </div>
       <div className={styles.totalCount}>{`${COMMENTS.totalCount}개의 댓글`}</div>
       {COMMENTS.comments.map((item, idx) => {
         return (
