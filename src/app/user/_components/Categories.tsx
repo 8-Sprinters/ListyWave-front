@@ -6,6 +6,7 @@
  */
 
 import { KINDS } from '../mockData/categories'; // 삭제 예정
+import * as styles from './Categories.css';
 
 interface CategoriesProps {
   // onClick: (e: MouseEvent<HTMLDivElement>) => void;
@@ -21,9 +22,9 @@ export default function Categories({ onClick }: CategoriesProps) {
   };
 
   return (
-    <div>
+    <div className={styles.container}>
       {KINDS.map((kind) => (
-        <button key={kind} onClick={handleChangeCategory(kind)}>
+        <button key={kind} onClick={handleChangeCategory(kind)} className={styles.button}>
           {kind}
         </button>
       ))}

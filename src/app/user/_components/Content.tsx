@@ -14,6 +14,8 @@
 import { useSearchParams } from 'next/navigation';
 import { MouseEvent, useState } from 'react';
 
+import * as styles from './Content.css';
+
 import { ListType, UserType } from '../mockData/mockDataTypes';
 import { LISTS_ME } from '../mockData/lists';
 
@@ -54,14 +56,18 @@ export default function Content({ user }: ContentProps) {
   };
 
   return (
-    <div>
+    <div className={styles.container}>
       {/* 리스트 레이아웃 느낌?? */}
-      <div onClick={handleFetchLists}>
-        <button id="my">마이 리스트</button>
-        <button id="collabo">콜라보 리스트</button>
+      <div onClick={handleFetchLists} className={styles.options}>
+        <button id="my" className={styles.leftButton}>
+          마이 리스트
+        </button>
+        <button id="collabo" className={styles.rightButton}>
+          콜라보 리스트
+        </button>
       </div>
       <Categories onClick={handleFetchListsOnCategory} />
-      <div>
+      <div className={styles.cards}>
         {LISTS_ME.map((list: ListType) => (
           <ul key={list.listId}>
             <Card list={list} isOwner={user.isOwner} />
