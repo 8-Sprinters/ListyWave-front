@@ -23,7 +23,7 @@ export const categoryContainer = style({
   alignItems: 'center',
 
   borderRadius: '16px',
-  backgroundColor: '#F7F5FF',
+  backgroundColor: '#EBF4FF',
 });
 
 export const category = style({
@@ -32,7 +32,7 @@ export const category = style({
   display: 'flex',
   alignItems: 'center',
 
-  color: '#3A00E5',
+  color: '#0047FF',
   fontSize: '1.4rem',
   fontWeight: 400,
   letterSpacing: '-0.42px',
@@ -54,7 +54,7 @@ export const labelContainer = style({
   alignItems: 'center',
 
   borderRadius: '16px',
-  backgroundColor: '#3A00E5',
+  backgroundColor: '#0047FF',
 });
 
 export const label = style({

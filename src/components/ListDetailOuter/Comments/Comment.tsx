@@ -1,5 +1,5 @@
 'use client';
-import { MouseEvent, useState } from 'react';
+import { MouseEvent, useState, useRef, useEffect, MouseEventHandler } from 'react';
 
 import * as styles from './Comments.css';
 import timeDiff from '@/lib/utils/timeDiff';
@@ -33,6 +33,7 @@ interface CommentProps {
 function Comment({ comment }: CommentProps) {
   const [isMenuShown, setMenuShown] = useState<boolean>(false);
   const [activeMenuId, setActiveMenuId] = useState<number | null>(null);
+  const buttonRef = useRef<HTMLButtonElement>(null);
 
   const handleKebabButtonClick = (e: MouseEvent<HTMLButtonElement>, id: number) => {
     e.stopPropagation();
@@ -52,7 +53,20 @@ function Comment({ comment }: CommentProps) {
     setActiveMenuId(null);
   };
 
+  const handleOutsideClick = (e: any) => {
+    if (e.target !== buttonRef.current) {
+      setActiveMenuId(null);
+    }
+  };
+
   console.log(activeMenuId);
+
+  useEffect(() => {
+    document.addEventListener('click', handleOutsideClick);
+    return () => {
+      document.removeEventListener('click', handleOutsideClick);
+    };
+  }, []);
 
   return (
     <>
@@ -67,13 +81,10 @@ function Comment({ comment }: CommentProps) {
             <div className={styles.commentContent}>{comment?.content}</div>
           </div>
         </div>
-
-        <button onClick={(e) => handleKebabButtonClick(e, comment.id)}>|</button>
-        {isMenuShown && activeMenuId === comment.id && (
-          <PopOverWrapper onClose={handlePopOverMenuClose}>
-            <PopOverMenu />
-          </PopOverWrapper>
-        )}
+        <button ref={buttonRef} onClick={(e) => handleKebabButtonClick(e, comment.id)}>
+          |
+        </button>
+        {isMenuShown && activeMenuId === comment.id && <PopOverMenu />}
       </div>
       <button className={styles.createReplyButton}>
         <span>답글 달기</span>

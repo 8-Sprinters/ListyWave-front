@@ -11,7 +11,7 @@ export const backGround = style({
 });
 
 export const wrapper = style({
-  padding: '62px 28px 58px',
+  padding: '37px 28px 43px',
 
   position: 'fixed',
   bottom: 0,
@@ -21,7 +21,6 @@ export const wrapper = style({
   display: 'flex',
   flexDirection: 'column',
   justifyContent: 'center',
-  gap: '42px',
 
   backgroundColor: '#ffffff',
   borderTopLeftRadius: '50px',
@@ -57,8 +56,10 @@ export const checkIcon = style({
 });
 
 export const sheetItem = style({
+  width: '100%',
   fontSize: '1.4rem',
   cursor: 'pointer',
+  padding: '2.5rem 1rem 2.5rem 1rem',
 
   selectors: {
     [`${sheetItemWrapper}:hover &`]: {

@@ -6,7 +6,7 @@ export const wrapper = style({
   width: 'auto',
 
   position: 'absolute',
-  top: '40px',
+  top: '28px',
   right: '-10px',
 
   overflow: 'scroll',

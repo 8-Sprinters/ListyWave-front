@@ -18,10 +18,10 @@ function PopOverWrapper({ onClose, children }: PopOverWrapperProps) {
       }
     };
 
-    window.addEventListener('click', pageClickEvent);
+    window.addEventListener('click', pageClickEvent, true);
 
     return () => {
-      window.removeEventListener('click', pageClickEvent);
+      window.removeEventListener('click', pageClickEvent, true);
     };
   });
   return (
