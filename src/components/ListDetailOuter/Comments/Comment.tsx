@@ -1,11 +1,11 @@
 'use client';
-import { MouseEvent, useState, useRef, useEffect, MouseEventHandler } from 'react';
+import { MouseEvent, useState, useRef, useEffect } from 'react';
 
 import * as styles from './Comments.css';
 import timeDiff from '@/lib/utils/timeDiff';
 import Replies from '../Replies/Replies';
 import PopOverMenu from '../PopOverMenu/PopOverMenu';
-import PopOverWrapper from '../PopOverMenu/PopOverWrapper';
+import DefaultProfile from '/public/icons/default_profile_icon.svg';
 
 interface Replies {
   id: number;
@@ -49,10 +49,6 @@ function Comment({ comment }: CommentProps) {
     }
   };
 
-  const handlePopOverMenuClose = () => {
-    setActiveMenuId(null);
-  };
-
   const handleOutsideClick = (e: any) => {
     if (e.target !== buttonRef.current) {
       setActiveMenuId(null);
@@ -72,7 +68,11 @@ function Comment({ comment }: CommentProps) {
     <>
       <div className={styles.commentOuterWrapper}>
         <div className={styles.commentWrapper}>
-          <img src={comment.userProfileImageUrl} className={styles.profileImage}></img>
+          {comment.userProfileImageUrl ? (
+            <img src={comment.userProfileImageUrl} className={styles.profileImage}></img>
+          ) : (
+            <DefaultProfile />
+          )}
           <div className={styles.commentContainer}>
             <div className={styles.commentInformationWrapper}>
               <span className={styles.commentWriter}>{comment?.userName}</span>

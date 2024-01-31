@@ -1,6 +1,6 @@
 import * as styles from './Collaborators.css';
 import CollaboratorsPopOver from './CollaboratorsPopOver';
-
+import DefaultProfile from '/public/icons/default_profile_icon.svg';
 interface Collaborators {
   id?: number;
   nickname: string;
@@ -32,9 +32,7 @@ function Collaborators({ collaborators }: CollaboratorsProps) {
                   {item.profileImageUrl ? (
                     <img className={styles.ProfileImg} src={item.profileImageUrl}></img>
                   ) : (
-                    <div key={idx.toString()} className={styles.ProfileImg}>
-                      <span className={styles.profileText}>{`${item.nickname.charAt(0)}`}</span>
-                    </div>
+                    <DefaultProfile className={styles.defaultProfile} />
                   )}
                 </>
               );
