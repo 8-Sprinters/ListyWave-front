@@ -1,5 +1,5 @@
 'use client';
-import { MouseEvent, useState, useRef, useEffect } from 'react';
+import { useState, useRef, useEffect } from 'react';
 
 import * as styles from './Comments.css';
 import timeDiff from '@/lib/utils/timeDiff';
@@ -28,25 +28,19 @@ interface Comment {
 }
 
 interface CommentProps {
-  comment: Comment;
+  comment: Comment | undefined;
+  onUpdate: (userName: string | null) => void;
+  activeNickname?: string | null;
 }
 
-function Comment({ comment }: CommentProps) {
-  const [isMenuShown, setMenuShown] = useState<boolean>(false);
+function Comment({ comment, onUpdate, activeNickname }: CommentProps) {
   const [activeMenuId, setActiveMenuId] = useState<number | null>(null);
   const buttonRef = useRef<HTMLButtonElement>(null);
 
-  const handleKebabButtonClick = (e: MouseEvent<HTMLButtonElement>, id: number) => {
-    e.stopPropagation();
-    if (isMenuShown) {
-      if (activeMenuId === id) {
-        setActiveMenuId(null);
-      } else {
-        setActiveMenuId(id);
-      }
-    } else {
-      setMenuShown(true);
-      setActiveMenuId(id);
+  const handleActiveNicknameUpdate = () => {
+    const currentUserName = comment?.userName;
+    if (currentUserName) {
+      onUpdate(currentUserName);
     }
   };
 
@@ -55,8 +49,6 @@ function Comment({ comment }: CommentProps) {
       setActiveMenuId(null);
     }
   };
-
-  console.log(activeMenuId);
 
   useEffect(() => {
     document.addEventListener('click', handleOutsideClick);
@@ -69,7 +61,7 @@ function Comment({ comment }: CommentProps) {
     <>
       <div className={styles.commentOuterWrapper}>
         <div className={styles.commentWrapper}>
-          {comment.userProfileImageUrl ? (
+          {comment && comment.userProfileImageUrl ? (
             <img src={comment.userProfileImageUrl} className={styles.profileImage}></img>
           ) : (
             <DefaultProfile />
@@ -77,7 +69,7 @@ function Comment({ comment }: CommentProps) {
           <div className={styles.commentContainer}>
             <div className={styles.commentInformationWrapper}>
               <span className={styles.commentWriter}>{comment?.userName}</span>
-              <span className={styles.commentCreatedTime}>{timeDiff(comment?.createdDate)}</span>
+              <span className={styles.commentCreatedTime}>{comment && timeDiff(comment?.createdDate)}</span>
             </div>
             <div className={styles.commentContent}>{comment?.content}</div>
           </div>
@@ -87,9 +79,9 @@ function Comment({ comment }: CommentProps) {
           |
         </button> */}
         <DeleteButton className={styles.deleteButton} />
-        {isMenuShown && activeMenuId === comment.id && <PopOverMenu />}
+        {comment && activeMenuId === comment.id && <PopOverMenu />}
       </div>
-      <button className={styles.createReplyButton}>
+      <button className={styles.createReplyButton} onClick={handleActiveNicknameUpdate}>
         <span>답글 달기</span>
       </button>
       <Replies replies={comment?.replies} />
@@ -98,3 +90,18 @@ function Comment({ comment }: CommentProps) {
 }
 
 export default Comment;
+
+//신고하기 버튼 생성 시 사용될 함수
+// const handleKebabButtonClick = (e: MouseEvent<HTMLButtonElement>, id: number) => {
+//   e.stopPropagation();
+//   if (isMenuShown) {
+//     if (activeMenuId === id) {
+//       setActiveMenuId(null);
+//     } else {
+//       setActiveMenuId(id);
+//     }
+//   } else {
+//     setMenuShown(true);
+//     setActiveMenuId(id);
+//   }
+// };

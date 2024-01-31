@@ -12,7 +12,7 @@ interface Reply {
 }
 
 interface RepliesProps {
-  replies: Reply[] | null;
+  replies: Reply[] | null | undefined;
 }
 
 function Replies({ replies }: RepliesProps) {

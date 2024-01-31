@@ -1,3 +1,4 @@
+import Label from '@/components/Label/Label';
 import Collaborators from '../Collaborators/Collaborators';
 import { MOCKDATA_LIST } from '../mockdata';
 import * as styles from './ListInformation.css';
@@ -10,18 +11,14 @@ function ListInformation() {
     <>
       <div className={styles.wrapper}>
         <div className={styles.categoryWrapper}>
-          <div className={styles.categoryContainer}>
-            <h3 className={styles.category}>{LIST.category}</h3>
-          </div>
-          <ul className={styles.labelWrapper}>
-            {LIST.labels.map((item, idx) => {
-              return (
-                <li key={idx.toString()} className={styles.labelContainer}>
-                  <h6 className={styles.label}>{`${item.name}`}</h6>
-                </li>
-              );
-            })}
-          </ul>
+          <Label colorType="skyBlue">음악</Label>
+          {LIST.labels.map((item, idx) => {
+            return (
+              <Label key={idx.toString()} colorType="blue">
+                {`${item.name}`}
+              </Label>
+            );
+          })}
         </div>
         <div className={styles.listTitle}>{LIST.title}</div>
         <div className={styles.listDescription}>{LIST.description}</div>

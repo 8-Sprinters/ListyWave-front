@@ -31,7 +31,6 @@ export const form = style({
   padding: '8px 12px',
 
   display: 'flex',
-  gap: '45px',
 
   borderRadius: '50px',
   border: '1px solid #D9D9D9',
@@ -48,7 +47,16 @@ export const formInput = style({
   resize: 'none',
 });
 
+export const formNickname = style({
+  marginRight: '8px',
+
+  fontSize: '1.2rem',
+  fontWeight: 500,
+});
+
 export const formButton = style({
+  marginLeft: '45px',
+
   background: 'none',
   fontSize: '1.2rem',
   fontWeight: 500,
@@ -155,4 +163,14 @@ export const createReplyButton = style({
 
 export const deleteButton = style({
   cursor: 'pointer',
+});
+
+export const formNicknameWrapper = style({
+  display: 'flex',
+  alignItems: 'center',
+});
+
+export const clearButton = style({
+  width: '20px',
+  height: '20px',
 });
