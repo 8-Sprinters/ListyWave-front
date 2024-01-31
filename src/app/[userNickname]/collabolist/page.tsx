@@ -1,3 +1,9 @@
+/**
+ TODO
+ - [ ] user api 연동 
+ - [ ] 페이지 하위 컴포넌트 global css 변수로 변경
+ */
+
 import '@/styles/globalStyles.css';
 
 import { USER_DATA_ME } from '../mockData/user'; // 삭제 예정
@@ -13,7 +19,7 @@ interface FeedPageProps {
 }
 
 export default function CollaboListPage({ params, userId }: FeedPageProps) {
-  // userId로 유저 정보 가져오는 api 요청
+  // 1. userId로 유저 정보 가져오는 api 요청
 
   return (
     <section>

@@ -1,3 +1,9 @@
+/**
+ TODO
+ - [ ] 다른 사람 피드볼때, 비공개 리스트는 보여지지 않음
+ - [ ] svg 아이콘 컴포넌트화 
+ */
+
 import { ListType } from '../mockData/mockDataTypes'; // 삭제 예정
 import { assignInlineVars } from '@vanilla-extract/dynamic';
 import * as styles from './Card.css';

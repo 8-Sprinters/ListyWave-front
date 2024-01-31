@@ -1,13 +1,7 @@
 /**
  TODO
- - [x] 리스트 mock data 만들기
- - [x] mock 데이터 연결 (리스트)
- - [x] mock 데이터 연결 (아이템)
- - [x] 레이아웃 스타일링
- - [x] 마이리스트/ 콜라보, 카테고리 레이아웃 컴포넌트 분리 (리팩토링)
- - [x] 프로필 컴포넌트 분리 (리팩토링)
- - [ ] 마이, 콜라보 페이지 분리
- - [x] onclick 기능 추가
+ - [ ] user api 연동 
+ - [ ] 페이지 하위 컴포넌트 global css 변수로 변경
  */
 
 import '@/styles/globalStyles.css';
@@ -27,7 +21,7 @@ interface FeedPageProps {
 export default function MyListPage({ params, userId }: FeedPageProps) {
   // console.log(params.userNickname); // 삭제 예정
 
-  // userId로 유저 정보 가져오는 api 요청
+  // 1. userId로 유저 정보 가져오는 api 요청
 
   return (
     <section>

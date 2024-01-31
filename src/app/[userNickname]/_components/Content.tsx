@@ -2,21 +2,18 @@
 
 /**
  TODO
- - [x] 콜라보 리스트 눌렀을 때 
- - [x] 카테고리 눌렀을 때
- - [x] 리스트 타입을 고정할 수 있는 방법 - stateHook or searchParamsHook
- - [x] 스타일링
  - [ ] api 연동
  - [ ] 무한스크롤 적용
  - [ ] 피드페이지 스켈레톤 ui 적용
  */
+
 import Link from 'next/link';
 import { MasonryGrid } from '@egjs/react-grid';
 
 import * as styles from './Content.css';
 
-import { ListType, UserType } from '../mockData/mockDataTypes';
-import { LISTS_ME } from '../mockData/lists';
+import { ListType, UserType } from '../mockData/mockDataTypes'; // 삭제 예정
+import { LISTS_ME } from '../mockData/lists'; // 삭제 예정
 
 import Card from './Card';
 import Categories from './Categories';
