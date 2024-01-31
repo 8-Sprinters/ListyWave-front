@@ -1,7 +1,9 @@
-import { style } from '@vanilla-extract/css';
+import { style, createVar } from '@vanilla-extract/css';
+
+export const imageUrl = createVar();
 
 export const container = style({
-  padding: '1.9rem 4.8rem 6.4rem 4.8rem',
+  padding: '1.9rem 1.9rem 6.4rem 1.5rem',
   height: '464px',
 
   position: 'fixed',
@@ -9,13 +11,31 @@ export const container = style({
 
   display: 'flex',
   flexDirection: 'column',
-  justifyContent: 'flex-end',
+  justifyContent: 'space-between',
   gap: '2.1rem',
 
-  backgroundImage: `url(https://image.utoimage.com/preview/cp872722/2022/12/202212008462_500.jpg)`, // 임시
+  backgroundImage: imageUrl,
   backgroundSize: 'cover',
   backgroundPosition: 'center',
   backgroundRepeat: 'no-repeat',
+});
+
+export const header = style({
+  paddingTop: '2.5rem',
+  display: 'flex',
+  justifyContent: 'space-between',
+});
+
+export const profileContainer = style({
+  padding: '0 2.9rem 0 3.3rem',
+
+  display: 'flex',
+  flexDirection: 'column',
+  gap: '1.2rem',
+});
+
+export const icon = style({
+  cursor: 'pointer',
 });
 
 export const profile = style({
@@ -35,7 +55,7 @@ export const avatar = style({
 export const info = style({
   display: 'flex',
   flexDirection: 'column',
-  gap: '1.1rem',
+  gap: '0.8rem',
 });
 
 export const user = style({

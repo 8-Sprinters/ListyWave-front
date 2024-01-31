@@ -34,10 +34,10 @@ export default function Content({ user, type }: ContentProps) {
   return (
     <div className={styles.container}>
       <div className={styles.options}>
-        <Link href={`/${user.nickname}/mylist`}>
+        <Link href={`/${user.nickname}/mylist`} className={styles.link}>
           <button className={`${styles.leftButton} ${type === 'my' ? styles.variant : ''}`}>마이 리스트</button>
         </Link>
-        <Link href={`/${user.nickname}/collabolist`}>
+        <Link href={`/${user.nickname}/collabolist`} className={styles.link}>
           <button className={`${styles.rightButton} ${type === 'collabo' ? styles.variant : ''}`}>콜라보 리스트</button>
         </Link>
       </div>

@@ -2,6 +2,7 @@
  TODO
  - [ ] user api 연동 
  - [ ] 페이지 하위 컴포넌트 global css 변수로 변경
+ - [ ] 반응형 UI 구현
  */
 
 import '@/styles/globalStyles.css';
@@ -10,6 +11,7 @@ import { USER_DATA_ME } from '../mockData/user'; // 삭제 예정
 
 import Profile from '../_components/Profile';
 import Content from '../_components/Content';
+import FloatingButton from '../_components/FloatingButton';
 
 interface FeedPageProps {
   params: {
@@ -25,7 +27,7 @@ export default function CollaboListPage({ params, userId }: FeedPageProps) {
     <section>
       <Profile user={USER_DATA_ME} />
       <Content user={USER_DATA_ME} type="collabo" />
-      {/* <button>생성 페이지 이동 플로팅 버튼</button> */}
+      <FloatingButton />
     </section>
   );
 }

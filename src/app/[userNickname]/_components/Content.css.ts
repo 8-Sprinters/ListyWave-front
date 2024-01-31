@@ -8,8 +8,8 @@ export const container = style({
   top: 0,
 
   backgroundColor: '#FFF',
-  borderTopLeftRadius: '1.5rem',
-  borderTopRightRadius: '1.5rem',
+  borderTopLeftRadius: '2.5rem',
+  borderTopRightRadius: '2.5rem',
 });
 
 export const options = style({
@@ -18,10 +18,13 @@ export const options = style({
   borderBottom: '1px solid rgba(0, 0, 0, 0.10)',
 });
 
-export const button = style({
-  width: '215px',
-  height: '100%',
+export const link = style({
   flexGrow: '1',
+});
+
+export const button = style({
+  width: '100%',
+  height: '100%',
 
   backgroundColor: 'white',
   borderTop: '1px solid rgba(0, 0, 0, 0.25)',
@@ -35,7 +38,7 @@ export const leftButton = style([
   button,
   {
     paddingLeft: '5.75rem',
-    borderTopLeftRadius: '1.5rem',
+    borderTopLeftRadius: '2.5rem',
   },
 ]);
 
@@ -43,7 +46,7 @@ export const rightButton = style([
   button,
   {
     paddingRight: '5.75rem',
-    borderTopRightRadius: '1.5rem',
+    borderTopRightRadius: '2.5rem',
   },
 ]);
 

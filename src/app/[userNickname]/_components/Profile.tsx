@@ -4,7 +4,7 @@
  - [ ] 프로필 이미지, 배경 이미지 적용
  - [ ] api 연동
  */
-
+import { assignInlineVars } from '@vanilla-extract/dynamic';
 import { UserType } from '../mockData/mockDataTypes'; // 삭제 예정
 import * as styles from './Profile.css';
 
@@ -16,27 +16,38 @@ interface ProfileProps {
 
 export default function Profile({ user }: ProfileProps) {
   return (
-    <div className={styles.container}>
-      <div className={styles.profile}>
-        <img src={user.profileImageUrl} className={styles.avatar} alt="아바타" />
-        <div className={styles.info}>
-          <div className={styles.user}>
-            <span className={styles.nickName}>{user.nickname}</span>
-            <Action isFollowed={user.isFollowed} />
-          </div>
-          <div className={styles.follow}>
-            <div className={styles.text}>
-              <span className={styles.count}>{user.followingCount}</span>
-              <span>팔로잉</span>
+    <div
+      className={styles.container}
+      style={assignInlineVars({
+        [styles.imageUrl]: `url(${user.backgroundImageUrl})`,
+      })}
+    >
+      <div className={styles.header}>
+        <img src="/icons/arrow_left.svg" alt="이전 페이지로 이동하기" className={styles.icon} />
+        <img src="/icons/setting.svg" alt="마이페이지로 이동하기" className={styles.icon} />
+      </div>
+      <div className={styles.profileContainer}>
+        <div className={styles.profile}>
+          <img src={user.profileImageUrl} className={styles.avatar} alt="아바타" />
+          <div className={styles.info}>
+            <div className={styles.user}>
+              <span className={styles.nickName}>{user.nickname}</span>
+              <Action isFollowed={user.isFollowed} />
             </div>
-            <div className={styles.text}>
-              <span className={styles.count}>{user.followerCount}</span>
-              <span>팔로워</span>
+            <div className={styles.follow}>
+              <div className={styles.text}>
+                <span className={styles.count}>{user.followingCount}</span>
+                <span>팔로잉</span>
+              </div>
+              <div className={styles.text}>
+                <span className={styles.count}>{user.followerCount}</span>
+                <span>팔로워</span>
+              </div>
             </div>
           </div>
         </div>
+        <p className={styles.description}>{user.description}</p>
       </div>
-      <p className={styles.description}>{user.description}</p>
     </div>
   );
 }
