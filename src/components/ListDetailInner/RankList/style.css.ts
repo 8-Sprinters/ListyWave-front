@@ -38,8 +38,9 @@ export const detailItemWrapper = style({
 
 export const commentText = style({
   width: '100%',
-  backgroundColor: 'lightgray',
+  backgroundColor: 'white',
   padding: '2rem',
+  border: '1px solid #EFEFF0',
   borderRadius: '10px',
   fontSize: '1.4rem',
 });
@@ -88,7 +89,7 @@ export const simpleImage = style({
 
 export const detailImage = style({
   borderRadius: '10px',
-  border: '2px solid lightgray',
+  border: '1px solid #EFEFF0',
   width: '100%',
   maxHeight: '35rem',
   height: 'auto',
