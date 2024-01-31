@@ -27,3 +27,9 @@ export const button = style({
   letterSpacing: '-0.48px',
   whiteSpace: 'nowrap',
 });
+
+export const variant = style({
+  backgroundColor: '#0047FF',
+  color: '#FFF',
+  border: 'none',
+});

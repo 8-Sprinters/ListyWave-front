@@ -5,8 +5,8 @@
  - [x] 콜라보 리스트 눌렀을 때 
  - [x] 카테고리 눌렀을 때
  - [x] 리스트 타입을 고정할 수 있는 방법 - stateHook or searchParamsHook
+ - [x] 스타일링
  - [ ] api 연동
- - [ ] 스타일링
  - [ ] 무한스크롤 적용
  - [ ] 피드페이지 스켈레톤 ui 적용
  */
@@ -27,8 +27,10 @@ interface ContentProps {
   user: UserType;
 }
 
+const DEFAULT_LIST = 'my'; // 나중에 constants 파일로 분리
+
 export default function Content({ user }: ContentProps) {
-  const [listType, setListType] = useState('my'); // or useReducer? 왜냐하면, 렌더링 필요없으므로
+  const [listType, setListType] = useState(DEFAULT_LIST); // or useReducer? 왜냐하면, 렌더링 필요없으므로
   const searchParams = useSearchParams();
 
   console.log(searchParams.get('type')); // 삭제 예정
@@ -60,10 +62,10 @@ export default function Content({ user }: ContentProps) {
     <div className={styles.container}>
       {/* 리스트 레이아웃 느낌?? */}
       <div onClick={handleFetchLists} className={styles.options}>
-        <button id="my" className={styles.leftButton}>
+        <button id="my" className={`${styles.leftButton} ${listType === 'my' ? styles.variant : ''}`}>
           마이 리스트
         </button>
-        <button id="collabo" className={styles.rightButton}>
+        <button id="collabo" className={`${styles.rightButton} ${listType === 'collabo' ? styles.variant : ''}`}>
           콜라보 리스트
         </button>
       </div>

@@ -18,30 +18,36 @@ export const options = style({
   borderBottom: '1px solid rgba(0, 0, 0, 0.10)',
 });
 
-export const leftButton = style({
+export const button = style({
   width: '215px',
-  paddingLeft: '5.75rem',
-
   flexGrow: '1',
-  borderTopLeftRadius: '1.5rem',
+
   backgroundColor: 'white',
   borderTop: '1px solid rgba(0, 0, 0, 0.25)',
+  borderBottom: '1px solid rgba(0, 0, 0, 0.10)',
 
   fontSize: '1.6rem',
   fontWeight: '500',
 });
 
-export const rightButton = style({
-  width: '215px',
-  paddingRight: '5.75rem',
+export const leftButton = style([
+  button,
+  {
+    paddingLeft: '5.75rem',
+    borderTopLeftRadius: '1.5rem',
+  },
+]);
 
-  flexGrow: '1',
-  borderTopRightRadius: '1.5rem',
-  backgroundColor: 'white',
-  borderTop: '1px solid rgba(0, 0, 0, 0.25)',
+export const rightButton = style([
+  button,
+  {
+    paddingRight: '5.75rem',
+    borderTopRightRadius: '1.5rem',
+  },
+]);
 
-  fontSize: '1.6rem',
-  fontWeight: '500',
+export const variant = style({
+  borderBottom: '1px solid #0047FF',
 });
 
 export const cards = style({
