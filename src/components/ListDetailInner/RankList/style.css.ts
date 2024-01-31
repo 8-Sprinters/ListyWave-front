@@ -90,6 +90,7 @@ export const detailImage = style({
   borderRadius: '10px',
   border: '2px solid lightgray',
   width: '100%',
+  maxHeight: '35rem',
   height: 'auto',
   objectFit: 'cover',
 });

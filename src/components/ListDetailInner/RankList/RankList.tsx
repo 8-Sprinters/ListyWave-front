@@ -1,5 +1,9 @@
+'use client';
 import { ListItemProps } from '@/components/ListDetailInner';
 import * as styles from '@/components/ListDetailInner/RankList/style.css';
+import cheerio from 'cheerio';
+import LinkPreview from '@/components/OpenGraphPreview/LinkPreview';
+import { useQuery } from '@tanstack/react-query';
 
 interface RankListProps {
   listData: ListItemProps[];
@@ -21,7 +25,10 @@ function SimpleList({ listData }: RankListProps) {
     );
   });
 }
+
 function DetailList({ listData }: RankListProps) {
+  // const previewData = LinkPreview('https://kagrin97-blog.vercel.app/next/OpenGraphPreview');
+
   return listData.map((item) => {
     return (
       <div key={item.id} className={styles.detailItemWrapper}>
@@ -35,10 +42,12 @@ function DetailList({ listData }: RankListProps) {
             <img className={styles.detailImage} src={item.imageUrl} alt={`"${item.title}" 의 이미지`} />
           )}
         </div>
+        <div>{item.link && LinkPreview(item.link)}</div>
       </div>
     );
   });
 }
+
 function RankList({ listData, type }: RankListProps) {
   return (
     <div className={styles.container}>

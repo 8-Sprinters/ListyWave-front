@@ -22,7 +22,7 @@ interface OptionsProps {
 }
 
 // 테스트용 코드
-const initialValue: ListItemProps[] = MOCKDATA_LIST[0].items ?? [];
+const initialValue: ListItemProps[] = MOCKDATA_LIST[1].items ?? [];
 
 function ListDetailInner() {
   const listData = initialValue;
