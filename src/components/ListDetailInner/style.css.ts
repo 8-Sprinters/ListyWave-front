@@ -1,7 +1,7 @@
 import { style } from '@vanilla-extract/css';
 
 export const container = style({
-  width: '96.5%', // 이부분.. 이렇게 처리해도 될까요(오른쪽으로 밀리는 현상)
+  width: '100%',
   display: 'flex',
   flexDirection: 'column',
   justifyContent: 'center',
