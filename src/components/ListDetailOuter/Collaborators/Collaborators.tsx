@@ -1,6 +1,7 @@
 import * as styles from './Collaborators.css';
 import CollaboratorsPopOver from './CollaboratorsPopOver';
-import DefaultProfile from '/public/icons/default_profile_icon.svg';
+import DefaultProfile from '/public/icons/default_profile_temporary.svg';
+import PlusIcon from '/public/icons/plus_icon.svg';
 interface Collaborators {
   id?: number;
   nickname: string;
@@ -23,8 +24,9 @@ function Collaborators({ collaborators }: CollaboratorsProps) {
           </div>
           <span className={styles.collaboratorTitle}>콜라보레이터</span>
           <div className={styles.wrapper}>
-            <div className={styles.ProfileImg}>
-              <span className={styles.profileText}>{`${collaborators && collaborators?.length - 3}+`}</span>
+            <div className={`${styles.ProfileImg} ${styles.profilePlus}`}>
+              <span className={styles.profileText}>{`${collaborators && collaborators?.length - 3}`}</span>
+              <PlusIcon />
             </div>
             {collaboratorsList?.map((item, idx) => {
               return (
@@ -32,7 +34,7 @@ function Collaborators({ collaborators }: CollaboratorsProps) {
                   {item.profileImageUrl ? (
                     <img className={styles.ProfileImg} src={item.profileImageUrl}></img>
                   ) : (
-                    <DefaultProfile className={styles.defaultProfile} />
+                    <DefaultProfile className={`${styles.ProfileImg} ${styles.defaultProfile}`} />
                   )}
                 </>
               );

@@ -16,7 +16,7 @@ export const categoryWrapper = style({
 
 export const categoryContainer = style({
   padding: '2px 12px',
-  marginRight: '12px',
+  marginRight: '8px',
 
   display: 'flex',
   justifyContent: 'center',
@@ -43,7 +43,7 @@ export const labelWrapper = style({
   display: 'flex',
   justifyContent: 'flex-start',
   alignItems: 'center',
-  gap: '12px',
+  gap: '8px',
 });
 
 export const labelContainer = style({

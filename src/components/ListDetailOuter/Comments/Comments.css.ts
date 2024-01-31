@@ -38,6 +38,7 @@ export const form = style({
 });
 
 export const formInput = style({
+  width: 'inherit',
   height: 'auto',
 
   flex: '1 0 0',
@@ -106,19 +107,24 @@ export const commentContent = style({
 
 export const profileImage = style({
   width: '30px',
+  minWidth: '30px',
   height: '30px',
+  flex: '0 0 1',
 
-  borderRadius: '9999px',
+  borderRadius: '16px',
   backgroundColor: '#909090',
 });
 
-export const repliesWrapper = style({
-  marginBottom: '30px',
+export const repliesOuterWrapper = style({
+  display: 'flex',
+  justifyContent: 'space-between',
+  marginBottom: '20px',
 });
+
+export const repliesWrapper = style({});
 
 export const replyWrapper = style({
   marginLeft: '30px',
-  marginBottom: '10px',
 
   display: 'flex',
   gap: '8px',
@@ -139,10 +145,14 @@ export const showMoreReplies = style({
 
 export const createReplyButton = style({
   padding: '0 0 0 36px',
-  marginBottom: '20px',
+  marginBottom: '16px',
 
   background: 'none',
   fontSize: '1rem',
   color: '#494949',
   fontWeight: 500,
+});
+
+export const deleteButton = style({
+  cursor: 'pointer',
 });

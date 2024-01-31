@@ -6,12 +6,12 @@ export const wrapper = style({
   width: 'auto',
 
   position: 'absolute',
-  top: '28px',
+  top: '33px',
   right: '-10px',
 
   overflow: 'scroll',
   borderRadius: '10px',
-  background: 'rgba(255, 255, 255, 1)',
+  background: 'rgba(255, 255, 255, 0.8)',
   boxShadow: '0px 4px 4px 0px rgba(0, 0, 0, 0.25)',
   zIndex: 20,
 

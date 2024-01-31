@@ -26,12 +26,14 @@ export const ProfileImg = style({
 
   outline: '3px solid #ffffff',
   borderRadius: '9999px',
-  backgroundColor: '#909090',
-  boxShadow: '0 1px 1px 1px',
+});
+
+export const profilePlus = style({
+  backgroundColor: '#AEB0B6',
 });
 
 export const profileText = style({
-  color: '#fff',
+  color: '#DEE7EE',
   fontSize: '2rem',
 });
 

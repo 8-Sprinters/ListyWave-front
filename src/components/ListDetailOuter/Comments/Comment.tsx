@@ -5,7 +5,8 @@ import * as styles from './Comments.css';
 import timeDiff from '@/lib/utils/timeDiff';
 import Replies from '../Replies/Replies';
 import PopOverMenu from '../PopOverMenu/PopOverMenu';
-import DefaultProfile from '/public/icons/default_profile_icon.svg';
+import DefaultProfile from '/public/icons/default_profile_temporary.svg';
+import DeleteButton from '/public/icons/trash_can_icon.svg';
 
 interface Replies {
   id: number;
@@ -81,9 +82,11 @@ function Comment({ comment }: CommentProps) {
             <div className={styles.commentContent}>{comment?.content}</div>
           </div>
         </div>
-        <button ref={buttonRef} onClick={(e) => handleKebabButtonClick(e, comment.id)}>
+        {/* 추후 신고하기 버튼 들어오면 사용 예정 */}
+        {/* <button ref={buttonRef} onClick={(e) => handleKebabButtonClick(e, comment.id)}>
           |
-        </button>
+        </button> */}
+        <DeleteButton className={styles.deleteButton} />
         {isMenuShown && activeMenuId === comment.id && <PopOverMenu />}
       </div>
       <button className={styles.createReplyButton}>
