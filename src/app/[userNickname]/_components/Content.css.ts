@@ -20,6 +20,7 @@ export const options = style({
 
 export const button = style({
   width: '215px',
+  height: '100%',
   flexGrow: '1',
 
   backgroundColor: 'white',
