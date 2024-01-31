@@ -2,7 +2,6 @@ import { style } from '@vanilla-extract/css';
 
 export const baseLabel = style({
   padding: '2px 12px',
-  marginRight: '8px',
 
   display: 'flex',
   justifyContent: 'center',
