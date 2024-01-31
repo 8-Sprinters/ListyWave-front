@@ -2,10 +2,10 @@ import { useQuery } from '@tanstack/react-query';
 import * as styles from '@/components/OpenGraphPreview/style.css';
 
 interface LinkPreviewProps {
-  url: string;
-  title: string;
-  description: string;
-  image: string;
+  url?: string;
+  title?: string;
+  description?: string;
+  image?: string;
 }
 
 // TODO: 백엔드에서 OG데이터 받아올 경우 삭제
@@ -42,7 +42,6 @@ const LinkPreview = (linkUrl: string) => {
     return <div>Loading...</div>;
   }
 
-  const { url, title, description, image } = data;
   // 테스트 UI
   // <div className="link-preview">
   //   {data.image && <img src={data.image} alt="Preview" className="preview-image" />}
@@ -55,6 +54,7 @@ const LinkPreview = (linkUrl: string) => {
   //   </div>
   // </div>
   if (isSuccess && data) {
+    const { url, title, description, image } = data;
     return (
       <a href={url} rel="noreferrer" id="link" target="_blank" className={styles.container}>
         <div className={styles.wrapper}>
