@@ -26,17 +26,18 @@ export default function Card({ list, isOwner }: CardProps) {
         [styles.listColor]: `${list.backgroundColor}`,
       })}
     >
+      {isVisibleLockIcon && (
+        <div className={styles.lockIcon}>
+          <span className={styles.lockText}>비공개</span>
+          <LockIcon alt="비공개 리스트 표시" />
+        </div>
+      )}
       <h2 className={styles.title}>{list.title}</h2>
       <ul className={styles.list}>
         {list.items.map((item) => (
           <CardItem key={item.id} item={item} />
         ))}
       </ul>
-      {isVisibleLockIcon && (
-        <div className={styles.lockIcon}>
-          <LockIcon alt="비공개 리스트 표시" />
-        </div>
-      )}
     </ul>
   );
 }

@@ -35,6 +35,17 @@ export const list = style({
 });
 
 export const lockIcon = style({
+  padding: '0 1rem',
+
   display: 'flex',
   justifyContent: 'flex-end',
+  alignItems: 'center',
+  gap: '2px',
+});
+
+export const lockText = style({
+  fontSize: '1.1rem',
+  fontWeight: '400',
+  letterSpacing: '-0.33px',
+  color: '#AFB1B6',
 });
