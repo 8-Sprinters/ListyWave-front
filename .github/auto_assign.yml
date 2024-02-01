@@ -5,6 +5,7 @@ addReviewers: true
 addAssignees: author
 # addAssignees에서 ‘author’를 선택하면 PR을 open한 user가 assignee로 할당됩니다.
 
+#리뷰어들 아이디 추가
 # A list of reviewers to be added to pull requests (GitHub user name)
 reviewers:
   - Eugene-A-01
