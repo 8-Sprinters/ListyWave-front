@@ -1,0 +1,22 @@
+# Set to true to add reviewers to pull requests
+addReviewers: true
+
+# Set to true to add assignees to pull requests
+addAssignees: author
+# addAssignees에서 ‘author’를 선택하면 PR을 open한 user가 assignee로 할당됩니다.
+
+# A list of reviewers to be added to pull requests (GitHub user name)
+reviewers:
+  - Eugene-A-01
+  - kanglocal
+  - Nahyun-Kang
+  - ParkSohyunee
+  - seoyoung-min
+
+# A list of keywords to be skipped the process that add reviewers if pull requests include it
+skipKeywords:
+  - wip
+
+# A number of reviewers added to the pull request
+# Set 0 to add all the reviewers (default: 0)
+numberOfReviewers: 0
