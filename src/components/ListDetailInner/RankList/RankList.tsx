@@ -29,8 +29,8 @@ function SimpleList({ listData }: RankListProps) {
 
 function EmbedComponent({ link }) {
   let linkType = '';
-
-  // 일반url(link), 비디오(video), 음악(music), 지도(map) 로 구분하기. 지금은 비디오랑 링크만 구분.
+  // 일반url(link), 비디오(video), 지도(map) 로 구분하기. 지금은 비디오랑 링크만 구분.
+  // TODO: 지도 추가하기
   const isVideoLink = link.includes('youtube.com') || link.includes('youtu.be') || link.includes('vimeo.com');
   const isMapLink = false;
 
