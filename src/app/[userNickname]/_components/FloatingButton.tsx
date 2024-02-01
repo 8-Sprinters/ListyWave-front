@@ -7,14 +7,17 @@
 
 import * as styles from './FloatingButton.css';
 
+import PlusIcon from '/public/icons/plus.svg';
+import ArrowUpIcon from '/public/icons/arrow_up.svg';
+
 export default function FloatingButton() {
   return (
     <div className={styles.container}>
       <div className={styles.addButton}>
-        <img src="/icons/plus.svg" alt="옵션 보기 버튼" className={styles.icon} />
+        <PlusIcon alt="옵션 보기 버튼" className={styles.icon} />
       </div>
       <div className={styles.shareButton}>
-        <img src="/icons/arrow_up.svg" alt="상단으로 이동하기 버튼" className={styles.icon} />
+        <ArrowUpIcon alt="상단으로 이동하기 버튼" className={styles.icon} />
       </div>
     </div>
   );

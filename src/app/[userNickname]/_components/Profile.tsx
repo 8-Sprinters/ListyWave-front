@@ -9,6 +9,8 @@ import { UserType } from '../mockData/mockDataTypes'; // 삭제 예정
 import * as styles from './Profile.css';
 
 import Action from './Action';
+import ArrowLeftIcon from '/public/icons/arrow_left.svg';
+import SettingIcon from '/public/icons/setting.svg';
 
 interface ProfileProps {
   user: UserType;
@@ -23,8 +25,8 @@ export default function Profile({ user }: ProfileProps) {
       })}
     >
       <div className={styles.header}>
-        <img src="/icons/arrow_left.svg" alt="이전 페이지로 이동하기" className={styles.icon} />
-        <img src="/icons/setting.svg" alt="마이페이지로 이동하기" className={styles.icon} />
+        <ArrowLeftIcon alt="이전 페이지로 이동하기" className={styles.icon} />
+        <SettingIcon alt="마이페이지로 이동하기" className={styles.icon} />
       </div>
       <div className={styles.profileContainer}>
         <div className={styles.profile}>

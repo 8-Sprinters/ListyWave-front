@@ -9,6 +9,7 @@ import { assignInlineVars } from '@vanilla-extract/dynamic';
 import * as styles from './Card.css';
 
 import CardItem from './CardItem';
+import LockIcon from '/public/icons/lock_alt.svg';
 
 interface CardProps {
   list: ListType;
@@ -33,7 +34,7 @@ export default function Card({ list, isOwner }: CardProps) {
       </ul>
       {isVisibleLockIcon && (
         <div className={styles.lockIcon}>
-          <img src="/icons/lock_alt.svg" alt="비공개 리스트 표시" />
+          <LockIcon alt="비공개 리스트 표시" />
         </div>
       )}
     </ul>
