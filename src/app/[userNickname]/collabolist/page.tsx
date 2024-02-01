@@ -11,7 +11,9 @@ import { USER_DATA_ME } from '../mockData/user'; // 삭제 예정
 
 import Profile from '../_components/Profile';
 import Content from '../_components/Content';
-import FloatingButton from '../_components/FloatingButton';
+import FloatingContainer from '@/components/floatingButton/FloatingContainer';
+import PlusOptionFloatingButton from '@/components/floatingButton/PlusOptionFloatingButton';
+import ArrowUpFloatingButton from '@/components/floatingButton/ArrowUpFloatingButton';
 
 interface FeedPageProps {
   params: {
@@ -27,7 +29,10 @@ export default function CollaboListPage({ params, userId }: FeedPageProps) {
     <section>
       <Profile user={USER_DATA_ME} />
       <Content user={USER_DATA_ME} type="collabo" />
-      <FloatingButton />
+      <FloatingContainer>
+        <PlusOptionFloatingButton />
+        <ArrowUpFloatingButton />
+      </FloatingContainer>
     </section>
   );
 }

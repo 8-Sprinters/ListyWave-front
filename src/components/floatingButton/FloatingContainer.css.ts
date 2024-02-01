@@ -1,4 +1,7 @@
-import { style } from '@vanilla-extract/css';
+import { style, createVar } from '@vanilla-extract/css';
+
+export const opacitySize = createVar();
+export const cursor = createVar();
 
 export const container = style({
   position: 'fixed',
@@ -21,10 +24,12 @@ export const addButton = style({
   cursor: 'pointer',
 });
 
-export const shareButton = style([
+export const arrowUpButton = style([
   addButton,
   {
-    opacity: '0.5',
+    opacity: opacitySize,
+    transition: 'opacity 500ms ease',
+    cursor: cursor,
   },
 ]);
 
