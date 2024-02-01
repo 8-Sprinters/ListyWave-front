@@ -33,6 +33,7 @@
     "axios": "^1.6.5",
     "cheerio": "^1.0.0-rc.12",
     "copy-to-clipboard": "^3.3.3",
+    "html-to-image": "^1.11.11",
     "http-proxy-middleware": "^2.0.6",
     "next": "14.0.4",
     "open-graph": "^0.2.6",
