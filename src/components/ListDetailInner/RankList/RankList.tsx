@@ -4,6 +4,7 @@ import * as styles from '@/components/ListDetailInner/RankList/style.css';
 import cheerio from 'cheerio';
 import LinkPreview from '@/components/OpenGraphPreview/LinkPreview';
 import { useQuery } from '@tanstack/react-query';
+import VideoEmbed from '@/components/VideoEmbed/VideoEmbed';
 
 interface RankListProps {
   listData: ListItemProps[];
@@ -26,8 +27,32 @@ function SimpleList({ listData }: RankListProps) {
   });
 }
 
+function EmbedComponent({ link }) {
+  let linkType = '';
+
+  // 일반url(link), 비디오(video), 음악(music), 지도(map) 로 구분하기. 지금은 비디오랑 링크만 구분.
+  const isVideoLink = link.includes('youtube.com') || link.includes('youtu.be') || link.includes('vimeo.com');
+  const isMapLink = false;
+
+  if (isVideoLink) {
+    linkType = 'video';
+  } else if (isMapLink) {
+    linkType = 'map';
+  } else {
+    linkType = 'link';
+  }
+
+  if (linkType === 'link') {
+    return LinkPreview(link);
+  }
+
+  if (linkType === 'video') {
+    return <VideoEmbed videoUrl={link} />;
+  }
+}
 function DetailList({ listData }: RankListProps) {
   // const previewData = LinkPreview('https://kagrin97-blog.vercel.app/next/OpenGraphPreview');
+  const videoUrl = 'https://www.youtube.com/watch?v=BkkvG283d-M';
 
   return listData.map((item) => {
     return (
@@ -42,7 +67,7 @@ function DetailList({ listData }: RankListProps) {
             <img className={styles.detailImage} src={item.imageUrl} alt={`"${item.title}" 의 이미지`} />
           )}
         </div>
-        <div>{item.link && LinkPreview(item.link)}</div>
+        {item.link && <EmbedComponent link={item.link} />}
       </div>
     );
   });

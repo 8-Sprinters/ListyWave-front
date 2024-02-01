@@ -1,5 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 import * as styles from '@/components/OpenGraphPreview/style.css';
+import VideoEmbed from '@/components/VideoEmbed/VideoEmbed';
 
 interface LinkPreviewProps {
   url?: string;
@@ -30,6 +31,7 @@ async function fetchLinkPreviewData(url: string) {
 
 const LinkPreview = (linkUrl: string) => {
   // 테스트 url
+  // linkUrl = 'https://map.naver.com/p/entry/place/1055469623?placePath=%2Fhome&c=15.00,0,0,0,dh';
   linkUrl = 'https://kagrin97-blog.vercel.app/next/OpenGraphPreview';
 
   // TODO: 백엔드에서 OG데이터 받아올 경우, 해당 API호출로 변경
