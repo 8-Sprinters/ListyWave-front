@@ -1,7 +1,7 @@
 'use client';
 import { useState } from 'react';
 import timeDiff from '@/lib/utils/timeDiff';
-import * as styles from './Comments.css';
+import * as styles from './Replies.css';
 import Line from '/public/icons/horizontal_line.svg';
 import DeleteButton from '/public/icons/trash_can.svg';
 
@@ -38,12 +38,12 @@ function Replies({ replies }: RepliesProps) {
               <li key={idx.toString()} className={styles.repliesOuterWrapper}>
                 <div className={styles.replyWrapper} key={idx.toString()}>
                   <img src={reply.userProfileImageUrl} className={styles.profileImage}></img>
-                  <div className={styles.commentContainer}>
-                    <div className={styles.commentInformationWrapper}>
-                      <span className={styles.commentWriter}>{reply.userNickName}</span>
-                      <span className={styles.commentCreatedTime}>{timeDiff(reply.createdDate)}</span>
+                  <div className={styles.replyContainer}>
+                    <div className={styles.replyInformationWrapper}>
+                      <span className={styles.replyWriter}>{reply.userNickName}</span>
+                      <span className={styles.replyCreatedTime}>{timeDiff(reply.createdDate)}</span>
                     </div>
-                    <div className={styles.commentContent}>{reply.content}</div>
+                    <div className={styles.replyContent}>{reply.content}</div>
                   </div>
                 </div>
                 <DeleteButton className={styles.deleteButton} />

@@ -1,7 +1,7 @@
 'use client';
 import { useState, useRef, useEffect } from 'react';
 
-import * as styles from './Comments.css';
+import * as styles from './Comment.css';
 import timeDiff from '@/lib/utils/timeDiff';
 import Replies from './Replies';
 import PopOverMenu from './PopOverMenu';
@@ -35,7 +35,7 @@ interface CommentProps {
   activeNickname?: string | null;
 }
 
-function Comment({ comment, onUpdate, activeNickname }: CommentProps) {
+function Comment({ comment, onUpdate }: CommentProps) {
   const [activeMenuId, setActiveMenuId] = useState<number | null>(null);
   const [isModalShown, setModalShown] = useState<boolean>(false);
   const buttonRef = useRef<HTMLButtonElement>(null);
@@ -82,7 +82,7 @@ function Comment({ comment, onUpdate, activeNickname }: CommentProps) {
       <div className={styles.commentOuterWrapper}>
         <div className={styles.commentWrapper}>
           {comment && comment.userProfileImageUrl ? (
-            <img src={comment.userProfileImageUrl} className={styles.profileImage}></img>
+            <img alt="프로필 이미지" src={comment.userProfileImageUrl} className={styles.profileImage}></img>
           ) : (
             <DefaultProfile />
           )}
