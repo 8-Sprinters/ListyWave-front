@@ -32,6 +32,8 @@
     "@yaireo/tagify": "^4.19.0",
     "axios": "^1.6.5",
     "cheerio": "^1.0.0-rc.12",
+    "copy-to-clipboard": "^3.3.3",
+    "http-proxy-middleware": "^2.0.6",
     "next": "14.0.4",
     "open-graph": "^0.2.6",
     "react": "^18",
