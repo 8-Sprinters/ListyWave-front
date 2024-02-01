@@ -1,9 +1,16 @@
-//59초 이내 방금 전
-//59분 이내 n분 전
-//1일 이내 N 시간 전
-//7일 이내 N일 전
-//7일 이후 & 같은 해 MM-DD
-//7일 이후 & 다른 해 YYYY-MM-DD
+/*59초 이내 방금 전
+59분 이내 n분 전
+1일 이내 N 시간 전
+7일 이내 N일 전
+7일 이후 & 같은 해 MM-DD
+7일 이후 & 다른 해 YYYY-MM-DD*/
+
+/**
+ * 공통 시간 포맷 함수
+ * @param params
+ * @param {string} params.param1 date (createdDate/updatedDate)
+ * @returns {string}
+ */
 
 export default function timeDiff(dateString: string) {
   const dateObject = new Date(dateString);
@@ -13,10 +20,6 @@ export default function timeDiff(dateString: string) {
   const year = dateObject.getFullYear().toString();
   const month = dateObject.getMonth() + 1 < 10 ? '0' + (dateObject.getMonth() + 1) : '' + (dateObject.getMonth() + 1);
   const day = dateObject.getDate() < 10 ? '0' + dateObject.getDate() : '' + dateObject.getDate();
-
-  console.log(now.getTime());
-  console.log(dateObject.getTime());
-  console.log(diff);
 
   if (diff < 60) {
     return '방금 전';
