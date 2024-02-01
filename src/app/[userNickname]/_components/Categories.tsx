@@ -1,3 +1,5 @@
+'use client';
+
 /**
  TODO
  - [ ] api 연동
@@ -6,7 +8,13 @@
 import { KINDS } from '../mockData/categories'; // 삭제 예정
 
 import { useState } from 'react';
+// import { useQuery } from '@tanstack/react-query'; // 주석 import 나중에 사용 예정
+
 import * as styles from './Categories.css';
+
+// import { getCategories } from '@/app/_api/getCategories';
+// import { CategoriesType } from '@/lib/types/categoriesType';
+// import { queryKeys } from '@/lib/constants/queryKeys';
 
 interface CategoriesProps {
   onClick: (kind: string) => void;
@@ -18,6 +26,10 @@ export default function Categories({ onClick }: CategoriesProps) {
   const [selected, setSelected] = useState(DEFAULT_CATEGORY);
 
   // 1. 카테고리 api 요청
+  // const { data } = useQuery<CategoriesType>({
+  //   queryKey: [queryKeys.getCategories],
+  //   queryFn: getCategories,
+  // });
 
   const handleChangeCategory = (kind: string) => () => {
     onClick(kind);
