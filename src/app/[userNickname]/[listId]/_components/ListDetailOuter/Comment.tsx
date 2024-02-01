@@ -7,6 +7,8 @@ import Replies from './Replies';
 import PopOverMenu from './PopOverMenu';
 import DefaultProfile from '/public/icons/default_profile_temporary.svg';
 import DeleteButton from '/public/icons/trash_can.svg';
+import ModalPortal from '@/components/ModalPortal';
+import DeleteModal from './DeleteModal';
 
 interface Replies {
   id: number;
@@ -35,6 +37,7 @@ interface CommentProps {
 
 function Comment({ comment, onUpdate, activeNickname }: CommentProps) {
   const [activeMenuId, setActiveMenuId] = useState<number | null>(null);
+  const [isModalShown, setModalShown] = useState<boolean>(false);
   const buttonRef = useRef<HTMLButtonElement>(null);
 
   const handleActiveNicknameUpdate = () => {
@@ -50,6 +53,18 @@ function Comment({ comment, onUpdate, activeNickname }: CommentProps) {
     }
   };
 
+  const handleDeleteModalShow = () => {
+    setModalShown(true);
+  };
+
+  const handleCancelButtonClick = () => {
+    setModalShown(false);
+  };
+
+  const handleConfirmButtonClick = () => {
+    //
+  };
+
   useEffect(() => {
     document.addEventListener('click', handleOutsideClick);
     return () => {
@@ -59,6 +74,11 @@ function Comment({ comment, onUpdate, activeNickname }: CommentProps) {
 
   return (
     <>
+      {isModalShown && (
+        <ModalPortal>
+          <DeleteModal onCancel={handleCancelButtonClick} onClick={handleConfirmButtonClick}></DeleteModal>
+        </ModalPortal>
+      )}
       <div className={styles.commentOuterWrapper}>
         <div className={styles.commentWrapper}>
           {comment && comment.userProfileImageUrl ? (
@@ -78,7 +98,7 @@ function Comment({ comment, onUpdate, activeNickname }: CommentProps) {
         {/* <button ref={buttonRef} onClick={(e) => handleKebabButtonClick(e, comment.id)}>
           |
         </button> */}
-        <DeleteButton className={styles.deleteButton} />
+        <DeleteButton className={styles.deleteButton} onClick={handleDeleteModalShow} />
         {comment && activeMenuId === comment.id && <PopOverMenu />}
       </div>
       <button className={styles.createReplyButton} onClick={handleActiveNicknameUpdate}>
