@@ -1,4 +1,5 @@
 import copy from 'copy-to-clipboard';
+import toasting from '@/lib/utils/toasting';
 
 function makeUrl() {
   let url = '';
@@ -10,7 +11,7 @@ function makeUrl() {
 function copyLink() {
   const url = makeUrl();
   copy(url);
-  console.log('url 복사', url);
+  toasting({ type: 'default', txt: '링크가 복사되었습니다.' });
 }
 
 export default copyLink;
