@@ -16,6 +16,11 @@
       "prettier --list-different"
     ]
   },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
   "dependencies": {
     "@tanstack/react-query": "^5.17.12",
     "@tanstack/react-query-devtools": "^5.17.12",
