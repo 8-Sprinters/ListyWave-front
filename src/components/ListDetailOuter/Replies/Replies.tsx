@@ -2,8 +2,8 @@
 import { useState } from 'react';
 import * as styles from '../Comments/Comments.css';
 import timeDiff from '@/lib/utils/timeDiff';
-import Line from '/public/icons/line_icon.svg';
-import DeleteButton from '/public/icons/trash_can_icon.svg';
+import Line from '/public/icons/horizontal_line.svg';
+import DeleteButton from '/public/icons/trash_can.svg';
 
 interface Reply {
   userNickName: string;

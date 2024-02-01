@@ -6,8 +6,8 @@ import * as styles from './Header.css';
 import ModalPortal from '@/components/ModalPortal';
 import BottomSheet from '@/components/ListDetailOuter/Bottomsheet/BottomSheet';
 
-import BackButton from '/public/icons/back_button.svg';
-import HistoryButton from '/public/icons/history_button.svg';
+import BackButton from '/public/icons/back.svg';
+import HistoryButton from '/public/icons/history.svg';
 import KebabButton from '/public/icons/vertical_kebab_button.svg';
 
 function Header() {

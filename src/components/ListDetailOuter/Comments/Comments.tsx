@@ -4,7 +4,7 @@ import { useState, useRef, useEffect } from 'react';
 import { MOCKDATA_COMMENTS } from '../mockdata';
 import * as styles from './Comments.css';
 import Comment from './Comment';
-import ClearButton from '/public/icons/clear_icon.svg';
+import ClearButton from '/public/icons/clear.svg';
 
 const COMMENTS = MOCKDATA_COMMENTS[1];
 

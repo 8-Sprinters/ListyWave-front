@@ -1,7 +1,7 @@
 import * as styles from './Collaborators.css';
 import CollaboratorsPopOver from './CollaboratorsPopOver';
 import DefaultProfile from '/public/icons/default_profile_temporary.svg';
-import PlusIcon from '/public/icons/plus_icon.svg';
+import PlusIcon from '/public/icons/plus.svg';
 interface Collaborators {
   id?: number;
   nickname: string;

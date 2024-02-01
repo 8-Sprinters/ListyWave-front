@@ -6,7 +6,7 @@ import timeDiff from '@/lib/utils/timeDiff';
 import Replies from '../Replies/Replies';
 import PopOverMenu from '../PopOverMenu/PopOverMenu';
 import DefaultProfile from '/public/icons/default_profile_temporary.svg';
-import DeleteButton from '/public/icons/trash_can_icon.svg';
+import DeleteButton from '/public/icons/trash_can.svg';
 
 interface Replies {
   id: number;

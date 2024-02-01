@@ -6,6 +6,7 @@ export const baseLabel = style({
   display: 'flex',
   justifyContent: 'center',
   alignItems: 'center',
+  flexShrink: 0,
 
   borderRadius: '16px',
   fontSize: '1.4rem',
@@ -14,7 +15,7 @@ export const baseLabel = style({
   textTransform: 'uppercase',
 });
 
-export const skyBlueLabel = style([
+export const skyblueLabel = style([
   baseLabel,
   {
     backgroundColor: '#EBF4FF',
