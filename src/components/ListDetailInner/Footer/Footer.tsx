@@ -8,6 +8,7 @@ import etcIcon from '/public/icons/etc.svg';
 import BottomSheet from '@/components/ListDetailInner/BottomSheet/BottomSheet';
 import { MouseEvent, useState } from 'react';
 import ModalPortal from '@/components/ModalPortal';
+import copyLink from '@/hooks/copyUrl';
 
 interface BottomSheetOptionsProps {
   key: string;
@@ -29,9 +30,7 @@ function Footer() {
         {
           key: 'copyLink',
           title: '리스트 링크 복사하기',
-          onClick: () => {
-            alert('링크복사');
-          },
+          onClick: copyLink,
         },
         {
           key: 'kakaoShare',
