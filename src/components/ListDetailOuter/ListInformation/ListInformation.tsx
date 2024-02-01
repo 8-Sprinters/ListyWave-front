@@ -11,12 +11,14 @@ function ListInformation() {
     <>
       <div className={styles.wrapper}>
         <div className={styles.categoryWrapper}>
-          <Label colorType="skyBlue">음악</Label>
+          <div className={styles.labelWrapper}>
+            <Label colorType="skyBlue">음악</Label>
+          </div>
           {LIST.labels.map((item, idx) => {
             return (
-              <Label key={idx.toString()} colorType="blue">
-                {`${item.name}`}
-              </Label>
+              <div className={styles.labelWrapper} key={idx.toString()}>
+                <Label colorType="blue">{`${item.name}`}</Label>
+              </div>
             );
           })}
         </div>

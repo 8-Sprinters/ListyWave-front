@@ -11,7 +11,7 @@ export const backGround = style({
 });
 
 export const wrapper = style({
-  padding: '37px 28px 43px',
+  padding: '37px 0 43px',
 
   position: 'fixed',
   bottom: 0,
@@ -23,8 +23,8 @@ export const wrapper = style({
   justifyContent: 'center',
 
   backgroundColor: '#ffffff',
-  borderTopLeftRadius: '50px',
-  borderTopRightRadius: '50px',
+  borderTopLeftRadius: '25px',
+  borderTopRightRadius: '25px',
 
   transitionProperty: 'all',
   transitionDuration: '0.2s',
@@ -43,10 +43,15 @@ export const sheetItemWrapper = style({
   display: 'flex',
   justifyContent: 'space-between',
   alignItems: 'center',
+
+  ':hover': {
+    backgroundColor: '#EFEFF0',
+  },
 });
 
 export const checkIcon = style({
   display: 'none',
+  marginRight: '28px',
 
   selectors: {
     [`${sheetItemWrapper}:hover &`]: {
@@ -59,7 +64,7 @@ export const sheetItem = style({
   width: '100%',
   fontSize: '1.4rem',
   cursor: 'pointer',
-  padding: '2.5rem 1rem 2.5rem 1rem',
+  padding: '2.5rem 2.8rem 2.5rem',
 
   selectors: {
     [`${sheetItemWrapper}:hover &`]: {

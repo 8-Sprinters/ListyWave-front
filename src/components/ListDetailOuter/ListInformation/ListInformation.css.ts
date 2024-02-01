@@ -14,60 +14,8 @@ export const categoryWrapper = style({
   fontSize: '.75rem',
 });
 
-export const categoryContainer = style({
-  padding: '2px 12px',
-  marginRight: '8px',
-
-  display: 'flex',
-  justifyContent: 'center',
-  alignItems: 'center',
-
-  borderRadius: '16px',
-  backgroundColor: '#EBF4FF',
-});
-
-export const category = style({
-  height: '24px',
-
-  display: 'flex',
-  alignItems: 'center',
-
-  color: '#0047FF',
-  fontSize: '1.4rem',
-  fontWeight: 400,
-  letterSpacing: '-0.42px',
-  textTransform: 'uppercase',
-});
-
 export const labelWrapper = style({
-  display: 'flex',
-  justifyContent: 'flex-start',
-  alignItems: 'center',
-  gap: '8px',
-});
-
-export const labelContainer = style({
-  padding: '2px 12px',
-
-  display: 'flex',
-  justifyContent: 'center',
-  alignItems: 'center',
-
-  borderRadius: '16px',
-  backgroundColor: '#0047FF',
-});
-
-export const label = style({
-  height: '24px',
-
-  display: 'flex',
-  alignItems: 'center',
-
-  color: '#ffffff',
-  fontSize: '1.4rem',
-  fontWeight: 400,
-  letterSpacing: '-0.42px',
-  textTransform: 'uppercase',
+  marginRight: '8px',
 });
 
 export const listTitle = style({
