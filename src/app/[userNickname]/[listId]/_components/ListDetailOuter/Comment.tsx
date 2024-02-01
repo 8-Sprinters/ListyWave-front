@@ -3,8 +3,8 @@ import { useState, useRef, useEffect } from 'react';
 
 import * as styles from './Comments.css';
 import timeDiff from '@/lib/utils/timeDiff';
-import Replies from '../Replies/Replies';
-import PopOverMenu from '../PopOverMenu/PopOverMenu';
+import Replies from './Replies';
+import PopOverMenu from './PopOverMenu';
 import DefaultProfile from '/public/icons/default_profile_temporary.svg';
 import DeleteButton from '/public/icons/trash_can.svg';
 

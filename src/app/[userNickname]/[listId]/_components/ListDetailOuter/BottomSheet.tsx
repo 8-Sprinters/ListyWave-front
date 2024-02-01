@@ -1,6 +1,6 @@
 'use client';
-
 import { MouseEventHandler } from 'react';
+
 import * as styles from './BottomSheet.css';
 import CheckIcon from '/public/icons/check_red.svg';
 

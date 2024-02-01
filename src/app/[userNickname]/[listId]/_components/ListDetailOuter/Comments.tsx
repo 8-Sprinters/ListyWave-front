@@ -1,9 +1,9 @@
 'use client';
+import { useState } from 'react';
 
-import { useState, useRef, useEffect } from 'react';
-import { MOCKDATA_COMMENTS } from '../mockdata';
+import Comment from '@/app/[userNickname]/[listId]/_components/ListDetailOuter/Comment';
 import * as styles from './Comments.css';
-import Comment from './Comment';
+import { MOCKDATA_COMMENTS } from './mockdata';
 import ClearButton from '/public/icons/clear.svg';
 
 const COMMENTS = MOCKDATA_COMMENTS[1];
@@ -20,7 +20,7 @@ function Comments() {
   return (
     <div className={styles.wrapper}>
       <div className={styles.formWrapper}>
-        <img className={styles.profileImage} />
+        <img alt="프로필 이미지" width={36} height={36} className={styles.profileImage} />
         <form className={styles.form}>
           {activeNickname && (
             <div className={styles.formNicknameWrapper} onClick={handleActiveNicknameDelete}>

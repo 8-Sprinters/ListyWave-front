@@ -1,9 +1,8 @@
 'use client';
-
 import * as styles from './ListDetail.css';
-import Comments from '@/components/ListDetailOuter/Comments/Comments';
-import Header from '@/components/ListDetailOuter/Header/Header';
-import ListInformation from '@/components/ListDetailOuter/ListInformation/ListInformation';
+import Comments from '@/app/[userNickname]/[listId]/_components/ListDetailOuter/Comments';
+import Header from '@/app/[userNickname]/[listId]/_components/ListDetailOuter/Header';
+import ListInformation from '@/app/[userNickname]/[listId]/_components/ListDetailOuter/ListInformation';
 
 export default function ListDetail() {
   return (

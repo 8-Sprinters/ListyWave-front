@@ -1,12 +1,13 @@
 'use client';
 import { useState } from 'react';
-import * as styles from '../Comments/Comments.css';
 import timeDiff from '@/lib/utils/timeDiff';
+import * as styles from './Comments.css';
 import Line from '/public/icons/horizontal_line.svg';
 import DeleteButton from '/public/icons/trash_can.svg';
 
 interface Reply {
   userNickName: string;
+  userProfileImageUrl: string;
   createdDate: string;
   content: string;
 }
@@ -16,7 +17,6 @@ interface RepliesProps {
 }
 
 function Replies({ replies }: RepliesProps) {
-  console.log(replies);
   const [showReplies, setShowReplies] = useState(false);
 
   const handleShowReplies = () => {
@@ -32,10 +32,10 @@ function Replies({ replies }: RepliesProps) {
         </div>
       )}
       {showReplies && (
-        <div className={styles.repliesWrapper}>
-          {replies?.map((reply: any, idx: any) => {
+        <ul className={styles.repliesWrapper}>
+          {replies?.map((reply: Reply, idx: number) => {
             return (
-              <div className={styles.repliesOuterWrapper}>
+              <li key={idx.toString()} className={styles.repliesOuterWrapper}>
                 <div className={styles.replyWrapper} key={idx.toString()}>
                   <img src={reply.userProfileImageUrl} className={styles.profileImage}></img>
                   <div className={styles.commentContainer}>
@@ -47,10 +47,10 @@ function Replies({ replies }: RepliesProps) {
                   </div>
                 </div>
                 <DeleteButton className={styles.deleteButton} />
-              </div>
+              </li>
             );
           })}
-        </div>
+        </ul>
       )}
     </>
   );

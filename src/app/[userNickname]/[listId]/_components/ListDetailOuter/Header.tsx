@@ -2,9 +2,9 @@
 import { useState, MouseEvent } from 'react';
 import { useRouter, useParams } from 'next/navigation';
 
-import * as styles from './Header.css';
 import ModalPortal from '@/components/ModalPortal';
-import BottomSheet from '@/components/ListDetailOuter/Bottomsheet/BottomSheet';
+import BottomSheet from '@/app/[userNickname]/[listId]/_components/ListDetailOuter/BottomSheet';
+import * as styles from './Header.css';
 
 import BackButton from '/public/icons/back.svg';
 import HistoryButton from '/public/icons/history.svg';
@@ -42,15 +42,15 @@ function Header() {
       )}
       <div className={styles.wrapper}>
         <button className={styles.buttonResetStyle} onClick={handleBackButtonClick}>
-          <BackButton className={styles.svgCommonStyles} />
+          <BackButton />
         </button>
         <div className={styles.title}>리스트</div>
         <div className={styles.headerRightWrapper}>
           <button className={styles.buttonResetStyle} onClick={handleHistoryButtonClick}>
-            <HistoryButton className={styles.svgCommonStyles} />
+            <HistoryButton />
           </button>
           <button className={styles.buttonResetStyle} onClick={handleSheetActive}>
-            <KebabButton className={styles.svgCommonStyles} />
+            <KebabButton />
           </button>
         </div>
       </div>

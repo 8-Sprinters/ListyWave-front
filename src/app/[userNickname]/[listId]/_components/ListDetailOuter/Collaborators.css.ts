@@ -18,8 +18,6 @@ export const ProfileImg = style({
   width: '36px',
   height: '36px',
 
-  // position: 'relative',
-
   display: 'flex',
   justifyContent: 'center',
   alignItems: 'center',

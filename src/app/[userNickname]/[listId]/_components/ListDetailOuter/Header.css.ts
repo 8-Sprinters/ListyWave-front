@@ -27,8 +27,6 @@ export const buttonResetStyle = style({
   background: 'none',
 });
 
-export const svgCommonStyles = style({});
-
 export const headerRightWrapper = style({
   display: 'flex',
   alignItems: 'center',

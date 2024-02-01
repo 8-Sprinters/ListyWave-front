@@ -1,8 +1,8 @@
 import Label from '@/components/Label/Label';
-import Collaborators from '../Collaborators/Collaborators';
-import { MOCKDATA_LIST } from '../mockdata';
-import * as styles from './ListInformation.css';
+import Collaborators from '@/app/[userNickname]/[listId]/_components/ListDetailOuter/Collaborators';
 import timeDiff from '@/lib/utils/timeDiff';
+import * as styles from './ListInformation.css';
+import { MOCKDATA_LIST } from './mockdata';
 
 const LIST = MOCKDATA_LIST[0];
 
@@ -12,7 +12,7 @@ function ListInformation() {
       <div className={styles.wrapper}>
         <div className={styles.categoryWrapper}>
           <div className={styles.labelWrapper}>
-            <Label colorType="skyBlue">음악</Label>
+            <Label colorType="skyblue">음악</Label>
           </div>
           {LIST.labels.map((item, idx) => {
             return (
@@ -28,7 +28,13 @@ function ListInformation() {
       <div className={styles.listComponentTemporary}>리스트 컴포넌트</div>
       <div className={styles.bottomWrapper}>
         <div className={styles.bottomLeftWrapper}>
-          <img src={LIST.ownerProfileImageUrl} className={styles.profileImage}></img>
+          <img
+            src={LIST.ownerProfileImageUrl}
+            alt="유저프로필 이미지"
+            width={36}
+            height={36}
+            className={styles.profileImage}
+          ></img>
           <div className={styles.informationWrapper}>
             <div className={styles.listOwnerNickname}>{LIST.ownerNickname}</div>
             <div className={styles.infoDetailWrapper}>
