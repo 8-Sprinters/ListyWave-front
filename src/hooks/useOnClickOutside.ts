@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef } from 'react';
 
 const useOnClickOutside = (handler: () => void) => {
   const ref = useRef<HTMLDivElement>(null);
@@ -15,7 +15,7 @@ const useOnClickOutside = (handler: () => void) => {
       document.removeEventListener('mousedown', handleClickOutside);
       document.removeEventListener('touchstart', handleClickOutside);
     };
-  }, [ref]);
+  }, [ref, handler]);
 
   return { ref };
 };
