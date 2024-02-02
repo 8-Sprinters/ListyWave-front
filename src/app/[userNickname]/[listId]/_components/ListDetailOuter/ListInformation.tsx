@@ -2,7 +2,7 @@ import Label from '@/components/Label/Label';
 import Collaborators from '@/app/[userNickname]/[listId]/_components/ListDetailOuter/Collaborators';
 import timeDiff from '@/lib/utils/timeDiff';
 import * as styles from './ListInformation.css';
-import { MOCKDATA_LIST } from './mockdata';
+import { MOCKDATA_LIST } from '../../mockData/mockdata';
 
 const LIST = MOCKDATA_LIST[0];
 

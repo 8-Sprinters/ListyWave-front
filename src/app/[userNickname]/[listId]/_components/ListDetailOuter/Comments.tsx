@@ -3,7 +3,7 @@ import { useState } from 'react';
 
 import Comment from '@/app/[userNickname]/[listId]/_components/ListDetailOuter/Comment';
 import * as styles from './Comments.css';
-import { MOCKDATA_COMMENTS } from './mockdata';
+import { MOCKDATA_COMMENTS } from '../../mockData/mockdata';
 import ClearButton from '/public/icons/clear.svg';
 
 const COMMENTS = MOCKDATA_COMMENTS[1];
