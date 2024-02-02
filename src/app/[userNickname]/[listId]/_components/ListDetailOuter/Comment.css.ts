@@ -53,10 +53,6 @@ export const commentContent = style({
   fontWeight: 500,
 });
 
-export const deleteButton = style({
-  cursor: 'pointer',
-});
-
 export const createReplyButton = style({
   padding: '0 0 0 36px',
   marginBottom: '16px',
