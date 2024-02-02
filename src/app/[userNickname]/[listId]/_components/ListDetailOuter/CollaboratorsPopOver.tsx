@@ -1,13 +1,8 @@
 import * as styles from './CollaboratorsPopOver.css';
-
-interface Collaborators {
-  id?: number;
-  nickname: string;
-  profileImageUrl: string | null;
-}
+import { CollaboratorType } from '../../mockData/mockdataType';
 
 interface CollaboratorsProps {
-  collaborators: Collaborators[] | null;
+  collaborators: CollaboratorType[] | null;
 }
 
 function CollaboratorsPopOver({ collaborators }: CollaboratorsProps) {

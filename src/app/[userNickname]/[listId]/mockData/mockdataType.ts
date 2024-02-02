@@ -14,7 +14,7 @@ export interface ReplyType {
   content: string;
 }
 
-export interface Comment {
+export interface CommentType {
   id: number;
   userId: number;
   userName: string;
@@ -22,4 +22,10 @@ export interface Comment {
   createdDate: string;
   content: string;
   replies: RepliesType[] | null;
+}
+
+export interface CollaboratorType {
+  id?: number;
+  nickname: string;
+  profileImageUrl: string | null;
 }

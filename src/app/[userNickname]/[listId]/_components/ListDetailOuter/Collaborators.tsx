@@ -2,15 +2,10 @@ import CollaboratorsPopOver from '@/app/[userNickname]/[listId]/_components/List
 import * as styles from './Collaborators.css';
 import DefaultProfile from '/public/icons/default_profile_temporary.svg';
 import PlusIcon from '/public/icons/plus.svg';
-
-interface Collaborators {
-  id?: number;
-  nickname: string;
-  profileImageUrl: string | null;
-}
+import { CollaboratorType } from '../../mockData/mockdataType';
 
 interface CollaboratorsProps {
-  collaborators: Collaborators[] | null;
+  collaborators: CollaboratorType[] | null;
 }
 
 function Collaborators({ collaborators }: CollaboratorsProps) {
@@ -29,7 +24,7 @@ function Collaborators({ collaborators }: CollaboratorsProps) {
               <span className={styles.profileText}>{`${collaborators && collaborators?.length - 3}`}</span>
               <PlusIcon />
             </div>
-            {collaboratorsList?.map((item) => {
+            {collaboratorsList?.map((item: CollaboratorType) => {
               return (
                 <div key={item.id}>
                   {item.profileImageUrl ? (

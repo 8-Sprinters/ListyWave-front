@@ -1,36 +1,18 @@
 'use client';
 import { useState, useRef, useEffect } from 'react';
 
-import * as styles from './Comment.css';
+import ModalPortal from '@/components/ModalPortal';
+import Replies from '@/app/[userNickname]/[listId]/_components/ListDetailOuter/Replies';
+import PopOverMenu from '@/app/[userNickname]/[listId]/_components/ListDetailOuter/PopOverMenu';
 import timeDiff from '@/lib/utils/timeDiff';
-import Replies from './Replies';
-import PopOverMenu from './PopOverMenu';
+import * as styles from './Comment.css';
+import { CommentType } from '../../mockData/mockdataType';
 import DefaultProfile from '/public/icons/default_profile_temporary.svg';
 import DeleteButton from '/public/icons/trash_can.svg';
-import ModalPortal from '@/components/ModalPortal';
 import DeleteModal from './DeleteModal';
 
-interface Replies {
-  id: number;
-  userId: number;
-  userNickName: string;
-  userProfileImageUrl: string;
-  createdDate: string;
-  content: string;
-}
-
-interface Comment {
-  id: number;
-  userId: number;
-  userName: string;
-  userProfileImageUrl: string;
-  createdDate: string;
-  content: string;
-  replies: Replies[] | null;
-}
-
 interface CommentProps {
-  comment: Comment | undefined;
+  comment: CommentType | undefined;
   onUpdate: (userName: string | null) => void;
   activeNickname?: string | null;
 }
