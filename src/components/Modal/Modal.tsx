@@ -4,7 +4,6 @@ import * as styles from './Modal.css';
 import ModalTitle from './ModalTitle';
 import ModalButton from './ModalButton';
 import useOnClickOutside from '@/hooks/useOnClickOutside';
-import useBooleanOutput from '@/hooks/useBooleanOutput';
 
 interface ModalMainProps {
   children?: ReactNode;
