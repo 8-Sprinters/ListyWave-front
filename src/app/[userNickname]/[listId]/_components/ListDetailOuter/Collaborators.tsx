@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import CollaboratorsPopOver from '@/app/[userNickname]/[listId]/_components/ListDetailOuter/CollaboratorsPopOver';
 import * as styles from './Collaborators.css';
 import DefaultProfile from '/public/icons/default_profile_temporary.svg';
@@ -28,7 +29,13 @@ function Collaborators({ collaborators }: CollaboratorsProps) {
               return (
                 <div key={item.id}>
                   {item.profileImageUrl ? (
-                    <img className={styles.ProfileImg} src={item.profileImageUrl} alt="사용자 프로필 이미지"></img>
+                    <Image
+                      className={styles.ProfileImg}
+                      src={item.profileImageUrl}
+                      alt="사용자 프로필 이미지"
+                      width={35}
+                      height={35}
+                    ></Image>
                   ) : (
                     <DefaultProfile
                       className={`${styles.ProfileImg} ${styles.defaultProfile}`}

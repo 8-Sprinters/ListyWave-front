@@ -2,9 +2,9 @@
 import { useState } from 'react';
 import Image from 'next/image';
 import timeDiff from '@/lib/utils/timeDiff';
+import DeleteModal from '@/app/[userNickname]/[listId]/_components/ListDetailOuter/DeleteModal';
 import * as styles from './Replies.css';
 import Line from '/public/icons/horizontal_line.svg';
-import DeleteButton from '/public/icons/trash_can.svg';
 import { ReplyType } from '../../mockData/mockdataType';
 
 interface RepliesProps {
@@ -35,6 +35,8 @@ function Replies({ replies }: RepliesProps) {
                   <Image
                     src={reply.userProfileImageUrl}
                     className={styles.profileImage}
+                    width={20}
+                    height={20}
                     alt="사용자 프로필 이미지"
                   ></Image>
                   <div className={styles.replyContainer}>
@@ -45,7 +47,7 @@ function Replies({ replies }: RepliesProps) {
                     <div className={styles.replyContent}>{reply.content}</div>
                   </div>
                 </div>
-                <DeleteButton className={styles.deleteButton} alt="삭제 버튼" />
+                <DeleteModal />
               </li>
             );
           })}
