@@ -1,4 +1,4 @@
-import { EventHandler, useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 const useOnClickOutside = (handler: () => void) => {
   const ref = useRef<HTMLDivElement>(null);
