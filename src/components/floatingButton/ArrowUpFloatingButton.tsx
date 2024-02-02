@@ -1,7 +1,6 @@
 'use client';
 
 import { useState } from 'react';
-import { assignInlineVars } from '@vanilla-extract/dynamic';
 
 import * as styles from './FloatingContainer.css';
 import ArrowUpIcon from '/public/icons/arrow_up.svg';
@@ -30,15 +29,12 @@ export default function ArrowUpFloatingButton() {
   };
 
   return (
-    <div
-      className={styles.arrowUpButton}
-      onClick={handleScrollToTop}
-      style={assignInlineVars({
-        [styles.opacitySize]: isVisible ? '1' : '0',
-        [styles.cursor]: isVisible ? 'pointer' : 'default',
-      })}
-    >
-      <ArrowUpIcon alt="상단으로 이동하기 버튼" className={styles.icon} />
-    </div>
+    <>
+      {isVisible && (
+        <div className={styles.arrowUpButton} onClick={handleScrollToTop}>
+          <ArrowUpIcon alt="상단으로 이동하기 버튼" className={styles.icon} />
+        </div>
+      )}
+    </>
   );
 }

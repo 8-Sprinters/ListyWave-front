@@ -1,7 +1,4 @@
-import { style, createVar } from '@vanilla-extract/css';
-
-export const opacitySize = createVar();
-export const cursor = createVar();
+import { style, keyframes } from '@vanilla-extract/css';
 
 export const container = style({
   position: 'fixed',
@@ -24,12 +21,15 @@ export const addButton = style({
   cursor: 'pointer',
 });
 
+const fadeIn = keyframes({
+  '0%': { opacity: 0 },
+  '100%': { opacity: 1 },
+});
+
 export const arrowUpButton = style([
   addButton,
   {
-    opacity: opacitySize,
-    transition: 'opacity 500ms ease',
-    cursor: cursor,
+    animation: `${fadeIn} 500ms ease`,
   },
 ]);
 
