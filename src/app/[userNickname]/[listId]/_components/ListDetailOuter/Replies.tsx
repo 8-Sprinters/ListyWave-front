@@ -2,7 +2,7 @@
 import { useState } from 'react';
 import Image from 'next/image';
 import timeDiff from '@/lib/utils/timeDiff';
-import DeleteModal from '@/app/[userNickname]/[listId]/_components/ListDetailOuter/DeleteModal';
+import DeleteModal from '@/app/[userNickname]/[listId]/_components/ListDetailOuter/DeleteModalButton';
 import * as styles from './Replies.css';
 import Line from '/public/icons/horizontal_line.svg';
 import { ReplyType } from '../../mockData/mockdataType';

@@ -1,5 +1,5 @@
 import { ReactNode } from 'react';
-import * as styles from './DeleteModal.css';
+import * as styles from './DeleteModalButton.css';
 import Modal from '@/components/Modal/Modal';
 import useBooleanOutput from '@/hooks/useBooleanOutput';
 import DeleteButton from '/public/icons/trash_can.svg';

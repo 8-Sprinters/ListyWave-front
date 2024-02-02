@@ -5,7 +5,7 @@ import timeDiff from '@/lib/utils/timeDiff';
 import * as styles from './Comment.css';
 import { CommentType } from '../../mockData/mockdataType';
 import DefaultProfile from '/public/icons/default_profile_temporary.svg';
-import DeleteModal from './DeleteModal';
+import DeleteModal from './DeleteModalButton';
 
 interface CommentProps {
   comment: CommentType | undefined;
