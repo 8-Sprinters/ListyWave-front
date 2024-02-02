@@ -131,13 +131,19 @@ export default function Items() {
                             onConfirmButtonClick={() => {
                               handleLinkModalConfirm(index);
                             }}
+                            isLinkValid={!linkError && watchItems[index]?.link?.length !== 0}
                           >
-                            <input
-                              className={styles.modalInput}
-                              placeholder={itemPlaceholder.link}
-                              autoComplete="off"
-                              {...register(`items.${index}.link`, itemLinkRules)}
-                            />
+                            <div className={styles.linkModalChildren}>
+                              <input
+                                className={styles.linkInput}
+                                placeholder={itemPlaceholder.link}
+                                autoComplete="off"
+                                {...register(`items.${index}.link`, itemLinkRules)}
+                              />
+                              {watchItems[index]?.link?.length !== 0 && linkError && (
+                                <p className={styles.error}>{linkError}</p>
+                              )}
+                            </div>
                           </LinkModal>
                         }
                         linkPreview={

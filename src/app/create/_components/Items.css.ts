@@ -61,7 +61,11 @@ export const comment = style({
   },
 });
 
-export const modalInput = style([
+export const linkModalChildren = style({
+  width: '100%',
+});
+
+export const linkInput = style([
   title,
   {
     width: '100%',
@@ -80,6 +84,9 @@ export const countLength = style({
 });
 
 export const error = style({
+  marginTop: '8px',
+  marginLeft: '4px',
+
   flexShrink: '0',
   color: '#FF5454',
   fontSize: '1.5rem',

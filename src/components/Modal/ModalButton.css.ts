@@ -39,3 +39,13 @@ export const secondaryButton = style([
     color: '#0047FF',
   },
 ]);
+
+export const disabledButton = style([
+  baseButton,
+  {
+    backgroundColor: '#AFB1B6',
+    color: '#fff',
+
+    cursor: 'default',
+  },
+]);

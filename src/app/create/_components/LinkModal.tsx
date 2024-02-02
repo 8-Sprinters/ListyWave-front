@@ -5,6 +5,7 @@ import useBooleanOutput from '@/hooks/useBooleanOutput';
 
 interface LinkModalProps {
   children: ReactNode;
+  isLinkValid: boolean;
   onTriggerButtonClick: () => void;
   onCancelButtonClick: () => void;
   onConfirmButtonClick: () => void;
@@ -12,6 +13,7 @@ interface LinkModalProps {
 
 export default function LinkModal({
   children,
+  isLinkValid,
   onTriggerButtonClick,
   onCancelButtonClick,
   onConfirmButtonClick,
@@ -42,7 +44,7 @@ export default function LinkModal({
         <Modal handleModalClose={handleCancelButtonClick}>
           <Modal.Title>링크 추가</Modal.Title>
           {children}
-          <Modal.Button onCancel={handleCancelButtonClick} onClick={handleConfirmButtonClick}>
+          <Modal.Button isDisabled={!isLinkValid} onCancel={handleCancelButtonClick} onClick={handleConfirmButtonClick}>
             확인
           </Modal.Button>
         </Modal>
