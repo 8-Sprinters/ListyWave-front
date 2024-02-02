@@ -1,4 +1,4 @@
-import { FormEvent, MouseEventHandler, ReactNode, useEffect, useRef, useState } from 'react';
+import { ReactNode } from 'react';
 import ModalPortal from '@/components/ModalPortal';
 import * as styles from './Modal.css';
 import ModalTitle from './ModalTitle';
