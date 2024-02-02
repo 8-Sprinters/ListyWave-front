@@ -45,9 +45,6 @@ export const profile = style({
 });
 
 export const avatar = style({
-  width: '5rem',
-  height: '5rem',
-
   borderRadius: '50%',
   border: '2px solid #FFF',
 });

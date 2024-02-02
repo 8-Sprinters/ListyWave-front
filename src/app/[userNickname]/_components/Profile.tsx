@@ -4,8 +4,10 @@
  - [ ] 프로필 이미지, 배경 이미지 적용
  - [ ] api 연동
  */
-import { assignInlineVars } from '@vanilla-extract/dynamic';
 import { UserType } from '../mockData/mockDataTypes'; // 삭제 예정
+
+import Image from 'next/image';
+import { assignInlineVars } from '@vanilla-extract/dynamic';
 import * as styles from './Profile.css';
 
 import Action from './Action';
@@ -30,7 +32,14 @@ export default function Profile({ user }: ProfileProps) {
       </div>
       <div className={styles.profileContainer}>
         <div className={styles.profile}>
-          <img src={user.profileImageUrl} className={styles.avatar} alt="아바타" />
+          <Image
+            src={`${user.profileImageUrl}`}
+            className={styles.avatar}
+            alt="프로필 이미지"
+            width={50}
+            height={50}
+            priority
+          />
           <div className={styles.info}>
             <div className={styles.user}>
               <span className={styles.nickName}>{user.nickname}</span>
