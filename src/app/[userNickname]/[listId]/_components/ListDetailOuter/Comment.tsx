@@ -1,11 +1,11 @@
 'use client';
 import Image from 'next/image';
 import Replies from '@/app/[userNickname]/[listId]/_components/ListDetailOuter/Replies';
+import DeleteModalButton from '@/app/[userNickname]/[listId]/_components/ListDetailOuter/DeleteModalButton';
 import timeDiff from '@/lib/utils/timeDiff';
 import * as styles from './Comment.css';
-import { CommentType } from '../../mockData/mockdataType';
 import DefaultProfile from '/public/icons/default_profile_temporary.svg';
-import DeleteModal from './DeleteModalButton';
+import { CommentType } from '../../mockData/mockdataType';
 
 interface CommentProps {
   comment: CommentType | undefined;
@@ -44,7 +44,7 @@ function Comment({ comment, onUpdate }: CommentProps) {
             <div className={styles.commentContent}>{comment?.content}</div>
           </div>
         </div>
-        <DeleteModal />
+        <DeleteModalButton />
       </div>
       <button className={styles.createReplyButton} onClick={handleActiveNicknameUpdate}>
         <span>답글 달기</span>
