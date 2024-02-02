@@ -16,6 +16,7 @@ export const previewBox = style({
   borderRadius: '10px',
   whiteSpace: 'pre-wrap',
   overflow: 'hidden',
+  cursor: 'pointer',
 });
 
 export const clearButton = style({
