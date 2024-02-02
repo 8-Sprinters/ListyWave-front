@@ -17,6 +17,11 @@ export default function PreviewBox({ type, url, domain, imageUrl, handleClearBut
     window.open(url);
   };
 
+  const handleClearClick = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.stopPropagation();
+    handleClearButtonClick();
+  };
+
   return (
     <div className={styles.previewBox} onClick={handlePreviewClick} role="button">
       {type === 'link' && (
@@ -26,7 +31,7 @@ export default function PreviewBox({ type, url, domain, imageUrl, handleClearBut
         </>
       )}
       {type === 'image' && <Image src={imageUrl ?? ''} alt="첨부 이미지" width="90" height="90" />}
-      <button className={styles.clearButton} onClick={handleClearButtonClick}>
+      <button className={styles.clearButton} onClick={handleClearClick}>
         <ClearBlackIcon alt="링크 삭제 버튼" />
       </button>
     </div>
