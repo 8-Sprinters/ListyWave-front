@@ -102,9 +102,10 @@ export default function Items() {
                         itemLength={watchItems.length}
                         titleInput={
                           <input
-                            className={styles.title}
+                            className={titleError ? styles.errorTitle : styles.title}
                             placeholder={itemPlaceholder.title}
                             autoComplete="off"
+                            maxLength={100}
                             {...register(`items.${index}.title`, itemTitleRules)}
                           />
                         }
@@ -112,6 +113,7 @@ export default function Items() {
                           <textarea
                             className={styles.comment}
                             placeholder={itemPlaceholder.comment}
+                            maxLength={100}
                             {...register(`items.${index}.comment`, itemCommentRules)}
                           />
                         }

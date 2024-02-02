@@ -42,6 +42,15 @@ export const title = style({
   },
 });
 
+export const errorTitle = style([
+  title,
+  {
+    '::placeholder': {
+      color: '#FF5454',
+    },
+  },
+]);
+
 export const comment = style({
   width: '100%',
   resize: 'none',
