@@ -15,14 +15,14 @@ import FloatingContainer from '@/components/floatingButton/FloatingContainer';
 import PlusButton from '@/components/floatingButton/PlusOptionFloatingButton';
 import ArrowUpButton from '@/components/floatingButton/ArrowUpFloatingButton';
 
-interface FeedPageProps {
+interface MyListPageProps {
   params: {
     userNickname: number;
   };
   userId: number;
 }
 
-export default function MyListPage({ params, userId }: FeedPageProps) {
+export default function MyListPage({ params, userId }: MyListPageProps) {
   // console.log(params.userNickname); // 삭제 예정
 
   // 1. userId로 유저 정보 가져오는 api 요청
