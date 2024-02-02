@@ -3,7 +3,7 @@ import { useState, MouseEvent } from 'react';
 import { useRouter, useParams } from 'next/navigation';
 
 import ModalPortal from '@/components/ModalPortal';
-import BottomSheet from '@/app/[userNickname]/[listId]/_components/ListDetailOuter/BottomSheet';
+import BottomSheet from '@/app/[userNickname]/[listId]/_components/BottomSheet/BottomSheet';
 import * as styles from './Header.css';
 
 import BackButton from '/public/icons/back.svg';
@@ -14,6 +14,23 @@ function Header() {
   const [isSheetActive, setSheetActive] = useState<boolean>(false);
   const router = useRouter();
   const params = useParams<{ userNickname: string; listId: string }>();
+
+  const bottomSheetOptionList = [
+    {
+      key: 'editList',
+      title: '리스트 수정하기',
+      onClick: () => {
+        setSheetActive(false);
+      },
+    },
+    {
+      key: 'deleteList',
+      title: '리스트 삭제하기',
+      onClick: () => {
+        setSheetActive(false);
+      },
+    },
+  ];
 
   const handleSheetActive = () => {
     setSheetActive((prev: boolean) => !prev);
@@ -37,7 +54,7 @@ function Header() {
     <>
       {isSheetActive && (
         <ModalPortal>
-          <BottomSheet onClose={handleModalClose} isActive={isSheetActive} />
+          <BottomSheet onClose={handleModalClose} isActive={isSheetActive} optionList={bottomSheetOptionList} />
         </ModalPortal>
       )}
       <div className={styles.wrapper}>
