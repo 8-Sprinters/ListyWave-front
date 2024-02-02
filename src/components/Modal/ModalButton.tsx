@@ -1,10 +1,10 @@
-import { ReactNode } from 'react';
+import { MouseEventHandler, ReactNode } from 'react';
 import * as styles from './ModalButton.css';
 
 interface ModalButtonProps {
   children: ReactNode;
-  onCancel: () => void;
-  onClick: () => void;
+  onCancel: MouseEventHandler<HTMLButtonElement>;
+  onClick: MouseEventHandler<HTMLButtonElement>;
 }
 
 export default function ModalButton({ children, onCancel, onClick }: ModalButtonProps) {
