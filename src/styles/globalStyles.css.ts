@@ -28,11 +28,15 @@ globalStyle('button', {
   cursor: 'pointer',
 });
 
-globalStyle('input', {
+globalStyle('input, textarea', {
   border: 'none',
   padding: 'none',
 });
 
-globalStyle('input:focus', {
+globalStyle('textarea', {
+  resize: 'none',
+});
+
+globalStyle('input:focus, textarea:focus', {
   outline: 'none',
 });

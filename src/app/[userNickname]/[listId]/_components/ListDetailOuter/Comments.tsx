@@ -1,10 +1,11 @@
 'use client';
 import { useState } from 'react';
+import Image from 'next/image';
 
 import Comment from '@/app/[userNickname]/[listId]/_components/ListDetailOuter/Comment';
 import * as styles from './Comments.css';
 import { MOCKDATA_COMMENTS } from '../../mockData/mockdata';
-import ClearButton from '/public/icons/clear.svg';
+import CancelButton from '/public/icons/cancel_button.svg';
 
 const COMMENTS = MOCKDATA_COMMENTS[1];
 
@@ -19,18 +20,20 @@ function Comments() {
 
   return (
     <div className={styles.wrapper}>
-      <div className={styles.formWrapper}>
-        <img alt="프로필 이미지" width={36} height={36} className={styles.profileImage} />
-        <form className={styles.form}>
+      <div className={styles.formWrapperOuter}>
+        <Image src="" alt="프로필 이미지" width={36} height={36} className={styles.profileImage} />
+        <div className={`${styles.formWrapperInner} ${!!activeNickname ? styles.activeFormWrapper : ''}`}>
           {activeNickname && (
-            <div className={styles.formNicknameWrapper} onClick={handleActiveNicknameDelete}>
-              <span className={styles.formNickname}>{`@${activeNickname}`}</span>
-              <ClearButton className={styles.clearButton} alt="지우기 버튼" />
+            <div className={styles.activeReplyWrapper}>
+              <span className={styles.replyNickname}>{`@${activeNickname}님에게 남긴 답글`}</span>
+              <CancelButton className={styles.clearButton} alt="지우기 버튼" onClick={handleActiveNicknameDelete} />
             </div>
           )}
-          <input className={styles.formInput}></input>
-          <button className={styles.formButton}>게시</button>
-        </form>
+          <form className={styles.formContainer}>
+            <input className={styles.formInput}></input>
+            <button className={styles.formButton}>게시</button>
+          </form>
+        </div>
       </div>
       <div className={styles.totalCount}>{`${COMMENTS.totalCount}개의 댓글`}</div>
       {COMMENTS.comments.map((item, idx) => {

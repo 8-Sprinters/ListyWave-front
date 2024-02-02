@@ -5,7 +5,7 @@ export const wrapper = style({
   padding: '20px 24px',
 });
 
-export const formWrapper = style({
+export const formWrapperOuter = style({
   padding: '15px 10px',
 
   width: '100%',
@@ -25,15 +25,26 @@ export const formWrapper = style({
   zIndex: 30,
 });
 
-export const form = style({
+export const formWrapperInner = style({
   width: '100%',
-  height: '30px',
+  height: 'auto',
   padding: '8px 12px',
 
   display: 'flex',
+  flexDirection: 'column',
+  gap: '4px',
 
   borderRadius: '50px',
   border: '1px solid #D9D9D9',
+});
+
+export const activeFormWrapper = style({
+  borderRadius: '10px',
+});
+
+export const formContainer = style({
+  display: 'flex',
+  justifyContent: 'space-between',
 });
 
 export const formInput = style({
@@ -47,11 +58,14 @@ export const formInput = style({
   resize: 'none',
 });
 
-export const formNickname = style({
+export const replyNickname = style({
   marginRight: '8px',
 
+  flex: '1 0 0',
+
   fontSize: '1.2rem',
-  fontWeight: 500,
+  fontWeight: 400,
+  color: '#AFB1B6',
 });
 
 export const formButton = style({
@@ -80,12 +94,16 @@ export const profileImage = style({
   backgroundColor: '#909090',
 });
 
-export const formNicknameWrapper = style({
+export const activeReplyWrapper = style({
+  display: 'flex',
+  justifyContent: 'space-between',
+});
+
+export const replyNicknameWrapper = style({
   display: 'flex',
   alignItems: 'center',
 });
 
 export const clearButton = style({
-  width: '20px',
-  height: '20px',
+  cursor: 'pointer',
 });
