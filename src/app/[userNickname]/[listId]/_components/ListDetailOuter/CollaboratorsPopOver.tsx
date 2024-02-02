@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import * as styles from './CollaboratorsPopOver.css';
 import { CollaboratorType } from '../../mockData/mockdataType';
 
@@ -14,7 +15,7 @@ function CollaboratorsPopOver({ collaborators }: CollaboratorsProps) {
             <>
               <div className={styles.itemWrapper} key={idx.toString()}>
                 {item.profileImageUrl ? (
-                  <img src={item.profileImageUrl} className={styles.profileImage} alt="사용자 프로필 이미지"></img>
+                  <Image src={item.profileImageUrl} className={styles.profileImage} alt="사용자 프로필 이미지"></Image>
                 ) : (
                   <div className={styles.defaultProfileImage}></div>
                 )}

@@ -1,6 +1,5 @@
 'use client';
 import Image from 'next/image';
-
 import Replies from '@/app/[userNickname]/[listId]/_components/ListDetailOuter/Replies';
 import timeDiff from '@/lib/utils/timeDiff';
 import * as styles from './Comment.css';

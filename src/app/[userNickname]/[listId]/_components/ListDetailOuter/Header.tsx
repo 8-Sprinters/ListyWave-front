@@ -1,11 +1,9 @@
 'use client';
 import { useState, MouseEvent } from 'react';
 import { useRouter, useParams } from 'next/navigation';
-
 import ModalPortal from '@/components/ModalPortal';
 import BottomSheet from '@/app/[userNickname]/[listId]/_components/BottomSheet/BottomSheet';
 import * as styles from './Header.css';
-
 import BackButton from '/public/icons/back.svg';
 import HistoryButton from '/public/icons/history.svg';
 import KebabButton from '/public/icons/vertical_kebab_button.svg';

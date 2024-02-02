@@ -1,5 +1,6 @@
 'use client';
 import { useState } from 'react';
+import Image from 'next/image';
 import timeDiff from '@/lib/utils/timeDiff';
 import * as styles from './Replies.css';
 import Line from '/public/icons/horizontal_line.svg';
@@ -31,7 +32,11 @@ function Replies({ replies }: RepliesProps) {
             return (
               <li key={idx.toString()} className={styles.repliesOuterWrapper}>
                 <div className={styles.replyWrapper} key={idx.toString()}>
-                  <img src={reply.userProfileImageUrl} className={styles.profileImage} alt="사용자 프로필 이미지"></img>
+                  <Image
+                    src={reply.userProfileImageUrl}
+                    className={styles.profileImage}
+                    alt="사용자 프로필 이미지"
+                  ></Image>
                   <div className={styles.replyContainer}>
                     <div className={styles.replyInformationWrapper}>
                       <span className={styles.replyWriter}>{reply.userNickName}</span>

@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import Label from '@/components/Label/Label';
 import Collaborators from '@/app/[userNickname]/[listId]/_components/ListDetailOuter/Collaborators';
 import timeDiff from '@/lib/utils/timeDiff';
@@ -28,13 +29,13 @@ function ListInformation() {
       <div className={styles.listComponentTemporary}>리스트 컴포넌트</div>
       <div className={styles.bottomWrapper}>
         <div className={styles.bottomLeftWrapper}>
-          <img
+          <Image
             src={LIST.ownerProfileImageUrl}
             alt="사용자 프로필 이미지"
             width={36}
             height={36}
             className={styles.profileImage}
-          ></img>
+          ></Image>
           <div className={styles.informationWrapper}>
             <div className={styles.listOwnerNickname}>{LIST.ownerNickname}</div>
             <div className={styles.infoDetailWrapper}>
