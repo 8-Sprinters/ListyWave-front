@@ -8,6 +8,7 @@ export default function TempLayout({ children }: { children: ReactNode }) {
         <title>ListyWave</title>
       </head>
       <body>
+        <div id="modal-root" />
         <div>{children}</div>
       </body>
     </html>
