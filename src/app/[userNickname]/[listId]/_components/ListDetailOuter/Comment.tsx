@@ -1,9 +1,7 @@
 'use client';
-import { useState } from 'react';
 import Image from 'next/image';
 
 import Replies from '@/app/[userNickname]/[listId]/_components/ListDetailOuter/Replies';
-import PopOverMenu from '@/app/[userNickname]/[listId]/_components/ListDetailOuter/PopOverMenu';
 import timeDiff from '@/lib/utils/timeDiff';
 import * as styles from './Comment.css';
 import { CommentType } from '../../mockData/mockdataType';
@@ -17,8 +15,6 @@ interface CommentProps {
 }
 
 function Comment({ comment, onUpdate }: CommentProps) {
-  const [activeMenuId, setActiveMenuId] = useState<number | null>(null);
-
   const handleActiveNicknameUpdate = () => {
     const currentUserName = comment?.userName;
     if (currentUserName) {
@@ -50,7 +46,6 @@ function Comment({ comment, onUpdate }: CommentProps) {
           </div>
         </div>
         <DeleteModal />
-        {comment && activeMenuId === comment.id && <PopOverMenu />}
       </div>
       <button className={styles.createReplyButton} onClick={handleActiveNicknameUpdate}>
         <span>답글 달기</span>
