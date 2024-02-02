@@ -1,7 +1,7 @@
 import { ReactNode } from 'react';
-import * as styles from './DeleteModalButton.css';
 import Modal from '@/components/Modal/Modal';
 import useBooleanOutput from '@/hooks/useBooleanOutput';
+import * as styles from './DeleteModalButton.css';
 import DeleteButton from '/public/icons/trash_can.svg';
 
 interface DeleteModalProps {

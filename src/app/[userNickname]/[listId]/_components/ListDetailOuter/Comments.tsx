@@ -5,6 +5,7 @@ import Comment from '@/app/[userNickname]/[listId]/_components/ListDetailOuter/C
 import * as styles from './Comments.css';
 import { MOCKDATA_COMMENTS } from '../../mockData/mockdata';
 import CancelButton from '/public/icons/cancel_button.svg';
+
 const COMMENTS = MOCKDATA_COMMENTS[1];
 
 function Comments() {
