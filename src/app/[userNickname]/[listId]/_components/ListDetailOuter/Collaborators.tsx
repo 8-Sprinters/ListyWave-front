@@ -22,15 +22,18 @@ function Collaborators({ collaborators }: CollaboratorsProps) {
           <div className={styles.wrapper}>
             <div className={`${styles.ProfileImg} ${styles.profilePlus}`}>
               <span className={styles.profileText}>{`${collaborators && collaborators?.length - 3}`}</span>
-              <PlusIcon />
+              <PlusIcon alt="더하기 모양 아이콘" />
             </div>
             {collaboratorsList?.map((item: CollaboratorType) => {
               return (
                 <div key={item.id}>
                   {item.profileImageUrl ? (
-                    <img className={styles.ProfileImg} src={item.profileImageUrl}></img>
+                    <img className={styles.ProfileImg} src={item.profileImageUrl} alt="사용자 프로필 이미지"></img>
                   ) : (
-                    <DefaultProfile className={`${styles.ProfileImg} ${styles.defaultProfile}`} />
+                    <DefaultProfile
+                      className={`${styles.ProfileImg} ${styles.defaultProfile}`}
+                      alt="사용자 프로필 이미지"
+                    />
                   )}
                 </div>
               );

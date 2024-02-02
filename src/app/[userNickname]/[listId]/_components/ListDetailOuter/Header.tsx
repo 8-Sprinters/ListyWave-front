@@ -59,15 +59,15 @@ function Header() {
       )}
       <div className={styles.wrapper}>
         <button className={styles.buttonResetStyle} onClick={handleBackButtonClick}>
-          <BackButton />
+          <BackButton alt="뒤로 가기 버튼" />
         </button>
         <div className={styles.title}>리스트</div>
         <div className={styles.headerRightWrapper}>
           <button className={styles.buttonResetStyle} onClick={handleHistoryButtonClick}>
-            <HistoryButton />
+            <HistoryButton alt="히스토리 버튼" />
           </button>
           <button className={styles.buttonResetStyle} onClick={handleSheetActive}>
-            <KebabButton />
+            <KebabButton alt="케밥 버튼" />
           </button>
         </div>
       </div>

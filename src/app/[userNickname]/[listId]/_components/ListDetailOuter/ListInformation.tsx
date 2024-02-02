@@ -30,7 +30,7 @@ function ListInformation() {
         <div className={styles.bottomLeftWrapper}>
           <img
             src={LIST.ownerProfileImageUrl}
-            alt="유저프로필 이미지"
+            alt="사용자 프로필 이미지"
             width={36}
             height={36}
             className={styles.profileImage}

@@ -25,7 +25,7 @@ function Comments() {
           {activeNickname && (
             <div className={styles.formNicknameWrapper} onClick={handleActiveNicknameDelete}>
               <span className={styles.formNickname}>{`@${activeNickname}`}</span>
-              <ClearButton className={styles.clearButton} />
+              <ClearButton className={styles.clearButton} alt="지우기 버튼" />
             </div>
           )}
           <input className={styles.formInput}></input>

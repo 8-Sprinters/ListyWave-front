@@ -14,7 +14,7 @@ function CollaboratorsPopOver({ collaborators }: CollaboratorsProps) {
             <>
               <div className={styles.itemWrapper} key={idx.toString()}>
                 {item.profileImageUrl ? (
-                  <img src={item.profileImageUrl} className={styles.profileImage}></img>
+                  <img src={item.profileImageUrl} className={styles.profileImage} alt="사용자 프로필 이미지"></img>
                 ) : (
                   <div className={styles.defaultProfileImage}></div>
                 )}
