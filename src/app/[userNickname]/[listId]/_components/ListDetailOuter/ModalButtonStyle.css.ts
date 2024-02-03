@@ -6,4 +6,5 @@ export const resetButtonStyle = style({
 
 export const buttonCursor = style({
   cursor: 'pointer',
+  marginTop: '4px',
 });

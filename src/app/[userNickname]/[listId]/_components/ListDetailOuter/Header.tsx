@@ -28,7 +28,9 @@ function Header() {
           <button className={styles.buttonResetStyle} onClick={handleHistoryButtonClick}>
             <HistoryButton alt="히스토리 버튼" />
           </button>
-          <OpenBottomSheetButton />
+          <button className={styles.buttonResetStyle}>
+            <OpenBottomSheetButton />
+          </button>
         </div>
       </div>
     </>
