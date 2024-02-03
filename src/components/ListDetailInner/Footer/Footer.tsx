@@ -8,7 +8,9 @@ import etcIcon from '/public/icons/etc.svg';
 import BottomSheet from '@/components/ListDetailInner/BottomSheet/BottomSheet';
 import { MouseEvent, useState } from 'react';
 import ModalPortal from '@/components/ModalPortal';
-import copyLink from '@/hooks/copyUrl';
+import copyUrl from '@/lib/utils/copyUrl';
+import saveImageFromHtml from '@/lib/utils/saveImageFromHtml';
+import kakaotalkShare from '@/components/KakaotalkShareButton/kakaotalkShare';
 
 interface BottomSheetOptionsProps {
   key: string;
@@ -30,27 +32,45 @@ function Footer() {
         {
           key: 'copyLink',
           title: '리스트 링크 복사하기',
-          onClick: copyLink,
+          onClick: () => {
+            copyUrl();
+            setSheetActive(false);
+          },
         },
         {
           key: 'kakaoShare',
           title: '리스트 카카오톡으로 공유하기',
           onClick: () => {
-            alert('카카오톡공유');
+            // TODO: image로 저장한다음에 해당 image를 보내줘야한다.
+            kakaotalkShare({
+              shareUrl: 'https://develocal.tistory.com/category/React',
+              title: '강현지의 티스토리',
+              description: '강현지의 티스토리이다.',
+              image:
+                'https://i.namu.wiki/i/-8Iah6PGZzzQuY1KtJIbj8_KBbX4whnbaq8AYShoqphdJOpfJDskZZ2Y3bU2I5Jpnx8aRi1LXTz1_e0v_fMrp172modjOmKRcxcME5dmM6IDAIgqktw5yIs75is2CgC1GrGoxZPwxpeTXudKIxWn2w.webp',
+            });
+            // setSheetActive(false);
           },
         },
       ];
       setSheetOptionList([...optionList]);
       return;
     }
+    const testElement = document.querySelector('#rankList');
+    if (!testElement) {
+      console.error('Error: Could not find element with id #rankList');
+      return;
+    }
 
+    console.log(testElement);
     if (type === 'etc') {
       const optionList = [
         {
           key: 'saveToImg',
-          title: '리성스트 이미지로 저장하기',
+          title: '리스트 이미지로 저장하기',
           onClick: () => {
-            alert('이미지로저장');
+            saveImageFromHtml({ el: testElement, filename: 'testKanghj' });
+            // setSheetActive(false);
           },
         },
         {
@@ -65,12 +85,13 @@ function Footer() {
       return;
     }
   };
+
   const handleSheetActive = ({ type }: SheetTypeProps) => {
     handleSheetOptionList({ type });
     setSheetActive((prev: boolean) => !prev);
   };
 
-  const handleModalClose = (e: MouseEvent) => {
+  const handleOutsideClick = (e: MouseEvent) => {
     if (e.target === e.currentTarget) {
       setSheetActive(false);
     }
@@ -80,7 +101,7 @@ function Footer() {
     <>
       {isSheetActive && (
         <ModalPortal>
-          <BottomSheet onClose={handleModalClose} isActive={isSheetActive} optionList={sheetOptionList} />
+          <BottomSheet onClose={handleOutsideClick} isActive={isSheetActive} optionList={sheetOptionList} />
         </ModalPortal>
       )}
       <div className={styles.container}>

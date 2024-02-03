@@ -8,10 +8,10 @@ function makeUrl() {
   return url;
 }
 
-function copyLink() {
+function copyUrl() {
   const url = makeUrl();
   copy(url);
   toasting({ type: 'default', txt: '링크가 복사되었습니다.' });
 }
 
-export default copyLink;
+export default copyUrl;

@@ -75,7 +75,7 @@ function DetailList({ listData }: RankListProps) {
 
 function RankList({ listData, type }: RankListProps) {
   return (
-    <div className={styles.container}>
+    <div id="rankList" className={styles.container}>
       <div className={styles.listWrapper}>
         {listData ? (
           type == 'simple' ? (
