@@ -28,3 +28,4 @@ jobs:
           bucket: ${{ secrets.DEV_S3_BUCKET_NAME }}
           bucket-region: ${{ secrets.AWS_DEFAULT_REGION }}
           dist-id: ${{ secrets.DEV_CLOUDFRONT_ID }}
+          delete-removed: true

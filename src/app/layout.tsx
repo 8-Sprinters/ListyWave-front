@@ -2,6 +2,7 @@
 
 import { ReactNode } from 'react';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import '@/styles/globalStyles.css';
 
 const queryClient = new QueryClient();
 
@@ -13,6 +14,7 @@ export default function TempLayout({ children }: { children: ReactNode }) {
       </head>
       <body>
         <QueryClientProvider client={queryClient}>
+          <div id="modal-root" />
           <div>{children}</div>
         </QueryClientProvider>
       </body>
