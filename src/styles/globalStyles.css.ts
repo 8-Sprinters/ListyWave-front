@@ -2,6 +2,7 @@ import { globalStyle } from '@vanilla-extract/css';
 
 globalStyle('html', {
   fontSize: '62.5%',
+  color: '#19191B', //글자기본색
 });
 
 globalStyle('*', {
@@ -25,6 +26,7 @@ globalStyle('ol, ul', {
 
 globalStyle('button', {
   cursor: 'pointer',
+  backgroundColor: 'transparent',
 });
 
 globalStyle('input', {

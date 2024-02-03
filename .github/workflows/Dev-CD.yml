@@ -1,0 +1,31 @@
+name: FrontEnd Dev CD
+
+on:
+  push:
+    branches: [ "dev" ]
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    env:
+      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20.11.0
+
+      - run: yarn install
+      - run: yarn build
+
+      - name: S3 and CloudFront Deploy
+        uses: Reggionick/s3-deploy@v4
+        with:
+          folder: .next
+          bucket: ${{ secrets.DEV_S3_BUCKET_NAME }}
+          bucket-region: ${{ secrets.AWS_DEFAULT_REGION }}
+          dist-id: ${{ secrets.DEV_CLOUDFRONT_ID }}
+          delete-removed: true
