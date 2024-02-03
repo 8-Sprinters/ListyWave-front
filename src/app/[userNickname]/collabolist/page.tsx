@@ -15,14 +15,15 @@ import FloatingContainer from '@/components/floatingButton/FloatingContainer';
 import PlusOptionFloatingButton from '@/components/floatingButton/PlusOptionFloatingButton';
 import ArrowUpFloatingButton from '@/components/floatingButton/ArrowUpFloatingButton';
 
-interface CollaboListPageProps {
-  params: {
-    userNickname: number;
-  };
-  userId: number;
-}
+// 타입 사용할 때 재정의
+// interface CollaboListPageProps {
+//   params: {
+//     userNickname: number;
+//   };
+//   userId: number;
+// }
 
-export default function CollaboListPage({ params, userId }: CollaboListPageProps) {
+export default function CollaboListPage() {
   // 1. userId로 유저 정보 가져오는 api 요청
 
   return (
