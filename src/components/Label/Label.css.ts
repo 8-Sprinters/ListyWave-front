@@ -36,4 +36,5 @@ export const labelContent = style({
 
   display: 'flex',
   alignItems: 'center',
+  flexShrink: 0,
 });
