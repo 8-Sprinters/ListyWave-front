@@ -20,12 +20,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
 
     $('meta').each((_, element) => {
       if ($(element).attr('property')?.includes('og:')) {
-        const property = $(element).attr('property') ?? '';
+        const property = $(element).attr('property')?.replace('og:', '') ?? '';
         const content = $(element).attr('content') ?? '';
-
-        if (property) {
-          property.replace('og:', '');
-        }
 
         ogData[property] = content;
       }

@@ -31,14 +31,15 @@ const LinkPreview = (linkUrl: string) => {
 
   if (isSuccess && data) {
     const { url, title, description, image } = data;
+
     return (
-      <a href={url} rel="noreferrer" id="link" target="_blank" className={styles.container}>
+      <a href={linkUrl} rel="noreferrer" id="link" target="_blank" className={styles.container}>
         <div className={styles.wrapper}>
           {data.image && <img src={image} alt={title} className={styles.image} />}
           <div className={styles.contentWrapper}>
             <h2 className={styles.title}>{title || '제목이 없습니다.'}</h2>
             <p className={styles.description}>{description || '설명이 없습니다.'}</p>
-            <p className={styles.url}>data.url</p>
+            <p className={styles.url}>{url}</p>
           </div>
         </div>
       </a>
