@@ -5,7 +5,7 @@ import * as styles from './DeleteModalButton.css';
 import DeleteButton from '/public/icons/trash_can.svg';
 
 interface DeleteModalProps {
-  children?: ReactNode; //옵셔널하게?
+  children?: ReactNode;
 }
 
 export default function DeleteModal({ children }: DeleteModalProps) {
