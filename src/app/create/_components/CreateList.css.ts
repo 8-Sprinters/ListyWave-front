@@ -26,6 +26,10 @@ export const headerNextButton = style({
   color: '#8d8d8d',
 });
 
+export const headerNextButtonActive = style({
+  fontSize: '1.6rem',
+});
+
 export const body = style({
   width: '100vw',
   padding: '37px 20px 100px',

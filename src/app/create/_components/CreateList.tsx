@@ -1,8 +1,8 @@
 'use client';
 
 import React, { useEffect, useRef, useState } from 'react';
-import Link from 'next/link';
 import { useFormContext, useWatch } from 'react-hook-form';
+import Image from 'next/image';
 
 import '@/styles/globalStyles.css';
 import * as styles from './CreateList.css';
@@ -13,7 +13,6 @@ import SearchIcon from '/public/icons/search.svg';
 import DefaultProfile from '/public/icons/default_profile.svg';
 
 import mockdata from '../CreateListMock';
-import Image from 'next/image';
 
 interface UserProfileType {
   id: number;
@@ -22,7 +21,7 @@ interface UserProfileType {
 }
 
 function CreateList({ onNextClick }: { onNextClick: () => void }) {
-  const { register, getValues, setValue, setError, control, formState } = useFormContext();
+  const { register, setValue, setError, control, formState } = useFormContext();
   const { errors, isValid } = formState;
 
   const category = useWatch({ control, name: 'category' });
@@ -63,7 +62,7 @@ function CreateList({ onNextClick }: { onNextClick: () => void }) {
       <div className={styles.header}>
         <CloseButton width={'24'} height={'24'} />
         <h1 className={styles.headerTitle}>리스트 생성</h1>
-        <button className={styles.headerNextButton} onClick={onNextClick}>
+        <button className={isValid ? styles.headerNextButtonActive : styles.headerNextButton} onClick={onNextClick}>
           다음
         </button>
       </div>
@@ -276,7 +275,7 @@ function CreateList({ onNextClick }: { onNextClick: () => void }) {
                       <div
                         key={user.id}
                         className={styles.colaboProfileContainer}
-                        onClick={(e) => {
+                        onClick={() => {
                           if (!colaboList.find((colaboUser: UserProfileType) => colaboUser.id === user.id)) {
                             setColabolist([...colaboList, user]);
                             setValue('collaboratorIds', [...colaboIDs, user.id]);
