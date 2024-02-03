@@ -1,6 +1,6 @@
 'use client';
-import { ListItemProps } from '@/components/ListDetailInner';
-import * as styles from '@/components/ListDetailInner/RankList/style.css';
+import { ListItemProps } from './index';
+import * as styles from './RankList.css';
 import LinkPreview from '@/components/LinkPreview/LinkPreview';
 import VideoEmbed from '@/components/VideoEmbed/VideoEmbed';
 

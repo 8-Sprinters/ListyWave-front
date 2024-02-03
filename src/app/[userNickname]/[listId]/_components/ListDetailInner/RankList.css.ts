@@ -65,33 +65,41 @@ export const titleText = style({
 export const simpleImageWrapper = style({
   width: '7rem',
   height: '7rem',
+
   display: 'flex',
   justifyContent: 'center',
   alignItems: 'center',
+
   textAlign: 'center',
 });
 
 export const detailImageWrapper = style({
   width: '100%',
   height: 'auto',
+
   display: 'flex',
   justifyContent: 'center',
   alignItems: 'center',
+
   textAlign: 'center',
 });
 
 export const simpleImage = style({
-  borderRadius: '10px',
   width: '7rem',
   height: '7rem',
+
+  borderRadius: '10px',
+
   objectFit: 'cover',
 });
 
 export const detailImage = style({
-  borderRadius: '10px',
-  border: '1px solid #EFEFF0',
   width: '100%',
   maxHeight: '35rem',
   height: 'auto',
+
+  border: '1px solid #EFEFF0',
+  borderRadius: '10px',
+
   objectFit: 'cover',
 });

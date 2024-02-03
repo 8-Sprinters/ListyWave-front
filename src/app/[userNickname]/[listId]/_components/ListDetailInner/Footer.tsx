@@ -1,16 +1,16 @@
 'use client';
 
 import Image from 'next/image';
-import * as styles from '@/components/ListDetailInner/Footer/style.css';
+import * as styles from './Footer.css';
 import collectIcon from '/public/icons/collect.svg';
 import shareIcon from '/public/icons/share.svg';
 import etcIcon from '/public/icons/etc.svg';
-import BottomSheet from '@/components/ListDetailInner/BottomSheet/BottomSheet';
+import BottomSheet from '@/app/[userNickname]/[listId]/_components/BottomSheet/BottomSheet';
 import { MouseEvent, useState } from 'react';
 import ModalPortal from '@/components/ModalPortal';
 import copyUrl from '@/lib/utils/copyUrl';
 import saveImageFromHtml from '@/lib/utils/saveImageFromHtml';
-import kakaotalkShare from '@/components/KakaotalkShareButton/kakaotalkShare';
+import kakaotalkShare from '@/components/KakaotalkShare/kakaotalkShare';
 import { useParams, useRouter } from 'next/navigation';
 import toasting from '@/lib/utils/toasting';
 

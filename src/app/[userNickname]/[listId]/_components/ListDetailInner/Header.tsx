@@ -1,4 +1,4 @@
-import * as styles from '@/components/ListDetailInner/Header/style.css';
+import * as styles from './Header.css';
 import SelectComponent from '@/components/SelectComponent/SelectComponent';
 
 interface OptionsProps {

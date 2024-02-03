@@ -7,6 +7,7 @@ interface kakaotalkShareProps {
   image?: string;
 }
 function kakaotalkShare({ shareUrl, title, description, image }: kakaotalkShareProps) {
+  // TODO: 구성 데이터 변경 필요
   window.Kakao.Share.sendDefault({
     objectType: 'feed',
     content: {
