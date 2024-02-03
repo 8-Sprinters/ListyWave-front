@@ -1,5 +1,6 @@
 'use client';
 import { ReactNode } from 'react';
+import '@/styles/globalStyles.css';
 
 export default function TempLayout({ children }: { children: ReactNode }) {
   return (

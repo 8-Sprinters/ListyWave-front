@@ -3,12 +3,12 @@ import * as styles from './ModalButton.css';
 
 interface ModalButtonProps {
   children: ReactNode;
+  isDisabled?: boolean;
   onCancel: MouseEventHandler<HTMLButtonElement>;
   onClick: MouseEventHandler<HTMLButtonElement>;
-  isDisabled?: boolean;
 }
 
-export default function ModalButton({ children, onCancel, onClick, isDisabled = false }: ModalButtonProps) {
+export default function ModalButton({ children, isDisabled = false, onCancel, onClick }: ModalButtonProps) {
   return (
     <div className={styles.buttonContainer}>
       <button type="button" className={styles.secondaryButton} onClick={onCancel}>
