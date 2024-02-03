@@ -5,7 +5,7 @@ interface OptionsProps {
   label: string;
 }
 
-interface DropdownProps {
+interface SelectProps {
   name: string;
   options: OptionsProps[];
   isSearchable?: boolean;
@@ -45,7 +45,7 @@ const selectStyles = {
   }),
 };
 
-function SelectComponent({ name, options, isSearchable = false, onChange }: DropdownProps) {
+function SelectComponent({ name, options, isSearchable = false, onChange }: SelectProps) {
   return (
     <Select
       id={name}

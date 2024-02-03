@@ -1,7 +1,7 @@
 'use client';
 import { ListItemProps } from '@/components/ListDetailInner';
 import * as styles from '@/components/ListDetailInner/RankList/style.css';
-import LinkPreview from '@/components/OpenGraphPreview/LinkPreview';
+import LinkPreview from '@/components/LinkPreview/LinkPreview';
 import VideoEmbed from '@/components/VideoEmbed/VideoEmbed';
 
 interface RankListProps {
