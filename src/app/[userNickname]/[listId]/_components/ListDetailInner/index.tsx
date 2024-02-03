@@ -42,7 +42,6 @@ interface ListDetailInnerProps {
 
 function ListDetailInner({ data }: { data: ListDetailInnerProps }) {
   const listData = data.items;
-
   const [listType, setListType] = useState('simple');
   const handleChangeListType = (target: OptionsProps) => {
     const value: string = target.value;
@@ -54,6 +53,9 @@ function ListDetailInner({ data }: { data: ListDetailInnerProps }) {
     listId: data.listId,
     title: data.title,
     description: data.description,
+    items: listData,
+    collaborators: data.collaborators,
+    ownerNickname: data.ownerNickname,
   };
 
   return (

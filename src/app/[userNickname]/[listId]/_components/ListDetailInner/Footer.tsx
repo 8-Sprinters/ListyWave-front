@@ -29,6 +29,9 @@ interface FooterProps {
   listId: string;
   title: string;
   description: string;
+  items: [];
+  collaborators: [];
+  ownerNickname: string;
 }
 
 function Footer({ data }: { data: FooterProps }) {
@@ -57,11 +60,14 @@ function Footer({ data }: { data: FooterProps }) {
           onClick: () => {
             // TODO: image로 저장한다음에 해당 image를 보내줘야한다.
             kakaotalkShare({
-              shareUrl: listUrl,
               title: data.title,
               description: data.description,
               image:
                 'https://i.namu.wiki/i/-8Iah6PGZzzQuY1KtJIbj8_KBbX4whnbaq8AYShoqphdJOpfJDskZZ2Y3bU2I5Jpnx8aRi1LXTz1_e0v_fMrp172modjOmKRcxcME5dmM6IDAIgqktw5yIs75is2CgC1GrGoxZPwxpeTXudKIxWn2w.webp',
+              listItem: data.items,
+              collaborators: data.collaborators,
+              listId: data.listId,
+              userNickname: data.ownerNickname,
             });
             setSheetActive(false);
           },
