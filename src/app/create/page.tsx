@@ -1,9 +1,11 @@
 'use client';
 
+import { useState } from 'react';
 import { FieldErrors, FormProvider, useForm } from 'react-hook-form';
+import axios from 'axios';
+
 import CreateItem from '@/app/create/_components/CreateItem';
 import CreateList from '@/app/create/_components/CreateList';
-import { useState } from 'react';
 
 interface Item {
   rank: number;
@@ -33,11 +35,21 @@ export default function CreatePage() {
     setStep(step);
   };
 
+  const handleSubmit = async () => {
+    try {
+      const formData = methods.getValues();
+      const response = await axios.post('https://dev.api.listywave.com/lists', formData);
+      console.log('Response:', response.data);
+    } catch (error) {
+      console.error('Error:', error);
+    }
+  };
+
   const methods = useForm<FormValues>({
     mode: 'onChange',
     defaultValues: {
-      ownerId: 0,
-      category: '문화',
+      ownerId: 2,
+      category: 'culture',
       labels: [],
       collaboratorIds: [],
       title: '',
@@ -48,20 +60,20 @@ export default function CreatePage() {
         {
           rank: 0,
           title: '',
-          comment: null,
-          link: null,
+          comment: '',
+          link: '',
         },
         {
           rank: 0,
           title: '',
-          comment: null,
-          link: null,
+          comment: '',
+          link: '',
         },
         {
           rank: 0,
           title: '',
-          comment: null,
-          link: null,
+          comment: '',
+          link: '',
         },
       ],
     },
@@ -87,6 +99,9 @@ export default function CreatePage() {
             <CreateItem
               onBackClick={() => {
                 handleStepChange('list');
+              }}
+              onSubmit={() => {
+                handleSubmit();
               }}
             />
           )}

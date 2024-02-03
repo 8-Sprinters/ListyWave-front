@@ -136,54 +136,54 @@ function CreateList({ onNextClick }: CreateListProps) {
             <div className={styles.categoryContainer}>
               <input className={styles.categoryInputBox} />
               <button
-                className={`${styles.categoryButton} ${category === '문화' ? styles.categoryButtonActive : ''}`}
+                className={`${styles.categoryButton} ${category === 'culture' ? styles.categoryButtonActive : ''}`}
                 onClick={() => {
-                  setValue('category', '문화');
+                  setValue('category', 'culture');
                 }}
               >
                 문화
               </button>
               <button
-                className={`${styles.categoryButton} ${category === '일상/생활' ? styles.categoryButtonActive : ''}`}
+                className={`${styles.categoryButton} ${category === 'life' ? styles.categoryButtonActive : ''}`}
                 onClick={() => {
-                  setValue('category', '일상/생활');
+                  setValue('category', '');
                 }}
               >
                 일상/생활
               </button>
               <button
-                className={`${styles.categoryButton} ${category === '장소' ? styles.categoryButtonActive : ''}`}
-                onClick={() => setValue('category', '장소')}
+                className={`${styles.categoryButton} ${category === 'place' ? styles.categoryButtonActive : ''}`}
+                onClick={() => setValue('category', 'place')}
               >
                 장소
               </button>
               <button
-                className={`${styles.categoryButton} ${category === '음악' ? styles.categoryButtonActive : ''}`}
-                onClick={() => setValue('category', '음악')}
+                className={`${styles.categoryButton} ${category === 'music' ? styles.categoryButtonActive : ''}`}
+                onClick={() => setValue('category', 'music')}
               >
                 음악
               </button>
               <button
-                className={`${styles.categoryButton} ${category === '영화/드라마' ? styles.categoryButtonActive : ''}`}
-                onClick={() => setValue('category', '영화/드라마')}
+                className={`${styles.categoryButton} ${category === 'movie_drama' ? styles.categoryButtonActive : ''}`}
+                onClick={() => setValue('category', 'movie_drama')}
               >
                 영화/드라마
               </button>
               <button
-                className={`${styles.categoryButton} ${category === '도서' ? styles.categoryButtonActive : ''}`}
-                onClick={() => setValue('category', '도서')}
+                className={`${styles.categoryButton} ${category === 'book' ? styles.categoryButtonActive : ''}`}
+                onClick={() => setValue('category', 'book')}
               >
                 도서
               </button>
               <button
-                className={`${styles.categoryButton} ${category === '동식물' ? styles.categoryButtonActive : ''}`}
-                onClick={() => setValue('category', '동식물')}
+                className={`${styles.categoryButton} ${category === 'animal_plant' ? styles.categoryButtonActive : ''}`}
+                onClick={() => setValue('category', 'animal_plant')}
               >
                 동식물
               </button>
               <button
-                className={`${styles.categoryButton} ${category === '기타' ? styles.categoryButtonActive : ''}`}
-                onClick={() => setValue('category', '기타')}
+                className={`${styles.categoryButton} ${category === 'etc' ? styles.categoryButtonActive : ''}`}
+                onClick={() => setValue('category', 'etc')}
               >
                 기타
               </button>
