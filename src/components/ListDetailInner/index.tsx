@@ -3,7 +3,6 @@
 import Header from '@/components/ListDetailInner/Header/Header';
 import RankList from '@/components/ListDetailInner/RankList/RankList';
 import Footer from '@/components/ListDetailInner/Footer/Footer';
-import MOCKDATA_LIST from '@/components/ListDetailInner/MockData';
 import { useState } from 'react';
 import * as styles from '@/components/ListDetailInner/style.css';
 
@@ -21,11 +20,28 @@ interface OptionsProps {
   label: string;
 }
 
-// 테스트용 코드
-const initialValue: ListItemProps[] = MOCKDATA_LIST[1].items ?? [];
+interface ListDetailInnerProps {
+  listId: string;
+  category: string;
+  labels: [];
+  title: string;
+  description: string;
+  createdDate: string;
+  lastUpdatedDate: string;
+  ownerId: number;
+  ownerNickname: string;
+  ownerProfileImageUrl: string;
+  collaborators: [];
+  items: [];
+  isCollected: boolean;
+  isPublic: boolean;
+  backgroundColor: string;
+  collectCount: number;
+  viewCount: number;
+}
 
-function ListDetailInner() {
-  const listData = initialValue;
+function ListDetailInner({ data }: { data: ListDetailInnerProps }) {
+  const listData = data.items;
 
   const [listType, setListType] = useState('simple');
   const handleChangeListType = (target: OptionsProps) => {
@@ -33,12 +49,19 @@ function ListDetailInner() {
     setListType(value);
   };
 
+  const footerData = {
+    category: data.category,
+    listId: data.listId,
+    title: data.title,
+    description: data.description,
+  };
+
   return (
     <div className={styles.container}>
       <Header handleChangeListType={handleChangeListType} />
       <div className={styles.listAndFooter}>
         <RankList listData={listData} type={listType} />
-        <Footer />
+        <Footer data={footerData} />
       </div>
     </div>
   );

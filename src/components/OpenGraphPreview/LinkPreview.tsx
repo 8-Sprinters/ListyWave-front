@@ -1,69 +1,43 @@
 import { useQuery } from '@tanstack/react-query';
 import * as styles from '@/components/OpenGraphPreview/style.css';
-import VideoEmbed from '@/components/VideoEmbed/VideoEmbed';
 
-interface LinkPreviewProps {
-  url?: string;
-  title?: string;
-  description?: string;
-  image?: string;
-}
-
-// TODO: 백엔드에서 OG데이터 받아올 경우 삭제
 async function fetchLinkPreviewData(url: string) {
-  const response = await fetch(url);
-  const data = await response.text();
-  const parser = new DOMParser();
-  const doc = parser.parseFromString(data, 'text/html');
-  const title = doc.querySelector('meta[property="og:title"]')?.getAttribute('content') || '';
-  const description = doc.querySelector('meta[property="og:description"]')?.getAttribute('content') || '';
-  const image = doc.querySelector('meta[property="og:image"]')?.getAttribute('content') || '';
-  const URL = doc.querySelector('meta[property="og:url"]')?.getAttribute('content') || url;
+  try {
+    const response = await fetch(`/api/getOgDataProxy?url=${encodeURIComponent(url)}`);
 
-  console.log('fetchData', title, description, image, URL);
-  return {
-    title: title,
-    description: description,
-    image: image,
-    url: URL,
-  };
+    const data = await response.json();
+
+    return {
+      title: data.title,
+      description: data.description,
+      image: data.image,
+      url: data.url,
+    };
+  } catch (error) {
+    console.error('url정보를 가져오는데 실패했습니다.', error);
+    return {};
+  }
 }
 
 const LinkPreview = (linkUrl: string) => {
-  // 테스트 url
-  // linkUrl = 'https://map.naver.com/p/entry/place/1055469623?placePath=%2Fhome&c=15.00,0,0,0,dh';
-  linkUrl = 'https://kagrin97-blog.vercel.app/next/OpenGraphPreview';
-
-  // TODO: 백엔드에서 OG데이터 받아올 경우, 해당 API호출로 변경
   const { data, isSuccess, isFetching } = useQuery({
     queryKey: ['linkPreview' + linkUrl],
     queryFn: () => fetchLinkPreviewData(linkUrl),
   });
 
   if (isFetching) {
-    return <div>Loading...</div>;
+    return <div>로딩중입니다.</div>;
   }
 
-  // 테스트 UI
-  // <div className="link-preview">
-  //   {data.image && <img src={data.image} alt="Preview" className="preview-image" />}
-  //   <div className="preview-content">
-  //     <h2 className="preview-title">{data.title || 'Untitled'}</h2>
-  //     <p className="preview-description">{data.description || 'No description available'}</p>
-  //     <a href={data.url} className="preview-url">
-  //       Visit Site
-  //     </a>
-  //   </div>
-  // </div>
   if (isSuccess && data) {
     const { url, title, description, image } = data;
     return (
       <a href={url} rel="noreferrer" id="link" target="_blank" className={styles.container}>
         <div className={styles.wrapper}>
-          {data.image && <img src={data.image} alt={data.title} className={styles.image} />}
+          {data.image && <img src={image} alt={title} className={styles.image} />}
           <div className={styles.contentWrapper}>
-            <h2 className={styles.title}>{data.title || 'Untitled'}</h2>
-            <p className={styles.description}>{data.description || 'No description available'}</p>
+            <h2 className={styles.title}>{title || '제목이 없습니다.'}</h2>
+            <p className={styles.description}>{description || '설명이 없습니다.'}</p>
             <p className={styles.url}>data.url</p>
           </div>
         </div>
@@ -71,27 +45,7 @@ const LinkPreview = (linkUrl: string) => {
     );
   }
 
-  return <div>No preview available</div>;
+  return <div>미리보기를 가져오는데 실패했습니다.</div>;
 };
-
-// const LinkPreview = ({
-//   url,
-//   title,
-//   description = '설명이 존재하지 않습니다.',
-//   image = '../../imgs/not-found-img.png'
-// }: LinkPreviewProps) => {
-//   return (
-//     <a href={url} rel="noreferrer" id="link" target="_blank" className={styles.link}>
-//       <div className="dataContainer p-4">
-//         <h4 className={styles.title}>{title}</h4>
-//         <p className={styles.description}>{description}</p>
-//         <small className={styles.url}>{url}</small>
-//       </div>
-//       <div className={styles.imageWrapper}>
-//         <img src={image} className={styles.image} alt={title} />
-//       </div>
-//     </a>
-//   );
-// };
 
 export default LinkPreview;

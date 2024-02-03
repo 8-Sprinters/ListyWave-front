@@ -1,9 +1,7 @@
 'use client';
 import { ListItemProps } from '@/components/ListDetailInner';
 import * as styles from '@/components/ListDetailInner/RankList/style.css';
-import cheerio from 'cheerio';
 import LinkPreview from '@/components/OpenGraphPreview/LinkPreview';
-import { useQuery } from '@tanstack/react-query';
 import VideoEmbed from '@/components/VideoEmbed/VideoEmbed';
 
 interface RankListProps {
@@ -27,7 +25,7 @@ function SimpleList({ listData }: RankListProps) {
   });
 }
 
-function EmbedComponent({ link }) {
+function EmbedComponent({ link }: { link: string }) {
   let linkType = '';
   // 일반url(link), 비디오(video), 지도(map) 로 구분하기. 지금은 비디오랑 링크만 구분.
   // TODO: 지도 추가하기
@@ -51,9 +49,6 @@ function EmbedComponent({ link }) {
   }
 }
 function DetailList({ listData }: RankListProps) {
-  // const previewData = LinkPreview('https://kagrin97-blog.vercel.app/next/OpenGraphPreview');
-  const videoUrl = 'https://www.youtube.com/watch?v=BkkvG283d-M';
-
   return listData.map((item) => {
     return (
       <div key={item.id} className={styles.detailItemWrapper}>
@@ -81,7 +76,6 @@ function RankList({ listData, type }: RankListProps) {
           type == 'simple' ? (
             <SimpleList listData={listData} />
           ) : (
-            // type == 'detail'
             <DetailList listData={listData} />
           )
         ) : (

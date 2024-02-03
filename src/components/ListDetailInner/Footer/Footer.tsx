@@ -11,6 +11,8 @@ import ModalPortal from '@/components/ModalPortal';
 import copyUrl from '@/lib/utils/copyUrl';
 import saveImageFromHtml from '@/lib/utils/saveImageFromHtml';
 import kakaotalkShare from '@/components/KakaotalkShareButton/kakaotalkShare';
+import { useParams, useRouter } from 'next/navigation';
+import toasting from '@/lib/utils/toasting';
 
 interface BottomSheetOptionsProps {
   key: string;
@@ -22,18 +24,30 @@ interface SheetTypeProps {
   type: 'share' | 'etc';
 }
 
-function Footer() {
+interface FooterProps {
+  category: string;
+  listId: string;
+  title: string;
+  description: string;
+}
+
+function Footer({ data }: { data: FooterProps }) {
+  const router = useRouter();
+  const params = useParams<{ userNickname: string; listId: string }>();
+
   const [isSheetActive, setSheetActive] = useState<boolean>(false);
   const [sheetOptionList, setSheetOptionList] = useState<BottomSheetOptionsProps[]>([]);
 
   const handleSheetOptionList = ({ type }: SheetTypeProps) => {
+    const listUrl = `${process.env.NEXT_PUBLIC_BASE_URL}/${params?.userNickname}/${params?.listId}`;
+
     if (type === 'share') {
       const optionList = [
         {
           key: 'copyLink',
           title: '리스트 링크 복사하기',
           onClick: () => {
-            copyUrl();
+            copyUrl(listUrl);
             setSheetActive(false);
           },
         },
@@ -43,41 +57,36 @@ function Footer() {
           onClick: () => {
             // TODO: image로 저장한다음에 해당 image를 보내줘야한다.
             kakaotalkShare({
-              shareUrl: 'https://develocal.tistory.com/category/React',
-              title: '강현지의 티스토리',
-              description: '강현지의 티스토리이다.',
+              shareUrl: listUrl,
+              title: data.title,
+              description: data.description,
               image:
                 'https://i.namu.wiki/i/-8Iah6PGZzzQuY1KtJIbj8_KBbX4whnbaq8AYShoqphdJOpfJDskZZ2Y3bU2I5Jpnx8aRi1LXTz1_e0v_fMrp172modjOmKRcxcME5dmM6IDAIgqktw5yIs75is2CgC1GrGoxZPwxpeTXudKIxWn2w.webp',
             });
-            // setSheetActive(false);
+            setSheetActive(false);
           },
         },
       ];
       setSheetOptionList([...optionList]);
       return;
     }
-    const testElement = document.querySelector('#rankList');
-    if (!testElement) {
-      console.error('Error: Could not find element with id #rankList');
-      return;
-    }
 
-    console.log(testElement);
     if (type === 'etc') {
       const optionList = [
         {
           key: 'saveToImg',
           title: '리스트 이미지로 저장하기',
           onClick: () => {
-            saveImageFromHtml({ el: testElement, filename: 'testKanghj' });
-            // setSheetActive(false);
+            setSheetActive(false);
+            saveImageFromHtml({ filename: `${data.category}_${data.listId}` });
           },
         },
         {
           key: 'copyAndCreateList',
           title: '이 리스트 템플릿으로 바로 리스트 작성하기',
           onClick: () => {
-            alert('리스트작성');
+            toasting({ type: 'default', txt: '리스트 작성 페이지로 이동합니다.' });
+            router.push(`/create?title=${data.title}&category=${data.category}`);
           },
         },
       ];
@@ -97,6 +106,11 @@ function Footer() {
     }
   };
 
+  // TODO: 콜렉트 API생성되면 요청보내고 UI변경시키기
+  const handleCollect = () => {
+    console.log('콜렉트기능 미구현');
+  };
+
   return (
     <>
       {isSheetActive && (
@@ -106,7 +120,7 @@ function Footer() {
       )}
       <div className={styles.container}>
         <div className={styles.buttonComponent}>
-          <Image src={collectIcon} alt="콜렉트하기" />
+          <Image src={collectIcon} alt="콜렉트하기" onClick={handleCollect} />
         </div>
         <div className={styles.shareAndOthers}>
           <div className={styles.buttonComponent} onClick={() => handleSheetActive({ type: 'share' })}>
