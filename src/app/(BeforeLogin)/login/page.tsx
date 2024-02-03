@@ -11,7 +11,6 @@
  */
 
 import Link from 'next/link';
-// import { useRouter } from 'next/navigation';
 
 const oauthType = {
   kakao: 'kakao',
@@ -20,17 +19,11 @@ const oauthType = {
 };
 
 export default function Login() {
-  // const router = useRouter();
-
-  // const handleMoveToPage = () => {
-  //   router.push(`${domain}/auth/${oauthType.kakao}`);
-  // };
-
   return (
     <div>
       로그인페이지
-      <Link href={`${process.env.NEXT_PUBLIC_API_KEY}/auth/${oauthType.kakao}`}>카카오 로그인</Link>
-      {/* <button onClick={handleMoveToPage}>카카오 로그인2</button> */}
+      <Link href={`https://dev.api.listywave.com/auth/${oauthType.kakao}`}>카카오 로그인</Link>
+      {/* <Link href="/auth/redirect/kakaoTest?code=1234">카카오 로그인 테스트</Link> */}
     </div>
   );
 }
