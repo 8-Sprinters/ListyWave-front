@@ -45,17 +45,17 @@ export default function Items() {
     rules: { minLength: 3, maxLength: 10 },
   });
 
-  const [current, setCurrent] = useState<string | null>(null);
+  const [currentLink, setCurrentLink] = useState<string>('');
 
   const watchItems = useWatch({ control, name: 'items' });
 
   //--- LinkModal 핸들러
   const handleLinkModalOpen = (index: number) => {
-    setCurrent(getValues().items[index]?.link);
+    setCurrentLink(getValues().items[index]?.link);
   };
 
   const handleLinkModalCancel = (index: number) => {
-    setValue(`items.${index}.link`, current);
+    setValue(`items.${index}.link`, currentLink);
   };
 
   const handleLinkModalConfirm = (index: number) => {

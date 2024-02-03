@@ -8,8 +8,8 @@ import { useState } from 'react';
 interface Item {
   rank: number;
   title: string;
-  comment: string | null;
-  link: string | null;
+  comment: string;
+  link: string;
 }
 
 interface FormValues {
@@ -48,20 +48,20 @@ export default function CreatePage() {
         {
           rank: 0,
           title: '',
-          comment: null,
-          link: null,
+          comment: '',
+          link: '',
         },
         {
           rank: 0,
           title: '',
-          comment: null,
-          link: null,
+          comment: '',
+          link: '',
         },
         {
           rank: 0,
           title: '',
-          comment: null,
-          link: null,
+          comment: '',
+          link: '',
         },
       ],
     },

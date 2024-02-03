@@ -1,7 +1,4 @@
 import { style } from '@vanilla-extract/css';
-import * as GlobalStyles from '@/styles/globalStyles.css';
-
-GlobalStyles;
 
 export const header = style({
   width: '100%',
