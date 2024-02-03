@@ -10,24 +10,22 @@ function CollaboratorsPopOver({ collaborators }: CollaboratorsProps) {
   return (
     <div className={styles.wrapper}>
       <ul className={styles.listWrapper}>
-        {collaborators?.map((item, idx) => {
+        {collaborators?.map((item) => {
           return (
-            <>
-              <div className={styles.itemWrapper} key={idx.toString()}>
-                {item.profileImageUrl ? (
-                  <Image
-                    src={item.profileImageUrl}
-                    className={styles.profileImage}
-                    alt="사용자 프로필 이미지"
-                    width={25}
-                    height={25}
-                  ></Image>
-                ) : (
-                  <div className={styles.defaultProfileImage}></div>
-                )}
-                <span className={styles.nickname}>{`${item.nickname}`}</span>
-              </div>
-            </>
+            <li className={styles.itemWrapper} key={item.id}>
+              {item.profileImageUrl ? (
+                <Image
+                  src={item.profileImageUrl}
+                  className={styles.profileImage}
+                  alt="사용자 프로필 이미지"
+                  width={25}
+                  height={25}
+                ></Image>
+              ) : (
+                <div className={styles.defaultProfileImage}></div>
+              )}
+              <span className={styles.nickname}>{`${item.nickname}`}</span>
+            </li>
           );
         })}
       </ul>

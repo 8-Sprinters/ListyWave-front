@@ -20,7 +20,14 @@ function Comments() {
   return (
     <div className={styles.wrapper}>
       <div className={styles.formWrapperOuter}>
-        <Image src="" alt="프로필 이미지" width={36} height={36} className={styles.profileImage} />
+        {/* {유저 정보 들어오면 이미지 src 추가할 예정} */}
+        <Image
+          src="https://search.pstatic.net/common/?src=http%3A%2F%2Fshop1.phinf.naver.net%2F20240118_50%2F1705570554088lxI8k_JPEG%2F106706388918781213_735035316.jpg&type=sc960_832"
+          alt="프로필 이미지"
+          width={36}
+          height={36}
+          className={styles.profileImage}
+        />
         <div className={`${styles.formWrapperInner} ${!!activeNickname ? styles.activeFormWrapper : ''}`}>
           {activeNickname && (
             <div className={styles.activeReplyWrapper}>
