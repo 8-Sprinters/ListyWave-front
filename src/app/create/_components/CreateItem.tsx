@@ -4,7 +4,11 @@ import BackIcon from '/public/icons/back.svg';
 import Items from './Items';
 import * as styles from './CreateItem.css';
 
-export default function CreateItem() {
+interface CreateItemProps {
+  onBackClick: () => void;
+}
+
+export default function CreateItem({ onBackClick }: CreateItemProps) {
   const {
     formState: { isValid },
   } = useFormContext();
@@ -12,7 +16,9 @@ export default function CreateItem() {
   return (
     <div>
       <div className={styles.header}>
-        <BackIcon alt="뒤로가기 버튼" />
+        <button onClick={onBackClick}>
+          <BackIcon alt="뒤로가기 버튼" />
+        </button>
         <h1 className={styles.headerTitle}>리스트 생성</h1>
         <button
           onClick={() => {
