@@ -35,9 +35,9 @@ function Comments() {
         </div>
       </div>
       <div className={styles.totalCount}>{`${COMMENTS.totalCount}개의 댓글`}</div>
-      {COMMENTS.comments.map((item, idx) => {
+      {COMMENTS.comments.map((item) => {
         return (
-          <div key={idx.toString()}>
+          <div key={item.id}>
             <Comment comment={item} onUpdate={setActiveNickname} activeNickname={activeNickname} />
           </div>
         );

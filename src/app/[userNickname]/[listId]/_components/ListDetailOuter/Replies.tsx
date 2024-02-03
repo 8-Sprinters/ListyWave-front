@@ -28,12 +28,12 @@ function Replies({ replies }: RepliesProps) {
       )}
       {showReplies && (
         <ul className={styles.repliesWrapper}>
-          {replies?.map((reply: ReplyType, idx: number) => {
+          {replies?.map((item: ReplyType) => {
             return (
-              <li key={idx.toString()} className={styles.repliesOuterWrapper}>
-                <div className={styles.replyWrapper} key={idx.toString()}>
+              <li key={item.id} className={styles.repliesOuterWrapper}>
+                <div className={styles.replyWrapper}>
                   <Image
-                    src={reply.userProfileImageUrl}
+                    src={item.userProfileImageUrl}
                     className={styles.profileImage}
                     width={20}
                     height={20}
@@ -41,10 +41,10 @@ function Replies({ replies }: RepliesProps) {
                   ></Image>
                   <div className={styles.replyContainer}>
                     <div className={styles.replyInformationWrapper}>
-                      <span className={styles.replyWriter}>{reply.userNickName}</span>
-                      <span className={styles.replyCreatedTime}>{timeDiff(reply.createdDate)}</span>
+                      <span className={styles.replyWriter}>{item.userNickName}</span>
+                      <span className={styles.replyCreatedTime}>{timeDiff(item.createdDate)}</span>
                     </div>
-                    <div className={styles.replyContent}>{reply.content}</div>
+                    <div className={styles.replyContent}>{item.content}</div>
                   </div>
                 </div>
                 <DeleteModalButton />

@@ -8,6 +8,8 @@ export interface RepliesType {
 }
 
 export interface ReplyType {
+  id: number;
+  userId: number;
   userNickName: string;
   userProfileImageUrl: string;
   createdDate: string;

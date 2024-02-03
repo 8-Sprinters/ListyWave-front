@@ -2,7 +2,7 @@ import { style } from '@vanilla-extract/css';
 
 export const wrapper = style({
   height: 'auto',
-  padding: '20px 24px',
+  padding: '20px 24px 80px',
 });
 
 export const formWrapperOuter = style({
