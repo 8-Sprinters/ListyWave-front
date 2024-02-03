@@ -8,7 +8,7 @@ interface useBooleanOutput {
 }
 
 export default function useBooleanOutput(defaultValue?: boolean): useBooleanOutput {
-  const [isOn, setIsOn] = useState<boolean>(!!defaultValue);
+  const [isOn, setIsOn] = useState(!!defaultValue);
 
   const toggle = useCallback(() => setIsOn((prev) => !prev), []);
   const handleSetOn = useCallback(() => setIsOn(true), []);

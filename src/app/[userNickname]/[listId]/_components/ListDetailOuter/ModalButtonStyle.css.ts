@@ -4,6 +4,6 @@ export const resetButtonStyle = style({
   background: 'none',
 });
 
-export const deleteButton = style({
+export const buttonCursor = style({
   cursor: 'pointer',
 });

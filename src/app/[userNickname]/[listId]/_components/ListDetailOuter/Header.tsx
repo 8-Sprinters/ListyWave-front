@@ -1,44 +1,13 @@
 'use client';
-import { useState, MouseEvent } from 'react';
 import { useRouter, useParams } from 'next/navigation';
-import ModalPortal from '@/components/ModalPortal';
-import BottomSheet from '@/app/[userNickname]/[listId]/_components/BottomSheet/BottomSheet';
+import OpenBottomSheetButton from './OpenBottomSheetButton';
 import * as styles from './Header.css';
 import BackButton from '/public/icons/back.svg';
 import HistoryButton from '/public/icons/history.svg';
-import KebabButton from '/public/icons/vertical_kebab_button.svg';
 
 function Header() {
-  const [isSheetActive, setIsSheetActive] = useState(false);
   const router = useRouter();
   const params = useParams<{ userNickname: string; listId: string }>();
-
-  const bottomSheetOptionList = [
-    {
-      key: 'editList',
-      title: '리스트 수정하기',
-      onClick: () => {
-        setIsSheetActive(false);
-      },
-    },
-    {
-      key: 'deleteList',
-      title: '리스트 삭제하기',
-      onClick: () => {
-        setIsSheetActive(false);
-      },
-    },
-  ];
-
-  const handleSheetActive = () => {
-    setIsSheetActive((prev: boolean) => !prev);
-  };
-
-  const handleModalClose = (e: MouseEvent) => {
-    if (e.target === e.currentTarget) {
-      setIsSheetActive(false);
-    }
-  };
 
   const handleBackButtonClick = () => {
     router.back();
@@ -50,11 +19,6 @@ function Header() {
 
   return (
     <>
-      {isSheetActive && (
-        <ModalPortal>
-          <BottomSheet onClose={handleModalClose} isActive={isSheetActive} optionList={bottomSheetOptionList} />
-        </ModalPortal>
-      )}
       <div className={styles.wrapper}>
         <button className={styles.buttonResetStyle} onClick={handleBackButtonClick}>
           <BackButton alt="뒤로 가기 버튼" />
@@ -64,9 +28,7 @@ function Header() {
           <button className={styles.buttonResetStyle} onClick={handleHistoryButtonClick}>
             <HistoryButton alt="히스토리 버튼" />
           </button>
-          <button className={styles.buttonResetStyle} onClick={handleSheetActive}>
-            <KebabButton alt="케밥 버튼" />
-          </button>
+          <OpenBottomSheetButton />
         </div>
       </div>
     </>
