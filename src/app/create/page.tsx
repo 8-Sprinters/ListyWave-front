@@ -1,7 +1,8 @@
 'use client';
 
 import { FieldErrors, FormProvider, useForm } from 'react-hook-form';
-import CreateItem from '@/app/create/_components/CreateItem';
+// import CreateItem from '@/app/create/_components/CreateItem';
+import CreateList from '@/app/create/_components/CreateList';
 
 interface Item {
   rank: number;
@@ -13,10 +14,10 @@ interface Item {
 interface FormValues {
   ownerId: number;
   category: string;
-  labels: string[] | null;
-  collaboratorIds: number[] | null;
+  labels: string[];
+  collaboratorIds: number[];
   title: string;
-  description: string | null;
+  description: string;
   isPublic: boolean;
   backgroundColor: string;
   items: Item[];
@@ -29,31 +30,31 @@ export default function CreatePage() {
     mode: 'onChange',
     defaultValues: {
       ownerId: 0,
-      category: '',
+      category: '문화',
       labels: [],
       collaboratorIds: [],
       title: '',
       description: '',
       isPublic: true,
-      backgroundColor: '#000000',
+      backgroundColor: '#FFFFFF',
       items: [
         {
           rank: 0,
           title: '',
-          comment: '',
-          link: '',
+          comment: null,
+          link: null,
         },
         {
           rank: 0,
           title: '',
           comment: null,
-          link: '',
+          link: null,
         },
         {
           rank: 0,
           title: '',
-          comment: '',
-          link: '',
+          comment: null,
+          link: null,
         },
       ],
     },
@@ -69,7 +70,8 @@ export default function CreatePage() {
     <div>
       <div>
         <FormProvider {...methods}>
-          <CreateItem />
+          <CreateList />
+          {/* <CreateItem/> */}
         </FormProvider>
       </div>
     </div>
