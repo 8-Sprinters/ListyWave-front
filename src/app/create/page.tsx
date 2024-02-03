@@ -1,9 +1,9 @@
 'use client';
 
-//page.tsx
 import { FieldErrors, FormProvider, useForm } from 'react-hook-form';
-// import CreateItem from '@/app/create/_components/CreateItem';
+import CreateItem from '@/app/create/_components/CreateItem';
 import CreateList from '@/app/create/_components/CreateList';
+import { useState } from 'react';
 
 interface Item {
   rank: number;
@@ -27,6 +27,12 @@ interface FormValues {
 export type FormErrors = FieldErrors<FormValues>;
 
 export default function CreatePage() {
+  const [step, setStep] = useState<'list' | 'item'>('list');
+
+  const handleStepChange = (step: 'list' | 'item') => {
+    setStep(step);
+  };
+
   const methods = useForm<FormValues>({
     mode: 'onChange',
     defaultValues: {
@@ -71,8 +77,19 @@ export default function CreatePage() {
     <div>
       <div>
         <FormProvider {...methods}>
-          {/* <CreateItem /> */}
-          <CreateList />
+          {step === 'list' ? (
+            <CreateList
+              onNextClick={() => {
+                handleStepChange('item');
+              }}
+            />
+          ) : (
+            <CreateItem
+              onBackClick={() => {
+                handleStepChange('list');
+              }}
+            />
+          )}
         </FormProvider>
       </div>
     </div>

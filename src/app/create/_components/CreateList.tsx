@@ -21,7 +21,7 @@ interface UserProfileType {
   nickname: string;
 }
 
-function CreateList() {
+function CreateList({ onNextClick }: { onNextClick: () => void }) {
   const { register, getValues, setValue, setError, control, formState } = useFormContext();
   const { errors, isValid } = formState;
 
@@ -63,9 +63,9 @@ function CreateList() {
       <div className={styles.header}>
         <CloseButton width={'24'} height={'24'} />
         <h1 className={styles.headerTitle}>리스트 생성</h1>
-        <Link href="/" className={styles.headerNextButton}>
+        <button className={styles.headerNextButton} onClick={onNextClick}>
           다음
-        </Link>
+        </button>
       </div>
 
       <div className={styles.body}>
