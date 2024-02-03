@@ -1,5 +1,5 @@
 import * as styles from '@/components/ListDetailInner/Header/style.css';
-import Dropdown from '@/components/Dropdowns/Dropdown';
+import SelectComponent from '@/components/SelectComponent/SelectComponent';
 
 interface OptionsProps {
   value: string;
@@ -23,7 +23,7 @@ const dropdownOptions = [
 function Header({ handleChangeListType }: HeaderProps) {
   return (
     <div className={styles.container}>
-      <Dropdown name="listType" options={dropdownOptions} isSearchable={false} onChange={handleChangeListType} />
+      <SelectComponent name="listType" options={dropdownOptions} isSearchable={false} onChange={handleChangeListType} />
     </div>
   );
 }

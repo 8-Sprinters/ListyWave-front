@@ -45,7 +45,7 @@ const selectStyles = {
   }),
 };
 
-function Dropdown({ name, options, isSearchable = false, onChange }: DropdownProps) {
+function SelectComponent({ name, options, isSearchable = false, onChange }: DropdownProps) {
   return (
     <Select
       id={name}
@@ -62,4 +62,4 @@ function Dropdown({ name, options, isSearchable = false, onChange }: DropdownPro
   );
 }
 
-export default Dropdown;
+export default SelectComponent;
