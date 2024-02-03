@@ -3,6 +3,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { useFormContext, useWatch } from 'react-hook-form';
 import Image from 'next/image';
+import { useSearchParams } from 'next/navigation';
 
 import '@/styles/globalStyles.css';
 import * as styles from './CreateList.css';
@@ -20,7 +21,11 @@ interface UserProfileType {
   nickname: string;
 }
 
-function CreateList({ onNextClick }: { onNextClick: () => void }) {
+interface CreateListProps {
+  onNextClick: () => void;
+}
+
+function CreateList({ onNextClick }: CreateListProps) {
   const { register, setValue, setError, control, formState } = useFormContext();
   const { errors, isValid } = formState;
 
@@ -37,6 +42,16 @@ function CreateList({ onNextClick }: { onNextClick: () => void }) {
 
   const colaboInputRef = useRef<HTMLInputElement>(null);
   const dropdownRef = useRef<HTMLDivElement>(null);
+
+  const searchParams = useSearchParams();
+  const isTemplateCreation = searchParams.has('title') && searchParams.has('category');
+
+  useEffect(() => {
+    if (isTemplateCreation) {
+      setValue('title', searchParams.get('title'));
+      setValue('category', searchParams.get('category'));
+    }
+  }, []);
 
   useEffect(() => {
     const closeDropdown = (event: MouseEvent) => {
