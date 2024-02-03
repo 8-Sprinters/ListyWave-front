@@ -6,12 +6,10 @@ import ListInformation from '@/app/[userNickname]/[listId]/_components/ListDetai
 
 export default function ListDetail() {
   return (
-    <>
-      <div className={styles.wrapper}>
-        <Header />
-        <ListInformation />
-        <Comments />
-      </div>
-    </>
+    <div className={styles.wrapper}>
+      <Header />
+      <ListInformation />
+      <Comments />
+    </div>
   );
 }

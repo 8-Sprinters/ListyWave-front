@@ -1,7 +1,7 @@
 'use client';
 import { useState } from 'react';
 import Image from 'next/image';
-import Comment from '@/app/[userNickname]/[listId]/_components/ListDetailOuter/Comment';
+import Comment from './Comment';
 import * as styles from './Comments.css';
 import { MOCKDATA_COMMENTS } from '../../mockData/mockdata';
 import CancelButton from '/public/icons/cancel_button.svg';

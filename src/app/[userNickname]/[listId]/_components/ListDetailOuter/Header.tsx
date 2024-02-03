@@ -9,7 +9,7 @@ import HistoryButton from '/public/icons/history.svg';
 import KebabButton from '/public/icons/vertical_kebab_button.svg';
 
 function Header() {
-  const [isSheetActive, setSheetActive] = useState<boolean>(false);
+  const [isSheetActive, setIsSheetActive] = useState(false);
   const router = useRouter();
   const params = useParams<{ userNickname: string; listId: string }>();
 
@@ -18,25 +18,25 @@ function Header() {
       key: 'editList',
       title: '리스트 수정하기',
       onClick: () => {
-        setSheetActive(false);
+        setIsSheetActive(false);
       },
     },
     {
       key: 'deleteList',
       title: '리스트 삭제하기',
       onClick: () => {
-        setSheetActive(false);
+        setIsSheetActive(false);
       },
     },
   ];
 
   const handleSheetActive = () => {
-    setSheetActive((prev: boolean) => !prev);
+    setIsSheetActive((prev: boolean) => !prev);
   };
 
   const handleModalClose = (e: MouseEvent) => {
     if (e.target === e.currentTarget) {
-      setSheetActive(false);
+      setIsSheetActive(false);
     }
   };
 
