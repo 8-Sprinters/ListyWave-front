@@ -14,7 +14,7 @@ function Header() {
   };
 
   const handleHistoryButtonClick = () => {
-    router.push(`/${params.userNickname}/${params.listId}/history`);
+    router.push(`/${params?.userNickname}/${params?.listId}/history`);
   };
 
   return (
