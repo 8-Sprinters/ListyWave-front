@@ -31,7 +31,7 @@ function SimpleList({ listData }: RankListProps) {
           <div className={styles.titleText}>{item.title}</div>
         </div>
         <div className={styles.simpleImageWrapper}>
-          {item.imageUrl && <img className={styles.simpleImage} src={item.imageUrl} alt="img설명" />}
+          {item.imageUrl && <Image className={styles.simpleImage} src={item.imageUrl} alt="img설명" />}
         </div>
       </div>
     );
