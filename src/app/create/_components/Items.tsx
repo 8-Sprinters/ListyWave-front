@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { ChangeEvent, useState } from 'react';
 import { useFieldArray, useFormContext, useWatch } from 'react-hook-form';
 import { DragDropContext, Draggable, DropResult } from 'react-beautiful-dnd';
 
@@ -8,7 +8,7 @@ import { StrictModeDroppable } from '@/components/StrictModeDroppable';
 import { FormErrors } from '../page';
 import ItemLayout from './ItemLayout';
 import LinkModal from './LinkModal';
-import LinkPreview from './LinkPreview';
+import Preview from './Preview';
 import * as styles from './Items.css';
 import AddItemButton from './AddItemButton';
 
@@ -46,6 +46,7 @@ export default function Items() {
   });
 
   const [currentLink, setCurrentLink] = useState<string>('');
+  const [domain, setDomain] = useState<string>(''); //링크 미리보기
 
   const watchItems = useWatch({ control, name: 'items' });
 
@@ -61,6 +62,7 @@ export default function Items() {
   const handleLinkModalConfirm = (index: number) => {
     if (watchItems[index]?.link) {
       setValue(`items.${index}.link`, ensureHttp(watchItems[index]?.link));
+      setDomain(urlToDomain(getValues().items?.[index].link));
     }
   };
 
@@ -81,11 +83,13 @@ export default function Items() {
         {(provided) => (
           <div className={styles.itemsContainer} ref={provided.innerRef} {...provided.droppableProps}>
             {items.map((item, index) => {
-              const errorMessage = (field: 'title' | 'comment' | 'link') =>
+              const errorMessage = (field: 'title' | 'comment' | 'link' | 'image') =>
                 (errors as FormErrors)?.items?.[index]?.[field]?.message;
               const titleError = errorMessage('title');
               const commentError = errorMessage('comment');
               const linkError = errorMessage('link');
+              const imageError = errorMessage('image');
+
               return (
                 <Draggable key={item.id} draggableId={item.id} index={index}>
                   {(provided, snapshot) => (
@@ -148,14 +152,34 @@ export default function Items() {
                             </div>
                           </LinkModal>
                         }
+                        imageInput={
+                          <input
+                            className={styles.imageInput}
+                            type="file"
+                            accept=".jpg, .jpeg, .png"
+                            id={`${index}-image`}
+                            {...register(`items.${index}.image`)}
+                          />
+                        }
                         linkPreview={
                           watchItems[index]?.link && (
-                            <LinkPreview
+                            <Preview
                               type="link"
                               url={watchItems[index].link}
-                              domain="domain"
+                              domain={domain ?? urlToDomain(watchItems[index].link)}
                               handleClearButtonClick={() => {
                                 setValue(`items.${index}.link`, '');
+                              }}
+                            />
+                          )
+                        }
+                        imagePreview={
+                          watchItems[index]?.image && (
+                            <Preview
+                              type="image"
+                              imageFile={watchItems[index]?.image?.[0]}
+                              handleClearButtonClick={() => {
+                                setValue(`items.${index}.image`, '');
                               }}
                             />
                           )
@@ -175,6 +199,7 @@ export default function Items() {
                     title: '',
                     comment: '',
                     link: '',
+                    image: null,
                   })
                 }
               />
