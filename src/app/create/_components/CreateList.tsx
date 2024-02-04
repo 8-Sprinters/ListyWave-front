@@ -1,425 +1,155 @@
 'use client';
 
-import React, { useEffect, useRef, useState } from 'react';
-import Link from 'next/link';
+import { useEffect, useState } from 'react';
 import { useFormContext, useWatch } from 'react-hook-form';
+import { useSearchParams } from 'next/navigation';
 
-import '@/styles/globalStyles.css';
+import Header from './list/Header';
+import Section from './list/Section';
+import SimpleInput from './list/SimpleInput';
+import ButtonSelector from './list/ButtonSelector';
+import LabelInput from './list/LabelInput';
+import MemberSelector from './list/MemberSelector';
+import ColorSelector from './list/ColorSelector';
+import RadioInput from './list/RadioInput';
+
 import * as styles from './CreateList.css';
 
-import CloseButton from '/public/icons/close_button.svg';
-import EraseButton from '/public/icons/x_circle_fill.svg';
-import SearchIcon from '/public/icons/search.svg';
-import DefaultProfile from '/public/icons/default_profile.svg';
+import { listPlaceholder } from '@/lib/constants/placeholder';
+import { BACKGROUND_COLOR } from '@/styles/Color';
+import { CategoryType } from '@/lib/types/categoriesType';
+import { UserProfileType } from '@/lib/types/userProfileType';
+import { getCategories } from '@/app/_api/category/getCategories';
+import { getUsers } from '@/app/_api/user/getUsers';
+import { listDescriptionRules, listLabelRules, listTitleRules } from '@/lib/constants/formInputValidationRules';
+import { listDescription } from '@/app/[userNickname]/[listId]/_components/ListDetailOuter/ListInformation.css';
 
-import mockdata from '../CreateListMock';
-import Image from 'next/image';
-
-interface UserProfileType {
-  id: number;
-  profileImageUrl: string;
-  nickname: string;
+interface CreateListProps {
+  onNextClick: () => void;
 }
 
-function CreateList({ onNextClick }: { onNextClick: () => void }) {
-  const { register, getValues, setValue, setError, control, formState } = useFormContext();
-  const { errors, isValid } = formState;
+/**
+ * CreateList 컴포넌트:
+ * 리스트 생성 과정 중
+ * 리스트에 대한 정보를 입력하는 페이지
+ *
+ * @param props.onNextClick - 헤더의 '다음'버튼을 클릭했을때 동작시킬 함수
+ */
+function CreateList({ onNextClick }: CreateListProps) {
+  const [categories, setCategories] = useState<CategoryType[]>([]);
+  const [users, setUsers] = useState<UserProfileType[]>([]);
 
-  const category = useWatch({ control, name: 'category' });
-  const labels = useWatch({ control, name: 'labels' });
-  const colaboIDs = useWatch({ control, name: 'collaboratorIds' });
-  const backgroundColor = useWatch({ control, name: 'backgroundColor' });
-  const isPublic = useWatch({ control, name: 'isPublic' });
+  const { setValue, control, formState } = useFormContext();
+  const { isValid } = formState;
+  const collaboIDs = useWatch({ control, name: 'collaboratorIds' });
 
-  const [labelInput, setLabelInput] = useState('');
-  const [colaboInput, setColaboInput] = useState('');
-  const [colaboList, setColabolist] = useState<UserProfileType[]>([]);
-  const [isDropDownOpen, setIsDropDownOpen] = useState(false);
+  const searchParams = useSearchParams();
+  const isTemplateCreation = searchParams.has('title') && searchParams.has('category');
 
-  const colaboInputRef = useRef<HTMLInputElement>(null);
-  const dropdownRef = useRef<HTMLDivElement>(null);
+  const fetchUsers = async () => {
+    try {
+      const data = await getUsers();
+      setUsers(data.userInfos);
+    } catch (error) {}
+  };
 
   useEffect(() => {
-    const closeDropdown = (event: MouseEvent) => {
-      if (
-        dropdownRef.current &&
-        colaboInputRef.current &&
-        !dropdownRef.current.contains(event.target as Node) &&
-        !colaboInputRef.current.contains(event.target as Node)
-      ) {
-        setIsDropDownOpen(false);
+    const fetchCategories = async () => {
+      try {
+        const data = await getCategories();
+        const filteredCategories = data.filter((category: CategoryType) => category.codeValue !== '0');
+        setCategories(filteredCategories);
+      } catch (error) {}
+    };
+    fetchCategories();
+
+    const handleQueryParams = () => {
+      if (isTemplateCreation) {
+        setValue('title', searchParams.get('title'));
+        setValue('category', searchParams.get('category'));
       }
     };
-    document.addEventListener('click', closeDropdown);
-
-    return () => {
-      document.removeEventListener('click', closeDropdown);
-    };
+    handleQueryParams();
   }, []);
 
   return (
     <div>
       {/* 헤더 */}
-      <div className={styles.header}>
-        <CloseButton width={'24'} height={'24'} />
-        <h1 className={styles.headerTitle}>리스트 생성</h1>
-        <button className={styles.headerNextButton} onClick={onNextClick}>
-          다음
-        </button>
-      </div>
+      <Header isNextActive={isValid} onClickNext={onNextClick} />
 
       <div className={styles.body}>
-        {/* 제목 */}
-        <div>
-          <div className={styles.title}>
-            타이틀 <span className={styles.required}>*</span>
-          </div>
-          <div className={styles.content}>
-            <div className={styles.listTitleContainer}>
-              <input
-                className={styles.titleInputBox}
-                type="text"
-                placeholder="리스트 제목을 적어주세요."
-                {...register('title', {
-                  required: '제목을 입력해주세요.',
-                  maxLength: { value: 30, message: '리스트 제목은 최대 30자까지 입력할 수 있어요.' },
-                })}
-              />
-              <EraseButton
-                className={styles.clearButton}
-                onClick={() => {
-                  setValue('title', '');
-                }}
-              />
-              {errors.title && <div className={styles.error}>{errors.title.message?.toString()}</div>}
-            </div>
-          </div>
-        </div>
+        {/* 리스트 제목 */}
+        <Section title="타이틀" isRequired={true}>
+          <SimpleInput type="short" name="title" placeholder={listPlaceholder.title} rules={listTitleRules} />
+        </Section>
 
-        {/* 한 줄 소개 */}
-        <div>
-          <div className={styles.title}>소개</div>
-          <div className={styles.content}>
-            <div className={styles.listDescriptionContainer}>
-              <textarea
-                className={styles.descriptionInputBox}
-                placeholder="리스트에 대한 간단한 소개를 작성해주세요."
-                {...register('description', {
-                  maxLength: { value: 200, message: '리스트 소개는 최대 200자까지 입력할 수 있어요.' },
-                })}
-              />
-              {errors.description && <div className={styles.error}>{errors.description.message?.toString()}</div>}
-            </div>
-          </div>
-        </div>
+        {/* 리스트 소개 */}
+        <Section title="소개">
+          <SimpleInput
+            type="long"
+            name="description"
+            placeholder={listPlaceholder.description}
+            rules={listDescriptionRules}
+          ></SimpleInput>
+        </Section>
 
         {/* 카테고리 */}
-        <div>
-          <div className={styles.title}>
-            카테고리 <span className={styles.required}>*</span>
-          </div>
-          <div className={styles.content}>
-            <div className={styles.categoryContainer}>
-              <input className={styles.categoryInputBox} />
-              <button
-                className={`${styles.categoryButton} ${category === '문화' ? styles.categoryButtonActive : ''}`}
-                onClick={() => {
-                  setValue('category', '문화');
-                }}
-              >
-                문화
-              </button>
-              <button
-                className={`${styles.categoryButton} ${category === '일상/생활' ? styles.categoryButtonActive : ''}`}
-                onClick={() => {
-                  setValue('category', '일상/생활');
-                }}
-              >
-                일상/생활
-              </button>
-              <button
-                className={`${styles.categoryButton} ${category === '장소' ? styles.categoryButtonActive : ''}`}
-                onClick={() => setValue('category', '장소')}
-              >
-                장소
-              </button>
-              <button
-                className={`${styles.categoryButton} ${category === '음악' ? styles.categoryButtonActive : ''}`}
-                onClick={() => setValue('category', '음악')}
-              >
-                음악
-              </button>
-              <button
-                className={`${styles.categoryButton} ${category === '영화/드라마' ? styles.categoryButtonActive : ''}`}
-                onClick={() => setValue('category', '영화/드라마')}
-              >
-                영화/드라마
-              </button>
-              <button
-                className={`${styles.categoryButton} ${category === '도서' ? styles.categoryButtonActive : ''}`}
-                onClick={() => setValue('category', '도서')}
-              >
-                도서
-              </button>
-              <button
-                className={`${styles.categoryButton} ${category === '동식물' ? styles.categoryButtonActive : ''}`}
-                onClick={() => setValue('category', '동식물')}
-              >
-                동식물
-              </button>
-              <button
-                className={`${styles.categoryButton} ${category === '기타' ? styles.categoryButtonActive : ''}`}
-                onClick={() => setValue('category', '기타')}
-              >
-                기타
-              </button>
-            </div>
-          </div>
-        </div>
+        <Section title="카테고리" isRequired={true}>
+          <ButtonSelector
+            list={categories}
+            onClick={(item: CategoryType) => {
+              setValue('category', item.nameValue);
+            }}
+            defaultValue={searchParams.get('category')}
+          />
+        </Section>
 
         {/* 라벨 */}
-        <div>
-          <div className={styles.title}>라벨</div>
-          <div className={styles.content}>
-            <div className="labelContainer">
-              <input
-                className={styles.labelInputBox}
-                type="text"
-                value={labelInput}
-                placeholder="라벨 입력 후 Enter를 눌러주세요. (최대 3개)"
-                onKeyDown={(e) => {
-                  if (e.nativeEvent.isComposing) {
-                    return;
-                  }
-                  if (e.key === 'Enter') {
-                    e.preventDefault();
-                    if (labelInput.length >= 10) {
-                      setError('labels', {
-                        type: 'manual',
-                        message: '라벨은 최대 10자까지 입력할 수 있어요.',
-                      });
-                      return;
-                    }
-                    if (labels.includes(labelInput)) {
-                      setError('labels', {
-                        type: 'manual',
-                        message: '같은 라벨을 2개 이상 등록할 수 없어요.',
-                      });
-                      return;
-                    }
-                    if (labels.length >= 3) {
-                      setError('labels', {
-                        type: 'manual',
-                        message: '라벨은 최대 3개까지 입력할 수 있어요.',
-                      });
-                      return;
-                    }
-                    setValue('labels', [...labels, labelInput]);
-                    setLabelInput('');
-                  }
-                }}
-                onChange={(e) => {
-                  setError('labels', {});
-                  setLabelInput(e.target.value);
-                }}
-              />
-              {errors.labels && <div className={styles.error}>{errors.labels.message?.toString()}</div>}
-              <div className={styles.labels}>
-                {labels.map((label: string) => (
-                  <div key={label} className={styles.label}>
-                    {label}
-                    <CloseButton
-                      width={'10'}
-                      height={'10'}
-                      fill={'#8E8E93'}
-                      className={styles.labelDeleteButton}
-                      onClick={() => {
-                        setValue(
-                          'labels',
-                          labels.filter((l: string) => l !== label)
-                        );
-                        setError('labels', {});
-                      }}
-                    />
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-        </div>
+        <Section title="라벨">
+          <LabelInput name="labels" placeholder={listPlaceholder.label} rules={listLabelRules} />
+        </Section>
 
         {/* 콜라보레이터 */}
-        <div>
-          <div className={styles.title}>콜라보레이터 추가</div>
-          <div className={styles.content}>
-            <div className={styles.colaboContainer}>
-              <input
-                ref={colaboInputRef}
-                className={styles.colaboInputBox}
-                type={'text'}
-                placeholder="닉네임 또는 이메일을 입력해주세요."
-                onClick={() => {
-                  if (!isDropDownOpen) {
-                    setIsDropDownOpen(true);
-                  }
-                }}
-                onChange={(e) => {
-                  setColaboInput(e.target.value);
-                }}
-              />
-              <SearchIcon className={styles.searchIcon} />
-              {isDropDownOpen && (
-                <div className={styles.colaboDropdown} ref={dropdownRef}>
-                  {mockdata
-                    .filter((user) => user.nickname.toLocaleLowerCase().includes(colaboInput.toLocaleLowerCase()))
-                    .map((user) => (
-                      <div
-                        key={user.id}
-                        className={styles.colaboProfileContainer}
-                        onClick={(e) => {
-                          if (!colaboList.find((colaboUser: UserProfileType) => colaboUser.id === user.id)) {
-                            setColabolist([...colaboList, user]);
-                            setValue('collaboratorIds', [...colaboIDs, user.id]);
-                          }
-                        }}
-                      >
-                        {user.profileImageUrl ? (
-                          <Image
-                            className={styles.colaboProfileImage}
-                            src={user.profileImageUrl}
-                            width={'30'}
-                            height={'30'}
-                            alt={'프로필 이미지'}
-                          ></Image>
-                        ) : (
-                          <DefaultProfile width={'30'} height={'30'} />
-                        )}
-                        {user.nickname}
-                        {colaboList.find((colaboUser: UserProfileType) => colaboUser.id === user.id) && (
-                          <span className={styles.checkedIcon}>✓</span>
-                        )}
-                      </div>
-                    ))}
-                </div>
-              )}
-              <div className={styles.colaboList}>
-                {colaboList.map((colaboUser) => (
-                  <div key={colaboUser.id} className={styles.colaboItem}>
-                    <div className={styles.colaboProfileContainer}>
-                      {colaboUser.profileImageUrl ? (
-                        <Image
-                          className={styles.colaboProfileImage}
-                          src={colaboUser.profileImageUrl}
-                          width={'30'}
-                          height={'30'}
-                          alt={'프로필 이미지'}
-                        ></Image>
-                      ) : (
-                        <DefaultProfile width={'30'} height={'30'} />
-                      )}{' '}
-                      {colaboUser.nickname}
-                    </div>
-                    <EraseButton
-                      onClick={() => {
-                        setColabolist(colaboList.filter((user) => user.id !== colaboUser.id));
-                      }}
-                    />
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-        </div>
+        <Section title="콜라보레이터 추가">
+          <MemberSelector
+            placeholder={listPlaceholder.collaborator}
+            members={users}
+            fetchData={fetchUsers}
+            onClickAdd={(userId: number) => {
+              setValue('collaboratorIds', [...collaboIDs, userId]);
+            }}
+            onClickDelete={(userId: number) => {
+              setValue(
+                'collaboratorIds',
+                collaboIDs.filter((collaboId: number) => collaboId !== userId)
+              );
+            }}
+          />
+        </Section>
 
         {/* 배경 색상 */}
-        <div>
-          <div className={styles.title}>
-            배경 색상 <span className={styles.required}>*</span>
-          </div>
-          <div className={styles.content}>
-            <div className={styles.backgroundContainer}>
-              <input
-                className={`${styles.colorCircle} ${styles.white} ${backgroundColor === '#FFFFFF' && styles.checkedColor}`}
-                type="checkbox"
-                checked={backgroundColor === '#FFFFFF'}
-                readOnly
-                onClick={() => setValue('backgroundColor', '#FFFFFF')}
-              />
-              <input
-                className={`${styles.colorCircle} ${styles.yellow} ${backgroundColor === '#FFF6A5' && styles.checkedColor}`}
-                type="checkbox"
-                checked={backgroundColor === '#FFF6A5'}
-                readOnly
-                onClick={() => setValue('backgroundColor', '#FFF6A5')}
-              />
-              <input
-                className={`${styles.colorCircle} ${styles.orange} ${backgroundColor === '#FFDCB2' && styles.checkedColor}`}
-                type="checkbox"
-                checked={backgroundColor === '#FFDCB2'}
-                readOnly
-                onClick={() => setValue('backgroundColor', '#FFDCB2')}
-              />
-              <input
-                className={`${styles.colorCircle} ${styles.green} ${backgroundColor === '#D0FF89' && styles.checkedColor}`}
-                type="checkbox"
-                checked={backgroundColor === '#D0FF89'}
-                readOnly
-                onClick={() => setValue('backgroundColor', '#D0FF89')}
-              />
-              <input
-                className={`${styles.colorCircle} ${styles.blue} ${backgroundColor === '#B7EEFF' && styles.checkedColor}`}
-                type="checkbox"
-                checked={backgroundColor === '#B7EEFF'}
-                readOnly
-                onClick={() => setValue('backgroundColor', '#B7EEFF')}
-              />
-              <input
-                className={`${styles.colorCircle} ${styles.purple} ${backgroundColor === '#E6C6FF' && styles.checkedColor}`}
-                type="checkbox"
-                checked={backgroundColor === '#E6C6FF'}
-                readOnly
-                onClick={() => setValue('backgroundColor', '#E6C6FF')}
-              />
-            </div>
-          </div>
-        </div>
+        <Section title="배경 색상" isRequired={true}>
+          <ColorSelector
+            defaultColor={BACKGROUND_COLOR.WHITE}
+            colors={Object.values(BACKGROUND_COLOR)}
+            onClick={(color: string) => {
+              setValue('backgroundColor', color);
+            }}
+          />
+        </Section>
 
         {/* 공개 설정 */}
-        <div>
-          <div className={styles.title}>
-            공개 설정 <span className={styles.required}>*</span>
-          </div>
-          <div className={styles.content}>
-            <div className={styles.publicContainer}>
-              <label>
-                <input
-                  type="radio"
-                  checked={isPublic}
-                  readOnly
-                  onClick={() => {
-                    setValue('isPublic', true);
-                  }}
-                />
-                공개
-              </label>
-
-              <label>
-                <input
-                  type="radio"
-                  checked={!isPublic}
-                  readOnly
-                  onClick={() => {
-                    setValue('isPublic', false);
-                  }}
-                />
-                비공개
-              </label>
-            </div>
-            <div className={styles.publicMessage}>
-              {isPublic ? '모든 사람이 이 리스트를 볼 수 있어요.' : '이 리스트는 나만 볼 수 있어요.'}
-            </div>
-          </div>
-        </div>
+        <Section title="공개 설정" isRequired={true}>
+          <RadioInput
+            messages={{
+              trueMessage: '모든 사람이 이 리스트를 볼 수 있어요.',
+              falseMessage: '이 리스트는 나만 볼 수 있어요.',
+            }}
+            onClick={(b: boolean) => {
+              setValue('isPublic', b);
+            }}
+          />
+        </Section>
       </div>
     </div>
   );

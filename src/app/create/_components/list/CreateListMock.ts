@@ -8,54 +8,54 @@ const generateMockData = (count: number): UserProfileType[] => {
   const mockData: UserProfileType[] = [];
 
   mockData.push({
-    id: 101,
+    id: 1,
     profileImageUrl: `/images/mock_profile.png`,
     nickname: '안유진',
   });
 
   mockData.push({
-    id: 102,
+    id: 2,
     profileImageUrl: `/images/mock_profile.png`,
     nickname: '강나현',
   });
 
   mockData.push({
-    id: 103,
+    id: 3,
     profileImageUrl: `/images/mock_profile.png`,
     nickname: '민서영',
   });
 
   mockData.push({
-    id: 104,
+    id: 4,
     profileImageUrl: `/images/mock_profile.png`,
     nickname: '박소현',
   });
 
   mockData.push({
-    id: 105,
+    id: 5,
     profileImageUrl: `/images/mock_profile.png`,
     nickname: '강현지',
   });
 
   mockData.push({
-    id: 106,
+    id: 6,
     profileImageUrl: `/images/mock_profile.png`,
     nickname: '신은서',
   });
 
   mockData.push({
-    id: 107,
+    id: 7,
     profileImageUrl: `/images/mock_profile.png`,
     nickname: '동호',
   });
 
   mockData.push({
-    id: 108,
+    id: 8,
     profileImageUrl: `/images/mock_profile.png`,
     nickname: 'JJUNGSU',
   });
 
-  for (let i = 1; i <= count; i++) {
+  for (let i = 100; i <= count; i++) {
     const user: UserProfileType = {
       id: i,
       profileImageUrl: '',

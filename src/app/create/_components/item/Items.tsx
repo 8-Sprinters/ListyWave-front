@@ -5,7 +5,7 @@ import { DragDropContext, Draggable, DropResult } from 'react-beautiful-dnd';
 import { itemPlaceholder } from '@/lib/constants/placeholder';
 import { itemTitleRules, itemCommentRules, itemLinkRules } from '@/lib/constants/formInputValidationRules';
 import { StrictModeDroppable } from '@/components/StrictModeDroppable';
-import { FormErrors } from '../page';
+import { FormErrors } from '../../page';
 import ItemLayout from './ItemLayout';
 import LinkModal from './LinkModal';
 import LinkPreview from './LinkPreview';
@@ -45,7 +45,7 @@ export default function Items() {
     rules: { minLength: 3, maxLength: 10 },
   });
 
-  const [current, setCurrent] = useState<string | null>(null);
+  const [current, setCurrent] = useState<string>('');
 
   const watchItems = useWatch({ control, name: 'items' });
 
