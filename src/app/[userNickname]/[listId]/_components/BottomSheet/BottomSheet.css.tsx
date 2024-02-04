@@ -6,12 +6,12 @@ export const backGround = style({
   left: 0,
   bottom: 0,
   right: 0,
-  background: 'rgba(0,0,0,0.8)',
+  background: 'rgba(0,0,0,0.3)',
   zIndex: 999,
 });
 
-export const Wrapper = style({
-  padding: '2rem 0',
+export const wrapper = style({
+  padding: '37px 0 43px',
 
   position: 'fixed',
   bottom: 0,
@@ -20,18 +20,14 @@ export const Wrapper = style({
 
   display: 'flex',
   flexDirection: 'column',
-  alignItems: 'flex-start',
   justifyContent: 'center',
 
   backgroundColor: '#ffffff',
-  borderTopLeftRadius: '30px',
-  borderTopRightRadius: '30px',
+  borderTopLeftRadius: '25px',
+  borderTopRightRadius: '25px',
 
   transitionProperty: 'all',
   transitionDuration: '0.2s',
-
-  fontSize: '1.4rem',
-  overflow: 'hidden',
 });
 
 const slideIn = keyframes({
@@ -43,11 +39,36 @@ export const sheetActive = style({
   animation: `${slideIn} 0.2s ease-in-out`,
 });
 
+export const sheetItemWrapper = style({
+  display: 'flex',
+  justifyContent: 'space-between',
+  alignItems: 'center',
+
+  ':hover': {
+    backgroundColor: '#EFEFF0',
+  },
+});
+
+export const checkIcon = style({
+  display: 'none',
+  marginRight: '28px',
+
+  selectors: {
+    [`${sheetItemWrapper}:hover &`]: {
+      display: 'block',
+    },
+  },
+});
+
 export const sheetItem = style({
   width: '100%',
+  fontSize: '1.4rem',
   cursor: 'pointer',
-  padding: '2.5rem 3rem 2.5rem 3rem',
-  ':hover': {
-    backgroundColor: 'lightgray',
+  padding: '2.5rem 2.8rem 2.5rem',
+
+  selectors: {
+    [`${sheetItemWrapper}:hover &`]: {
+      color: '#FF5454',
+    },
   },
 });
