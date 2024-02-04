@@ -61,6 +61,7 @@ function VideoEmbed({ videoUrl }: VideoEmbedProps) {
     return match && match[1] ? match[1] : null;
   };
 
+  // TODO: XSS이슈 대비로 수정 예정(Dompurify 등 라이브러리 사용)
   return (
     <div className={styles.videoWrapper}>
       <div className={styles.videoFrame} dangerouslySetInnerHTML={{ __html: embedCode || '' }} />
