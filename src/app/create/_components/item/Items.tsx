@@ -166,7 +166,7 @@ export default function Items() {
                             <Preview
                               type="link"
                               url={watchItems[index].link}
-                              domain={domain ?? urlToDomain(watchItems[index].link)}
+                              domain={domain}
                               handleClearButtonClick={() => {
                                 setValue(`items.${index}.link`, '');
                               }}

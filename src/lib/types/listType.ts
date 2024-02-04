@@ -20,11 +20,11 @@ export interface ListCreateType {
   items: ItemCreateType[];
 }
 
-// 이미지 생성 타입
 export interface ListIdType {
   listId: number;
 }
 
+// 이미지 생성 타입
 export interface ItemImageType {
   rank: number;
   extension: 'jpg' | 'jpeg' | 'png';
