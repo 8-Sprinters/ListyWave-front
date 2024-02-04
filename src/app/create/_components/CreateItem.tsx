@@ -1,7 +1,7 @@
 import { useFormContext } from 'react-hook-form';
 
 import BackIcon from '/public/icons/back.svg';
-import Items from './Items';
+import Items from './item/Items';
 import * as styles from './CreateItem.css';
 
 interface CreateItemProps {

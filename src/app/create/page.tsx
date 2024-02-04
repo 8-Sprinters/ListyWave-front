@@ -2,31 +2,14 @@
 
 import { useState } from 'react';
 import { FieldErrors, FormProvider, useForm } from 'react-hook-form';
-import axios from 'axios';
 
 import CreateItem from '@/app/create/_components/CreateItem';
 import CreateList from '@/app/create/_components/CreateList';
 
-interface Item {
-  rank: number;
-  title: string;
-  comment: string | null;
-  link: string | null;
-}
+import { ListCreateType } from '@/lib/types/listType';
+import { createList } from '../_api/list/createList';
 
-interface FormValues {
-  ownerId: number;
-  category: string;
-  labels: string[];
-  collaboratorIds: number[];
-  title: string;
-  description: string;
-  isPublic: boolean;
-  backgroundColor: string;
-  items: Item[];
-}
-
-export type FormErrors = FieldErrors<FormValues>;
+export type FormErrors = FieldErrors<ListCreateType>;
 
 export default function CreatePage() {
   const [step, setStep] = useState<'list' | 'item'>('list');
@@ -38,17 +21,17 @@ export default function CreatePage() {
   const handleSubmit = async () => {
     try {
       const formData = methods.getValues();
-      const response = await axios.post('https://dev.api.listywave.com/lists', formData);
-      console.log('Response:', response.data);
+      const response = await createList(formData);
+      // console.log(response.data);
     } catch (error) {
-      console.error('Error:', error);
+      // console.error(error);
     }
   };
 
-  const methods = useForm<FormValues>({
+  const methods = useForm<ListCreateType>({
     mode: 'onChange',
     defaultValues: {
-      ownerId: 2,
+      ownerId: 2, // 로그인 후 수정 필요
       category: 'culture',
       labels: [],
       collaboratorIds: [],
