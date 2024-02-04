@@ -4,7 +4,6 @@ import * as styles from './RankList.css';
 import LinkPreview from '@/components/LinkPreview/LinkPreview';
 import VideoEmbed from '@/components/VideoEmbed/VideoEmbed';
 import CrownIcon from '/public/icons/crown.svg';
-import Image from 'next/image';
 
 interface RankListProps {
   listData: ListItemProps[];
@@ -63,7 +62,6 @@ function EmbedComponent({ link }: { link: string }) {
 }
 function DetailList({ listData }: RankListProps) {
   return listData.map((item, index) => {
-    console.log(index);
     return (
       <div key={item.id} className={styles.detailItemWrapper}>
         <div className={styles.rankAndTitle}>
