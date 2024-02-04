@@ -5,7 +5,8 @@ import { DevTool } from '@hookform/devtools';
 import CreateItem from '@/app/create/_components/CreateItem';
 import CreateList from '@/app/create/_components/CreateList';
 import { useState } from 'react';
-import axios from 'axios';
+import { sendItemImages } from '../_api/list/sendItemImages';
+import { ItemImagesType } from '@/lib/types/listType';
 
 interface Item {
   rank: number;
@@ -87,30 +88,39 @@ export default function CreatePage() {
       items: originData.items.map(({ image, ...rest }) => rest),
     };
 
-    const imageData = {
+    const imageData: ItemImagesType = {
       ownerId: originData.ownerId,
       listId: 1, //temp
-      extensionsRanks: originData.items
+      extensionRanks: originData.items
         .map(({ rank, image }) => {
-          return { rank: rank, extension: image?.[0]?.type.split('/')[1] }; //type앞에 ?
+          return { rank: rank, extension: image?.[0]?.type.split('/')[1] as 'jpg' | 'jpeg' | 'png' };
         })
-        .filter(({ extension }) => {
-          return extension !== undefined;
-        }),
+        .filter(({ extension }) => extension !== null && extension !== undefined),
     };
 
-    const imageFileList = originData.items.map(({ image }) => image); //추가
+    const imageFileList: File[] = originData.items
+      .map(({ image }) => image?.[0] as File)
+      .filter((image) => image !== undefined);
 
     return { requestData, imageData, imageFileList };
   };
 
+  // const handleSubmit = async () => {
+  //   try {
+  //     const formData = formatData().requestData;
+  //     console.log(formData);
+  //     console.log(formatData().imageData);
+  //     const response = await axios.post('https://dev.api.listywave.com/lists', formData);
+  //     console.log('Response:', response.data);
+  //   } catch (error) {
+  //     console.error('Error:', error);
+  //   }
+  // };
+
   const handleSubmit = async () => {
     try {
-      const formData = formatData().requestData;
-      console.log(formData);
-      console.log(formatData().imageData);
-      const response = await axios.post('https://dev.api.listywave.com/lists', formData);
-      console.log('Response:', response.data);
+      const { imageData, imageFileList } = formatData();
+      sendItemImages(imageData, imageFileList);
     } catch (error) {
       console.error('Error:', error);
     }
