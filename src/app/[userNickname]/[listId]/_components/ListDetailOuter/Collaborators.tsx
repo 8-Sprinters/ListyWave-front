@@ -2,7 +2,7 @@ import Image from 'next/image';
 import CollaboratorsPopOver from '@/app/[userNickname]/[listId]/_components/ListDetailOuter/CollaboratorsPopOver';
 import * as styles from './Collaborators.css';
 import DefaultProfile from '/public/icons/default_profile_temporary.svg';
-import PlusIcon from '/public/icons/plus.svg';
+import PlusIcon from '/public/icons/collaborators_plus.svg';
 import { CollaboratorType } from '../../mockData/mockdataType';
 
 interface CollaboratorsProps {
