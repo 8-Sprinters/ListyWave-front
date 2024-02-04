@@ -1,8 +1,9 @@
 'use client';
+
 import { ListItemProps } from './index';
-import * as styles from './RankList.css';
 import LinkPreview from '@/components/LinkPreview/LinkPreview';
 import VideoEmbed from '@/components/VideoEmbed/VideoEmbed';
+import * as styles from './RankList.css';
 import CrownIcon from '/public/icons/crown.svg';
 
 interface RankListProps {

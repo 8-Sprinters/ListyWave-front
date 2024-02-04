@@ -1,17 +1,17 @@
 'use client';
 
+import { useParams, useRouter } from 'next/navigation';
+import { MouseEvent, useState } from 'react';
+import BottomSheet from '@/app/[userNickname]/[listId]/_components/BottomSheet/BottomSheet';
+import ModalPortal from '@/components/ModalPortal';
+import saveImageFromHtml from '@/lib/utils/saveImageFromHtml';
+import copyUrl from '@/lib/utils/copyUrl';
+import toasting from '@/lib/utils/toasting';
+import kakaotalkShare from '@/components/KakaotalkShare/kakaotalkShare';
 import * as styles from './Footer.css';
 import CollectIcon from '/public/icons/collect.svg';
 import ShareIcon from '/public/icons/share.svg';
 import EtcIcon from '/public/icons/etc.svg';
-import BottomSheet from '@/app/[userNickname]/[listId]/_components/BottomSheet/BottomSheet';
-import { MouseEvent, useState } from 'react';
-import ModalPortal from '@/components/ModalPortal';
-import copyUrl from '@/lib/utils/copyUrl';
-import saveImageFromHtml from '@/lib/utils/saveImageFromHtml';
-import kakaotalkShare from '@/components/KakaotalkShare/kakaotalkShare';
-import { useParams, useRouter } from 'next/navigation';
-import toasting from '@/lib/utils/toasting';
 
 interface BottomSheetOptionsProps {
   key: string;

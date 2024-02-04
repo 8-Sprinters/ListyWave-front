@@ -1,9 +1,9 @@
 'use client';
 
+import { useState } from 'react';
 import Header from '@/app/[userNickname]/[listId]/_components/ListDetailInner/Header';
 import RankList from '@/app/[userNickname]/[listId]/_components/ListDetailInner/RankList';
 import Footer from '@/app/[userNickname]/[listId]/_components/ListDetailInner/Footer';
-import { useState } from 'react';
 import * as styles from './index.css';
 
 export interface ListItemProps {
