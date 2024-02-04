@@ -22,7 +22,7 @@ import { UserProfileType } from '@/lib/types/userProfileType';
 import { getCategories } from '@/app/_api/category/getCategories';
 import { getUsers } from '@/app/_api/user/getUsers';
 import { listDescriptionRules, listLabelRules, listTitleRules } from '@/lib/constants/formInputValidationRules';
-import { listDescription } from '@/app/[userNickname]/[listId]/_components/ListDetailOuter/ListInformation.css';
+// import { listDescription } from '@/app/[userNickname]/[listId]/_components/ListDetailOuter/ListInformation.css';
 
 interface CreateListProps {
   onNextClick: () => void;
@@ -71,7 +71,7 @@ function CreateList({ onNextClick }: CreateListProps) {
       }
     };
     handleQueryParams();
-  }, []);
+  }, ['isTemplateCreation', 'searchParams', 'setValue']);
 
   return (
     <div>

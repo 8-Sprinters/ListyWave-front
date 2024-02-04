@@ -102,7 +102,7 @@ export default function CreatePage() {
   });
 
   const handleSubmit = () => {
-    const { listData, imageData, imageFileList } = formatData();
+    const { listData } = formatData();
     createListMutation.mutate(listData);
   };
 

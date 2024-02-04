@@ -1,4 +1,4 @@
-import { ChangeEvent, useState } from 'react';
+import { useState } from 'react';
 import { useFieldArray, useFormContext, useWatch } from 'react-hook-form';
 import { DragDropContext, Draggable, DropResult } from 'react-beautiful-dnd';
 
@@ -21,14 +21,13 @@ const ensureHttp = (link: string) => {
 };
 
 // 링크 도메인만 추출 (e.g. naver.com)
-const urlToDomain = (link: string) => {
-  const domain = new URL(link).hostname.replace('www.', '');
-  return domain;
-};
+// const urlToDomain = (link: string) => {
+//   const domain = new URL(link).hostname.replace('www.', '');
+//   return domain;
+// };
 
 export default function Items() {
   const [currentLink, setCurrentLink] = useState<string>('');
-  
   const {
     register,
     control,
@@ -86,8 +85,7 @@ export default function Items() {
               const titleError = errorMessage('title');
               const commentError = errorMessage('comment');
               const linkError = errorMessage('link');
-              const imageError = errorMessage('image');
-              
+              // const imageError = errorMessage('image');
               return (
                 <Draggable key={item.id} draggableId={item.id} index={index}>
                   {(provided, snapshot) => (
