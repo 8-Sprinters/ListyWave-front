@@ -34,6 +34,7 @@ export const headerNextButtonDisabled = style([
   headerNextButton,
   {
     color: '#AFB1B6', //활성화 검정, 아닐때는 회색
+    cursor: 'default',
   },
 ]);
 

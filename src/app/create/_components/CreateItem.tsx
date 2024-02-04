@@ -6,9 +6,10 @@ import * as styles from './CreateItem.css';
 
 interface CreateItemProps {
   onBackClick: () => void;
+  onSubmitClick: () => void;
 }
 
-export default function CreateItem({ onBackClick }: CreateItemProps) {
+export default function CreateItem({ onBackClick, onSubmitClick }: CreateItemProps) {
   const {
     formState: { isValid },
   } = useFormContext();
@@ -21,10 +22,8 @@ export default function CreateItem({ onBackClick }: CreateItemProps) {
         </button>
         <h1 className={styles.headerTitle}>리스트 생성</h1>
         <button
-          onClick={() => {
-            console.log('제출');
-          }}
-          className={isValid ? styles.headerNextButton : styles.headerNextButtonDisabled}
+          onClick={onSubmitClick}
+          className={!isValid ? styles.headerNextButtonDisabled : styles.headerNextButton}
           disabled={!isValid ? true : false}
         >
           완료
