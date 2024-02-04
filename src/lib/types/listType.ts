@@ -4,6 +4,7 @@ export interface ItemCreateType {
   title: string;
   comment: string | null;
   link: string | null;
+  image?: FileList | null;
 }
 
 // 리스트 생성 타입

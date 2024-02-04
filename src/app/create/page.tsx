@@ -14,24 +14,10 @@ export type FormErrors = FieldErrors<ListCreateType>;
 export default function CreatePage() {
   const [step, setStep] = useState<'list' | 'item'>('list');
 
-  const handleStepChange = (step: 'list' | 'item') => {
-    setStep(step);
-  };
-
-  const handleSubmit = async () => {
-    try {
-      const formData = methods.getValues();
-      const response = await createList(formData);
-      // console.log(response.data);
-    } catch (error) {
-      // console.error(error);
-    }
-  };
-
   const methods = useForm<ListCreateType>({
     mode: 'onChange',
     defaultValues: {
-      ownerId: 2, // 로그인 후 수정 필요
+      ownerId: 2, //로그인 후 수정 필요
       category: 'culture',
       labels: [],
       collaboratorIds: [],
@@ -45,28 +31,67 @@ export default function CreatePage() {
           title: '',
           comment: '',
           link: '',
+          image: null,
         },
         {
           rank: 0,
           title: '',
           comment: '',
           link: '',
+          image: null,
         },
         {
           rank: 0,
           title: '',
           comment: '',
           link: '',
+          image: null,
         },
       ],
     },
   });
-  const itemValue = methods.watch('items');
 
-  //rank 정리하는 함수. 마지막에 한 번만 실행되게끔 하기 (submit)
-  itemValue.forEach((item, index) => {
-    item.rank = index + 1;
-  });
+  const handleStepChange = (step: 'list' | 'item') => {
+    setStep(step);
+  };
+
+  const handleSubmit = async () => {
+    try {
+      const response = await createList(formatData().requestData);
+      // console.log(response.data);
+    } catch (error) {
+      // console.error(error);
+    }
+  };
+
+  //request용 데이터 만드는 함수.
+  const formatData = () => {
+    const originData = methods.getValues();
+
+    originData.items.forEach((item, index) => {
+      //rank 정리
+      item.rank = index + 1;
+    });
+
+    const requestData = {
+      ...originData,
+      items: originData.items.map(({ image, ...rest }) => rest),
+    };
+
+    const imageData = {
+      ownerId: originData.ownerId,
+      listId: 1, //temp
+      extensionsRanks: originData.items
+        .map(({ rank, image }) => {
+          return { rank: rank, extension: image?.[0].type.split('/')[1] };
+        })
+        .filter(({ extension }) => {
+          return extension !== undefined;
+        }),
+    };
+
+    return { requestData, imageData };
+  };
 
   return (
     <div>
