@@ -27,6 +27,8 @@ const urlToDomain = (link: string) => {
 };
 
 export default function Items() {
+  const [currentLink, setCurrentLink] = useState<string>('');
+
   const {
     register,
     control,
@@ -45,9 +47,6 @@ export default function Items() {
     rules: { minLength: 3, maxLength: 10 },
   });
 
-  const [currentLink, setCurrentLink] = useState<string>('');
-  const [domain, setDomain] = useState<string>(''); //링크 미리보기
-
   const watchItems = useWatch({ control, name: 'items' });
 
   //--- LinkModal 핸들러
@@ -62,12 +61,11 @@ export default function Items() {
   const handleLinkModalConfirm = (index: number) => {
     if (watchItems[index]?.link) {
       setValue(`items.${index}.link`, ensureHttp(watchItems[index]?.link));
-      setDomain(urlToDomain(getValues().items?.[index].link));
     }
   };
 
   //--- 드래그 되었을 때 실행되는 이벤트
-  const onDragEnd = ({ source, destination }: DropResult) => {
+  const handleOnDragEnd = ({ source, destination }: DropResult) => {
     if (destination && source.index !== destination.index) {
       const currentArray = [...getValues().items];
       const sourceItem = currentArray[source.index];
@@ -78,7 +76,7 @@ export default function Items() {
   };
 
   return (
-    <DragDropContext onDragEnd={onDragEnd}>
+    <DragDropContext onDragEnd={handleOnDragEnd}>
       <StrictModeDroppable droppableId="items">
         {(provided) => (
           <div className={styles.itemsContainer} ref={provided.innerRef} {...provided.droppableProps}>
@@ -166,7 +164,7 @@ export default function Items() {
                             <Preview
                               type="link"
                               url={watchItems[index].link}
-                              domain={domain}
+                              domain={''}
                               handleClearButtonClick={() => {
                                 setValue(`items.${index}.link`, '');
                               }}
