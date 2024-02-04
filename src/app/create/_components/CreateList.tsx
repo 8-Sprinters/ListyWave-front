@@ -39,9 +39,10 @@ function CreateList({ onNextClick }: CreateListProps) {
   const [categories, setCategories] = useState<CategoryType[]>([]);
   const [users, setUsers] = useState<UserProfileType[]>([]);
 
-  const { setValue, control, formState } = useFormContext();
-  const { isValid } = formState;
+  const { setValue, control } = useFormContext();
   const collaboIDs = useWatch({ control, name: 'collaboratorIds' });
+  const title = useWatch({ control, name: 'title' });
+  const category = useWatch({ control, name: 'category' });
 
   const searchParams = useSearchParams();
   const isTemplateCreation = searchParams.has('title') && searchParams.has('category');
@@ -75,7 +76,7 @@ function CreateList({ onNextClick }: CreateListProps) {
   return (
     <div>
       {/* 헤더 */}
-      <Header isNextActive={isValid} onClickNext={onNextClick} />
+      <Header isNextActive={title && category} onClickNext={onNextClick} />
 
       <div className={styles.body}>
         {/* 리스트 제목 */}

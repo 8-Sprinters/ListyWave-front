@@ -19,7 +19,7 @@ export default function CreatePage() {
     mode: 'onChange',
     defaultValues: {
       ownerId: 2, //로그인 후 수정 필요
-      category: 'culture',
+      category: '',
       labels: [],
       collaboratorIds: [],
       title: '',
