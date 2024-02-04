@@ -21,6 +21,8 @@ import { CategoryType } from '@/lib/types/categoriesType';
 import { UserProfileType } from '@/lib/types/userProfileType';
 import { getCategories } from '@/app/_api/category/getCategories';
 import { getUsers } from '@/app/_api/user/getUsers';
+import { listDescriptionRules, listLabelRules, listTitleRules } from '@/lib/constants/formInputValidationRules';
+import { listDescription } from '@/app/[userNickname]/[listId]/_components/ListDetailOuter/ListInformation.css';
 
 interface CreateListProps {
   onNextClick: () => void;
@@ -78,18 +80,7 @@ function CreateList({ onNextClick }: CreateListProps) {
       <div className={styles.body}>
         {/* 리스트 제목 */}
         <Section title="타이틀" isRequired={true}>
-          <SimpleInput
-            type="simple"
-            name="title"
-            placeholder={listPlaceholder.title}
-            rules={{
-              required: { errorMessage: '제목을 입력해주세요' },
-              maxLength: {
-                length: 30,
-                errorMessage: '리스트 제목은 최대 30자까지 입력할 수 있어요.',
-              },
-            }}
-          />
+          <SimpleInput type="short" name="title" placeholder={listPlaceholder.title} rules={listTitleRules} />
         </Section>
 
         {/* 리스트 소개 */}
@@ -98,7 +89,7 @@ function CreateList({ onNextClick }: CreateListProps) {
             type="long"
             name="description"
             placeholder={listPlaceholder.description}
-            rules={{ maxLength: { length: 200, errorMessage: '리스트 소개는 최대 200자까지 입력할 수 있어요.' } }}
+            rules={listDescriptionRules}
           ></SimpleInput>
         </Section>
 
@@ -115,15 +106,7 @@ function CreateList({ onNextClick }: CreateListProps) {
 
         {/* 라벨 */}
         <Section title="라벨">
-          <LabelInput
-            name="labels"
-            placeholder={listPlaceholder.label}
-            rules={{
-              maxNumRule: { num: 3, errorMessage: '라벨은 최대 3개까지 등록할 수 있어요.' },
-              maxLengthRule: { length: 10, errorMessage: '라벨은 최대 10자까지 입력할 수 있어요.' },
-              uniqueRule: { errorMessage: '같은 라벨을 2개 이상 등록할 수 없어요.' },
-            }}
-          />
+          <LabelInput name="labels" placeholder={listPlaceholder.label} rules={listLabelRules} />
         </Section>
 
         {/* 콜라보레이터 */}

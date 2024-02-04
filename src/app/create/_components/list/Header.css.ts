@@ -20,7 +20,8 @@ export const headerTitle = style({
 
 export const headerNextButton = style({
   fontSize: '1.6rem',
-  color: '#8d8d8d',
+  color: '#AFB1B6',
+  cursor: 'default',
 });
 
 export const headerNextButtonActive = style({

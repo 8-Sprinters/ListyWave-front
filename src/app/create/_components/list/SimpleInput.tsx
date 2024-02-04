@@ -3,7 +3,7 @@ import ClearButton from '/public/icons/x_circle_fill.svg';
 import * as styles from './SimpleInput.css';
 
 interface SimpleInputProps {
-  type: 'simple' | 'long';
+  type: 'short' | 'long';
   name: string;
   placeholder: string;
   rules: {

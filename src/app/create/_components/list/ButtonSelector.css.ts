@@ -2,7 +2,6 @@ import { style } from '@vanilla-extract/css';
 
 export const container = style({
   display: 'flex',
-  flexDirection: 'row',
   justifyContent: 'space-between',
   alignItems: 'center',
   columnGap: '12px',
@@ -16,7 +15,6 @@ export const container = style({
 });
 
 export const button = style({
-  width: '',
   height: '40px',
   padding: '8px 12px',
 
