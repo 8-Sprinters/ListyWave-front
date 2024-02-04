@@ -71,7 +71,7 @@ function CreateList({ onNextClick }: CreateListProps) {
       }
     };
     handleQueryParams();
-  }, ['isTemplateCreation', 'searchParams', 'setValue']);
+  }, []);
 
   return (
     <div>
