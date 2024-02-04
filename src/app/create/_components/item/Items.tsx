@@ -28,7 +28,7 @@ const urlToDomain = (link: string) => {
 
 export default function Items() {
   const [currentLink, setCurrentLink] = useState<string>('');
-
+  
   const {
     register,
     control,
@@ -87,7 +87,7 @@ export default function Items() {
               const commentError = errorMessage('comment');
               const linkError = errorMessage('link');
               const imageError = errorMessage('image');
-
+              
               return (
                 <Draggable key={item.id} draggableId={item.id} index={index}>
                   {(provided, snapshot) => (
