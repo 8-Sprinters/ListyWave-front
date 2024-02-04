@@ -24,3 +24,14 @@ export const clearButton = style({
   top: '5px',
   right: '5px',
 });
+
+export const domainText = style({
+  marginTop: '0.5rem',
+
+  fontSize: '1rem',
+  color: '#61646B',
+});
+
+export const previewImage = style({
+  objectFit: 'cover',
+});
