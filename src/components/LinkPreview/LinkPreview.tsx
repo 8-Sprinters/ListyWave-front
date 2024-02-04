@@ -3,6 +3,7 @@ import * as styles from '@/components/LinkPreview/style.css';
 
 async function fetchLinkPreviewData(url: string) {
   try {
+    // TODO: axios.get 사용시 에러발생 원인 파악
     const response = await fetch(`/api/getOgDataProxy?url=${encodeURIComponent(url)}`);
 
     const data = await response.json();
