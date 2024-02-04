@@ -4,6 +4,7 @@ import * as styles from './RankList.css';
 import LinkPreview from '@/components/LinkPreview/LinkPreview';
 import VideoEmbed from '@/components/VideoEmbed/VideoEmbed';
 import CrownIcon from '/public/icons/crown.svg';
+import Image from 'next/image';
 
 interface RankListProps {
   listData: ListItemProps[];
@@ -83,7 +84,7 @@ function DetailList({ listData }: RankListProps) {
         <div className={styles.commentText}>{item.comment}</div>
         <div className={styles.detailImageWrapper}>
           {item.imageUrl && (
-            <img className={styles.detailImage} src={item.imageUrl} alt={`"${item.title}" 의 이미지`} />
+            <Image className={styles.detailImage} src={item.imageUrl} alt={`"${item.title}" 의 이미지`} />
           )}
         </div>
         {item.link && <EmbedComponent link={item.link} />}
