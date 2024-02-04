@@ -6,8 +6,7 @@ export const baseLabel = style({
   display: 'flex',
   justifyContent: 'center',
   alignItems: 'center',
-
-  flexShrink: '0',
+  flexShrink: 0,
 
   borderRadius: '16px',
   fontSize: '1.4rem',
@@ -37,4 +36,5 @@ export const labelContent = style({
 
   display: 'flex',
   alignItems: 'center',
+  flexShrink: 0,
 });
