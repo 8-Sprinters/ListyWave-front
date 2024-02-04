@@ -1,43 +1,5 @@
 import { style } from '@vanilla-extract/css';
 
-export const header = style({
-  width: '100%',
-  height: '90px',
-  paddingLeft: '20px',
-  paddingRight: '20px',
-
-  position: 'sticky',
-  top: '0',
-  left: '0',
-  zIndex: '10',
-
-  display: 'flex',
-  flexDirection: 'row',
-  alignItems: 'center',
-  justifyContent: 'space-between',
-
-  backgroundColor: '#fff',
-
-  borderBottom: '1px solid rgba(0, 0, 0, 0.10)',
-});
-
-export const headerTitle = style({
-  fontSize: '2rem',
-});
-
-export const headerNextButton = style({
-  fontSize: '1.6rem',
-  backgroundColor: 'transparent',
-});
-
-export const headerNextButtonDisabled = style([
-  headerNextButton,
-  {
-    color: '#AFB1B6', //활성화 검정, 아닐때는 회색
-    cursor: 'default',
-  },
-]);
-
 export const article = style({
   padding: '16px 20px 30px',
 });
