@@ -1,7 +1,7 @@
 import { useFormContext } from 'react-hook-form';
 
 import BackIcon from '/public/icons/back.svg';
-import Items from './Items';
+import Items from './item/Items';
 import * as styles from './CreateItem.css';
 
 interface CreateItemProps {
@@ -23,7 +23,7 @@ export default function CreateItem({ onBackClick, onSubmitClick }: CreateItemPro
         <h1 className={styles.headerTitle}>리스트 생성</h1>
         <button
           onClick={onSubmitClick}
-          className={!isValid ? styles.headerNextButtonDisabled : styles.headerNextButton}
+          className={isValid ? styles.headerNextButton : styles.headerNextButtonDisabled}
           disabled={!isValid ? true : false}
         >
           완료

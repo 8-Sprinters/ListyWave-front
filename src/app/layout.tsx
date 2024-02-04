@@ -2,7 +2,7 @@
 
 import { ReactNode } from 'react';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import '@/styles/globalStyles.css';
+import '@/styles/GlobalStyles.css';
 
 const queryClient = new QueryClient();
 

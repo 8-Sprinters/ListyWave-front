@@ -5,7 +5,7 @@
  - [ ] 반응형 UI 구현
  */
 
-import '@/styles/globalStyles.css';
+import '@/styles/GlobalStyles.css';
 
 import { USER_DATA_ME } from '../mockData/user'; // 삭제 예정
 
