@@ -24,7 +24,7 @@ type ImageProps = PreviewBaseProps & {
 type PreviewProps = LinkProps | ImageProps;
 
 export default function Preview(props: PreviewProps) {
-  const [preview, setPreview] = useState<string>('');
+  const [preview, setPreview] = useState<string | null>(null);
 
   const handleClearClick = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.stopPropagation();
@@ -57,7 +57,9 @@ export default function Preview(props: PreviewProps) {
           <p className={styles.domainText}>{props.domain}</p>
         </>
       )}
-      {props.type === 'image' && <Image className={styles.previewImage} src={preview} alt="첨부 이미지" fill />}
+      {props.type === 'image' && (
+        <Image className={styles.previewImage} src={preview || '/icons/attach_image.svg'} alt="첨부 이미지" fill />
+      )}
       <button className={styles.clearButton} onClick={handleClearClick}>
         <ClearBlackIcon alt="링크 삭제 버튼" />
       </button>
