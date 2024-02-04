@@ -2,7 +2,7 @@
 
 import { ReactNode } from 'react';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import '@/styles/globalStyles.css';
+import '@/styles/GlobalStyles.css';
 import Script from 'next/script';
 import { ToastContainer } from 'react-toastify';
 
