@@ -2,12 +2,12 @@ import { globalStyle } from '@vanilla-extract/css';
 
 globalStyle('html', {
   fontSize: '62.5%',
+  color: '#19191B', //글자기본색
 });
 
 globalStyle('*', {
   boxSizing: 'border-box',
   fontFamily: 'Pretendard',
-  fontFeatureSettings: `'clig' off, 'liga' off`,
 });
 
 globalStyle('html, body, div, span, h1, h2, h3, h4, h5, h6, p, a, dl, dt, dd, ol, ul, li, form, label, table, button', {
@@ -26,17 +26,14 @@ globalStyle('ol, ul', {
 
 globalStyle('button', {
   cursor: 'pointer',
+  backgroundColor: 'transparent',
 });
 
-globalStyle('input, textarea', {
+globalStyle('input', {
   border: 'none',
   padding: 'none',
 });
 
-globalStyle('textarea', {
-  resize: 'none',
-});
-
-globalStyle('input:focus, textarea:focus', {
+globalStyle('input:focus', {
   outline: 'none',
 });
