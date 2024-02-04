@@ -2,7 +2,6 @@ import { ReactNode } from 'react';
 
 import DndIcon from '/public/icons/dnd.svg';
 import ClearGrayIcon from '/public/icons/clear_x_gray.svg';
-import ClearBlackIcon from '/public/icons/clear_x_black.svg';
 import Label from '@/components/Label/Label';
 import ImageUploader from './ImageUploader';
 import * as styles from './ItemLayout.css';

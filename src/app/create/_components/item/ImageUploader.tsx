@@ -1,4 +1,4 @@
-import { ChangeEvent, ReactNode } from 'react';
+import { ReactNode } from 'react';
 import ImageIcon from '/public/icons/attach_image.svg';
 import * as styles from './ImageUploader.css';
 
