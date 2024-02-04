@@ -3,6 +3,7 @@ import { ListItemProps } from './index';
 import * as styles from './RankList.css';
 import LinkPreview from '@/components/LinkPreview/LinkPreview';
 import VideoEmbed from '@/components/VideoEmbed/VideoEmbed';
+import CrownIcon from '/public/icons/crown.svg';
 
 interface RankListProps {
   listData: ListItemProps[];
@@ -10,11 +11,22 @@ interface RankListProps {
 }
 
 function SimpleList({ listData }: RankListProps) {
-  return listData.map((item) => {
+  return listData.map((item, index) => {
     return (
       <div key={item.id} className={styles.simpleItemWrapper}>
         <div className={styles.rankAndTitle}>
-          <div className={styles.rankText}>{item.rank}위</div>
+          <div
+            className={
+              index === 0
+                ? styles.firstRankTextWrapper
+                : index < 3
+                  ? styles.top3RankTextWrapper
+                  : styles.rankTextWrapper
+            }
+          >
+            {index === 0 && <CrownIcon className={styles.crownIcon} />}
+            <div className={styles.rankText}>{item.rank}</div>
+          </div>
           <div className={styles.titleText}>{item.title}</div>
         </div>
         <div className={styles.simpleImageWrapper}>
@@ -49,11 +61,23 @@ function EmbedComponent({ link }: { link: string }) {
   }
 }
 function DetailList({ listData }: RankListProps) {
-  return listData.map((item) => {
+  return listData.map((item, index) => {
+    console.log(index);
     return (
       <div key={item.id} className={styles.detailItemWrapper}>
         <div className={styles.rankAndTitle}>
-          <div className={styles.rankText}>{item.rank}위</div>
+          <div
+            className={
+              index === 0
+                ? styles.firstRankTextWrapper
+                : index < 3
+                  ? styles.top3RankTextWrapper
+                  : styles.rankTextWrapper
+            }
+          >
+            {index === 0 && <CrownIcon className={styles.crownIcon} />}
+            <div className={styles.rankText}>{item.rank}</div>
+          </div>
           <div className={styles.titleText}>{item.title}</div>
         </div>
         <div className={styles.commentText}>{item.comment}</div>

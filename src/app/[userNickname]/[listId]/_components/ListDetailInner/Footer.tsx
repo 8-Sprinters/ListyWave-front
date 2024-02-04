@@ -1,10 +1,9 @@
 'use client';
 
-import Image from 'next/image';
 import * as styles from './Footer.css';
-import collectIcon from '/public/icons/collect.svg';
-import shareIcon from '/public/icons/share.svg';
-import etcIcon from '/public/icons/etc.svg';
+import CollectIcon from '/public/icons/collect.svg';
+import ShareIcon from '/public/icons/share.svg';
+import EtcIcon from '/public/icons/etc.svg';
 import BottomSheet from '@/app/[userNickname]/[listId]/_components/BottomSheet/BottomSheet';
 import { MouseEvent, useState } from 'react';
 import ModalPortal from '@/components/ModalPortal';
@@ -126,14 +125,14 @@ function Footer({ data }: { data: FooterProps }) {
       )}
       <div className={styles.container}>
         <div className={styles.buttonComponent}>
-          <Image src={collectIcon} alt="콜렉트하기" onClick={handleCollect} />
+          <CollectIcon onClick={handleCollect} />
         </div>
         <div className={styles.shareAndOthers}>
           <div className={styles.buttonComponent} onClick={() => handleSheetActive({ type: 'share' })}>
-            <Image src={shareIcon} alt="공유하기" />
+            <ShareIcon />
           </div>
           <div className={styles.buttonComponent} onClick={() => handleSheetActive({ type: 'etc' })}>
-            <Image src={etcIcon} alt="기타" />
+            <EtcIcon />
           </div>
         </div>
       </div>

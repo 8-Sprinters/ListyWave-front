@@ -12,7 +12,7 @@ export const listWrapper = style({
   display: 'flex',
   flexDirection: 'column',
   justifyContent: 'center',
-  gap: '1rem',
+  gap: '1.6rem',
   alignItems: 'left',
 });
 
@@ -28,7 +28,7 @@ export const detailItemWrapper = style({
   width: '100%',
   display: 'flex',
   flexDirection: 'column',
-  gap: '1rem',
+  gap: '1.6rem',
   alignItems: 'left',
   marginBottom: '6rem',
   ':last-child': {
@@ -49,13 +49,70 @@ export const rankAndTitle = style({
   display: 'flex',
   flexDirection: 'row',
   alignItems: 'center',
-  gap: '4rem',
+  justifyContent: 'flex-start',
+  gap: '2rem',
+});
+
+export const rankTextWrapper = style({
+  width: '40px',
+  height: '40px',
+
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+  flexShrink: 0,
+
+  fontSize: '2.4rem',
+  fontWeight: 'bold',
+  textAlign: 'center',
+});
+
+export const firstRankTextWrapper = style({
+  width: '40px',
+  height: '40px',
+
+  position: 'relative',
+
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+  flexShrink: 0,
+
+  backgroundColor: '#0047FF',
+  borderRadius: '99px',
+
+  fontSize: '2.4rem',
+  fontWeight: 'bold',
+  color: 'white',
+  textAlign: 'center',
+});
+
+export const crownIcon = style({
+  position: 'absolute',
+  bottom: '40px',
+});
+
+export const top3RankTextWrapper = style({
+  width: '40px',
+  height: '40px',
+
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+  flexShrink: 0,
+
+  backgroundColor: '#EBF4FF',
+  borderRadius: '99px',
+
+  fontSize: '2.4rem',
+  fontWeight: 'bold',
+  color: '#0047FF',
+  textAlign: 'center',
 });
 
 export const rankText = style({
-  fontSize: '2.4rem',
-  fontWeight: 'bold',
-  flexShrink: 0,
+  position: 'relative',
+  top: '2px',
 });
 
 export const titleText = style({
@@ -89,6 +146,7 @@ export const simpleImage = style({
   height: '7rem',
 
   borderRadius: '10px',
+  boxShadow: '0px 8px 15px rgba(0, 0, 0, 0.15)',
 
   objectFit: 'cover',
 });
