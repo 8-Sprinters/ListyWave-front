@@ -2,7 +2,15 @@ import axiosInstance from '@/lib/axios/axiosInstance';
 import { ItemImagesType, PresignedUrlListType } from '@/lib/types/listType';
 import axios from 'axios';
 
-export const sendItemImages = async (imageData: ItemImagesType, imageFileList: File[]) => {
+interface uploadItemImagesProps {
+  listId: number;
+  imageData: ItemImagesType;
+  imageFileList: File[];
+}
+
+export const uploadItemImages = async ({ listId, imageData, imageFileList }: uploadItemImagesProps) => {
+  imageData.listId = listId;
+
   //PresignedUrl 생성 요청
   const response = await axiosInstance.post<PresignedUrlListType>('/lists/upload-url', imageData);
 
