@@ -19,5 +19,5 @@ export interface UserType {
   followerCount: number;
   followingCount: number;
   isFollowed: boolean;
-  isFirst: boolean;
+  isOwner: boolean;
 }

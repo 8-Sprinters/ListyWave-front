@@ -16,7 +16,7 @@ import { assignInlineVars } from '@vanilla-extract/dynamic';
 
 import * as styles from './Profile.css';
 
-import Action from './Action';
+import FollowButton from './FollowButton';
 import ArrowLeftIcon from '/public/icons/arrow_left.svg';
 import SettingIcon from '/public/icons/setting.svg';
 
@@ -48,7 +48,7 @@ export default function Profile() {
     >
       <div className={styles.header}>
         <ArrowLeftIcon alt="이전 페이지로 이동하기" className={styles.icon} />
-        <SettingIcon alt="마이페이지로 이동하기" className={styles.icon} />
+        {data?.isOwner && <SettingIcon alt="마이페이지로 이동하기" className={styles.icon} />}
       </div>
       <div className={styles.profileContainer}>
         <div className={styles.profile}>
@@ -62,7 +62,7 @@ export default function Profile() {
           <div className={styles.info}>
             <div className={styles.user}>
               <span className={styles.nickName}>{data?.nickname}</span>
-              <Action isFollowed={!!data?.isFollowed} />
+              {!data?.isOwner && <FollowButton isFollowed={!!data?.isFollowed} />}
             </div>
             <div className={styles.follow}>
               <div className={styles.text}>
