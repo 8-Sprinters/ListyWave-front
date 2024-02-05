@@ -1,5 +1,5 @@
 export const QUERY_KEYS = {
-  user: 'user',
+  userOne: 'userOne',
   createList: 'createList',
   uploadImage: 'uploadImage',
   getLists: 'getLists',

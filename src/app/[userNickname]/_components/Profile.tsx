@@ -22,15 +22,15 @@ import SettingIcon from '/public/icons/setting.svg';
 
 import { QUERY_KEYS } from '@/lib/constants/queryKeys';
 import { UserType } from '@/lib/types/userProfileType';
-import { getUserMe } from '@/app/_api/user/getUserMe';
+import { getUserOne } from '@/app/_api/user/getUserOne';
 
 // 임시 유저 아이디(소현), 나중에 로그인 기능 완료 후 전역 상태에서 id 받아오는 로직 추가
 const TEST_USER_ID = 4;
 
 export default function Profile() {
   const { data, isLoading } = useQuery<UserType>({
-    queryKey: [QUERY_KEYS.user],
-    queryFn: () => getUserMe(TEST_USER_ID),
+    queryKey: [QUERY_KEYS.userOne],
+    queryFn: () => getUserOne(TEST_USER_ID),
   });
 
   console.log(data); // 삭제 예정
