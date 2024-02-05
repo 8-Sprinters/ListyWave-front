@@ -1,10 +1,15 @@
+'use client';
+
 /**
  TODO
  - [ ] 디자인 최종본으로 수정
  - [ ] 프로필 이미지, 배경 이미지 적용
  - [ ] api 연동
+ - [ ] 프로필 이미지 받아오는 중일때 next/Image에 넣을 기본 이미지 세팅
+ - [ ] 이전페이지, 마이페이지 이동하는 로직 추가
+
  */
-import { UserType } from '../mockData/mockDataTypes'; // 삭제 예정
+// import { UserType } from '../mockData/mockDataTypes'; // 삭제 예정
 
 import Image from 'next/image';
 import { assignInlineVars } from '@vanilla-extract/dynamic';
@@ -14,16 +19,31 @@ import Action from './Action';
 import ArrowLeftIcon from '/public/icons/arrow_left.svg';
 import SettingIcon from '/public/icons/setting.svg';
 
-interface ProfileProps {
-  user: UserType;
-}
+import { useQuery } from '@tanstack/react-query';
+import { QUERY_KEYS } from '@/lib/constants/queryKeys';
+import { UserType } from '@/lib/types/userProfileType';
+import { getUserMe } from '@/app/_api/user/getUserMe';
 
-export default function Profile({ user }: ProfileProps) {
+// 임시 유저 아이디, 나중에 로그인 기능 완료 후 전역 상태에서 id 받아오는 로직 추가
+const TEST_USER_ID = 5;
+
+export default function Profile() {
+  const { data, isLoading } = useQuery<UserType>({
+    queryKey: [QUERY_KEYS.user],
+    queryFn: () => getUserMe(TEST_USER_ID),
+  });
+
+  console.log(data); // 삭제 예정
+
+  if (isLoading) {
+    return <div>프로필 로딩중입니다.</div>;
+  }
+
   return (
     <div
       className={styles.container}
       style={assignInlineVars({
-        [styles.imageUrl]: `url(${user.backgroundImageUrl})`,
+        [styles.imageUrl]: `url(${data?.backgroundImageUrl})`,
       })}
     >
       <div className={styles.header}>
@@ -32,32 +52,37 @@ export default function Profile({ user }: ProfileProps) {
       </div>
       <div className={styles.profileContainer}>
         <div className={styles.profile}>
-          <Image
-            src={`${user.profileImageUrl}`}
-            className={styles.avatar}
-            alt="프로필 이미지"
-            width={50}
-            height={50}
-            priority
-          />
+          <img src={`${data?.profileImageUrl}`} className={styles.avatar} alt="프로필 이미지" />
+          {/* {data?.profileImageUrl ? (
+            <Image
+              src={`${data?.profileImageUrl}`}
+              className={styles.avatar}
+              alt="프로필 이미지"
+              width={50}
+              height={50}
+              priority
+            />
+          ) : (
+            <img className={styles.avatar} />
+          )} */}
           <div className={styles.info}>
             <div className={styles.user}>
-              <span className={styles.nickName}>{user.nickname}</span>
-              <Action isFollowed={user.isFollowed} />
+              <span className={styles.nickName}>{data?.nickname}</span>
+              <Action isFollowed={!!data?.isFollowed} />
             </div>
             <div className={styles.follow}>
               <div className={styles.text}>
-                <span className={styles.count}>{user.followingCount}</span>
+                <span className={styles.count}>{data?.followingCount}</span>
                 <span>팔로잉</span>
               </div>
               <div className={styles.text}>
-                <span className={styles.count}>{user.followerCount}</span>
+                <span className={styles.count}>{data?.followerCount}</span>
                 <span>팔로워</span>
               </div>
             </div>
           </div>
         </div>
-        <p className={styles.description}>{user.description}</p>
+        <p className={styles.description}>{data?.description}</p>
       </div>
     </div>
   );
