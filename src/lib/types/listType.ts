@@ -41,3 +41,41 @@ export interface PresignedUrlType {
 }
 
 export type PresignedUrlListType = PresignedUrlType[];
+
+export interface LabelType {
+  id: number;
+  name: string;
+}
+
+export interface CollaboratorType {
+  id?: number;
+  userId?: number;
+  userProfileImageUrl: string;
+}
+
+export interface ListItemsType {
+  id: number;
+  rank: number;
+  title: string;
+  comment: string;
+  link: string;
+  imageUrl: string;
+}
+
+export interface ListDetailType {
+  category: string;
+  labels: LabelType[];
+  title: string;
+  description: string;
+  createdDate: Date;
+  lastUpdatedDated: Date;
+  ownerId: number;
+  ownerProfileImageUrl: string;
+  Collaborators: CollaboratorType[];
+  items: ListItemsType[];
+  isCollected: boolean;
+  isPublic: boolean;
+  backgroundColor: string;
+  collectCount: number;
+  viewCount: number;
+}
