@@ -8,7 +8,7 @@ import { StrictModeDroppable } from '@/components/StrictModeDroppable';
 import { FormErrors } from '../../page';
 import ItemLayout from './ItemLayout';
 import LinkModal from './LinkModal';
-import LinkPreview from './LinkPreview';
+import Preview from './Preview';
 import * as styles from './Items.css';
 import AddItemButton from './AddItemButton';
 
@@ -21,12 +21,13 @@ const ensureHttp = (link: string) => {
 };
 
 // 링크 도메인만 추출 (e.g. naver.com)
-const urlToDomain = (link: string) => {
-  const domain = new URL(link).hostname.replace('www.', '');
-  return domain;
-};
+// const urlToDomain = (link: string) => {
+//   const domain = new URL(link).hostname.replace('www.', '');
+//   return domain;
+// };
 
 export default function Items() {
+  const [currentLink, setCurrentLink] = useState<string>('');
   const {
     register,
     control,
@@ -45,17 +46,15 @@ export default function Items() {
     rules: { minLength: 3, maxLength: 10 },
   });
 
-  const [current, setCurrent] = useState<string>('');
-
   const watchItems = useWatch({ control, name: 'items' });
 
   //--- LinkModal 핸들러
   const handleLinkModalOpen = (index: number) => {
-    setCurrent(getValues().items[index]?.link);
+    setCurrentLink(getValues().items[index]?.link);
   };
 
   const handleLinkModalCancel = (index: number) => {
-    setValue(`items.${index}.link`, current);
+    setValue(`items.${index}.link`, currentLink);
   };
 
   const handleLinkModalConfirm = (index: number) => {
@@ -65,7 +64,7 @@ export default function Items() {
   };
 
   //--- 드래그 되었을 때 실행되는 이벤트
-  const onDragEnd = ({ source, destination }: DropResult) => {
+  const handleOnDragEnd = ({ source, destination }: DropResult) => {
     if (destination && source.index !== destination.index) {
       const currentArray = [...getValues().items];
       const sourceItem = currentArray[source.index];
@@ -76,16 +75,17 @@ export default function Items() {
   };
 
   return (
-    <DragDropContext onDragEnd={onDragEnd}>
+    <DragDropContext onDragEnd={handleOnDragEnd}>
       <StrictModeDroppable droppableId="items">
         {(provided) => (
           <div className={styles.itemsContainer} ref={provided.innerRef} {...provided.droppableProps}>
             {items.map((item, index) => {
-              const errorMessage = (field: 'title' | 'comment' | 'link') =>
+              const errorMessage = (field: 'title' | 'comment' | 'link' | 'image') =>
                 (errors as FormErrors)?.items?.[index]?.[field]?.message;
               const titleError = errorMessage('title');
               const commentError = errorMessage('comment');
               const linkError = errorMessage('link');
+              // const imageError = errorMessage('image');
               return (
                 <Draggable key={item.id} draggableId={item.id} index={index}>
                   {(provided, snapshot) => (
@@ -148,14 +148,34 @@ export default function Items() {
                             </div>
                           </LinkModal>
                         }
+                        imageInput={
+                          <input
+                            className={styles.imageInput}
+                            type="file"
+                            accept=".jpg, .jpeg, .png"
+                            id={`${index}-image`}
+                            {...register(`items.${index}.image`)}
+                          />
+                        }
                         linkPreview={
                           watchItems[index]?.link && (
-                            <LinkPreview
+                            <Preview
                               type="link"
                               url={watchItems[index].link}
-                              domain="domain"
+                              domain={''}
                               handleClearButtonClick={() => {
                                 setValue(`items.${index}.link`, '');
+                              }}
+                            />
+                          )
+                        }
+                        imagePreview={
+                          watchItems[index]?.image && (
+                            <Preview
+                              type="image"
+                              imageFile={watchItems[index]?.image?.[0]}
+                              handleClearButtonClick={() => {
+                                setValue(`items.${index}.image`, '');
                               }}
                             />
                           )
@@ -175,6 +195,7 @@ export default function Items() {
                     title: '',
                     comment: '',
                     link: '',
+                    image: null,
                   })
                 }
               />

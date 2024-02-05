@@ -15,7 +15,6 @@ export const itemLinkRules = {
 };
 
 //list
-
 export const listTitleRules = {
   required: { errorMessage: '제목을 입력해주세요' },
   maxLength: {

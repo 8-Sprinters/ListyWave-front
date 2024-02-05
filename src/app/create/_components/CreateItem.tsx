@@ -1,34 +1,22 @@
 import { useFormContext } from 'react-hook-form';
 
-import BackIcon from '/public/icons/back.svg';
+import Header from './item/Header';
 import Items from './item/Items';
 import * as styles from './CreateItem.css';
 
 interface CreateItemProps {
   onBackClick: () => void;
-  onSubmit: () => void;
+  onSubmitClick: () => void;
 }
 
-export default function CreateItem({ onBackClick, onSubmit }: CreateItemProps) {
+export default function CreateItem({ onBackClick, onSubmitClick }: CreateItemProps) {
   const {
     formState: { isValid },
   } = useFormContext();
 
   return (
     <div>
-      <div className={styles.header}>
-        <button onClick={onBackClick}>
-          <BackIcon alt="뒤로가기 버튼" />
-        </button>
-        <h1 className={styles.headerTitle}>리스트 생성</h1>
-        <button
-          onClick={onSubmit}
-          className={isValid ? styles.headerNextButton : styles.headerNextButtonDisabled}
-          disabled={!isValid ? true : false}
-        >
-          완료
-        </button>
-      </div>
+      <Header onBackClick={onBackClick} isSubmitActive={isValid} onSubmitClick={onSubmitClick} />
       <div className={styles.article}>
         <h3 className={styles.label}>
           아이템 추가 <span className={styles.required}>*</span>

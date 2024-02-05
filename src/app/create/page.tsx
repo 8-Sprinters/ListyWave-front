@@ -2,12 +2,13 @@
 
 import { useState } from 'react';
 import { FieldErrors, FormProvider, useForm } from 'react-hook-form';
+import { useMutation } from '@tanstack/react-query';
 
+import { ItemImagesType, ListCreateType } from '@/lib/types/listType';
 import CreateItem from '@/app/create/_components/CreateItem';
 import CreateList from '@/app/create/_components/CreateList';
-
-import { ListCreateType } from '@/lib/types/listType';
 import { createList } from '../_api/list/createList';
+import { uploadItemImages } from '../_api/list/uploadItemImages';
 
 export type FormErrors = FieldErrors<ListCreateType>;
 
@@ -18,7 +19,7 @@ export default function CreatePage() {
     mode: 'onChange',
     defaultValues: {
       ownerId: 2, //로그인 후 수정 필요
-      category: 'culture',
+      category: '',
       labels: [],
       collaboratorIds: [],
       title: '',
@@ -55,66 +56,74 @@ export default function CreatePage() {
     setStep(step);
   };
 
-  const handleSubmit = async () => {
-    try {
-      const response = await createList(formatData().requestData);
-      // console.log(response.data);
-    } catch (error) {
-      // console.error(error);
-    }
-  };
-
   //request용 데이터 만드는 함수.
   const formatData = () => {
     const originData = methods.getValues();
 
+    //rank 정리
     originData.items.forEach((item, index) => {
-      //rank 정리
       item.rank = index + 1;
     });
 
-    const requestData = {
+    //데이터 쪼개기
+    const listData = {
       ...originData,
       items: originData.items.map(({ image, ...rest }) => rest),
     };
 
-    const imageData = {
+    const imageData: ItemImagesType = {
       ownerId: originData.ownerId,
-      listId: 1, //temp
-      extensionsRanks: originData.items
+      listId: 0, //temp
+      extensionRanks: originData.items
         .map(({ rank, image }) => {
-          return { rank: rank, extension: image?.[0].type.split('/')[1] };
+          return { rank: rank, extension: image?.[0]?.type.split('/')[1] as 'jpg' | 'jpeg' | 'png' };
         })
-        .filter(({ extension }) => {
-          return extension !== undefined;
-        }),
+        .filter(({ extension }) => extension !== null && extension !== undefined),
     };
 
-    return { requestData, imageData };
+    const imageFileList: File[] = originData.items
+      .map(({ image }) => image?.[0] as File)
+      .filter((image) => image !== undefined);
+
+    return { listData, imageData, imageFileList };
+  };
+
+  const saveImageMutation = useMutation({ mutationFn: uploadItemImages });
+
+  const createListMutation = useMutation({
+    mutationFn: createList,
+    onSuccess: (data) => {
+      saveImageMutation.mutate({
+        listId: data.listId,
+        imageData: formatData().imageData,
+        imageFileList: formatData().imageFileList,
+      });
+    },
+  });
+
+  const handleSubmit = () => {
+    const { listData } = formatData();
+    createListMutation.mutate(listData);
   };
 
   return (
-    <div>
-      <div>
-        <FormProvider {...methods}>
-          {step === 'list' ? (
-            <CreateList
-              onNextClick={() => {
-                handleStepChange('item');
-              }}
-            />
-          ) : (
-            <CreateItem
-              onBackClick={() => {
-                handleStepChange('list');
-              }}
-              onSubmit={() => {
-                handleSubmit();
-              }}
-            />
-          )}
-        </FormProvider>
-      </div>
-    </div>
+    <>
+      <FormProvider {...methods}>
+        {step === 'list' ? (
+          <CreateList
+            onNextClick={() => {
+              handleStepChange('item');
+            }}
+          />
+        ) : (
+          <CreateItem
+            onBackClick={() => {
+              handleStepChange('list');
+            }}
+            onSubmitClick={handleSubmit}
+          />
+        )}
+      </FormProvider>
+    </>
   );
 }

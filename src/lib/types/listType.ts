@@ -20,4 +20,24 @@ export interface ListCreateType {
   items: ItemCreateType[];
 }
 
-// 리스트 생성 이미지 생성 타입
+export interface ListIdType {
+  listId: number;
+}
+
+// 이미지 생성 타입
+export interface ItemImageType {
+  rank: number;
+  extension: 'jpg' | 'jpeg' | 'png';
+}
+export interface ItemImagesType {
+  ownerId: number;
+  listId: number;
+  extensionRanks: ItemImageType[] | [];
+}
+
+export interface PresignedUrlType {
+  rank: number;
+  presignedUrl: string;
+}
+
+export type PresignedUrlListType = PresignedUrlType[];

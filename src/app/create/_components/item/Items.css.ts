@@ -4,6 +4,8 @@ export const itemsContainer = style({
   display: 'flex',
   flexDirection: 'column',
   gap: '16px',
+
+  cursor: 'grab',
 });
 
 export const item = style({
@@ -84,6 +86,10 @@ export const linkInput = style([
     borderRadius: '4px',
   },
 ]);
+
+export const imageInput = style({
+  display: 'none',
+});
 
 export const countLength = style({
   //body2
