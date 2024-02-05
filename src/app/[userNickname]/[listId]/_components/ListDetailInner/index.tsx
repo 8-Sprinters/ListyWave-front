@@ -5,6 +5,7 @@ import Header from '@/app/[userNickname]/[listId]/_components/ListDetailInner/He
 import RankList from '@/app/[userNickname]/[listId]/_components/ListDetailInner/RankList';
 import Footer from '@/app/[userNickname]/[listId]/_components/ListDetailInner/Footer';
 import * as styles from './index.css';
+import { CollaboratorType, ListItemsType } from '@/lib/types/listType';
 
 export interface ListItemProps {
   id?: number;
@@ -31,8 +32,8 @@ interface ListDetailInnerProps {
   ownerId: number;
   ownerNickname: string;
   ownerProfileImageUrl: string;
-  collaborators: [];
-  items: [];
+  collaborators: CollaboratorType[];
+  items: ListItemsType[];
   isCollected: boolean;
   isPublic: boolean;
   backgroundColor: string;
@@ -41,7 +42,7 @@ interface ListDetailInnerProps {
 }
 
 function ListDetailInner({ data }: { data: ListDetailInnerProps }) {
-  const listData = data.items;
+  const listData = data?.items;
   const [listType, setListType] = useState('simple');
   const handleChangeListType = (target: OptionsProps) => {
     const value: string = target.value;
@@ -49,13 +50,13 @@ function ListDetailInner({ data }: { data: ListDetailInnerProps }) {
   };
 
   const footerData = {
-    category: data.category,
-    listId: data.listId,
-    title: data.title,
-    description: data.description,
+    category: data?.category,
+    listId: data?.listId,
+    title: data?.title,
+    description: data?.description,
     items: listData,
-    collaborators: data.collaborators,
-    ownerNickname: data.ownerNickname,
+    collaborators: data?.collaborators,
+    ownerNickname: data?.ownerNickname,
   };
 
   return (

@@ -12,6 +12,7 @@ import * as styles from './Footer.css';
 import CollectIcon from '/public/icons/collect.svg';
 import ShareIcon from '/public/icons/share.svg';
 import EtcIcon from '/public/icons/etc.svg';
+import { CollaboratorType, ListItemsType } from '@/lib/types/listType';
 
 interface BottomSheetOptionsProps {
   key: string;
@@ -28,8 +29,8 @@ interface FooterProps {
   listId: string;
   title: string;
   description: string;
-  items: [];
-  collaborators: [];
+  items: ListItemsType[];
+  collaborators: CollaboratorType[];
   ownerNickname: string;
 }
 
