@@ -15,7 +15,7 @@ declare global {
 export default function TempLayout({ children }: { children: ReactNode }) {
   function kakaoInit() {
     window.Kakao.init(process.env.NEXT_PUBLIC_KAKAO_API_KEY);
-    window.Kakao.isInitialized();
+    console.log('kakaoShareStatus:', window.Kakao.isInitialized());
   }
 
   return (
