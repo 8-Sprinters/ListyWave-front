@@ -3,29 +3,29 @@
 /**
  TODO
  - [ ] 디자인 최종본으로 수정
- - [ ] 프로필 이미지, 배경 이미지 적용
- - [ ] api 연동
+ - [x] 프로필 이미지, 배경 이미지 적용
+ - [x] api 연동
  - [ ] 프로필 이미지 받아오는 중일때 next/Image에 넣을 기본 이미지 세팅
  - [ ] 이전페이지, 마이페이지 이동하는 로직 추가
 
  */
-// import { UserType } from '../mockData/mockDataTypes'; // 삭제 예정
 
 import Image from 'next/image';
+import { useQuery } from '@tanstack/react-query';
 import { assignInlineVars } from '@vanilla-extract/dynamic';
+
 import * as styles from './Profile.css';
 
 import Action from './Action';
 import ArrowLeftIcon from '/public/icons/arrow_left.svg';
 import SettingIcon from '/public/icons/setting.svg';
 
-import { useQuery } from '@tanstack/react-query';
 import { QUERY_KEYS } from '@/lib/constants/queryKeys';
 import { UserType } from '@/lib/types/userProfileType';
 import { getUserMe } from '@/app/_api/user/getUserMe';
 
-// 임시 유저 아이디, 나중에 로그인 기능 완료 후 전역 상태에서 id 받아오는 로직 추가
-const TEST_USER_ID = 5;
+// 임시 유저 아이디(소현), 나중에 로그인 기능 완료 후 전역 상태에서 id 받아오는 로직 추가
+const TEST_USER_ID = 4;
 
 export default function Profile() {
   const { data, isLoading } = useQuery<UserType>({
@@ -52,19 +52,13 @@ export default function Profile() {
       </div>
       <div className={styles.profileContainer}>
         <div className={styles.profile}>
-          <img src={`${data?.profileImageUrl}`} className={styles.avatar} alt="프로필 이미지" />
-          {/* {data?.profileImageUrl ? (
-            <Image
-              src={`${data?.profileImageUrl}`}
-              className={styles.avatar}
-              alt="프로필 이미지"
-              width={50}
-              height={50}
-              priority
-            />
-          ) : (
-            <img className={styles.avatar} />
-          )} */}
+          <div className={styles.avatar}>
+            {data?.profileImageUrl ? (
+              <Image src={`${data?.profileImageUrl}`} alt="프로필 이미지" width={50} height={50} priority />
+            ) : (
+              <div className={styles.avatar}></div>
+            )}
+          </div>
           <div className={styles.info}>
             <div className={styles.user}>
               <span className={styles.nickName}>{data?.nickname}</span>
