@@ -45,7 +45,7 @@ function CreateList({ onNextClick }: CreateListProps) {
   const category = useWatch({ control, name: 'category' });
 
   const searchParams = useSearchParams();
-  const isTemplateCreation = searchParams.has('title') && searchParams.has('category');
+  const isTemplateCreation = searchParams?.has('title') && searchParams?.has('category');
 
   const fetchUsers = async () => {
     try {
@@ -66,8 +66,8 @@ function CreateList({ onNextClick }: CreateListProps) {
 
     const handleQueryParams = () => {
       if (isTemplateCreation) {
-        setValue('title', searchParams.get('title'));
-        setValue('category', searchParams.get('category'));
+        setValue('title', searchParams?.get('title'));
+        setValue('category', searchParams?.get('category'));
       }
     };
     handleQueryParams();
@@ -101,7 +101,7 @@ function CreateList({ onNextClick }: CreateListProps) {
             onClick={(item: CategoryType) => {
               setValue('category', item.nameValue);
             }}
-            defaultValue={searchParams.get('category')}
+            defaultValue={searchParams?.get('category')}
           />
         </Section>
 
