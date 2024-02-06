@@ -33,6 +33,8 @@ export const draggingItem = style([
 ]);
 
 export const title = style({
+  flexGrow: 1,
+
   //body1
   fontSize: '1.6rem',
   fontWeight: '400',
@@ -57,7 +59,7 @@ export const comment = style({
   width: '100%',
   resize: 'none',
 
-  flexGrow: '1',
+  flexGrow: 1,
 
   //body2
   fontSize: '1.5rem',
