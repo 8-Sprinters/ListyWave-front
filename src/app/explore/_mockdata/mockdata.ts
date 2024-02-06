@@ -1,4 +1,4 @@
-import { ListRecommendationType } from './mockdataType';
+import { ListRecommendationType, TrendingListType } from './mockdataType';
 
 export const recommendationUsersMockdata = [
   {
@@ -201,5 +201,68 @@ export const ListRecommendationMockdata: ListRecommendationType[] = [
           'https://i.namu.wiki/i/X3zvHLy5H1N5NgV6dGHGYpO5PeHGjyG4ZdhzxgIu-P7Nu_MC0wusUJ1yQZFv8PfjKfBPfNykuk1kVGP76P_vLw.webp',
       },
     ],
+  },
+];
+
+export const TrendingLists: TrendingListType[] = [
+  {
+    id: 1,
+    title: '을지로 맛집 Top10',
+    description: '을지로 맛집  Top10을 엄선해보았습니다.',
+    backgroundColor: '#FFF6A5',
+  },
+  {
+    id: 2,
+    title: '혜화 맛집 Top10',
+    description: '혜화 맛집  Top10을 엄선해보았습니다.',
+    backgroundColor: '#FFDCB2',
+  },
+  {
+    id: 3,
+    title: '인천 맛집 Top10',
+    description: '인천 맛집  Top10을 엄선해보았습니다.',
+    backgroundColor: 'rgba(208, 255, 137, 0.70)',
+  },
+  {
+    id: 4,
+    title: '청계산 맛집 Top10',
+    description: '청계산 맛집  Top10을 엄선해보았습니다.',
+    backgroundColor: '#B7EEFF',
+  },
+  {
+    id: 5,
+    title: '전남 맛집 Top10',
+    description: '전남 맛집  Top10을 엄선해보았습니다.',
+    backgroundColor: '#E6C6FF',
+  },
+  {
+    id: 6,
+    title: '분위기 좋은 카페 Top10',
+    description: '분위기 좋은 카페 Top10을 엄선해보았습니다.',
+    backgroundColor: '#FFF6A5',
+  },
+  {
+    id: 7,
+    title: '데이트 코스 Top10',
+    description: '데이트 코스 Top10을 엄선해보았습니다.',
+    backgroundColor: '#FFDCB2',
+  },
+  {
+    id: 8,
+    title: '방송에 나온 맛짐 op10',
+    description: '방송에 나온 맛짐 Top10을 엄선해보았습니다.',
+    backgroundColor: 'rgba(208, 255, 137, 0.70)',
+  },
+  {
+    id: 9,
+    title: '요즘 뜨는 유튜브 쇼츠 Top10',
+    description: '요즘 뜨는 유튜브 쇼츠 Top10을 엄선해보았습니다.',
+    backgroundColor: '#B7EEFF',
+  },
+  {
+    id: 10,
+    title: '그냥저냥 Top10',
+    description: '그냥저냥 Top10을 엄선해보았습니다.',
+    backgroundColor: '#E6C6FF',
   },
 ];

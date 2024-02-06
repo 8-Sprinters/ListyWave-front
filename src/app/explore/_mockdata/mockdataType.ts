@@ -28,3 +28,10 @@ export interface ListRecommendationType {
   description: string;
   items: ListItemType[];
 }
+
+export interface TrendingListType {
+  id: number;
+  title: string;
+  description: string;
+  backgroundColor: string;
+}

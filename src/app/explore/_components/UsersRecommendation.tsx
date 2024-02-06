@@ -19,7 +19,7 @@ function UsersRecommendation() {
   };
 
   return (
-    <>
+    <div className={styles.wrapper}>
       {recommendUsersList?.length !== 0 && (
         <>
           <div className={styles.userRecommendationTitle}>사용자 추천</div>
@@ -53,7 +53,7 @@ function UsersRecommendation() {
           </ul>
         </>
       )}
-    </>
+    </div>
   );
 }
 

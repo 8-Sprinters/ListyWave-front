@@ -1,5 +1,9 @@
 import { style } from '@vanilla-extract/css';
 
+export const wrapper = style({
+  padding: '0 16px',
+});
+
 export const userRecommendationTitle = style({
   marginBottom: '13px',
 
