@@ -7,16 +7,17 @@ import * as styles from './CreateItem.css';
 interface CreateItemProps {
   onBackClick: () => void;
   onSubmitClick: () => void;
+  isSubmitting: boolean;
 }
 
-export default function CreateItem({ onBackClick, onSubmitClick }: CreateItemProps) {
+export default function CreateItem({ onBackClick, onSubmitClick, isSubmitting }: CreateItemProps) {
   const {
     formState: { isValid },
   } = useFormContext();
 
   return (
     <div>
-      <Header onBackClick={onBackClick} isSubmitActive={isValid} onSubmitClick={onSubmitClick} />
+      <Header onBackClick={onBackClick} isSubmitActive={isValid && !isSubmitting} onSubmitClick={onSubmitClick} />
       <div className={styles.article}>
         <h3 className={styles.label}>
           아이템 추가 <span className={styles.required}>*</span>
