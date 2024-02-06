@@ -103,7 +103,6 @@ export default function CreatePage() {
   const {
     mutate: saveImageMutate,
     isPending: isUploadingImage,
-    isSuccess,
     data: listId,
   } = useMutation({
     mutationFn: uploadItemImages,
@@ -117,7 +116,7 @@ export default function CreatePage() {
     },
   });
 
-  const { mutate: createListMutate, isPending: isCreatingList } = useMutation({
+  const { mutate: createListMutate, isPending: isCreatingList, isSuccess } = useMutation({
     mutationFn: createList,
     onSuccess: (data) => {
       setNewListId(data.listId);
