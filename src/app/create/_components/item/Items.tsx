@@ -80,12 +80,12 @@ export default function Items() {
         {(provided) => (
           <div className={styles.itemsContainer} ref={provided.innerRef} {...provided.droppableProps}>
             {items.map((item, index) => {
-              const errorMessage = (field: 'title' | 'comment' | 'link' | 'image') =>
+              const errorMessage = (field: 'title' | 'comment' | 'link' | 'imageUrl') =>
                 (errors as FormErrors)?.items?.[index]?.[field]?.message;
               const titleError = errorMessage('title');
               const commentError = errorMessage('comment');
               const linkError = errorMessage('link');
-              // const imageError = errorMessage('image');
+              // const imageError = errorMessage('imageUrl');
               return (
                 <Draggable key={item.id} draggableId={item.id} index={index}>
                   {(provided, snapshot) => (
@@ -138,6 +138,7 @@ export default function Items() {
                             <div className={styles.linkModalChildren}>
                               <input
                                 className={styles.linkInput}
+                                type="url"
                                 placeholder={itemPlaceholder.link}
                                 autoComplete="off"
                                 {...register(`items.${index}.link`, itemLinkRules)}
@@ -154,7 +155,7 @@ export default function Items() {
                             type="file"
                             accept=".jpg, .jpeg, .png"
                             id={`${index}-image`}
-                            {...register(`items.${index}.image`)}
+                            {...register(`items.${index}.imageUrl`)}
                           />
                         }
                         linkPreview={
@@ -170,12 +171,12 @@ export default function Items() {
                           )
                         }
                         imagePreview={
-                          watchItems[index]?.image && (
+                          watchItems[index]?.imageUrl !== '' && (
                             <Preview
                               type="image"
-                              imageFile={watchItems[index]?.image?.[0]}
+                              imageFile={watchItems[index]?.imageUrl?.[0]}
                               handleClearButtonClick={() => {
-                                setValue(`items.${index}.image`, '');
+                                setValue(`items.${index}.imageUrl`, '');
                               }}
                             />
                           )
@@ -195,7 +196,7 @@ export default function Items() {
                     title: '',
                     comment: '',
                     link: '',
-                    image: null,
+                    imageUrl: '',
                   })
                 }
               />
