@@ -209,6 +209,8 @@ export const TrendingLists: TrendingListType[] = [
     id: 1,
     title: '을지로 맛집 Top10',
     description: '을지로 맛집  Top10을 엄선해보았습니다.',
+    itemImageUrl:
+      'https://search.pstatic.net/common/?src=https%3A%2F%2Fldb-phinf.pstatic.net%2F20230907_98%2F1694071814265Neodd_JPEG%2FIMG_6973.JPEG',
     backgroundColor: '#FFF6A5',
   },
   {
@@ -216,53 +218,68 @@ export const TrendingLists: TrendingListType[] = [
     title: '혜화 맛집 Top10',
     description: '혜화 맛집  Top10을 엄선해보았습니다.',
     backgroundColor: '#FFDCB2',
+    itemImageUrl:
+      'https://search.pstatic.net/common/?src=https%3A%2F%2Fldb-phinf.pstatic.net%2F20240107_96%2F17046203492144IjMQ_JPEG%2F%25B8%25DE%25B4%25BA1.jpg',
   },
   {
     id: 3,
     title: '인천 맛집 Top10',
     description: '인천 맛집  Top10을 엄선해보았습니다.',
     backgroundColor: 'rgba(208, 255, 137, 0.70)',
+    itemImageUrl:
+      'https://search.pstatic.net/common/?src=https%3A%2F%2Fldb-phinf.pstatic.net%2F20230418_179%2F1681797261380oQWbu_JPEG%2F2G3A1209.jpg',
   },
   {
     id: 4,
     title: '청계산 맛집 Top10',
     description: '청계산 맛집  Top10을 엄선해보았습니다.',
     backgroundColor: '#B7EEFF',
+    itemImageUrl:
+      'https://search.pstatic.net/common/?src=https%3A%2F%2Fldb-phinf.pstatic.net%2F20240112_281%2F1705046744810ujncl_JPEG%2F1000009969.jpg',
   },
   {
     id: 5,
     title: '전남 맛집 Top10',
     description: '전남 맛집  Top10을 엄선해보았습니다.',
     backgroundColor: '#E6C6FF',
+    itemImageUrl:
+      'https://search.pstatic.net/common/?src=https%3A%2F%2Fldb-phinf.pstatic.net%2F20231204_267%2F17016812479977Un9Q_JPEG%2FKakaoTalk_20231204_180711629.jpg',
   },
   {
     id: 6,
     title: '분위기 좋은 카페 Top10',
     description: '분위기 좋은 카페 Top10을 엄선해보았습니다.',
     backgroundColor: '#FFF6A5',
+    itemImageUrl:
+      'https://search.pstatic.net/common/?src=https%3A%2F%2Fldb-phinf.pstatic.net%2F20231228_88%2F1703741574693W4o7X_JPEG%2FKakaoTalk_Photo_2023-12-28-14-29-38.jpeg',
   },
   {
     id: 7,
     title: '데이트 코스 Top10',
     description: '데이트 코스 Top10을 엄선해보았습니다.',
     backgroundColor: '#FFDCB2',
+    itemImageUrl: '',
   },
   {
     id: 8,
     title: '방송에 나온 맛짐 op10',
     description: '방송에 나온 맛짐 Top10을 엄선해보았습니다.',
     backgroundColor: 'rgba(208, 255, 137, 0.70)',
+    itemImageUrl:
+      'https://search.pstatic.net/common/?src=https%3A%2F%2Fldb-phinf.pstatic.net%2F20230325_111%2F16797163307807mhg2_JPEG%2F20230319_144623.jpg',
   },
   {
     id: 9,
     title: '요즘 뜨는 유튜브 쇼츠 Top10',
     description: '요즘 뜨는 유튜브 쇼츠 Top10을 엄선해보았습니다.',
     backgroundColor: '#B7EEFF',
+    itemImageUrl: '',
   },
   {
     id: 10,
     title: '그냥저냥 Top10',
     description: '그냥저냥 Top10을 엄선해보았습니다.',
     backgroundColor: '#E6C6FF',
+    itemImageUrl: '',
   },
 ];

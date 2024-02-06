@@ -34,4 +34,5 @@ export interface TrendingListType {
   title: string;
   description: string;
   backgroundColor: string;
+  itemImageUrl: string;
 }
