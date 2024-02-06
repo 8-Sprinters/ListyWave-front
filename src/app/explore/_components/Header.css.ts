@@ -31,6 +31,6 @@ export const userProfile = style({
 
 export const userName = style({
   color: '#202020',
-  fontSize: '15px',
+  fontSize: '1.5rem',
   fontWeight: 600,
 });
