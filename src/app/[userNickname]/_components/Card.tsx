@@ -4,12 +4,13 @@
  - [ ] svg 아이콘 컴포넌트화 
  */
 
-import { ListType } from '../mockData/mockDataTypes'; // 삭제 예정
+// import { ListType } from '../mockData/mockDataTypes'; // 삭제 예정
 import { assignInlineVars } from '@vanilla-extract/dynamic';
 import * as styles from './Card.css';
 
 import CardItem from './CardItem';
 import LockIcon from '/public/icons/lock_alt.svg';
+import { ListType } from '@/lib/types/listType';
 
 interface CardProps {
   list: ListType;
@@ -22,9 +23,9 @@ export default function Card({ list, isOwner }: CardProps) {
   return (
     <ul
       className={styles.container}
-      style={assignInlineVars({
-        [styles.listColor]: `${list.backgroundColor}`,
-      })}
+      // style={assignInlineVars({
+      //   [styles.listColor]: `${list.backgroundColor}`,
+      // })}
     >
       {isVisibleLockIcon && (
         <div className={styles.lockIcon}>
@@ -34,7 +35,7 @@ export default function Card({ list, isOwner }: CardProps) {
       )}
       <h2 className={styles.title}>{list.title}</h2>
       <ul className={styles.list}>
-        {list.items.map((item) => (
+        {list.listItems.map((item) => (
           <CardItem key={item.id} item={item} />
         ))}
       </ul>

@@ -29,6 +29,7 @@ export interface ItemImageType {
   rank: number;
   extension: 'jpg' | 'jpeg' | 'png';
 }
+
 export interface ItemImagesType {
   ownerId: number;
   listId: number;
@@ -41,3 +42,26 @@ export interface PresignedUrlType {
 }
 
 export type PresignedUrlListType = PresignedUrlType[];
+
+// 리스트 전체 조회 타입
+export interface AllListType {
+  cursorId: number;
+  hasNext: boolean;
+  feedLists: ListType[];
+}
+
+export interface ListType {
+  id: number;
+  title: string;
+  isPublic: boolean;
+  listItems: Omit<ItemType, 'comment' | 'link'>[];
+}
+
+export interface ItemType {
+  id: number;
+  rank: number;
+  title: string;
+  comment?: string;
+  link?: string;
+  imageUrl?: string;
+}

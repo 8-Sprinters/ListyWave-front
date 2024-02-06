@@ -31,7 +31,7 @@ export default function MyListPage() {
   return (
     <section>
       <Profile />
-      <Content user={USER_DATA_ME} type="my" />
+      <Content type="my" />
       <FloatingContainer>
         <PlusButton />
         <ArrowUpButton />
