@@ -1,14 +1,12 @@
 import axiosInstance from '@/lib/axios/axiosInstance';
 import { AllListType } from '@/lib/types/listType';
 
-const accessToken = '';
+export async function getAllList(userId: number, type: string, category?: string) {
+  const query = `${category ? `${category}` : 'entire'}`;
 
-export async function getAllList(userId = 4) {
-  const response = await axiosInstance.get<AllListType>(`/users/${userId}/lists?type=my&category=entire&size=5`, {
-    headers: {
-      Authorization: `Bearer ${accessToken}`,
-    },
-  });
+  const response = await axiosInstance.get<AllListType>(
+    `/users/${userId}/lists?type=${type}&category=${query}&size=10`
+  );
 
   return response.data;
 }

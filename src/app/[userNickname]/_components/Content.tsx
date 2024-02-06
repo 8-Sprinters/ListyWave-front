@@ -2,7 +2,7 @@
 
 /**
  TODO
- - [ ] api 연동
+ - [x] api 연동
  - [ ] 무한스크롤 적용
  - [ ] 피드페이지 스켈레톤 ui 적용
  */
@@ -23,28 +23,42 @@ import { getUserOne } from '@/app/_api/user/getUserOne';
 import { QUERY_KEYS } from '@/lib/constants/queryKeys';
 import { UserType } from '@/lib/types/userProfileType';
 import { getAllList } from '@/app/_api/list/getAllList';
-import { AllListType, ListType } from '@/lib/types/listType';
+import { ListType } from '@/lib/types/listType';
+import { useCallback, useEffect, useState } from 'react';
 
 // 임시 유저 아이디(소현), 나중에 로그인 기능 완료 후 전역 상태에서 id 받아오는 로직 추가
 const TEST_USER_ID = 4;
 
 export default function Content({ type }: { type: string }) {
+  const [listGrid, setListGrid] = useState<ListType[]>([]);
+
   const { data: userData } = useQuery<UserType>({
     queryKey: [QUERY_KEYS.userOne],
     queryFn: () => getUserOne(TEST_USER_ID),
   });
 
-  const { data: listData } = useQuery<AllListType>({
-    queryKey: [QUERY_KEYS.getAllList],
-    queryFn: () => getAllList(TEST_USER_ID),
-  });
+  // const { data: listData, refetch } = useQuery<AllListType>({
+  //   queryKey: [QUERY_KEYS.getAllList],
+  //   queryFn: () => getAllList(TEST_USER_ID, type),
+  // });
 
-  console.log(listData);
+  // console.log(listGrid);
 
-  const handleFetchListsOnCategory = (kind: string) => {
-    // console.log(type, kind); // 삭제 예정
-    // 2. userId, type, category로 피드 정보 가져오는 api 요청
+  const handleFetchLists = useCallback(
+    async (category?: string) => {
+      const data = await getAllList(TEST_USER_ID, type, category);
+      setListGrid(data.feedLists);
+    },
+    [type]
+  );
+
+  const handleFetchListsOnCategory = async (category?: string) => {
+    handleFetchLists(category);
   };
+
+  useEffect(() => {
+    handleFetchLists();
+  }, [handleFetchLists]);
 
   return (
     <div className={styles.container}>
@@ -59,7 +73,7 @@ export default function Content({ type }: { type: string }) {
       <Categories onClick={handleFetchListsOnCategory} />
       <div className={styles.cards}>
         <MasonryGrid gap={16} defaultDirection={'end'} align={'start'}>
-          {listData?.feedLists.map((list: ListType) => (
+          {listGrid.map((list: ListType) => (
             <Card key={list.id} list={list} isOwner={!!userData?.isOwner} />
           ))}
         </MasonryGrid>

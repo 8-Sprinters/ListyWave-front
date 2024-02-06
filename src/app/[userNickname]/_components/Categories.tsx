@@ -14,14 +14,16 @@ import * as styles from './Categories.css';
 import { getCategories } from '@/app/_api/category/getCategories';
 import { CategoryType } from '@/lib/types/categoriesType';
 import { QUERY_KEYS } from '@/lib/constants/queryKeys';
-import { DEFAULT_CATEGORY } from '@/lib/constants/common';
 
 interface CategoriesProps {
   onClick: (kind: string) => void;
 }
 
+export const DEFAULT_CATEGORY = 'entire';
+
 export default function Categories({ onClick }: CategoriesProps) {
   const [selected, setSelected] = useState(DEFAULT_CATEGORY);
+  console.log(selected);
 
   const { data } = useQuery<CategoryType[]>({
     queryKey: [QUERY_KEYS.getCategories],
@@ -40,8 +42,8 @@ export default function Categories({ onClick }: CategoriesProps) {
       {data?.map((category) => (
         <button
           key={category.codeValue}
-          onClick={handleChangeCategory(category.korNameValue)}
-          className={`${styles.button} ${category.korNameValue === selected ? styles.variant : ''}`}
+          onClick={handleChangeCategory(category.nameValue)}
+          className={`${styles.button} ${category.nameValue === selected ? styles.variant : ''}`}
         >
           {category.korNameValue}
         </button>
