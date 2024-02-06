@@ -23,9 +23,9 @@ export default function Card({ list, isOwner }: CardProps) {
   return (
     <ul
       className={styles.container}
-      // style={assignInlineVars({
-      //   [styles.listColor]: `${list.backgroundColor}`,
-      // })}
+      style={assignInlineVars({
+        [styles.listColor]: `${list.backgroundColor}`,
+      })}
     >
       {isVisibleLockIcon && (
         <div className={styles.lockIcon}>
