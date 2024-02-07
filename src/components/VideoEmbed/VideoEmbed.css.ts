@@ -1,7 +1,8 @@
 import { style } from '@vanilla-extract/css';
+import { vars } from '@/styles/theme.css';
 
 export const videoWrapper = style({
-  border: '1px solid #EFEFF0',
+  border: `1px solid ${vars.color.gray5}`,
   borderRadius: '10px',
 
   overflow: 'hidden',

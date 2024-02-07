@@ -1,4 +1,5 @@
 import { style } from '@vanilla-extract/css';
+import { vars } from '@/styles/theme.css';
 
 export const container = style({
   width: '100%',
@@ -43,9 +44,9 @@ export const contentWrapper = style({
 export const title = style({});
 
 export const description = style({
-  color: 'gray',
+  color: vars.color.gray9,
 });
 
 export const url = style({
-  color: 'lightgray',
+  color: vars.color.gray7,
 });

@@ -1,4 +1,6 @@
-import { style } from '@vanilla-extract/css';
+import { style, styleVariants } from '@vanilla-extract/css';
+import { vars } from '@/styles/theme.css';
+import { title3, body1 } from '@/styles/font.css';
 
 export const header = style({
   width: '100%',
@@ -16,21 +18,16 @@ export const header = style({
   alignItems: 'center',
   justifyContent: 'space-between',
 
-  backgroundColor: '#fff',
+  backgroundColor: vars.color.white,
 
   borderBottom: '1px solid rgba(0, 0, 0, 0.10)',
 });
 
-export const headerTitle = style({
-  fontSize: '2rem',
-});
+export const headerTitle = style([title3]);
 
-export const headerNextButton = style({
-  fontSize: '1.6rem',
-  color: '#AFB1B6',
-  cursor: 'default',
-});
+export const baseButton = style([body1]);
 
-export const headerNextButtonActive = style({
-  fontSize: '1.6rem',
+export const headerNextButton = styleVariants({
+  active: [baseButton],
+  inactive: [baseButton, { color: vars.color.gray7, cursor: 'default' }],
 });
