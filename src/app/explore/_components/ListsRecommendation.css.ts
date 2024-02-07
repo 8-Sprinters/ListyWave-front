@@ -10,7 +10,7 @@ export const wrapperOuter = style({
 });
 
 export const listWrapper = style({
-  marginBottom: '7px',
+  marginBottom: '35px',
   padding: '24px 0',
 
   position: 'relative',
@@ -99,11 +99,11 @@ export const simpleListWrapper = style({
 
 export const blurBox = style({
   width: '100%',
-  height: '120px',
+  height: '172px',
   padding: '0 16px',
 
   position: 'absolute',
-  bottom: 25,
+  bottom: -17,
   left: 0,
 
   display: 'flex',
