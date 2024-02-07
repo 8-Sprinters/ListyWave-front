@@ -4,7 +4,7 @@
  TODO
  - [ ] 디자인 최종본으로 수정
  - [ ] 프로필 이미지 받아오는 중일때 next/Image에 넣을 기본 이미지 세팅
- - [ ] 이전페이지, 마이페이지 이동하는 로직 추가
+ - [x] 이전페이지, 마이페이지 이동하는 로직 추가
 
  */
 
@@ -18,22 +18,18 @@ import FollowButton from './FollowButton';
 import ArrowLeftIcon from '/public/icons/arrow_left.svg';
 import SettingIcon from '/public/icons/setting.svg';
 
+import useMoveToPage from '@/hooks/useMoveToPage';
+import { getUserOne } from '@/app/_api/user/getUserOne';
 import { QUERY_KEYS } from '@/lib/constants/queryKeys';
 import { UserType } from '@/lib/types/userProfileType';
-import { getUserOne } from '@/app/_api/user/getUserOne';
-import { useRouter } from 'next/navigation';
 
 export default function Profile({ userId }: { userId: number }) {
-  const router = useRouter();
+  const { onClickMoveToPage } = useMoveToPage();
 
   const { data, isLoading } = useQuery<UserType>({
     queryKey: [QUERY_KEYS.userOne],
     queryFn: () => getUserOne(userId),
   });
-
-  const handleMoveToPage = () => {
-    router.push(`/account`);
-  };
 
   if (isLoading) {
     return <div>프로필 로딩중입니다.</div>;
@@ -49,7 +45,7 @@ export default function Profile({ userId }: { userId: number }) {
       <div className={styles.header}>
         <ArrowLeftIcon alt="이전 페이지로 이동하기" className={styles.icon} />
         {data?.isOwner && (
-          <SettingIcon alt="마이페이지로 이동하기" className={styles.icon} onClick={handleMoveToPage} />
+          <SettingIcon alt="마이페이지로 이동하기" className={styles.icon} onClick={onClickMoveToPage('/account')} />
         )}
       </div>
       <div className={styles.profileContainer}>
@@ -67,11 +63,11 @@ export default function Profile({ userId }: { userId: number }) {
               {!data?.isOwner && <FollowButton isFollowed={!!data?.isFollowed} />}
             </div>
             <div className={styles.follow}>
-              <div className={styles.text} onClick={() => router.push(`/user/${userId}/followings`)}>
+              <div className={styles.text} onClick={onClickMoveToPage(`/user/${userId}/followings`)}>
                 <span className={styles.count}>{data?.followingCount}</span>
                 <span>팔로잉</span>
               </div>
-              <div className={styles.text} onClick={() => router.push(`/user/${userId}/followers`)}>
+              <div className={styles.text} onClick={onClickMoveToPage(`/user/${userId}/followers`)}>
                 <span className={styles.count}>{data?.followerCount}</span>
                 <span>팔로워</span>
               </div>
