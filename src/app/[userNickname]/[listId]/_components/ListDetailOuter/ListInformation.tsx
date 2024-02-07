@@ -14,7 +14,11 @@ const LIST = MOCKDATA_LIST[0];
 
 function ListInformation() {
   const params = useParams<{ listId: string }>();
-  const { data } = useQuery({ queryKey: ['getListDetail'], queryFn: () => getListDetail(params?.listId) });
+  const { data } = useQuery({
+    queryKey: ['getListDetail'],
+    queryFn: () => getListDetail(params?.listId),
+    enabled: !!params?.listId,
+  });
   const list = data;
 
   return (
