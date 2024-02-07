@@ -1,8 +1,11 @@
 'use client';
 import { useState } from 'react';
+import { useParams } from 'next/navigation';
+import { useQuery } from '@tanstack/react-query';
 import Image from 'next/image';
 import Comment from './Comment';
 import * as styles from './Comments.css';
+import { getComments } from '@/app/_api/comment/getComments';
 import { MOCKDATA_COMMENTS } from '../../mockData/mockdata';
 import CancelButton from '/public/icons/cancel_button.svg';
 
@@ -10,6 +13,9 @@ const COMMENTS = MOCKDATA_COMMENTS[1];
 
 function Comments() {
   const [activeNickname, setActiveNickname] = useState<string | null | undefined>(null);
+  const params = useParams<{ listId: string }>();
+  const { data } = useQuery({ queryKey: ['getComments'], queryFn: () => getComments('1') });
+  console.log(data);
 
   const handleActiveNicknameDelete = () => {
     if (activeNickname) {
