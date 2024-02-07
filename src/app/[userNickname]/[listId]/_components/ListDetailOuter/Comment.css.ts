@@ -7,6 +7,7 @@ export const commentOuterWrapper = style({
 
   display: 'flex',
   justifyContent: 'space-between',
+  gap: '16px',
 });
 
 export const profileImage = style({
