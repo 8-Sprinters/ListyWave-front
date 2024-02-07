@@ -8,13 +8,14 @@ import * as styles from './Comments.css';
 import { getComments } from '@/app/_api/comment/getComments';
 import { MOCKDATA_COMMENTS } from '../../mockData/mockdata';
 import CancelButton from '/public/icons/cancel_button.svg';
+import { CommentType } from '../../mockData/mockdataType';
 
 const COMMENTS = MOCKDATA_COMMENTS[1];
 
 function Comments() {
   const [activeNickname, setActiveNickname] = useState<string | null | undefined>(null);
   const params = useParams<{ listId: string }>();
-  const { data } = useQuery({ queryKey: ['getComments'], queryFn: () => getComments('1') });
+  const { data } = useQuery({ queryKey: ['getComments'], queryFn: () => getComments(params?.listId) });
   const commentsData = data;
 
   const handleActiveNicknameDelete = () => {
@@ -48,7 +49,7 @@ function Comments() {
         </div>
       </div>
       <div className={styles.totalCount}>{`${commentsData?.totalCount}개의 댓글`}</div>
-      {commentsData?.comments?.map((item) => {
+      {commentsData?.comments?.map((item: CommentType) => {
         return (
           <div key={item.id}>
             <Comment comment={item} onUpdate={setActiveNickname} activeNickname={activeNickname} />
