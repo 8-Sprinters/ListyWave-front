@@ -4,7 +4,7 @@ export interface ItemCreateType {
   title: string;
   comment: string | null;
   link: string | null;
-  image?: FileList | null;
+  imageUrl: FileList | '';
 }
 
 // 리스트 생성 타입
@@ -27,7 +27,7 @@ export interface ListIdType {
 // 이미지 생성 타입
 export interface ItemImageType {
   rank: number;
-  extension: 'jpg' | 'jpeg' | 'png';
+  extension: 'jpg' | 'jpeg' | 'png' | '';
 }
 export interface ItemImagesType {
   ownerId: number;

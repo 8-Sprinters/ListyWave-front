@@ -4,16 +4,20 @@ import { useState } from 'react';
 import { FieldErrors, FormProvider, useForm } from 'react-hook-form';
 import { useMutation } from '@tanstack/react-query';
 
-import { ItemImagesType, ListCreateType } from '@/lib/types/listType';
 import CreateItem from '@/app/create/_components/CreateItem';
 import CreateList from '@/app/create/_components/CreateList';
+import { ItemImagesType, ListCreateType } from '@/lib/types/listType';
+import toasting from '@/lib/utils/toasting';
 import { createList } from '../_api/list/createList';
 import { uploadItemImages } from '../_api/list/uploadItemImages';
+import { useRouter } from 'next/navigation';
 
 export type FormErrors = FieldErrors<ListCreateType>;
 
 export default function CreatePage() {
   const [step, setStep] = useState<'list' | 'item'>('list');
+  const [newListId, setNewListId] = useState(0);
+  const router = useRouter();
 
   const methods = useForm<ListCreateType>({
     mode: 'onChange',
@@ -32,21 +36,21 @@ export default function CreatePage() {
           title: '',
           comment: '',
           link: '',
-          image: null,
+          imageUrl: '',
         },
         {
           rank: 0,
           title: '',
           comment: '',
           link: '',
-          image: null,
+          imageUrl: '',
         },
         {
           rank: 0,
           title: '',
           comment: '',
           link: '',
-          image: null,
+          imageUrl: '',
         },
       ],
     },
@@ -66,44 +70,74 @@ export default function CreatePage() {
     });
 
     //데이터 쪼개기
-    const listData = {
+    const listData: ListCreateType = {
       ...originData,
-      items: originData.items.map(({ image, ...rest }) => rest),
+      items: originData.items.map(({ imageUrl, ...rest }) => {
+        return {
+          ...rest,
+          imageUrl: '',
+        };
+      }),
     };
 
     const imageData: ItemImagesType = {
       ownerId: originData.ownerId,
       listId: 0, //temp
       extensionRanks: originData.items
-        .map(({ rank, image }) => {
-          return { rank: rank, extension: image?.[0]?.type.split('/')[1] as 'jpg' | 'jpeg' | 'png' };
-        })
-        .filter(({ extension }) => extension !== null && extension !== undefined),
+        .filter(({ imageUrl }) => imageUrl !== '')
+        .map(({ rank, imageUrl }) => {
+          return {
+            rank: rank,
+            extension: imageUrl !== '' ? (imageUrl?.[0]?.type.split('/')[1] as 'jpg' | 'jpeg' | 'png') : '',
+          };
+        }),
     };
 
     const imageFileList: File[] = originData.items
-      .map(({ image }) => image?.[0] as File)
-      .filter((image) => image !== undefined);
+      .filter(({ imageUrl }) => imageUrl !== '')
+      .map(({ imageUrl }) => imageUrl?.[0] as File);
 
     return { listData, imageData, imageFileList };
   };
 
-  const saveImageMutation = useMutation({ mutationFn: uploadItemImages });
+  const {
+    mutate: saveImageMutate,
+    isPending: isUploadingImage,
+    data: listId,
+  } = useMutation({
+    mutationFn: uploadItemImages,
+    retry: 3,
+    retryDelay: 1000,
+    onError: () => {
+      toasting({ type: 'error', txt: '이미지를 업로드 하는 중에 오류가 발생했어요. 다시 업로드해주세요.' });
+    },
+    onSettled: () => {
+      router.push(`/user/${formatData().listData.ownerId}/list/${newListId}`);
+    },
+  });
 
-  const createListMutation = useMutation({
+  const {
+    mutate: createListMutate,
+    isPending: isCreatingList,
+    isSuccess,
+  } = useMutation({
     mutationFn: createList,
     onSuccess: (data) => {
-      saveImageMutation.mutate({
+      setNewListId(data.listId);
+      saveImageMutate({
         listId: data.listId,
         imageData: formatData().imageData,
         imageFileList: formatData().imageFileList,
       });
     },
+    onError: () => {
+      toasting({ type: 'error', txt: '리스트 생성에 실패했어요. 다시 시도해주세요.' });
+    },
   });
 
   const handleSubmit = () => {
     const { listData } = formatData();
-    createListMutation.mutate(listData);
+    createListMutate(listData);
   };
 
   return (
@@ -121,6 +155,7 @@ export default function CreatePage() {
               handleStepChange('list');
             }}
             onSubmitClick={handleSubmit}
+            isSubmitting={isUploadingImage || isCreatingList || isSuccess}
           />
         )}
       </FormProvider>

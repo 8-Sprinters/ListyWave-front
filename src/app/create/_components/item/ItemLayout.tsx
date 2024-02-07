@@ -34,14 +34,14 @@ export default function ItemLayout({
   return (
     <>
       <div className={styles.itemHeader}>
-        <DndIcon alt="드래그앤드롭" />
+        <DndIcon width="18" height="18" alt="드래그앤드롭" className={styles.headerIcon} />
         <div className={styles.rankAndTitle}>
           <Label colorType={index === 0 ? 'blue' : 'skyblue'}>{`${index + 1}위`}</Label>
           {titleInput}
         </div>
         {itemLength > 3 && (
           <button onClick={handleDeleteItem}>
-            <ClearGrayIcon alt="아이템 삭제" />
+            <ClearGrayIcon alt="아이템 삭제" className={styles.headerIcon} />
           </button>
         )}
       </div>

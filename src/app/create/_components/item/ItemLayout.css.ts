@@ -3,6 +3,8 @@ import { style } from '@vanilla-extract/css';
 export const itemHeader = style({
   width: '100%',
 
+  flexGrow: 0,
+
   display: 'flex',
   alignItems: 'center',
   gap: '12px',
@@ -10,8 +12,12 @@ export const itemHeader = style({
   overflow: 'hidden',
 });
 
+export const headerIcon = style({
+  flexShrink: '0',
+});
+
 export const rankAndTitle = style({
-  width: '100%',
+  flexGrow: 1,
 
   display: 'flex',
   gap: '8px',
