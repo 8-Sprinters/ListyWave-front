@@ -60,7 +60,7 @@ export interface ListType {
 
 export interface ItemType {
   id: number;
-  rank: number;
+  ranking: number;
   title: string;
   comment?: string;
   link?: string;

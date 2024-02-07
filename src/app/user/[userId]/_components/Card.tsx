@@ -35,7 +35,10 @@ export default function Card({ list, isOwner }: CardProps) {
       <ul className={styles.list}>
         {list.listItems.map((item) => (
           <li key={item.id} className={styles.item}>
-            <span>{item.rank}&#46;</span>
+            <span className={styles.rank}>
+              {item.ranking}
+              {'.'}
+            </span>
             <span>{item.title}</span>
           </li>
         ))}
