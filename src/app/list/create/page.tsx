@@ -3,14 +3,14 @@
 import { useState } from 'react';
 import { FieldErrors, FormProvider, useForm } from 'react-hook-form';
 import { useMutation } from '@tanstack/react-query';
+import { useRouter } from 'next/navigation';
 
-import CreateItem from '@/app/create/_components/CreateItem';
-import CreateList from '@/app/create/_components/CreateList';
+import CreateItem from '@/app/list/create/_components/CreateItem';
+import CreateList from '@/app/list/create/_components/CreateList';
 import { ItemImagesType, ListCreateType } from '@/lib/types/listType';
 import toasting from '@/lib/utils/toasting';
-import { createList } from '../_api/list/createList';
-import { uploadItemImages } from '../_api/list/uploadItemImages';
-import { useRouter } from 'next/navigation';
+import { createList } from '@/app/_api/list/createList';
+import { uploadItemImages } from '@/app/_api/list/uploadItemImages';
 
 export type FormErrors = FieldErrors<ListCreateType>;
 
@@ -116,7 +116,11 @@ export default function CreatePage() {
     },
   });
 
-  const { mutate: createListMutate, isPending: isCreatingList, isSuccess } = useMutation({
+  const {
+    mutate: createListMutate,
+    isPending: isCreatingList,
+    isSuccess,
+  } = useMutation({
     mutationFn: createList,
     onSuccess: (data) => {
       setNewListId(data.listId);
