@@ -5,7 +5,7 @@ import { DragDropContext, Draggable, DropResult } from 'react-beautiful-dnd';
 import { itemPlaceholder } from '@/lib/constants/placeholder';
 import { itemTitleRules, itemCommentRules, itemLinkRules } from '@/lib/constants/formInputValidationRules';
 import { StrictModeDroppable } from '@/components/StrictModeDroppable';
-import { FormErrors } from '../../../../create/page';
+import { FormErrors } from '@/app/list/create/page';
 import ItemLayout from './ItemLayout';
 import LinkModal from './LinkModal';
 import Preview from './Preview';
