@@ -8,6 +8,7 @@ import * as styles from './ListsRecommendation.css';
 import { ListRecommendationMockdata } from '../_mockdata/mockdata';
 import { ListRecommendationType } from '../_mockdata/mockdataType';
 import Label from '@/components/Label/Label';
+import { assignInlineVars } from '@vanilla-extract/dynamic';
 
 function ListRecommendation() {
   const listdata = ListRecommendationMockdata;
@@ -54,7 +55,10 @@ function ListRecommendation() {
                 <span>{item.ownerNickname}</span>
               </div>
             </div>
-            <div className={styles.simpleListWrapper}>
+            <div
+              className={styles.simpleListWrapper}
+              style={assignInlineVars({ [styles.simpleListBackground]: `${item.backgroundColor}` })}
+            >
               <SimpleList listData={item.items} />
               <div className={styles.blurBox}>
                 <button className={styles.showMoreButton} onClick={() => handleShowMoreButtonClick(item.listUrl)}>

@@ -1,4 +1,6 @@
-import { style } from '@vanilla-extract/css';
+import { style, createVar } from '@vanilla-extract/css';
+
+export const simpleListBackground = createVar();
 
 export const wrapperOuter = style({
   padding: '0 43px 0',
@@ -92,6 +94,7 @@ export const simpleListWrapper = style({
 
   borderRadius: '10px',
   border: '1px solid #EFEFF0',
+  backgroundColor: simpleListBackground,
 });
 
 export const blurBox = style({
