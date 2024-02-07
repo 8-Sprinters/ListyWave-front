@@ -80,7 +80,7 @@ export const recommendUserDescription = style({
   letterSpacing: '-0.39px',
 });
 
-export const followButton = style({
+export const followButtonDefault = style({
   width: '100%',
   padding: '8px 0',
 
@@ -90,11 +90,13 @@ export const followButton = style({
 
   backgroundColor: '#0047FF',
   borderRadius: '10px',
-});
-
-export const followText = style({
   color: '#fff',
   fontSize: '1.5rem',
   fontWeight: 600,
   letterSpacing: '-0.45px',
+});
+
+export const followButtonFollowing = style({
+  background: '#efefef',
+  color: '#191919',
 });
