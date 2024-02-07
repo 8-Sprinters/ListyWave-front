@@ -21,12 +21,19 @@ import SettingIcon from '/public/icons/setting.svg';
 import { QUERY_KEYS } from '@/lib/constants/queryKeys';
 import { UserType } from '@/lib/types/userProfileType';
 import { getUserOne } from '@/app/_api/user/getUserOne';
+import { useRouter } from 'next/navigation';
 
 export default function Profile({ userId }: { userId: number }) {
+  const router = useRouter();
+
   const { data, isLoading } = useQuery<UserType>({
     queryKey: [QUERY_KEYS.userOne],
     queryFn: () => getUserOne(userId),
   });
+
+  const handleMoveToPage = () => {
+    router.push(`/account`);
+  };
 
   if (isLoading) {
     return <div>프로필 로딩중입니다.</div>;
@@ -41,7 +48,9 @@ export default function Profile({ userId }: { userId: number }) {
     >
       <div className={styles.header}>
         <ArrowLeftIcon alt="이전 페이지로 이동하기" className={styles.icon} />
-        {data?.isOwner && <SettingIcon alt="마이페이지로 이동하기" className={styles.icon} />}
+        {data?.isOwner && (
+          <SettingIcon alt="마이페이지로 이동하기" className={styles.icon} onClick={handleMoveToPage} />
+        )}
       </div>
       <div className={styles.profileContainer}>
         <div className={styles.profile}>
@@ -58,11 +67,11 @@ export default function Profile({ userId }: { userId: number }) {
               {!data?.isOwner && <FollowButton isFollowed={!!data?.isFollowed} />}
             </div>
             <div className={styles.follow}>
-              <div className={styles.text}>
+              <div className={styles.text} onClick={() => router.push(`/user/${userId}/followings`)}>
                 <span className={styles.count}>{data?.followingCount}</span>
                 <span>팔로잉</span>
               </div>
-              <div className={styles.text}>
+              <div className={styles.text} onClick={() => router.push(`/user/${userId}/followers`)}>
                 <span className={styles.count}>{data?.followerCount}</span>
                 <span>팔로워</span>
               </div>
