@@ -1,6 +1,6 @@
 import Image from 'next/image';
 import Label from '@/components/Label/Label';
-import Collaborators from '@/app/[userNickname]/[listId]/_components/ListDetailOuter/Collaborators';
+import Collaborators from '@/app/user/[userId]/list/[listId]/_components/ListDetailOuter/Collaborators';
 import timeDiff from '@/lib/utils/timeDiff';
 import * as styles from './ListInformation.css';
 import { MOCKDATA_LIST } from '../../mockData/mockdata';
