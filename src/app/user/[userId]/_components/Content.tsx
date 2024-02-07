@@ -60,10 +60,10 @@ export default function Content({ type }: { type: string }) {
   return (
     <div className={styles.container}>
       <div className={styles.options}>
-        <Link href={`/${userData?.nickname}/mylist`} className={styles.link}>
+        <Link href={`/user/${userData?.id}/mylist`} className={styles.link}>
           <button className={`${styles.leftButton} ${type === 'my' ? styles.variant : ''}`}>마이 리스트</button>
         </Link>
-        <Link href={`/${userData?.nickname}/collabolist`} className={styles.link}>
+        <Link href={`/user/${userData?.id}/collabolist`} className={styles.link}>
           <button className={`${styles.rightButton} ${type === 'collabo' ? styles.variant : ''}`}>콜라보 리스트</button>
         </Link>
       </div>
