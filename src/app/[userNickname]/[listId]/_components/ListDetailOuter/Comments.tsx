@@ -15,7 +15,7 @@ function Comments() {
   const [activeNickname, setActiveNickname] = useState<string | null | undefined>(null);
   const params = useParams<{ listId: string }>();
   const { data } = useQuery({ queryKey: ['getComments'], queryFn: () => getComments('1') });
-  console.log(data);
+  const commentsData = data;
 
   const handleActiveNicknameDelete = () => {
     if (activeNickname) {
@@ -47,8 +47,8 @@ function Comments() {
           </form>
         </div>
       </div>
-      <div className={styles.totalCount}>{`${COMMENTS.totalCount}개의 댓글`}</div>
-      {COMMENTS.comments.map((item) => {
+      <div className={styles.totalCount}>{`${commentsData?.totalCount}개의 댓글`}</div>
+      {commentsData?.comments?.map((item) => {
         return (
           <div key={item.id}>
             <Comment comment={item} onUpdate={setActiveNickname} activeNickname={activeNickname} />
