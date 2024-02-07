@@ -100,11 +100,7 @@ export default function CreatePage() {
     return { listData, imageData, imageFileList };
   };
 
-  const {
-    mutate: saveImageMutate,
-    isPending: isUploadingImage,
-    data: listId,
-  } = useMutation({
+  const { mutate: saveImageMutate, isPending: isUploadingImage } = useMutation({
     mutationFn: uploadItemImages,
     retry: 3,
     retryDelay: 1000,
