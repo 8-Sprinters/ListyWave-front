@@ -13,7 +13,9 @@ export const wrapper = style({
   transform: 'translateZ(0px)',
 });
 
-export const ProfileImg = style({
+export const profileImageWrapper = style({});
+
+export const profileImage = style({
   marginRight: '-10px',
   width: '36px',
   height: '36px',
@@ -22,9 +24,19 @@ export const ProfileImg = style({
   justifyContent: 'center',
   alignItems: 'center',
 
-  outline: '3px solid #ffffff',
+  border: '3px solid #ffffff',
   borderRadius: '9999px',
 });
+
+export const defaultProfileImage = style([
+  profileImage,
+  {
+    backgroundSize: 'cover',
+    backgroundPosition: 'center',
+    backgroundRepeat: 'no-repeat',
+    backgroundColor: '#191919',
+  },
+]);
 
 export const profilePlus = style({
   backgroundColor: '#AEB0B6',

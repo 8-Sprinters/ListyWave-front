@@ -21,7 +21,7 @@ function Collaborators({ collaborators }: CollaboratorsProps) {
           </div>
           <span className={styles.collaboratorTitle}>콜라보레이터</span>
           <div className={styles.wrapper}>
-            <div className={`${styles.ProfileImg} ${styles.profilePlus}`}>
+            <div className={`${styles.profileImage} ${styles.profilePlus}`}>
               <span className={styles.profileText}>{`${collaborators && collaborators?.length - 3}`}</span>
               <PlusIcon alt="더하기 모양 아이콘" />
             </div>
@@ -30,17 +30,17 @@ function Collaborators({ collaborators }: CollaboratorsProps) {
                 <div key={item.id}>
                   {item.profileImageUrl ? (
                     <Image
-                      className={styles.ProfileImg}
+                      className={styles.profileImage}
                       src={item.profileImageUrl}
                       alt="사용자 프로필 이미지"
                       width={35}
                       height={35}
+                      style={{
+                        objectFit: 'cover',
+                      }}
                     ></Image>
                   ) : (
-                    <DefaultProfile
-                      className={`${styles.ProfileImg} ${styles.defaultProfile}`}
-                      alt="사용자 프로필 이미지"
-                    />
+                    <div className={styles.defaultProfileImage}></div>
                   )}
                 </div>
               );
