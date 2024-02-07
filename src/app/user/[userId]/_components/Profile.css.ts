@@ -3,8 +3,9 @@ import { style, createVar } from '@vanilla-extract/css';
 export const imageUrl = createVar();
 
 export const container = style({
-  padding: '1.9rem 1.9rem 6.4rem 1.5rem',
-  height: '464px',
+  padding: '2.1rem 1.9rem 6.4rem 1.5rem',
+  width: '100%',
+  height: '440px',
 
   position: 'fixed',
   top: 0,
@@ -12,7 +13,6 @@ export const container = style({
   display: 'flex',
   flexDirection: 'column',
   justifyContent: 'space-between',
-  gap: '2.1rem',
 
   backgroundImage: imageUrl,
   backgroundSize: 'cover',
@@ -21,17 +21,16 @@ export const container = style({
 });
 
 export const header = style({
-  paddingTop: '2.5rem',
   display: 'flex',
   justifyContent: 'space-between',
 });
 
 export const profileContainer = style({
-  padding: '0 2.9rem 0 3.3rem',
+  padding: '0 3.3rem',
 
   display: 'flex',
   flexDirection: 'column',
-  gap: '1.2rem',
+  gap: '1.5rem',
 });
 
 export const icon = style({
@@ -74,7 +73,6 @@ export const nickName = style({
 export const follow = style({
   display: 'flex',
   gap: '1.6rem',
-  lineHeight: '2.5rem',
 });
 
 export const text = style({
@@ -82,19 +80,19 @@ export const text = style({
   alignItems: 'center',
   gap: '0.5rem',
 
-  fontSize: '1rem',
+  fontSize: '1.1rem',
   fontWeight: '500',
   letterSpacing: '-0.3px',
 });
 
 export const count = style({
-  fontSize: '1.3rem',
+  fontSize: '1.2rem',
   fontWeight: '600',
   letterSpacing: '-0.39px',
 });
 
 export const description = style({
-  paddingBottom: '1.9rem',
+  marginBottom: '2.5rem',
 
   width: '100%',
   maxHeight: '80px',

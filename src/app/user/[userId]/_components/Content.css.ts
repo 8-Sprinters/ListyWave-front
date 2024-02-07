@@ -2,7 +2,7 @@ import { style } from '@vanilla-extract/css';
 
 export const container = style({
   width: '100%',
-  marginTop: '40rem',
+  marginTop: '37.6rem',
 
   position: 'absolute',
   top: 0,
@@ -20,6 +20,7 @@ export const options = style({
 
 export const link = style({
   flexGrow: '1',
+  textDecoration: 'none',
 });
 
 export const button = style({
