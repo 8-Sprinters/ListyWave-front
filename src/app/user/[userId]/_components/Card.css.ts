@@ -49,3 +49,8 @@ export const lockText = style({
   letterSpacing: '-0.33px',
   color: '#AFB1B6',
 });
+
+export const item = style({
+  display: 'flex',
+  gap: '5px',
+});

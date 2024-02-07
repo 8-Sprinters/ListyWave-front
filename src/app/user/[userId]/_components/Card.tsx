@@ -4,9 +4,9 @@
  */
 
 import { assignInlineVars } from '@vanilla-extract/dynamic';
+
 import * as styles from './Card.css';
 
-import CardItem from './CardItem';
 import LockIcon from '/public/icons/lock_alt.svg';
 import { ListType } from '@/lib/types/listType';
 
@@ -34,7 +34,10 @@ export default function Card({ list, isOwner }: CardProps) {
       <h2 className={styles.title}>{list.title}</h2>
       <ul className={styles.list}>
         {list.listItems.map((item) => (
-          <CardItem key={item.id} item={item} />
+          <li key={item.id} className={styles.item}>
+            <span>{item.rank}&#46;</span>
+            <span>{item.title}</span>
+          </li>
         ))}
       </ul>
     </ul>
