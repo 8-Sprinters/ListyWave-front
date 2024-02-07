@@ -3,8 +3,6 @@
 /**
  TODO
  - [ ] 디자인 최종본으로 수정
- - [x] 프로필 이미지, 배경 이미지 적용
- - [x] api 연동
  - [ ] 프로필 이미지 받아오는 중일때 next/Image에 넣을 기본 이미지 세팅
  - [ ] 이전페이지, 마이페이지 이동하는 로직 추가
 
@@ -32,8 +30,6 @@ export default function Profile() {
     queryKey: [QUERY_KEYS.userOne],
     queryFn: () => getUserOne(TEST_USER_ID),
   });
-
-  console.log(data); // 삭제 예정
 
   if (isLoading) {
     return <div>프로필 로딩중입니다.</div>;

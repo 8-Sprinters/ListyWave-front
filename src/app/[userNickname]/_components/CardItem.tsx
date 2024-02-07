@@ -1,5 +1,4 @@
-import { ItemType } from '../mockData/mockDataTypes'; // 삭제 예정
-
+import { ItemType } from '@/lib/types/listType';
 import * as styles from './CardItem.css';
 
 interface CardItemProps {

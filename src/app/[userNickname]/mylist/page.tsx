@@ -1,19 +1,15 @@
 /**
  TODO
- - [ ] user api 연동 
  - [ ] 페이지 하위 컴포넌트 global css 변수로 변경
  - [ ] 반응형 UI 구현
+ - [ ] 피드페이지 스켈레톤 ui 적용
  */
-
-import '@/styles/GlobalStyles.css';
-
-import { USER_DATA_ME } from '../mockData/user'; // 삭제 예정
 
 import Profile from '../_components/Profile';
 import Content from '../_components/Content';
 import FloatingContainer from '@/components/floatingButton/FloatingContainer';
-import PlusButton from '@/components/floatingButton/PlusOptionFloatingButton';
-import ArrowUpButton from '@/components/floatingButton/ArrowUpFloatingButton';
+import PlusOptionFloatingButton from '@/components/floatingButton/PlusOptionFloatingButton';
+import ArrowUpFloatingButton from '@/components/floatingButton/ArrowUpFloatingButton';
 
 // 타입 사용할 때 재정의
 // interface MyListPageProps {
@@ -33,8 +29,8 @@ export default function MyListPage() {
       <Profile />
       <Content type="my" />
       <FloatingContainer>
-        <PlusButton />
-        <ArrowUpButton />
+        <PlusOptionFloatingButton />
+        <ArrowUpFloatingButton />
       </FloatingContainer>
     </section>
   );
