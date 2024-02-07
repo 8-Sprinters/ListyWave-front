@@ -18,7 +18,7 @@ type LinkProps = PreviewBaseProps & {
 
 type ImageProps = PreviewBaseProps & {
   type: 'image';
-  imageFile: Blob;
+  imageFile: File;
 };
 
 type PreviewProps = LinkProps | ImageProps;
@@ -31,7 +31,7 @@ export default function Preview(props: PreviewProps) {
     props.handleClearButtonClick();
   };
 
-  if (props.type === 'image') {
+  if (props.type === 'image' && props.imageFile) {
     const reader = new FileReader();
     reader.onloadend = () => {
       setPreview(reader.result as string);
