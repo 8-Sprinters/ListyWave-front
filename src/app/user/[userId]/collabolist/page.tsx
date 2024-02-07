@@ -11,21 +11,17 @@ import FloatingContainer from '@/components/floatingButton/FloatingContainer';
 import PlusOptionFloatingButton from '@/components/floatingButton/PlusOptionFloatingButton';
 import ArrowUpFloatingButton from '@/components/floatingButton/ArrowUpFloatingButton';
 
-// 타입 사용할 때 재정의
-// interface CollaboListPageProps {
-//   params: {
-//     userNickname: number;
-//   };
-//   userId: number;
-// }
+interface CollaboListPageProps {
+  params: {
+    userId: number;
+  };
+}
 
-export default function CollaboListPage() {
-  // 1. userId로 유저 정보 가져오는 api 요청
-
+export default function CollaboListPage({ params }: CollaboListPageProps) {
   return (
     <section>
-      <Profile />
-      <Content type="collabo" />
+      <Profile userId={params.userId} />
+      <Content userId={params.userId} type="collabo" />
       <FloatingContainer>
         <PlusOptionFloatingButton />
         <ArrowUpFloatingButton />

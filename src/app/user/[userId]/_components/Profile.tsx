@@ -22,13 +22,10 @@ import { QUERY_KEYS } from '@/lib/constants/queryKeys';
 import { UserType } from '@/lib/types/userProfileType';
 import { getUserOne } from '@/app/_api/user/getUserOne';
 
-// 임시 유저 아이디(소현), 나중에 로그인 기능 완료 후 전역 상태에서 id 받아오는 로직 추가
-const TEST_USER_ID = 4;
-
-export default function Profile() {
+export default function Profile({ userId }: { userId: number }) {
   const { data, isLoading } = useQuery<UserType>({
     queryKey: [QUERY_KEYS.userOne],
-    queryFn: () => getUserOne(TEST_USER_ID),
+    queryFn: () => getUserOne(userId),
   });
 
   if (isLoading) {

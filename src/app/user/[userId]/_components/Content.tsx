@@ -23,30 +23,31 @@ import { QUERY_KEYS } from '@/lib/constants/queryKeys';
 import { UserType } from '@/lib/types/userProfileType';
 import { ListType } from '@/lib/types/listType';
 
-// 임시 유저 아이디(소현), 나중에 로그인 기능 완료 후 전역 상태에서 id 받아오는 로직 추가
-const TEST_USER_ID = 4;
-[];
+interface ContentProps {
+  userId: number;
+  type: string;
+}
 
-export default function Content({ type }: { type: string }) {
+export default function Content({ userId, type }: ContentProps) {
   const [listGrid, setListGrid] = useState<ListType[]>([]);
 
   const { data: userData } = useQuery<UserType>({
     queryKey: [QUERY_KEYS.userOne],
-    queryFn: () => getUserOne(TEST_USER_ID),
+    queryFn: () => getUserOne(userId),
   });
 
   /** 무한스크롤시 리액트 쿼리로 불러오는게 더 나을지에 대한 고민 때문에 주석처리 해 놓은 코드 */
   // const { data: listData, refetch } = useQuery<AllListType>({
   //   queryKey: [QUERY_KEYS.getAllList],
-  //   queryFn: () => getAllList(TEST_USER_ID, type),
+  //   queryFn: () => getAllList(userId, type),
   // });
 
   const handleFetchLists = useCallback(
     async (category?: string) => {
-      const data = await getAllList(TEST_USER_ID, type, category);
+      const data = await getAllList(userId, type, category);
       setListGrid(data.feedLists);
     },
-    [type]
+    [userId, type]
   );
 
   const handleFetchListsOnCategory = async (category: string) => {

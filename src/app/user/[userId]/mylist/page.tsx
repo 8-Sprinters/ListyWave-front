@@ -11,23 +11,17 @@ import FloatingContainer from '@/components/floatingButton/FloatingContainer';
 import PlusOptionFloatingButton from '@/components/floatingButton/PlusOptionFloatingButton';
 import ArrowUpFloatingButton from '@/components/floatingButton/ArrowUpFloatingButton';
 
-// 타입 사용할 때 재정의
-// interface MyListPageProps {
-//   params: {
-//     userNickname: number;
-//   };
-//   userId: number;
-// }
+interface MyListPageProps {
+  params: {
+    userId: number;
+  };
+}
 
-export default function MyListPage() {
-  // console.log(params.userNickname); // 삭제 예정
-
-  // 1. userId로 유저 정보 가져오는 api 요청
-
+export default function MyListPage({ params }: MyListPageProps) {
   return (
     <section>
-      <Profile />
-      <Content type="my" />
+      <Profile userId={params.userId} />
+      <Content userId={params.userId} type="my" />
       <FloatingContainer>
         <PlusOptionFloatingButton />
         <ArrowUpFloatingButton />
