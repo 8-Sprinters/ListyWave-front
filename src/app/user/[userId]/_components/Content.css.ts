@@ -19,6 +19,7 @@ export const options = style({
 });
 
 export const link = style({
+  // position: 'relative',
   flexGrow: '1',
   textDecoration: 'none',
 });
@@ -51,10 +52,12 @@ export const rightButton = style([
   },
 ]);
 
-export const variant = style({
-  borderBottom: '1px solid #0047FF',
-});
-
 export const cards = style({
   padding: '2.1rem',
+});
+
+export const leftButtonLine = style({
+  position: 'relative',
+  bottom: '6px',
+  left: '47%',
 });

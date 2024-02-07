@@ -12,6 +12,7 @@ import { useQuery } from '@tanstack/react-query';
 import { MasonryGrid } from '@egjs/react-grid';
 
 import * as styles from './Content.css';
+import BlueLineIcon from '/public/icons/blue_line.svg';
 
 import Card from './Card';
 import Categories from './Categories';
@@ -62,10 +63,11 @@ export default function Content({ userId, type }: ContentProps) {
     <div className={styles.container}>
       <div className={styles.options}>
         <Link href={`/user/${userData?.id}/mylist`} className={styles.link}>
-          <button className={`${styles.leftButton} ${type === 'my' ? styles.variant : ''}`}>마이 리스트</button>
+          <button className={styles.leftButton}>마이 리스트</button>
+          {type === 'my' && <BlueLineIcon className={styles.leftButtonLine} />}
         </Link>
         <Link href={`/user/${userData?.id}/collabolist`} className={styles.link}>
-          <button className={`${styles.rightButton} ${type === 'collabo' ? styles.variant : ''}`}>콜라보 리스트</button>
+          <button className={styles.rightButton}>콜라보 리스트</button>
         </Link>
       </div>
       <Categories handleFetchListsOnCategory={handleFetchListsOnCategory} />
