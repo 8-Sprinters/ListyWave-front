@@ -1,8 +1,9 @@
 import { style } from '@vanilla-extract/css';
+import { body1 } from '@/styles/font.css';
 
-export const title = style({
-  width: '100%',
-  fontSize: '1.6rem',
-  fontWeight: '600',
-  lineHeight: '150%',
-});
+export const title = style([
+  body1,
+  {
+    width: '100%',
+  },
+]);

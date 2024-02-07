@@ -1,4 +1,5 @@
 import { style } from '@vanilla-extract/css';
+import { vars } from '@/styles/theme.css';
 
 export const previewBox = style({
   width: '90px',
@@ -11,7 +12,7 @@ export const previewBox = style({
 
   position: 'relative',
 
-  backgroundColor: '#EBF4FF',
+  backgroundColor: vars.color.lightblue,
 
   borderRadius: '10px',
   whiteSpace: 'pre-wrap',

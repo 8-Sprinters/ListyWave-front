@@ -1,33 +1,35 @@
 import { style } from '@vanilla-extract/css';
+import { body3 } from '@/styles/font.css';
+import { vars } from '@/styles/theme.css';
 
-export const baseLabel = style({
-  padding: '2px 12px',
+export const baseLabel = style([
+  body3,
+  {
+    padding: '2px 12px',
 
-  display: 'flex',
-  justifyContent: 'center',
-  alignItems: 'center',
-  flexShrink: 0,
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    flexShrink: 0,
 
-  borderRadius: '16px',
-  fontSize: '1.4rem',
-  fontWeight: 400,
-  letterSpacing: '-0.42px',
-  textTransform: 'uppercase',
-});
+    borderRadius: '16px',
+    textTransform: 'uppercase',
+  },
+]);
 
 export const skyblueLabel = style([
   baseLabel,
   {
-    backgroundColor: '#EBF4FF',
-    color: '#0047FF',
+    backgroundColor: vars.color.lightblue,
+    color: vars.color.blue,
   },
 ]);
 
 export const blueLabel = style([
   baseLabel,
   {
-    backgroundColor: '#0047FF',
-    color: '#ffffff',
+    backgroundColor: vars.color.blue,
+    color: vars.color.white,
   },
 ]);
 

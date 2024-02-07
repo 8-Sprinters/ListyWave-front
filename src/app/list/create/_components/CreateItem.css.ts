@@ -1,34 +1,35 @@
 import { style } from '@vanilla-extract/css';
+import { body1, body3 } from '@/styles/font.css';
+import { vars } from '@/styles/theme.css';
 
 export const article = style({
   padding: '16px 20px 30px',
 });
 
 //body1
-export const label = style({
-  marginBottom: '1.6rem',
+export const label = style([
+  body1,
+  {
+    marginBottom: '1.6rem',
+  },
+]);
 
-  fontSize: '1.6rem',
-  fontWeight: '600',
-  letterSpacing: '-0.048rem',
-});
+export const required = style([
+  body1,
+  {
+    marginLeft: '6px',
 
-export const required = style({
-  marginLeft: '6px',
-
-  fontSize: '1.6rem',
-  fontWeight: '500',
-  letterSpacing: '-0.048rem',
-  color: '#FF5454',
-});
+    fontWeight: '500',
+    color: vars.color.red,
+  },
+]);
 
 //body3
-export const description = style({
-  marginBottom: '1.6rem',
+export const description = style([
+  body3,
+  {
+    marginBottom: '1.6rem',
 
-  fontSize: '1.4rem',
-  color: '#8A8A8E',
-  fontWeight: '400',
-  lineHeight: '2.5rem',
-  letterSpacing: '-0.042rem',
-});
+    color: vars.color.gray9,
+  },
+]);
