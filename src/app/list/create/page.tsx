@@ -9,6 +9,7 @@ import CreateItem from '@/app/list/create/_components/CreateItem';
 import CreateList from '@/app/list/create/_components/CreateList';
 import { ItemImagesType, ListCreateType } from '@/lib/types/listType';
 import toasting from '@/lib/utils/toasting';
+import { creaetListToastMessage } from '@/lib/constants/toastMessage';
 import { createList } from '@/app/_api/list/createList';
 import { uploadItemImages } from '@/app/_api/list/uploadItemImages';
 
@@ -105,7 +106,7 @@ export default function CreatePage() {
     retry: 3,
     retryDelay: 1000,
     onError: () => {
-      toasting({ type: 'error', txt: '이미지를 업로드 하는 중에 오류가 발생했어요. 다시 업로드해주세요.' });
+      toasting({ type: 'error', txt: creaetListToastMessage.uploadImageError });
     },
     onSettled: () => {
       router.push(`/user/${formatData().listData.ownerId}/list/${newListId}`);
@@ -127,7 +128,7 @@ export default function CreatePage() {
       });
     },
     onError: () => {
-      toasting({ type: 'error', txt: '리스트 생성에 실패했어요. 다시 시도해주세요.' });
+      toasting({ type: 'error', txt: creaetListToastMessage.createListError });
     },
   });
 
