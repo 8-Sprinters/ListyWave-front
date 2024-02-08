@@ -32,7 +32,7 @@ function Comment({ comment, onUpdate }: CommentProps) {
               height={30}
               src={comment.userProfileImageUrl}
               className={styles.profileImage}
-            ></Image>
+            />
           ) : (
             <DefaultProfile />
           )}

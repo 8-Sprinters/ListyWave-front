@@ -38,13 +38,13 @@ function Replies({ replies }: RepliesProps) {
                     width={20}
                     height={20}
                     alt="사용자 프로필 이미지"
-                  ></Image>
+                  />
                   <div className={styles.replyContainer}>
                     <div className={styles.replyInformationWrapper}>
                       <span className={styles.replyWriter}>{item.userNickName}</span>
                       <span className={styles.replyCreatedTime}>{timeDiff(item.createdDate)}</span>
                     </div>
-                    <div className={styles.replyContent}>{item.content}</div>
+                    <p className={styles.replyContent}>{item.content}</p>
                   </div>
                 </div>
                 <DeleteModalButton />

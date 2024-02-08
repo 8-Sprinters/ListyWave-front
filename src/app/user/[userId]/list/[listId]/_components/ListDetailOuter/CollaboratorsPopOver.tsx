@@ -20,7 +20,7 @@ function CollaboratorsPopOver({ collaborators }: CollaboratorsProps) {
                   alt="사용자 프로필 이미지"
                   width={25}
                   height={25}
-                ></Image>
+                />
               ) : (
                 <div className={styles.defaultProfileImage}></div>
               )}

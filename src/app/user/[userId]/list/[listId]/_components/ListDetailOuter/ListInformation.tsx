@@ -48,7 +48,7 @@ function ListInformation() {
             width={36}
             height={36}
             className={styles.profileImage}
-          ></Image>
+          />
           <div className={styles.informationWrapper}>
             <div className={styles.listOwnerNickname}>{list?.ownerNickname}</div>
             <div className={styles.infoDetailWrapper}>
