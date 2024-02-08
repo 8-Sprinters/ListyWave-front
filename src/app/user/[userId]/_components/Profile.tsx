@@ -27,7 +27,7 @@ export default function Profile({ userId }: { userId: number }) {
   const fallbackProfileImageSrc = 'https://image.utoimage.com/preview/cp872722/2022/12/202212008462_500.jpg';
 
   const { data, isLoading } = useQuery<UserType>({
-    queryKey: [QUERY_KEYS.userOne],
+    queryKey: [QUERY_KEYS.userOne, userId],
     queryFn: () => getUserOne(userId),
   });
 
