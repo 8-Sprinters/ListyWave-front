@@ -6,12 +6,13 @@ import DeleteButton from '/public/icons/trash_can.svg';
 
 interface DeleteModalProps {
   children?: ReactNode;
+  onDelete: () => void;
 }
 
-export default function DeleteModal({ children }: DeleteModalProps) {
+export default function DeleteModal({ children, onDelete }: DeleteModalProps) {
   const { isOn, handleSetOff, handleSetOn } = useBooleanOutput(); //모달 열림,닫힘 상태 관리
   const handleConfirmButtonClick = () => {
-    //확인버튼 클릭시 실행될 로직()
+    onDelete();
     handleSetOff(); //닫기
   };
 

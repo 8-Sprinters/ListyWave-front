@@ -22,7 +22,7 @@ export const formWrapperOuter = style({
 
   border: '1px solid rgba(0, 0, 0, 0.10)',
   background: '#fff',
-  zIndex: 30,
+  zIndex: 0,
 });
 
 export const formWrapperInner = style({
@@ -92,6 +92,10 @@ export const profileImage = style({
 
   borderRadius: '16px',
   backgroundColor: '#909090',
+});
+
+export const commentWrapper = style({
+  marginBottom: '20px',
 });
 
 export const activeReplyWrapper = style({

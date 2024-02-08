@@ -1,28 +1,86 @@
 'use client';
-import { useState } from 'react';
+import { ChangeEvent, useState } from 'react';
 import { useParams } from 'next/navigation';
-import { useQuery } from '@tanstack/react-query';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import Image from 'next/image';
 import Comment from './Comment';
+import { createComment } from '@/app/_api/comment/createComment';
+import { createReply } from '@/app/_api/comment/createReply';
+import { QUERY_KEYS } from '@/lib/constants/queryKeys';
 import * as styles from './Comments.css';
 import { getComments } from '@/app/_api/comment/getComments';
-import { MOCKDATA_COMMENTS } from '../../mockData/mockdata';
 import CancelButton from '/public/icons/cancel_button.svg';
-import { CommentType } from '../../mockData/mockdataType';
-
-const COMMENTS = MOCKDATA_COMMENTS[1];
+import { CommentType } from '@/lib/types/commentType';
 
 function Comments() {
   const [activeNickname, setActiveNickname] = useState<string | null | undefined>(null);
+  const [commentId, setCommentId] = useState<null | number | undefined>(null);
+  const [comment, setComment] = useState<string>('');
   const params = useParams<{ listId: string }>();
-  const { data } = useQuery({ queryKey: ['getComments'], queryFn: () => getComments(params?.listId) });
-  const commentsData = data;
+  const queryClient = useQueryClient();
+
+  const { data: commentsData, isPending } = useQuery({
+    queryKey: [QUERY_KEYS.getComments],
+    queryFn: () => getComments(params?.listId),
+    staleTime: 60 * 1000,
+    enabled: !!params?.listId,
+  });
+
+  console.log(commentsData);
 
   const handleActiveNicknameDelete = () => {
     if (activeNickname) {
       setActiveNickname(null);
+      setCommentId(null);
     }
   };
+
+  //답글 생성중인 댓글에 대한 id를 받아오는 함수
+  const handleSetCommentId = (id: number | undefined) => {
+    setCommentId(id);
+  };
+
+  const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setComment(e.target.value);
+  };
+
+  const createCommentMutation = useMutation({
+    mutationFn: () => createComment(params?.listId, comment),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: [QUERY_KEYS.getComments] });
+    },
+    onSettled: () => {
+      setComment('');
+      setCommentId(null);
+      setActiveNickname(null);
+      console.log('댓글을 성공적으로 업로드했습니다.');
+    },
+  });
+
+  const createReplyMutation = useMutation({
+    mutationFn: () => createReply({ listId: params?.listId, commentId: commentId, data: comment }),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: [QUERY_KEYS.getComments] });
+    },
+    onSettled: () => {
+      setComment('');
+      console.log('답글을 성공적으로 업로드했습니다.');
+    },
+  });
+
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    if (commentId && activeNickname) {
+      createReplyMutation.mutate();
+      return;
+    }
+    createCommentMutation.mutate();
+  };
+
+  //스켈레톤 전 임시 ui
+  if (isPending) {
+    return <div>로딩중입니다..</div>;
+  }
 
   return (
     <div className={styles.wrapper}>
@@ -42,17 +100,28 @@ function Comments() {
               <CancelButton className={styles.clearButton} alt="지우기 버튼" onClick={handleActiveNicknameDelete} />
             </div>
           )}
-          <form className={styles.formContainer}>
-            <input className={styles.formInput}></input>
-            <button className={styles.formButton}>게시</button>
+          <form className={styles.formContainer} onSubmit={handleSubmit}>
+            <input className={styles.formInput} value={comment} onChange={handleInputChange} />
+            {comment && (
+              <button type="submit" className={styles.formButton}>
+                게시
+              </button>
+            )}
           </form>
         </div>
       </div>
       <div className={styles.totalCount}>{`${commentsData?.totalCount}개의 댓글`}</div>
-      {COMMENTS?.comments?.map((item: CommentType) => {
+      {commentsData?.comments?.map((item: CommentType) => {
         return (
-          <div key={item.id}>
-            <Comment comment={item} onUpdate={setActiveNickname} activeNickname={activeNickname} />
+          <div key={item.id} className={styles.commentWrapper}>
+            <Comment
+              comment={item}
+              onUpdate={setActiveNickname}
+              activeNickname={activeNickname}
+              handleSetCommentId={handleSetCommentId}
+              listId={params?.listId}
+              commentId={commentId}
+            />
           </div>
         );
       })}

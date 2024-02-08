@@ -1,9 +1,17 @@
+'use client';
+import { useRouter } from 'next/navigation';
+import { deleteList } from '@/app/_api/list/deleteList';
 import useBooleanOutput from '@/hooks/useBooleanOutput';
 import BottomSheet from '@/app/user/[userId]/list/[listId]/_components/BottomSheet/BottomSheet';
 import KebabButton from '/public/icons/vertical_kebab_button.svg';
 import * as styles from './ModalButtonStyle.css';
 
-export default function OpenBottomSheetButton({}) {
+interface OpenBottomSheetButtonProps {
+  listId: string | undefined;
+}
+
+export default function OpenBottomSheetButton({ listId }: OpenBottomSheetButtonProps) {
+  const router = useRouter();
   const { isOn, handleSetOff, handleSetOn } = useBooleanOutput(); //바텀시트 열림,닫힘 상태 관리
   const bottomSheetOptionList = [
     {
@@ -22,14 +30,21 @@ export default function OpenBottomSheetButton({}) {
     },
   ];
 
+  /**
+   * @todo 유저 정보 받아서 유저 ID로 바꿔줘야 함
+   */
   const handleEditClick = () => {
-    //확인버튼 클릭시 실행될 로직()
+    router.push(`/user/${1}/list/${listId}/edit`);
     handleSetOff(); //닫기
   };
 
+  /**
+   * @todo 삭제 시 어느 경로로 이동되는지 확인해야 함
+   */
   const handleDeleteClick = () => {
-    //확인버튼 클릭시 실행될 로직()
+    deleteList(listId);
     handleSetOff(); //닫기
+    router.push('/');
   };
 
   return (

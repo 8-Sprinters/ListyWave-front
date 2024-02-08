@@ -11,8 +11,8 @@ export const wrapper = style({
 
   overflow: 'scroll',
   borderRadius: '10px',
-  background: 'rgba(255, 255, 255, 0.8)',
-  boxShadow: '0px 4px 4px 0px rgba(0, 0, 0, 0.25)',
+  background: 'rgba(255, 255, 255, 1)',
+  boxShadow: 'rgba(0, 0, 0, 0.1) 0px 4px 6px -1px, rgba(0, 0, 0, 0.06) 0px 2px 4px -1px',
   zIndex: 20,
 
   '::-webkit-scrollbar': {

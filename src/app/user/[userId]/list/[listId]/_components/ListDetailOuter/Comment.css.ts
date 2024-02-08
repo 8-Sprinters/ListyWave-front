@@ -56,7 +56,6 @@ export const commentContent = style({
 
 export const createReplyButton = style({
   padding: '0 0 0 36px',
-  marginBottom: '16px',
 
   background: 'none',
   fontSize: '1rem',
