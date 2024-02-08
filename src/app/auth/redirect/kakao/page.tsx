@@ -19,7 +19,10 @@ export default function KakaoRedirectPage() {
 
     console.log('마운트');
 
-    if (!code) return;
+    if (!code) {
+      router.push('/login');
+      return;
+    }
 
     const loginKakao = async () => {
       try {
