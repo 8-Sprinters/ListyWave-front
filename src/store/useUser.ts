@@ -1,6 +1,6 @@
 import { create } from 'zustand';
-import { devtools } from 'zustand/middleware';
 import { UserType } from '@/lib/types/userType';
+// import { devtools } from 'zustand/middleware'; // 추후 devtools 연동해서 디버깅 예정
 
 interface UserStateType {
   user: Pick<UserType, 'id' | 'nickname'>;
@@ -12,9 +12,9 @@ const initialValue = {
   nickname: '',
 };
 
-const useUser = create<UserStateType>()((set) => ({
+const useUserStore = create<UserStateType>()((set) => ({
   user: initialValue,
-  updateUser: (user) => set(() => ({ user: user })),
+  updateUser: (user) => set((state) => ({ user: { ...state.user, ...user } })),
 }));
 
-export const useStore = create(devtools(useUser));
+export const useUser = useUserStore;
