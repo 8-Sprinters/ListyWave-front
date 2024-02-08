@@ -50,7 +50,7 @@ function Comment({ comment, onUpdate, handleSetCommentId, listId, commentId }: C
     <>
       <div className={styles.commentOuterWrapper}>
         <div className={styles.commentWrapper}>
-          {comment && comment.userProfileImageUrl ? (
+          {comment && !comment.isDeleted && (
             <Image
               alt="프로필 이미지"
               width={30}
@@ -58,15 +58,16 @@ function Comment({ comment, onUpdate, handleSetCommentId, listId, commentId }: C
               src={comment.userProfileImageUrl}
               className={styles.profileImage}
             />
-          ) : (
-            <DefaultProfile />
           )}
+          {comment?.isDeleted && <DefaultProfile width={30} height={30} />}
           <div className={styles.commentContainer}>
             <div className={styles.commentInformationWrapper}>
-              <span className={styles.commentWriter}>{comment?.userNickname}</span>
+              <span className={styles.commentWriter}>{comment?.isDeleted ? '알 수 없음' : comment?.userNickname}</span>
               <span className={styles.commentCreatedTime}>{comment && timeDiff(comment?.createdDate)}</span>
             </div>
-            <div className={styles.commentContent}>{comment?.content}</div>
+            <div className={styles.commentContent}>
+              {comment?.isDeleted ? '사용자의 요청에 의해 삭제된 댓글입니다.' : comment?.content}
+            </div>
           </div>
         </div>
         <DeleteModalButton onDelete={handleClickDeleteButton} />

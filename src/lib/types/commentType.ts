@@ -16,8 +16,10 @@ export interface CommentType {
   userNickname: string;
   userProfileImageUrl: string;
   createdDate: string;
+  updatedDate: string;
   content: string;
   replies: ReplyType[] | null;
+  isDeleted: boolean;
 }
 
 export interface CollaboratorType {
