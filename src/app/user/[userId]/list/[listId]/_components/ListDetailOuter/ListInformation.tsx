@@ -6,6 +6,7 @@ import { useParams } from 'next/navigation';
 import Label from '@/components/Label/Label';
 import Collaborators from '@/app/user/[userId]/list/[listId]/_components/ListDetailOuter/Collaborators';
 import { getListDetail } from '@/app/_api/list/getDetailLists';
+import { QUERY_KEYS } from '@/lib/constants/queryKeys';
 import timeDiff from '@/lib/utils/time-diff';
 import * as styles from './ListInformation.css';
 import { MOCKDATA_LIST } from '../../mockData/mockdata';
@@ -17,7 +18,7 @@ const LIST = MOCKDATA_LIST[0];
 function ListInformation() {
   const params = useParams<{ listId: string }>();
   const { data } = useQuery({
-    queryKey: ['getListDetail'],
+    queryKey: [QUERY_KEYS.getListDetail],
     queryFn: () => getListDetail(params?.listId),
     enabled: !!params?.listId,
   });
