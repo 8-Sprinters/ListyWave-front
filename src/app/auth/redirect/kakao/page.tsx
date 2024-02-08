@@ -48,7 +48,7 @@ export default function KakaoRedirectPage() {
     return () => {
       controller.abort(); // 마운트 해제 및 axios 요청 취소
     };
-  }, []);
+  }, [code]);
 
   return <div>로그인 중입니다.</div>;
 }
