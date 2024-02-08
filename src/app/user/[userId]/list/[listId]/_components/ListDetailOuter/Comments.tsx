@@ -24,6 +24,8 @@ function Comments() {
     }
   };
 
+  console.log(activeNickname);
+
   return (
     <div className={styles.wrapper}>
       <div className={styles.formWrapperOuter}>
