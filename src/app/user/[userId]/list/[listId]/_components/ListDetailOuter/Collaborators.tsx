@@ -10,7 +10,9 @@ interface CollaboratorsProps {
 }
 
 function Collaborators({ collaborators }: CollaboratorsProps) {
-  const collaboratorsList = collaborators && collaborators?.length >= 3 ? collaborators?.slice(0, 3) : collaborators;
+  const maxNumber = 3;
+  const collaboratorsList =
+    collaborators && collaborators?.length >= maxNumber ? collaborators?.slice(0, maxNumber) : collaborators;
 
   return (
     <>
