@@ -1,7 +1,6 @@
 import { create } from 'zustand';
-import { persist } from 'zustand/middleware';
+import { devtools, persist } from 'zustand/middleware';
 import { UserOnLoginType } from '@/lib/types/user';
-// import { devtools } from 'zustand/middleware'; // 추후 devtools 연동해서 디버깅 예정
 
 interface UserStateType {
   user: Pick<UserOnLoginType, 'id' | 'accessToken'>;
@@ -15,19 +14,24 @@ const initialValue = {
 
 // 사용자 정보(id) 및 상태(로그인, 로그아웃)를 저장하는 store
 const useUserStore = create<UserStateType>()(
-  persist(
-    (set) => ({
-      user: initialValue,
-      updateUser: (user) =>
-        set((state) => ({
-          user: {
-            ...state.user,
-            ...user,
-          },
-        })),
-    }),
+  devtools(
+    persist(
+      (set) => ({
+        user: initialValue,
+        updateUser: (user) =>
+          set((state) => ({
+            user: {
+              ...state.user,
+              ...user,
+            },
+          })),
+      }),
+      {
+        name: 'user-storage', // localStorage에 저장될 이름
+      }
+    ),
     {
-      name: 'user',
+      name: 'user-store', // Devtools에서 사용될 스토어 이름
     }
   )
 );
