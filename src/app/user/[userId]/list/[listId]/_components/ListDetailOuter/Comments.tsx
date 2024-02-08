@@ -49,7 +49,7 @@ function Comments() {
         </div>
       </div>
       <div className={styles.totalCount}>{`${commentsData?.totalCount}개의 댓글`}</div>
-      {COMMENTS?.comments?.map((item: CommentType) => {
+      {commentsData?.comments?.map((item: CommentType) => {
         return (
           <div key={item.id}>
             <Comment comment={item} onUpdate={setActiveNickname} activeNickname={activeNickname} />
