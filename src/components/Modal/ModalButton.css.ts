@@ -1,4 +1,6 @@
-import { style } from '@vanilla-extract/css';
+import { style, styleVariants } from '@vanilla-extract/css';
+import { body3 } from '@/styles/font.css';
+import { vars } from '@/styles/theme.css';
 
 export const buttonContainer = style({
   width: '100%',
@@ -8,44 +10,43 @@ export const buttonContainer = style({
   gap: '16px',
 });
 
-export const baseButton = style({
-  padding: '12px 16px',
+export const baseButton = style([
+  body3,
+  {
+    padding: '12px 16px',
 
-  display: 'flex',
-  justifyContent: 'center',
-  alignItems: 'center',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
 
-  flexShrink: '0',
+    flexShrink: '0',
 
-  borderRadius: '12px',
-  fontSize: '1.4rem',
-  fontWeight: '500',
-  lineHeight: '20px',
-  letterSpacing: '-0.4px',
+    borderRadius: '12px',
+  },
+]);
+
+export const button = styleVariants({
+  primary: [
+    baseButton,
+    {
+      backgroundColor: vars.color.blue,
+      color: vars.color.white,
+    },
+  ],
+  secondary: [
+    baseButton,
+    {
+      backgroundColor: vars.color.lightblue,
+      color: vars.color.blue,
+    },
+  ],
+  disabled: [
+    baseButton,
+    {
+      backgroundColor: vars.color.gray7,
+      color: vars.color.white,
+
+      cursor: 'default',
+    },
+  ],
 });
-
-export const primaryButton = style([
-  baseButton,
-  {
-    backgroundColor: '#0047FF',
-    color: '#fff',
-  },
-]);
-
-export const secondaryButton = style([
-  baseButton,
-  {
-    backgroundColor: '#EBF4FF',
-    color: '#0047FF',
-  },
-]);
-
-export const disabledButton = style([
-  baseButton,
-  {
-    backgroundColor: '#AFB1B6',
-    color: '#fff',
-
-    cursor: 'default',
-  },
-]);

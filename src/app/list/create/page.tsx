@@ -3,14 +3,15 @@
 import { useState } from 'react';
 import { FieldErrors, FormProvider, useForm } from 'react-hook-form';
 import { useMutation } from '@tanstack/react-query';
+import { useRouter } from 'next/navigation';
 
-import CreateItem from '@/app/create/_components/CreateItem';
-import CreateList from '@/app/create/_components/CreateList';
+import CreateItem from '@/app/list/create/_components/CreateItem';
+import CreateList from '@/app/list/create/_components/CreateList';
 import { ItemImagesType, ListCreateType } from '@/lib/types/listType';
 import toasting from '@/lib/utils/toasting';
-import { createList } from '../_api/list/createList';
-import { uploadItemImages } from '../_api/list/uploadItemImages';
-import { useRouter } from 'next/navigation';
+import { creaetListToastMessage } from '@/lib/constants/toastMessage';
+import { createList } from '@/app/_api/list/createList';
+import { uploadItemImages } from '@/app/_api/list/uploadItemImages';
 
 export type FormErrors = FieldErrors<ListCreateType>;
 
@@ -100,23 +101,23 @@ export default function CreatePage() {
     return { listData, imageData, imageFileList };
   };
 
-  const {
-    mutate: saveImageMutate,
-    isPending: isUploadingImage,
-    data: listId,
-  } = useMutation({
+  const { mutate: saveImageMutate, isPending: isUploadingImage } = useMutation({
     mutationFn: uploadItemImages,
     retry: 3,
     retryDelay: 1000,
     onError: () => {
-      toasting({ type: 'error', txt: '이미지를 업로드 하는 중에 오류가 발생했어요. 다시 업로드해주세요.' });
+      toasting({ type: 'error', txt: creaetListToastMessage.uploadImageError });
     },
     onSettled: () => {
       router.push(`/user/${formatData().listData.ownerId}/list/${newListId}`);
     },
   });
 
-  const { mutate: createListMutate, isPending: isCreatingList, isSuccess } = useMutation({
+  const {
+    mutate: createListMutate,
+    isPending: isCreatingList,
+    isSuccess,
+  } = useMutation({
     mutationFn: createList,
     onSuccess: (data) => {
       setNewListId(data.listId);
@@ -127,7 +128,7 @@ export default function CreatePage() {
       });
     },
     onError: () => {
-      toasting({ type: 'error', txt: '리스트 생성에 실패했어요. 다시 시도해주세요.' });
+      toasting({ type: 'error', txt: creaetListToastMessage.createListError });
     },
   });
 

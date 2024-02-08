@@ -57,26 +57,3 @@ export const previewContainer = style({
   display: 'flex',
   gap: '10px',
 });
-
-export const previewBox = style({
-  width: '90px',
-  height: '90px',
-
-  display: 'flex',
-  justifyContent: 'center',
-  alignItems: 'center',
-
-  position: 'relative',
-
-  background: '#EBF4FF',
-
-  borderRadius: '10px',
-  whiteSpace: 'pre-wrap',
-  overflow: 'hidden',
-});
-
-export const clearButton = style({
-  position: 'absolute',
-  top: '5px',
-  right: '5px',
-});
