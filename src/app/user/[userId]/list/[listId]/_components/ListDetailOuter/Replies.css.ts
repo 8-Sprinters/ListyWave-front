@@ -7,7 +7,9 @@ export const repliesOuterWrapper = style({
   marginBottom: '20px',
 });
 
-export const repliesWrapper = style({});
+export const repliesWrapper = style({
+  marginTop: '16px',
+});
 
 export const replyWrapper = style({
   marginLeft: '30px',
