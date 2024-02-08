@@ -3,9 +3,9 @@ import { useState } from 'react';
 import Image from 'next/image';
 import timeDiff from '@/lib/utils/time-diff';
 import DeleteModalButton from '@/app/user/[userId]/list/[listId]/_components/ListDetailOuter/DeleteModalButton';
+import { ReplyType } from '@/lib/types/commentType';
 import * as styles from './Replies.css';
 import Line from '/public/icons/horizontal_line.svg';
-import { ReplyType } from '../../mockData/mockdataType';
 
 interface RepliesProps {
   replies: ReplyType[] | null | undefined;
@@ -41,7 +41,7 @@ function Replies({ replies }: RepliesProps) {
                   />
                   <div className={styles.replyContainer}>
                     <div className={styles.replyInformationWrapper}>
-                      <span className={styles.replyWriter}>{item.userNickName}</span>
+                      <span className={styles.replyWriter}>{item.userNickname}</span>
                       <span className={styles.replyCreatedTime}>{timeDiff(item.createdDate)}</span>
                     </div>
                     <p className={styles.replyContent}>{item.content}</p>

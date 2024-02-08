@@ -2,7 +2,7 @@
 export interface ReplyType {
   id: number;
   userId: number;
-  userNickName: string;
+  userNickname: string;
   userProfileImageUrl: string;
   createdDate: string;
   content: string;
