@@ -17,8 +17,6 @@ export default function KakaoRedirectPage() {
   useEffect(() => {
     const controller = new AbortController();
 
-    console.log('마운트');
-
     if (!code) {
       router.push('/login');
       return;
@@ -29,8 +27,6 @@ export default function KakaoRedirectPage() {
         const res = await axiosInstance.get<UserOnLoginType>(`/auth/redirect/kakao?code=${code}`, {
           signal: controller.signal,
         });
-        console.log('axios 요청 완료');
-        console.log(res.data);
 
         const { id, accessToken } = res.data;
         updateUser({ id, accessToken });
@@ -50,8 +46,7 @@ export default function KakaoRedirectPage() {
     loginKakao();
 
     return () => {
-      console.log('마운트 해제 및 axios 요청 취소');
-      controller.abort();
+      controller.abort(); // 마운트 해제 및 axios 요청 취소
     };
   }, []);
 
