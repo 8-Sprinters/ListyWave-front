@@ -3,9 +3,9 @@ import Image from 'next/image';
 import Replies from '@/app/user/[userId]/list/[listId]/_components/ListDetailOuter/Replies';
 import DeleteModalButton from '@/app/user/[userId]/list/[listId]/_components/ListDetailOuter/DeleteModalButton';
 import timeDiff from '@/lib/utils/time-diff';
+import { CommentType } from '@/lib/types/commentType';
 import * as styles from './Comment.css';
 import DefaultProfile from '/public/icons/default_profile_temporary.svg';
-import { CommentType } from '../../mockData/mockdataType';
 
 interface CommentProps {
   comment: CommentType | undefined;
@@ -15,7 +15,7 @@ interface CommentProps {
 
 function Comment({ comment, onUpdate }: CommentProps) {
   const handleActiveNicknameUpdate = () => {
-    const currentUserName = comment?.userName;
+    const currentUserName = comment?.userNickname;
     if (currentUserName) {
       onUpdate(currentUserName);
     }

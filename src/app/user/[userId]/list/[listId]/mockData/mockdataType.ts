@@ -1,12 +1,3 @@
-export interface RepliesType {
-  id: number;
-  userId: number;
-  userNickName: string;
-  userProfileImageUrl: string;
-  createdDate: string;
-  content: string;
-}
-
 export interface ReplyType {
   id: number;
   userId: number;
@@ -19,11 +10,11 @@ export interface ReplyType {
 export interface CommentType {
   id: number;
   userId: number;
-  userName: string;
+  userNickname: string;
   userProfileImageUrl: string;
   createdDate: string;
   content: string;
-  replies: RepliesType[] | null;
+  replies: ReplyType[] | null;
 }
 
 export interface CollaboratorType {
