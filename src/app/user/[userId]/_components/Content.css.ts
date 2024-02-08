@@ -1,4 +1,4 @@
-import { style } from '@vanilla-extract/css';
+import { style, styleVariants } from '@vanilla-extract/css';
 
 export const container = style({
   width: '100%',
@@ -55,8 +55,17 @@ export const cards = style({
   padding: '2.1rem',
 });
 
-export const leftButtonLine = style({
-  position: 'relative',
-  bottom: '6px',
-  left: '47%',
+export const variantLine = styleVariants({
+  left: [
+    {
+      position: 'absolute',
+      left: '22%',
+    },
+  ],
+  right: [
+    {
+      position: 'absolute',
+      left: '57%',
+    },
+  ],
 });
