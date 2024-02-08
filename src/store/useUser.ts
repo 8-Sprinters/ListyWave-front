@@ -1,10 +1,10 @@
 import { create } from 'zustand';
-import { UserType } from '@/lib/types/userType';
+import { UserOnLoginType } from '@/lib/types/user';
 // import { devtools } from 'zustand/middleware'; // 추후 devtools 연동해서 디버깅 예정
 
 interface UserStateType {
-  user: Pick<UserType, 'id' | 'nickname'>;
-  updateUser: (user: Pick<UserType, 'id' | 'nickname'>) => void;
+  user: Pick<UserOnLoginType, 'id' | 'nickname'>;
+  updateUser: (user: Pick<UserOnLoginType, 'id' | 'nickname'>) => void;
 }
 
 const initialValue = {
