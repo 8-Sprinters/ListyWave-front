@@ -19,8 +19,6 @@ function Comments() {
   const params = useParams<{ listId: string }>();
   const queryClient = useQueryClient();
 
-  console.log(comment);
-
   const { data: commentsData, isPending } = useQuery({
     queryKey: [QUERY_KEYS.getComments],
     queryFn: () => getComments(params?.listId),
@@ -28,8 +26,7 @@ function Comments() {
     enabled: !!params?.listId,
   });
 
-  console.log(activeNickname);
-  console.log(commentId);
+  console.log(commentsData);
 
   const handleActiveNicknameDelete = () => {
     if (activeNickname) {

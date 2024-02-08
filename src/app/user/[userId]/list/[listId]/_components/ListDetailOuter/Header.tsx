@@ -29,7 +29,7 @@ function Header() {
             <HistoryButton alt="히스토리 버튼" />
           </button>
           <div className={styles.buttonResetStyle}>
-            <OpenBottomSheetButton />
+            <OpenBottomSheetButton listId={params?.listId} />
           </div>
         </div>
       </div>

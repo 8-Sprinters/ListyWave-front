@@ -1,9 +1,17 @@
+'use client';
+useRouter;
 import useBooleanOutput from '@/hooks/useBooleanOutput';
 import BottomSheet from '@/app/user/[userId]/list/[listId]/_components/BottomSheet/BottomSheet';
 import KebabButton from '/public/icons/vertical_kebab_button.svg';
 import * as styles from './ModalButtonStyle.css';
+import { useRouter } from 'next/navigation';
 
-export default function OpenBottomSheetButton({}) {
+interface OpenBottomSheetButtonProps {
+  listId: string | undefined;
+}
+
+export default function OpenBottomSheetButton({ listId }: OpenBottomSheetButtonProps) {
+  const router = useRouter();
   const { isOn, handleSetOff, handleSetOn } = useBooleanOutput(); //바텀시트 열림,닫힘 상태 관리
   const bottomSheetOptionList = [
     {
@@ -23,7 +31,7 @@ export default function OpenBottomSheetButton({}) {
   ];
 
   const handleEditClick = () => {
-    //확인버튼 클릭시 실행될 로직()
+    router.push(`/user/${1}/list/${listId}/edit`);
     handleSetOff(); //닫기
   };
 
