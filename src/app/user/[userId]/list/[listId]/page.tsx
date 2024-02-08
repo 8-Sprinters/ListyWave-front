@@ -6,7 +6,7 @@ import FloatingContainer from '@/components/floatingButton/FloatingContainer';
 import ArrowUpFloatingButton from '@/components/floatingButton/ArrowUpFloatingButton';
 import PlusOptionFloatingButton from '@/components/floatingButton/PlusOptionFloatingButton';
 
-export default function ListDetail() {
+export default function ListDetailPage() {
   return (
     <section className={styles.wrapper}>
       <Header />
