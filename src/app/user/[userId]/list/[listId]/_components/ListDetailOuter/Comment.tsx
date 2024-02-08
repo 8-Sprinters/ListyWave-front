@@ -38,7 +38,7 @@ function Comment({ comment, onUpdate }: CommentProps) {
           )}
           <div className={styles.commentContainer}>
             <div className={styles.commentInformationWrapper}>
-              <span className={styles.commentWriter}>{comment?.userName}</span>
+              <span className={styles.commentWriter}>{comment?.userNickname}</span>
               <span className={styles.commentCreatedTime}>{comment && timeDiff(comment?.createdDate)}</span>
             </div>
             <div className={styles.commentContent}>{comment?.content}</div>

@@ -27,6 +27,8 @@ function Comments() {
     enabled: !!params?.listId,
   });
 
+  console.log(commentsData);
+
   const handleActiveNicknameDelete = () => {
     if (activeNickname) {
       setActiveNickname(null);
