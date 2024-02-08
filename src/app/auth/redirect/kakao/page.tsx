@@ -12,7 +12,7 @@ export default function KakaoRedirectPage() {
   const router = useRouter();
   const { updateUser } = useUser();
   const searchParams = useSearchParams();
-  const code = searchParams.get('code');
+  const code = searchParams ? searchParams.get('code') : null;
 
   useEffect(() => {
     const controller = new AbortController();
