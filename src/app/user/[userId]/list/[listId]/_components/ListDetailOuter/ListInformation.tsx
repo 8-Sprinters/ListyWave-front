@@ -1,10 +1,12 @@
+'use client';
+
 import Image from 'next/image';
 import { useQuery } from '@tanstack/react-query';
 import { useParams } from 'next/navigation';
 import Label from '@/components/Label/Label';
 import Collaborators from '@/app/user/[userId]/list/[listId]/_components/ListDetailOuter/Collaborators';
 import { getListDetail } from '@/app/_api/list/getLists';
-import timeDiff from '@/lib/utils/timeDiff';
+import timeDiff from '@/lib/utils/time-diff';
 import * as styles from './ListInformation.css';
 import { MOCKDATA_LIST } from '../../mockData/mockdata';
 import ListDetailInner from '../ListDetailInner';

@@ -2,7 +2,7 @@
 import Image from 'next/image';
 import Replies from '@/app/user/[userId]/list/[listId]/_components/ListDetailOuter/Replies';
 import DeleteModalButton from '@/app/user/[userId]/list/[listId]/_components/ListDetailOuter/DeleteModalButton';
-import timeDiff from '@/lib/utils/timeDiff';
+import timeDiff from '@/lib/utils/time-diff';
 import * as styles from './Comment.css';
 import DefaultProfile from '/public/icons/default_profile_temporary.svg';
 import { CommentType } from '../../mockData/mockdataType';

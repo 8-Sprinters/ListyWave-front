@@ -1,7 +1,7 @@
 'use client';
 import { useState } from 'react';
 import Image from 'next/image';
-import timeDiff from '@/lib/utils/timeDiff';
+import timeDiff from '@/lib/utils/time-diff';
 import DeleteModalButton from '@/app/user/[userId]/list/[listId]/_components/ListDetailOuter/DeleteModalButton';
 import * as styles from './Replies.css';
 import Line from '/public/icons/horizontal_line.svg';
