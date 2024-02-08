@@ -17,8 +17,7 @@ export const replyWrapper = style({
 });
 
 export const showMoreRepliesWrapper = style({
-  marginLeft: '30px',
-  marginBottom: '25px',
+  margin: '16px 0 25px 30px',
 
   display: 'flex',
   alignItems: 'center',

@@ -94,6 +94,10 @@ export const profileImage = style({
   backgroundColor: '#909090',
 });
 
+export const commentWrapper = style({
+  marginBottom: '20px',
+});
+
 export const activeReplyWrapper = style({
   display: 'flex',
   justifyContent: 'space-between',

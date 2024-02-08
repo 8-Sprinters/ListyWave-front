@@ -113,7 +113,7 @@ function Comments() {
       <div className={styles.totalCount}>{`${commentsData?.totalCount}개의 댓글`}</div>
       {commentsData?.comments?.map((item: CommentType) => {
         return (
-          <div key={item.id}>
+          <div key={item.id} className={styles.commentWrapper}>
             <Comment
               comment={item}
               onUpdate={setActiveNickname}
