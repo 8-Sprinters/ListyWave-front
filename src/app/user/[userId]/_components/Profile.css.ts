@@ -22,7 +22,7 @@ export const container = style({
 
 export const header = style({
   display: 'flex',
-  justifyContent: 'space-between',
+  justifyContent: 'flex-end',
 });
 
 export const profileContainer = style({
@@ -43,7 +43,7 @@ export const profile = style({
   gap: '1.6rem',
 });
 
-export const avatar = style({
+export const profileImage = style({
   width: '5rem',
   height: '5rem',
 

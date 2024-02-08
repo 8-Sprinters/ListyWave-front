@@ -15,7 +15,6 @@ import { assignInlineVars } from '@vanilla-extract/dynamic';
 import * as styles from './Profile.css';
 
 import FollowButton from './FollowButton';
-import ArrowLeftIcon from '/public/icons/arrow_left.svg';
 import SettingIcon from '/public/icons/setting.svg';
 
 import useMoveToPage from '@/hooks/useMoveToPage';
@@ -43,18 +42,17 @@ export default function Profile({ userId }: { userId: number }) {
       })}
     >
       <div className={styles.header}>
-        <ArrowLeftIcon alt="이전 페이지로 이동하기" className={styles.icon} />
         {data?.isOwner && (
           <SettingIcon alt="마이페이지로 이동하기" className={styles.icon} onClick={onClickMoveToPage('/account')} />
         )}
       </div>
       <div className={styles.profileContainer}>
         <div className={styles.profile}>
-          <div className={styles.avatar}>
+          <div className={styles.profileImage}>
             {data?.profileImageUrl ? (
               <Image src={`${data?.profileImageUrl}`} alt="프로필 이미지" width={50} height={50} priority />
             ) : (
-              <div className={styles.avatar}></div>
+              <div className={styles.profileImage}></div>
             )}
           </div>
           <div className={styles.info}>

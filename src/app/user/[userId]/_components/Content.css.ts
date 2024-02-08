@@ -19,7 +19,6 @@ export const options = style({
 });
 
 export const link = style({
-  // position: 'relative',
   flexGrow: '1',
   textDecoration: 'none',
 });

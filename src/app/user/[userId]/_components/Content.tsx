@@ -33,7 +33,7 @@ export default function Content({ userId, type }: ContentProps) {
   const [listGrid, setListGrid] = useState<ListType[]>([]);
 
   const { data: userData } = useQuery<UserType>({
-    queryKey: [QUERY_KEYS.userOne],
+    queryKey: [QUERY_KEYS.userOne, userId],
     queryFn: () => getUserOne(userId),
   });
 
