@@ -5,15 +5,16 @@ import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import Image from 'next/image';
 import Comment from './Comment';
 import { createComment } from '@/app/_api/comment/createComment';
+import { createReply } from '@/app/_api/comment/createReply';
 import { QUERY_KEYS } from '@/lib/constants/queryKeys';
 import * as styles from './Comments.css';
 import { getComments } from '@/app/_api/comment/getComments';
 import CancelButton from '/public/icons/cancel_button.svg';
-import { CommentType } from '../../mockData/mockdataType';
+import { CommentType } from '@/lib/types/commentType';
 
 function Comments() {
   const [activeNickname, setActiveNickname] = useState<string | null | undefined>(null);
-  const [commentId, setCommentId] = useState<null | number>(null);
+  const [commentId, setCommentId] = useState<null | number | undefined>(null);
   const [comment, setComment] = useState<string>('');
   const params = useParams<{ listId: string }>();
   const queryClient = useQueryClient();
@@ -27,7 +28,8 @@ function Comments() {
     enabled: !!params?.listId,
   });
 
-  console.log(commentsData);
+  console.log(activeNickname);
+  console.log(commentId);
 
   const handleActiveNicknameDelete = () => {
     if (activeNickname) {
@@ -37,7 +39,7 @@ function Comments() {
   };
 
   //답글 생성중인 댓글에 대한 id를 받아오는 함수
-  const handleActiveCommentId = (id: number) => {
+  const handleSetCommentId = (id: number | undefined) => {
     setCommentId(id);
   };
 
@@ -51,12 +53,30 @@ function Comments() {
       queryClient.invalidateQueries({ queryKey: [QUERY_KEYS.getComments] });
     },
     onSettled: () => {
+      setComment('');
+      setCommentId(null);
+      setActiveNickname(null);
       console.log('댓글을 성공적으로 업로드했습니다.');
+    },
+  });
+
+  const createReplyMutation = useMutation({
+    mutationFn: () => createReply({ listId: params?.listId, commentId: commentId, data: comment }),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: [QUERY_KEYS.getComments] });
+    },
+    onSettled: () => {
+      setComment('');
+      console.log('답글을 성공적으로 업로드했습니다.');
     },
   });
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    if (commentId && activeNickname) {
+      createReplyMutation.mutate();
+      return;
+    }
     createCommentMutation.mutate();
   };
 
@@ -97,7 +117,14 @@ function Comments() {
       {commentsData?.comments?.map((item: CommentType) => {
         return (
           <div key={item.id}>
-            <Comment comment={item} onUpdate={setActiveNickname} activeNickname={activeNickname} />
+            <Comment
+              comment={item}
+              onUpdate={setActiveNickname}
+              activeNickname={activeNickname}
+              handleSetCommentId={handleSetCommentId}
+              listId={params?.listId}
+              commentId={commentId}
+            />
           </div>
         );
       })}

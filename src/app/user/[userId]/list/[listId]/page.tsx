@@ -12,10 +12,10 @@ export default function ListDetailPage() {
       <Header />
       <ListInformation />
       <Comments />
-      <FloatingContainer>
+      {/* <FloatingContainer>
         <PlusOptionFloatingButton />
         <ArrowUpFloatingButton />
-      </FloatingContainer>
+      </FloatingContainer> */}
     </section>
   );
 }

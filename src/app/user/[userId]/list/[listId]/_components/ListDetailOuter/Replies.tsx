@@ -1,6 +1,7 @@
 'use client';
 import { useState } from 'react';
 import Image from 'next/image';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import timeDiff from '@/lib/utils/time-diff';
 import DeleteModalButton from '@/app/user/[userId]/list/[listId]/_components/ListDetailOuter/DeleteModalButton';
 import { ReplyType } from '@/lib/types/commentType';
@@ -9,10 +10,13 @@ import Line from '/public/icons/horizontal_line.svg';
 
 interface RepliesProps {
   replies: ReplyType[] | null | undefined;
+  listId?: string | undefined;
+  commentId?: null | number | undefined;
 }
 
-function Replies({ replies }: RepliesProps) {
+function Replies({ replies, listId, commentId }: RepliesProps) {
   const [showReplies, setShowReplies] = useState(false);
+  const queryClient = useQueryClient();
 
   const handleShowReplies = () => {
     setShowReplies((prev) => !prev);
