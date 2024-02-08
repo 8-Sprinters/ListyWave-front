@@ -1,7 +1,7 @@
 'use client';
 import Image from 'next/image';
-import Replies from '@/app/[userNickname]/[listId]/_components/ListDetailOuter/Replies';
-import DeleteModalButton from '@/app/[userNickname]/[listId]/_components/ListDetailOuter/DeleteModalButton';
+import Replies from '@/app/user/[userId]/list/[listId]/_components/ListDetailOuter/Replies';
+import DeleteModalButton from '@/app/user/[userId]/list/[listId]/_components/ListDetailOuter/DeleteModalButton';
 import timeDiff from '@/lib/utils/timeDiff';
 import * as styles from './Comment.css';
 import DefaultProfile from '/public/icons/default_profile_temporary.svg';

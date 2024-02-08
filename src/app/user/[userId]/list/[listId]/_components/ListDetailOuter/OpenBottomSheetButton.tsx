@@ -1,5 +1,5 @@
 import useBooleanOutput from '@/hooks/useBooleanOutput';
-import BottomSheet from '@/app/[userNickname]/[listId]/_components/BottomSheet/BottomSheet';
+import BottomSheet from '@/app/user/[userId]/list/[listId]/_components/BottomSheet/BottomSheet';
 import KebabButton from '/public/icons/vertical_kebab_button.svg';
 import * as styles from './ModalButtonStyle.css';
 

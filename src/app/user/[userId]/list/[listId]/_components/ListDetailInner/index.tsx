@@ -1,9 +1,9 @@
 'use client';
 
 import { useState } from 'react';
-import Header from '@/app/[userNickname]/[listId]/_components/ListDetailInner/Header';
-import RankList from '@/app/[userNickname]/[listId]/_components/ListDetailInner/RankList';
-import Footer from '@/app/[userNickname]/[listId]/_components/ListDetailInner/Footer';
+import Header from '@/app/user/[userId]/list/[listId]/_components/ListDetailInner/Header';
+import RankList from '@/app/user/[userId]/list/[listId]/_components/ListDetailInner/RankList';
+import Footer from '@/app/user/[userId]/list/[listId]/_components/ListDetailInner/Footer';
 import * as styles from './index.css';
 import { CollaboratorType, ListItemsType } from '@/lib/types/listType';
 
