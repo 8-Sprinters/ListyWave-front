@@ -6,10 +6,11 @@ import { AxiosError } from 'axios';
 
 import axiosInstance from '@/lib/axios/axiosInstance';
 import { useUser } from '@/store/useUser';
+import { UserOnLoginType } from '@/lib/types/user';
 
 export default function KakaoRedirectPage() {
   const router = useRouter();
-  const { user, updateUser } = useUser();
+  const { updateUser } = useUser();
   const searchParams = useSearchParams();
   const code = searchParams.get('code');
 
@@ -22,14 +23,14 @@ export default function KakaoRedirectPage() {
 
     const loginKakao = async () => {
       try {
-        const res = await axiosInstance.get(`/auth/redirect/kakao?code=${code}`, {
+        const res = await axiosInstance.get<UserOnLoginType>(`/auth/redirect/kakao?code=${code}`, {
           signal: controller.signal,
         });
         console.log('axios 요청 완료');
         console.log(res.data);
 
-        const { id, nickname } = res.data;
-        updateUser({ id, nickname });
+        const { id, accessToken } = res.data;
+        updateUser({ id, accessToken });
 
         router.push('/');
       } catch (error) {
@@ -50,11 +51,6 @@ export default function KakaoRedirectPage() {
       controller.abort();
     };
   }, []);
-
-  // userStore에 잘 저장되었는지 확인용 코드
-  useEffect(() => {
-    console.log(user);
-  }, [user]);
 
   return <div>로그인 중입니다.</div>;
 }
