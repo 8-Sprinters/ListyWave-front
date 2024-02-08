@@ -6,13 +6,13 @@
  - [ ] 조건(비회원, 회원)에 따른 팔로우 버튼 동작(api 연동)
  */
 
-import * as styles from './Action.css';
+import * as styles from './FollowButton.css';
 
 interface ActionProps {
   isFollowed: boolean;
 }
 
-export default function Action({ isFollowed }: ActionProps) {
+export default function FollowButton({ isFollowed }: ActionProps) {
   const label = isFollowed ? '팔로우' : '팔로우 취소';
 
   const handleFollowUser = () => {

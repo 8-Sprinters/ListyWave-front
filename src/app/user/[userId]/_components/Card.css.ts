@@ -3,15 +3,16 @@ import { style, createVar } from '@vanilla-extract/css';
 export const listColor = createVar();
 
 export const container = style({
-  width: '185px',
-  padding: '3rem 1.2rem',
+  maxWidth: '185px',
+  width: '100%',
+  padding: '2rem 2rem 3rem 2rem',
 
   borderRadius: '1.5rem',
   backgroundColor: listColor,
 });
 
 export const title = style({
-  padding: '1.1rem',
+  padding: '1.2rem 0 2rem 0',
 
   fontSize: '1.7rem',
   fontWeight: '600',
@@ -22,8 +23,6 @@ export const title = style({
 });
 
 export const list = style({
-  padding: '1rem 0',
-
   display: 'flex',
   flexDirection: 'column',
 
@@ -48,4 +47,14 @@ export const lockText = style({
   fontWeight: '400',
   letterSpacing: '-0.33px',
   color: '#AFB1B6',
+});
+
+export const item = style({
+  display: 'flex',
+  alignItems: 'center',
+  gap: '5px',
+});
+
+export const rank = style({
+  width: '1.2rem',
 });
