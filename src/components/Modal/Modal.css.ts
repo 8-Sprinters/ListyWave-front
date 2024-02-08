@@ -1,4 +1,5 @@
 import { style } from '@vanilla-extract/css';
+import { vars } from '@/styles/theme.css';
 
 export const background = style({
   width: '100vw',
@@ -26,7 +27,7 @@ export const container = style({
   alignItems: 'center',
   gap: '2.4rem',
 
-  backgroundColor: '#fff',
+  backgroundColor: vars.color.white,
 
   borderRadius: '8px',
 });

@@ -15,7 +15,7 @@ function Header({ onBackClick, isSubmitActive, onSubmitClick }: HeaderProps) {
       </button>
       <h1 className={styles.headerTitle}>리스트 생성</h1>
       <button
-        className={isSubmitActive ? styles.headerNextButtonActive : styles.headerNextButton}
+        className={isSubmitActive ? styles.headerNextButton.active : styles.headerNextButton.inactive}
         disabled={!isSubmitActive}
         onClick={onSubmitClick}
       >
