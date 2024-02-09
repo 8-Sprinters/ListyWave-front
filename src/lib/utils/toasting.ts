@@ -1,7 +1,12 @@
 import { toast, ToastOptions } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-function toasting({ type = 'default', txt = '' }) {
+interface ToastingProps {
+  type: 'default' | 'success' | 'error' | 'warning';
+  txt: string;
+}
+
+function toasting({ type = 'default', txt = '' }: ToastingProps) {
   const toastOption: ToastOptions = {
     position: 'bottom-center',
     autoClose: 1000,
