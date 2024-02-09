@@ -70,7 +70,7 @@ function Comment({ comment, onUpdate, handleSetCommentId, listId, commentId }: C
             </div>
           </div>
         </div>
-        <DeleteModalButton onDelete={handleClickDeleteButton} />
+        {!comment?.isDeleted && <DeleteModalButton onDelete={handleClickDeleteButton} />}
       </div>
       <button className={styles.createReplyButton} onClick={handleActiveNicknameAndIdUpdate}>
         <span>답글 달기</span>

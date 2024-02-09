@@ -14,7 +14,7 @@ export const createReply = async ({ listId, commentId, data }: createReplyType) 
   }
 
   const response = await axiosInstance.post(
-    `/lists/${listId}/${commentId}/replies`,
+    `/lists/${listId}/comments/${commentId}/replies`,
     {
       content: data,
     },
