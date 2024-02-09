@@ -1,6 +1,6 @@
-import ListRecommendation from '@/app/exploreComponents/ListsRecommendation';
-import TrendingList from '@/app/exploreComponents/TrendingLists';
-import UsersRecommendation from '@/app/exploreComponents/UsersRecommendation';
+import ListRecommendation from '@/app/user/[userId]/_components/exploreComponents/ListsRecommendation';
+import TrendingList from '@/app/user/[userId]/_components/exploreComponents/TrendingLists';
+import UsersRecommendation from '@/app/user/[userId]/_components/exploreComponents/UsersRecommendation';
 
 function LandingPage() {
   return (
