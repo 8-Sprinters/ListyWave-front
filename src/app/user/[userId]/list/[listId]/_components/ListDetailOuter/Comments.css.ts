@@ -22,7 +22,7 @@ export const formWrapperOuter = style({
 
   border: '1px solid rgba(0, 0, 0, 0.10)',
   background: '#fff',
-  zIndex: 0,
+  zIndex: 1,
 });
 
 export const formWrapperInner = style({

@@ -28,7 +28,7 @@ function Replies({ replies, listId }: RepliesProps) {
       {replies?.length !== 0 && !showReplies && (
         <div className={styles.showMoreRepliesWrapper} onClick={handleShowReplies}>
           <Line alt="답글 구분선" />
-          <div className={styles.showMoreReplies}>{`답글 ${replies?.length}개 더 보기`} </div>
+          <div className={styles.showMoreReplies}>{`답글 ${replies?.length}개 더 보기`}</div>
         </div>
       )}
       {showReplies && (
