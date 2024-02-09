@@ -5,6 +5,11 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import '@/styles/GlobalStyles.css';
 import Script from 'next/script';
 import { ToastContainer } from 'react-toastify';
+import Header from '@/app/exploreComponents/Header';
+import FloatingContainer from '@/components/floatingButton/FloatingContainer';
+import PlusOptionFloatingButton from '@/components/floatingButton/PlusOptionFloatingButton';
+import ArrowUpFloatingButton from '@/components/floatingButton/ArrowUpFloatingButton';
+import * as styles from './layout.css';
 
 const queryClient = new QueryClient();
 declare global {
@@ -33,8 +38,14 @@ export default function TempLayout({ children }: { children: ReactNode }) {
       <body>
         <QueryClientProvider client={queryClient}>
           <div id="modal-root" />
-          <div>{children}</div>
-          <ToastContainer />
+          <div className={styles.wrapper}>
+            <Header />
+            {children}
+            <FloatingContainer>
+              <PlusOptionFloatingButton />
+              <ArrowUpFloatingButton />
+            </FloatingContainer>
+          </div>
         </QueryClientProvider>
       </body>
     </html>
