@@ -7,7 +7,7 @@
  */
 
 import Link from 'next/link';
-import { useCallback, useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { MasonryGrid } from '@egjs/react-grid';
 
@@ -23,7 +23,7 @@ import { getAllList } from '@/app/_api/list/getAllList';
 
 import { QUERY_KEYS } from '@/lib/constants/queryKeys';
 import { UserType } from '@/lib/types/userProfileType';
-import { ListType } from '@/lib/types/listType';
+import { AllListType, ListType } from '@/lib/types/listType';
 
 interface ContentProps {
   userId: number;
@@ -31,34 +31,23 @@ interface ContentProps {
 }
 
 export default function Content({ userId, type }: ContentProps) {
-  const [listGrid, setListGrid] = useState<ListType[]>([]);
+  const [selectedCategory, setSelectedCategory] = useState('entire');
 
   const { data: userData } = useQuery<UserType>({
     queryKey: [QUERY_KEYS.userOne, userId],
     queryFn: () => getUserOne(userId),
   });
 
-  /** 무한스크롤시 리액트 쿼리로 불러오는게 더 나을지에 대한 고민 때문에 주석처리 해 놓은 코드 */
-  // const { data: listData, refetch } = useQuery<AllListType>({
-  //   queryKey: [QUERY_KEYS.getAllList],
-  //   queryFn: () => getAllList(userId, type),
-  // });
+  const { data: listsData } = useQuery<AllListType>({
+    queryKey: [QUERY_KEYS.getAllList, userId, type, selectedCategory],
+    queryFn: () => getAllList(userId, type, selectedCategory),
+  });
 
-  const handleFetchLists = useCallback(
-    async (category?: string) => {
-      const data = await getAllList(userId, type, category);
-      setListGrid(data.feedLists);
-    },
-    [userId, type]
-  );
+  console.log(listsData); // 삭제 예정
 
-  const handleFetchListsOnCategory = async (category: string) => {
-    handleFetchLists(category);
+  const handleFetchListsOnCategory = (category: string) => {
+    setSelectedCategory(category);
   };
-
-  useEffect(() => {
-    handleFetchLists();
-  }, [handleFetchLists]);
 
   return (
     <div className={styles.container}>
@@ -75,11 +64,10 @@ export default function Content({ userId, type }: ContentProps) {
       ) : (
         <BlueLineLongIcon className={styles.variantLine.right} />
       )}
-
-      <Categories handleFetchListsOnCategory={handleFetchListsOnCategory} />
+      <Categories handleFetchListsOnCategory={handleFetchListsOnCategory} selectedCategory={selectedCategory} />
       <div className={styles.cards}>
         <MasonryGrid gap={16} defaultDirection={'end'} align={'start'}>
-          {listGrid.map((list: ListType) => (
+          {listsData?.feedLists.map((list: ListType) => (
             <Card key={list.id} list={list} isOwner={!!userData?.isOwner} />
           ))}
         </MasonryGrid>
