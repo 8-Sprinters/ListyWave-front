@@ -1,7 +1,7 @@
 'use client';
+import { useRouter, useParams } from 'next/navigation';
 import BackButton from '/public/icons/back.svg';
 import * as styles from './Header.css';
-import { useRouter } from 'next/navigation';
 
 interface HeaderProps {
   title: string;
@@ -9,8 +9,10 @@ interface HeaderProps {
 
 function Header({ title }: HeaderProps) {
   const router = useRouter();
+  const param = useParams<{ userId: string }>();
+
   const handleBackButtonClick = () => {
-    router.back();
+    router.push(`/user/${param?.userId}/mylist`);
   };
 
   return (
