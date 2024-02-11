@@ -58,10 +58,6 @@ export const item = style({
   justifyContent: 'space-between',
 });
 
-export const profileImage = style({
-  borderRadius: '50%',
-});
-
 export const searchIcon = style({
   width: '15.7px',
   height: '15.7px',

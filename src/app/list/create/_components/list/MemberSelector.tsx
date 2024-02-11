@@ -1,11 +1,9 @@
 'use client';
 import { useEffect, useRef, useState } from 'react';
-import Image from 'next/image';
-import axios from 'axios';
 
+import UserProfileImage from '@/components/UserProfileImage/UserProfileImage';
 import SearchIcon from '/public/icons/search.svg';
 import EraseButton from '/public/icons/x_circle_fill.svg';
-import DefaultProfile from '/public/icons/default_profile.svg';
 
 import * as styles from './MemberSelector.css';
 
@@ -112,7 +110,7 @@ function MemberSelector({
                   }
                 }}
               >
-                <UserProfileImage src={user.profileImageUrl} />
+                <UserProfileImage src={user.profileImageUrl} size={30} />
                 {user.nickname}
                 {selectedList.find((collaboUser: UserProfileType) => collaboUser.id === user.id) && (
                   <span className={styles.checkedIcon}>✓</span>
@@ -132,7 +130,7 @@ function MemberSelector({
         {selectedList.map((selectedUser) => (
           <div key={selectedUser.id} className={styles.item}>
             <div className={styles.profileContainer}>
-              <UserProfileImage src={selectedUser.profileImageUrl} />
+              <UserProfileImage src={selectedUser.profileImageUrl} size={30} />
               {selectedUser.nickname}
             </div>
             <EraseButton
@@ -149,30 +147,3 @@ function MemberSelector({
 }
 
 export default MemberSelector;
-
-function UserProfileImage({ src }: { src: string }) {
-  const [isValidImage, setIsValidImage] = useState(false);
-
-  useEffect(() => {
-    const handleFetchImage = async () => {
-      if (!src) {
-        setIsValidImage(false);
-        return;
-      }
-      try {
-        const response = await axios.get(src);
-      } catch (error) {
-        setIsValidImage(false);
-        return;
-      }
-      setIsValidImage(true);
-    };
-    handleFetchImage();
-  }, []);
-
-  return isValidImage ? (
-    <Image className={styles.profileImage} src={src} width={'30'} height={'30'} alt="이미지 프로필" />
-  ) : (
-    <DefaultProfile width={'30'} height={'30'} />
-  );
-}
