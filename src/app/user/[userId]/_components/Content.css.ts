@@ -69,3 +69,7 @@ export const variantLine = styleVariants({
     },
   ],
 });
+
+export const target = style({
+  height: '1px',
+});

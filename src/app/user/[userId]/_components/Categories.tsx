@@ -18,8 +18,6 @@ interface CategoriesProps {
   selectedCategory: string;
 }
 
-export const DEFAULT_CATEGORY = 'entire';
-
 export default function Categories({ handleFetchListsOnCategory, selectedCategory }: CategoriesProps) {
   const { data } = useQuery<CategoryType[]>({
     queryKey: [QUERY_KEYS.getCategories],

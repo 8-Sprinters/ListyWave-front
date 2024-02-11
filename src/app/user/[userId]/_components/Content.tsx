@@ -2,13 +2,13 @@
 
 /**
  TODO
- - [ ] 무한스크롤 적용
+ - [x] 무한스크롤 적용
  - [ ] 피드페이지 스켈레톤 ui 적용
  */
 
 import Link from 'next/link';
-import { useState } from 'react';
-import { useInfiniteQuery, useQuery } from '@tanstack/react-query';
+import { useMemo, useState } from 'react';
+import { useInfiniteQuery, useQuery, useQueryClient } from '@tanstack/react-query';
 import { MasonryGrid } from '@egjs/react-grid';
 
 import * as styles from './Content.css';
@@ -23,7 +23,8 @@ import { getAllList } from '@/app/_api/list/getAllList';
 
 import { QUERY_KEYS } from '@/lib/constants/queryKeys';
 import { UserType } from '@/lib/types/userProfileType';
-import { AllListType, ListType } from '@/lib/types/listType';
+import { AllListType } from '@/lib/types/listType';
+
 import useIntersectionObserver from '@/hooks/useIntersectionObserver';
 
 interface ContentProps {
@@ -31,8 +32,11 @@ interface ContentProps {
   type: string;
 }
 
+const DEFAULT_CATEGORY = 'entire';
+
 export default function Content({ userId, type }: ContentProps) {
-  const [selectedCategory, setSelectedCategory] = useState('entire');
+  const queryClient = useQueryClient();
+  const [selectedCategory, setSelectedCategory] = useState(DEFAULT_CATEGORY);
 
   const { data: userData } = useQuery<UserType>({
     queryKey: [QUERY_KEYS.userOne, userId],
@@ -43,33 +47,37 @@ export default function Content({ userId, type }: ContentProps) {
     data: listsData,
     hasNextPage,
     fetchNextPage,
+    isFetching,
   } = useInfiniteQuery<AllListType>({
     queryKey: [QUERY_KEYS.getAllList, userId, type, selectedCategory],
-    queryFn: ({ pageParam }) => {
-      console.log(pageParam);
-      return getAllList(userId, type, selectedCategory, pageParam);
+    queryFn: ({ pageParam: cursorId }) => {
+      return getAllList(userId, type, selectedCategory, cursorId);
     },
     initialPageParam: null,
     getNextPageParam: (lastPage) => (lastPage.hasNext ? lastPage.cursorId : null),
   });
 
-  // select: (listsData) => ({
-  //   pages: listsData.pages,
-  //   pageParams: listsData.pageParams,
-  // }),
+  const lists = useMemo(() => {
+    return listsData ? listsData.pages.flatMap(({ feedLists }) => feedLists) : [];
+  }, [listsData]);
 
-  console.log(hasNextPage);
+  // console.log(hasNextPage); // 삭제 예정
 
   const ref = useIntersectionObserver(() => {
-    if (listsData?.pages[0].hasNext) {
+    if (hasNextPage) {
       fetchNextPage();
     }
   });
 
-  console.log(listsData); // 삭제 예정
+  console.log(lists); // 삭제 예정
 
   const handleFetchListsOnCategory = (category: string) => {
     setSelectedCategory(category);
+
+    queryClient.resetQueries({
+      queryKey: [QUERY_KEYS.getAllList, userId, type, category],
+      exact: true,
+    });
   };
 
   return (
@@ -89,19 +97,14 @@ export default function Content({ userId, type }: ContentProps) {
       )}
       <Categories handleFetchListsOnCategory={handleFetchListsOnCategory} selectedCategory={selectedCategory} />
       <div className={styles.cards}>
-        {listsData?.pages.map((page: AllListType, pageIndex) => (
-          <div key={pageIndex}>
-            {page.feedLists.map((list: ListType) => (
-              <MasonryGrid gap={16} defaultDirection={'end'} align={'start'} key={list.id}>
-                <Card key={list.id} list={list} isOwner={!!userData?.isOwner} />
-              </MasonryGrid>
-            ))}
-          </div>
-        ))}
+        <MasonryGrid gap={16} defaultDirection={'end'} align={'start'}>
+          {lists.map((list) => (
+            <Card key={list.id} list={list} isOwner={!!userData?.isOwner} />
+          ))}
+        </MasonryGrid>
       </div>
-      <div style={{ height: '1px' }} ref={ref}>
-        여기
-      </div>
+      {isFetching && <div>로딩중</div>}
+      <div className={styles.target} ref={ref}></div>
     </div>
   );
 }
