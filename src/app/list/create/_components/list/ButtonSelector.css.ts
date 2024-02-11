@@ -21,6 +21,7 @@ export const button = style({
   fontSize: '1.6rem',
   fontWeight: '600',
 
+  color: '#000',
   backgroundColor: 'transparent',
 
   whiteSpace: 'nowrap',
