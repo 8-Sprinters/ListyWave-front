@@ -6,4 +6,5 @@ export const QUERY_KEYS = {
   getListDetail: 'getListDetail',
   getCategories: 'getCategories',
   getComments: 'getComments',
+  getRecommendedLists: 'getRecommendedLists',
 };

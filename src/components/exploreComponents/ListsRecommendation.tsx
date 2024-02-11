@@ -2,17 +2,25 @@
 
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
-
+import { useQuery } from '@tanstack/react-query';
 import { SimpleList } from '@/app/[userNickname]/[listId]/_components/ListDetailInner/RankList';
+import getRecommendedLists from '@/app/_api/list/getRecommendedLists';
+import { QUERY_KEYS } from '@/lib/constants/queryKeys';
 import * as styles from './ListsRecommendation.css';
-import { ListRecommendationMockdata } from './_mockdata/mockdata';
 import { ListRecommendationType } from './_mockdata/mockdataType';
 import Label from '@/components/Label/Label';
 import { assignInlineVars } from '@vanilla-extract/dynamic';
 
 function ListRecommendation() {
-  const listdata = ListRecommendationMockdata;
   const router = useRouter();
+
+  const { data: result, isPending } = useQuery({
+    queryKey: [QUERY_KEYS.getRecommendedLists],
+    queryFn: () => getRecommendedLists(),
+    staleTime: 60 * 1000,
+  });
+
+  const recommendLists = result?.lists;
 
   const handleShowMoreButtonClick = (url: string) => {
     router.push(`${url}`);
@@ -20,7 +28,7 @@ function ListRecommendation() {
 
   return (
     <ul className={styles.wrapperOuter}>
-      {listdata.map((item: ListRecommendationType) => {
+      {recommendLists?.map((item: ListRecommendationType) => {
         return (
           <li key={item.id} className={styles.listWrapper}>
             <div className={styles.categoryWrapper}>

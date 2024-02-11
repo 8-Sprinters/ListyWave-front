@@ -2,11 +2,11 @@
 import Image from 'next/image';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { assignInlineVars } from '@vanilla-extract/dynamic';
+import { Autoplay } from 'swiper/modules';
 import 'swiper/css';
 import { TrendingLists } from './_mockdata/mockdata';
 
 import * as styles from './TrendingLists.css';
-import { Autoplay } from 'swiper/modules';
 
 function TrendingList() {
   return (
