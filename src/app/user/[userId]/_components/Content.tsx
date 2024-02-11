@@ -8,7 +8,7 @@
 
 import Link from 'next/link';
 import { useState } from 'react';
-import { useQuery } from '@tanstack/react-query';
+import { useInfiniteQuery, useQuery } from '@tanstack/react-query';
 import { MasonryGrid } from '@egjs/react-grid';
 
 import * as styles from './Content.css';
@@ -24,6 +24,7 @@ import { getAllList } from '@/app/_api/list/getAllList';
 import { QUERY_KEYS } from '@/lib/constants/queryKeys';
 import { UserType } from '@/lib/types/userProfileType';
 import { AllListType, ListType } from '@/lib/types/listType';
+import useIntersectionObserver from '@/hooks/useIntersectionObserver';
 
 interface ContentProps {
   userId: number;
@@ -38,9 +39,31 @@ export default function Content({ userId, type }: ContentProps) {
     queryFn: () => getUserOne(userId),
   });
 
-  const { data: listsData } = useQuery<AllListType>({
+  const {
+    data: listsData,
+    hasNextPage,
+    fetchNextPage,
+  } = useInfiniteQuery<AllListType>({
     queryKey: [QUERY_KEYS.getAllList, userId, type, selectedCategory],
-    queryFn: () => getAllList(userId, type, selectedCategory),
+    queryFn: ({ pageParam }) => {
+      console.log(pageParam);
+      return getAllList(userId, type, selectedCategory, pageParam);
+    },
+    initialPageParam: null,
+    getNextPageParam: (lastPage) => (lastPage.hasNext ? lastPage.cursorId : null),
+  });
+
+  // select: (listsData) => ({
+  //   pages: listsData.pages,
+  //   pageParams: listsData.pageParams,
+  // }),
+
+  console.log(hasNextPage);
+
+  const ref = useIntersectionObserver(() => {
+    if (listsData?.pages[0].hasNext) {
+      fetchNextPage();
+    }
   });
 
   console.log(listsData); // 삭제 예정
@@ -66,11 +89,18 @@ export default function Content({ userId, type }: ContentProps) {
       )}
       <Categories handleFetchListsOnCategory={handleFetchListsOnCategory} selectedCategory={selectedCategory} />
       <div className={styles.cards}>
-        <MasonryGrid gap={16} defaultDirection={'end'} align={'start'}>
-          {listsData?.feedLists.map((list: ListType) => (
-            <Card key={list.id} list={list} isOwner={!!userData?.isOwner} />
-          ))}
-        </MasonryGrid>
+        {listsData?.pages.map((page: AllListType, pageIndex) => (
+          <div key={pageIndex}>
+            {page.feedLists.map((list: ListType) => (
+              <MasonryGrid gap={16} defaultDirection={'end'} align={'start'} key={list.id}>
+                <Card key={list.id} list={list} isOwner={!!userData?.isOwner} />
+              </MasonryGrid>
+            ))}
+          </div>
+        ))}
+      </div>
+      <div style={{ height: '1px' }} ref={ref}>
+        여기
       </div>
     </div>
   );
