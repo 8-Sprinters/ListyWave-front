@@ -31,6 +31,7 @@ export default function ItemLayout({
   imageInput,
   imagePreview,
 }: ItemLayoutProps) {
+  const MIN_ITEM_COUNT = 3; /** TODO이걸 안에 아니면 밖에? */
   return (
     <>
       <div className={styles.itemHeader}>
@@ -39,7 +40,7 @@ export default function ItemLayout({
           <Label colorType={index === 0 ? 'blue' : 'skyblue'}>{`${index + 1}위`}</Label>
           {titleInput}
         </div>
-        {itemLength > 3 && (
+        {itemLength > MIN_ITEM_COUNT && (
           <button onClick={handleDeleteItem}>
             <ClearGrayIcon alt="아이템 삭제" className={styles.headerIcon} />
           </button>
