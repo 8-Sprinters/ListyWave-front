@@ -7,7 +7,7 @@
  */
 
 import Link from 'next/link';
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { useInfiniteQuery, useQuery, useQueryClient } from '@tanstack/react-query';
 import { MasonryGrid } from '@egjs/react-grid';
 
@@ -75,10 +75,19 @@ export default function Content({ userId, type }: ContentProps) {
     setSelectedCategory(category);
 
     queryClient.resetQueries({
-      queryKey: [QUERY_KEYS.getAllList, userId, type, category],
+      queryKey: [QUERY_KEYS.getAllList, userId, type, selectedCategory],
       exact: true,
     });
   };
+
+  useEffect(() => {
+    return () => {
+      queryClient.removeQueries({
+        queryKey: [QUERY_KEYS.getAllList, userId, type, selectedCategory],
+        exact: true,
+      });
+    };
+  }, []);
 
   return (
     <div className={styles.container}>
