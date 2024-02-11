@@ -101,7 +101,7 @@ function CreateList({ onNextClick }: CreateListProps) {
             onClick={(item: CategoryType) => {
               setValue('category', item.nameValue);
             }}
-            defaultValue={searchParams?.get('category')}
+            defaultValue={category}
           />
         </Section>
 

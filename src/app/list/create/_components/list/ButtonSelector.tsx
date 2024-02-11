@@ -5,7 +5,7 @@ import { CategoryType } from '@/lib/types/categoriesType';
 interface ButtonSelectorProps {
   list: CategoryType[];
   onClick: (item: CategoryType) => void;
-  defaultValue?: string | null;
+  defaultValue: string;
 }
 
 /**
@@ -18,7 +18,7 @@ interface ButtonSelectorProps {
  * @param defaultValue - 기본으로 선택되어있는 요소
  */
 function ButtonSelector({ list, onClick, defaultValue }: ButtonSelectorProps) {
-  const [selectedButton, setSelectedButton] = useState<string>(defaultValue || '');
+  const [selectedButton, setSelectedButton] = useState<string>(defaultValue);
 
   return (
     <div className={styles.container}>
