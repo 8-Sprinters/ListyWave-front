@@ -5,11 +5,6 @@ import { ToastContainer } from 'react-toastify';
 import Script from 'next/script';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import '@/styles/GlobalStyles.css';
-import Header from '@/components/exploreComponents/Header';
-import FloatingContainer from '@/components/floatingButton/FloatingContainer';
-import PlusOptionFloatingButton from '@/components/floatingButton/PlusOptionFloatingButton';
-import ArrowUpFloatingButton from '@/components/floatingButton/ArrowUpFloatingButton';
-import * as styles from './layout.css';
 
 const queryClient = new QueryClient();
 declare global {

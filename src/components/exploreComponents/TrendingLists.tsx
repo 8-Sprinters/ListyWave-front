@@ -4,6 +4,7 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import { useQuery } from '@tanstack/react-query';
 import { QUERY_KEYS } from '@/lib/constants/queryKeys';
 import getTrendingLists from '@/app/_api/explore/getTrendingLists';
+import { TrendingListType } from '@/lib/types/exploreType';
 import { assignInlineVars } from '@vanilla-extract/dynamic';
 import { Autoplay } from 'swiper/modules';
 import 'swiper/css';
@@ -29,7 +30,7 @@ function TrendingList() {
         modules={[Autoplay]}
         className={styles.swiper}
       >
-        {trendingLists?.map((item) => {
+        {trendingLists?.map((item: TrendingListType) => {
           return (
             <SwiperSlide key={item.id} className={styles.swiperSlide}>
               <div
