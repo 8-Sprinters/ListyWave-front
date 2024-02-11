@@ -7,7 +7,6 @@ import getTrendingLists from '@/app/_api/explore/getTrendingLists';
 import { assignInlineVars } from '@vanilla-extract/dynamic';
 import { Autoplay } from 'swiper/modules';
 import 'swiper/css';
-import { TrendingLists } from './_mockdata/mockdata';
 
 import * as styles from './TrendingLists.css';
 

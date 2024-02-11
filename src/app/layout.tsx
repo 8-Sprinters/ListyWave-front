@@ -38,14 +38,7 @@ export default function TempLayout({ children }: { children: ReactNode }) {
       <body>
         <QueryClientProvider client={queryClient}>
           <div id="modal-root" />
-          <div className={styles.wrapper}>
-            <Header />
-            {children}
-            <FloatingContainer>
-              <PlusOptionFloatingButton />
-              <ArrowUpFloatingButton />
-            </FloatingContainer>
-          </div>
+          <div>{children}</div>
         </QueryClientProvider>
       </body>
     </html>
