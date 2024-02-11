@@ -10,6 +10,7 @@ import { CollaboratorType, ListItemsType } from '@/lib/types/listType';
 export interface ListItemProps {
   id?: number;
   rank?: number;
+  ranking?: number;
   title?: string;
   comment?: string;
   link?: string | null;
