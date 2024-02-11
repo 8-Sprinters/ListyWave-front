@@ -51,7 +51,7 @@ export default function Content({ userId, type }: ContentProps) {
   } = useInfiniteQuery<AllListType>({
     queryKey: [QUERY_KEYS.getAllList, userId, type, selectedCategory],
     queryFn: ({ pageParam: cursorId }) => {
-      return getAllList(userId, type, selectedCategory, cursorId);
+      return getAllList(userId, type, selectedCategory, cursorId as number);
     },
     initialPageParam: null,
     getNextPageParam: (lastPage) => (lastPage.hasNext ? lastPage.cursorId : null),
