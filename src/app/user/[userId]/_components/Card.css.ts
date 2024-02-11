@@ -60,3 +60,9 @@ export const item = style({
 export const rank = style({
   width: '1.2rem',
 });
+
+export const itemTitle = style({
+  overflow: 'hidden',
+  textOverflow: 'ellipsis',
+  whiteSpace: 'nowrap',
+});
