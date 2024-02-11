@@ -39,7 +39,7 @@ export default function Card({ list, isOwner }: CardProps) {
               {item.ranking}
               {'.'}
             </span>
-            <span>{item.title}</span>
+            <span className={styles.itemTitle}>{item.title}</span>
           </li>
         ))}
       </ul>
