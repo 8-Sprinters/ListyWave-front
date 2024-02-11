@@ -2,7 +2,6 @@
 
 /**
  TODO
- - [x] 무한스크롤 적용
  - [ ] 피드페이지 스켈레톤 ui 적용
  */
 
@@ -61,15 +60,11 @@ export default function Content({ userId, type }: ContentProps) {
     return listsData ? listsData.pages.flatMap(({ feedLists }) => feedLists) : [];
   }, [listsData]);
 
-  // console.log(hasNextPage); // 삭제 예정
-
   const ref = useIntersectionObserver(() => {
     if (hasNextPage) {
       fetchNextPage();
     }
   });
-
-  console.log(lists); // 삭제 예정
 
   const handleFetchListsOnCategory = (category: string) => {
     setSelectedCategory(category);
