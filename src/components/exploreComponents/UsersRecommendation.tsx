@@ -42,7 +42,7 @@ function UsersRecommendation() {
         <>
           <div className={styles.userRecommendationTitle}>사용자 추천</div>
           <ul className={styles.recommendUsersListWrapper} ref={wrapperRef}>
-            {usersList?.map((item: UsersRecommendationType, index: number) => {
+            {usersList?.map((item: UsersRecommendationType) => {
               return (
                 <li key={item.id}>
                   <UserRecommendListItem

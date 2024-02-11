@@ -8,4 +8,5 @@ export const QUERY_KEYS = {
   getComments: 'getComments',
   getRecommendedLists: 'getRecommendedLists',
   getRecommendedUsers: 'getRecommendedUsers',
+  getTrendingLists: 'getTrendingLists',
 };

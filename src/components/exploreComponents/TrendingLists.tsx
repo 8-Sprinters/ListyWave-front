@@ -1,6 +1,9 @@
 'use client';
 import Image from 'next/image';
 import { Swiper, SwiperSlide } from 'swiper/react';
+import { useQuery } from '@tanstack/react-query';
+import { QUERY_KEYS } from '@/lib/constants/queryKeys';
+import getTrendingLists from '@/app/_api/explore/getTrendingLists';
 import { assignInlineVars } from '@vanilla-extract/dynamic';
 import { Autoplay } from 'swiper/modules';
 import 'swiper/css';
@@ -9,6 +12,11 @@ import { TrendingLists } from './_mockdata/mockdata';
 import * as styles from './TrendingLists.css';
 
 function TrendingList() {
+  const { data: trendingLists, isPending } = useQuery({
+    queryKey: [QUERY_KEYS.getTrendingLists],
+    queryFn: () => getTrendingLists(),
+  });
+
   return (
     <div className={styles.wrapper}>
       <h2 className={styles.title}>트렌딩</h2>
@@ -22,7 +30,7 @@ function TrendingList() {
         modules={[Autoplay]}
         className={styles.swiper}
       >
-        {TrendingLists.map((item) => {
+        {trendingLists?.map((item) => {
           return (
             <SwiperSlide key={item.id} className={styles.swiperSlide}>
               <div
