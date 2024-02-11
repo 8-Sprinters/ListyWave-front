@@ -1,4 +1,5 @@
 import { style, createVar } from '@vanilla-extract/css';
+import { vars } from '@/styles/theme.css';
 
 export const listColor = createVar();
 
@@ -9,6 +10,7 @@ export const container = style({
 
   borderRadius: '1.5rem',
   backgroundColor: listColor,
+  border: `1px solid ${vars.color.gray5}`,
 });
 
 export const title = style({
@@ -16,7 +18,7 @@ export const title = style({
 
   fontSize: '1.7rem',
   fontWeight: '600',
-  color: 'var(--text-text-grey-dark, #202020)',
+  color: vars.color.black,
   textAlign: 'right',
   letterSpacing: '-0.51px',
   wordBreak: 'keep-all',
@@ -28,7 +30,7 @@ export const list = style({
 
   fontSize: '1.2rem',
   fontWeight: '400',
-  color: 'var(--text-text-grey-dark, #202020)',
+  color: vars.color.black,
   lineHeight: '2.5rem',
   letterSpacing: '-0.36px',
 });
@@ -46,7 +48,7 @@ export const lockText = style({
   fontSize: '1.1rem',
   fontWeight: '400',
   letterSpacing: '-0.33px',
-  color: '#AFB1B6',
+  color: vars.color.gray7,
 });
 
 export const item = style({
