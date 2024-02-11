@@ -3,7 +3,7 @@ import Image from 'next/image';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { assignInlineVars } from '@vanilla-extract/dynamic';
 import 'swiper/css';
-import { TrendingLists } from '../../app/_mockdata/mockdata';
+import { TrendingLists } from './_mockdata/mockdata';
 
 import * as styles from './TrendingLists.css';
 import { Autoplay } from 'swiper/modules';

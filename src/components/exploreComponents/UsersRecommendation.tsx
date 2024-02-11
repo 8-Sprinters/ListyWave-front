@@ -3,8 +3,8 @@ import { useState, useRef } from 'react';
 import Image from 'next/image';
 
 import * as styles from './UsersRecommendation.css';
-import { recommendationUsersMockdata } from '../../app/_mockdata/mockdata';
-import { UsersRecommendationType } from '../../app/_mockdata/mockdataType';
+import { recommendationUsersMockdata } from './_mockdata/mockdata';
+import { UsersRecommendationType } from './_mockdata/mockdataType';
 import CloseButton from '/public/icons/close_x_gray.svg';
 
 function UsersRecommendation() {

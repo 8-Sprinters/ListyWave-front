@@ -5,8 +5,8 @@ import { useRouter } from 'next/navigation';
 
 import { SimpleList } from '@/app/[userNickname]/[listId]/_components/ListDetailInner/RankList';
 import * as styles from './ListsRecommendation.css';
-import { ListRecommendationMockdata } from '../../app/_mockdata/mockdata';
-import { ListRecommendationType } from '../../app/_mockdata/mockdataType';
+import { ListRecommendationMockdata } from './_mockdata/mockdata';
+import { ListRecommendationType } from './_mockdata/mockdataType';
 import Label from '@/components/Label/Label';
 import { assignInlineVars } from '@vanilla-extract/dynamic';
 
