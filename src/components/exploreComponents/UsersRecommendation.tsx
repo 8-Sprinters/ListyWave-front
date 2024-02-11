@@ -1,6 +1,9 @@
 'use client';
 import { useState, useRef } from 'react';
 import Image from 'next/image';
+import { useQuery } from '@tanstack/react-query';
+import { QUERY_KEYS } from '@/lib/constants/queryKeys';
+import getRecommendedUsers from '@/app/_api/explore/getRecommendedUsers';
 
 import * as styles from './UsersRecommendation.css';
 import { recommendationUsersMockdata } from './_mockdata/mockdata';
@@ -10,6 +13,11 @@ import CloseButton from '/public/icons/close_x_gray.svg';
 function UsersRecommendation() {
   const [recommendUsersList, setRecommendUserList] = useState<UsersRecommendationType[]>(recommendationUsersMockdata);
   const wrapperRef = useRef<HTMLUListElement>(null);
+
+  const { data: usersList, isPending } = useQuery({
+    queryKey: [QUERY_KEYS.getRecommendedUsers],
+    queryFn: () => getRecommendedUsers(),
+  });
 
   const handleRemoveUser = (id: number) => {
     if (!recommendUsersList) {
@@ -34,7 +42,7 @@ function UsersRecommendation() {
         <>
           <div className={styles.userRecommendationTitle}>사용자 추천</div>
           <ul className={styles.recommendUsersListWrapper} ref={wrapperRef}>
-            {recommendUsersList?.map((item: UsersRecommendationType, index: number) => {
+            {usersList?.map((item: UsersRecommendationType, index: number) => {
               return (
                 <li key={item.id}>
                   <UserRecommendListItem
