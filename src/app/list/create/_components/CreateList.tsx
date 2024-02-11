@@ -125,6 +125,12 @@ function CreateList({ onNextClick }: CreateListProps) {
                 collaboIDs.filter((collaboId: number) => collaboId !== userId)
               );
             }}
+            rules={{
+              maxNum: {
+                value: 20,
+                errorMessage: `콜라보레이터는 최대 20명까지 지정할 수 있어요.`,
+              },
+            }}
           />
         </Section>
 

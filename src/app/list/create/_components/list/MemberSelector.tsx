@@ -17,6 +17,15 @@ interface MemberSelectorProps {
   fetchData: () => Promise<void>;
   onClickAdd: (userId: number) => void;
   onClickDelete: (userId: number) => void;
+  rules?: {
+    required?: {
+      errorMessage: string;
+    };
+    maxNum?: {
+      value: number;
+      errorMessage: string;
+    };
+  };
 }
 
 /**
@@ -29,7 +38,14 @@ interface MemberSelectorProps {
  * @param onClickAdd - 선택한 멤버를 추가하는 함수
  * @param onClickDelete - 사용자를 선택 취소하는 함수
  */
-function MemberSelector({ placeholder, members = [], fetchData, onClickAdd, onClickDelete }: MemberSelectorProps) {
+function MemberSelector({
+  placeholder,
+  members = [],
+  fetchData,
+  onClickAdd,
+  onClickDelete,
+  rules,
+}: MemberSelectorProps) {
   const [input, setInput] = useState('');
   const [selectedList, setSelectedList] = useState<UserProfileType[]>([]);
   const [isDropDownOpen, setIsDropDownOpen] = useState(false);
@@ -87,6 +103,9 @@ function MemberSelector({ placeholder, members = [], fetchData, onClickAdd, onCl
                 key={user.id}
                 className={styles.profileContainer}
                 onClick={() => {
+                  if (rules?.maxNum && selectedList.length >= rules.maxNum.value) {
+                    return;
+                  }
                   if (!selectedList.find((selectedUser: UserProfileType) => selectedUser.id === user.id)) {
                     setSelectedList([...selectedList, user]);
                     onClickAdd(user.id);
@@ -103,6 +122,9 @@ function MemberSelector({ placeholder, members = [], fetchData, onClickAdd, onCl
           {members.filter((user) => user.nickname.toLocaleLowerCase().includes(input.toLocaleLowerCase())).length ===
             0 && <div className={styles.noResultMessage}>검색결과가 없어요.</div>}
         </div>
+      )}
+      {rules?.maxNum && selectedList.length >= rules.maxNum.value && (
+        <div className={styles.error}>{rules?.maxNum?.errorMessage}</div>
       )}
 
       {/* 선택한 멤버 리스트 */}

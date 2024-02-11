@@ -81,3 +81,11 @@ export const noResultMessage = style({
   textAlign: 'center',
   color: '#909090',
 });
+
+export const error = style({
+  margin: '10px',
+
+  fontSize: '1.5rem',
+
+  color: 'red',
+});
