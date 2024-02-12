@@ -3,11 +3,14 @@
 /**
  TODO
  - [x] 상태(팔로우, 언팔로우)에 따른 팔로우 버튼 UI
- - [ ] 조건(비회원, 회원)에 따른 팔로우 버튼 동작(api 연동)
+ - [x] 조건(비회원, 회원)에 따른 팔로우 버튼 동작(api 연동)
+ - [ ] 팔로우 취소 api 연동
  - [ ] 최대 1,000명까지 팔로우 제한 - 토스트 에러
  */
 
+import { useRouter } from 'next/navigation';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { AxiosError } from 'axios';
 
 import * as styles from './FollowButton.css';
 
@@ -21,6 +24,7 @@ interface FollowButtonProps {
 
 export default function FollowButton({ isFollowed, userId }: FollowButtonProps) {
   const queryClient = useQueryClient();
+  const router = useRouter();
 
   const followUser = useMutation({
     mutationKey: [QUERY_KEYS.follow, userId],
@@ -29,6 +33,12 @@ export default function FollowButton({ isFollowed, userId }: FollowButtonProps) 
       queryClient.invalidateQueries({
         queryKey: [QUERY_KEYS.userOne, userId],
       });
+    },
+    onError: (error: AxiosError) => {
+      if (error.response?.status === 401) {
+        // TODO 토스트 메세지 적용하기
+        router.push('/login');
+      }
     },
   });
 
