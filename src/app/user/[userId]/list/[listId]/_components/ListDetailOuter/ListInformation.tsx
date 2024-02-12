@@ -5,7 +5,7 @@ import { useQuery } from '@tanstack/react-query';
 import { useParams } from 'next/navigation';
 import Label from '@/components/Label/Label';
 import Collaborators from '@/app/user/[userId]/list/[listId]/_components/ListDetailOuter/Collaborators';
-import { getListDetail } from '@/app/_api/list/getDetailLists';
+import { getListDetail } from '@/app/_api/list/getDetailList';
 import { QUERY_KEYS } from '@/lib/constants/queryKeys';
 import timeDiff from '@/lib/utils/time-diff';
 import * as styles from './ListInformation.css';
@@ -19,7 +19,7 @@ function ListInformation() {
   const params = useParams<{ listId: string }>();
   const { data } = useQuery({
     queryKey: [QUERY_KEYS.getListDetail],
-    queryFn: () => getListDetail(params?.listId),
+    queryFn: () => getListDetail(Number(params?.listId)),
     enabled: !!params?.listId,
   });
   const list = data;
