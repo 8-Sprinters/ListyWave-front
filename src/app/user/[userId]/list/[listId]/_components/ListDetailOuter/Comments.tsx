@@ -1,11 +1,12 @@
 'use client';
-import { ChangeEvent, useState } from 'react';
+import { ChangeEvent, useEffect, useMemo, useState } from 'react';
 import { useParams } from 'next/navigation';
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { useMutation, useQuery, useQueryClient, useInfiniteQuery } from '@tanstack/react-query';
 import Image from 'next/image';
 import Comment from './Comment';
 import { createComment } from '@/app/_api/comment/createComment';
 import { createReply } from '@/app/_api/comment/createReply';
+import useIntersectionObserver from '@/hooks/useIntersectionObserver';
 import { QUERY_KEYS } from '@/lib/constants/queryKeys';
 import * as styles from './Comments.css';
 import { getComments } from '@/app/_api/comment/getComments';
@@ -19,13 +20,31 @@ function Comments() {
   const params = useParams<{ listId: string }>();
   const queryClient = useQueryClient();
 
-  const { data: commentsData, isPending } = useQuery({
+  const {
+    data: commentsData,
+    hasNextPage,
+    fetchNextPage,
+    isFetching,
+  } = useInfiniteQuery({
     queryKey: [QUERY_KEYS.getComments],
-    queryFn: () => getComments(params?.listId),
-    staleTime: 60 * 1000,
-    enabled: !!params?.listId,
+    queryFn: ({ pageParam: cursorId }) => {
+      return getComments(params?.listId, cursorId);
+    },
+    initialPageParam: null,
+    getNextPageParam: (lastPage) => (lastPage.hasNext ? lastPage.cursorId : null),
   });
 
+  const comments = useMemo(() => {
+    const totalCount = commentsData ? commentsData.pages[commentsData.pages.length - 1].totalCount : 0;
+    const commentsList = commentsData ? commentsData.pages.flatMap(({ comments }) => comments) : [];
+    return { commentsList, totalCount };
+  }, [commentsData]);
+
+  const ref = useIntersectionObserver(() => {
+    if (hasNextPage) {
+      fetchNextPage();
+    }
+  });
   console.log(commentsData);
 
   const handleActiveNicknameDelete = () => {
@@ -48,12 +67,12 @@ function Comments() {
     mutationFn: () => createComment(params?.listId, comment),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: [QUERY_KEYS.getComments] });
+      console.log('댓글을 성공적으로 업로드했습니다.');
     },
     onSettled: () => {
       setComment('');
       setCommentId(null);
       setActiveNickname(null);
-      console.log('댓글을 성공적으로 업로드했습니다.');
     },
   });
 
@@ -61,10 +80,10 @@ function Comments() {
     mutationFn: () => createReply({ listId: params?.listId, commentId: commentId, data: comment }),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: [QUERY_KEYS.getComments] });
+      console.log('답글을 성공적으로 업로드했습니다.');
     },
     onSettled: () => {
       setComment('');
-      console.log('답글을 성공적으로 업로드했습니다.');
     },
   });
 
@@ -77,10 +96,14 @@ function Comments() {
     createCommentMutation.mutate();
   };
 
-  //스켈레톤 전 임시 ui
-  if (isPending) {
-    return <div>로딩중입니다..</div>;
-  }
+  useEffect(() => {
+    return () => {
+      queryClient.removeQueries({
+        queryKey: [QUERY_KEYS.getComments],
+        exact: true,
+      });
+    };
+  }, []);
 
   return (
     <div className={styles.wrapper}>
@@ -110,8 +133,8 @@ function Comments() {
           </form>
         </div>
       </div>
-      <div className={styles.totalCount}>{`${commentsData?.totalCount}개의 댓글`}</div>
-      {commentsData?.comments?.map((item: CommentType) => {
+      <div className={styles.totalCount}>{`${comments?.totalCount}개의 댓글`}</div>
+      {comments?.commentsList?.map((item: CommentType) => {
         return (
           <div key={item.id} className={styles.commentWrapper}>
             <Comment
@@ -125,6 +148,8 @@ function Comments() {
           </div>
         );
       })}
+      {isFetching && <div>로딩중</div>}
+      <div ref={ref}></div>
     </div>
   );
 }

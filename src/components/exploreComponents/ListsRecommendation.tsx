@@ -3,7 +3,7 @@
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { useQuery } from '@tanstack/react-query';
-import { SimpleList } from '@/app/[userNickname]/[listId]/_components/ListDetailInner/RankList';
+import { SimpleList } from '@/app/user/[userId]/list/[listId]/_components/ListDetailInner/RankList';
 import getRecommendedLists from '@/app/_api/explore/getRecommendedLists';
 import { QUERY_KEYS } from '@/lib/constants/queryKeys';
 import * as styles from './ListsRecommendation.css';
