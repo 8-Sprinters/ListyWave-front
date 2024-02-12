@@ -78,10 +78,12 @@ export default function Profile({ userId }: { userId: number }) {
           <div className={styles.info}>
             <div className={styles.user}>
               <span className={styles.nickName}>{data?.nickname}</span>
-              {!data?.isOwner && <FollowButton isFollowed={!!data?.isFollowed} />}
+              {/* TODO 로그인 상태가 아닌 상태에서 팔로우 버튼을 누르면 로그인 페이지로 이동 */}
+              {!data?.isOwner && <FollowButton userId={userId} isFollowed={!!data?.isFollowed} />}
             </div>
             <div className={styles.follow}>
               <div className={styles.text} onClick={onClickMoveToPage(`/user/${userId}/followings`)}>
+                {/* TODO 숫자 3자리수 컴마 */}
                 <span className={styles.count}>{data?.followingCount}</span>
                 <span>팔로잉</span>
               </div>
