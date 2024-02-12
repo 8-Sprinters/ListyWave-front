@@ -81,6 +81,7 @@ export interface ListDetailType {
   collectCount: number;
   viewCount: number;
 }
+
 // 리스트 전체 조회 타입
 export interface AllListType {
   cursorId: number;
@@ -98,9 +99,9 @@ export interface ListType {
 
 export interface ItemType {
   id: number;
-  ranking: number;
+  rank: number;
   title: string;
-  comment?: string;
-  link?: string;
+  comment?: string; // 리스트 상세조회 타입에서 사용할때는 optional 여부 확인하기
+  link?: string; // 리스트 상세조회 타입에서 사용할때는 optional 여부 확인하기
   imageUrl?: string;
 }
