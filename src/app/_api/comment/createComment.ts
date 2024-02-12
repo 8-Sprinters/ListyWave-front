@@ -12,6 +12,5 @@ export const createComment = async (listId: string | undefined, data: string) =>
       },
     }
   );
-
   return response.data;
 };

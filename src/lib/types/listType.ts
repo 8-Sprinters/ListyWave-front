@@ -43,7 +43,7 @@ export interface PresignedUrlType {
 
 export type PresignedUrlListType = PresignedUrlType[];
 
-//리스트 상세 타입
+//리스트 상세조회 타입
 export interface LabelType {
   id: number;
   name: string;
@@ -81,7 +81,6 @@ export interface ListDetailType {
   collectCount: number;
   viewCount: number;
 }
-
 // 리스트 전체 조회 타입
 export interface AllListType {
   cursorId: number;
