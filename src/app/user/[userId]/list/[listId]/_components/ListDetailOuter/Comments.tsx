@@ -45,7 +45,6 @@ function Comments() {
       fetchNextPage();
     }
   });
-  console.log(commentsData);
 
   const handleActiveNicknameDelete = () => {
     if (activeNickname) {
