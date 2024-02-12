@@ -83,12 +83,11 @@ export default function Profile({ userId }: { userId: number }) {
             <div className={styles.follow}>
               <div className={styles.text} onClick={onClickMoveToPage(`/user/${userId}/followings`)}>
                 {/* TODO 팔로우 요청/취소에 따른 버튼, 숫자 변화 최종 확인하기 */}
-                {/* TODO 숫자 3자리수 컴마 */}
-                <span className={styles.count}>{data?.followingCount}</span>
+                <span className={styles.count}>{data?.followingCount.toLocaleString('ko-KR')}</span>
                 <span>팔로잉</span>
               </div>
               <div className={styles.text} onClick={onClickMoveToPage(`/user/${userId}/followers`)}>
-                <span className={styles.count}>{data?.followerCount}</span>
+                <span className={styles.count}>{data?.followerCount.toLocaleString('ko-KR')}</span>
                 <span>팔로워</span>
               </div>
             </div>
