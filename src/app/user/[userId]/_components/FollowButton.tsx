@@ -2,7 +2,7 @@
 
 /**
  TODO
- - [ ] 상태(팔로우, 언팔로우)에 따른 팔로우 버튼 UI
+ - [x] 상태(팔로우, 언팔로우)에 따른 팔로우 버튼 UI
  - [ ] 조건(비회원, 회원)에 따른 팔로우 버튼 동작(api 연동)
  - [ ] 최대 1,000명까지 팔로우 제한 - 토스트 에러
  */
@@ -34,11 +34,10 @@ export default function FollowButton({ isFollowed, userId }: FollowButtonProps) 
 
   const handleFollowUser = () => {
     followUser.mutate();
-    console.log(followUser.data);
   };
 
   return (
-    <button className={styles.button} onClick={handleFollowUser}>
+    <button className={`${isFollowed ? styles.variant.gray : styles.variant.primary}`} onClick={handleFollowUser}>
       {isFollowed ? '팔로우 취소' : '팔로우'}
     </button>
   );
