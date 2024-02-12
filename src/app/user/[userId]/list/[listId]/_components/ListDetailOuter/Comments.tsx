@@ -3,10 +3,12 @@ import { ChangeEvent, useEffect, useMemo, useState } from 'react';
 import { useParams } from 'next/navigation';
 import { useMutation, useQuery, useQueryClient, useInfiniteQuery } from '@tanstack/react-query';
 import Image from 'next/image';
+import Skeleton from '@mui/material/Skeleton';
 import Comment from './Comment';
 import { createComment } from '@/app/_api/comment/createComment';
 import { createReply } from '@/app/_api/comment/createReply';
 import useIntersectionObserver from '@/hooks/useIntersectionObserver';
+import CommentsSkeleton from './CommentsSkeleton';
 import { QUERY_KEYS } from '@/lib/constants/queryKeys';
 import * as styles from './Comments.css';
 import { getComments } from '@/app/_api/comment/getComments';
@@ -136,18 +138,21 @@ function Comments() {
       {comments?.commentsList?.map((item: CommentType) => {
         return (
           <div key={item.id} className={styles.commentWrapper}>
-            <Comment
-              comment={item}
-              onUpdate={setActiveNickname}
-              activeNickname={activeNickname}
-              handleSetCommentId={handleSetCommentId}
-              listId={params?.listId}
-              commentId={commentId}
-            />
+            {isFetching ? (
+              <CommentsSkeleton />
+            ) : (
+              <Comment
+                comment={item}
+                onUpdate={setActiveNickname}
+                activeNickname={activeNickname}
+                handleSetCommentId={handleSetCommentId}
+                listId={params?.listId}
+                commentId={commentId}
+              />
+            )}
           </div>
         );
       })}
-      {isFetching && <div>로딩중</div>}
       <div ref={ref}></div>
     </div>
   );
