@@ -1,9 +1,8 @@
 'use client';
 import { ChangeEvent, useEffect, useMemo, useState } from 'react';
 import { useParams } from 'next/navigation';
-import { useMutation, useQuery, useQueryClient, useInfiniteQuery } from '@tanstack/react-query';
+import { useMutation, useQueryClient, useInfiniteQuery } from '@tanstack/react-query';
 import Image from 'next/image';
-import Skeleton from '@mui/material/Skeleton';
 import Comment from './Comment';
 import { createComment } from '@/app/_api/comment/createComment';
 import { createReply } from '@/app/_api/comment/createReply';
