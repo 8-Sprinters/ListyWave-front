@@ -1,5 +1,5 @@
 'use client';
-
+import Image from 'next/image';
 import { ListItemProps } from './index';
 import LinkPreview from '@/components/LinkPreview/LinkPreview';
 import VideoEmbed from '@/components/VideoEmbed/VideoEmbed';
@@ -11,7 +11,7 @@ interface RankListProps {
   type?: string;
 }
 
-function SimpleList({ listData }: RankListProps) {
+export function SimpleList({ listData }: RankListProps) {
   return listData.map((item, index) => {
     return (
       <div key={item.id} className={styles.simpleItemWrapper}>
@@ -26,12 +26,14 @@ function SimpleList({ listData }: RankListProps) {
             }
           >
             {index === 0 && <CrownIcon className={styles.crownIcon} />}
-            <div className={styles.rankText}>{item.rank}</div>
+            <div className={styles.rankText}>{item.ranking}</div>
           </div>
           <div className={styles.titleText}>{item.title}</div>
         </div>
         <div className={styles.simpleImageWrapper}>
-          {item.imageUrl && <img className={styles.simpleImage} src={item.imageUrl} alt="img설명" />}
+          {item.imageUrl && (
+            <Image className={styles.simpleImage} src={item.imageUrl} alt="img설명" width={70} height={72} />
+          )}
         </div>
       </div>
     );

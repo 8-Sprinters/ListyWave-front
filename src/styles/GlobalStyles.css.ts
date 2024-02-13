@@ -1,13 +1,11 @@
 import { globalStyle } from '@vanilla-extract/css';
+import { Pretendard } from './pretendardFont.css';
 
-globalStyle('html', {
-  fontSize: '62.5%',
-  color: '#19191B', //글자기본색
-});
+globalStyle('html', { fontSize: '62.5%', color: '#19191B' });
 
-globalStyle('*', {
+globalStyle('body *', {
   boxSizing: 'border-box',
-  fontFamily: 'Pretendard',
+  fontFamily: Pretendard,
 });
 
 globalStyle('html, body, div, span, h1, h2, h3, h4, h5, h6, p, a, dl, dt, dd, ol, ul, li, form, label, table, button', {

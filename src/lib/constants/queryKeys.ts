@@ -1,9 +1,12 @@
 export const QUERY_KEYS = {
-  user: 'user',
+  userOne: 'userOne',
   createList: 'createList',
   uploadImage: 'uploadImage',
-  getLists: 'getLists',
+  getAllList: 'getAllList',
   getListDetail: 'getListDetail',
   getCategories: 'getCategories',
   getComments: 'getComments',
+  getRecommendedLists: 'getRecommendedLists',
+  getRecommendedUsers: 'getRecommendedUsers',
+  getTrendingLists: 'getTrendingLists',
 };

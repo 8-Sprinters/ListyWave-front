@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import * as styles from '@/components/VideoEmbed/style.css';
+import * as styles from '@/components/VideoEmbed/VideoEmbed.css';
 
 interface VideoEmbedProps {
   videoUrl: string;

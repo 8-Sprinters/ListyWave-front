@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query';
-import * as styles from '@/components/LinkPreview/style.css';
+import * as styles from '@/components/LinkPreview/LinkPreview.css';
 
 async function fetchLinkPreviewData(url: string) {
   try {
