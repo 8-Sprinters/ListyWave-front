@@ -40,7 +40,7 @@ function Comments() {
     fetchNextPage,
     isFetching,
   } = useInfiniteQuery({
-    queryKey: [QUERY_KEYS.getComments],
+    queryKey: [QUERY_KEYS.getComments, params?.listId],
     queryFn: ({ pageParam: cursorId }) => {
       return getComments(params?.listId, cursorId);
     },

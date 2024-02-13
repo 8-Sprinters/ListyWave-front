@@ -3,6 +3,7 @@ import { useRouter } from 'next/navigation';
 import { deleteList } from '@/app/_api/list/deleteList';
 import useBooleanOutput from '@/hooks/useBooleanOutput';
 import BottomSheet from '@/app/user/[userId]/list/[listId]/_components/BottomSheet/BottomSheet';
+import Modal from '@/components/Modal/Modal';
 import KebabButton from '/public/icons/vertical_kebab_button.svg';
 import * as styles from './ModalButtonStyle.css';
 
@@ -13,6 +14,7 @@ interface OpenBottomSheetButtonProps {
 export default function OpenBottomSheetButton({ listId }: OpenBottomSheetButtonProps) {
   const router = useRouter();
   const { isOn, handleSetOff, handleSetOn } = useBooleanOutput(); //바텀시트 열림,닫힘 상태 관리
+  const { isOn: isModalOn, handleSetOff: handleSetModalOff, handleSetOn: handleSetModalOn } = useBooleanOutput(); //모달 상태 관리
   const bottomSheetOptionList = [
     {
       key: 'editList',
@@ -25,7 +27,7 @@ export default function OpenBottomSheetButton({ listId }: OpenBottomSheetButtonP
       key: 'deleteList',
       title: '리스트 삭제하기',
       onClick: () => {
-        handleDeleteClick();
+        handleSetModalOn();
       },
     },
   ];
@@ -43,7 +45,6 @@ export default function OpenBottomSheetButton({ listId }: OpenBottomSheetButtonP
    */
   const handleDeleteClick = () => {
     deleteList(listId);
-    handleSetOff(); //닫기
     router.push('/');
   };
 
@@ -52,6 +53,15 @@ export default function OpenBottomSheetButton({ listId }: OpenBottomSheetButtonP
       <button className={styles.resetButtonStyle} onClick={handleSetOn}>
         <KebabButton className={styles.buttonCursor} alt="케밥 버튼" />
       </button>
+
+      {isModalOn && (
+        <Modal handleModalClose={handleSetModalOff}>
+          <Modal.Title>정말 리스트를 삭제하시나요?</Modal.Title>
+          <Modal.Button onCancel={handleSetModalOff} onClick={handleDeleteClick}>
+            확인
+          </Modal.Button>
+        </Modal>
+      )}
 
       {isOn && <BottomSheet onClose={handleSetOff} optionList={bottomSheetOptionList} />}
     </>
