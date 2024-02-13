@@ -61,7 +61,7 @@ function ListInformation() {
           </div>
         </div>
         <div className={styles.collaboratorWrapper}>
-          <Collaborators collaborators={LIST.collaborators} />
+          <Collaborators collaborators={list.collaborators} />
         </div>
       </div>
     </>
