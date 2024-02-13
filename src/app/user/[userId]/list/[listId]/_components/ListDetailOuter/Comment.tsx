@@ -68,7 +68,7 @@ function Comment({ comment, onUpdate, handleSetCommentId, listId, commentId, cur
               <span className={styles.commentCreatedTime}>{comment && timeDiff(comment?.createdDate)}</span>
             </div>
             <div className={styles.commentContent}>
-              {comment?.isDeleted ? '사용자의 요청에 의해 삭제된 댓글입니다.' : comment?.content}
+              {comment?.isDeleted ? '작성자의 요청으로 삭제된 댓글이에요.' : comment?.content}
             </div>
           </div>
         </div>
