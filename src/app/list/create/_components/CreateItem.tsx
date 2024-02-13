@@ -1,6 +1,6 @@
 import { useFormContext } from 'react-hook-form';
 
-import Header from './item/Header';
+import Header from '@/components/Header/Header';
 import Items from './item/Items';
 import * as styles from './CreateItem.css';
 
@@ -18,7 +18,20 @@ export default function CreateItem({ onBackClick, onSubmitClick, isSubmitting, t
 
   return (
     <div>
-      <Header onBackClick={onBackClick} isSubmitActive={isValid && !isSubmitting} onSubmitClick={onSubmitClick} />
+      <Header
+        title={type === 'create' ? '리스트 생성' : '리스트 수정'}
+        left="back"
+        leftClick={onBackClick}
+        right={
+          <button
+            className={isValid && !isSubmitting ? styles.headerNextButton.active : styles.headerNextButton.inactive}
+            disabled={!isValid || isSubmitting}
+            onClick={onSubmitClick}
+          >
+            완료
+          </button>
+        }
+      />
       <div className={styles.article}>
         <h3 className={styles.label}>
           아이템 추가 <span className={styles.required}>*</span>
