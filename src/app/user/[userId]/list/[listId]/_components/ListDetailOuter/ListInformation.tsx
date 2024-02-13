@@ -9,11 +9,8 @@ import { getListDetail } from '@/app/_api/list/getDetailList';
 import { QUERY_KEYS } from '@/lib/constants/queryKeys';
 import timeDiff from '@/lib/utils/time-diff';
 import * as styles from './ListInformation.css';
-import { MOCKDATA_LIST } from '../../mockData/mockdata';
 import ListDetailInner from '../ListDetailInner';
 import { LabelType } from '@/lib/types/listType';
-
-const LIST = MOCKDATA_LIST[0];
 
 function ListInformation() {
   const params = useParams<{ listId: string }>();
@@ -23,6 +20,8 @@ function ListInformation() {
     enabled: !!params?.listId,
   });
   const list = data;
+
+  console.log(list);
 
   return (
     <>
@@ -46,7 +45,7 @@ function ListInformation() {
       <div className={styles.bottomWrapper}>
         <div className={styles.bottomLeftWrapper}>
           <Image
-            src={LIST.ownerProfileImageUrl}
+            src={list?.ownerProfileImageUrl}
             alt="사용자 프로필 이미지"
             width={36}
             height={36}
@@ -61,7 +60,7 @@ function ListInformation() {
           </div>
         </div>
         <div className={styles.collaboratorWrapper}>
-          <Collaborators collaborators={list.collaborators} />
+          <Collaborators collaborators={list?.collaborators} />
         </div>
       </div>
     </>
