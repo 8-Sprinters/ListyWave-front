@@ -9,7 +9,7 @@ import CreateItem from '@/app/list/create/_components/CreateItem';
 import CreateList from '@/app/list/create/_components/CreateList';
 
 import { QUERY_KEYS } from '@/lib/constants/queryKeys';
-import { getListDetail } from '@/app/_api/list/getListDetail';
+import getListDetail from '@/app/_api/list/getListDetail';
 import { ListDetailType, ListEditType } from '@/lib/types/listType';
 
 export type FormErrors = FieldErrors<ListEditType>;

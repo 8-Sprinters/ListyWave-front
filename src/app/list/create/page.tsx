@@ -10,7 +10,7 @@ import CreateList from '@/app/list/create/_components/CreateList';
 import { ItemImagesType, ListCreateType } from '@/lib/types/listType';
 import toasting from '@/lib/utils/toasting';
 import { creaetListToastMessage } from '@/lib/constants/toastMessage';
-import { createList } from '@/app/_api/list/createList';
+import createList from '@/app/_api/list/createList';
 import { uploadItemImages } from '@/app/_api/list/uploadItemImages';
 
 export type FormErrors = FieldErrors<ListCreateType>;

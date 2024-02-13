@@ -9,7 +9,7 @@ import { useQuery } from '@tanstack/react-query';
 
 import * as styles from './Categories.css';
 
-import { getCategories } from '@/app/_api/category/getCategories';
+import getCategories from '@/app/_api/category/getCategories';
 import { CategoryType } from '@/lib/types/categoriesType';
 import { QUERY_KEYS } from '@/lib/constants/queryKeys';
 
