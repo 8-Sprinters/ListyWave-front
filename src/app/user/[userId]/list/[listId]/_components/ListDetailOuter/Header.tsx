@@ -1,10 +1,7 @@
 'use client';
 import { useRouter, useParams } from 'next/navigation';
-import { useQuery } from '@tanstack/react-query';
 
-import { getUserOne } from '@/app/_api/user/getUserOne';
 import { useUser } from '@/store/useUser';
-import { QUERY_KEYS } from '@/lib/constants/queryKeys';
 import OpenBottomSheetButton from './OpenBottomSheetButton';
 import * as styles from './Header.css';
 import BackButton from '/public/icons/back.svg';
@@ -17,13 +14,6 @@ function Header() {
   //zustand로 관리하는 user정보 불러오기
   const { user } = useUser();
   const userId = user?.id;
-
-  const { data: userInformation } = useQuery({
-    queryKey: [QUERY_KEYS.userOne, userId],
-    queryFn: () => getUserOne(userId),
-  });
-
-  console.log(userInformation);
 
   const handleBackButtonClick = () => {
     router.back();
@@ -46,9 +36,9 @@ function Header() {
           </button>
           {/* {리스트 관리 버튼은 리스트 오너일 때만 보이게 하기} */}
           {Number(params?.userId) === userId && (
-            <button className={styles.buttonResetStyle}>
+            <div className={styles.buttonResetStyle}>
               <OpenBottomSheetButton listId={params?.listId} />
-            </button>
+            </div>
           )}
         </div>
       </div>

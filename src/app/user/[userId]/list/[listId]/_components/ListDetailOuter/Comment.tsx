@@ -6,6 +6,7 @@ import { deleteComment } from '@/app/_api/comment/deleteComment';
 import DeleteModalButton from '@/app/user/[userId]/list/[listId]/_components/ListDetailOuter/DeleteModalButton';
 import timeDiff from '@/lib/utils/time-diff';
 import { CommentType } from '@/lib/types/commentType';
+import { UserType } from '@/lib/types/userProfileType';
 import * as styles from './Comment.css';
 import DefaultProfile from '/public/icons/default_profile_temporary.svg';
 import { QUERY_KEYS } from '@/lib/constants/queryKeys';
@@ -17,9 +18,10 @@ interface CommentProps {
   handleSetCommentId: (id: number | undefined) => void;
   listId?: string | undefined;
   commentId?: null | number | undefined;
+  currentUserInfo?: UserType;
 }
 
-function Comment({ comment, onUpdate, handleSetCommentId, listId, commentId }: CommentProps) {
+function Comment({ comment, onUpdate, handleSetCommentId, listId, commentId, currentUserInfo }: CommentProps) {
   const queryClient = useQueryClient();
 
   const handleActiveNicknameAndIdUpdate = () => {
@@ -70,12 +72,14 @@ function Comment({ comment, onUpdate, handleSetCommentId, listId, commentId }: C
             </div>
           </div>
         </div>
-        {!comment?.isDeleted && <DeleteModalButton onDelete={handleClickDeleteButton} />}
+        {!comment?.isDeleted && currentUserInfo?.id === comment?.userId && (
+          <DeleteModalButton onDelete={handleClickDeleteButton} />
+        )}
       </div>
       <button className={styles.createReplyButton} onClick={handleActiveNicknameAndIdUpdate}>
         <span>답글 달기</span>
       </button>
-      <Replies replies={comment?.replies} listId={listId} commentId={commentId} />
+      <Replies replies={comment?.replies} listId={listId} commentId={commentId} currentUserInfo={currentUserInfo} />
     </>
   );
 }

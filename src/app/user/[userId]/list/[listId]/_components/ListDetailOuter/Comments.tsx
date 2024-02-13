@@ -1,18 +1,22 @@
 'use client';
 import { ChangeEvent, useEffect, useMemo, useState } from 'react';
 import { useParams } from 'next/navigation';
-import { useMutation, useQueryClient, useInfiniteQuery } from '@tanstack/react-query';
+import { useMutation, useQueryClient, useInfiniteQuery, useQuery } from '@tanstack/react-query';
 import Image from 'next/image';
+
 import Comment from './Comment';
 import { createComment } from '@/app/_api/comment/createComment';
 import { createReply } from '@/app/_api/comment/createReply';
+import { getUserOne } from '@/app/_api/user/getUserOne';
 import useIntersectionObserver from '@/hooks/useIntersectionObserver';
 import CommentsSkeleton from './CommentsSkeleton';
 import { QUERY_KEYS } from '@/lib/constants/queryKeys';
+import { useUser } from '@/store/useUser';
 import * as styles from './Comments.css';
 import { getComments } from '@/app/_api/comment/getComments';
 import CancelButton from '/public/icons/cancel_button.svg';
 import { CommentType } from '@/lib/types/commentType';
+import { UserType } from '@/lib/types/userProfileType';
 
 function Comments() {
   const [activeNickname, setActiveNickname] = useState<string | null | undefined>(null);
@@ -20,6 +24,15 @@ function Comments() {
   const [comment, setComment] = useState<string>('');
   const params = useParams<{ listId: string }>();
   const queryClient = useQueryClient();
+
+  //zustand로 관리하는 user정보 불러오기
+  const { user } = useUser();
+  const userId = user?.id;
+
+  const { data: userInformation } = useQuery<UserType>({
+    queryKey: [QUERY_KEYS.userOne, userId],
+    queryFn: () => getUserOne(userId),
+  });
 
   const {
     data: commentsData,
@@ -34,6 +47,8 @@ function Comments() {
     initialPageParam: null,
     getNextPageParam: (lastPage) => (lastPage.hasNext ? lastPage.cursorId : null),
   });
+
+  console.log(commentsData);
 
   const comments = useMemo(() => {
     const totalCount = commentsData ? commentsData.pages[commentsData.pages.length - 1].totalCount : 0;
@@ -110,7 +125,7 @@ function Comments() {
       <div className={styles.formWrapperOuter}>
         {/* {유저 정보 들어오면 이미지 src 추가할 예정} */}
         <Image
-          src="https://search.pstatic.net/common/?src=http%3A%2F%2Fshop1.phinf.naver.net%2F20240118_50%2F1705570554088lxI8k_JPEG%2F106706388918781213_735035316.jpg&type=sc960_832"
+          src={userInformation?.profileImageUrl}
           alt="프로필 이미지"
           width={36}
           height={36}
@@ -124,8 +139,13 @@ function Comments() {
             </div>
           )}
           <form className={styles.formContainer} onSubmit={handleSubmit}>
-            <input className={styles.formInput} value={comment} onChange={handleInputChange} />
-            {comment && (
+            <input
+              className={styles.formInput}
+              value={comment}
+              onChange={handleInputChange}
+              placeholder={userId === null ? '로그인 후 댓글을 작성할 수 있습니다.' : ''}
+            />
+            {comment && !!userId && (
               <button type="submit" className={styles.formButton}>
                 게시
               </button>
@@ -147,6 +167,7 @@ function Comments() {
                 handleSetCommentId={handleSetCommentId}
                 listId={params?.listId}
                 commentId={commentId}
+                currentUserInfo={userInformation}
               />
             )}
           </div>

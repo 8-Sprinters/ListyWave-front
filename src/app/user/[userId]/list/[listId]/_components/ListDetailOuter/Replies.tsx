@@ -9,14 +9,16 @@ import timeDiff from '@/lib/utils/time-diff';
 import { ReplyType } from '@/lib/types/commentType';
 import * as styles from './Replies.css';
 import Line from '/public/icons/horizontal_line.svg';
+import { UserType } from '@/lib/types/userProfileType';
 
 interface RepliesProps {
   replies: ReplyType[] | null | undefined;
   listId?: string | undefined;
   commentId?: null | number | undefined;
+  currentUserInfo?: UserType | undefined;
 }
 
-function Replies({ replies, listId }: RepliesProps) {
+function Replies({ replies, listId, currentUserInfo }: RepliesProps) {
   const [showReplies, setShowReplies] = useState(false);
 
   const handleShowReplies = () => {
@@ -36,7 +38,7 @@ function Replies({ replies, listId }: RepliesProps) {
           {replies?.map((item: ReplyType) => {
             return (
               <li key={item.id} className={styles.repliesOuterWrapper}>
-                <Reply reply={item} listId={listId} />
+                <Reply reply={item} listId={listId} currentUserInfo={currentUserInfo} />
               </li>
             );
           })}
@@ -51,9 +53,10 @@ export default Replies;
 interface ReplyProps {
   reply: ReplyType;
   listId?: string | undefined;
+  currentUserInfo: UserType | undefined;
 }
 
-function Reply({ reply, listId }: ReplyProps) {
+function Reply({ reply, listId, currentUserInfo }: ReplyProps) {
   const queryClient = useQueryClient();
   const deleteReplyMutation = useMutation({
     mutationFn: () => deleteReply(listId, reply?.commentId, reply?.id),
@@ -84,7 +87,7 @@ function Reply({ reply, listId }: ReplyProps) {
           <p className={styles.replyContent}>{reply.content}</p>
         </div>
       </div>
-      <DeleteModalButton onDelete={handleDeleteButtonClick} />
+      {currentUserInfo?.id === reply.userId && <DeleteModalButton onDelete={handleDeleteButtonClick} />}
     </>
   );
 }
