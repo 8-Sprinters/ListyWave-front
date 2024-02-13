@@ -1,13 +1,13 @@
 import { useCallback, useEffect, useState } from 'react';
 
-interface useBooleanOutput {
+interface UseBooleanOutput {
   isOn: boolean;
   toggle: () => void;
   handleSetOn: () => void;
   handleSetOff: () => void;
 }
 
-export default function useBooleanOutput(defaultValue?: boolean): useBooleanOutput {
+export default function useBooleanOutput(defaultValue?: boolean): UseBooleanOutput {
   const [isOn, setIsOn] = useState(!!defaultValue);
 
   const toggle = useCallback(() => setIsOn((prev) => !prev), []);
