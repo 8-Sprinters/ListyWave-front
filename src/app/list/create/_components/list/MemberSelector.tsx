@@ -24,6 +24,7 @@ interface MemberSelectorProps {
       errorMessage: string;
     };
   };
+  defaultValue?: UserProfileType[];
 }
 
 /**
@@ -43,9 +44,10 @@ function MemberSelector({
   onClickAdd,
   onClickDelete,
   rules,
+  defaultValue,
 }: MemberSelectorProps) {
   const [input, setInput] = useState('');
-  const [selectedList, setSelectedList] = useState<UserProfileType[]>([]);
+  const [selectedList, setSelectedList] = useState<UserProfileType[]>(defaultValue || []);
   const [isDropDownOpen, setIsDropDownOpen] = useState(false);
 
   const inputRef = useRef<HTMLInputElement>(null);
@@ -73,6 +75,12 @@ function MemberSelector({
       document.removeEventListener('click', closeDropdown);
     };
   }, []);
+
+  useEffect(() => {
+    if (defaultValue) {
+      setSelectedList(defaultValue);
+    }
+  }, [defaultValue]);
 
   return (
     <div className={styles.container}>

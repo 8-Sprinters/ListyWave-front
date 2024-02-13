@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import * as styles from './ButtonSelector.css';
 import { CategoryType } from '@/lib/types/categoriesType';
 
@@ -20,12 +20,16 @@ interface ButtonSelectorProps {
 function ButtonSelector({ list, onClick, defaultValue }: ButtonSelectorProps) {
   const [selectedButton, setSelectedButton] = useState<string>(defaultValue);
 
+  useEffect(() => {
+    setSelectedButton(defaultValue);
+  }, [defaultValue]);
+
   return (
     <div className={styles.container}>
       {list.map((item) => (
         <button
           key={item.codeValue}
-          className={`${styles.button} ${item.nameValue === selectedButton ? styles.buttonActive : ''}`}
+          className={`${styles.button} ${item.nameValue.toLocaleLowerCase() === selectedButton.toLocaleLowerCase() ? styles.buttonActive : ''}`}
           onClick={() => {
             onClick(item);
             setSelectedButton(item.nameValue);

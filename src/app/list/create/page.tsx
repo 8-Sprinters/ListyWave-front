@@ -145,6 +145,7 @@ export default function CreatePage() {
             onNextClick={() => {
               handleStepChange('item');
             }}
+            type="create"
           />
         ) : (
           <CreateItem
@@ -153,6 +154,7 @@ export default function CreatePage() {
             }}
             onSubmitClick={handleSubmit}
             isSubmitting={isUploadingImage || isCreatingList || isSuccess}
+            type="create"
           />
         )}
       </FormProvider>
