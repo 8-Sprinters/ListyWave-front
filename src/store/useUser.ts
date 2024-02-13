@@ -3,12 +3,13 @@ import { devtools, persist } from 'zustand/middleware';
 import { UserOnLoginType } from '@/lib/types/user';
 
 interface UserStateType {
-  user: Pick<UserOnLoginType, 'id' | 'accessToken'>;
+  user: Pick<UserOnLoginType, 'id' | 'accessToken'> | { id: null; accessToken: string };
   updateUser: (user: Pick<UserOnLoginType, 'id' | 'accessToken'>) => void;
+  logoutUser: () => void;
 }
 
 const initialValue = {
-  id: 0,
+  id: null,
   accessToken: '',
 };
 
@@ -24,6 +25,10 @@ const useUserStore = create<UserStateType>()(
               ...state.user,
               ...user,
             },
+          })),
+        logoutUser: () =>
+          set(() => ({
+            user: initialValue,
           })),
       }),
       {
