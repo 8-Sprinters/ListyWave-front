@@ -9,9 +9,9 @@ interface CollaboratorsProps {
 }
 
 function Collaborators({ collaborators }: CollaboratorsProps) {
-  const maxNumber = 3;
+  const MAX_NUMBER = 3;
   const collaboratorsList =
-    collaborators && collaborators?.length >= maxNumber ? collaborators?.slice(0, maxNumber) : collaborators;
+    collaborators && collaborators?.length >= MAX_NUMBER ? collaborators?.slice(0, MAX_NUMBER) : collaborators;
 
   return (
     <>
@@ -20,12 +20,13 @@ function Collaborators({ collaborators }: CollaboratorsProps) {
           <div className={styles.collaboratorsPopOverWrapper}>
             <CollaboratorsPopOver collaborators={collaborators} />
           </div>
-          <span className={styles.collaboratorTitle}>콜라보레이터</span>
           <div className={styles.wrapper}>
-            <div className={`${styles.profileImage} ${styles.profilePlus}`}>
-              <span className={styles.profileText}>{`${collaborators && collaborators?.length - 3}`}</span>
-              <PlusIcon alt="더하기 모양 아이콘" />
-            </div>
+            {collaborators.length > MAX_NUMBER && (
+              <div className={`${styles.profileImage} ${styles.profilePlus}`}>
+                <span className={styles.profileText}>{`${collaborators && collaborators?.length - 3}`}</span>
+                <PlusIcon alt="더하기 모양 아이콘" />
+              </div>
+            )}
             {collaboratorsList?.map((item: CollaboratorType) => {
               return (
                 <div key={item.id}>

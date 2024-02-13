@@ -9,6 +9,7 @@ interface CollaboratorsProps {
 function CollaboratorsPopOver({ collaborators }: CollaboratorsProps) {
   return (
     <div className={styles.wrapper}>
+      <span>콜라보레이터</span>
       <ul className={styles.listWrapper}>
         {collaborators?.map((item) => {
           return (

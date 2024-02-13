@@ -2,7 +2,8 @@ import { style } from '@vanilla-extract/css';
 
 export const wrapper = style({
   padding: '12px',
-  height: '142px',
+  height: 'auto',
+  maxHeight: '142px',
   width: 'auto',
 
   position: 'absolute',
