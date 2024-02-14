@@ -97,7 +97,7 @@ export default function ProfileForm({ userNickname, onProfileChange, onBackgroun
               className={styles.inputText}
               placeholder={profilePlaceholder.nickname}
               maxLength={10}
-              autoComplete="false"
+              autoComplete="off"
               {...nicknameRegister}
               onChange={(e) => {
                 nicknameRegister.onChange(e);
@@ -121,7 +121,7 @@ export default function ProfileForm({ userNickname, onProfileChange, onBackgroun
             <textarea
               className={styles.textarea}
               placeholder={profilePlaceholder.description}
-              autoComplete="false"
+              autoComplete="off"
               {...register('description', profileDescriptionRules)}
             />
             <span className={styles.textLength}>{`${watchDescription?.length}/160`}</span>
