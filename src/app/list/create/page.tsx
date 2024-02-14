@@ -11,7 +11,7 @@ import { ItemImagesType, ListCreateType } from '@/lib/types/listType';
 import toasting from '@/lib/utils/toasting';
 import { creaetListToastMessage } from '@/lib/constants/toastMessage';
 import createList from '@/app/_api/list/createList';
-import { uploadItemImages } from '@/app/_api/list/uploadItemImages';
+import uploadItemImages from '@/app/_api/list/uploadItemImages';
 
 export type FormErrors = FieldErrors<ListCreateType>;
 
@@ -101,7 +101,7 @@ export default function CreatePage() {
     return { listData, imageData, imageFileList };
   };
 
-  const { mutate: saveImageMutate, isPending: isUploadingImage } = useMutation({
+  const { mutate: uploadImageMutate, isPending: isUploadingImage } = useMutation({
     mutationFn: uploadItemImages,
     retry: 3,
     retryDelay: 1000,
@@ -121,7 +121,7 @@ export default function CreatePage() {
     mutationFn: createList,
     onSuccess: (data) => {
       setNewListId(data.listId);
-      saveImageMutate({
+      uploadImageMutate({
         listId: data.listId,
         imageData: formatData().imageData,
         imageFileList: formatData().imageFileList,
