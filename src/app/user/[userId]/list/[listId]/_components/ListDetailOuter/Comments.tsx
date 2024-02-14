@@ -5,15 +5,15 @@ import { useMutation, useQueryClient, useInfiniteQuery, useQuery } from '@tansta
 import Image from 'next/image';
 
 import Comment from './Comment';
-import { createComment } from '@/app/_api/comment/createComment';
-import { createReply } from '@/app/_api/comment/createReply';
+import createComment from '@/app/_api/comment/createComment';
+import createReply from '@/app/_api/comment/createReply';
 import { getUserOne } from '@/app/_api/user/getUserOne';
 import useIntersectionObserver from '@/hooks/useIntersectionObserver';
 import CommentsSkeleton from './CommentsSkeleton';
 import { QUERY_KEYS } from '@/lib/constants/queryKeys';
 import { useUser } from '@/store/useUser';
 import * as styles from './Comments.css';
-import { getComments } from '@/app/_api/comment/getComments';
+import getComments from '@/app/_api/comment/getComments';
 import CancelButton from '/public/icons/cancel_button.svg';
 import { CommentType } from '@/lib/types/commentType';
 import { UserType } from '@/lib/types/userProfileType';

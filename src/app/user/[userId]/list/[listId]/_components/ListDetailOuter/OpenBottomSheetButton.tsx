@@ -1,6 +1,6 @@
 'use client';
 import { useRouter } from 'next/navigation';
-import { deleteList } from '@/app/_api/list/deleteList';
+import deleteList from '@/app/_api/list/deleteList';
 import useBooleanOutput from '@/hooks/useBooleanOutput';
 import BottomSheet from '@/app/user/[userId]/list/[listId]/_components/BottomSheet/BottomSheet';
 import Modal from '@/components/Modal/Modal';

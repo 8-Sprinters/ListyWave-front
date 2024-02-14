@@ -6,7 +6,7 @@ import { useParams } from 'next/navigation';
 
 import Label from '@/components/Label/Label';
 import Collaborators from '@/app/user/[userId]/list/[listId]/_components/ListDetailOuter/Collaborators';
-import { getListDetail } from '@/app/_api/list/getDetailList';
+import getListDetail from '@/app/_api/list/getDetailList';
 import { getUserOne } from '@/app/_api/user/getUserOne';
 import { useUser } from '@/store/useUser';
 import { QUERY_KEYS } from '@/lib/constants/queryKeys';
