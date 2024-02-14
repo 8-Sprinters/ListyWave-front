@@ -4,6 +4,7 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import { useQuery } from '@tanstack/react-query';
 import { QUERY_KEYS } from '@/lib/constants/queryKeys';
 import getTrendingLists from '@/app/_api/explore/getTrendingLists';
+import useMoveToPage from '@/hooks/useMoveToPage';
 import { TrendingListType } from '@/lib/types/exploreType';
 import { assignInlineVars } from '@vanilla-extract/dynamic';
 import { Autoplay } from 'swiper/modules';
@@ -16,6 +17,8 @@ function TrendingList() {
     queryKey: [QUERY_KEYS.getTrendingLists],
     queryFn: () => getTrendingLists(),
   });
+
+  const { onClickMoveToPage } = useMoveToPage();
 
   return (
     <div className={styles.wrapper}>
@@ -38,6 +41,7 @@ function TrendingList() {
                 style={assignInlineVars({
                   [styles.blackLayer]: `${item.itemImageUrl !== '' ? 'rgba(25, 25, 27, 0.5)' : 'none'}`,
                 })}
+                onClick={() => onClickMoveToPage(`/user/${item.ownerId}/list/${item.id}`)}
               >
                 <div className={styles.swiperSlide}>
                   <div className={styles.listInformationWrapper}>
