@@ -5,7 +5,7 @@ import { useMutation, useQuery } from '@tanstack/react-query';
 import { UserProfileEditType, UserType } from '@/lib/types/userProfileType';
 import { QUERY_KEYS } from '@/lib/constants/queryKeys';
 import toasting from '@/lib/utils/toasting';
-import fileToBase62 from '@/lib/utils/fileToBase64';
+import fileToBase64 from '@/lib/utils/fileToBase64';
 import { editProfileToastMessage } from '@/lib/constants/toastMessage';
 import { useUser } from '@/store/useUser';
 import { getUserOne } from '@/app/_api/user/getUserOne';
@@ -55,12 +55,12 @@ export default function ProfilePage() {
 
   const handleProfileChange = async (file: File) => {
     const compressedFile = await compressFile(file);
-    fileToUrl(compressedFile, setProfilePreviewUrl);
+    fileToBase64(compressedFile, setProfilePreviewUrl);
   };
 
   const handleBackgroundChange = async (file: File) => {
     const compressedFile = await compressFile(file);
-    fileToUrl(compressedFile, setBackgroundPreviewUrl);
+    fileToBase64(compressedFile, setBackgroundPreviewUrl);
   };
 
   //프로필 수정 저장
