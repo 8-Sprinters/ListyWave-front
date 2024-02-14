@@ -25,6 +25,7 @@ function ListInformation() {
     queryKey: [QUERY_KEYS.getListDetail],
     queryFn: () => getListDetail(Number(params?.listId)),
     enabled: !!params?.listId,
+    retry: 0,
   });
 
   const handleConfirmButtonClick = () => {
