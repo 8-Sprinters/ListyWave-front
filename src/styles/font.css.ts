@@ -73,7 +73,7 @@ export const caption2 = style({
   letterSpacing: '-0.033rem',
 });
 
-//위에 지우기
+/**TODO: 모두 폰트 수정 후 위에 지우기*/
 
 export const headlineLarge = style({
   fontSize: '3.2rem',
@@ -153,7 +153,7 @@ export const bodyRegular = style({
   fontSize: '1.5rem',
   fontWeight: '500',
   lineHeight: '2.0rem',
-  letterSpacing: '0.020rem',
+  letterSpacing: '0.02rem',
 });
 
 export const bodyMedium = style({
@@ -167,7 +167,7 @@ export const bodySmall = style({
   fontSize: '1.2rem',
   fontWeight: '400',
   lineHeight: '1.6rem',
-  letterSpacing: '0.04rem',
+  letterSpacing: '0.0048rem',
 });
 
 export const overline = style({
@@ -181,5 +181,5 @@ export const caption = style({
   fontSize: '1.1rem',
   fontWeight: '400',
   lineHeight: '1.6rem',
-  letterSpacing: '0.005rem',
+  letterSpacing: '0.0055rem',
 });
