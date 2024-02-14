@@ -2,6 +2,7 @@ import { style } from '@vanilla-extract/css';
 import { vars } from '@/styles/theme.css';
 
 export const container = style({
+  width: '100%',
   display: 'flex',
   flexDirection: 'column',
   justifyContent: 'space-between',
@@ -50,7 +51,7 @@ export const title = style({
 });
 
 export const buttonContainer = style({
-  paddingTop: '2.4rem',
+  padding: '2.4rem 2.8rem 0 2.8rem',
 
   display: 'flex',
   justifyContent: 'space-between',
