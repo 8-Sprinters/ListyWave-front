@@ -2,9 +2,7 @@ import { style } from '@vanilla-extract/css';
 
 export const container = style({
   display: 'flex',
-  justifyContent: 'space-between',
   alignItems: 'center',
-  columnGap: '12px',
 
   overflow: 'auto',
   whiteSpace: 'nowrap',
@@ -16,11 +14,13 @@ export const container = style({
 
 export const button = style({
   height: '40px',
+  marginRight: '12px',
   padding: '8px 12px',
 
   fontSize: '1.6rem',
   fontWeight: '600',
 
+  color: '#000',
   backgroundColor: 'transparent',
 
   whiteSpace: 'nowrap',
