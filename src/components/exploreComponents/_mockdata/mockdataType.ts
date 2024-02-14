@@ -21,6 +21,7 @@ export interface ListRecommendationType {
   category: string;
   backgroundColor: string;
   listUrl: string;
+  ownerId: number;
   ownerNickname: string;
   ownerProfileImage: string;
   labels: LabelType[];

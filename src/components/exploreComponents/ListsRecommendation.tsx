@@ -22,6 +22,8 @@ function ListRecommendation() {
 
   const recommendLists = result?.lists;
 
+  console.log(result);
+
   const handleShowMoreButtonClick = (url: string) => {
     router.push(`${url}`);
   };
@@ -69,7 +71,10 @@ function ListRecommendation() {
             >
               <SimpleList listData={item.items} />
               <div className={styles.blurBox}>
-                <button className={styles.showMoreButton} onClick={() => handleShowMoreButtonClick(item.listUrl)}>
+                <button
+                  className={styles.showMoreButton}
+                  onClick={() => handleShowMoreButtonClick(`/user/${item.ownerId}/list/${item.id}`)}
+                >
                   <span>더보기</span>
                 </button>
               </div>
