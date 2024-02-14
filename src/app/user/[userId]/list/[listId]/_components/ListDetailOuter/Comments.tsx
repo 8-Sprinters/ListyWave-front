@@ -81,7 +81,6 @@ function Comments() {
     mutationFn: () => createComment(params?.listId, comment),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: [QUERY_KEYS.getComments] });
-      console.log('댓글을 성공적으로 업로드했습니다.');
     },
     onSettled: () => {
       setComment('');
@@ -92,7 +91,6 @@ function Comments() {
     mutationFn: () => createReply({ listId: params?.listId, commentId: commentId, data: comment }),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: [QUERY_KEYS.getComments] });
-      console.log('답글을 성공적으로 업로드했습니다.');
     },
     onSettled: () => {
       setComment('');

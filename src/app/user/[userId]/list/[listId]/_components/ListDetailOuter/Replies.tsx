@@ -62,7 +62,6 @@ function Reply({ reply, listId, currentUserInfo }: ReplyProps) {
     mutationFn: () => deleteReply(listId, reply?.commentId, reply?.id),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: [QUERY_KEYS.getComments] });
-      console.log('답글이 성공적으로 삭제되었습니다.');
     },
   });
 

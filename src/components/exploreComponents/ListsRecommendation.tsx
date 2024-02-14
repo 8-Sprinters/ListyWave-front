@@ -27,8 +27,6 @@ function ListRecommendation() {
   const { user } = useUser();
   const userId = user?.id;
 
-  console.log(result);
-
   const handleShowMoreButtonClick = (url: string) => {
     router.push(`${url}`);
   };

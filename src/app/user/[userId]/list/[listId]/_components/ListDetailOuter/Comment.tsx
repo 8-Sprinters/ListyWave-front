@@ -39,9 +39,6 @@ function Comment({ comment, onUpdate, handleSetCommentId, listId, commentId, cur
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: [QUERY_KEYS.getComments] });
     },
-    onSettled: () => {
-      console.log('댓글이 성공적으로 삭제되었습니다.');
-    },
   });
 
   const handleClickDeleteButton = () => {

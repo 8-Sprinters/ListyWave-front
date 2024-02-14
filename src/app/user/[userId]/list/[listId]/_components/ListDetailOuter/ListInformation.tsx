@@ -35,21 +35,15 @@ function ListInformation() {
     retry: 0,
   });
 
-  console.log(list);
-
   //리스트 생성자 제외한 사람들만 콜라보레이터들로 설정
   const filteredCollaboratorsList = list?.collaborators.filter((item: CollaboratorType) => item?.id !== list.ownerId);
   const isCollaborator = list?.collaborators.some((item: CollaboratorType) => item?.id === userId);
-  console.log(list?.ownerId);
-  console.log(list?.collaborators);
-  console.log(isCollaborator);
 
   const handleConfirmButtonClick = () => {
     router.push('/');
   };
 
   if (error && error?.message.includes('404')) {
-    console.log(error);
     return (
       <Modal handleModalClose={handleSetOff}>
         <Modal.Title>이 리스트는 삭제 또는 비공개 처리 되었어요.</Modal.Title>

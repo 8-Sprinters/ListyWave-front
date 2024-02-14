@@ -7,8 +7,6 @@ interface createReplyType {
 }
 
 async function createReply({ listId, commentId, data }: createReplyType) {
-  console.log(data);
-
   if (commentId === null) {
     return;
   }
