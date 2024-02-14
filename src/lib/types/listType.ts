@@ -78,8 +78,8 @@ export interface ItemType {
   id: number;
   rank: number;
   title: string;
-  comment?: string; 
-  link?: string; 
+  comment?: string;
+  link?: string;
   imageUrl?: string;
 }
 
