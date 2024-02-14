@@ -1,21 +1,24 @@
 'use client';
+import { useEffect, useState } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 import { useMutation, useQuery } from '@tanstack/react-query';
+import { useRouter } from 'next/navigation';
 
 import { UserProfileEditType, UserType } from '@/lib/types/userProfileType';
 import { QUERY_KEYS } from '@/lib/constants/queryKeys';
 import toasting from '@/lib/utils/toasting';
 import fileToBase64 from '@/lib/utils/fileToBase64';
+import compressFile from '@/lib/utils/compressFile';
 import { editProfileToastMessage } from '@/lib/constants/toastMessage';
 import { useUser } from '@/store/useUser';
 import { getUserOne } from '@/app/_api/user/getUserOne';
 import updateProfile from '@/app/_api/user/updateProfile';
+import Header from '@/components/Header/Header';
+import BlueButton from '@/components/BlueButton/BlueButton';
 
 import ProfileForm from './_components/ProfileForm';
 import * as styles from './styles.css';
 import ImagePreview from './_components/ImagePreview';
-import { useEffect, useState } from 'react';
-import compressFile from '@/lib/utils/compressFile';
 
 {
   /**TODO
@@ -25,6 +28,7 @@ import compressFile from '@/lib/utils/compressFile';
 
 export default function ProfilePage() {
   const { user } = useUser();
+  const router = useRouter();
   const [profilePreviewUrl, setProfilePreviewUrl] = useState('');
   const [backgroundPreviewUrl, setBackgroundPreviewUrl] = useState('');
 
@@ -83,10 +87,18 @@ export default function ProfilePage() {
     <>
       <FormProvider {...methods}>
         <form className={styles.page} onSubmit={methods.handleSubmit(handleFormSubmit)}>
-          <button type="submit" disabled={!methods.formState.isDirty || isPending}>
-            {/* 잘되는지 확인하세요 */}
-            저장
-          </button>
+          <Header
+            title="프로필 설정"
+            left="back"
+            leftClick={() => {
+              router.back();
+            }}
+            right={
+              <BlueButton type="submit" disabled={!methods.formState.isDirty || isPending}>
+                저장
+              </BlueButton>
+            }
+          />
           <main className={styles.content}>
             <ImagePreview profileImageUrl={profilePreviewUrl} backgroundImageUrl={backgroundPreviewUrl} />
             <ProfileForm
