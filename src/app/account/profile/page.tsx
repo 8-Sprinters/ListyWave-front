@@ -9,7 +9,7 @@ import { QUERY_KEYS } from '@/lib/constants/queryKeys';
 import toasting from '@/lib/utils/toasting';
 import fileToBase64 from '@/lib/utils/fileToBase64';
 import compressFile from '@/lib/utils/compressFile';
-import { editProfileToastMessage } from '@/lib/constants/toastMessage';
+import toastMessage from '@/lib/constants/toastMessage';
 import { useUser } from '@/store/useUser';
 import { getUserOne } from '@/app/_api/user/getUserOne';
 import updateProfile from '@/app/_api/user/updateProfile';
@@ -20,11 +20,7 @@ import ProfileForm from './_components/ProfileForm';
 import * as styles from './styles.css';
 import ImagePreview from './_components/ImagePreview';
 
-{
-  /**TODO
--[] 데이터 가져오는 중 보여줄 화면 필요(로딩UI)
-*/
-}
+/** TODO 데이터 가져오는 중 보여줄 화면 필요(로딩UI) */
 
 export default function ProfilePage() {
   const { user } = useUser();
@@ -72,13 +68,13 @@ export default function ProfilePage() {
   const { mutate: updateProfileMutate, isPending } = useMutation({
     mutationFn: updateProfile,
     onSuccess: () => {
-      toasting({ type: 'success', txt: editProfileToastMessage.editProfileSuccess });
+      toasting({ type: 'success', txt: toastMessage.ko.updateProfileSuccess });
       queryClient.invalidateQueries({
         queryKey: [QUERY_KEYS.userOne, user.id],
       });
     },
     onError: () => {
-      toasting({ type: 'error', txt: editProfileToastMessage.editProfileError });
+      toasting({ type: 'error', txt: toastMessage.ko.updateProfileError });
     },
   });
 

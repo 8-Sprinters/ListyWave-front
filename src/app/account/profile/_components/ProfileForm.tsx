@@ -13,7 +13,7 @@ import {
   nicknameDuplicateRules,
 } from '@/lib/constants/formInputValidationRules';
 import { UserProfileEditType } from '@/lib/types/userProfileType';
-import { editProfileToastMessage } from '@/lib/constants/toastMessage';
+import toastMessage from '@/lib/constants/toastMessage';
 import debounce from '@/lib/utils/debounce';
 import toasting from '@/lib/utils/toasting';
 
@@ -57,8 +57,8 @@ export default function ProfileForm({ userNickname, onProfileChange, onBackgroun
   const watchDescription = useWatch({ control, name: 'description' });
 
   //이미지 미리보기
-  const newProfileImageRegister = register('newProfileFileList');
   const newBackgroundImageRegister = register('newBackgroundFileList');
+  const newProfileImageRegister = register('newProfileFileList');
 
   const MAX_IMAGE_INPUT_SIZE_MB = 50 * 1024 * 1024; //50MB
 
@@ -66,7 +66,7 @@ export default function ProfileForm({ userNickname, onProfileChange, onBackgroun
     if (e.target.files) {
       const targetFile = e.target.files[0];
       if (targetFile?.size > MAX_IMAGE_INPUT_SIZE_MB) {
-        toasting({ type: 'error', txt: editProfileToastMessage.imageSizeError });
+        toasting({ type: 'error', txt: toastMessage.ko.imageSizeError });
       } else {
         newBackgroundImageRegister.onChange(e);
         onBackgroundChange(e.target.files[0]);
@@ -78,7 +78,7 @@ export default function ProfileForm({ userNickname, onProfileChange, onBackgroun
     if (e.target.files) {
       const targetFile = e.target.files[0];
       if (targetFile?.size > MAX_IMAGE_INPUT_SIZE_MB) {
-        toasting({ type: 'error', txt: editProfileToastMessage.imageSizeError });
+        toasting({ type: 'error', txt: toastMessage.ko.imageSizeError });
       } else {
         newProfileImageRegister.onChange(e);
         onProfileChange(e.target.files[0]);
