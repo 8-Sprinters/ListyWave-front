@@ -43,7 +43,7 @@ export default function FollowButton({ isFollowed, userId }: FollowButtonProps) 
     },
     onError: (error: AxiosError) => {
       if (error.response?.status === 401) {
-        toasting({ type: 'warning', txt: '로그인이 필요한 기능입니다.' });
+        toasting({ type: 'warning', txt: '로그인이 필요해요.' });
         router.push('/login');
       }
     },
@@ -61,7 +61,7 @@ export default function FollowButton({ isFollowed, userId }: FollowButtonProps) 
 
   const handleFollowUser = (isFollowed: boolean) => () => {
     if (userMeData && userMeData?.followingCount >= MAX_FOLLOWING) {
-      toasting({ type: 'warning', txt: '최대 1000명까지 팔로우할 수 있어요.' });
+      toasting({ type: 'warning', txt: '최대 1,000명까지 팔로우할 수 있어요.' });
       return;
     }
 
