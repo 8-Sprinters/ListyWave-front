@@ -1,63 +1,102 @@
-import { useForm } from 'react-hook-form';
+'use client';
+import { FormProvider, useForm } from 'react-hook-form';
+import { useMutation, useQuery } from '@tanstack/react-query';
 
-import MockProfileImage from '/public/images/mock_profile.png';
-import Camera from '/public/icons/camera.svg';
+import { UserProfileEditType, UserType } from '@/lib/types/userProfileType';
+import { QUERY_KEYS } from '@/lib/constants/queryKeys';
+import toasting from '@/lib/utils/toasting';
+import fileToBase62 from '@/lib/utils/fileToBase64';
+import { editProfileToastMessage } from '@/lib/constants/toastMessage';
+import { useUser } from '@/store/useUser';
+import { getUserOne } from '@/app/_api/user/getUserOne';
+import updateProfile from '@/app/_api/user/updateProfile';
 
-import ProfileImage from './_components/ProfileImage';
+import ProfileForm from './_components/ProfileForm';
 import * as styles from './styles.css';
+import ImagePreview from './_components/ImagePreview';
+import { useEffect, useState } from 'react';
+import compressFile from '@/lib/utils/compressFile';
 
-/** 
- TODO
-- [ ] 리액트 훅폼
-- [ ] submit할때 여러 api 호출 필요
-- [ ] isTouched 등 변화 감지 필요. 수정사항  있을때만 저장버튼 활성화
- */
-
-const MockBackground = ['기본배경A', '기본배경B', '기본배경C', '기본배경D', '기본배경E', '기본배경F', '기본배경G'];
-const MockProfile = ['A', 'B', 'C', 'D', 'E'];
+{
+  /**TODO
+-[] 데이터 가져오는 중 보여줄 화면 필요(로딩UI)
+*/
+}
 
 export default function ProfilePage() {
+  const { user } = useUser();
+  const [profilePreviewUrl, setProfilePreviewUrl] = useState('');
+  const [backgroundPreviewUrl, setBackgroundPreviewUrl] = useState('');
+
+  const { data: userData } = useQuery<UserType>({
+    queryKey: [QUERY_KEYS.userOne, user.id],
+    queryFn: () => getUserOne(user.id),
+    enabled: !!user.id,
+  });
+
+  const methods = useForm<UserProfileEditType>({
+    mode: 'onChange',
+  });
+
+  useEffect(() => {
+    methods.reset({
+      nickname: userData?.nickname ?? '',
+      description: userData?.description ?? '',
+      backgroundImageUrl: userData?.backgroundImageUrl,
+      profileImageUrl: userData?.profileImageUrl,
+      newBackgroundFileList: null,
+      newProfileFileList: null,
+    });
+    setProfilePreviewUrl(userData?.profileImageUrl ?? '');
+    setBackgroundPreviewUrl(userData?.backgroundImageUrl ?? '');
+  }, [userData, methods.reset]);
+
+  //미리보기 이미지 변경
+
+  const handleProfileChange = async (file: File) => {
+    const compressedFile = await compressFile(file);
+    fileToUrl(compressedFile, setProfilePreviewUrl);
+  };
+
+  const handleBackgroundChange = async (file: File) => {
+    const compressedFile = await compressFile(file);
+    fileToUrl(compressedFile, setBackgroundPreviewUrl);
+  };
+
+  //프로필 수정 저장
+  const { mutate: updateProfileMutate, isPending } = useMutation({
+    mutationFn: updateProfile,
+    onSuccess: () => {
+      toasting({ type: 'success', txt: editProfileToastMessage.editProfileSuccess });
+      methods.reset({}, { keepValues: true });
+    },
+    onError: () => {
+      toasting({ type: 'error', txt: editProfileToastMessage.editProfileError });
+    },
+  });
+
+  const handleFormSubmit = () => {
+    updateProfileMutate({ userId: user.id, data: methods.getValues() });
+  };
+
   return (
-    <div className={styles.page}>
-      <div className={styles.content}>
-        <section className={styles.backgroundPreview}>
-          <div className={styles.profilePreview}>
-            <ProfileImage profileImageUrl={MockProfileImage} />
-          </div>
-        </section>
-        <form className={styles.form}>
-          <section className={styles.inputContainer}>
-            <label className={styles.label}>닉네임</label>
-            <input className={styles.inputText} />
-          </section>
-          <section className={styles.inputContainer}>
-            <label className={styles.label}>소개</label>
-            <textarea className={styles.textarea} />
-          </section>
-          <section className={styles.backgroundOptionContainer}>
-            <label className={`${styles.backgroundOption} ${styles.inputFileLabel}`} htmlFor="backgroundImage">
-              <Camera />
-            </label>
-            <input type="file" id="backgroundImage" className={styles.inputFile} accept=".jpg, .jpeg, .png" />
-            {MockBackground.map((image) => (
-              <button type="button" className={styles.backgroundOption}>
-                {image}
-              </button>
-            ))}
-          </section>
-          <section className={styles.profileOptionContainer}>
-            <label className={`${styles.profileOption} ${styles.inputFileLabel}`} htmlFor="profileImage">
-              <Camera />
-            </label>
-            <input type="file" id="profileImage" className={styles.inputFile} accept=".jpg, .jpeg, .png" />
-            {MockProfile.map((image) => (
-              <button type="button" className={styles.profileOption}>
-                {image}
-              </button>
-            ))}
-          </section>
+    <>
+      <FormProvider {...methods}>
+        <form className={styles.page} onSubmit={methods.handleSubmit(handleFormSubmit)}>
+          <button type="submit" disabled={!methods.formState.isDirty || isPending}>
+            {/* 잘되는지 확인하세요 */}
+            저장
+          </button>
+          <main className={styles.content}>
+            <ImagePreview profileImageUrl={profilePreviewUrl} backgroundImageUrl={backgroundPreviewUrl} />
+            <ProfileForm
+              userNickname={userData?.nickname ?? ''}
+              onProfileChange={handleProfileChange}
+              onBackgroundChange={handleBackgroundChange}
+            />
+          </main>
         </form>
-      </div>
-    </div>
+      </FormProvider>
+    </>
   );
 }

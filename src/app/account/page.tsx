@@ -1,3 +1,13 @@
+'use client';
+
+import useMoveToPage from '@/hooks/useMoveToPage';
+
 export default function AccountPage() {
-  return <div>마이페이지</div>;
+  const { onClickMoveToPage } = useMoveToPage();
+  return (
+    <>
+      <div>마이페이지</div>
+      <button onClick={onClickMoveToPage('account/profile')}>프로필설정</button>
+    </>
+  );
 }
