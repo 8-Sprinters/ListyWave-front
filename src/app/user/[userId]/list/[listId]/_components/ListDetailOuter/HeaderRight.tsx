@@ -3,7 +3,7 @@ import { useRouter, useParams } from 'next/navigation';
 
 import { useUser } from '@/store/useUser';
 import OpenBottomSheetButton from './OpenBottomSheetButton';
-import * as styles from './Header.css';
+import * as styles from './HeaderRight.css';
 import HistoryButton from '/public/icons/history.svg';
 
 interface HeaderRightProps {
