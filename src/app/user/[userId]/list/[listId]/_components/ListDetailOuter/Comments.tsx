@@ -32,6 +32,7 @@ function Comments() {
   const { data: userInformation } = useQuery<UserType>({
     queryKey: [QUERY_KEYS.userOne, userId],
     queryFn: () => getUserOne(userId),
+    enabled: userId !== 0,
   });
 
   const {

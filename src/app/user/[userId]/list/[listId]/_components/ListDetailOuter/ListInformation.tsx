@@ -7,8 +7,6 @@ import { useParams } from 'next/navigation';
 import Label from '@/components/Label/Label';
 import Collaborators from '@/app/user/[userId]/list/[listId]/_components/ListDetailOuter/Collaborators';
 import getListDetail from '@/app/_api/list/getDetailList';
-import { getUserOne } from '@/app/_api/user/getUserOne';
-import { useUser } from '@/store/useUser';
 import { QUERY_KEYS } from '@/lib/constants/queryKeys';
 import timeDiff from '@/lib/utils/time-diff';
 import { LabelType } from '@/lib/types/listType';
@@ -18,22 +16,11 @@ import * as styles from './ListInformation.css';
 function ListInformation() {
   const params = useParams<{ listId: string }>();
 
-  //zustand로 관리하는 user정보 불러오기
-  const { user } = useUser();
-  const userId = user?.id;
-
   const { data: list } = useQuery({
     queryKey: [QUERY_KEYS.getListDetail],
     queryFn: () => getListDetail(Number(params?.listId)),
     enabled: !!params?.listId,
   });
-
-  const { data: userInfo } = useQuery({
-    queryKey: [QUERY_KEYS.userOne, userId],
-    queryFn: () => getUserOne(userId),
-  });
-
-  console.log(userInfo);
 
   return (
     <>
