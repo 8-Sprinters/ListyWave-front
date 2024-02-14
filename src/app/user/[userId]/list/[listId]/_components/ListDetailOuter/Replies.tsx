@@ -13,7 +13,7 @@ import { UserType } from '@/lib/types/userProfileType';
 
 interface RepliesProps {
   replies: ReplyType[] | null | undefined;
-  listId?: string | undefined;
+  listId?: number | undefined;
   commentId?: null | number | undefined;
   currentUserInfo?: UserType | undefined;
 }
@@ -52,14 +52,14 @@ export default Replies;
 
 interface ReplyProps {
   reply: ReplyType;
-  listId?: string | undefined;
+  listId?: number | undefined;
   currentUserInfo: UserType | undefined;
 }
 
 function Reply({ reply, listId, currentUserInfo }: ReplyProps) {
   const queryClient = useQueryClient();
   const deleteReplyMutation = useMutation({
-    mutationFn: () => deleteReply(listId, reply?.commentId, reply?.id),
+    mutationFn: () => deleteReply({ listId: listId, commentId: reply?.commentId, replyId: reply?.id }),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: [QUERY_KEYS.getComments] });
     },

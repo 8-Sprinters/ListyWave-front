@@ -5,7 +5,7 @@ import { useParams, useRouter } from 'next/navigation';
 
 import Label from '@/components/Label/Label';
 import Collaborators from '@/app/user/[userId]/list/[listId]/_components/ListDetailOuter/Collaborators';
-import getListDetail from '@/app/_api/list/getDetailList';
+import getListDetail from '@/app/_api/list/getListDetail';
 import Modal from '@/components/Modal/Modal';
 import Header from '@/components/Header/Header';
 import HeaderRight from './HeaderRight';
@@ -13,11 +13,11 @@ import useBooleanOutput from '@/hooks/useBooleanOutput';
 import { useUser } from '@/store/useUser';
 import { QUERY_KEYS } from '@/lib/constants/queryKeys';
 import timeDiff from '@/lib/utils/time-diff';
-import { LabelType } from '@/lib/types/listType';
+import { LabelType, ListDetailType } from '@/lib/types/listType';
 import ListDetailInner from '../ListDetailInner';
 import * as styles from './ListInformation.css';
 import Comments from './Comments';
-import { CollaboratorType } from '@/lib/types/commentType';
+import { UserProfileType } from '@/lib/types/userProfileType';
 
 function ListInformation() {
   const params = useParams<{ listId: string }>();
@@ -28,16 +28,18 @@ function ListInformation() {
   const { user } = useUser();
   const userId = user?.id;
 
-  const { data: list, error } = useQuery({
+  const { data: list, error } = useQuery<ListDetailType>({
     queryKey: [QUERY_KEYS.getListDetail],
     queryFn: () => getListDetail(Number(params?.listId)),
     enabled: !!params?.listId,
     retry: 0,
   });
+  console.log(list);
 
   //리스트 생성자 제외한 사람들만 콜라보레이터들로 설정
-  const filteredCollaboratorsList = list?.collaborators.filter((item: CollaboratorType) => item?.id !== list.ownerId);
-  const isCollaborator = list?.collaborators.some((item: CollaboratorType) => item?.id === userId);
+
+  const filteredCollaboratorsList = list?.collaborators.filter((item: UserProfileType) => item?.id !== list.ownerId);
+  const isCollaborator: boolean | undefined = list?.collaborators.some((item: UserProfileType) => item?.id === userId);
 
   const handleConfirmButtonClick = () => {
     router.push('/');
@@ -52,6 +54,10 @@ function ListInformation() {
         </Modal.Button>
       </Modal>
     );
+  }
+
+  if (!list) {
+    return null;
   }
 
   return (
@@ -78,7 +84,7 @@ function ListInformation() {
         <div className={styles.listTitle}>{list?.title}</div>
         <div className={styles.listDescription}>{list?.description}</div>
       </div>
-      <ListDetailInner data={list} />
+      <ListDetailInner data={list} listId={params && params?.listId} />
       <div className={styles.bottomWrapper}>
         <div className={styles.bottomLeftWrapper}>
           <Image
@@ -91,7 +97,7 @@ function ListInformation() {
           <div className={styles.informationWrapper}>
             <div className={styles.listOwnerNickname}>{list?.ownerNickname}</div>
             <div className={styles.infoDetailWrapper}>
-              <span>{timeDiff(list?.createdDate)}</span>
+              <span>{timeDiff(String(list?.createdDate))}</span>
               <span>{list?.isPublic ? '공개' : '비공개'}</span>
             </div>
           </div>

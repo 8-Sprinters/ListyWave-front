@@ -16,7 +16,7 @@ interface CommentProps {
   onUpdate: (userName: string | undefined) => void;
   activeNickname?: string | null;
   handleSetCommentId: (id: number | undefined) => void;
-  listId?: string | undefined;
+  listId?: number | undefined;
   commentId?: null | number | undefined;
   currentUserInfo?: UserType;
 }
@@ -35,7 +35,7 @@ function Comment({ comment, onUpdate, handleSetCommentId, listId, commentId, cur
   };
 
   const deleteCommentMutation = useMutation({
-    mutationFn: () => deleteComment(listId, comment?.id),
+    mutationFn: () => deleteComment({ listId: Number(listId), commentId: comment?.id }),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: [QUERY_KEYS.getComments] });
     },

@@ -9,7 +9,7 @@ import * as styles from './ModalButtonStyle.css';
 
 interface OpenBottomSheetButtonProps {
   listId: string | undefined;
-  isCollaborator: boolean;
+  isCollaborator: boolean | undefined;
 }
 
 export default function OpenBottomSheetButton({ listId, isCollaborator }: OpenBottomSheetButtonProps) {

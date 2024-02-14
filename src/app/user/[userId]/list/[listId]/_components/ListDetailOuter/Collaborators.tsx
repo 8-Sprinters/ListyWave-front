@@ -2,10 +2,10 @@ import Image from 'next/image';
 import CollaboratorsPopOver from '@/app/user/[userId]/list/[listId]/_components/ListDetailOuter/CollaboratorsPopOver';
 import * as styles from './Collaborators.css';
 import PlusIcon from '/public/icons/collaborators_plus.svg';
-import { CollaboratorType } from '../../mockData/mockdataType';
+import { UserProfileType } from '@/lib/types/userProfileType';
 
 interface CollaboratorsProps {
-  collaborators: CollaboratorType[] | null;
+  collaborators: UserProfileType[] | undefined;
 }
 
 function Collaborators({ collaborators }: CollaboratorsProps) {
@@ -27,7 +27,7 @@ function Collaborators({ collaborators }: CollaboratorsProps) {
                 <PlusIcon alt="더하기 모양 아이콘" />
               </div>
             )}
-            {collaboratorsList?.map((item: CollaboratorType) => {
+            {collaboratorsList?.map((item: UserProfileType) => {
               return (
                 <div key={item.id}>
                   {item.profileImageUrl ? (

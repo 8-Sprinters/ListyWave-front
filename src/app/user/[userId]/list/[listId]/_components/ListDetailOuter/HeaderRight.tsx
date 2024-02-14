@@ -7,7 +7,7 @@ import * as styles from './Header.css';
 import HistoryButton from '/public/icons/history.svg';
 
 interface HeaderRightProps {
-  isCollaborator: boolean;
+  isCollaborator: boolean | undefined;
 }
 
 function HeaderRight({ isCollaborator }: HeaderRightProps) {

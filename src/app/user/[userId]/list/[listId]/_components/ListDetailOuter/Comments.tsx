@@ -43,7 +43,7 @@ function Comments() {
   } = useInfiniteQuery({
     queryKey: [QUERY_KEYS.getComments, params?.listId],
     queryFn: ({ pageParam: cursorId }) => {
-      return getComments(params?.listId, cursorId);
+      return getComments({ listId: Number(params?.listId), cursorId: cursorId });
     },
     initialPageParam: null,
     getNextPageParam: (lastPage) => (lastPage.hasNext ? lastPage.cursorId : null),
@@ -78,7 +78,7 @@ function Comments() {
   };
 
   const createCommentMutation = useMutation({
-    mutationFn: () => createComment(params?.listId, comment),
+    mutationFn: () => createComment({ listId: Number(params?.listId), comment: comment }),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: [QUERY_KEYS.getComments] });
     },
@@ -88,7 +88,7 @@ function Comments() {
   });
 
   const createReplyMutation = useMutation({
-    mutationFn: () => createReply({ listId: params?.listId, commentId: commentId, data: comment }),
+    mutationFn: () => createReply({ listId: Number(params?.listId), commentId: commentId, data: comment }),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: [QUERY_KEYS.getComments] });
     },
@@ -118,7 +118,7 @@ function Comments() {
         exact: true,
       });
     };
-  }, []);
+  }, [queryClient]);
 
   return (
     <div className={styles.wrapper}>
@@ -165,7 +165,7 @@ function Comments() {
                 onUpdate={setActiveNickname}
                 activeNickname={activeNickname}
                 handleSetCommentId={handleSetCommentId}
-                listId={params?.listId}
+                listId={Number(params?.listId)}
                 commentId={commentId}
                 currentUserInfo={userInformation}
               />

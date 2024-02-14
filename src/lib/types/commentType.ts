@@ -27,3 +27,8 @@ export interface CollaboratorType {
   nickname: string;
   profileImageUrl: string | null;
 }
+
+export interface CreateCommentType {
+  listId: number;
+  comment: string;
+}
