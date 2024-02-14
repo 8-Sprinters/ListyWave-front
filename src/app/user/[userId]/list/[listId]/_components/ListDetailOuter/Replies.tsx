@@ -2,14 +2,16 @@
 import { useState } from 'react';
 import Image from 'next/image';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
+
 import DeleteModalButton from '@/app/user/[userId]/list/[listId]/_components/ListDetailOuter/DeleteModalButton';
 import deleteReply from '@/app/_api/comment/deleteReply';
 import { QUERY_KEYS } from '@/lib/constants/queryKeys';
 import timeDiff from '@/lib/utils/time-diff';
 import { ReplyType } from '@/lib/types/commentType';
+import { UserType } from '@/lib/types/userProfileType';
+
 import * as styles from './Replies.css';
 import Line from '/public/icons/horizontal_line.svg';
-import { UserType } from '@/lib/types/userProfileType';
 
 interface RepliesProps {
   replies: ReplyType[] | null | undefined;
@@ -77,6 +79,9 @@ function Reply({ reply, listId, currentUserInfo }: ReplyProps) {
           width={20}
           height={20}
           alt="사용자 프로필 이미지"
+          style={{
+            objectFit: 'cover',
+          }}
         />
         <div className={styles.replyContainer}>
           <div className={styles.replyInformationWrapper}>
