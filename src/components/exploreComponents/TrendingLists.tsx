@@ -1,10 +1,10 @@
 'use client';
 import Image from 'next/image';
+import { useRouter } from 'next/navigation';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { useQuery } from '@tanstack/react-query';
 import { QUERY_KEYS } from '@/lib/constants/queryKeys';
 import getTrendingLists from '@/app/_api/explore/getTrendingLists';
-import useMoveToPage from '@/hooks/useMoveToPage';
 import { TrendingListType } from '@/lib/types/exploreType';
 import { assignInlineVars } from '@vanilla-extract/dynamic';
 import { Autoplay } from 'swiper/modules';
@@ -13,12 +13,11 @@ import 'swiper/css';
 import * as styles from './TrendingLists.css';
 
 function TrendingList() {
+  const router = useRouter();
   const { data: trendingLists, isPending } = useQuery({
     queryKey: [QUERY_KEYS.getTrendingLists],
     queryFn: () => getTrendingLists(),
   });
-
-  const { onClickMoveToPage } = useMoveToPage();
 
   return (
     <div className={styles.wrapper}>
@@ -35,13 +34,18 @@ function TrendingList() {
       >
         {trendingLists?.map((item: TrendingListType) => {
           return (
-            <SwiperSlide key={item.id} className={styles.swiperSlide}>
+            <SwiperSlide
+              key={item.id}
+              className={styles.swiperSlide}
+              onClick={() => {
+                router.push(`/user/${item.ownerId}/list/${item.id}`);
+              }}
+            >
               <div
                 className={styles.swiperContainer}
                 style={assignInlineVars({
                   [styles.blackLayer]: `${item.itemImageUrl !== '' ? 'rgba(25, 25, 27, 0.5)' : 'none'}`,
                 })}
-                onClick={() => onClickMoveToPage(`/user/${item.ownerId}/list/${item.id}`)}
               >
                 <div className={styles.swiperSlide}>
                   <div className={styles.listInformationWrapper}>
