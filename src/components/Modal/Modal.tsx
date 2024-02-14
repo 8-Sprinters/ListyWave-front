@@ -6,7 +6,7 @@ import ModalButton from './ModalButton';
 import useOnClickOutside from '@/hooks/useOnClickOutside';
 
 interface ModalMainProps {
-  size?: string;
+  size?: 'basic' | 'large';
   children?: ReactNode;
   handleModalClose: () => void;
 }
