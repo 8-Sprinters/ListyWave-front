@@ -1,6 +1,14 @@
-import { style } from '@vanilla-extract/css';
+import { style, styleVariants } from '@vanilla-extract/css';
 import { body1, body3 } from '@/styles/font.css';
 import { vars } from '@/styles/theme.css';
+
+//header
+export const baseButton = style([body1]);
+
+export const headerNextButton = styleVariants({
+  active: [baseButton],
+  inactive: [baseButton, { color: vars.color.gray7, cursor: 'default' }],
+});
 
 export const article = style({
   padding: '16px 20px 30px',

@@ -10,7 +10,7 @@ import CreateList from '@/app/list/create/_components/CreateList';
 import { ItemImagesType, ListCreateType } from '@/lib/types/listType';
 import toasting from '@/lib/utils/toasting';
 import { creaetListToastMessage } from '@/lib/constants/toastMessage';
-import { createList } from '@/app/_api/list/createList';
+import createList from '@/app/_api/list/createList';
 import { uploadItemImages } from '@/app/_api/list/uploadItemImages';
 
 export type FormErrors = FieldErrors<ListCreateType>;
@@ -24,7 +24,7 @@ export default function CreatePage() {
     mode: 'onChange',
     defaultValues: {
       ownerId: 2, //로그인 후 수정 필요
-      category: '',
+      category: 'culture',
       labels: [],
       collaboratorIds: [],
       title: '',
@@ -145,6 +145,7 @@ export default function CreatePage() {
             onNextClick={() => {
               handleStepChange('item');
             }}
+            type="create"
           />
         ) : (
           <CreateItem
@@ -153,6 +154,7 @@ export default function CreatePage() {
             }}
             onSubmitClick={handleSubmit}
             isSubmitting={isUploadingImage || isCreatingList || isSuccess}
+            type="create"
           />
         )}
       </FormProvider>

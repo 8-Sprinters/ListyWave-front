@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import * as styles from './ColorSelector.css';
 
 interface ColorSelectorProps {
@@ -19,12 +19,16 @@ interface ColorSelectorProps {
 function ColorSelector({ defaultColor, colors, onClick }: ColorSelectorProps) {
   const [selectedColor, setSelectedColor] = useState(defaultColor);
 
+  useEffect(() => {
+    setSelectedColor(defaultColor);
+  }, [defaultColor]);
+
   return (
     <div className={styles.backgroundContainer}>
       {colors.map((color) => (
         <button
           key={color}
-          className={`${styles.colorCircle} ${selectedColor === color && styles.selectedColor}`}
+          className={`${styles.colorCircle} ${selectedColor.toLocaleLowerCase() === color.toLocaleLowerCase() && styles.selectedColor}`}
           style={{ backgroundColor: color }}
           onClick={() => {
             onClick(color);
