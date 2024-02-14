@@ -7,7 +7,6 @@ import getRecommendedUsers from '@/app/_api/explore/getRecommendedUsers';
 
 import * as styles from './UsersRecommendation.css';
 import { UsersRecommendationItemType } from '@/lib/types/exploreType';
-import CloseButton from '/public/icons/close_x_gray.svg';
 
 function UsersRecommendation() {
   const wrapperRef = useRef<HTMLUListElement>(null);
@@ -70,7 +69,7 @@ function UserRecommendListItem({ data, handleScrollToRight }: UserRecommendListI
       <div className={styles.recommendUserWrapper}>
         <div className={styles.imageWrapper}>
           <Image
-            src={data.profileImageUrl}
+            src={data?.profileImageUrl}
             alt="추천 사용자 프로필 이미지"
             fill
             sizes="100vw 100vh"
