@@ -22,11 +22,9 @@ export interface UserType {
   isOwner: boolean;
 }
 
-//프로필수정 기본 타입
-export type UserProfileInfoType = Pick<UserType, 'nickname' | 'description' | 'profileImageUrl' | 'backgroundImageUrl'>;
-
 //프로필수정 인풋 타입
-export interface UserProfileEditType extends UserProfileInfoType {
+export interface UserProfileEditType
+  extends Pick<UserType, 'nickname' | 'description' | 'profileImageUrl' | 'backgroundImageUrl'> {
   newBackgroundFileList: FileList | null;
   newProfileFileList: FileList | null;
 }
