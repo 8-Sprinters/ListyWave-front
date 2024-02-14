@@ -14,10 +14,19 @@ export interface UserType {
   id: number;
   nickname: string;
   description?: string;
-  profileImageUrl?: string;
+  profileImageUrl?: string /**TODO: 옵셔널 없애기 */;
   backgroundImageUrl?: string;
   followerCount: number;
   followingCount: number;
   isFollowed: boolean;
   isOwner: boolean;
+}
+
+//프로필수정 기본 타입
+export type UserProfileInfoType = Pick<UserType, 'nickname' | 'description' | 'profileImageUrl' | 'backgroundImageUrl'>;
+
+//프로필수정 인풋 타입
+export interface UserProfileEditType extends UserProfileInfoType {
+  newBackgroundImage: FileList | null;
+  newProfileImage: FileList | null;
 }
