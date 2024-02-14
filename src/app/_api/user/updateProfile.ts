@@ -10,12 +10,12 @@ interface UserPresignedUrlsType {
   profilePresignedUrl: string;
 }
 
-interface updateProfileParams {
+interface UpdateProfileParams {
   userId: Number;
   data: UserProfileEditType;
 }
 
-const updateProfile = async ({ userId, data }: updateProfileParams) => {
+const updateProfile = async ({ userId, data }: UpdateProfileParams) => {
   const { nickname, description, backgroundImageUrl, profileImageUrl, newBackgroundFileList, newProfileFileList } =
     data;
 
