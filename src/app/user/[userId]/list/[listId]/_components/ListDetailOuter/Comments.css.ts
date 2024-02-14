@@ -1,4 +1,7 @@
 import { style } from '@vanilla-extract/css';
+import { vars } from '@/styles/theme.css';
+
+/**@todo 공용폰트 스타일 적용 */
 
 export const wrapper = style({
   height: 'auto',
@@ -20,8 +23,8 @@ export const formWrapperOuter = style({
   alignItems: 'center',
   gap: '4px',
 
-  border: '1px solid rgba(0, 0, 0, 0.10)',
-  background: '#fff',
+  border: `1px solid ${vars.color.gray5}`,
+  background: vars.color.white,
   zIndex: 1,
 });
 
@@ -35,7 +38,7 @@ export const formWrapperInner = style({
   gap: '4px',
 
   borderRadius: '50px',
-  border: '1px solid #D9D9D9',
+  border: `1px solid ${vars.color.gray5}`,
 });
 
 export const activeFormWrapper = style({
@@ -65,7 +68,7 @@ export const replyNickname = style({
 
   fontSize: '1.2rem',
   fontWeight: 400,
-  color: '#AFB1B6',
+  color: vars.color.gray7,
 });
 
 export const formButton = style({
@@ -91,7 +94,7 @@ export const profileImage = style({
   flex: '0 0 1',
 
   borderRadius: '16px',
-  backgroundColor: '#909090',
+  backgroundColor: vars.color.gray9,
 });
 
 export const commentWrapper = style({
