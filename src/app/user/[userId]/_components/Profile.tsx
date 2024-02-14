@@ -90,7 +90,7 @@ export default function Profile({ userId }: { userId: number }) {
               </div>
               <div className={styles.text} onClick={onClickMoveToPage(`/user/${userId}/followers`)}>
                 <span className={styles.count}>
-                  {data?.followerCount !== undefined && numberFormatter(data?.followerCount, 'ko')}
+                  {data?.followerCount !== undefined && numberFormatter(data.followerCount, 'ko')}
                 </span>
                 <span>팔로워</span>
               </div>

@@ -1,16 +1,22 @@
 const numberFormatter = (num: number, lang: 'ko' | 'en') => {
   const unit = 10000;
 
-  console.log(num); // 삭제 예정
-
   if (num / unit < 1) {
     return num.toLocaleString('ko-KR');
   }
 
-  const formattedNum = Math.trunc((num / unit) * 10) / 10;
-  console.log(formattedNum); // 삭제 예정
-
-  return formattedNum + '만';
+  if (lang === 'ko') {
+    const formattedNumKo = Math.trunc((num / unit) * 10) / 10;
+    return formattedNumKo + '만';
+  } else {
+    const formattedNumEn = Math.trunc((num / unit) * 10);
+    if (formattedNumEn < 1000) {
+      return formattedNumEn + 'K';
+    } else {
+      const formattedMillion = Math.trunc((formattedNumEn / 1000) * 10) / 10;
+      return formattedMillion + 'M';
+    }
+  }
 };
 
 export default numberFormatter;
