@@ -85,8 +85,6 @@ function Comments() {
     },
     onSettled: () => {
       setComment('');
-      setCommentId(null);
-      setActiveNickname(null);
     },
   });
 
