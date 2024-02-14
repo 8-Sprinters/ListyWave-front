@@ -9,6 +9,7 @@ interface BottomSheetOptionsProps {
   key: string;
   title: string;
   onClick: () => void;
+  disabled?: boolean;
 }
 
 interface BottomSheetProps {

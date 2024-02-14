@@ -6,7 +6,11 @@ import OpenBottomSheetButton from './OpenBottomSheetButton';
 import * as styles from './Header.css';
 import HistoryButton from '/public/icons/history.svg';
 
-function HeaderRight() {
+interface HeaderRightProps {
+  isCollaborator: boolean;
+}
+
+function HeaderRight({ isCollaborator }: HeaderRightProps) {
   const router = useRouter();
   const params = useParams<{ userId: string; listId: string }>();
 
@@ -25,9 +29,9 @@ function HeaderRight() {
           <HistoryButton alt="히스토리 버튼" />
         </button>
         {/* {리스트 관리 버튼은 리스트 오너일 때만 보이게 하기} */}
-        {Number(params?.userId) === userId && (
+        {(Number(params?.userId) === userId || isCollaborator) && (
           <div className={styles.buttonResetStyle}>
-            <OpenBottomSheetButton listId={params?.listId} />
+            <OpenBottomSheetButton listId={params?.listId} isCollaborator={isCollaborator} />
           </div>
         )}
       </div>

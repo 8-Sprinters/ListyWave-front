@@ -9,12 +9,14 @@ import * as styles from './ModalButtonStyle.css';
 
 interface OpenBottomSheetButtonProps {
   listId: string | undefined;
+  isCollaborator: boolean;
 }
 
-export default function OpenBottomSheetButton({ listId }: OpenBottomSheetButtonProps) {
+export default function OpenBottomSheetButton({ listId, isCollaborator }: OpenBottomSheetButtonProps) {
   const router = useRouter();
   const { isOn, handleSetOff, handleSetOn } = useBooleanOutput(); //바텀시트 열림,닫힘 상태 관리
   const { isOn: isModalOn, handleSetOff: handleSetModalOff, handleSetOn: handleSetModalOn } = useBooleanOutput(); //모달 상태 관리
+  console.log(isCollaborator);
   const bottomSheetOptionList = [
     {
       key: 'editList',
@@ -29,6 +31,7 @@ export default function OpenBottomSheetButton({ listId }: OpenBottomSheetButtonP
       onClick: () => {
         handleSetModalOn();
       },
+      disabled: isCollaborator,
     },
   ];
 

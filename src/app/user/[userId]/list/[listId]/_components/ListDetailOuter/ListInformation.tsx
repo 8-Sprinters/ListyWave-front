@@ -37,10 +37,12 @@ function ListInformation() {
 
   console.log(list);
 
-  //리스트 생성자 제외한 사람들만 콜라보레이터들로 조회하기 위한 함수
+  //리스트 생성자 제외한 사람들만 콜라보레이터들로 설정
   const filteredCollaboratorsList = list?.collaborators.filter((item: CollaboratorType) => item?.id !== list.ownerId);
+  const isCollaborator = list?.collaborators.some((item: CollaboratorType) => item?.id === userId);
   console.log(list?.ownerId);
   console.log(list?.collaborators);
+  console.log(isCollaborator);
 
   const handleConfirmButtonClick = () => {
     router.push('/');
@@ -60,7 +62,12 @@ function ListInformation() {
 
   return (
     <>
-      <Header title="리스트" left="back" right={<HeaderRight />} leftClick={() => router.back()} />
+      <Header
+        title="리스트"
+        left="back"
+        right={<HeaderRight isCollaborator={isCollaborator} />}
+        leftClick={() => router.back()}
+      />
       <div className={styles.wrapper}>
         <div className={styles.categoryWrapper}>
           <div className={styles.labelWrapper}>
