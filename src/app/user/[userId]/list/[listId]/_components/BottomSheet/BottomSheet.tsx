@@ -27,12 +27,20 @@ function BottomSheet({ onClose, isActive, optionList }: BottomSheetProps) {
     <div className={styles.backGround} onClick={onClose}>
       <div ref={ref} className={`${styles.wrapper} ${isActive ? `${styles.sheetActive}` : ''}`}>
         {optionList.map((option) => (
-          <div key={option.key} className={styles.sheetItemWrapper}>
-            <div key={option.key} className={styles.sheetItem} onClick={option.onClick}>
+          <button
+            key={option.key}
+            className={`${styles.sheetItemWrapper} ${option.disabled ? styles.disabledSheetItemWrapper : ''}`}
+            disabled={option.disabled}
+          >
+            <div
+              key={option.key}
+              className={`${styles.sheetItem} ${option.disabled ? styles.disabledSheetItem : ''}`}
+              onClick={option.onClick}
+            >
               {option.title}
             </div>
-            <CheckIcon className={styles.checkIcon} />
-          </div>
+            <CheckIcon className={`${styles.checkIcon} ${option.disabled ? styles.disabledCheckIcon : ''}`} />
+          </button>
         ))}
       </div>
     </div>

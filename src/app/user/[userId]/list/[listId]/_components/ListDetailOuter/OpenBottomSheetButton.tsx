@@ -66,7 +66,7 @@ export default function OpenBottomSheetButton({ listId, isCollaborator }: OpenBo
         </Modal>
       )}
 
-      {isOn && <BottomSheet onClose={handleSetOff} optionList={bottomSheetOptionList} />}
+      {isOn && <BottomSheet onClose={handleSetOff} optionList={bottomSheetOptionList} isActive={isOn} />}
     </>
   );
 }

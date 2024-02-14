@@ -41,6 +41,7 @@ export const sheetActive = style({
 
 export const sheetItemWrapper = style({
   width: '100%',
+  textAlign: 'left',
 
   display: 'flex',
   justifyContent: 'space-between',
@@ -71,6 +72,29 @@ export const sheetItem = style({
   selectors: {
     [`${sheetItemWrapper}:hover &`]: {
       color: '#FF5454',
+    },
+  },
+});
+
+export const disabledSheetItemWrapper = style({
+  ':hover': {
+    backgroundColor: '#ffffff',
+  },
+});
+
+export const disabledSheetItem = style({
+  cursor: 'not-allowed',
+  selectors: {
+    [`${sheetItemWrapper}:hover &`]: {
+      color: '#e9e9e9',
+    },
+  },
+});
+
+export const disabledCheckIcon = style({
+  selectors: {
+    [`${sheetItemWrapper}:hover &`]: {
+      display: 'none',
     },
   },
 });
