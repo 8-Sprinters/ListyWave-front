@@ -13,7 +13,7 @@ import getUserOne from '@/app/_api/user/getUserOne';
 import { QUERY_KEYS } from '@/lib/constants/queryKeys';
 import { UserType } from '@/lib/types/userProfileType';
 import { useUser } from '@/store/useUser';
-// import toasting from '@/lib/utils/toasting'; // 나중에 사용얘정 토스트
+import toasting from '@/lib/utils/toasting';
 
 interface FollowButtonProps {
   userId: number;
@@ -30,6 +30,7 @@ export default function FollowButton({ isFollowed, userId }: FollowButtonProps) 
   const { data: userMeData } = useQuery<UserType>({
     queryKey: [QUERY_KEYS.userOne, userMe.id],
     queryFn: () => getUserOne(userMe.id),
+    enabled: !!userMe.id,
   });
 
   const followUser = useMutation({
@@ -42,7 +43,7 @@ export default function FollowButton({ isFollowed, userId }: FollowButtonProps) 
     },
     onError: (error: AxiosError) => {
       if (error.response?.status === 401) {
-        // TODO 토스트 메세지 적용하기
+        toasting({ type: 'warning', txt: '로그인이 필요한 기능입니다.' });
         router.push('/login');
       }
     },
@@ -60,8 +61,7 @@ export default function FollowButton({ isFollowed, userId }: FollowButtonProps) 
 
   const handleFollowUser = (isFollowed: boolean) => () => {
     if (userMeData && userMeData?.followingCount >= MAX_FOLLOWING) {
-      // TODO 토스트 메세지 적용이 안돼서 우선 주석처리 해둠
-      // toasting({ type: 'warning', txt: '최대 1000명까지 팔로우할 수 있어요.' });
+      toasting({ type: 'warning', txt: '최대 1000명까지 팔로우할 수 있어요.' });
       return;
     }
 
