@@ -1,5 +1,4 @@
 'use client';
-
 import Image from 'next/image';
 import { useQuery } from '@tanstack/react-query';
 import { useParams, useRouter } from 'next/navigation';
@@ -8,6 +7,8 @@ import Label from '@/components/Label/Label';
 import Collaborators from '@/app/user/[userId]/list/[listId]/_components/ListDetailOuter/Collaborators';
 import getListDetail from '@/app/_api/list/getDetailList';
 import Modal from '@/components/Modal/Modal';
+import Header from '@/components/Header/Header';
+import HeaderRight from './HeaderRight';
 import useBooleanOutput from '@/hooks/useBooleanOutput';
 import { QUERY_KEYS } from '@/lib/constants/queryKeys';
 import timeDiff from '@/lib/utils/time-diff';
@@ -46,6 +47,7 @@ function ListInformation() {
 
   return (
     <>
+      <Header title="리스트" left="back" right={<HeaderRight />} leftClick={() => router.back()} />
       <div className={styles.wrapper}>
         <div className={styles.categoryWrapper}>
           <div className={styles.labelWrapper}>
