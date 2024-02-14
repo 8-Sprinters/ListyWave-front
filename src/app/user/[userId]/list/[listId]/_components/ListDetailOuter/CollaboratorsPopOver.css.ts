@@ -1,5 +1,9 @@
 import { style } from '@vanilla-extract/css';
 
+/**
+ * @todo 공용 폰트 스타일 적용
+ */
+
 export const wrapper = style({
   padding: '12px',
   height: 'auto',
@@ -47,12 +51,4 @@ export const nickname = style({
   fontSize: '1.2rem',
   fontWeight: 600,
   letterSpacing: '-0.36px',
-});
-
-export const defaultProfileImage = style({
-  width: '25px',
-  height: '25px',
-
-  borderRadius: '9999px',
-  backgroundColor: '#494949',
 });
