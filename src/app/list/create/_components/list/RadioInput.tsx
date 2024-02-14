@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import * as styles from './RadioInput.css';
 
 interface RadioInputProps {
@@ -7,6 +7,7 @@ interface RadioInputProps {
     falseMessage: string;
   };
   onClick: (value: boolean) => void;
+  defaultValue?: boolean;
 }
 
 /**
@@ -16,8 +17,14 @@ interface RadioInputProps {
  * @param props.messages - radio input을 선택했을때 아래 표시될 메시지들
  * @param props.onClick - radio input을 클릭했을때 실행시킬 함수
  */
-function RadioInput({ messages, onClick }: RadioInputProps) {
-  const [value, setValue] = useState(true);
+function RadioInput({ messages, onClick, defaultValue }: RadioInputProps) {
+  const [value, setValue] = useState(defaultValue);
+
+  useEffect(() => {
+    if (defaultValue) {
+      setValue(defaultValue);
+    }
+  }, [defaultValue]);
 
   return (
     <>

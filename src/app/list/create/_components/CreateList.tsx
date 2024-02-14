@@ -2,9 +2,11 @@
 
 import { useEffect, useState } from 'react';
 import { useFormContext, useWatch } from 'react-hook-form';
+import { useRouter } from 'next/navigation';
 import { useSearchParams } from 'next/navigation';
 
-import Header from './list/Header';
+// import Header from './list/Header';
+import Header from '@/components/Header/Header';
 import Section from './list/Section';
 import SimpleInput from './list/SimpleInput';
 import ButtonSelector from './list/ButtonSelector';
@@ -19,13 +21,14 @@ import { listPlaceholder } from '@/lib/constants/placeholder';
 import { BACKGROUND_COLOR } from '@/styles/Color';
 import { CategoryType } from '@/lib/types/categoriesType';
 import { UserProfileType } from '@/lib/types/userProfileType';
-import { getCategories } from '@/app/_api/category/getCategories';
-import { getUsers } from '@/app/_api/user/getUsers';
+import getCategories from '@/app/_api/category/getCategories';
+import getUsers from '@/app/_api/user/getUsers';
 import { listDescriptionRules, listLabelRules, listTitleRules } from '@/lib/constants/formInputValidationRules';
 // import { listDescription } from '@/app/[userNickname]/[listId]/_components/ListDetailOuter/ListInformation.css';
 
 interface CreateListProps {
   onNextClick: () => void;
+  type: 'create' | 'edit';
 }
 
 /**
@@ -35,15 +38,16 @@ interface CreateListProps {
  *
  * @param props.onNextClick - 헤더의 '다음'버튼을 클릭했을때 동작시킬 함수
  */
-function CreateList({ onNextClick }: CreateListProps) {
+function CreateList({ onNextClick, type }: CreateListProps) {
   const [categories, setCategories] = useState<CategoryType[]>([]);
   const [users, setUsers] = useState<UserProfileType[]>([]);
 
-  const { setValue, control } = useFormContext();
+  const { setValue, getValues, control } = useFormContext();
   const collaboIDs = useWatch({ control, name: 'collaboratorIds' });
   const title = useWatch({ control, name: 'title' });
   const category = useWatch({ control, name: 'category' });
 
+  const router = useRouter();
   const searchParams = useSearchParams();
   const isTemplateCreation = searchParams?.has('title') && searchParams?.has('category');
 
@@ -76,12 +80,33 @@ function CreateList({ onNextClick }: CreateListProps) {
   return (
     <div>
       {/* 헤더 */}
-      <Header isNextActive={title && category} onClickNext={onNextClick} />
+      <Header
+        title={type === 'create' ? '리스트 생성' : '리스트 수정'}
+        left="close"
+        leftClick={() => {
+          router.back();
+        }}
+        right={
+          <button
+            className={title && category ? styles.headerNextButtonActive : styles.headerNextButton}
+            disabled={!title && !category}
+            onClick={onNextClick}
+          >
+            다음
+          </button>
+        }
+      />
 
       <div className={styles.body}>
         {/* 리스트 제목 */}
         <Section title="타이틀" isRequired={true}>
-          <SimpleInput type="short" name="title" placeholder={listPlaceholder.title} rules={listTitleRules} />
+          <SimpleInput
+            type="short"
+            name="title"
+            placeholder={listPlaceholder.title}
+            rules={listTitleRules}
+            defaultValue={getValues('title')}
+          />
         </Section>
 
         {/* 리스트 소개 */}
@@ -91,6 +116,7 @@ function CreateList({ onNextClick }: CreateListProps) {
             name="description"
             placeholder={listPlaceholder.description}
             rules={listDescriptionRules}
+            defaultValue={getValues('description')}
           ></SimpleInput>
         </Section>
 
@@ -101,7 +127,7 @@ function CreateList({ onNextClick }: CreateListProps) {
             onClick={(item: CategoryType) => {
               setValue('category', item.nameValue);
             }}
-            defaultValue={searchParams?.get('category')}
+            defaultValue={category}
           />
         </Section>
 
@@ -125,13 +151,20 @@ function CreateList({ onNextClick }: CreateListProps) {
                 collaboIDs.filter((collaboId: number) => collaboId !== userId)
               );
             }}
+            rules={{
+              maxNum: {
+                value: 20,
+                errorMessage: `콜라보레이터는 최대 20명까지 지정할 수 있어요.`,
+              },
+            }}
+            defaultValue={getValues('collaboratorIds')}
           />
         </Section>
 
         {/* 배경 색상 */}
         <Section title="배경 색상" isRequired={true}>
           <ColorSelector
-            defaultColor={BACKGROUND_COLOR.WHITE}
+            defaultColor={getValues('backgroundColor')}
             colors={Object.values(BACKGROUND_COLOR)}
             onClick={(color: string) => {
               setValue('backgroundColor', color);
@@ -149,6 +182,7 @@ function CreateList({ onNextClick }: CreateListProps) {
             onClick={(b: boolean) => {
               setValue('isPublic', b);
             }}
+            defaultValue={getValues('isPublic')}
           />
         </Section>
       </div>

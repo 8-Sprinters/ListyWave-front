@@ -1,11 +1,9 @@
 'use client';
 import { useEffect, useRef, useState } from 'react';
-import Image from 'next/image';
-import axios from 'axios';
 
+import UserProfileImage from '@/components/UserProfileImage/UserProfileImage';
 import SearchIcon from '/public/icons/search.svg';
 import EraseButton from '/public/icons/x_circle_fill.svg';
-import DefaultProfile from '/public/icons/default_profile.svg';
 
 import * as styles from './MemberSelector.css';
 
@@ -17,6 +15,16 @@ interface MemberSelectorProps {
   fetchData: () => Promise<void>;
   onClickAdd: (userId: number) => void;
   onClickDelete: (userId: number) => void;
+  rules?: {
+    required?: {
+      errorMessage: string;
+    };
+    maxNum?: {
+      value: number;
+      errorMessage: string;
+    };
+  };
+  defaultValue?: UserProfileType[];
 }
 
 /**
@@ -29,9 +37,17 @@ interface MemberSelectorProps {
  * @param onClickAdd - 선택한 멤버를 추가하는 함수
  * @param onClickDelete - 사용자를 선택 취소하는 함수
  */
-function MemberSelector({ placeholder, members = [], fetchData, onClickAdd, onClickDelete }: MemberSelectorProps) {
+function MemberSelector({
+  placeholder,
+  members = [],
+  fetchData,
+  onClickAdd,
+  onClickDelete,
+  rules,
+  defaultValue,
+}: MemberSelectorProps) {
   const [input, setInput] = useState('');
-  const [selectedList, setSelectedList] = useState<UserProfileType[]>([]);
+  const [selectedList, setSelectedList] = useState<UserProfileType[]>(defaultValue || []);
   const [isDropDownOpen, setIsDropDownOpen] = useState(false);
 
   const inputRef = useRef<HTMLInputElement>(null);
@@ -60,6 +76,12 @@ function MemberSelector({ placeholder, members = [], fetchData, onClickAdd, onCl
     };
   }, []);
 
+  useEffect(() => {
+    if (defaultValue) {
+      setSelectedList(defaultValue);
+    }
+  }, [defaultValue]);
+
   return (
     <div className={styles.container}>
       {/* 멤버 검색 인풋박스 */}
@@ -87,13 +109,16 @@ function MemberSelector({ placeholder, members = [], fetchData, onClickAdd, onCl
                 key={user.id}
                 className={styles.profileContainer}
                 onClick={() => {
+                  if (rules?.maxNum && selectedList.length >= rules.maxNum.value) {
+                    return;
+                  }
                   if (!selectedList.find((selectedUser: UserProfileType) => selectedUser.id === user.id)) {
                     setSelectedList([...selectedList, user]);
                     onClickAdd(user.id);
                   }
                 }}
               >
-                <UserProfileImage src={user.profileImageUrl} />
+                <UserProfileImage src={user.profileImageUrl} size={30} />
                 {user.nickname}
                 {selectedList.find((collaboUser: UserProfileType) => collaboUser.id === user.id) && (
                   <span className={styles.checkedIcon}>✓</span>
@@ -104,13 +129,16 @@ function MemberSelector({ placeholder, members = [], fetchData, onClickAdd, onCl
             0 && <div className={styles.noResultMessage}>검색결과가 없어요.</div>}
         </div>
       )}
+      {rules?.maxNum && selectedList.length >= rules.maxNum.value && (
+        <div className={styles.error}>{rules?.maxNum?.errorMessage}</div>
+      )}
 
       {/* 선택한 멤버 리스트 */}
       <div ref={listRef} className={styles.list}>
         {selectedList.map((selectedUser) => (
           <div key={selectedUser.id} className={styles.item}>
             <div className={styles.profileContainer}>
-              <UserProfileImage src={selectedUser.profileImageUrl} />
+              <UserProfileImage src={selectedUser.profileImageUrl} size={30} />
               {selectedUser.nickname}
             </div>
             <EraseButton
@@ -127,30 +155,3 @@ function MemberSelector({ placeholder, members = [], fetchData, onClickAdd, onCl
 }
 
 export default MemberSelector;
-
-function UserProfileImage({ src }: { src: string }) {
-  const [isValidImage, setIsValidImage] = useState(false);
-
-  useEffect(() => {
-    const handleFetchImage = async () => {
-      if (!src) {
-        setIsValidImage(false);
-        return;
-      }
-      try {
-        const response = await axios.get(src);
-      } catch (error) {
-        setIsValidImage(false);
-        return;
-      }
-      setIsValidImage(true);
-    };
-    handleFetchImage();
-  }, []);
-
-  return isValidImage ? (
-    <Image className={styles.profileImage} src={src} width={'30'} height={'30'} alt="이미지 프로필" />
-  ) : (
-    <DefaultProfile width={'30'} height={'30'} />
-  );
-}
