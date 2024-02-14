@@ -1,7 +1,11 @@
 import { style } from '@vanilla-extract/css';
+import { vars } from '@/styles/theme.css';
+import { caption1 } from '@/styles/font.css';
+
+/**@todo 공용폰트 스타일 적용 */
 
 export const commentOuterWrapper = style({
-  marginBottom: '10px',
+  marginBottom: '9px',
 
   position: 'relative',
 
@@ -17,19 +21,20 @@ export const profileImage = style({
   flex: '0 0 1',
 
   borderRadius: '16px',
-  backgroundColor: '#909090',
+  backgroundColor: vars.color.gray7,
 });
 
 export const commentWrapper = style({
   display: 'flex',
-  gap: '8px',
+  gap: '8.85px',
   alignItems: 'center',
 });
 
 export const commentContainer = style({
   display: 'flex',
   flexDirection: 'column',
-  gap: '5px',
+  justifyContent: 'space-between',
+  gap: '8px',
 });
 
 export const commentInformationWrapper = style({
@@ -38,27 +43,33 @@ export const commentInformationWrapper = style({
   gap: '8px',
 });
 
-export const commentWriter = style({
-  fontSize: '1.2rem',
-  fontWeight: 600,
-});
+export const commentWriter = style([
+  caption1,
+  {
+    fontWeight: 600,
+    lineHeight: 'normal',
+  },
+]);
 
 export const commentCreatedTime = style({
   fontSize: '1rem',
   fontWeight: 500,
-  color: '#494949',
+  color: vars.color.gray9,
 });
 
-export const commentContent = style({
-  fontSize: '1.2rem',
-  fontWeight: 500,
-});
+export const commentContent = style([
+  caption1,
+  {
+    fontWeight: 500,
+    lineHeight: 'normal',
+  },
+]);
 
 export const createReplyButton = style({
   padding: '0 0 0 36px',
 
   background: 'none',
   fontSize: '1rem',
-  color: '#494949',
+  color: vars.color.gray9,
   fontWeight: 500,
 });

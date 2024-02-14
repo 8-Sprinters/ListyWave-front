@@ -1,16 +1,22 @@
 'use client';
 import Image from 'next/image';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
+
 import Replies from '@/app/user/[userId]/list/[listId]/_components/ListDetailOuter/Replies';
 import deleteComment from '@/app/_api/comment/deleteComment';
 import DeleteModalButton from '@/app/user/[userId]/list/[listId]/_components/ListDetailOuter/DeleteModalButton';
+
 import timeDiff from '@/lib/utils/time-diff';
+import { QUERY_KEYS } from '@/lib/constants/queryKeys';
 import { CommentType } from '@/lib/types/commentType';
 import { UserType } from '@/lib/types/userProfileType';
+
 import * as styles from './Comment.css';
 import DefaultProfile from '/public/icons/default_profile_temporary.svg';
-import { QUERY_KEYS } from '@/lib/constants/queryKeys';
 
+/**
+ * @todo 타입 정리 필요
+ */
 interface CommentProps {
   comment: CommentType | undefined;
   onUpdate: (userName: string | undefined) => void;
@@ -24,6 +30,7 @@ interface CommentProps {
 function Comment({ comment, onUpdate, handleSetCommentId, listId, commentId, currentUserInfo }: CommentProps) {
   const queryClient = useQueryClient();
 
+  //현재 작성중인 답글의 원댓글 정보를 업데이트 하는 로직
   const handleActiveNicknameAndIdUpdate = () => {
     const currentUserName = comment?.userNickname;
     const currentCommentId = comment?.id;
@@ -34,6 +41,7 @@ function Comment({ comment, onUpdate, handleSetCommentId, listId, commentId, cur
     handleSetCommentId(currentCommentId);
   };
 
+  //댓글 삭제 리액트 쿼리 함수
   const deleteCommentMutation = useMutation({
     mutationFn: () => deleteComment({ listId: Number(listId), commentId: comment?.id }),
     onSuccess: () => {
@@ -41,6 +49,7 @@ function Comment({ comment, onUpdate, handleSetCommentId, listId, commentId, cur
     },
   });
 
+  //댓글 삭제 실행 함수
   const handleClickDeleteButton = () => {
     deleteCommentMutation.mutate();
   };
@@ -56,6 +65,9 @@ function Comment({ comment, onUpdate, handleSetCommentId, listId, commentId, cur
               height={30}
               src={comment.userProfileImageUrl}
               className={styles.profileImage}
+              style={{
+                objectFit: 'cover',
+              }}
             />
           )}
           {comment?.isDeleted && <DefaultProfile width={30} height={30} />}
