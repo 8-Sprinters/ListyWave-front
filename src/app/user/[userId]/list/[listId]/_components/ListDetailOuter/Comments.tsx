@@ -103,6 +103,9 @@ function Comments() {
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    if (!userId) {
+      return;
+    }
     if (commentId && activeNickname) {
       createReplyMutation.mutate();
       return;
