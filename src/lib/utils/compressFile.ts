@@ -1,5 +1,10 @@
 import imageCompression from 'browser-image-compression';
 
+/**
+ * 파일을 최대 4MB, 1920px로 압축해주는 함수입니다.
+ * @param {File} file 압축해야할 원본 파일
+ */
+
 const compressFile = async (file: File) => {
   let finalFile = file;
   //파일압축
