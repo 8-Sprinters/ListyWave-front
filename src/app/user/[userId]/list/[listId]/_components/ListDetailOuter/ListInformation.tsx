@@ -10,17 +10,23 @@ import Modal from '@/components/Modal/Modal';
 import Header from '@/components/Header/Header';
 import HeaderRight from './HeaderRight';
 import useBooleanOutput from '@/hooks/useBooleanOutput';
+import { useUser } from '@/store/useUser';
 import { QUERY_KEYS } from '@/lib/constants/queryKeys';
 import timeDiff from '@/lib/utils/time-diff';
 import { LabelType } from '@/lib/types/listType';
 import ListDetailInner from '../ListDetailInner';
 import * as styles from './ListInformation.css';
 import Comments from './Comments';
+import { CollaboratorType } from '@/lib/types/commentType';
 
 function ListInformation() {
   const params = useParams<{ listId: string }>();
   const router = useRouter();
   const { handleSetOff } = useBooleanOutput();
+
+  //zustand로 관리하는 user정보 불러오기
+  const { user } = useUser();
+  const userId = user?.id;
 
   const { data: list, error } = useQuery({
     queryKey: [QUERY_KEYS.getListDetail],
@@ -28,6 +34,13 @@ function ListInformation() {
     enabled: !!params?.listId,
     retry: 0,
   });
+
+  console.log(list);
+
+  //리스트 생성자 제외한 사람들만 콜라보레이터들로 조회하기 위한 함수
+  const filteredCollaboratorsList = list?.collaborators.filter((item: CollaboratorType) => item?.id !== list.ownerId);
+  console.log(list?.ownerId);
+  console.log(list?.collaborators);
 
   const handleConfirmButtonClick = () => {
     router.push('/');
@@ -83,7 +96,7 @@ function ListInformation() {
           </div>
         </div>
         <div className={styles.collaboratorWrapper}>
-          <Collaborators collaborators={list?.collaborators} />
+          <Collaborators collaborators={filteredCollaboratorsList} />
         </div>
       </div>
       <Comments />

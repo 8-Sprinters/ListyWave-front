@@ -6,6 +6,7 @@ import { useQuery } from '@tanstack/react-query';
 import { SimpleList } from '@/app/user/[userId]/list/[listId]/_components/ListDetailInner/RankList';
 import getRecommendedLists from '@/app/_api/explore/getRecommendedLists';
 import { QUERY_KEYS } from '@/lib/constants/queryKeys';
+import { useUser } from '@/store/useUser';
 import * as styles from './ListsRecommendation.css';
 import { ListRecommendationType } from './_mockdata/mockdataType';
 import Label from '@/components/Label/Label';
@@ -21,6 +22,10 @@ function ListRecommendation() {
   });
 
   const recommendLists = result?.lists;
+
+  //zustand로 관리하는 user정보 불러오기
+  const { user } = useUser();
+  const userId = user?.id;
 
   console.log(result);
 
