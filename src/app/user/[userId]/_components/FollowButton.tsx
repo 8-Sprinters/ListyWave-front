@@ -14,14 +14,12 @@ import { QUERY_KEYS } from '@/lib/constants/queryKeys';
 import { UserType } from '@/lib/types/userProfileType';
 import { useUser } from '@/store/useUser';
 import toasting from '@/lib/utils/toasting';
-import { toastMessage } from '@/lib/constants/toastMessage';
+import { MAX_FOLLOWING, toastMessage } from '@/lib/constants/toastMessage';
 
 interface FollowButtonProps {
   userId: number;
   isFollowed: boolean;
 }
-
-const MAX_FOLLOWING = 1000;
 
 export default function FollowButton({ isFollowed, userId }: FollowButtonProps) {
   const queryClient = useQueryClient();
@@ -61,14 +59,13 @@ export default function FollowButton({ isFollowed, userId }: FollowButtonProps) 
   });
 
   const handleFollowUser = (isFollowed: boolean) => () => {
-    if (userMeData && userMeData?.followingCount >= MAX_FOLLOWING) {
-      toasting({ type: 'warning', txt: toastMessage.ko.limitFollow });
-      return;
-    }
-
     if (isFollowed) {
       deleteFollowingUser.mutate();
     } else {
+      if (userMeData && userMeData?.followingCount >= MAX_FOLLOWING) {
+        toasting({ type: 'warning', txt: toastMessage.ko.limitFollow });
+        return;
+      }
       followUser.mutate();
     }
   };

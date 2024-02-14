@@ -3,10 +3,12 @@ export const creaetListToastMessage = {
   createListError: '리스트 생성에 실패했어요. 다시 시도해주세요.',
 };
 
+export const MAX_FOLLOWING = 1000;
+
 export const toastMessage = {
   ko: {
     requiredLogin: '로그인이 필요해요.',
-    limitFollow: '최대 1,000명까지 팔로우할 수 있어요',
+    limitFollow: `최대 ${MAX_FOLLOWING.toLocaleString('ko-KR')}명까지 팔로우할 수 있어요.`,
   },
   // 언어변경 시, en 추가
 };
