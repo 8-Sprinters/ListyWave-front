@@ -3,21 +3,21 @@ import Image from 'next/image';
 import { useQuery } from '@tanstack/react-query';
 import { useParams, useRouter } from 'next/navigation';
 
-import Label from '@/components/Label/Label';
 import Collaborators from '@/app/user/[userId]/list/[listId]/_components/ListDetailOuter/Collaborators';
 import getListDetail from '@/app/_api/list/getListDetail';
+import Label from '@/components/Label/Label';
 import Modal from '@/components/Modal/Modal';
 import Header from '@/components/Header/Header';
 import HeaderRight from './HeaderRight';
+import Comments from './Comments';
 import useBooleanOutput from '@/hooks/useBooleanOutput';
 import { useUser } from '@/store/useUser';
 import { QUERY_KEYS } from '@/lib/constants/queryKeys';
 import timeDiff from '@/lib/utils/time-diff';
-import { LabelType, ListDetailType } from '@/lib/types/listType';
-import ListDetailInner from '../ListDetailInner';
-import * as styles from './ListInformation.css';
-import Comments from './Comments';
 import { UserProfileType } from '@/lib/types/userProfileType';
+import { LabelType, ListDetailType } from '@/lib/types/listType';
+import ListDetailInner from '@/app/user/[userId]/list/[listId]/_components/ListDetailInner';
+import * as styles from './ListInformation.css';
 
 function ListInformation() {
   const params = useParams<{ listId: string; userId: string }>();
@@ -34,11 +34,10 @@ function ListInformation() {
     enabled: !!params?.listId,
     retry: 0,
   });
-  console.log(list);
 
   //리스트 생성자 제외한 사람들만 콜라보레이터들로 설정
-
   const filteredCollaboratorsList = list?.collaborators.filter((item: UserProfileType) => item?.id !== list.ownerId);
+  //리스트 오너가 아니고 콜라보레이터인 경우에 권한을 설정하기 위한 변수
   const isCollaborator: boolean | undefined =
     list?.collaborators.some((item: UserProfileType) => item?.id === userId) && userId !== Number(params?.userId);
 
@@ -72,11 +71,11 @@ function ListInformation() {
       <div className={styles.wrapper}>
         <div className={styles.categoryWrapper}>
           <div className={styles.labelWrapper}>
-            <Label colorType="skyblue">음악</Label>
+            <Label colorType="skyblue">{list?.category}</Label>
           </div>
-          {list?.labels.map((item: LabelType, idx: number) => {
+          {list?.labels.map((item: LabelType) => {
             return (
-              <div className={styles.labelWrapper} key={idx.toString()}>
+              <div className={styles.labelWrapper} key={item.name}>
                 <Label colorType="blue">{`${item.name}`}</Label>
               </div>
             );
