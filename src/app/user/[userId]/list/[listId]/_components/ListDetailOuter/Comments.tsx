@@ -48,8 +48,6 @@ function Comments() {
     getNextPageParam: (lastPage) => (lastPage.hasNext ? lastPage.cursorId : null),
   });
 
-  console.log(commentsData);
-
   const comments = useMemo(() => {
     const totalCount = commentsData ? commentsData.pages[commentsData.pages.length - 1].totalCount : 0;
     const commentsList = commentsData ? commentsData.pages.flatMap(({ comments }) => comments) : [];
@@ -143,9 +141,9 @@ function Comments() {
               className={styles.formInput}
               value={comment}
               onChange={handleInputChange}
-              placeholder={userId === null ? '로그인 후 댓글을 작성할 수 있습니다.' : ''}
+              placeholder={userId === 0 ? '로그인 후 댓글을 작성할 수 있습니다.' : ''}
             />
-            {comment && !!userId && (
+            {comment && userId !== 0 && (
               <button type="submit" className={styles.formButton}>
                 게시
               </button>
