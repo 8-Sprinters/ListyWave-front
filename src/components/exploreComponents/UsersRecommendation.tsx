@@ -7,6 +7,7 @@ import getRecommendedUsers from '@/app/_api/explore/getRecommendedUsers';
 
 import * as styles from './UsersRecommendation.css';
 import { UsersRecommendationItemType } from '@/lib/types/exploreType';
+import CloseButton from '/public/icons/close_x_gray.svg';
 
 function UsersRecommendation() {
   const wrapperRef = useRef<HTMLUListElement>(null);

@@ -9,6 +9,7 @@ interface CollaboratorsProps {
 }
 
 function Collaborators({ collaborators }: CollaboratorsProps) {
+  //콜라보레이터 목록이 3명 이상일 경우, 3명의 프로필 이미지만 보이고 그 이외에는 +로 처리하기 위한 로직
   const MAX_NUMBER = 3;
   const collaboratorsList =
     collaborators && collaborators?.length >= MAX_NUMBER ? collaborators?.slice(0, MAX_NUMBER) : collaborators;
@@ -30,20 +31,16 @@ function Collaborators({ collaborators }: CollaboratorsProps) {
             {collaboratorsList?.map((item: UserProfileType) => {
               return (
                 <div key={item.id}>
-                  {item.profileImageUrl ? (
-                    <Image
-                      className={styles.profileImage}
-                      src={item.profileImageUrl}
-                      alt="사용자 프로필 이미지"
-                      width={35}
-                      height={35}
-                      style={{
-                        objectFit: 'cover',
-                      }}
-                    />
-                  ) : (
-                    <div className={styles.defaultProfileImage}></div>
-                  )}
+                  <Image
+                    className={styles.profileImage}
+                    src={item.profileImageUrl}
+                    alt="사용자 프로필 이미지"
+                    width={35}
+                    height={35}
+                    style={{
+                      objectFit: 'cover',
+                    }}
+                  />
                 </div>
               );
             })}
