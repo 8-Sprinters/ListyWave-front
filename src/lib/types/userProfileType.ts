@@ -27,6 +27,6 @@ export type UserProfileInfoType = Pick<UserType, 'nickname' | 'description' | 'p
 
 //프로필수정 인풋 타입
 export interface UserProfileEditType extends UserProfileInfoType {
-  newBackgroundImage: FileList | null;
-  newProfileImage: FileList | null;
+  newBackgroundFileList: FileList | null;
+  newProfileFileList: FileList | null;
 }
