@@ -1,7 +1,7 @@
 'use client';
 import { useEffect, useState } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
-import { useMutation, useQuery } from '@tanstack/react-query';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { useRouter } from 'next/navigation';
 
 import { UserProfileEditType, UserType } from '@/lib/types/userProfileType';
@@ -53,10 +53,9 @@ export default function ProfilePage() {
     });
     setProfilePreviewUrl(userData?.profileImageUrl ?? '');
     setBackgroundPreviewUrl(userData?.backgroundImageUrl ?? '');
-  }, [userData, methods.reset]);
+  }, [userData]);
 
   //미리보기 이미지 변경
-
   const handleProfileChange = async (file: File) => {
     const compressedFile = await compressFile(file);
     fileToBase64(compressedFile, setProfilePreviewUrl);
@@ -68,11 +67,15 @@ export default function ProfilePage() {
   };
 
   //프로필 수정 저장
+  const queryClient = useQueryClient();
+
   const { mutate: updateProfileMutate, isPending } = useMutation({
     mutationFn: updateProfile,
     onSuccess: () => {
       toasting({ type: 'success', txt: editProfileToastMessage.editProfileSuccess });
-      methods.reset({}, { keepValues: true });
+      queryClient.invalidateQueries({
+        queryKey: [QUERY_KEYS.userOne, user.id],
+      });
     },
     onError: () => {
       toasting({ type: 'error', txt: editProfileToastMessage.editProfileError });
