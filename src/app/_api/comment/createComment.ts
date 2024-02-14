@@ -1,6 +1,6 @@
 import axiosInstance from '@/lib/axios/axiosInstance';
 
-export const createComment = async (listId: string | undefined, data: string) => {
+async function createComment(listId: string | undefined, data: string) {
   const response = await axiosInstance.post(
     `/lists/${listId}/comments`,
     {
@@ -13,4 +13,6 @@ export const createComment = async (listId: string | undefined, data: string) =>
     }
   );
   return response.data;
-};
+}
+
+export default createComment;

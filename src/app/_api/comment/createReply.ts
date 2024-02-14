@@ -6,7 +6,7 @@ interface createReplyType {
   data: string;
 }
 
-export const createReply = async ({ listId, commentId, data }: createReplyType) => {
+async function createReply({ listId, commentId, data }: createReplyType) {
   console.log(data);
 
   if (commentId === null) {
@@ -26,4 +26,6 @@ export const createReply = async ({ listId, commentId, data }: createReplyType) 
   );
 
   return response.data;
-};
+}
+
+export default createReply;
