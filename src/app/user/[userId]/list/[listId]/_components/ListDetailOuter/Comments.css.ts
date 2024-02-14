@@ -5,7 +5,7 @@ import { vars } from '@/styles/theme.css';
 
 export const wrapper = style({
   height: 'auto',
-  padding: '20px 24px 80px',
+  padding: '0 27.5px 80px',
 });
 
 export const formWrapperOuter = style({
@@ -20,7 +20,7 @@ export const formWrapperOuter = style({
   right: 0,
 
   display: 'flex',
-  alignItems: 'center',
+  alignItems: 'flex-end',
   gap: '4px',
 
   border: `1px solid ${vars.color.gray5}`,
@@ -31,7 +31,7 @@ export const formWrapperOuter = style({
 export const formWrapperInner = style({
   width: '100%',
   height: 'auto',
-  padding: '8px 12px',
+  padding: '7px 12px',
 
   display: 'flex',
   flexDirection: 'column',
@@ -55,6 +55,8 @@ export const formInput = style({
   height: 'auto',
 
   flex: '1 0 0',
+
+  fontSize: '1.2rem',
   wordBreak: 'break-all',
   wordWrap: 'break-word',
   whiteSpace: 'pre-wrap',

@@ -4,7 +4,7 @@ import { body2, title3 } from '@/styles/font.css';
 /**@todo 공용폰트 스타일 적용 */
 
 export const wrapper = style({
-  padding: '48px 38px',
+  padding: '25px 32px 15px',
 });
 
 export const categoryWrapper = style({
@@ -40,7 +40,7 @@ export const listComponentTemporary = style({
 });
 
 export const bottomWrapper = style({
-  padding: '21px 24px',
+  padding: '21px 24px 25px',
 
   display: 'flex',
   justifyContent: 'space-between',
