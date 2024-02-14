@@ -31,7 +31,7 @@ function ListInformation() {
     router.push('/');
   };
 
-  if (error && error?.response.status === 404) {
+  if (error && error?.message.includes('404')) {
     console.log(error);
     return (
       <Modal handleModalClose={handleSetOff}>
