@@ -19,6 +19,7 @@ import useMoveToPage from '@/hooks/useMoveToPage';
 import getUserOne from '@/app/_api/user/getUserOne';
 import { QUERY_KEYS } from '@/lib/constants/queryKeys';
 import { UserType } from '@/lib/types/userProfileType';
+import numberFormatter from '@/lib/utils/numberFormatter';
 
 export default function Profile({ userId }: { userId: number }) {
   const [hasError, setHasError] = useState(false);
@@ -82,11 +83,15 @@ export default function Profile({ userId }: { userId: number }) {
             </div>
             <div className={styles.follow}>
               <div className={styles.text} onClick={onClickMoveToPage(`/user/${userId}/followings`)}>
-                <span className={styles.count}>{data?.followingCount.toLocaleString('ko-KR')}</span>
+                <span className={styles.count}>
+                  {data?.followingCount !== undefined && numberFormatter(data.followingCount, 'ko')}
+                </span>
                 <span>팔로잉</span>
               </div>
               <div className={styles.text} onClick={onClickMoveToPage(`/user/${userId}/followers`)}>
-                <span className={styles.count}>{data?.followerCount.toLocaleString('ko-KR')}</span>
+                <span className={styles.count}>
+                  {data?.followerCount !== undefined && numberFormatter(data?.followerCount, 'ko')}
+                </span>
                 <span>팔로워</span>
               </div>
             </div>
