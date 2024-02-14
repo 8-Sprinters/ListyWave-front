@@ -53,6 +53,13 @@ export default function ProfileForm({ userNickname, onProfileChange, onBackgroun
 
   const debouncedOnNicknameChange = debounce<typeof checkNickname>(checkNickname, 500);
 
+  const handleNicknameChange = (e: ChangeEvent<HTMLInputElement>) => {
+    nicknameRegister.onChange(e);
+    if (e.target.value && e.target.value !== userNickname) {
+      debouncedOnNicknameChange(e.target.value);
+    }
+  };
+
   //글자수세기
   const watchDescription = useWatch({ control, name: 'description' });
 
@@ -100,10 +107,7 @@ export default function ProfileForm({ userNickname, onProfileChange, onBackgroun
               autoComplete="off"
               {...nicknameRegister}
               onChange={(e) => {
-                nicknameRegister.onChange(e);
-                if (e.target.value && e.target.value !== userNickname) {
-                  debouncedOnNicknameChange(e.target.value);
-                }
+                handleNicknameChange(e);
               }}
             />
           </div>

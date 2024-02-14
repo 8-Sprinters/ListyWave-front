@@ -6,6 +6,8 @@ import Label from '@/components/Label/Label';
 import ImageUploader from './ImageUploader';
 import * as styles from './ItemLayout.css';
 
+const MIN_ITEM_COUNT = 3;
+
 interface ItemLayoutProps {
   index: number;
   handleDeleteItem: () => void;
@@ -31,7 +33,6 @@ export default function ItemLayout({
   imageInput,
   imagePreview,
 }: ItemLayoutProps) {
-  const MIN_ITEM_COUNT = 3; /** TODO이걸 안에 아니면 밖에? */
   return (
     <>
       <div className={styles.itemHeader}>
