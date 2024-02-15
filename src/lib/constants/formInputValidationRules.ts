@@ -32,3 +32,22 @@ export const listLabelRules = {
   maxLengthRule: { length: 10, errorMessage: '라벨은 최대 10자까지 입력할 수 있어요.' },
   uniqueRule: { errorMessage: '같은 라벨을 2개 이상 등록할 수 없어요.' },
 };
+
+//profile
+export const nicknameRules = {
+  required: '닉네임을 입력해주세요.',
+  maxLength: { value: 10, message: '닉네임은 최대 10자까지 입력할 수 있어요.' },
+  pattern: {
+    value: /^[a-zA-Zㄱ-ㅎㅏ-ㅣ가-힣]*$/,
+    message: '한글과 영어만 입력할 수 있어요.',
+  },
+};
+
+export const profileDescriptionRules = {
+  maxLength: { value: 160, message: '소개는 최대 160자까지 입력할 수 있어요.' },
+};
+
+export const nicknameDuplicateRules = {
+  type: 'duplicated',
+  message: '이미 사용중인 닉네임이에요.',
+};

@@ -14,6 +14,7 @@ import ShareIcon from '/public/icons/share.svg';
 import EtcIcon from '/public/icons/etc.svg';
 import { ItemType } from '@/lib/types/listType';
 import { UserProfileType } from '@/lib/types/userProfileType';
+
 interface BottomSheetOptionsProps {
   key: string;
   title: string;
