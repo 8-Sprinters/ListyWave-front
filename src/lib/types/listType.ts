@@ -1,3 +1,5 @@
+import { UserProfileType } from './userProfileType';
+
 // 아이템 생성 타입
 export interface ItemCreateType {
   rank: number;
@@ -18,6 +20,19 @@ export interface ListCreateType {
   isPublic: boolean;
   backgroundColor: string;
   items: ItemCreateType[];
+}
+
+// 리스트 수정 타입
+export interface ListEditType {
+  ownerId: number;
+  category: string;
+  labels: string[];
+  collaboratorIds: UserProfileType[];
+  title: string;
+  description: string;
+  isPublic: boolean;
+  backgroundColor: string;
+  items: ItemType[];
 }
 
 export interface ListIdType {
@@ -43,44 +58,6 @@ export interface PresignedUrlType {
 
 export type PresignedUrlListType = PresignedUrlType[];
 
-//리스트 상세조회 타입
-export interface LabelType {
-  id: number;
-  name: string;
-}
-
-export interface CollaboratorType {
-  id?: number;
-  userId?: number;
-  userProfileImageUrl: string;
-}
-
-export interface ListItemsType {
-  id: number;
-  rank: number;
-  title: string;
-  comment: string;
-  link: string;
-  imageUrl: string;
-}
-
-export interface ListDetailType {
-  category: string;
-  labels: LabelType[];
-  title: string;
-  description: string;
-  createdDate: Date;
-  lastUpdatedDated: Date;
-  ownerId: number;
-  ownerProfileImageUrl: string;
-  Collaborators: CollaboratorType[];
-  items: ListItemsType[];
-  isCollected: boolean;
-  isPublic: boolean;
-  backgroundColor: string;
-  collectCount: number;
-  viewCount: number;
-}
 // 리스트 전체 조회 타입
 export interface AllListType {
   cursorId: number;
@@ -96,11 +73,35 @@ export interface ListType {
   listItems: Omit<ItemType, 'comment' | 'link'>[];
 }
 
+// 리스트 상세조회 타입
 export interface ItemType {
   id: number;
-  ranking: number;
+  rank: number;
   title: string;
   comment?: string;
   link?: string;
   imageUrl?: string;
+}
+
+export interface LabelType {
+  name: string;
+}
+
+export interface ListDetailType {
+  category: string;
+  labels: LabelType[];
+  title: string;
+  description: string;
+  createdDate: Date;
+  lastUpdatedDate: Date;
+  ownerId: number;
+  ownerNickname: string;
+  ownerProfileImageUrl: string;
+  collaborators: UserProfileType[];
+  items: ItemType[];
+  isCollected: boolean;
+  isPublic: boolean;
+  backgroundColor: string;
+  collectCount: number;
+  viewCount: number;
 }

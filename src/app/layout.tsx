@@ -34,6 +34,7 @@ export default function TempLayout({ children }: { children: ReactNode }) {
         <QueryClientProvider client={queryClient}>
           <div id="modal-root" />
           <div>{children}</div>
+          <ToastContainer />
         </QueryClientProvider>
       </body>
     </html>

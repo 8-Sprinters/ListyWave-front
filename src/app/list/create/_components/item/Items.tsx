@@ -26,7 +26,11 @@ const ensureHttp = (link: string) => {
 //   return domain;
 // };
 
-export default function Items() {
+interface ItemsProps {
+  disabled?: boolean;
+}
+
+export default function Items({ disabled }: ItemsProps) {
   const [currentLink, setCurrentLink] = useState<string>('');
   const {
     register,
@@ -107,6 +111,7 @@ export default function Items() {
                             autoComplete="off"
                             maxLength={100}
                             {...register(`items.${index}.title`, itemTitleRules)}
+                            disabled={disabled}
                           />
                         }
                         commentTextArea={
