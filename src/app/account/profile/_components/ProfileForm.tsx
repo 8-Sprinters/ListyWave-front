@@ -6,6 +6,7 @@ import ErrorIcon from '/public/icons/error_x.svg';
 
 import checkNicknameDuplication from '@/app/_api/user/checkNicknameDuplication';
 
+import useDebounce from '@/hooks/useDebounce';
 import { profilePlaceholder } from '@/lib/constants/placeholder';
 import {
   nicknameRules,
@@ -14,7 +15,6 @@ import {
 } from '@/lib/constants/formInputValidationRules';
 import { UserProfileEditType } from '@/lib/types/userProfileType';
 import toastMessage from '@/lib/constants/toastMessage';
-import debounce from '@/lib/utils/debounce';
 import toasting from '@/lib/utils/toasting';
 
 import * as styles from './ProfileForm.css';
@@ -51,8 +51,7 @@ export default function ProfileForm({ userNickname, onProfileChange, onBackgroun
     },
   });
 
-  const debouncedOnNicknameChange = debounce<typeof checkNickname>(checkNickname, 500);
-
+  const debouncedOnNicknameChange = useDebounce<typeof checkNickname>(checkNickname, 500);
   const handleNicknameChange = (e: ChangeEvent<HTMLInputElement>) => {
     nicknameRegister.onChange(e);
     if (e.target.value && e.target.value !== userNickname) {
