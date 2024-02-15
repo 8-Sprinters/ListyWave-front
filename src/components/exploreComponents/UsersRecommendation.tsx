@@ -29,7 +29,6 @@ function UsersRecommendation() {
     <div className={styles.wrapper}>
       {usersList?.length !== 0 && (
         <>
-          <div className={styles.userRecommendationTitle}>사용자 추천</div>
           <ul className={styles.recommendUsersListWrapper} ref={wrapperRef}>
             {usersList?.map((item: UsersRecommendationType) => {
               return (
