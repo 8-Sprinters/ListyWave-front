@@ -4,9 +4,9 @@ import Image from 'next/image';
 import { useQuery } from '@tanstack/react-query';
 import { QUERY_KEYS } from '@/lib/constants/queryKeys';
 import getRecommendedUsers from '@/app/_api/explore/getRecommendedUsers';
+import { UsersRecommendationType } from '@/lib/types/exploreType';
 
 import * as styles from './UsersRecommendation.css';
-import { UsersRecommendationType } from './_mockdata/mockdataType';
 
 function UsersRecommendation() {
   const wrapperRef = useRef<HTMLUListElement>(null);

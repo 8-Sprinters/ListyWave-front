@@ -1,4 +1,5 @@
 import { style, createVar } from '@vanilla-extract/css';
+import { vars } from '@/styles/theme.css';
 
 export const imageUrl = createVar();
 
@@ -48,7 +49,7 @@ export const profileImage = style({
   height: '5rem',
 
   borderRadius: '50%',
-  border: '2px solid #FFF',
+  border: `2px solid ${vars.color.white}`,
 });
 
 export const info = style({
@@ -66,7 +67,7 @@ export const user = style({
 export const nickName = style({
   fontSize: '2rem',
   fontWeight: ' 700',
-  color: '#202020',
+  color: vars.color.black,
   letterSpacing: '-0.6px',
 });
 
@@ -99,7 +100,7 @@ export const description = style({
 
   fontSize: '1.2rem',
   fontWeight: '500',
-  color: '#333',
+  color: vars.color.black,
   lineHeight: '1.6rem',
   letterSpacing: '-0.36px',
 });

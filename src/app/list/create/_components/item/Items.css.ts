@@ -47,6 +47,8 @@ export const title = style([
   placeholder,
   {
     flexGrow: 1,
+    backgroundColor: 'transparent',
+    ':disabled': { cursor: 'not-allowed' },
   },
 ]);
 

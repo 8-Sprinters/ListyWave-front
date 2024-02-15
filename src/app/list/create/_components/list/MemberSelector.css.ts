@@ -58,10 +58,6 @@ export const item = style({
   justifyContent: 'space-between',
 });
 
-export const profileImage = style({
-  borderRadius: '50%',
-});
-
 export const searchIcon = style({
   width: '15.7px',
   height: '15.7px',
@@ -80,4 +76,12 @@ export const checkedIcon = style({
 export const noResultMessage = style({
   textAlign: 'center',
   color: '#909090',
+});
+
+export const error = style({
+  margin: '10px',
+
+  fontSize: '1.5rem',
+
+  color: 'red',
 });

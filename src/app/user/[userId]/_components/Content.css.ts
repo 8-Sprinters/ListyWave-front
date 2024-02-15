@@ -1,4 +1,5 @@
 import { style, styleVariants } from '@vanilla-extract/css';
+import { vars } from '@/styles/theme.css';
 
 export const container = style({
   width: '100%',
@@ -7,7 +8,7 @@ export const container = style({
   position: 'absolute',
   top: 0,
 
-  backgroundColor: '#FFF',
+  backgroundColor: vars.color.white,
   borderTopLeftRadius: '2.5rem',
   borderTopRightRadius: '2.5rem',
 });
@@ -27,10 +28,11 @@ export const button = style({
   width: '100%',
   height: '100%',
 
-  backgroundColor: 'white',
+  backgroundColor: vars.color.white,
   borderTop: '1px solid rgba(0, 0, 0, 0.25)',
   borderBottom: '1px solid rgba(0, 0, 0, 0.10)',
 
+  /** TODO - 공용폰트 body large 적용 */
   fontSize: '1.6rem',
   fontWeight: '500',
 });
@@ -68,4 +70,8 @@ export const variantLine = styleVariants({
       left: '57%',
     },
   ],
+});
+
+export const target = style({
+  height: '1px',
 });

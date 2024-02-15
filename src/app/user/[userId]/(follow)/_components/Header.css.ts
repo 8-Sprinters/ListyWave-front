@@ -3,8 +3,7 @@ import { style } from '@vanilla-extract/css';
 export const header = style({
   width: '100%',
   height: '90px',
-  paddingLeft: '20px',
-  paddingRight: '20px',
+  padding: '27px',
 
   position: 'sticky',
   top: '0',
@@ -12,9 +11,7 @@ export const header = style({
   zIndex: '10',
 
   display: 'flex',
-  flexDirection: 'row',
   alignItems: 'center',
-  justifyContent: 'space-between',
 
   backgroundColor: '#fff',
 
@@ -22,15 +19,7 @@ export const header = style({
 });
 
 export const headerTitle = style({
+  margin: 'auto',
+
   fontSize: '2rem',
-});
-
-export const headerNextButton = style({
-  fontSize: '1.6rem',
-  color: '#AFB1B6',
-  cursor: 'default',
-});
-
-export const headerNextButtonActive = style({
-  fontSize: '1.6rem',
 });

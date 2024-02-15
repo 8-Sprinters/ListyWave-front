@@ -1,4 +1,5 @@
 import { style } from '@vanilla-extract/css';
+import { vars } from '@/styles/theme.css';
 
 export const container = style({
   padding: '2.1rem 0 1.5rem 1.5rem',
@@ -17,19 +18,20 @@ export const container = style({
 export const button = style({
   padding: '0.8rem 1.2rem',
 
-  backgroundColor: '#FFF',
+  backgroundColor: vars.color.white,
   borderRadius: '5rem',
-  border: '1px solid #DEDEDE',
+  border: `1px solid ${vars.color.gray5}`,
 
+  /** TODO - 공용폰트 body large 적용 */
   fontSize: '1.6rem',
-  fontWeight: '500',
-  color: '#828282',
+  fontWeight: '400',
+  color: vars.color.gray9,
   letterSpacing: '-0.48px',
   whiteSpace: 'nowrap',
 });
 
 export const variant = style({
-  backgroundColor: '#0047FF',
-  color: '#FFF',
+  backgroundColor: vars.color.blue,
+  color: vars.color.white,
   border: 'none',
 });

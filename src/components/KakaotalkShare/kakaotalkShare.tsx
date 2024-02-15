@@ -1,13 +1,12 @@
 'use client';
-
-import { CollaboratorType } from '@/lib/types/listType';
+import { UserProfileType } from '@/lib/types/userProfileType';
 
 interface kakaotalkShareProps {
   title: string;
   description: string;
   image?: string;
   listItem?: { title: string }[];
-  collaborators: CollaboratorType[];
+  collaborators: UserProfileType[];
   userNickname: string;
   listId: string;
 }
