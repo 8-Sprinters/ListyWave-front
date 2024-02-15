@@ -8,9 +8,9 @@ import getRecommendedLists from '@/app/_api/explore/getRecommendedLists';
 import { QUERY_KEYS } from '@/lib/constants/queryKeys';
 import { useUser } from '@/store/useUser';
 import * as styles from './ListsRecommendation.css';
-import { ListRecommendationType } from './_mockdata/mockdataType';
 import Label from '@/components/Label/Label';
 import { assignInlineVars } from '@vanilla-extract/dynamic';
+import { ListRecommendationType } from '@/lib/types/exploreType';
 
 function ListRecommendation() {
   const router = useRouter();
