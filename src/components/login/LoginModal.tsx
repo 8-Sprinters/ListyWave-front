@@ -3,7 +3,7 @@
 /**
  TODO
  - [ ] 로그인 만료 확인, refreshToken(추후)
- - [ ] 로그인 페이지 UI
+ - [x] 로그인 페이지 UI (모달)
  */
 
 import Link from 'next/link';
