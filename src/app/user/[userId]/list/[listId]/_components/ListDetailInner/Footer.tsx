@@ -2,8 +2,8 @@
 
 import { useParams, useRouter } from 'next/navigation';
 import { MouseEvent, useState } from 'react';
-import BottomSheet from '@/app/[userNickname]/[listId]/_components/BottomSheet/BottomSheet';
-import ModalPortal from '@/components/ModalPortal';
+import BottomSheet from '@/app/user/[userId]/list/[listId]/_components/BottomSheet/BottomSheet';
+import ModalPortal from '@/components/modal-portal';
 import saveImageFromHtml from '@/lib/utils/saveImageFromHtml';
 import copyUrl from '@/lib/utils/copyUrl';
 import toasting from '@/lib/utils/toasting';
@@ -27,7 +27,7 @@ interface SheetTypeProps {
 
 interface FooterProps {
   category: string;
-  listId: string;
+  listId: string | null;
   title: string;
   description: string;
   items: ItemType[];

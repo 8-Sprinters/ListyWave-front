@@ -1,8 +1,11 @@
 import { style } from '@vanilla-extract/css';
+import { vars } from '@/styles/theme.css';
+
+/**@todo 공용폰트 스타일 적용 */
 
 export const wrapper = style({
   height: 'auto',
-  padding: '20px 24px 80px',
+  padding: '0 27.5px 80px',
 });
 
 export const formWrapperOuter = style({
@@ -17,25 +20,25 @@ export const formWrapperOuter = style({
   right: 0,
 
   display: 'flex',
-  alignItems: 'center',
+  alignItems: 'flex-end',
   gap: '4px',
 
-  border: '1px solid rgba(0, 0, 0, 0.10)',
-  background: '#fff',
-  zIndex: 30,
+  border: `1px solid ${vars.color.gray5}`,
+  background: vars.color.white,
+  zIndex: 1,
 });
 
 export const formWrapperInner = style({
   width: '100%',
   height: 'auto',
-  padding: '8px 12px',
+  padding: '7px 12px',
 
   display: 'flex',
   flexDirection: 'column',
   gap: '4px',
 
   borderRadius: '50px',
-  border: '1px solid #D9D9D9',
+  border: `1px solid ${vars.color.gray5}`,
 });
 
 export const activeFormWrapper = style({
@@ -52,6 +55,8 @@ export const formInput = style({
   height: 'auto',
 
   flex: '1 0 0',
+
+  fontSize: '1.2rem',
   wordBreak: 'break-all',
   wordWrap: 'break-word',
   whiteSpace: 'pre-wrap',
@@ -65,7 +70,7 @@ export const replyNickname = style({
 
   fontSize: '1.2rem',
   fontWeight: 400,
-  color: '#AFB1B6',
+  color: vars.color.gray7,
 });
 
 export const formButton = style({
@@ -91,7 +96,11 @@ export const profileImage = style({
   flex: '0 0 1',
 
   borderRadius: '16px',
-  backgroundColor: '#909090',
+  backgroundColor: vars.color.gray9,
+});
+
+export const commentWrapper = style({
+  marginBottom: '20px',
 });
 
 export const activeReplyWrapper = style({

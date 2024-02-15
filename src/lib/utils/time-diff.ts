@@ -14,7 +14,7 @@
 
 export default function timeDiff(dateString: string) {
   const dateObject = new Date(dateString);
-  const now = new Date(new Date().getTime() + 9 * 60 * 60 * 1000);
+  const now = new Date(new Date().getTime() - 9 * 60 * 60 * 1000);
   const diff = (now.getTime() - dateObject.getTime()) / 1000;
 
   const year = dateObject.getFullYear().toString();

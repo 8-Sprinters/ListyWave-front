@@ -11,7 +11,7 @@ interface UserPresignedUrlsType {
 }
 
 interface UpdateProfileParams {
-  userId: Number;
+  userId: number;
   data: UserProfileEditType;
 }
 
