@@ -32,6 +32,7 @@
     "@vanilla-extract/next-plugin": "^2.3.2",
     "@yaireo/tagify": "^4.19.0",
     "axios": "^1.6.5",
+    "browser-image-compression": "^2.0.2",
     "cheerio": "^1.0.0-rc.12",
     "copy-to-clipboard": "^3.3.3",
     "html-to-image": "^1.11.11",

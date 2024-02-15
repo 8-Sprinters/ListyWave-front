@@ -11,3 +11,9 @@ export const itemPlaceholder = {
   comment: '아이템에 대한 소개, 선정 이유를 덧붙여보세요.',
   link: 'https://listy-wave.com',
 };
+
+//profile
+export const profilePlaceholder = {
+  nickname: '닉네임을 입력해주세요. (최대10자)',
+  description: '나를 소개해주세요.',
+};

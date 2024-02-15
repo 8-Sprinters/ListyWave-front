@@ -124,7 +124,7 @@ export default function Items({ disabled }: ItemsProps) {
                         }
                         commentLength={
                           <p className={commentError ? styles.error : styles.countLength}>
-                            ({watchItems[index]?.comment?.length ?? 0}/100)
+                            {watchItems[index]?.comment?.length ?? 0}/100
                           </p>
                         }
                         linkModal={
