@@ -15,9 +15,11 @@ import { QUERY_KEYS } from '@/lib/constants/queryKeys';
 import { CommentType } from '@/lib/types/commentType';
 import { UserType } from '@/lib/types/userProfileType';
 import { useUser } from '@/store/useUser';
+import DefaultProfile from '/public/images/mock_profile.png';
 
 import * as styles from './Comments.css';
 import CancelButton from '/public/icons/cancel_button.svg';
+import { imageListItemBarClasses } from '@mui/material';
 
 function Comments() {
   const [activeNickname, setActiveNickname] = useState<string | null | undefined>(null);
@@ -25,6 +27,8 @@ function Comments() {
   const [comment, setComment] = useState<string>('');
   const params = useParams<{ listId: string }>();
   const queryClient = useQueryClient();
+
+  const [imgSrc, setImgSrc] = useState(false);
 
   //zustand로 관리하는 user정보 불러오기
   const { user } = useUser();
@@ -121,6 +125,10 @@ function Comments() {
     createCommentMutation.mutate();
   };
 
+  const handleImageError = () => {
+    setImgSrc(false);
+  };
+
   //무한 스크롤시 필요한 쿼리 리셋함수
   useEffect(() => {
     return () => {
@@ -135,7 +143,7 @@ function Comments() {
     <div className={styles.wrapper}>
       <div className={styles.formWrapperOuter}>
         <Image
-          src={userInformation?.profileImageUrl}
+          src={imgSrc ? `${userInformation?.profileImageUrl}` : '/public/images/mock_profile.png'}
           alt="프로필 이미지"
           width={36}
           height={36}
@@ -143,6 +151,7 @@ function Comments() {
           style={{
             objectFit: 'cover',
           }}
+          onError={handleImageError}
         />
         <div className={`${styles.formWrapperInner} ${!!activeNickname ? styles.activeFormWrapper : ''}`}>
           {activeNickname && (
