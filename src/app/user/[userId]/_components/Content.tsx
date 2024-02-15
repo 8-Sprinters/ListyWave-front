@@ -17,8 +17,8 @@ import BlueLineLongIcon from '/public/icons/blue_line_long.svg';
 import Card from './Card';
 import Categories from './Categories';
 
-import { getUserOne } from '@/app/_api/user/getUserOne';
-import { getAllList } from '@/app/_api/list/getAllList';
+import getUserOne from '@/app/_api/user/getUserOne';
+import getAllList from '@/app/_api/list/getAllList';
 
 import { QUERY_KEYS } from '@/lib/constants/queryKeys';
 import { UserType } from '@/lib/types/userProfileType';

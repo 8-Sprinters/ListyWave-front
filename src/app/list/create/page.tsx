@@ -9,7 +9,7 @@ import CreateItem from '@/app/list/create/_components/CreateItem';
 import CreateList from '@/app/list/create/_components/CreateList';
 import { ItemImagesType, ListCreateType } from '@/lib/types/listType';
 import toasting from '@/lib/utils/toasting';
-import { creaetListToastMessage } from '@/lib/constants/toastMessage';
+import toastMessage from '@/lib/constants/toastMessage';
 import createList from '@/app/_api/list/createList';
 import uploadItemImages from '@/app/_api/list/uploadItemImages';
 
@@ -106,7 +106,7 @@ export default function CreatePage() {
     retry: 3,
     retryDelay: 1000,
     onError: () => {
-      toasting({ type: 'error', txt: creaetListToastMessage.uploadImageError });
+      toasting({ type: 'error', txt: toastMessage.ko.uploadImageError });
     },
     onSettled: () => {
       router.push(`/user/${formatData().listData.ownerId}/list/${newListId}`);
@@ -128,7 +128,7 @@ export default function CreatePage() {
       });
     },
     onError: () => {
-      toasting({ type: 'error', txt: creaetListToastMessage.createListError });
+      toasting({ type: 'error', txt: toastMessage.ko.createListError });
     },
   });
 

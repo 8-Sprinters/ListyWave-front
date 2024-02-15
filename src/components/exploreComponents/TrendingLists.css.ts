@@ -41,6 +41,7 @@ export const swiperContainer = style({
   height: '100%',
 
   background: blackLayer,
+  cursor: 'pointer',
 });
 
 export const trendingListTitle = style({

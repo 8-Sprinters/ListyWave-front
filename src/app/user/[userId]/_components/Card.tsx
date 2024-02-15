@@ -36,7 +36,7 @@ export default function Card({ list, isOwner }: CardProps) {
         {list.listItems.map((item) => (
           <li key={item.id} className={styles.item}>
             <span className={styles.rank}>
-              {item.ranking}
+              {item.rank}
               {'.'}
             </span>
             <span className={styles.itemTitle}>{item.title}</span>
