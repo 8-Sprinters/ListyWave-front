@@ -15,8 +15,6 @@ function UsersRecommendation() {
     queryFn: () => getRecommendedUsers(),
   });
 
-  console.log(usersList);
-
   const handleScrollToRight = () => {
     if (wrapperRef.current) {
       wrapperRef.current.scrollTo({
