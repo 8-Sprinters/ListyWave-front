@@ -9,7 +9,7 @@ import CommentsSkeleton from './CommentsSkeleton';
 import createComment from '@/app/_api/comment/createComment';
 import createReply from '@/app/_api/comment/createReply';
 import getComments from '@/app/_api/comment/getComments';
-import { getUserOne } from '@/app/_api/user/getUserOne';
+import getUserOne from '@/app/_api/user/getUserOne';
 import useIntersectionObserver from '@/hooks/useIntersectionObserver';
 import { QUERY_KEYS } from '@/lib/constants/queryKeys';
 import { CommentType } from '@/lib/types/commentType';
