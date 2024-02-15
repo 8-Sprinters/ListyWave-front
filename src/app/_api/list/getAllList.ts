@@ -1,7 +1,7 @@
 import axiosInstance from '@/lib/axios/axiosInstance';
 import { AllListType } from '@/lib/types/listType';
 
-export async function getAllList(userId: number, type: string, category: string, cursorId?: number) {
+const getAllList = async (userId: number, type: string, category: string, cursorId?: number) => {
   const params = new URLSearchParams({
     type,
     category,
@@ -13,6 +13,7 @@ export async function getAllList(userId: number, type: string, category: string,
   }
 
   const response = await axiosInstance.get<AllListType>(`/users/${userId}/lists?${params.toString()}`);
-
   return response.data;
-}
+};
+
+export default getAllList;
