@@ -18,7 +18,7 @@ type LinkProps = PreviewBaseProps & {
 
 type ImageProps = PreviewBaseProps & {
   type: 'image';
-  imageFile: FileList | String;
+  imageFile: FileList | string;
 };
 
 type PreviewProps = LinkProps | ImageProps;
