@@ -4,6 +4,7 @@ import Image from 'next/image';
 import { useQuery } from '@tanstack/react-query';
 import { QUERY_KEYS } from '@/lib/constants/queryKeys';
 import getRecommendedUsers from '@/app/_api/explore/getRecommendedUsers';
+import FollowButton from './FollowButton';
 import { UsersRecommendationType } from '@/lib/types/exploreType';
 
 import * as styles from './UsersRecommendation.css';
@@ -79,12 +80,7 @@ function UserRecommendListItem({ data, handleScrollToRight }: UserRecommendListI
           />
         </div>
         <h6 className={styles.recommendUserNickname}>{data.nickname}</h6>
-        <button
-          className={`${styles.followButtonDefault} ${isFollowing === true ? styles.followButtonFollowing : ''}`}
-          onClick={handleFollowButtonClick}
-        >
-          <span>{isFollowing ? '팔로잉' : '팔로우'}</span>
-        </button>
+        <FollowButton isFollowing={isFollowing} onClick={handleFollowButtonClick} />
       </div>
     </>
   );
