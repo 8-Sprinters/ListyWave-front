@@ -21,6 +21,8 @@ function ListRecommendation() {
     staleTime: 60 * 1000,
   });
 
+  console.log(result);
+
   const recommendLists = result?.lists;
 
   //zustand로 관리하는 user정보 불러오기
