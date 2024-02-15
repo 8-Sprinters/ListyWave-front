@@ -4,8 +4,8 @@
  TODO
  - [x] 로그아웃 기능 구현(카카오만)
  - [ ] oauth type 전달
- - [ ] 로그아웃 모달
- - [ ] 로그아웃 기능 마이페이지로 이동
+ - [x] 로그아웃 모달
+ - [x] 로그아웃 기능 마이페이지로 이동
  - [x] 로그아웃 후 뒤로가기를 누른경우 확인
  */
 
@@ -13,8 +13,14 @@ import { useRouter } from 'next/navigation';
 import { AxiosError } from 'axios';
 
 import axiosInstance from '@/lib/axios/axiosInstance';
-import { useUser } from '@/store/useUser';
 import toasting from '@/lib/utils/toasting';
+import { useUser } from '@/store/useUser';
+
+import Modal from '@/components/Modal/Modal';
+
+interface LogOutModalProps {
+  handleSetOff: () => void;
+}
 
 const oauthType = {
   kakao: 'kakao',
@@ -22,7 +28,7 @@ const oauthType = {
   google: 'google',
 };
 
-export default function LogoutPage() {
+export default function LogOutModal({ handleSetOff }: LogOutModalProps) {
   const router = useRouter();
   const { logoutUser } = useUser();
 
@@ -43,9 +49,11 @@ export default function LogoutPage() {
   };
 
   return (
-    <div>
-      로그아웃 임시페이지
-      <div onClick={handleLogout}>로그아웃 하기</div>
-    </div>
+    <Modal handleModalClose={handleSetOff}>
+      <Modal.Title>로그아웃 하시나요?</Modal.Title>
+      <Modal.Button onCancel={handleSetOff} onClick={handleLogout}>
+        확인
+      </Modal.Button>
+    </Modal>
   );
 }
