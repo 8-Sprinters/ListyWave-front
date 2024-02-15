@@ -11,7 +11,7 @@ import fileToBase64 from '@/lib/utils/fileToBase64';
 import compressFile from '@/lib/utils/compressFile';
 import toastMessage from '@/lib/constants/toastMessage';
 import { useUser } from '@/store/useUser';
-import { getUserOne } from '@/app/_api/user/getUserOne';
+import getUserOne from '@/app/_api/user/getUserOne';
 import updateProfile from '@/app/_api/user/updateProfile';
 import Header from '@/components/Header/Header';
 import BlueButton from '@/components/BlueButton/BlueButton';

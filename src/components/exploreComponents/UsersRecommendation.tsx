@@ -6,12 +6,11 @@ import { QUERY_KEYS } from '@/lib/constants/queryKeys';
 import getRecommendedUsers from '@/app/_api/explore/getRecommendedUsers';
 
 import * as styles from './UsersRecommendation.css';
-import { UsersRecommendationItemType } from '@/lib/types/exploreType';
-import CloseButton from '/public/icons/close_x_gray.svg';
+import { UserProfileType } from '@/lib/types/userProfileType';
 
 function UsersRecommendation() {
   const wrapperRef = useRef<HTMLUListElement>(null);
-  const { data: usersList } = useQuery({
+  const { data: usersList } = useQuery<UserProfileType[]>({
     queryKey: [QUERY_KEYS.getRecommendedUsers],
     queryFn: () => getRecommendedUsers(),
   });
@@ -32,7 +31,7 @@ function UsersRecommendation() {
           <div className={styles.userRecommendationTitle}>사용자 추천</div>
           <ul className={styles.recommendUsersListWrapper} ref={wrapperRef}>
             {usersList &&
-              usersList?.map((item: UsersRecommendationItemType) => {
+              usersList?.map((item: UserProfileType) => {
                 return (
                   <li key={item.id}>
                     <UserRecommendListItem data={item} handleScrollToRight={handleScrollToRight} />
@@ -49,7 +48,7 @@ function UsersRecommendation() {
 export default UsersRecommendation;
 
 interface UserRecommendListItemProps {
-  data: UsersRecommendationItemType;
+  data: UserProfileType;
   handleScrollToRight: () => void;
 }
 
