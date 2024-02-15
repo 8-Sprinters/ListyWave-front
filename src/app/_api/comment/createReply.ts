@@ -1,12 +1,12 @@
 import axiosInstance from '@/lib/axios/axiosInstance';
 
-interface createReplyType {
+interface CreateReplyType {
   listId: number | undefined;
   commentId: number | undefined | null;
   data: string;
 }
 
-async function createReply({ listId, commentId, data }: createReplyType) {
+async function createReply({ listId, commentId, data }: CreateReplyType) {
   if (commentId === null) {
     return;
   }
