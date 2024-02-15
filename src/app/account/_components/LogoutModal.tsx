@@ -22,7 +22,7 @@ const oauthType = {
   google: 'google',
 };
 
-export default function LogOutModal({ handleSetOff }: LogOutModalProps) {
+export default function LogoutModal({ handleSetOff }: LogOutModalProps) {
   const router = useRouter();
   const { logoutUser } = useUser();
 
