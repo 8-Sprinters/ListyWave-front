@@ -179,7 +179,7 @@ export default function Items({ disabled }: ItemsProps) {
                           watchItems[index]?.imageUrl !== '' && (
                             <Preview
                               type="image"
-                              imageFile={watchItems[index]?.imageUrl?.[0]}
+                              imageFile={watchItems[index]?.imageUrl}
                               handleClearButtonClick={() => {
                                 setValue(`items.${index}.imageUrl`, '');
                               }}
