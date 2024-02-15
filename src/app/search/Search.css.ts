@@ -1,0 +1,40 @@
+import { style } from '@vanilla-extract/css';
+
+export const container = style({
+  display: 'flex',
+  flexDirection: 'column',
+  justifyContent: 'center',
+  padding: '1.6rem',
+  gap: '3rem',
+});
+
+export const searchArea = style({
+  display: 'flex',
+  flexDirection: 'column',
+  justifyContent: 'center',
+  gap: '3rem',
+});
+
+export const keywordWrapper = style({
+  display: 'flex',
+  flexDirection: 'row',
+  alignItems: 'center',
+});
+
+export const logoWrapper = style({
+  padding: '26px 0 12px',
+
+  display: 'flex',
+  justifyContent: 'center',
+});
+
+export const buttonResetStyle = style({
+  width: '24px',
+  height: '24px',
+
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center',
+
+  background: 'none',
+});

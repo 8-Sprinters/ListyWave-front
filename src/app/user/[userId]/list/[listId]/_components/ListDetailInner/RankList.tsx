@@ -26,7 +26,7 @@ export function SimpleList({ listData }: RankListProps) {
             }
           >
             {index === 0 && <CrownIcon className={styles.crownIcon} />}
-            <div className={styles.rankText}>{item.ranking}</div>
+            <div className={styles.rankText}>{item.rank}</div>
           </div>
           <div className={styles.titleText}>{item.title}</div>
         </div>

@@ -5,25 +5,6 @@ export const container = style({
   flexDirection: 'column',
 });
 
-export const keywordWrapper = style({
-  display: 'flex',
-  flexDirection: 'column',
-  gap: '1.6rem',
-  marginBottom: '3rem',
-});
-
-export const keywordLabel = style({
-  fontSize: '2.2rem',
-  fontWeight: '600',
-});
-
-export const keywordInput = style({
-  padding: '1.1rem',
-
-  backgroundColor: 'lightgray',
-  borderRadius: '50px',
-});
-
 export const categoryWrapper = style({
   display: 'flex',
   gap: '1rem',
@@ -36,11 +17,32 @@ export const categoryWrapper = style({
 });
 
 export const categoryItemWrapper = style({
+  position: 'relative',
+
   display: 'flex',
   flexDirection: 'column',
   alignItems: 'center',
   justifyContent: 'center',
   gap: '1.5rem',
+
+  cursor: 'pointer',
+});
+
+export const selectedIconWrapper = style({
+  width: '2.5rem',
+  height: '2.5rem',
+
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+
+  position: 'absolute',
+  top: '2rem',
+  zIndex: '2',
+});
+
+export const selectedIcon = style({
+  fill: '#ffffff',
 });
 
 export const itemImage = style({
@@ -49,6 +51,16 @@ export const itemImage = style({
 
   border: '1px solid lightgray',
   borderRadius: '8px',
+});
+
+export const selectedItemImage = style({
+  width: '6rem',
+  height: '6rem',
+
+  border: '1px solid lightgray',
+  borderRadius: '8px',
+
+  filter: 'opacity(50%)',
 });
 
 export const itemText = style({});

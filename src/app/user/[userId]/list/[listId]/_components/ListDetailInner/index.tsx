@@ -1,11 +1,12 @@
 'use client';
 
 import { useState } from 'react';
-import Header from '@/app/[userNickname]/[listId]/_components/ListDetailInner/Header';
-import RankList from '@/app/[userNickname]/[listId]/_components/ListDetailInner/RankList';
-import Footer from '@/app/[userNickname]/[listId]/_components/ListDetailInner/Footer';
+import Header from '@/app/user/[userId]/list/[listId]/_components/ListDetailInner/Header';
+import RankList from '@/app/user/[userId]/list/[listId]/_components/ListDetailInner/RankList';
+import Footer from '@/app/user/[userId]/list/[listId]/_components/ListDetailInner/Footer';
 import * as styles from './index.css';
-import { CollaboratorType, ListItemsType } from '@/lib/types/listType';
+import { CollaboratorType, ItemType } from '@/lib/types/listType';
+import { useUser } from '@/store/useUser';
 
 export interface ListItemProps {
   id?: number;
@@ -34,7 +35,7 @@ interface ListDetailInnerProps {
   ownerNickname: string;
   ownerProfileImageUrl: string;
   collaborators: CollaboratorType[];
-  items: ListItemsType[];
+  items: ItemType[];
   isCollected: boolean;
   isPublic: boolean;
   backgroundColor: string;
@@ -45,6 +46,8 @@ interface ListDetailInnerProps {
 function ListDetailInner({ data }: { data: ListDetailInnerProps }) {
   const listData = data?.items;
   const [listType, setListType] = useState('simple');
+  const { user, updateUser } = useUser();
+
   const handleChangeListType = (target: OptionsProps) => {
     const value: string = target.value;
     setListType(value);
@@ -65,7 +68,7 @@ function ListDetailInner({ data }: { data: ListDetailInnerProps }) {
       <Header handleChangeListType={handleChangeListType} />
       <div className={styles.listAndFooter}>
         <RankList listData={listData} type={listType} />
-        <Footer data={footerData} />
+        <Footer data={footerData} user={user} />
       </div>
     </div>
   );

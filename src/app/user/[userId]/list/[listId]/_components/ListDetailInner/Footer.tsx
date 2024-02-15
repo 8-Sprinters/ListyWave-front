@@ -2,7 +2,7 @@
 
 import { useParams, useRouter } from 'next/navigation';
 import { MouseEvent, useState } from 'react';
-import BottomSheet from '@/app/[userNickname]/[listId]/_components/BottomSheet/BottomSheet';
+import BottomSheet from '@/components/BottomSheet/BottomSheet';
 import ModalPortal from '@/components/ModalPortal';
 import saveImageFromHtml from '@/lib/utils/saveImageFromHtml';
 import copyUrl from '@/lib/utils/copyUrl';
@@ -12,8 +12,8 @@ import * as styles from './Footer.css';
 import CollectIcon from '/public/icons/collect.svg';
 import ShareIcon from '/public/icons/share.svg';
 import EtcIcon from '/public/icons/etc.svg';
-import { ItemType } from '@/lib/types/listType';
-import { UserProfileType } from '@/lib/types/userProfileType';
+import { CollaboratorType, ListItemsType } from '@/lib/types/listType';
+import { UserOnLoginType } from '@/lib/types/user';
 
 interface BottomSheetOptionsProps {
   key: string;
@@ -30,20 +30,20 @@ interface FooterProps {
   listId: string;
   title: string;
   description: string;
-  items: ItemType[];
-  collaborators: UserProfileType[];
+  items: ListItemsType[];
+  collaborators: CollaboratorType[];
   ownerNickname: string;
 }
 
-function Footer({ data }: { data: FooterProps }) {
+function Footer({ data, user }: { data: FooterProps; user?: UserOnLoginType }) {
   const router = useRouter();
-  const params = useParams<{ userNickname: string; listId: string }>();
+  const params = useParams<{ userId: number; listId: string }>();
 
   const [isSheetActive, setSheetActive] = useState<boolean>(false);
   const [sheetOptionList, setSheetOptionList] = useState<BottomSheetOptionsProps[]>([]);
 
   const handleSheetOptionList = ({ type }: SheetTypeProps) => {
-    const listUrl = `${process.env.NEXT_PUBLIC_BASE_URL}/${params?.userNickname}/${params?.listId}`;
+    const listUrl = `${process.env.NEXT_PUBLIC_BASE_URL}/${params?.userId}/${params?.listId}`;
 
     if (type === 'share') {
       const optionList = [
@@ -127,7 +127,7 @@ function Footer({ data }: { data: FooterProps }) {
       )}
       <div className={styles.container}>
         <div className={styles.buttonComponent}>
-          <CollectIcon onClick={handleCollect} />
+          {user?.id === params?.userId && <CollectIcon onClick={handleCollect} />}
         </div>
         <div className={styles.shareAndOthers}>
           <div className={styles.buttonComponent} onClick={() => handleSheetActive({ type: 'share' })}>
