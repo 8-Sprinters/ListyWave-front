@@ -2,15 +2,19 @@
 
 /**
  TODO
- - [ ] 로그아웃 기능 구현
+ - [x] 로그아웃 기능 구현(카카오만)
+ - [ ] oauth type 전달
  - [ ] 로그아웃 모달
- - [ ] 로그아웃 마이페이지로 이동
- - [ ] 로그아웃 후 뒤로가기를 누른경우 확인
+ - [ ] 로그아웃 기능 마이페이지로 이동
+ - [x] 로그아웃 후 뒤로가기를 누른경우 확인
  */
 
 import { useRouter } from 'next/navigation';
+import { AxiosError } from 'axios';
+
 import axiosInstance from '@/lib/axios/axiosInstance';
 import { useUser } from '@/store/useUser';
+import toasting from '@/lib/utils/toasting';
 
 const oauthType = {
   kakao: 'kakao',
@@ -22,28 +26,19 @@ export default function LogoutPage() {
   const router = useRouter();
   const { logoutUser } = useUser();
 
-  //   const logoutUser = async (oauthServerType = 'kakao') => {
-  //     // oauth type 전달 방법 고민
-  //     return await axiosInstance.patch(`/auth/${oauthServerType}`);
-  //   };
-
   const handleLogout = async () => {
-    console.log('로그아웃 하기'); // 삭제 예정
-
     try {
-      // (server) 토큰 만료 시키기
-      //   const res = await axiosInstance.patch(`/auth/${oauthType.kakao}`);
-      //   console.log(res); // 삭제 예정
+      const result = await axiosInstance.patch(`/auth/${oauthType.kakao}`);
 
-      // (client) store에 저장되어 있던 사용자 정보(id, 토큰)가 초기화 된다.
-      logoutUser();
-
-      // 로그아웃 성공 토스트메세지
-
-      // 탐색페이지로 리다이렉트
-      router.push('/');
+      if (result.status === 204) {
+        logoutUser();
+        toasting({ type: 'success', txt: '로그아웃 되었어요.' });
+        router.push('/');
+      }
     } catch (error) {
-      console.log(error);
+      if (error instanceof AxiosError) {
+        console.error(error.message);
+      }
     }
   };
 
