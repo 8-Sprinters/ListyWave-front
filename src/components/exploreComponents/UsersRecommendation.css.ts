@@ -1,4 +1,5 @@
 import { style } from '@vanilla-extract/css';
+import { vars } from '@/styles/theme.css';
 
 export const wrapper = style({
   padding: '0 16px',
@@ -97,6 +98,7 @@ export const followButtonDefault = style({
 });
 
 export const followButtonFollowing = style({
-  background: '#efefef',
-  color: '#191919',
+  background: vars.color.white,
+  border: `1px solid ${vars.color.black}`,
+  color: vars.color.black,
 });
