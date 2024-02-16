@@ -37,3 +37,9 @@ export const arrowUpButton = style([
 export const icon = style({
   transform: 'translate(25%, 25%);',
 });
+
+export const menuButtons = style({
+  display: 'flex',
+  flexDirection: 'column',
+  gap: '8px',
+});
