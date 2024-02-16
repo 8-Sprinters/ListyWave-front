@@ -11,4 +11,8 @@ export const QUERY_KEYS = {
   getTrendingLists: 'getTrendingLists',
   follow: 'follow',
   deleteFollow: 'deleteFollow',
+  deleteFollower: 'deleteFollower',
+  getFollowingList: 'getFollowingList',
+  getFollowerList: 'getFollowerList',
+  getUsersByNicknameSearch: 'getUsersByNicknameSearch',
 };
