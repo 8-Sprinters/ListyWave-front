@@ -38,7 +38,7 @@ function Comments() {
   const { data: userInformation } = useQuery<UserType>({
     queryKey: [QUERY_KEYS.userOne, userId],
     queryFn: () => getUserOne(userId as number),
-    enabled: userId !== 0,
+    enabled: !!userId,
   });
 
   //댓글 무한스크롤 리액트 쿼리 함수
@@ -167,7 +167,7 @@ function Comments() {
               onChange={handleInputChange}
               placeholder={userId === 0 ? '로그인 후 댓글을 작성할 수 있습니다.' : ''}
             />
-            {comment && userId !== 0 && (
+            {comment && userId && (
               <button type="submit" className={styles.formButton}>
                 게시
               </button>
