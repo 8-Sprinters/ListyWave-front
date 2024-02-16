@@ -11,8 +11,12 @@ export default function AccountPage() {
   return (
     <>
       <div>마이페이지</div>
-      <button onClick={onClickMoveToPage('account/profile')}>프로필설정</button>
-      <button onClick={handleSetOn}>로그아웃</button>
+      <div>
+        <button onClick={onClickMoveToPage('account/profile')}>프로필설정</button>
+      </div>
+      <div>
+        <button onClick={handleSetOn}>로그아웃</button>
+      </div>
       {isOn && <LogoutModal handleSetOff={handleSetOff} />}
     </>
   );
