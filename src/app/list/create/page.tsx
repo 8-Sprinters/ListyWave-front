@@ -9,9 +9,9 @@ import CreateItem from '@/app/list/create/_components/CreateItem';
 import CreateList from '@/app/list/create/_components/CreateList';
 import { ItemImagesType, ListCreateType } from '@/lib/types/listType';
 import toasting from '@/lib/utils/toasting';
-import { creaetListToastMessage } from '@/lib/constants/toastMessage';
-import { createList } from '@/app/_api/list/createList';
-import { uploadItemImages } from '@/app/_api/list/uploadItemImages';
+import toastMessage from '@/lib/constants/toastMessage';
+import createList from '@/app/_api/list/createList';
+import uploadItemImages from '@/app/_api/list/uploadItemImages';
 
 export type FormErrors = FieldErrors<ListCreateType>;
 
@@ -24,7 +24,7 @@ export default function CreatePage() {
     mode: 'onChange',
     defaultValues: {
       ownerId: 2, //로그인 후 수정 필요
-      category: '',
+      category: 'culture',
       labels: [],
       collaboratorIds: [],
       title: '',
@@ -101,12 +101,12 @@ export default function CreatePage() {
     return { listData, imageData, imageFileList };
   };
 
-  const { mutate: saveImageMutate, isPending: isUploadingImage } = useMutation({
+  const { mutate: uploadImageMutate, isPending: isUploadingImage } = useMutation({
     mutationFn: uploadItemImages,
     retry: 3,
     retryDelay: 1000,
     onError: () => {
-      toasting({ type: 'error', txt: creaetListToastMessage.uploadImageError });
+      toasting({ type: 'error', txt: toastMessage.ko.uploadImageError });
     },
     onSettled: () => {
       router.push(`/user/${formatData().listData.ownerId}/list/${newListId}`);
@@ -121,14 +121,14 @@ export default function CreatePage() {
     mutationFn: createList,
     onSuccess: (data) => {
       setNewListId(data.listId);
-      saveImageMutate({
+      uploadImageMutate({
         listId: data.listId,
         imageData: formatData().imageData,
         imageFileList: formatData().imageFileList,
       });
     },
     onError: () => {
-      toasting({ type: 'error', txt: creaetListToastMessage.createListError });
+      toasting({ type: 'error', txt: toastMessage.ko.createListError });
     },
   });
 
@@ -145,6 +145,7 @@ export default function CreatePage() {
             onNextClick={() => {
               handleStepChange('item');
             }}
+            type="create"
           />
         ) : (
           <CreateItem
@@ -153,6 +154,7 @@ export default function CreatePage() {
             }}
             onSubmitClick={handleSubmit}
             isSubmitting={isUploadingImage || isCreatingList || isSuccess}
+            type="create"
           />
         )}
       </FormProvider>

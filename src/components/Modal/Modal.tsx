@@ -1,5 +1,5 @@
 import { ReactNode } from 'react';
-import ModalPortal from '@/components/ModalPortal';
+import ModalPortal from '@/components/modal-portal';
 import * as styles from './Modal.css';
 import ModalTitle from './ModalTitle';
 import ModalButton from './ModalButton';

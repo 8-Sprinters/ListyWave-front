@@ -46,7 +46,12 @@ export const title = style([
   body1,
   placeholder,
   {
+    width: 0,
+
     flexGrow: 1,
+
+    backgroundColor: 'transparent',
+    ':disabled': { cursor: 'not-allowed' },
   },
 ]);
 

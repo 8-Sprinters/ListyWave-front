@@ -11,7 +11,7 @@ axiosInstance.interceptors.request.use(
     const accessToken = useUser.getState().user.accessToken;
 
     if (accessToken) {
-      config.headers.Authorization = `${accessToken}`; // Bearer option 추가 예정
+      config.headers.Authorization = `Bearer ${accessToken}`;
     }
 
     return config;

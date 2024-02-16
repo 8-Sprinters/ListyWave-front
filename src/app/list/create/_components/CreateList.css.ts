@@ -9,3 +9,13 @@ export const body = style({
   justifyContent: 'space-between',
   rowGap: '50px',
 });
+
+export const headerNextButton = style({
+  fontSize: '1.6rem',
+  color: '#AFB1B6',
+  cursor: 'default',
+});
+
+export const headerNextButtonActive = style({
+  fontSize: '1.6rem',
+});

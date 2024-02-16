@@ -6,10 +6,17 @@ export const header = style({
   paddingLeft: '20px',
   paddingRight: '20px',
 
+  position: 'sticky',
+  top: '0',
+  left: '0',
+  zIndex: '10',
+
   display: 'flex',
   flexDirection: 'row',
   alignItems: 'center',
   justifyContent: 'space-between',
+
+  backgroundColor: '#fff',
 
   borderBottom: '1px solid rgba(0, 0, 0, 0.10)',
 });
