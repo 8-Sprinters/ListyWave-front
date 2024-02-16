@@ -32,12 +32,12 @@ function Comments() {
 
   //zustand로 관리하는 user정보 불러오기
   const { user } = useUser();
-  const userId = user?.id;
+  const userId = user.id;
 
   //user정보 불러오는 리액트 쿼리 함수
   const { data: userInformation } = useQuery<UserType>({
     queryKey: [QUERY_KEYS.userOne, userId],
-    queryFn: () => getUserOne(userId),
+    queryFn: () => getUserOne(userId as number),
     enabled: userId !== 0,
   });
 

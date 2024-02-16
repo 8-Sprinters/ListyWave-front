@@ -2,13 +2,18 @@ import { create } from 'zustand';
 import { devtools, persist } from 'zustand/middleware';
 import { UserOnLoginType } from '@/lib/types/user';
 
+interface InitialUserType {
+  id: null;
+  accessToken: '';
+}
+
 interface UserStateType {
-  user: Pick<UserOnLoginType, 'id' | 'accessToken'> | { id: null; accessToken: string };
+  user: InitialUserType | Pick<UserOnLoginType, 'id' | 'accessToken'>;
   updateUser: (user: Pick<UserOnLoginType, 'id' | 'accessToken'>) => void;
   logoutUser: () => void;
 }
 
-const initialValue = {
+const initialValue: InitialUserType = {
   id: null,
   accessToken: '',
 };
