@@ -37,7 +37,7 @@ export default function LogoutModal({ handleSetOff }: LogOutModalProps) {
       }
     } catch (error) {
       if (error instanceof AxiosError) {
-        console.error(error.message);
+        toasting({ type: 'error', txt: toastMessage.ko.loggedOutError });
       }
     }
   };
