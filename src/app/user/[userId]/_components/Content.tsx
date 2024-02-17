@@ -57,8 +57,12 @@ export default function Content({ userId, type }: ContentProps) {
   });
 
   const lists = useMemo(() => {
-    return listsData ? listsData.pages.flatMap(({ feedLists }) => feedLists) : [];
-  }, [listsData]);
+    return listsData
+      ? listsData.pages.flatMap(({ feedLists }) =>
+          userData && userData.isOwner ? feedLists : feedLists.filter((list) => list.isPublic)
+        )
+      : [];
+  }, [listsData, userData]);
 
   const ref = useIntersectionObserver(() => {
     if (hasNextPage) {
