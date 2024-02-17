@@ -39,10 +39,10 @@ function FloatingMenu() {
   return (
     <>
       <div className={styles.menuButtons}>
-        <div className={styles.addButton} onClick={handleSharePage}>
+        <div className={styles.basicButton} onClick={handleSharePage}>
           <ShareAltIcon alt="내 피드 공유하기 버튼" className={styles.icon} />
         </div>
-        <div className={styles.addButton} onClick={handleMoveToPage}>
+        <div className={styles.basicButton} onClick={handleMoveToPage}>
           <WriteIcon alt="리스트 작성하기 버튼" className={styles.icon} />
         </div>
       </div>
@@ -61,7 +61,7 @@ export default function PlusOptionFloatingButton() {
   return (
     <>
       {isOn && <FloatingMenu />}
-      <div className={styles.addButton} onClick={() => toggle()}>
+      <div className={isOn ? styles.variant.active : styles.basicButton} onClick={() => toggle()}>
         <PlusIcon alt="옵션 보기 버튼" className={styles.icon} />
       </div>
     </>
