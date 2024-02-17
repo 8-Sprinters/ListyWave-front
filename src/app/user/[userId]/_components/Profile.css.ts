@@ -44,12 +44,19 @@ export const profile = style({
   gap: '1.6rem',
 });
 
-export const profileImage = style({
+export const profileImageWrapper = style({
   width: '5rem',
   height: '5rem',
 
   borderRadius: '50%',
-  border: `2px solid ${vars.color.white}`,
+  backgroundColor: vars.color.white,
+});
+
+export const profileImage = style({
+  width: '5rem',
+  height: '5rem',
+  padding: '2px',
+  borderRadius: '50%',
 });
 
 export const info = style({
@@ -93,6 +100,7 @@ export const count = style({
 });
 
 export const description = style({
+  paddingLeft: '2.5rem',
   marginBottom: '2.5rem',
 
   width: '100%',

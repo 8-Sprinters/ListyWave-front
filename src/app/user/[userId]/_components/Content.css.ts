@@ -22,6 +22,7 @@ export const options = style({
 export const link = style({
   flexGrow: '1',
   textDecoration: 'none',
+  color: vars.color.black,
 });
 
 export const button = style({

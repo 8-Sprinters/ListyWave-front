@@ -103,7 +103,7 @@ export default function Content({ userId, type }: ContentProps) {
       <div className={styles.cards}>
         <MasonryGrid gap={16} defaultDirection={'end'} align={'start'}>
           {lists.map((list) => (
-            <Card key={list.id} list={list} isOwner={!!userData?.isOwner} />
+            <Card key={list.id} list={list} isOwner={!!userData?.isOwner} userId={userId} />
           ))}
         </MasonryGrid>
       </div>

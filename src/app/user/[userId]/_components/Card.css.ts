@@ -19,7 +19,7 @@ export const title = style({
   fontSize: '1.7rem',
   fontWeight: '600',
   color: vars.color.black,
-  textAlign: 'right',
+  textAlign: 'center',
   letterSpacing: '-0.51px',
   wordBreak: 'keep-all',
 });

@@ -61,7 +61,7 @@ export default function Profile({ userId }: { userId: number }) {
       </div>
       <div className={styles.profileContainer}>
         <div className={styles.profile}>
-          <div>
+          <div className={styles.profileImageWrapper}>
             {data?.profileImageUrl ? (
               <Image
                 className={styles.profileImage}
@@ -71,6 +71,7 @@ export default function Profile({ userId }: { userId: number }) {
                 height={50}
                 priority
                 onError={handleImageError}
+                style={{ objectFit: 'cover' }}
               />
             ) : (
               <div className={styles.profileImage}></div>
@@ -97,7 +98,7 @@ export default function Profile({ userId }: { userId: number }) {
             </div>
           </div>
         </div>
-        <p className={styles.description}>{data?.description}</p>
+        <p className={styles.description}>{`" ${data?.description} "`}</p>
       </div>
     </div>
   );
