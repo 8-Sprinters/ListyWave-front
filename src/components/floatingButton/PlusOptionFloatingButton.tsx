@@ -1,11 +1,5 @@
 'use client';
 
-/**
- TODO
- - [x] 클릭 시 옵션 메뉴 구현
- - [ ] 다른 페이지에서도 사용할 수 있도록 공통 컴포넌트화(리팩토링)
- */
-
 import { useRouter } from 'next/navigation';
 
 import * as styles from './FloatingContainer.css';
@@ -28,7 +22,7 @@ function FloatingMenu() {
   const { isOn, handleSetOn, handleSetOff } = useBooleanOutput();
 
   const handleSharePage = () => {
-    // TODO 카카오 공유하기 기능
+    // TODO 카카오 공유하기 기능 (공유 가능한 페이지 확인하기)
   };
 
   const handleMoveToPage = () => {
