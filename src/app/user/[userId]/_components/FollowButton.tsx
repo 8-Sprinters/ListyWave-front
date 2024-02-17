@@ -28,7 +28,7 @@ export default function FollowButton({ isFollowed, userId }: FollowButtonProps) 
 
   const { data: userMeData } = useQuery<UserType>({
     queryKey: [QUERY_KEYS.userOne, userMe.id],
-    queryFn: () => getUserOne(userMe.id),
+    queryFn: () => getUserOne(userMe.id as number),
     enabled: !!userMe.id,
   });
 

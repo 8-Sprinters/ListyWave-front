@@ -30,7 +30,7 @@ export default function ProfilePage() {
 
   const { data: userData } = useQuery<UserType>({
     queryKey: [QUERY_KEYS.userOne, user.id],
-    queryFn: () => getUserOne(user.id),
+    queryFn: () => getUserOne(user.id as number),
     enabled: !!user.id,
   });
 
@@ -79,7 +79,7 @@ export default function ProfilePage() {
   });
 
   const handleFormSubmit = () => {
-    updateProfileMutate({ userId: user.id, data: methods.getValues() });
+    updateProfileMutate({ userId: user.id as number, data: methods.getValues() });
   };
 
   return (
