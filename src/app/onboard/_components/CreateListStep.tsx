@@ -35,7 +35,7 @@ export default function CreateListStep() {
     register,
     handleSubmit,
     getValues,
-    formState: { errors },
+    formState: { errors, defaultValues },
   } = useForm<ListCreateType>({
     mode: 'onChange',
     defaultValues: {
@@ -147,9 +147,12 @@ export default function CreateListStep() {
         <span>{selectedCategory.korNameValue}</span>
         <p>{getValues('title')}</p>
         <div>
-          <input {...register('items.1.title', itemTitleRules)} placeholder="아이템1" />
-          <input {...register('items.2.title', itemTitleRules)} placeholder="아이템2" />
-          <input {...register('items.3.title', itemTitleRules)} placeholder="아이템3" />
+          <input {...register('items.0.title', itemTitleRules)} placeholder="아이템1" />
+          <p>{errors.items?.[0]?.title?.message}</p>
+          <input {...register('items.1.title', itemTitleRules)} placeholder="아이템2" />
+          <p>{errors.items?.[1]?.title?.message}</p>
+          <input {...register('items.2.title', itemTitleRules)} placeholder="아이템3" />
+          <p>{errors.items?.[2]?.title?.message}</p>
         </div>
       </div>
       <button type="submit">완료</button>
