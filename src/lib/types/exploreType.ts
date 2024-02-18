@@ -7,13 +7,7 @@ export interface TrendingListType {
   itemImageUrl: string;
 }
 
-export interface UsersRecommendationType {
-  id: number;
-  nickname: string;
-  profileImageUrl: string;
-}
-
-export interface UsersRecommendationType {
+export interface UsersRecommendationItemType {
   id: number;
   nickname: string;
   profileImageUrl: string;
@@ -36,6 +30,7 @@ export interface ListRecommendationType {
   category: string;
   backgroundColor: string;
   listUrl: string;
+  ownerId: number;
   ownerNickname: string;
   ownerProfileImage: string;
   labels: LabelType[];

@@ -5,14 +5,13 @@ import { useQuery } from '@tanstack/react-query';
 import { QUERY_KEYS } from '@/lib/constants/queryKeys';
 import getRecommendedUsers from '@/app/_api/explore/getRecommendedUsers';
 import FollowButton from './FollowButton';
-import { UsersRecommendationType } from '@/lib/types/exploreType';
+import { UserProfileType } from '@/lib/types/userProfileType';
 
 import * as styles from './UsersRecommendation.css';
 
 function UsersRecommendation() {
   const wrapperRef = useRef<HTMLUListElement>(null);
-
-  const { data: usersList, isPending } = useQuery({
+  const { data: usersList } = useQuery<UserProfileType[]>({
     queryKey: [QUERY_KEYS.getRecommendedUsers],
     queryFn: () => getRecommendedUsers(),
   });
@@ -31,13 +30,14 @@ function UsersRecommendation() {
       {usersList?.length !== 0 && (
         <>
           <ul className={styles.recommendUsersListWrapper} ref={wrapperRef}>
-            {usersList?.map((item: UsersRecommendationType) => {
-              return (
-                <li key={item.id}>
-                  <UserRecommendListItem data={item} handleScrollToRight={handleScrollToRight} />
-                </li>
-              );
-            })}
+            {usersList &&
+              usersList?.map((item: UserProfileType) => {
+                return (
+                  <li key={item.id}>
+                    <UserRecommendListItem data={item} handleScrollToRight={handleScrollToRight} />
+                  </li>
+                );
+              })}
           </ul>
         </>
       )}
@@ -48,7 +48,7 @@ function UsersRecommendation() {
 export default UsersRecommendation;
 
 interface UserRecommendListItemProps {
-  data: UsersRecommendationType;
+  data: UserProfileType;
   handleScrollToRight: () => void;
 }
 
@@ -69,7 +69,7 @@ function UserRecommendListItem({ data, handleScrollToRight }: UserRecommendListI
       <div className={styles.recommendUserWrapper}>
         <div className={styles.imageWrapper}>
           <Image
-            src={data.profileImageUrl}
+            src={data?.profileImageUrl}
             alt="추천 사용자 프로필 이미지"
             fill
             sizes="100vw 100vh"

@@ -14,7 +14,7 @@ import { QUERY_KEYS } from '@/lib/constants/queryKeys';
 import { UserType } from '@/lib/types/userProfileType';
 import { useUser } from '@/store/useUser';
 import toasting from '@/lib/utils/toasting';
-import { MAX_FOLLOWING, toastMessage } from '@/lib/constants/toastMessage';
+import toastMessage, { MAX_FOLLOWING } from '@/lib/constants/toastMessage';
 
 interface FollowButtonProps {
   userId: number;
@@ -28,7 +28,7 @@ export default function FollowButton({ isFollowed, userId }: FollowButtonProps) 
 
   const { data: userMeData } = useQuery<UserType>({
     queryKey: [QUERY_KEYS.userOne, userMe.id],
-    queryFn: () => getUserOne(userMe.id),
+    queryFn: () => getUserOne(userMe.id as number),
     enabled: !!userMe.id,
   });
 

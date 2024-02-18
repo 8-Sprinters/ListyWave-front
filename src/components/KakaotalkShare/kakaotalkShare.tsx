@@ -8,7 +8,7 @@ interface kakaotalkShareProps {
   listItem?: { title: string }[];
   collaborators: UserProfileType[];
   userNickname: string;
-  listId: string;
+  listId: string | null;
 }
 function kakaotalkShare({
   title,

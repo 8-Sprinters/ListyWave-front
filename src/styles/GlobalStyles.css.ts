@@ -29,7 +29,7 @@ globalStyle('button', {
 
 globalStyle('input', {
   border: 'none',
-  padding: 'none',
+  padding: 0,
 });
 
 globalStyle('input:focus', {
