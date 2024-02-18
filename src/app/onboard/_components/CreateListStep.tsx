@@ -147,12 +147,15 @@ export default function CreateListStep() {
         <span>{selectedCategory.korNameValue}</span>
         <p>{getValues('title')}</p>
         <div>
-          <input {...register('items.0.title', itemTitleRules)} placeholder="아이템1" />
-          <p>{errors.items?.[0]?.title?.message}</p>
-          <input {...register('items.1.title', itemTitleRules)} placeholder="아이템2" />
-          <p>{errors.items?.[1]?.title?.message}</p>
-          <input {...register('items.2.title', itemTitleRules)} placeholder="아이템3" />
-          <p>{errors.items?.[2]?.title?.message}</p>
+          {new Array(3).fill(0).map((_, index) => (
+            <div key={index}>
+              <input
+                {...register(`items.${index}.title`, itemTitleRules)}
+                placeholder={`${index + 1}위 아이템을 입력해주세요.`}
+              />
+              <p>{errors.items?.[index]?.title?.message}</p>
+            </div>
+          ))}
         </div>
       </div>
       <button type="submit">완료</button>
