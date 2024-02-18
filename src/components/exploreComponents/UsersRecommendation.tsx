@@ -53,7 +53,7 @@ interface UserRecommendListItemProps {
   userId: number;
 }
 
-function UserRecommendListItem({ data, handleScrollToRight }: UserRecommendListItemProps) {
+function UserRecommendListItem({ data, handleScrollToRight, userId }: UserRecommendListItemProps) {
   const [isFollowing, setIsFollowing] = useState(false);
 
   const handleFollowingState = () => {
@@ -81,7 +81,7 @@ function UserRecommendListItem({ data, handleScrollToRight }: UserRecommendListI
           />
         </div>
         <h6 className={styles.recommendUserNickname}>{data.nickname}</h6>
-        <FollowButton isFollowing={isFollowing} onClick={handleFollowButtonClick} />
+        <FollowButton isFollowing={isFollowing} onClick={handleFollowButtonClick} userId={userId} targetId={data.id} />
       </div>
     </>
   );

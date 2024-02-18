@@ -25,6 +25,8 @@ export const userInfoWrapper = style({
   display: 'flex',
   alignItems: 'center',
   gap: '12px',
+
+  cursor: 'pointer',
 });
 
 export const userProfile = style({
@@ -36,3 +38,5 @@ export const userName = style({
   fontSize: '1.5rem',
   fontWeight: 600,
 });
+
+export const loginButton = style([userName, { cursor: 'pointer' }]);

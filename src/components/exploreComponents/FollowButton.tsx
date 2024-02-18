@@ -18,9 +18,10 @@ interface FollowButtonProps {
   isFollowing: boolean;
   onClick: () => void;
   userId: number;
+  targetId: number;
 }
 
-function FollowButton({ isFollowing, onClick, userId }: FollowButtonProps) {
+function FollowButton({ isFollowing, onClick, userId, targetId }: FollowButtonProps) {
   const queryClient = useQueryClient();
   const router = useRouter();
   const { user: userMe } = useUser();
@@ -33,11 +34,12 @@ function FollowButton({ isFollowing, onClick, userId }: FollowButtonProps) {
 
   const followUser = useMutation({
     mutationKey: [QUERY_KEYS.follow, userId],
-    mutationFn: () => createFollowUser(userId),
+    mutationFn: () => createFollowUser(targetId),
     onSuccess: () => {
       queryClient.invalidateQueries({
         queryKey: [QUERY_KEYS.userOne, userId],
       });
+      console.log('성공적으로 팔로우 했습니다');
     },
     onError: (error: AxiosError) => {
       if (error.response?.status === 401) {
@@ -49,12 +51,12 @@ function FollowButton({ isFollowing, onClick, userId }: FollowButtonProps) {
 
   const deleteFollowingUser = useMutation({
     mutationKey: [QUERY_KEYS.deleteFollow, userId],
-    mutationFn: () => deleteFollowUser(userId),
+    mutationFn: () => deleteFollowUser(targetId),
     onSuccess: () => {
       queryClient.invalidateQueries({
         queryKey: [QUERY_KEYS.userOne, userId],
       });
-      console.log('성공적으로 팔로우 했습니다');
+      console.log('성공적으로 팔로우 취소 했습니다');
     },
   });
 
