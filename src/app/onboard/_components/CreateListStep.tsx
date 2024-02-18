@@ -7,6 +7,7 @@ import getCategories from '@/app/_api/category/getCategories';
 import { QUERY_KEYS } from '@/lib/constants/queryKeys';
 import { CategoryType } from '@/lib/types/categoriesType';
 import { ListCreateType } from '@/lib/types/listType';
+import { itemTitleRules } from '@/lib/constants/formInputValidationRules';
 
 const onBoardlistTitleRules = {
   required: '제목을 입력해주세요',
@@ -37,6 +38,39 @@ export default function CreateListStep() {
     formState: { errors },
   } = useForm<ListCreateType>({
     mode: 'onChange',
+    defaultValues: {
+      ownerId: 13, // userId
+      category: '',
+      labels: [],
+      collaboratorIds: [],
+      title: '',
+      description: '',
+      isPublic: true,
+      backgroundColor: '#FFFFFF',
+      items: [
+        {
+          rank: 1,
+          title: '',
+          comment: '',
+          link: '',
+          imageUrl: '',
+        },
+        {
+          rank: 2,
+          title: '',
+          comment: '',
+          link: '',
+          imageUrl: '',
+        },
+        {
+          rank: 3,
+          title: '',
+          comment: '',
+          link: '',
+          imageUrl: '',
+        },
+      ],
+    },
   });
 
   const handleChangeCategory = (e: MouseEvent<HTMLDivElement>) => {
@@ -64,19 +98,24 @@ export default function CreateListStep() {
     }
   };
 
-  console.log(selectedCategory);
+  console.log(selectedCategory); // 삭제 예정
 
   // const handleChangeTitle = (e: any) => {
   //   console.log(e.target.value);
   //   setTitle(e.target.value);
   // };
 
-  const onSubmit = () => {
-    console.log('리스트 생성');
+  const onSubmit = (data: ListCreateType) => {
+    console.log('리스트 생성'); // 삭제 예정
+    console.log(data); // 삭제 예정
+  };
+
+  const onError = () => {
+    console.log('에러 발생');
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} noValidate>
+    <form onSubmit={handleSubmit(onSubmit, onError)} noValidate>
       <label>닉네임님만의 리스트를 만들어 보아요.</label>
       <p>무엇에 대한 리스트인가요?</p>
       <div onClick={handleChangeCategory}>
@@ -86,7 +125,7 @@ export default function CreateListStep() {
           </button>
         ))}
       </div>
-      {/* <button type="submit">다음으로</button> */}
+      <button type="button">다음으로</button>
       <br />
       <p>리스트의 제목을 지어주세요.</p>
       <input
@@ -99,7 +138,21 @@ export default function CreateListStep() {
         <span>{selectedCategory.korNameValue}</span>
         <p>{getValues('title')}</p>
       </div>
-      {/* <button type="submit">다음으로</button> */}
+      <button type="button">다음으로</button>
+      <br />
+      <p>
+        리스트에 넣을 1, 2, 3위 <br /> 아이템을 적어주세요.
+      </p>
+      <div>
+        <span>{selectedCategory.korNameValue}</span>
+        <p>{getValues('title')}</p>
+        <div>
+          <input {...register('items.1.title', itemTitleRules)} placeholder="아이템1" />
+          <input {...register('items.2.title', itemTitleRules)} placeholder="아이템2" />
+          <input {...register('items.3.title', itemTitleRules)} placeholder="아이템3" />
+        </div>
+      </div>
+      <button type="submit">완료</button>
     </form>
   );
 }
