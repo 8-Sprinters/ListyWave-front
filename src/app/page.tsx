@@ -17,10 +17,10 @@ function LandingPage({ params }: ExplorePageProps) {
   return (
     <>
       <div className={styles.wrapper}>
-        <Header userId={params.userId} />
+        <Header />
         <div>검색 및 카테고리 컴포넌트</div>
         <TrendingList />
-        <UsersRecommendation />
+        <UsersRecommendation userId={params.userId} />
         <ListRecommendation userId={params.userId} />
         <FloatingContainer>
           <PlusOptionFloatingButton />

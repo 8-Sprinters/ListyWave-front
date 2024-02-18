@@ -11,23 +11,23 @@ import { QUERY_KEYS } from '@/lib/constants/queryKeys';
 import { UserType } from '@/lib/types/userProfileType';
 import { useUser } from '@/store/useUser';
 import toasting from '@/lib/utils/toasting';
-import { MAX_FOLLOWING, toastMessage } from '@/lib/constants/toastMessage';
+import toastMessage, { MAX_FOLLOWING } from '@/lib/constants/toastMessage';
 import * as styles from './UsersRecommendation.css';
 
 interface FollowButtonProps {
   isFollowing: boolean;
   onClick: () => void;
+  userId: number;
 }
 
-function FollowButton({ isFollowing, onClick }: FollowButtonProps) {
+function FollowButton({ isFollowing, onClick, userId }: FollowButtonProps) {
   const queryClient = useQueryClient();
   const router = useRouter();
   const { user: userMe } = useUser();
-  const userId = userMe.id;
 
   const { data: userMeData } = useQuery<UserType>({
-    queryKey: [QUERY_KEYS.userOne, userMe.id],
-    queryFn: () => getUserOne(userMe.id),
+    queryKey: [QUERY_KEYS.userOne, userId],
+    queryFn: () => getUserOne(userId),
     enabled: !!userMe.id,
   });
 
@@ -54,6 +54,7 @@ function FollowButton({ isFollowing, onClick }: FollowButtonProps) {
       queryClient.invalidateQueries({
         queryKey: [QUERY_KEYS.userOne, userId],
       });
+      console.log('성공적으로 팔로우 했습니다');
     },
   });
 

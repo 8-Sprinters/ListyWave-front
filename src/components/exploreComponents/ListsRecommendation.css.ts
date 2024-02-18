@@ -121,3 +121,7 @@ export const showMoreButton = style({
   color: '#0047FF',
   fontSize: '1.6rem',
 });
+
+export const noData = style({
+  marginTop: '50px',
+});

@@ -9,7 +9,7 @@ import { UserProfileType } from '@/lib/types/userProfileType';
 
 import * as styles from './UsersRecommendation.css';
 
-function UsersRecommendation() {
+function UsersRecommendation({ userId }: { userId: number }) {
   const wrapperRef = useRef<HTMLUListElement>(null);
   const { data: usersList } = useQuery<UserProfileType[]>({
     queryKey: [QUERY_KEYS.getRecommendedUsers],
@@ -34,7 +34,7 @@ function UsersRecommendation() {
               usersList?.map((item: UserProfileType) => {
                 return (
                   <li key={item.id}>
-                    <UserRecommendListItem data={item} handleScrollToRight={handleScrollToRight} />
+                    <UserRecommendListItem data={item} handleScrollToRight={handleScrollToRight} userId={userId} />
                   </li>
                 );
               })}
@@ -50,6 +50,7 @@ export default UsersRecommendation;
 interface UserRecommendListItemProps {
   data: UserProfileType;
   handleScrollToRight: () => void;
+  userId: number;
 }
 
 function UserRecommendListItem({ data, handleScrollToRight }: UserRecommendListItemProps) {

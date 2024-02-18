@@ -16,7 +16,7 @@ import { UserType } from '@/lib/types/userProfileType';
 
 function Header() {
   const router = useRouter();
-  const [imageSrc, setImageSrc] = useState(true);
+  const [imageSrc, setImageSrc] = useState(false);
 
   //zustand로 관리하는 user정보 불러오기
   const { user } = useUser();
@@ -45,12 +45,12 @@ function Header() {
         <div className={styles.userInfoOuterWrapper}>
           <div className={styles.userInfoWrapper}>
             <Image
-              src={imageSrc ? `${userMe?.profileImageUrl}` : '/public/icon/avatar.svg'}
+              src={userMe?.profileImageUrl}
               alt="사용자 프로필 이미지"
               width={32}
               height={32}
               className={styles.userProfile}
-              onError={handleImageError}
+              // onError={handleImageError}
             />
             <h5 className={styles.userName}>{userMe?.nickname}</h5>
           </div>
