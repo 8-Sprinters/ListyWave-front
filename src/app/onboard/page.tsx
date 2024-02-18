@@ -8,15 +8,13 @@ import { useQuery } from '@tanstack/react-query';
 import { useUser } from '@/store/useUser';
 
 import { UserProfileEditType, UserType } from '@/lib/types/userProfileType';
-import { listTitleRules, nicknameDuplicateRules, nicknameRules } from '@/lib/constants/formInputValidationRules';
+import { nicknameDuplicateRules, nicknameRules } from '@/lib/constants/formInputValidationRules';
 import { QUERY_KEYS } from '@/lib/constants/queryKeys';
 
 import checkNicknameDuplication from '../_api/user/checkNicknameDuplication';
 import updateProfile from '../_api/user/updateProfile';
 import getUserOne from '../_api/user/getUserOne';
-import getCategories from '../_api/category/getCategories';
-import { CategoryType } from '@/lib/types/categoriesType';
-import { MouseEvent, useState } from 'react';
+
 import CreateListStep from './_components/CreateListStep';
 
 export default function OnbsoardPage() {
