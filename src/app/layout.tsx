@@ -28,7 +28,8 @@ export default function TempLayout({ children }: { children: ReactNode }) {
           integrity="sha384-6MFdIr0zOira1CHQkedUqJVql0YtcZA1P0nbPrQYJXVJZUkTk/oX4U9GhUIs3/z8"
           crossOrigin="anonymous"
           onLoad={kakaoInit}
-        ></Script>
+          strategy="lazyOnload"
+        />
       </head>
       <body>
         <QueryClientProvider client={queryClient}>

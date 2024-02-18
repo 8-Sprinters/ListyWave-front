@@ -15,6 +15,7 @@ interface SimpleInputProps {
       errorMessage: string;
     };
   };
+  defaultValue?: string;
 }
 
 /**
@@ -27,7 +28,7 @@ interface SimpleInputProps {
  * @param props.rules - 길이제한, 개수제한, 요구, 중복허용 등 입력 제한과 오류메시지를 위한 룰
 
  */
-function SimpleInput({ type, name, placeholder, rules }: SimpleInputProps) {
+function SimpleInput({ type, name, placeholder, rules, defaultValue }: SimpleInputProps) {
   const { register, setValue, formState } = useFormContext();
   const { errors } = formState;
 
@@ -44,6 +45,7 @@ function SimpleInput({ type, name, placeholder, rules }: SimpleInputProps) {
               message: rules.maxLength.errorMessage,
             },
           })}
+          defaultValue={defaultValue}
         />
       ) : (
         <>
@@ -58,6 +60,7 @@ function SimpleInput({ type, name, placeholder, rules }: SimpleInputProps) {
                 message: rules.maxLength.errorMessage,
               },
             })}
+            defaultValue={defaultValue}
           />
           <ClearButton
             className={styles.clearButton}

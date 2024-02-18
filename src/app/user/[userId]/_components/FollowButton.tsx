@@ -1,27 +1,81 @@
 'use client';
 
-/**
- TODO
- - [ ] 상태(팔로우, 언팔로우)에 따른 팔로우 버튼 UI
- - [ ] 조건(비회원, 회원)에 따른 팔로우 버튼 동작(api 연동)
- */
+import { useRouter } from 'next/navigation';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { AxiosError } from 'axios';
 
 import * as styles from './FollowButton.css';
 
-interface ActionProps {
+import createFollowUser from '@/app/_api/follow/createFollowUser';
+import deleteFollowUser from '@/app/_api/follow/deleteFollowUser';
+import getUserOne from '@/app/_api/user/getUserOne';
+
+import { QUERY_KEYS } from '@/lib/constants/queryKeys';
+import { UserType } from '@/lib/types/userProfileType';
+import { useUser } from '@/store/useUser';
+import toasting from '@/lib/utils/toasting';
+import toastMessage, { MAX_FOLLOWING } from '@/lib/constants/toastMessage';
+
+interface FollowButtonProps {
+  userId: number;
   isFollowed: boolean;
 }
 
-export default function FollowButton({ isFollowed }: ActionProps) {
-  const label = isFollowed ? '팔로우' : '팔로우 취소';
+export default function FollowButton({ isFollowed, userId }: FollowButtonProps) {
+  const queryClient = useQueryClient();
+  const router = useRouter();
+  const { user: userMe } = useUser();
 
-  const handleFollowUser = () => {
-    // 1. follow 하는 api 요청 + update
+  const { data: userMeData } = useQuery<UserType>({
+    queryKey: [QUERY_KEYS.userOne, userMe.id],
+    queryFn: () => getUserOne(userMe.id as number),
+    enabled: !!userMe.id,
+  });
+
+  const followUser = useMutation({
+    mutationKey: [QUERY_KEYS.follow, userId],
+    mutationFn: () => createFollowUser(userId),
+    onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: [QUERY_KEYS.userOne, userId],
+      });
+    },
+    onError: (error: AxiosError) => {
+      if (error.response?.status === 401) {
+        toasting({ type: 'warning', txt: toastMessage.ko.requiredLogin });
+        router.push('/login');
+      }
+    },
+  });
+
+  const deleteFollowingUser = useMutation({
+    mutationKey: [QUERY_KEYS.deleteFollow, userId],
+    mutationFn: () => deleteFollowUser(userId),
+    onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: [QUERY_KEYS.userOne, userId],
+      });
+    },
+  });
+
+  const handleFollowUser = (isFollowed: boolean) => () => {
+    if (isFollowed) {
+      deleteFollowingUser.mutate();
+    } else {
+      if (userMeData && userMeData?.followingCount >= MAX_FOLLOWING) {
+        toasting({ type: 'warning', txt: toastMessage.ko.limitFollow });
+        return;
+      }
+      followUser.mutate();
+    }
   };
 
   return (
-    <button className={styles.button} onClick={handleFollowUser}>
-      {label}
+    <button
+      className={`${isFollowed ? styles.variant.gray : styles.variant.primary}`}
+      onClick={handleFollowUser(isFollowed)}
+    >
+      {isFollowed ? '팔로우 취소' : '팔로우'}
     </button>
   );
 }

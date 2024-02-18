@@ -1,16 +1,17 @@
 import { ReactNode } from 'react';
-import ModalPortal from '@/components/ModalPortal';
+import ModalPortal from '@/components/modal-portal';
 import * as styles from './Modal.css';
 import ModalTitle from './ModalTitle';
 import ModalButton from './ModalButton';
 import useOnClickOutside from '@/hooks/useOnClickOutside';
 
 interface ModalMainProps {
+  size?: 'basic' | 'large';
   children?: ReactNode;
   handleModalClose: () => void;
 }
 
-function ModalMain({ children, handleModalClose }: ModalMainProps) {
+function ModalMain({ size = 'basic', children, handleModalClose }: ModalMainProps) {
   const { ref } = useOnClickOutside(() => {
     handleModalClose();
   });
@@ -18,7 +19,7 @@ function ModalMain({ children, handleModalClose }: ModalMainProps) {
   return (
     <ModalPortal>
       <div className={styles.background}>
-        <div ref={ref} className={styles.container}>
+        <div ref={ref} className={styles.sizeVariants[size]}>
           {children}
         </div>
       </div>

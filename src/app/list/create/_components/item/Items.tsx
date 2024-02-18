@@ -26,7 +26,11 @@ const ensureHttp = (link: string) => {
 //   return domain;
 // };
 
-export default function Items() {
+interface ItemsProps {
+  disabled?: boolean;
+}
+
+export default function Items({ disabled }: ItemsProps) {
   const [currentLink, setCurrentLink] = useState<string>('');
   const {
     register,
@@ -107,6 +111,7 @@ export default function Items() {
                             autoComplete="off"
                             maxLength={100}
                             {...register(`items.${index}.title`, itemTitleRules)}
+                            disabled={disabled}
                           />
                         }
                         commentTextArea={
@@ -119,7 +124,7 @@ export default function Items() {
                         }
                         commentLength={
                           <p className={commentError ? styles.error : styles.countLength}>
-                            ({watchItems[index]?.comment?.length ?? 0}/100)
+                            {watchItems[index]?.comment?.length ?? 0}/100
                           </p>
                         }
                         linkModal={
@@ -174,7 +179,7 @@ export default function Items() {
                           watchItems[index]?.imageUrl !== '' && (
                             <Preview
                               type="image"
-                              imageFile={watchItems[index]?.imageUrl?.[0]}
+                              imageFile={watchItems[index]?.imageUrl}
                               handleClearButtonClick={() => {
                                 setValue(`items.${index}.imageUrl`, '');
                               }}
