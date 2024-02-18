@@ -1,6 +1,6 @@
 import { MouseEvent, useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { useQuery } from '@tanstack/react-query';
+import { useMutation, useQuery } from '@tanstack/react-query';
 
 import getCategories from '@/app/_api/category/getCategories';
 
@@ -8,6 +8,10 @@ import { QUERY_KEYS } from '@/lib/constants/queryKeys';
 import { CategoryType } from '@/lib/types/categoriesType';
 import { ListCreateType } from '@/lib/types/listType';
 import { itemTitleRules } from '@/lib/constants/formInputValidationRules';
+import createList from '@/app/_api/list/createList';
+import { useRouter } from 'next/navigation';
+import toastMessage from '@/lib/constants/toastMessage';
+import toasting from '@/lib/utils/toasting';
 
 const onBoardlistTitleRules = {
   required: '제목을 입력해주세요',
@@ -18,6 +22,7 @@ const onBoardlistTitleRules = {
 };
 
 export default function CreateListStep() {
+  const router = useRouter();
   const [title, setTitle] = useState('');
   const [selectedCategory, setSelectedCategory] = useState({
     nameValue: '',
@@ -35,7 +40,8 @@ export default function CreateListStep() {
     register,
     handleSubmit,
     getValues,
-    formState: { errors, defaultValues },
+    setValue,
+    formState: { errors },
   } = useForm<ListCreateType>({
     mode: 'onChange',
     defaultValues: {
@@ -88,6 +94,7 @@ export default function CreateListStep() {
         nameValue: category.nameValue,
         korNameValue: category.korNameValue,
       });
+      setValue('category', category.nameValue);
     } else {
       console.log('선택한 카테고리를 찾을 수 없어요.');
 
@@ -105,9 +112,22 @@ export default function CreateListStep() {
   //   setTitle(e.target.value);
   // };
 
-  const onSubmit = (data: ListCreateType) => {
+  const onSubmit = async (data: ListCreateType) => {
     console.log('리스트 생성'); // 삭제 예정
     console.log(data); // 삭제 예정
+
+    try {
+      const result = await createList(data);
+
+      if (result.listId) {
+        router.push(`user/13/mylist`);
+      }
+    } catch (error) {
+      if (error instanceof Error) {
+        console.error(error.message);
+        toasting({ type: 'error', txt: toastMessage.ko.createListError });
+      }
+    }
   };
 
   const onError = () => {
@@ -131,6 +151,7 @@ export default function CreateListStep() {
       <input
         {...register('title', onBoardlistTitleRules)}
         placeholder="리스트의 제목을 지어주세요."
+        autoComplete="off"
         // onChange={handleChangeTitle}
       />
       <p>{errors.title?.message}</p>
@@ -152,6 +173,7 @@ export default function CreateListStep() {
               <input
                 {...register(`items.${index}.title`, itemTitleRules)}
                 placeholder={`${index + 1}위 아이템을 입력해주세요.`}
+                autoComplete="off"
               />
               <p>{errors.items?.[index]?.title?.message}</p>
             </div>
