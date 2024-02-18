@@ -14,9 +14,13 @@ import { QUERY_KEYS } from '@/lib/constants/queryKeys';
 import checkNicknameDuplication from '../_api/user/checkNicknameDuplication';
 import updateProfile from '../_api/user/updateProfile';
 import getUserOne from '../_api/user/getUserOne';
+import getCategories from '../_api/category/getCategories';
+import { CategoryType } from '@/lib/types/categoriesType';
+import { MouseEvent, useState } from 'react';
 
 export default function OnbsoardPage() {
   const { user } = useUser(); // TODO url 변경시, params에서 id 가져오기
+  const [selectedCategory, setSelectedCategory] = useState('');
 
   const { data: userData } = useQuery<UserType>({
     // TODO patch method로 변경시, 쿼리요청 불필요
@@ -24,6 +28,13 @@ export default function OnbsoardPage() {
     queryFn: () => getUserOne(user.id as number),
     enabled: !!user.id,
   });
+
+  const { data } = useQuery<CategoryType[]>({
+    queryKey: [QUERY_KEYS.getCategories],
+    queryFn: getCategories,
+  });
+
+  const categories = data ? data?.filter((category) => category.korNameValue !== '전체') : [];
 
   const {
     register,
@@ -66,13 +77,34 @@ export default function OnbsoardPage() {
     // 변경 성공시 next step
   };
 
+  const handleChangeCategory = (e: MouseEvent<HTMLDivElement>) => {
+    if (e.target === e.currentTarget) {
+      return;
+    }
+    setSelectedCategory((e.target as HTMLButtonElement).id);
+  };
+
   return (
-    <form onSubmit={handleSubmit(onSubmit)} noValidate>
-      <label>닉네임을 만들어주세요.</label>
-      <input {...register('nickname', nicknameRules)} placeholder="닉네임을 만들어주세요." />
-      <p>{errors.nickname?.message}</p>
-      {/* 다음으로 누르면 닉네임 중복검사 및 프로필 업데이트  */}
-      <button type="submit">다음으로</button>
-    </form>
+    <>
+      <form onSubmit={handleSubmit(onSubmit)} noValidate>
+        <label>닉네임을 만들어주세요.</label>
+        <input {...register('nickname', nicknameRules)} placeholder="닉네임을 만들어주세요." />
+        <p>{errors.nickname?.message}</p>
+        <button type="submit">다음으로</button>
+      </form>
+      <br />
+      <form>
+        <label>닉네임님만의 리스트를 만들어 보아요.</label>
+        <p>무엇에 대한 리스트인가요?</p>
+        <div onClick={handleChangeCategory}>
+          {categories.map((category) => (
+            <button key={category.codeValue} id={category.nameValue} type="button">
+              {category.korNameValue}
+            </button>
+          ))}
+        </div>
+        {/* <button type="submit">다음으로</button> */}
+      </form>
+    </>
   );
 }
