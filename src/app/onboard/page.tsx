@@ -20,7 +20,10 @@ import { MouseEvent, useState } from 'react';
 
 export default function OnbsoardPage() {
   const { user } = useUser(); // TODO url 변경시, params에서 id 가져오기
-  const [selectedCategory, setSelectedCategory] = useState('');
+  const [selectedCategory, setSelectedCategory] = useState({
+    nameValue: '',
+    korNameValue: '',
+  });
 
   const { data: userData } = useQuery<UserType>({
     // TODO patch method로 변경시, 쿼리요청 불필요
@@ -81,8 +84,28 @@ export default function OnbsoardPage() {
     if (e.target === e.currentTarget) {
       return;
     }
-    setSelectedCategory((e.target as HTMLButtonElement).id);
+
+    const targetId = (e.target as HTMLButtonElement).id;
+    const category = data?.find((category) => category.nameValue === targetId);
+
+    console.log(category); // 삭제 예정
+
+    if (category) {
+      setSelectedCategory({
+        nameValue: category.nameValue,
+        korNameValue: category.korNameValue,
+      });
+    } else {
+      console.log('선택한 카테고리를 찾을 수 없어요.');
+
+      setSelectedCategory({
+        nameValue: '',
+        korNameValue: '',
+      });
+    }
   };
+
+  console.log(selectedCategory);
 
   return (
     <>
@@ -102,6 +125,15 @@ export default function OnbsoardPage() {
               {category.korNameValue}
             </button>
           ))}
+        </div>
+        {/* <button type="submit">다음으로</button> */}
+        <br />
+        <p>리스트의 제목을 지어주세요.</p>
+        <input {...register('nickname', nicknameRules)} placeholder="리스트의 제목을 지어주세요." />
+        <p>{errors.nickname?.message}</p>
+        <div>
+          <span>{selectedCategory.korNameValue}</span>
+          <p></p>
         </div>
         {/* <button type="submit">다음으로</button> */}
       </form>
