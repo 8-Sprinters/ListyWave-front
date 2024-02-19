@@ -14,12 +14,12 @@ export default function LanguageDropdown() {
   };
 
   return (
-    <div className={styles.container}>
+    <div ref={ref} className={styles.container}>
       <div className={styles.triggerDiv} onClick={toggle}>
         {language === 'ko' ? '한국어' : 'English'}
       </div>
       {isOn && (
-        <div ref={ref} className={styles.menuDiv}>
+        <div className={styles.menuDiv}>
           <div
             className={`${styles.listDiv} ${language === 'ko' && styles.selected}`}
             onClick={() => {
