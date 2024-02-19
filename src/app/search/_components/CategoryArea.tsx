@@ -1,4 +1,4 @@
-import * as styles from './SearchCategoryArea.css';
+import * as styles from './CategoryArea.css';
 import tempImageSrc from '/public/images/mock_profile.png';
 import Image from 'next/image';
 import { useSearchParams } from 'next/navigation';
@@ -58,7 +58,7 @@ interface SearchCategoryAreaProps {
   onClick: MouseEventHandler;
 }
 
-function SearchCategoryArea({ onClick }: SearchCategoryAreaProps) {
+function CategoryArea({ onClick }: SearchCategoryAreaProps) {
   const searchParams = useSearchParams();
   const categoryValue = searchParams?.get('category');
 
@@ -90,4 +90,4 @@ function SearchCategoryArea({ onClick }: SearchCategoryAreaProps) {
   );
 }
 
-export default SearchCategoryArea;
+export default CategoryArea;

@@ -1,10 +1,10 @@
 'use client';
 
-import SearchCategoryArea from '@/app/explore/_components/SearchCategoryArea';
+import CategoryArea from '@/app/search/_components/CategoryArea';
 import SearchKeywordResult from '@/app/search/_components/SearchKeywordResult';
 // import { USER_DATA_ME } from '@/app/[userNickname]/[listId]/mockData/user';
 import * as styles from './Search.css';
-import SearchKeywordArea from '@/app/explore/_components/SearchKeywordArea';
+import KeywordArea from '@/app/search/_components/KeywordArea';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useEffect, useState, KeyboardEvent, MouseEvent, ChangeEvent } from 'react';
 import { searchResult } from '@/app/search/mockData/searchResult';
@@ -85,10 +85,10 @@ export default function Search() {
             <button className={styles.buttonResetStyle} onClick={() => {}}>
               <BackButton alt="뒤로 가기 버튼" />
             </button>
-            <SearchKeywordArea onInput={handleKeywordChange} onKeyDown={handleKeyDown} />
+            <KeywordArea onInput={handleKeywordChange} onKeyDown={handleKeyDown} />
           </div>
 
-          <SearchCategoryArea onClick={handelCategoryClick} />
+          <CategoryArea onClick={handelCategoryClick} />
         </div>
         <SearchKeywordResult data={result} />
       </div>
