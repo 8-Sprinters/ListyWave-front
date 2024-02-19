@@ -5,9 +5,7 @@ import useOnClickOutside from '@/hooks/useOnClickOutside';
 
 export default function LanguageDropdown() {
   const { isOn, toggle, handleSetOff } = useBooleanOutput();
-  const { ref } = useOnClickOutside(() => {
-    handleSetOff();
-  });
+  const { ref } = useOnClickOutside(handleSetOff);
   const [language, setLanguage] = useState<'ko' | 'en'>('ko');
   return (
     <div className={styles.container}>
