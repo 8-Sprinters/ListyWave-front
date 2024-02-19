@@ -7,6 +7,12 @@ export default function LanguageDropdown() {
   const { isOn, toggle, handleSetOff } = useBooleanOutput();
   const { ref } = useOnClickOutside(handleSetOff);
   const [language, setLanguage] = useState<'ko' | 'en'>('ko');
+
+  const handleSelectLanguage = (language: 'ko' | 'en') => {
+    setLanguage(language);
+    handleSetOff();
+  };
+
   return (
     <div className={styles.container}>
       <div className={styles.triggerDiv} onClick={toggle}>
@@ -17,8 +23,7 @@ export default function LanguageDropdown() {
           <div
             className={`${styles.listDiv} ${language === 'ko' && styles.selected}`}
             onClick={() => {
-              setLanguage('ko');
-              handleSetOff();
+              handleSelectLanguage('ko');
             }}
           >
             한국어
@@ -26,8 +31,7 @@ export default function LanguageDropdown() {
           <div
             className={`${styles.listDiv} ${language === 'en' && styles.selected}`}
             onClick={() => {
-              setLanguage('en');
-              handleSetOff();
+              handleSelectLanguage('en');
             }}
           >
             English
