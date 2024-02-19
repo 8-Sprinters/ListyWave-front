@@ -6,6 +6,8 @@ import Label from '@/components/Label/Label';
 import ImageUploader from './ImageUploader';
 import * as styles from './ItemLayout.css';
 
+const MIN_ITEM_COUNT = 3;
+
 interface ItemLayoutProps {
   index: number;
   handleDeleteItem: () => void;
@@ -39,7 +41,7 @@ export default function ItemLayout({
           <Label colorType={index === 0 ? 'blue' : 'skyblue'}>{`${index + 1}위`}</Label>
           {titleInput}
         </div>
-        {itemLength > 3 && (
+        {itemLength > MIN_ITEM_COUNT && (
           <button onClick={handleDeleteItem}>
             <ClearGrayIcon alt="아이템 삭제" className={styles.headerIcon} />
           </button>

@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Image from 'next/image';
 
 import ClearBlackIcon from '/public/icons/clear_x_black.svg';
@@ -18,7 +18,7 @@ type LinkProps = PreviewBaseProps & {
 
 type ImageProps = PreviewBaseProps & {
   type: 'image';
-  imageFile: File;
+  imageFile: FileList | string;
 };
 
 type PreviewProps = LinkProps | ImageProps;
@@ -31,13 +31,21 @@ export default function Preview(props: PreviewProps) {
     props.handleClearButtonClick();
   };
 
-  if (props.type === 'image' && props.imageFile) {
-    const reader = new FileReader();
-    reader.onloadend = () => {
-      setPreview(reader.result as string);
-    };
-    reader.readAsDataURL(props.imageFile);
-  }
+  useEffect(() => {
+    if (props.type === 'image' && props.imageFile) {
+      if (typeof props.imageFile === 'string') {
+        // URL인 경우
+        setPreview(props.imageFile);
+      } else {
+        // FileList인 경우 FileReader를 사용하여 처리 로직
+        const reader = new FileReader();
+        reader.onloadend = () => {
+          setPreview(reader.result as string);
+        };
+        reader.readAsDataURL(props.imageFile[0] as File);
+      }
+    }
+  }, [props]);
 
   return (
     <div
@@ -57,7 +65,7 @@ export default function Preview(props: PreviewProps) {
           <p className={styles.domainText}>{props.domain}</p>
         </>
       )}
-      {props.type === 'image' && (
+      {preview !== null && (
         <Image className={styles.previewImage} src={preview || '/icons/attach_image.svg'} alt="첨부 이미지" fill />
       )}
       <button className={styles.clearButton} onClick={handleClearClick}>

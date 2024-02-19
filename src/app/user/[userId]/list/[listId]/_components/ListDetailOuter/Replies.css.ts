@@ -1,5 +1,8 @@
 import { style } from '@vanilla-extract/css';
-import './Comment.css';
+import { vars } from '@/styles/theme.css';
+import { caption1 } from '@/styles/font.css';
+
+/**@todo 공용폰트 스타일 적용 */
 
 export const repliesOuterWrapper = style({
   display: 'flex',
@@ -7,7 +10,9 @@ export const repliesOuterWrapper = style({
   marginBottom: '20px',
 });
 
-export const repliesWrapper = style({});
+export const repliesWrapper = style({
+  marginTop: '16px',
+});
 
 export const replyWrapper = style({
   marginLeft: '30px',
@@ -17,8 +22,7 @@ export const replyWrapper = style({
 });
 
 export const showMoreRepliesWrapper = style({
-  marginLeft: '30px',
-  marginBottom: '25px',
+  margin: '14px 0 23px 38px',
 
   display: 'flex',
   alignItems: 'center',
@@ -27,6 +31,9 @@ export const showMoreRepliesWrapper = style({
 
 export const showMoreReplies = style({
   fontSize: '1rem',
+  color: vars.color.gray9,
+  fontWeight: 500,
+  cursor: 'pointer',
 });
 
 export const deleteButton = style({
@@ -40,19 +47,19 @@ export const profileImage = style({
   flex: '0 0 1',
 
   borderRadius: '16px',
-  backgroundColor: '#909090',
+  backgroundColor: vars.color.gray7,
 });
 
 export const replyContainer = style({
   display: 'flex',
   flexDirection: 'column',
-  gap: '5px',
+  gap: '8px',
 });
 
 export const replyInformationWrapper = style({
   display: 'flex',
   alignItems: 'baseline',
-  gap: '8px',
+  gap: '8.85px',
 });
 
 export const replyWriter = style({
@@ -63,10 +70,13 @@ export const replyWriter = style({
 export const replyCreatedTime = style({
   fontSize: '1rem',
   fontWeight: 500,
-  color: '#494949',
+  color: vars.color.gray9,
 });
 
-export const replyContent = style({
-  fontSize: '1.2rem',
-  fontWeight: 500,
-});
+export const replyContent = style([
+  caption1,
+  {
+    fontWeight: 500,
+    lineHeight: 'normal',
+  },
+]);

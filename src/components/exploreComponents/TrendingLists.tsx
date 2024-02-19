@@ -1,5 +1,6 @@
 'use client';
 import Image from 'next/image';
+import { useRouter } from 'next/navigation';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { useQuery } from '@tanstack/react-query';
 import { QUERY_KEYS } from '@/lib/constants/queryKeys';
@@ -12,6 +13,7 @@ import 'swiper/css';
 import * as styles from './TrendingLists.css';
 
 function TrendingList() {
+  const router = useRouter();
   const { data: trendingLists, isPending } = useQuery({
     queryKey: [QUERY_KEYS.getTrendingLists],
     queryFn: () => getTrendingLists(),
@@ -32,7 +34,13 @@ function TrendingList() {
       >
         {trendingLists?.map((item: TrendingListType) => {
           return (
-            <SwiperSlide key={item.id} className={styles.swiperSlide}>
+            <SwiperSlide
+              key={item.id}
+              className={styles.swiperSlide}
+              onClick={() => {
+                router.push(`/user/${item.ownerId}/list/${item.id}`);
+              }}
+            >
               <div
                 className={styles.swiperContainer}
                 style={assignInlineVars({

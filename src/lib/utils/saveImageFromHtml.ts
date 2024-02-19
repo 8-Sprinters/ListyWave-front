@@ -1,10 +1,11 @@
 import { toPng } from 'html-to-image';
 import toasting from '@/lib/utils/toasting';
 
-interface saveImageFromHtmlProps {
+interface SaveImageFromHtmlProps {
   filename: string;
 }
-async function saveImageFromHtml({ filename }: saveImageFromHtmlProps) {
+
+async function saveImageFromHtml({ filename }: SaveImageFromHtmlProps) {
   const saveElement: HTMLElement | null = document.querySelector('#rankList');
   if (!saveElement) {
     console.error('리스트를 찾을 수 없습니다.');

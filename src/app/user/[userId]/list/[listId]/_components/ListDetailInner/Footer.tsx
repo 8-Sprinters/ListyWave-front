@@ -2,8 +2,8 @@
 
 import { useParams, useRouter } from 'next/navigation';
 import { MouseEvent, useState } from 'react';
-import BottomSheet from '@/components/BottomSheet/BottomSheet';
-import ModalPortal from '@/components/ModalPortal';
+import BottomSheet from '@/app/user/[userId]/list/[listId]/_components/BottomSheet/BottomSheet';
+import ModalPortal from '@/components/modal-portal';
 import saveImageFromHtml from '@/lib/utils/saveImageFromHtml';
 import copyUrl from '@/lib/utils/copyUrl';
 import toasting from '@/lib/utils/toasting';
@@ -12,7 +12,8 @@ import * as styles from './Footer.css';
 import CollectIcon from '/public/icons/collect.svg';
 import ShareIcon from '/public/icons/share.svg';
 import EtcIcon from '/public/icons/etc.svg';
-import { CollaboratorType, ListItemsType } from '@/lib/types/listType';
+import { ItemType } from '@/lib/types/listType';
+import { UserProfileType } from '@/lib/types/userProfileType';
 import { UserOnLoginType } from '@/lib/types/user';
 
 interface BottomSheetOptionsProps {
@@ -27,17 +28,17 @@ interface SheetTypeProps {
 
 interface FooterProps {
   category: string;
-  listId: string;
+  listId: string | null;
   title: string;
   description: string;
-  items: ListItemsType[];
-  collaborators: CollaboratorType[];
+  items: ItemType[];
+  collaborators: UserProfileType[];
   ownerNickname: string;
 }
 
 function Footer({ data, user }: { data: FooterProps; user?: UserOnLoginType }) {
   const router = useRouter();
-  const params = useParams<{ userId: number; listId: string }>();
+  const params = useParams<{ userId: string; listId: string }>();
 
   const [isSheetActive, setSheetActive] = useState<boolean>(false);
   const [sheetOptionList, setSheetOptionList] = useState<BottomSheetOptionsProps[]>([]);
