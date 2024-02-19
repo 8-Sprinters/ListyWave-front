@@ -31,7 +31,7 @@ interface ListDetailInnerProps {
 function ListDetailInner({ data, listId }: ListDetailInnerProps) {
   const listData = data?.items;
   const [listType, setListType] = useState('simple');
-  const { user, updateUser } = useUser();
+
 
   const handleChangeListType = (target: OptionsProps) => {
     const value: string = target.value;
@@ -53,7 +53,7 @@ function ListDetailInner({ data, listId }: ListDetailInnerProps) {
       <Header handleChangeListType={handleChangeListType} />
       <div className={styles.listAndFooter}>
         <RankList listData={listData} type={listType} />
-        <Footer data={footerData} user={user} />
+        <Footer data={footerData}/>
       </div>
     </div>
   );

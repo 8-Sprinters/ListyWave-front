@@ -15,6 +15,7 @@ import EtcIcon from '/public/icons/etc.svg';
 import { ItemType } from '@/lib/types/listType';
 import { UserProfileType } from '@/lib/types/userProfileType';
 import { UserOnLoginType } from '@/lib/types/user';
+import {useUser} from "@/store/useUser";
 
 interface BottomSheetOptionsProps {
   key: string;
@@ -36,10 +37,12 @@ interface FooterProps {
   ownerNickname: string;
 }
 
-function Footer({ data, user }: { data: FooterProps; user?: UserOnLoginType }) {
+function Footer({ data }: { data: FooterProps }) {
   const router = useRouter();
   const params = useParams<{ userId: string; listId: string }>();
+  const { user, updateUser } = useUser();
 
+  const userIdNumber = parseInt(params?.userId ?? '0');
   const [isSheetActive, setSheetActive] = useState<boolean>(false);
   const [sheetOptionList, setSheetOptionList] = useState<BottomSheetOptionsProps[]>([]);
 
@@ -94,7 +97,7 @@ function Footer({ data, user }: { data: FooterProps; user?: UserOnLoginType }) {
           title: '이 리스트 템플릿으로 바로 리스트 작성하기',
           onClick: () => {
             toasting({ type: 'default', txt: '리스트 작성 페이지로 이동합니다.' });
-            router.push(`/create?title=${data.title}&category=${data.category}`);
+            router.push(`/list/create?title=${data.title}&category=${data.category}`);
           },
         },
       ];
@@ -119,6 +122,7 @@ function Footer({ data, user }: { data: FooterProps; user?: UserOnLoginType }) {
     console.log('콜렉트기능 미구현');
   };
 
+
   return (
     <>
       {isSheetActive && (
@@ -128,7 +132,7 @@ function Footer({ data, user }: { data: FooterProps; user?: UserOnLoginType }) {
       )}
       <div className={styles.container}>
         <div className={styles.buttonComponent}>
-          {user?.id === params?.userId && <CollectIcon onClick={handleCollect} />}
+          {user?.id === userIdNumber && <CollectIcon onClick={handleCollect} />}
         </div>
         <div className={styles.shareAndOthers}>
           <div className={styles.buttonComponent} onClick={() => handleSheetActive({ type: 'share' })}>

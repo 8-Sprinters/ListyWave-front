@@ -82,7 +82,7 @@ function DetailList({ listData }: RankListProps) {
           </div>
           <div className={styles.titleText}>{item.title}</div>
         </div>
-        <div className={styles.commentText}>{item.comment}</div>
+        {item.comment && <div className={styles.commentText}>{item.comment}</div>}
         <div className={styles.detailImageWrapper}>
           {item.imageUrl && (
             <img className={styles.detailImage} src={item.imageUrl} alt={`"${item.title}" 의 이미지`} />
