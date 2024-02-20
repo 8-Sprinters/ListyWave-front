@@ -56,6 +56,7 @@ interface UserRecommendListItemProps {
 function UserRecommendListItem({ data, handleScrollToRight, userId }: UserRecommendListItemProps) {
   const [isFollowing, setIsFollowing] = useState(false);
 
+  //boolean 값을 바꾸기 위한 함수
   const handleFollowingState = () => {
     setIsFollowing((prev) => !prev);
   };

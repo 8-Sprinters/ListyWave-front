@@ -39,7 +39,6 @@ function FollowButton({ isFollowing, onClick, userId, targetId }: FollowButtonPr
       queryClient.invalidateQueries({
         queryKey: [QUERY_KEYS.userOne, userId],
       });
-      console.log('성공적으로 팔로우 했습니다');
     },
     onError: (error: AxiosError) => {
       if (error.response?.status === 401) {
@@ -56,7 +55,6 @@ function FollowButton({ isFollowing, onClick, userId, targetId }: FollowButtonPr
       queryClient.invalidateQueries({
         queryKey: [QUERY_KEYS.userOne, userId],
       });
-      console.log('성공적으로 팔로우 취소 했습니다');
     },
   });
 
