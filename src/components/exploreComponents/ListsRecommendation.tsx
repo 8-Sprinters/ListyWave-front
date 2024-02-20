@@ -7,19 +7,13 @@ import { assignInlineVars } from '@vanilla-extract/dynamic';
 
 import { SimpleList } from '@/app/user/[userId]/list/[listId]/_components/ListDetailInner/RankList';
 import getRecommendedLists from '@/app/_api/explore/getRecommendedLists';
-import getUserOne from '@/app/_api/user/getUserOne';
 import { QUERY_KEYS } from '@/lib/constants/queryKeys';
 import { ListRecommendationType } from '@/lib/types/exploreType';
-import { useUser } from '@/store/useUser';
 import Label from '@/components/Label/Label';
 import * as styles from './ListsRecommendation.css';
 import NoDataComponent from '@/components/NoData/NoDataComponent';
 
-interface ListRecommendationProps {
-  userId: number;
-}
-
-function ListRecommendation({ userId }: ListRecommendationProps) {
+function ListRecommendation() {
   const router = useRouter();
 
   const { data: result, isPending } = useQuery({
@@ -29,12 +23,6 @@ function ListRecommendation({ userId }: ListRecommendationProps) {
   });
 
   const recommendLists = result?.lists;
-
-  const { data: userMe } = useQuery({
-    queryKey: [QUERY_KEYS.userOne, userId],
-    queryFn: () => getUserOne(userId),
-    enabled: !!userId,
-  });
 
   const handleShowMoreButtonClick = (url: string) => {
     router.push(`${url}`);
