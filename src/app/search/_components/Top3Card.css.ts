@@ -1,23 +1,71 @@
 import { style, createVar } from '@vanilla-extract/css';
+import { vars } from '@/styles/theme.css';
 
 export const listColor = createVar();
 
 export const container = style({
-  width: '185px',
-  padding: '3rem 1.2rem',
+  width: '18.5rem',
+  height: '26rem',
+  padding: '3rem 1.8rem',
 
-  borderRadius: '1.5rem',
+  display: 'flex',
+  flexDirection: 'column',
+  justifyContent: 'center',
+
+  border: '1px solid #EFEFF0',
+  borderRadius: '24px',
+
   backgroundColor: listColor,
 });
 
-export const title = style({
-  padding: '1.1rem',
+export const userInfoWrapper = style({
+  display: 'flex',
+  alignItems: 'center',
+  gap: '.8rem',
+});
 
-  fontSize: '1.7rem',
+export const userImageWrapper = style({
+  width: '3rem',
+  height: '3rem',
+
+  border: '1px solid #EFEFF0',
+  borderRadius: '50px',
+
+  overflow: 'hidden',
+});
+
+export const userImage = style({
+  minWidth: '30px',
+  minHeight: '30px',
+  flex: '0 0 1',
+
+  backgroundColor: vars.color.gray7,
+});
+
+export const userTextWrapper = style({
+  display: 'flex',
+  flexDirection: 'column',
+  justifyContent: 'center',
+});
+
+export const nameText = style({
+  fontSize: '1.2rem',
+  fontWeight: '400',
+});
+
+export const updatedDateText = style({
+  fontSize: '1.1rem',
+  color: '#AFB1B6',
+});
+
+export const title = style({
+  padding: '.8rem 0 2.4rem 0',
+
+  fontSize: '1.8rem',
   fontWeight: '600',
   color: 'var(--text-text-grey-dark, #202020)',
-  textAlign: 'right',
-  letterSpacing: '-0.51px',
+  textAlign: 'left',
+  letterSpacing: '0.14px',
   wordBreak: 'keep-all',
 });
 
@@ -26,6 +74,7 @@ export const list = style({
 
   display: 'flex',
   flexDirection: 'column',
+  gap: '.8rem',
 
   fontSize: '1.2rem',
   fontWeight: '400',
@@ -34,28 +83,13 @@ export const list = style({
   letterSpacing: '-0.36px',
 });
 
-export const userInfoWrapper = style({
-  display: 'flex',
-  justifyContent: 'space-between',
-  alignItems: 'center',
-});
-
-export const userNameText = style({
-  fontSize: '1.2rem',
-});
-
-export const lockIcon = style({
-  padding: '0 1rem',
+export const skeletonContainer = style({
+  width: '185px',
 
   display: 'flex',
-  justifyContent: 'flex-end',
+  flexDirection: 'column',
   alignItems: 'center',
-  gap: '2px',
-});
+  justifyContent: 'center',
 
-export const lockText = style({
-  fontSize: '1.1rem',
-  fontWeight: '400',
-  letterSpacing: '-0.33px',
-  color: '#AFB1B6',
+  borderRadius: '1.5rem',
 });

@@ -11,7 +11,7 @@ function Header({ onBackClick, isSubmitActive, onSubmitClick }: HeaderProps) {
   return (
     <div className={styles.header}>
       <button onClick={onBackClick}>
-        <BackIcon alt="뒤로가기 버튼" />
+        <BackIcon width={'8'} height={'14'} alt="뒤로가기 버튼" />
       </button>
       <h1 className={styles.headerTitle}>리스트 생성</h1>
       <button

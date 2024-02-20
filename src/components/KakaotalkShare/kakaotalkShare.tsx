@@ -14,7 +14,6 @@ interface kakaotalkShareProps {
 function kakaotalkShare({
   title,
   description,
-  image,
   listItem = [],
   collaborators,
   userNickname,

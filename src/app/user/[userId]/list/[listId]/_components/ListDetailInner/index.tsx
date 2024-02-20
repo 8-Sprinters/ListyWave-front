@@ -32,7 +32,6 @@ function ListDetailInner({ data, listId }: ListDetailInnerProps) {
   const listData = data?.items;
   const [listType, setListType] = useState('simple');
 
-
   const handleChangeListType = (target: OptionsProps) => {
     const value: string = target.value;
     setListType(value);
@@ -46,14 +45,21 @@ function ListDetailInner({ data, listId }: ListDetailInnerProps) {
     items: listData,
     collaborators: data?.collaborators,
     ownerNickname: data?.ownerNickname,
+    collectCount: data?.collectCount,
+    viewCount: data?.viewCount,
+    isCollected: data?.isCollected,
+  };
+
+  const headerData = {
+    viewCount: data?.viewCount,
   };
 
   return (
     <div className={styles.container}>
-      <Header handleChangeListType={handleChangeListType} />
+      <Header data={headerData} handleChangeListType={handleChangeListType} />
       <div className={styles.listAndFooter}>
         <RankList listData={listData} type={listType} />
-        <Footer data={footerData}/>
+        <Footer data={footerData} />
       </div>
     </div>
   );

@@ -19,6 +19,7 @@ export const keywordWrapper = style({
   display: 'flex',
   flexDirection: 'row',
   alignItems: 'center',
+  gap: '1.3rem',
 });
 
 export const logoWrapper = style({
@@ -29,8 +30,8 @@ export const logoWrapper = style({
 });
 
 export const buttonResetStyle = style({
-  width: '24px',
-  height: '24px',
+  width: '16px',
+  height: '28px',
 
   display: 'flex',
   justifyContent: 'center',

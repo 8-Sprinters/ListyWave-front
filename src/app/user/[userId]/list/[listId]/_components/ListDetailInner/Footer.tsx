@@ -14,8 +14,11 @@ import ShareIcon from '/public/icons/share.svg';
 import EtcIcon from '/public/icons/etc.svg';
 import { ItemType } from '@/lib/types/listType';
 import { UserProfileType } from '@/lib/types/userProfileType';
-import { UserOnLoginType } from '@/lib/types/user';
-import {useUser} from "@/store/useUser";
+import { useUser } from '@/store/useUser';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { QUERY_KEYS } from '@/lib/constants/queryKeys';
+import { collect, unCollect } from '@/app/_api/list/collect';
+import numberFormatter from '@/lib/utils/numberFormatter';
 
 interface BottomSheetOptionsProps {
   key: string;
@@ -35,19 +38,24 @@ interface FooterProps {
   items: ItemType[];
   collaborators: UserProfileType[];
   ownerNickname: string;
+  isCollected: boolean;
+  viewCount: number;
+  collectCount: number;
 }
 
 function Footer({ data }: { data: FooterProps }) {
+  console.log('data.isCollected : ', data.isCollected);
   const router = useRouter();
   const params = useParams<{ userId: string; listId: string }>();
-  const { user, updateUser } = useUser();
+  const { user: loginUser } = useUser();
+  const queryClient = useQueryClient();
 
-  const userIdNumber = parseInt(params?.userId ?? '0');
+  const writerId = parseInt(params?.userId ?? '0');
   const [isSheetActive, setSheetActive] = useState<boolean>(false);
   const [sheetOptionList, setSheetOptionList] = useState<BottomSheetOptionsProps[]>([]);
 
   const handleSheetOptionList = ({ type }: SheetTypeProps) => {
-    const listUrl = `${process.env.NEXT_PUBLIC_BASE_URL}/${params?.userId}/${params?.listId}`;
+    const listUrl = `${process.env.NEXT_PUBLIC_BASE_URL}/user/${params?.userId}/list/${params?.listId}`;
 
     if (type === 'share') {
       const optionList = [
@@ -63,12 +71,9 @@ function Footer({ data }: { data: FooterProps }) {
           key: 'kakaoShare',
           title: '리스트 카카오톡으로 공유하기',
           onClick: () => {
-            // TODO: image로 저장한다음에 해당 image를 보내줘야한다.
             kakaotalkShare({
               title: data.title,
               description: data.description,
-              image:
-                'https://i.namu.wiki/i/-8Iah6PGZzzQuY1KtJIbj8_KBbX4whnbaq8AYShoqphdJOpfJDskZZ2Y3bU2I5Jpnx8aRi1LXTz1_e0v_fMrp172modjOmKRcxcME5dmM6IDAIgqktw5yIs75is2CgC1GrGoxZPwxpeTXudKIxWn2w.webp',
               listItem: data.items,
               collaborators: data.collaborators,
               listId: data.listId,
@@ -117,11 +122,67 @@ function Footer({ data }: { data: FooterProps }) {
     }
   };
 
+  // const collectMutation = useMutation({
+  //   mutationFn: async ({ listId, userAction }) => {
+  //     if (userAction === 'collect') {
+  //       await collect(listId);
+  //     } else {
+  //       await unCollect(listId);
+  //     }
+  //   },
+  //   onMutate: async ({ listId, userAction }) => {
+  //     await queryClient.cancelQueries({
+  //       queryKey: ['collectStatus', listId],
+  //     });
+  //
+  //     const prevCollectStatus = queryClient.getQueryData(['collectStatus', listId]);
+  //
+  //     queryClient.setQueryData(['collectStatus', listId], () => userAction === 'collect');
+  //
+  //     return { prevCollectStatus };
+  //   },
+  //   onError: (err, { listId }, context) => {
+  //     queryClient.setQueryData(['collectStatus', listId], context.prevCollectStatus);
+  //   },
+  //   onSettled: (data, err, { listId }) => {
+  //     queryClient.invalidateQueries({
+  //       queryKey: ['collectStatus', listId],
+  //     });
+  //   },
+  // });
+
   // TODO: 콜렉트 API생성되면 요청보내고 UI변경시키기
-  const handleCollect = () => {
-    console.log('콜렉트기능 미구현');
+  const handleCollect = (userAction) => {
+    console.log('콜렉트');
+
+    // collectMutation.mutate({
+    //   listId: data.listId,
+    //   userAction,
+    // });
   };
 
+  const CollectButton = () => {
+    // TODO: 로그인유저 !== 작성자 인경우, viewCount, CollectCount를 아예 받아오면안된다.
+    if (!loginUser) {
+      return <CollectIcon onClick={alert('로그인 모달 띄우기')} />;
+    }
+
+    // TODO: 언어설정이 생기면 'ko' 부분을 변수로 수정하기
+    // TODO: style cursor:pointer 없애기
+    if (loginUser?.id === writerId) {
+      return (
+        <div className={styles.collectWrapper}>
+          <CollectIcon fill="red" />
+          <div>{numberFormatter(data.collectCount, 'ko') ?? 0}</div>
+        </div>
+      );
+    }
+    if (data.isCollected) {
+      return <CollectIcon fill="red" onClick={handleCollect('unCollect')} />;
+    } else {
+      return <CollectIcon fill="black" onClick={handleCollect('collect')} />;
+    }
+  };
 
   return (
     <>
@@ -132,7 +193,7 @@ function Footer({ data }: { data: FooterProps }) {
       )}
       <div className={styles.container}>
         <div className={styles.buttonComponent}>
-          {user?.id === userIdNumber && <CollectIcon onClick={handleCollect} />}
+          <CollectButton />
         </div>
         <div className={styles.shareAndOthers}>
           <div className={styles.buttonComponent} onClick={() => handleSheetActive({ type: 'share' })}>

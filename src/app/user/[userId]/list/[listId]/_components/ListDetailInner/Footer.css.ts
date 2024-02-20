@@ -21,3 +21,10 @@ export const shareAndOthers = style({
 export const buttonComponent = style({
   cursor: 'pointer',
 });
+
+export const collectWrapper = style({
+  display: 'flex',
+  flexDirection: 'column',
+  justifyContent: 'center',
+  alignItems: 'center',
+});
