@@ -15,15 +15,13 @@ import { QUERY_KEYS } from '@/lib/constants/queryKeys';
 import { CommentType } from '@/lib/types/commentType';
 import { UserType } from '@/lib/types/userProfileType';
 import { useUser } from '@/store/useUser';
-import DefaultProfile from '/public/images/mock_profile.png';
 
 import * as styles from './Comments.css';
 import CancelButton from '/public/icons/cancel_button.svg';
-import { imageListItemBarClasses } from '@mui/material';
 
 function Comments() {
   const [activeNickname, setActiveNickname] = useState<string | null | undefined>(null);
-  const [commentId, setCommentId] = useState<null | number | undefined>(null);
+  const [commentId, setCommentId] = useState<null | number>(null);
   const [comment, setComment] = useState<string>('');
   const params = useParams<{ listId: string }>();
   const queryClient = useQueryClient();
@@ -79,8 +77,10 @@ function Comments() {
   };
 
   //답글 생성중인 댓글에 대한 id를 받아오는 함수
-  const handleSetCommentId = (id: number | undefined) => {
-    setCommentId(id);
+  const handleSetCommentId = (id?: number) => {
+    if (id) {
+      setCommentId(id);
+    }
   };
 
   //댓글 폼 사용(추후 리액트 훅폼으로 수정해 볼 예정)

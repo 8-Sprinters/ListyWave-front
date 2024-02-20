@@ -18,12 +18,12 @@ import DefaultProfile from '/public/icons/default_profile_temporary.svg';
  * @todo 타입 정리 필요
  */
 interface CommentProps {
-  comment: CommentType | undefined;
-  onUpdate: (userName: string | undefined) => void;
+  comment?: CommentType;
+  onUpdate: (userName?: string) => void;
   activeNickname?: string | null;
   handleSetCommentId: (id: number | undefined) => void;
-  listId?: number | undefined;
-  commentId?: null | number | undefined;
+  listId?: number;
+  commentId?: null | number;
   currentUserInfo?: UserType;
 }
 

@@ -8,8 +8,8 @@ import KebabButton from '/public/icons/vertical_kebab_button.svg';
 import * as styles from './ModalButtonStyle.css';
 
 interface OpenBottomSheetButtonProps {
-  listId: string | undefined;
-  isCollaborator: boolean | undefined;
+  listId?: string;
+  isCollaborator?: boolean;
 }
 
 export default function OpenBottomSheetButton({ listId, isCollaborator }: OpenBottomSheetButtonProps) {

@@ -14,10 +14,10 @@ import * as styles from './Replies.css';
 import Line from '/public/icons/horizontal_line.svg';
 
 interface RepliesProps {
-  replies: ReplyType[] | null | undefined;
-  listId?: number | undefined;
-  commentId?: null | number | undefined;
-  currentUserInfo?: UserType | undefined;
+  replies?: ReplyType[] | null;
+  listId?: number;
+  commentId?: null | number;
+  currentUserInfo?: UserType;
 }
 
 function Replies({ replies, listId, currentUserInfo }: RepliesProps) {
@@ -54,8 +54,8 @@ export default Replies;
 
 interface ReplyProps {
   reply: ReplyType;
-  listId?: number | undefined;
-  currentUserInfo: UserType | undefined;
+  listId?: number;
+  currentUserInfo?: UserType;
 }
 
 function Reply({ reply, listId, currentUserInfo }: ReplyProps) {
