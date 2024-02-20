@@ -2,14 +2,20 @@
 import { useState, useRef } from 'react';
 import Image from 'next/image';
 import { useQuery } from '@tanstack/react-query';
+
 import { QUERY_KEYS } from '@/lib/constants/queryKeys';
 import getRecommendedUsers from '@/app/_api/explore/getRecommendedUsers';
+import { useUser } from '@/store/useUser';
 import FollowButton from './FollowButton';
 import { UserProfileType } from '@/lib/types/userProfileType';
 
 import * as styles from './UsersRecommendation.css';
 
 function UsersRecommendation({ userId }: { userId: number }) {
+  //zustand로 관리하는 user정보 불러오기
+  const { user: userMe } = useUser();
+  const myId = userMe.id;
+
   const wrapperRef = useRef<HTMLUListElement>(null);
   const { data: usersList } = useQuery<UserProfileType[]>({
     queryKey: [QUERY_KEYS.getRecommendedUsers],
@@ -27,7 +33,7 @@ function UsersRecommendation({ userId }: { userId: number }) {
 
   return (
     <>
-      {userId && (
+      {myId && (
         <div className={styles.wrapper}>
           {usersList?.length !== 0 && (
             <>
