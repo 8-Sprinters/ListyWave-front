@@ -16,7 +16,11 @@ export default function OnbsoardPage() {
   const { user } = useUser();
   const [stepIndex, setStepIndex] = useState(0);
 
-  const { data: userData, isLoading } = useQuery<UserType>({
+  const {
+    data: userData,
+    isLoading,
+    refetch,
+  } = useQuery<UserType>({
     queryKey: [QUERY_KEYS.userOne, user.id],
     queryFn: () => getUserOne(user.id as number),
     enabled: !!user.id,
@@ -34,8 +38,10 @@ export default function OnbsoardPage() {
     <>
       {userData ? (
         <div>
-          {stepIndex === 0 && <CreateNicknameStep userData={userData} handleNextStep={handleNextStep} />}
-          {stepIndex === 1 && <CreateListStep userId={userData?.id} />}
+          {stepIndex === 0 && (
+            <CreateNicknameStep userData={userData} handleNextStep={handleNextStep} refetch={refetch} />
+          )}
+          {stepIndex === 1 && <CreateListStep userId={userData?.id} nickname={userData.nickname} />}
         </div>
       ) : (
         <div>

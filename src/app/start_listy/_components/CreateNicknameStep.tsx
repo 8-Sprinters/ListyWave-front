@@ -1,4 +1,5 @@
 import { useForm } from 'react-hook-form';
+import { QueryObserverResult, RefetchOptions } from '@tanstack/react-query';
 
 import * as styles from './CreateNicknameStep.css';
 
@@ -10,9 +11,10 @@ import updateProfile from '@/app/_api/user/updateProfile';
 interface CreateNicnameStepProps {
   userData: UserType;
   handleNextStep: () => void;
+  refetch: (options?: RefetchOptions | undefined) => Promise<QueryObserverResult<UserType, Error>>;
 }
 
-export default function CreateNicknameStep({ userData, handleNextStep }: CreateNicnameStepProps) {
+export default function CreateNicknameStep({ userData, handleNextStep, refetch }: CreateNicnameStepProps) {
   const {
     register,
     handleSubmit,
@@ -39,20 +41,25 @@ export default function CreateNicknameStep({ userData, handleNextStep }: CreateN
     }
 
     // isDuplitedNickname이 false면, 프로필 업데이트
-    await updateProfile({
-      userId: userData.id as number,
-      data: {
-        nickname: data.nickname,
-        description: userData?.description, // TODO patch method로 변경시, 다른 필드 제거
-        backgroundImageUrl: userData?.backgroundImageUrl,
-        profileImageUrl: userData?.profileImageUrl,
-        newBackgroundFileList: null,
-        newProfileFileList: null,
-      },
-    });
+    try {
+      await updateProfile({
+        userId: userData.id as number,
+        data: {
+          nickname: data.nickname,
+          description: userData?.description, // TODO patch method로 변경시, 다른 필드 제거
+          backgroundImageUrl: userData?.backgroundImageUrl,
+          profileImageUrl: userData?.profileImageUrl,
+          newBackgroundFileList: null,
+          newProfileFileList: null,
+        },
+      });
 
-    // 변경 성공시 next step
-    handleNextStep();
+      refetch();
+      // 변경 성공시 next step
+      handleNextStep();
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   console.log(isValid);
