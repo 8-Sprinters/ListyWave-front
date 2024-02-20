@@ -28,9 +28,9 @@ function Header() {
 
   return (
     <nav className={styles.wrapper}>
-      <div className={styles.logoWrapper}>
+      <button className={styles.logoWrapper} onClick={onClickMoveToPage('/intro')}>
         <Logo alt="로고 이미지" />
-      </div>
+      </button>
       <div className={styles.userInfoOuterWrapper}>
         <div className={styles.userInfoWrapper} onClick={onClickMoveToPage('/account')}>
           {userMe?.profileImageUrl ? (
@@ -44,7 +44,7 @@ function Header() {
           ) : (
             <NoneProfileImage width={32} height={32} />
           )}
-          {userId !== 0 ? (
+          {userId !== null ? (
             <h5 className={styles.userName}>{userMe?.nickname}</h5>
           ) : (
             <h5 className={styles.loginButton} onClick={onClickMoveToPage('/login')}>
