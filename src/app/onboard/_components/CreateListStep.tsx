@@ -31,6 +31,7 @@ const onBoardlistTitleRules = {
 export default function CreateListStep() {
   const router = useRouter();
   const methods = useForm();
+  const [stepIndex, setStepIndex] = useState(0);
   const [title, setTitle] = useState(''); // 사용 예정
   const [selectedCategory, setSelectedCategory] = useState({
     nameValue: '',
@@ -81,12 +82,17 @@ export default function CreateListStep() {
   });
 
   console.log(selectedCategory); // 삭제 예정
+  console.log(stepIndex); // 삭제 예정
 
   // 추후 구현
   // const handleChangeTitle = (e: any) => {
   //   console.log(e.target.value);
   //   setTitle(e.target.value);
   // };
+
+  const handleNextStep = () => {
+    setStepIndex((prev) => prev + 1);
+  };
 
   const handleChangeCategory = (category: { nameValue: string; korNameValue: string }) => {
     setSelectedCategory({
@@ -122,10 +128,16 @@ export default function CreateListStep() {
   return (
     <FormProvider {...methods}>
       <form onSubmit={handleSubmit(onSubmit, onError)} noValidate>
-        <p>닉네임님만의 리스트를 만들어 보아요.</p>
-        <Category handleChangeCategory={handleChangeCategory} />
-        <button type="button">다음으로</button>
-        <br />
+        {stepIndex === 0 && (
+          <div>
+            <p>닉네임님만의 리스트를 만들어 보아요.</p>
+            <Category handleChangeCategory={handleChangeCategory} />
+            <button type="button" onClick={handleNextStep}>
+              다음으로
+            </button>
+          </div>
+        )}
+
         <p>리스트의 제목을 지어주세요.</p>
         <input
           {...register('title', onBoardlistTitleRules)}
