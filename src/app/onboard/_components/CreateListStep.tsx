@@ -6,7 +6,7 @@
 
 import { useRouter } from 'next/navigation';
 import { MouseEvent, useState } from 'react';
-import { useForm } from 'react-hook-form';
+import { FormProvider, useForm } from 'react-hook-form';
 import { useQuery } from '@tanstack/react-query';
 
 import getCategories from '@/app/_api/category/getCategories';
@@ -18,6 +18,7 @@ import { ListCreateType } from '@/lib/types/listType';
 import { itemTitleRules } from '@/lib/constants/formInputValidationRules';
 import toastMessage from '@/lib/constants/toastMessage';
 import toasting from '@/lib/utils/toasting';
+import Category from './Category';
 
 const onBoardlistTitleRules = {
   required: '제목을 입력해주세요',
@@ -29,18 +30,12 @@ const onBoardlistTitleRules = {
 
 export default function CreateListStep() {
   const router = useRouter();
+  const methods = useForm();
   const [title, setTitle] = useState(''); // 사용 예정
   const [selectedCategory, setSelectedCategory] = useState({
     nameValue: '',
     korNameValue: '',
   });
-
-  const { data } = useQuery<CategoryType[]>({
-    queryKey: [QUERY_KEYS.getCategories],
-    queryFn: getCategories,
-  });
-
-  const categories = data ? data?.filter((category) => category.korNameValue !== '전체') : [];
 
   const {
     register,
@@ -85,32 +80,6 @@ export default function CreateListStep() {
     },
   });
 
-  const handleChangeCategory = (e: MouseEvent<HTMLDivElement>) => {
-    if (e.target === e.currentTarget) {
-      return;
-    }
-
-    const targetId = (e.target as HTMLButtonElement).id;
-    const category = data?.find((category) => category.nameValue === targetId);
-
-    console.log(category); // 삭제 예정
-
-    if (category) {
-      setSelectedCategory({
-        nameValue: category.nameValue,
-        korNameValue: category.korNameValue,
-      });
-      setValue('category', category.nameValue);
-    } else {
-      console.log('선택한 카테고리를 찾을 수 없어요.');
-
-      setSelectedCategory({
-        nameValue: '',
-        korNameValue: '',
-      });
-    }
-  };
-
   console.log(selectedCategory); // 삭제 예정
 
   // 추후 구현
@@ -118,6 +87,15 @@ export default function CreateListStep() {
   //   console.log(e.target.value);
   //   setTitle(e.target.value);
   // };
+
+  const handleChangeCategory = (category: { nameValue: string; korNameValue: string }) => {
+    setSelectedCategory({
+      nameValue: category.nameValue,
+      korNameValue: category.korNameValue,
+    });
+  };
+
+  console.log(selectedCategory);
 
   const onSubmit = async (data: ListCreateType) => {
     console.log('리스트 생성'); // 삭제 예정
@@ -142,52 +120,47 @@ export default function CreateListStep() {
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit, onError)} noValidate>
-      <label>닉네임님만의 리스트를 만들어 보아요.</label>
-      <p>무엇에 대한 리스트인가요?</p>
-      <div onClick={handleChangeCategory}>
-        {categories.map((category) => (
-          <button key={category.codeValue} id={category.nameValue} type="button">
-            {category.korNameValue}
-          </button>
-        ))}
-      </div>
-      <button type="button">다음으로</button>
-      <br />
-      <p>리스트의 제목을 지어주세요.</p>
-      <input
-        {...register('title', onBoardlistTitleRules)}
-        placeholder="리스트의 제목을 지어주세요."
-        autoComplete="off"
-        // onChange={handleChangeTitle}
-      />
-      <p>{errors.title?.message}</p>
-      <div>
-        <span>{selectedCategory.korNameValue}</span>
-        <p>{getValues('title')}</p>
-      </div>
-      <button type="button">다음으로</button>
-      <br />
-      <p>
-        리스트에 넣을 1, 2, 3위 <br /> 아이템을 적어주세요.
-      </p>
-      <div>
-        <span>{selectedCategory.korNameValue}</span>
-        <p>{getValues('title')}</p>
+    <FormProvider {...methods}>
+      <form onSubmit={handleSubmit(onSubmit, onError)} noValidate>
+        <p>닉네임님만의 리스트를 만들어 보아요.</p>
+        <Category handleChangeCategory={handleChangeCategory} />
+        <button type="button">다음으로</button>
+        <br />
+        <p>리스트의 제목을 지어주세요.</p>
+        <input
+          {...register('title', onBoardlistTitleRules)}
+          placeholder="리스트의 제목을 지어주세요."
+          autoComplete="off"
+          // onChange={handleChangeTitle}
+        />
+        <p>{errors.title?.message}</p>
         <div>
-          {new Array(3).fill(0).map((_, index) => (
-            <div key={index}>
-              <input
-                {...register(`items.${index}.title`, itemTitleRules)}
-                placeholder={`${index + 1}위 아이템을 입력해주세요.`}
-                autoComplete="off"
-              />
-              <p>{errors.items?.[index]?.title?.message}</p>
-            </div>
-          ))}
+          <span>{selectedCategory.korNameValue}</span>
+          <p>{getValues('title')}</p>
         </div>
-      </div>
-      <button type="submit">완료</button>
-    </form>
+        <button type="button">다음으로</button>
+        <br />
+        <p>
+          리스트에 넣을 1, 2, 3위 <br /> 아이템을 적어주세요.
+        </p>
+        <div>
+          <span>{selectedCategory.korNameValue}</span>
+          <p>{getValues('title')}</p>
+          <div>
+            {new Array(3).fill(0).map((_, index) => (
+              <div key={index}>
+                <input
+                  {...register(`items.${index}.title`, itemTitleRules)}
+                  placeholder={`${index + 1}위 아이템을 입력해주세요.`}
+                  autoComplete="off"
+                />
+                <p>{errors.items?.[index]?.title?.message}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+        <button type="submit">완료</button>
+      </form>
+    </FormProvider>
   );
 }
