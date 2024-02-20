@@ -16,7 +16,7 @@ export default function OnbsoardPage() {
   const { user } = useUser();
   const [stepIndex, setStepIndex] = useState(0);
 
-  const { data: userData } = useQuery<UserType>({
+  const { data: userData, isLoading } = useQuery<UserType>({
     queryKey: [QUERY_KEYS.userOne, user.id],
     queryFn: () => getUserOne(user.id as number),
     enabled: !!user.id,
@@ -25,6 +25,10 @@ export default function OnbsoardPage() {
   const handleNextStep = () => {
     setStepIndex((prev) => prev + 1);
   };
+
+  if (isLoading) {
+    return <div>로딩중</div>;
+  }
 
   return (
     <>
