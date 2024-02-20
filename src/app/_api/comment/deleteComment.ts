@@ -7,8 +7,7 @@ interface DeleteCommentType {
 
 //댓글 삭제 api
 const deleteComment = async ({ listId, commentId }: DeleteCommentType) => {
-  const response = await axiosInstance.delete(`/lists/${listId}/comments/${commentId}`);
-  return response.data;
+  await axiosInstance.delete(`/lists/${listId}/comments/${commentId}`);
 };
 
 export default deleteComment;

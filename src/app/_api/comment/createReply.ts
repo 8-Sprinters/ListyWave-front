@@ -1,8 +1,8 @@
 import axiosInstance from '@/lib/axios/axiosInstance';
 
 interface CreateReplyType {
-  listId: number | undefined;
-  commentId: number | undefined | null;
+  listId: number;
+  commentId: number | null;
   data: string;
 }
 
