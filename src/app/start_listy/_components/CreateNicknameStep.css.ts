@@ -1,5 +1,5 @@
 import { style, styleVariants } from '@vanilla-extract/css';
-import { bodyLarge, bodySmall, headlineSmall, labelMedium, titleMedium } from '@/styles/font.css';
+import { bodyLarge, bodySmall, headlineSmall, labelMedium, titleMedium, titleRegular } from '@/styles/font.css';
 import { vars } from '@/styles/theme.css';
 
 export const background = style({
@@ -29,9 +29,17 @@ export const stepText = style([
   },
 ]);
 
+// bar container
+export const barContainer = style({
+  display: 'flex',
+  justifyContent: 'space-between',
+  gap: '2.5px',
+});
+
 // progress bar
 export const bar = styleVariants({
   dafult: {
+    // 오타 수정하기
     width: '100%',
     height: '10px',
     position: 'absolute',
@@ -50,6 +58,8 @@ export const bar = styleVariants({
 });
 
 export const statusBar = styleVariants({
+  zero: [bar.progress, { width: '1%' }],
+  divide: [bar.progress, { width: '33%' }],
   half: [bar.progress, { width: '50%' }],
   full: [bar.progress, { width: '100%' }],
 });
@@ -68,7 +78,19 @@ export const container = style({
   borderRadius: '3rem',
 });
 
+// title
 export const title = style([headlineSmall]); // titleLarge랑 고민
+
+export const subTitle = style([
+  titleRegular,
+  {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    gap: '5px',
+    color: vars.color.gray9,
+  },
+]);
 
 export const inputWrapper = style({
   paddingBottom: '3rem',

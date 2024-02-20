@@ -10,6 +10,7 @@ import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 
+import * as styles from './CreateNicknameStep.css';
 import createList from '@/app/_api/list/createList';
 
 import { CategoryType } from '@/lib/types/categoriesType';
@@ -23,9 +24,10 @@ import RegisterItems from './RegisterItems';
 
 interface CreateListStepProps {
   userId: number;
+  nickname: string;
 }
 
-export default function CreateListStep({ userId }: CreateListStepProps) {
+export default function CreateListStep({ userId, nickname }: CreateListStepProps) {
   const router = useRouter();
   const [stepIndex, setStepIndex] = useState(0);
   const [selectedCategory, setSelectedCategory] = useState({
@@ -110,15 +112,32 @@ export default function CreateListStep({ userId }: CreateListStepProps) {
 
   return (
     <FormProvider {...methods}>
-      <form onSubmit={methods.handleSubmit(onSubmit, onError)} noValidate>
+      <form onSubmit={methods.handleSubmit(onSubmit, onError)} noValidate className={styles.background}>
         {stepIndex === 0 && (
-          <div>
-            <p>닉네임님만의 리스트를 만들어 보아요.</p>
-            <ChoiceCategory handleChangeCategory={handleChangeCategory} />
-            <button type="button" onClick={handleNextStep}>
-              다음으로
-            </button>
-          </div>
+          <>
+            <div className={styles.step}>
+              <div className={styles.barContainer}>
+                <span className={styles.bar.dafult}></span>
+                <span className={selectedCategory.nameValue ? styles.statusBar.divide : styles.statusBar.zero}></span>
+              </div>
+              <p className={styles.stepText}>step2</p>
+            </div>
+            <p className={styles.subTitle}>
+              <span>{`"${nickname}"`}</span>
+              <span>님만의 리스트를 만들어 보아요.</span>
+            </p>
+            <div className={styles.container}>
+              <ChoiceCategory handleChangeCategory={handleChangeCategory} />
+              <button
+                type="button"
+                onClick={handleNextStep}
+                className={selectedCategory.nameValue ? styles.variant.active : styles.variant.default}
+                disabled={!selectedCategory.nameValue}
+              >
+                다음으로
+              </button>
+            </div>
+          </>
         )}
         {stepIndex === 1 && (
           <div>
