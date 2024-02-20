@@ -45,7 +45,7 @@ function Header() {
               className={styles.userProfile}
             />
           ) : (
-            <NoneProfileImage width={32} height={32} />
+            <NoneProfileImage width={32} height={32} alt="존재하지 않는 사용자 프로필 이미지" />
           )}
           {userId !== null ? (
             <h5 className={styles.userName}>{userMe?.nickname}</h5>
