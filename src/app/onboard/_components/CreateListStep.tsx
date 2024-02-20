@@ -2,6 +2,8 @@
  TODO 
  - [ ] 온보딩을 했던 사용자라면 해당 페이지 노출 x, 접근 x
  - [ ] 온보딩 중간 종료된 사용자는 온보딩 페이지 재노출 o
+ - [ ] 온보딩 중 뒤로가기 방지
+ - [ ] 리스트 완성 후 뒤로가기 확인
  */
 
 import { useRouter } from 'next/navigation';
@@ -20,10 +22,10 @@ import toastMessage from '@/lib/constants/toastMessage';
 import toasting from '@/lib/utils/toasting';
 import Category from './Category';
 import ListTitleStep from './ListTitleStep';
+import ItemsStep from './ItemsStep';
 
 export default function CreateListStep() {
   const router = useRouter();
-  const methods = useForm();
   const [stepIndex, setStepIndex] = useState(0);
   const [title, setTitle] = useState('');
   const [selectedCategory, setSelectedCategory] = useState({
@@ -31,13 +33,7 @@ export default function CreateListStep() {
     korNameValue: '',
   });
 
-  const {
-    register,
-    handleSubmit,
-    getValues,
-    setValue,
-    formState: { errors },
-  } = useForm<ListCreateType>({
+  const methods = useForm<ListCreateType>({
     mode: 'onChange',
     defaultValues: {
       ownerId: 13, // userId 변경 예정
@@ -77,11 +73,6 @@ export default function CreateListStep() {
   console.log(selectedCategory); // 삭제 예정
   console.log(stepIndex); // 삭제 예정
 
-  const handleChangeTitle = (e: any) => {
-    console.log(e.target.value);
-    setTitle(e.target.value);
-  };
-
   const handleNextStep = () => {
     setStepIndex((prev) => prev + 1);
   };
@@ -98,6 +89,7 @@ export default function CreateListStep() {
   const onSubmit = async (data: ListCreateType) => {
     console.log('리스트 생성'); // 삭제 예정
     console.log(data); // 삭제 예정
+    console.log(methods.getValues('category'), methods.getValues('title'));
 
     try {
       const result = await createList(data);
@@ -119,7 +111,7 @@ export default function CreateListStep() {
 
   return (
     <FormProvider {...methods}>
-      <form onSubmit={handleSubmit(onSubmit, onError)} noValidate>
+      <form onSubmit={methods.handleSubmit(onSubmit, onError)} noValidate>
         {stepIndex === 0 && (
           <div>
             <p>닉네임님만의 리스트를 만들어 보아요.</p>
@@ -137,27 +129,12 @@ export default function CreateListStep() {
             </button>
           </div>
         )}
-
-        <p>
-          리스트에 넣을 1, 2, 3위 <br /> 아이템을 적어주세요.
-        </p>
-        <div>
-          <span>{selectedCategory.korNameValue}</span>
-          <p>{title}</p>
+        {stepIndex === 2 && (
           <div>
-            {new Array(3).fill(0).map((_, index) => (
-              <div key={index}>
-                <input
-                  {...register(`items.${index}.title`, itemTitleRules)}
-                  placeholder={`${index + 1}위 아이템을 입력해주세요.`}
-                  autoComplete="off"
-                />
-                <p>{errors.items?.[index]?.title?.message}</p>
-              </div>
-            ))}
+            <ItemsStep selectedCategory={selectedCategory} title={title} />
+            <button type="submit">완료</button>
           </div>
-        </div>
-        <button type="submit">완료</button>
+        )}
       </form>
     </FormProvider>
   );
