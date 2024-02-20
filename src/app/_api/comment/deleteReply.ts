@@ -7,9 +7,9 @@ interface DeleteReplyType {
 }
 
 //답글 삭제 api
-async function deleteReply({ listId, commentId, replyId }: DeleteReplyType) {
+const deleteReply = async ({ listId, commentId, replyId }: DeleteReplyType) => {
   const response = await axiosInstance.delete(`/lists/${listId}/comments/${commentId}/replies/${replyId}`);
   return response.data;
-}
+};
 
 export default deleteReply;

@@ -7,7 +7,7 @@ interface GetCommentsType {
 }
 
 //리스트 상세 페이지 리스트 조회 api
-async function getComments({ listId, cursorId }: GetCommentsType) {
+const getComments = async ({ listId, cursorId }: GetCommentsType) => {
   const params = new URLSearchParams({
     size: '5',
   });
@@ -19,6 +19,6 @@ async function getComments({ listId, cursorId }: GetCommentsType) {
   const response = await axiosInstance.get(`/lists/${listId}/comments?${params.toString()}`);
 
   return response.data;
-}
+};
 
 export default getComments;
