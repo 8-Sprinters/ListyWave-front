@@ -60,7 +60,8 @@ export default function CreateNicknameStep({ userData, handleNextStep }: CreateN
   return (
     <form onSubmit={handleSubmit(onSubmit)} noValidate className={styles.background}>
       <div className={styles.step}>
-        <div className={styles.bar}></div>
+        <div className={styles.bar.dafult}></div>
+        <div className={isValid ? styles.statusBar.full : styles.statusBar.half}></div>
         <p className={styles.stepText}>step1</p>
       </div>
       <div className={styles.container}>
@@ -69,7 +70,7 @@ export default function CreateNicknameStep({ userData, handleNextStep }: CreateN
           <input {...register('nickname', nicknameRules)} autoComplete="off" autoFocus className={styles.input} />
           <p className={styles.errorMessage}>{errors.nickname?.message}</p>
         </div>
-        <button type="submit" disabled={!isValid} className={styles.button}>
+        <button type="submit" disabled={!isValid} className={isValid ? styles.variant.active : styles.variant.default}>
           <span className={styles.buttonText}>다음으로</span>
         </button>
       </div>
