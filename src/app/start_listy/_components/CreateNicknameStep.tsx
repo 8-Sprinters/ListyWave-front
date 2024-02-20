@@ -1,5 +1,7 @@
 import { useForm } from 'react-hook-form';
 
+import * as styles from './CreateNicknameStep.css';
+
 import { nicknameDuplicateRules, nicknameRules } from '@/lib/constants/formInputValidationRules';
 import { UserProfileEditType, UserType } from '@/lib/types/userProfileType';
 import checkNicknameDuplication from '@/app/_api/user/checkNicknameDuplication';
@@ -56,13 +58,21 @@ export default function CreateNicknameStep({ userData, handleNextStep }: CreateN
   console.log(isValid);
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} noValidate>
-      <label>닉네임을 만들어주세요.</label>
-      <input {...register('nickname', nicknameRules)} placeholder="닉네임을 만들어주세요." autoComplete="off" />
-      <p>{errors.nickname?.message}</p>
-      <button type="submit" disabled={!isValid}>
-        다음으로
-      </button>
+    <form onSubmit={handleSubmit(onSubmit)} noValidate className={styles.background}>
+      <div className={styles.step}>
+        <div className={styles.bar}></div>
+        <p className={styles.stepText}>step1</p>
+      </div>
+      <div className={styles.container}>
+        <label className={styles.title}>닉네임을 만들어주세요.</label>
+        <div className={styles.inputWrapper}>
+          <input {...register('nickname', nicknameRules)} autoComplete="off" autoFocus className={styles.input} />
+          <p className={styles.errorMessage}>{errors.nickname?.message}</p>
+        </div>
+        <button type="submit" disabled={!isValid} className={styles.button}>
+          <span className={styles.buttonText}>다음으로</span>
+        </button>
+      </div>
     </form>
   );
 }
