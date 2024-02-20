@@ -1,4 +1,8 @@
 import { style, createVar } from '@vanilla-extract/css';
+import { vars } from '@/styles/theme.css';
+import { headlineSmall, bodyMedium, bodySmall } from '@/styles/font.css';
+
+/**@todo 바뀐 피그마 디자인에 따라 수정 */
 
 export const simpleListBackground = createVar();
 
@@ -34,8 +38,6 @@ export const categoryWrapper = style({
   display: 'flex',
   justifyContent: 'flex-start',
   alignItems: 'center',
-
-  fontSize: '.75rem',
 });
 
 export const listInformationWrapper = style({
@@ -46,19 +48,19 @@ export const listInformationWrapper = style({
   gap: '16px',
 });
 
-export const listTitle = style({
-  color: '#19191B',
-  fontSize: '2.4rem',
-  fontWeight: 600,
-  letterSpacing: '-0.72px',
-});
+export const listTitle = style([
+  headlineSmall,
+  {
+    color: vars.color.black,
+  },
+]);
 
-export const listDescription = style({
-  color: '#AFB1B6',
-  fontSize: '1.4rem',
-  fontWeight: 400,
-  letterSpacing: '-0.42px',
-});
+export const listDescription = style([
+  bodyMedium,
+  {
+    color: vars.color.gray9,
+  },
+]);
 
 export const ownerInformationWrapper = style({
   display: 'flex',
@@ -66,12 +68,12 @@ export const ownerInformationWrapper = style({
   gap: '8px',
 });
 
-export const ownerNicknameText = style({
-  color: '#19191B',
-  fontSize: '1.2rem',
-  fontWeight: 400,
-  letterSpacing: '-0.36px',
-});
+export const ownerNicknameText = style([
+  bodySmall,
+  {
+    color: vars.color.black,
+  },
+]);
 
 export const profileImageWrapper = style({
   width: '30px',
@@ -93,7 +95,7 @@ export const simpleListWrapper = style({
   gap: '1rem',
 
   borderRadius: '10px',
-  border: '1px solid #EFEFF0',
+  border: `1px solid ${vars.color.gray5}`,
   backgroundColor: simpleListBackground,
 });
 
