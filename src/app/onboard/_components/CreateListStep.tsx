@@ -19,20 +19,13 @@ import { itemTitleRules } from '@/lib/constants/formInputValidationRules';
 import toastMessage from '@/lib/constants/toastMessage';
 import toasting from '@/lib/utils/toasting';
 import Category from './Category';
-
-const onBoardlistTitleRules = {
-  required: '제목을 입력해주세요',
-  maxLength: {
-    value: 30,
-    message: '리스트 제목은 최대 30자까지 입력할 수 있어요.',
-  },
-};
+import ListTitleStep from './ListTitleStep';
 
 export default function CreateListStep() {
   const router = useRouter();
   const methods = useForm();
   const [stepIndex, setStepIndex] = useState(0);
-  const [title, setTitle] = useState(''); // 사용 예정
+  const [title, setTitle] = useState('');
   const [selectedCategory, setSelectedCategory] = useState({
     nameValue: '',
     korNameValue: '',
@@ -84,17 +77,16 @@ export default function CreateListStep() {
   console.log(selectedCategory); // 삭제 예정
   console.log(stepIndex); // 삭제 예정
 
-  // 추후 구현
-  // const handleChangeTitle = (e: any) => {
-  //   console.log(e.target.value);
-  //   setTitle(e.target.value);
-  // };
+  const handleChangeTitle = (e: any) => {
+    console.log(e.target.value);
+    setTitle(e.target.value);
+  };
 
   const handleNextStep = () => {
     setStepIndex((prev) => prev + 1);
   };
 
-  const handleChangeCategory = (category: { nameValue: string; korNameValue: string }) => {
+  const handleChangeCategory = (category: Omit<CategoryType, 'codeValue'>) => {
     setSelectedCategory({
       nameValue: category.nameValue,
       korNameValue: category.korNameValue,
@@ -137,27 +129,21 @@ export default function CreateListStep() {
             </button>
           </div>
         )}
+        {stepIndex === 1 && (
+          <div>
+            <ListTitleStep selectedCategory={selectedCategory} title={title} setTitle={setTitle} />
+            <button type="button" onClick={handleNextStep}>
+              다음으로
+            </button>
+          </div>
+        )}
 
-        <p>리스트의 제목을 지어주세요.</p>
-        <input
-          {...register('title', onBoardlistTitleRules)}
-          placeholder="리스트의 제목을 지어주세요."
-          autoComplete="off"
-          // onChange={handleChangeTitle}
-        />
-        <p>{errors.title?.message}</p>
-        <div>
-          <span>{selectedCategory.korNameValue}</span>
-          <p>{getValues('title')}</p>
-        </div>
-        <button type="button">다음으로</button>
-        <br />
         <p>
           리스트에 넣을 1, 2, 3위 <br /> 아이템을 적어주세요.
         </p>
         <div>
           <span>{selectedCategory.korNameValue}</span>
-          <p>{getValues('title')}</p>
+          <p>{title}</p>
           <div>
             {new Array(3).fill(0).map((_, index) => (
               <div key={index}>
