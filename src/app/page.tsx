@@ -21,7 +21,7 @@ function LandingPage({ params }: ExplorePageProps) {
         <div>검색 및 카테고리 컴포넌트</div>
         <TrendingList />
         <UsersRecommendation userId={params.userId} />
-        <ListRecommendation userId={params.userId} />
+        <ListRecommendation />
         <FloatingContainer>
           <PlusOptionFloatingButton />
           <ArrowUpFloatingButton />
