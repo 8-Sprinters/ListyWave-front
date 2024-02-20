@@ -11,7 +11,7 @@ interface CategoryProps {
   handleChangeCategory: (category: Omit<CategoryType, 'codeValue'>) => void;
 }
 
-export default function Category({ handleChangeCategory }: CategoryProps) {
+export default function ChoiceCategory({ handleChangeCategory }: CategoryProps) {
   const { setValue } = useFormContext();
 
   const { data } = useQuery<CategoryType[]>({

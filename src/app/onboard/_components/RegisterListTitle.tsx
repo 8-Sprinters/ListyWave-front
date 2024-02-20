@@ -15,7 +15,7 @@ const onBoardlistTitleRules = {
   },
 };
 
-export default function ListTitleStep({ selectedCategory }: ListTitleStepProps) {
+export default function RegisterListTitle({ selectedCategory }: ListTitleStepProps) {
   const {
     register,
     watch,

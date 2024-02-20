@@ -13,7 +13,7 @@ import { UserType } from '@/lib/types/userProfileType';
 import { QUERY_KEYS } from '@/lib/constants/queryKeys';
 
 import CreateListStep from './_components/CreateListStep';
-import CreateNicknameStep from './_components/CreateNicnameStep';
+import CreateNicknameStep from './_components/CreateNicknameStep';
 
 export default function OnbsoardPage() {
   const { user } = useUser();

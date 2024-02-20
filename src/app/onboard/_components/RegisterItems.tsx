@@ -8,7 +8,7 @@ interface ItemsStepProps {
   selectedCategory: Omit<CategoryType, 'codeValue'>;
 }
 
-export default function ItemsStep({ selectedCategory }: ItemsStepProps) {
+export default function RegisterItems({ selectedCategory }: ItemsStepProps) {
   const {
     register,
     getValues,

@@ -17,9 +17,9 @@ import { ListCreateType } from '@/lib/types/listType';
 import toastMessage from '@/lib/constants/toastMessage';
 import toasting from '@/lib/utils/toasting';
 
-import Category from './Category';
-import ListTitleStep from './ListTitleStep';
-import ItemsStep from './ItemsStep';
+import ChoiceCategory from './ChoiceCategory';
+import RegisterListTitle from './RegisterListTitle';
+import RegisterItems from './RegisterItems';
 
 interface CreateListStepProps {
   userId: number;
@@ -114,7 +114,7 @@ export default function CreateListStep({ userId }: CreateListStepProps) {
         {stepIndex === 0 && (
           <div>
             <p>닉네임님만의 리스트를 만들어 보아요.</p>
-            <Category handleChangeCategory={handleChangeCategory} />
+            <ChoiceCategory handleChangeCategory={handleChangeCategory} />
             <button type="button" onClick={handleNextStep}>
               다음으로
             </button>
@@ -122,7 +122,7 @@ export default function CreateListStep({ userId }: CreateListStepProps) {
         )}
         {stepIndex === 1 && (
           <div>
-            <ListTitleStep selectedCategory={selectedCategory} />
+            <RegisterListTitle selectedCategory={selectedCategory} />
             <button type="button" onClick={handleNextStep}>
               다음으로
             </button>
@@ -130,7 +130,7 @@ export default function CreateListStep({ userId }: CreateListStepProps) {
         )}
         {stepIndex === 2 && (
           <div>
-            <ItemsStep selectedCategory={selectedCategory} />
+            <RegisterItems selectedCategory={selectedCategory} />
             <button type="submit">완료</button>
           </div>
         )}
