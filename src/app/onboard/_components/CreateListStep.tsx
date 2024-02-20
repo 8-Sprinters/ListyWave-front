@@ -28,7 +28,6 @@ interface CreateListStepProps {
 export default function CreateListStep({ userId }: CreateListStepProps) {
   const router = useRouter();
   const [stepIndex, setStepIndex] = useState(0);
-  const [title, setTitle] = useState('');
   const [selectedCategory, setSelectedCategory] = useState({
     nameValue: '',
     korNameValue: '',
@@ -123,7 +122,7 @@ export default function CreateListStep({ userId }: CreateListStepProps) {
         )}
         {stepIndex === 1 && (
           <div>
-            <ListTitleStep selectedCategory={selectedCategory} title={title} setTitle={setTitle} />
+            <ListTitleStep selectedCategory={selectedCategory} />
             <button type="button" onClick={handleNextStep}>
               다음으로
             </button>
@@ -131,7 +130,7 @@ export default function CreateListStep({ userId }: CreateListStepProps) {
         )}
         {stepIndex === 2 && (
           <div>
-            <ItemsStep selectedCategory={selectedCategory} title={title} />
+            <ItemsStep selectedCategory={selectedCategory} />
             <button type="submit">완료</button>
           </div>
         )}

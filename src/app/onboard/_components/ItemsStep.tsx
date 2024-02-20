@@ -5,12 +5,12 @@ import { CategoryType } from '@/lib/types/categoriesType';
 
 interface ItemsStepProps {
   selectedCategory: Omit<CategoryType, 'codeValue'>;
-  title: string;
 }
 
-export default function ItemsStep({ selectedCategory, title }: ItemsStepProps) {
+export default function ItemsStep({ selectedCategory }: ItemsStepProps) {
   const {
     register,
+    getValues,
     formState: { errors },
   } = useFormContext();
 
@@ -21,7 +21,7 @@ export default function ItemsStep({ selectedCategory, title }: ItemsStepProps) {
       </label>
       <div>
         <span>{selectedCategory.korNameValue}</span>
-        <p>{title}</p>
+        <p>{getValues('title')}</p>
         <div>
           {new Array(3).fill(0).map((_, index) => (
             <div key={index}>
