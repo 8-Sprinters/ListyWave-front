@@ -1,19 +1,34 @@
-import { style } from '@vanilla-extract/css';
+import { createVar, style } from '@vanilla-extract/css';
+
+export const listColor = createVar();
+
+export const background = style({
+  width: '100%',
+  padding: '2.4rem 1.8rem',
+
+  backgroundColor: listColor,
+});
 
 export const container = style({
   width: '100%',
+  padding: '2.7rem',
+
   display: 'flex',
   justifyContent: 'left',
+
   alignItems: 'center',
+  backgroundColor: 'white',
+  borderRadius: '30px',
 });
 
 export const listWrapper = style({
   width: '100%',
+
   display: 'flex',
   flexDirection: 'column',
   justifyContent: 'center',
-  gap: '1.6rem',
   alignItems: 'left',
+  gap: '1.6rem',
 });
 
 export const simpleItemWrapper = style({
@@ -89,7 +104,7 @@ export const firstRankTextWrapper = style({
 
 export const crownIcon = style({
   position: 'absolute',
-  bottom: '40px',
+  bottom: '30px',
 });
 
 export const top3RankTextWrapper = style({
@@ -112,7 +127,6 @@ export const top3RankTextWrapper = style({
 
 export const rankText = style({
   position: 'relative',
-  top: '2px',
 });
 
 export const titleText = style({

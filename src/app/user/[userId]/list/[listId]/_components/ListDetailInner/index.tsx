@@ -58,7 +58,7 @@ function ListDetailInner({ data, listId }: ListDetailInnerProps) {
     <div className={styles.container}>
       <Header data={headerData} handleChangeListType={handleChangeListType} />
       <div className={styles.listAndFooter}>
-        <RankList listData={listData} type={listType} />
+        <RankList backgroundColor={data?.backgroundColor} listData={listData} type={listType} />
         <Footer data={footerData} />
       </div>
     </div>

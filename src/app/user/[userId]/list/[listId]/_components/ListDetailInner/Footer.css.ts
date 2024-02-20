@@ -6,6 +6,8 @@ export const container = style({
   display: 'flex',
   justifyContent: 'space-between',
   alignItems: 'center',
+
+  padding: '1rem 4rem 2rem 4rem',
 });
 
 export const shareAndOthers = style({

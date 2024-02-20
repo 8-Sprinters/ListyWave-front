@@ -5,10 +5,12 @@ import LinkPreview from '@/components/LinkPreview/LinkPreview';
 import VideoEmbed from '@/components/VideoEmbed/VideoEmbed';
 import * as styles from './RankList.css';
 import CrownIcon from '/public/icons/crown.svg';
+import { assignInlineVars } from '@vanilla-extract/dynamic';
 
 interface RankListProps {
   listData: ListItemProps[];
   type?: string;
+  backgroundColor?: string;
 }
 
 export function SimpleList({ listData }: RankListProps) {
@@ -94,19 +96,26 @@ function DetailList({ listData }: RankListProps) {
   });
 }
 
-function RankList({ listData, type }: RankListProps) {
+function RankList({ listData, type, backgroundColor }: RankListProps) {
   return (
-    <div id="rankList" className={styles.container}>
-      <div className={styles.listWrapper}>
-        {listData ? (
-          type == 'simple' ? (
-            <SimpleList listData={listData} />
+    <div
+      className={styles.background}
+      style={assignInlineVars({
+        [styles.listColor]: `${backgroundColor}`,
+      })}
+    >
+      <div id="rankList" className={styles.container}>
+        <div className={styles.listWrapper}>
+          {listData ? (
+            type == 'simple' ? (
+              <SimpleList listData={listData} />
+            ) : (
+              <DetailList listData={listData} />
+            )
           ) : (
-            <DetailList listData={listData} />
-          )
-        ) : (
-          <div>데이터가 없습니다.</div>
-        )}
+            <div>데이터가 없습니다.</div>
+          )}
+        </div>
       </div>
     </div>
   );
