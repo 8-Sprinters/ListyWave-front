@@ -1,9 +1,9 @@
 import axiosInstance from '@/lib/axios/axiosInstance';
 
 interface DeleteReplyType {
-  listId: number | undefined;
-  commentId: number | undefined | null;
-  replyId: number | undefined | null;
+  listId?: number;
+  commentId?: number | null;
+  replyId?: number | null;
 }
 
 //답글 삭제 api

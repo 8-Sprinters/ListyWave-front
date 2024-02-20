@@ -1,8 +1,8 @@
 import axiosInstance from '@/lib/axios/axiosInstance';
 
 interface DeleteCommentType {
-  listId: number | undefined;
-  commentId: number | undefined;
+  listId?: number;
+  commentId?: number;
 }
 
 //댓글 삭제 api
