@@ -15,7 +15,7 @@ export default function CreateNicknameStep({ userData, handleNextStep }: CreateN
     register,
     handleSubmit,
     setError,
-    formState: { errors },
+    formState: { errors, isValid },
   } = useForm<UserProfileEditType>({
     mode: 'onChange',
   });
@@ -53,12 +53,16 @@ export default function CreateNicknameStep({ userData, handleNextStep }: CreateN
     handleNextStep();
   };
 
+  console.log(isValid);
+
   return (
     <form onSubmit={handleSubmit(onSubmit)} noValidate>
       <label>닉네임을 만들어주세요.</label>
       <input {...register('nickname', nicknameRules)} placeholder="닉네임을 만들어주세요." autoComplete="off" />
       <p>{errors.nickname?.message}</p>
-      <button type="submit">다음으로</button>
+      <button type="submit" disabled={!isValid}>
+        다음으로
+      </button>
     </form>
   );
 }
