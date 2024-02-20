@@ -1,5 +1,7 @@
 import { style, createVar } from '@vanilla-extract/css';
 
+/**@todo 트렌딩 리스트 바뀐 디자인에 맞게 새로 갈아엎을 예정 */
+
 export const blackLayer = createVar();
 export const itemFontColor = createVar();
 export const itemBackgroundColor = createVar();

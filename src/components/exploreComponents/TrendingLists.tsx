@@ -12,6 +12,8 @@ import 'swiper/css';
 
 import * as styles from './TrendingLists.css';
 
+/**@todo 트렌딩 리스트 바뀐 디자인에 맞게 새로 갈아엎을 예정 */
+
 function TrendingList() {
   const router = useRouter();
   const { data: trendingLists, isPending } = useQuery({
