@@ -16,6 +16,12 @@ export const container = style({
   borderRadius: '24px',
 
   backgroundColor: listColor,
+  cursor: 'pointer',
+
+  ':hover': {
+    boxShadow: 'rgba(0, 0, 0, 0.3) 3px 3px 2px;',
+    borderWidth: '2px',
+  },
 });
 
 export const userInfoWrapper = style({

@@ -5,19 +5,25 @@ import formatDate from '@/lib/utils/dateFormat';
 
 import Top3CardItem from './Top3CardItem';
 import Image from 'next/image';
-import { userImage } from './Top3Card.css';
+import { useRouter } from 'next/navigation';
 
 interface CardProps {
   list: ListType;
 }
 
 export default function Top3Card({ list }: CardProps) {
+  const router = useRouter();
+  const handleCardClick = () => {
+    router.push(`user/${list.ownerId}/list/${list.id}`);
+  };
+
   return (
     <div
       className={styles.container}
       style={assignInlineVars({
         [styles.listColor]: `${list.backgroundColor}`,
       })}
+      onClick={handleCardClick}
     >
       <div className={styles.userInfoWrapper}>
         <div className={styles.userImageWrapper}>

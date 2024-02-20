@@ -1,13 +1,13 @@
 import axiosInstance from '@/lib/axios/axiosInstance';
 
-interface GetSearchResultType {
+interface GetSearchListResultType {
   cursorId: number | undefined | null;
   sort: string;
   keyword: string;
   category: string;
 }
 
-async function getSearchResult({ sort, keyword, category, cursorId }: GetSearchResultType) {
+async function getSearchListResult({ sort, keyword, category, cursorId }: GetSearchListResultType) {
   const params = new URLSearchParams({
     size: '6',
   });
@@ -23,4 +23,4 @@ async function getSearchResult({ sort, keyword, category, cursorId }: GetSearchR
   return response.data;
 }
 
-export default getSearchResult;
+export default getSearchListResult;
