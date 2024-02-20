@@ -6,12 +6,12 @@ import { useUser } from '@/store/useUser';
 import useMoveToPage from '@/hooks/useMoveToPage';
 import getUserOne from '@/app/_api/user/getUserOne';
 import { QUERY_KEYS } from '@/lib/constants/queryKeys';
+import { UserType } from '@/lib/types/userProfileType';
 
 import * as styles from './Header.css';
 import Logo from '/public/icons/logo.svg';
 import BellIcon from '/public/icons/bell.svg';
 import NoneProfileImage from '/public/icons/avatar.svg';
-import { UserType } from '@/lib/types/userProfileType';
 
 function Header() {
   const { onClickMoveToPage } = useMoveToPage();
