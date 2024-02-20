@@ -1,4 +1,5 @@
 import { keyframes, style } from '@vanilla-extract/css';
+import { vars } from '@/styles/theme.css';
 
 export const backGround = style({
   position: 'fixed',
@@ -22,7 +23,7 @@ export const wrapper = style({
   flexDirection: 'column',
   justifyContent: 'center',
 
-  backgroundColor: '#ffffff',
+  backgroundColor: vars.color.white,
   borderTopLeftRadius: '25px',
   borderTopRightRadius: '25px',
 
@@ -48,7 +49,7 @@ export const sheetItemWrapper = style({
   alignItems: 'center',
 
   ':hover': {
-    backgroundColor: '#EFEFF0',
+    backgroundColor: vars.color.gray5,
   },
 });
 
@@ -71,14 +72,14 @@ export const sheetItem = style({
 
   selectors: {
     [`${sheetItemWrapper}:hover &`]: {
-      color: '#FF5454',
+      color: vars.color.gray7,
     },
   },
 });
 
 export const disabledSheetItemWrapper = style({
   ':hover': {
-    backgroundColor: '#ffffff',
+    backgroundColor: vars.color.white,
   },
 });
 

@@ -36,7 +36,7 @@ function ListInformation() {
   });
 
   //리스트 생성자 제외한 사람들만 콜라보레이터들로 설정
-  const filteredCollaboratorsList = list?.collaborators.filter((item: UserProfileType) => item?.id !== list.ownerId);
+  const filteredCollaborators = list?.collaborators.filter((item: UserProfileType) => item?.id !== list.ownerId);
   //리스트 오너가 아니고 콜라보레이터인 경우에 권한을 설정하기 위한 변수
   const isCollaborator: boolean | undefined =
     list?.collaborators.some((item: UserProfileType) => item?.id === userId) && userId !== Number(params?.userId);
@@ -103,7 +103,7 @@ function ListInformation() {
           </div>
         </div>
         <div className={styles.collaboratorWrapper}>
-          <Collaborators collaborators={filteredCollaboratorsList} />
+          <Collaborators collaborators={filteredCollaborators} />
         </div>
       </div>
       <Comments />
