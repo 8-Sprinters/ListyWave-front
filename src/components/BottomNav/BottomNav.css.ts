@@ -2,8 +2,6 @@ import { style } from '@vanilla-extract/css';
 import { vars } from '@/styles/theme.css';
 
 export const navDiv = style({
-  margin: 'auto',
-  maxWidth: 430,
   width: '100%',
   height: 70,
 

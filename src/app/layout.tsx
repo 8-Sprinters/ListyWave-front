@@ -37,7 +37,7 @@ export default function TempLayout({ children }: { children: ReactNode }) {
       <body className={styles.body}>
         <QueryClientProvider client={queryClient}>
           <div id="modal-root" />
-          <div className={styles.main}>
+          <div>
             {children}
             <BottomNav />
           </div>
