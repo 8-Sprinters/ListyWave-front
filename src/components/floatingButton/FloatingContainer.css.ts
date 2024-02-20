@@ -3,7 +3,7 @@ import { vars } from '@/styles/theme.css';
 
 export const container = style({
   position: 'fixed',
-  bottom: '42px',
+  bottom: '96px',
   right: '26px',
 
   display: 'flex',

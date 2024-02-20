@@ -5,6 +5,7 @@ import { ToastContainer } from 'react-toastify';
 import Script from 'next/script';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import '@/styles/GlobalStyles.css';
+import BottomNav from '@/components/BottomNav/BottomNav';
 
 const queryClient = new QueryClient();
 declare global {
@@ -34,7 +35,11 @@ export default function TempLayout({ children }: { children: ReactNode }) {
       <body>
         <QueryClientProvider client={queryClient}>
           <div id="modal-root" />
-          <div>{children}</div>
+          <div>
+            {children}
+            <BottomNav />
+          </div>
+          <ToastContainer />
         </QueryClientProvider>
       </body>
     </html>
