@@ -1,8 +1,6 @@
 'use client';
 import Image from 'next/image';
-import { useRouter } from 'next/navigation';
 import { useQuery } from '@tanstack/react-query';
-import { useState } from 'react';
 
 import { useUser } from '@/store/useUser';
 import useMoveToPage from '@/hooks/useMoveToPage';
@@ -14,19 +12,17 @@ import Logo from '/public/icons/logo.svg';
 import BellIcon from '/public/icons/bell.svg';
 import NoneProfileImage from '/public/icons/avatar.svg';
 import { UserType } from '@/lib/types/userProfileType';
-import Link from 'next/link';
 
 function Header() {
-  const router = useRouter();
   const { onClickMoveToPage } = useMoveToPage();
 
   //zustand로 관리하는 user정보 불러오기
   const { user } = useUser();
-  const userId = user.id ? user.id : 0;
+  const userId = user.id;
 
   const { data: userMe } = useQuery<UserType>({
     queryKey: [QUERY_KEYS.userOne, userId],
-    queryFn: () => getUserOne(userId),
+    queryFn: () => getUserOne(userId as number),
     enabled: !!userId,
   });
 
@@ -36,7 +32,7 @@ function Header() {
         <Logo alt="로고 이미지" />
       </div>
       <div className={styles.userInfoOuterWrapper}>
-        <div className={styles.userInfoWrapper} onClick={() => onClickMoveToPage('/account')}>
+        <div className={styles.userInfoWrapper} onClick={onClickMoveToPage('/account')}>
           {userMe?.profileImageUrl ? (
             <Image
               src={userMe.profileImageUrl}
@@ -51,21 +47,12 @@ function Header() {
           {userId !== 0 ? (
             <h5 className={styles.userName}>{userMe?.nickname}</h5>
           ) : (
-            <h5
-              className={styles.loginButton}
-              onClick={() => {
-                onClickMoveToPage('/login');
-              }}
-            >
+            <h5 className={styles.loginButton} onClick={onClickMoveToPage('/login')}>
               로그인/회원가입
             </h5>
           )}
         </div>
-        <button
-          onClick={() => {
-            onClickMoveToPage('/notification');
-          }}
-        >
+        <button onClick={onClickMoveToPage('/notification')}>
           {userId !== null && <BellIcon alt="알림 페이지 이동 버튼" />}
         </button>
       </div>
