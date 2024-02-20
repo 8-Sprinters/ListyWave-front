@@ -13,7 +13,7 @@ interface CategoryProps {
 }
 
 export default function ChoiceCategory({ handleChangeCategory }: CategoryProps) {
-  const { setValue } = useFormContext();
+  const { setValue, getValues } = useFormContext();
 
   const { data } = useQuery<CategoryType[]>({
     queryKey: [QUERY_KEYS.getCategories],
@@ -57,7 +57,11 @@ export default function ChoiceCategory({ handleChangeCategory }: CategoryProps) 
             key={category.codeValue}
             id={category.nameValue}
             type="button"
-            className={styles.variants[`${category.nameValue}Button`]}
+            className={
+              category.nameValue === getValues('category')
+                ? `${styles.variants[`${category.nameValue}Button`]} ${styles.selected}`
+                : styles.variants[`${category.nameValue}Button`]
+            }
           >
             {category.korNameValue}
           </button>
