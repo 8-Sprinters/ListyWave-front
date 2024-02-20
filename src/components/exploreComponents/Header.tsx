@@ -32,7 +32,10 @@ function Header() {
         <Logo alt="로고 이미지" />
       </button>
       <div className={styles.userInfoOuterWrapper}>
-        <div className={styles.userInfoWrapper} onClick={onClickMoveToPage('/account')}>
+        <div
+          className={styles.userInfoWrapper}
+          onClick={userId ? onClickMoveToPage('/account') : onClickMoveToPage('/login')}
+        >
           {userMe?.profileImageUrl ? (
             <Image
               src={userMe.profileImageUrl}
@@ -47,9 +50,7 @@ function Header() {
           {userId !== null ? (
             <h5 className={styles.userName}>{userMe?.nickname}</h5>
           ) : (
-            <h5 className={styles.loginButton} onClick={onClickMoveToPage('/login')}>
-              로그인/회원가입
-            </h5>
+            <h5 className={styles.loginButton}>로그인/회원가입</h5>
           )}
         </div>
         <button onClick={onClickMoveToPage('/notification')}>
