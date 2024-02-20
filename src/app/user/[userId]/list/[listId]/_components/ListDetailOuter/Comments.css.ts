@@ -89,12 +89,13 @@ export const totalCount = style({
   fontWeight: 600,
 });
 
-export const profileImage = style({
+export const profileImageParent = style({
   width: '30px',
-  minWidth: '30px',
   height: '30px',
-  flex: '0 0 1',
+  position: 'relative',
+});
 
+export const profileImage = style({
   borderRadius: '16px',
   backgroundColor: vars.color.gray9,
 });

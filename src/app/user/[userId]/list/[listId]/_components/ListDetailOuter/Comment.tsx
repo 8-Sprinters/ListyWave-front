@@ -59,16 +59,17 @@ function Comment({ comment, onUpdate, handleSetCommentId, listId, commentId, cur
       <div className={styles.commentOuterWrapper}>
         <div className={styles.commentWrapper}>
           {comment && !comment.isDeleted && (
-            <Image
-              alt="프로필 이미지"
-              width={30}
-              height={30}
-              src={comment.userProfileImageUrl}
-              className={styles.profileImage}
-              style={{
-                objectFit: 'cover',
-              }}
-            />
+            <div className={styles.profileImageParent}>
+              <Image
+                alt="프로필 이미지"
+                src={comment.userProfileImageUrl}
+                className={styles.profileImage}
+                fill
+                style={{
+                  objectFit: 'cover',
+                }}
+              />
+            </div>
           )}
           {comment?.isDeleted && <DefaultProfile width={30} height={30} />}
           <div className={styles.commentContainer}>

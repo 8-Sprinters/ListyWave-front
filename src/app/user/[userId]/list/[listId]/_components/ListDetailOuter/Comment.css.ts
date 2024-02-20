@@ -14,10 +14,17 @@ export const commentOuterWrapper = style({
   gap: '16px',
 });
 
-export const profileImage = style({
+export const profileImageParent = style({
   width: '30px',
-  minWidth: '30px',
   height: '30px',
+  position: 'relative',
+
+  flex: '0 0 1',
+
+  borderRadius: '16px',
+});
+
+export const profileImage = style({
   flex: '0 0 1',
 
   borderRadius: '16px',

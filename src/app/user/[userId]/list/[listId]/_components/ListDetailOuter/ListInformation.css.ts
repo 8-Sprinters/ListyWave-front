@@ -58,10 +58,13 @@ export const informationWrapper = style({
   gap: '8px',
 });
 
-export const profileImage = style({
+export const profileImageParent = style({
   width: '36px',
   height: '36px',
+  position: 'relative',
+});
 
+export const profileImage = style({
   borderRadius: '9999px',
   backgroundColor: vars.color.gray7,
 });

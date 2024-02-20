@@ -142,17 +142,18 @@ function Comments() {
   return (
     <div className={styles.wrapper}>
       <div className={styles.formWrapperOuter}>
-        <Image
-          src={imgSrc ? `${userInformation?.profileImageUrl}` : '/public/images/mock_profile.png'}
-          alt="프로필 이미지"
-          width={36}
-          height={36}
-          className={styles.profileImage}
-          style={{
-            objectFit: 'cover',
-          }}
-          onError={handleImageError}
-        />
+        <div className={styles.profileImageParent}>
+          <Image
+            src={imgSrc ? `${userInformation?.profileImageUrl}` : '/public/images/mock_profile.png'}
+            alt="프로필 이미지"
+            className={styles.profileImage}
+            fill
+            style={{
+              objectFit: 'cover',
+            }}
+            onError={handleImageError}
+          />
+        </div>
         <div className={`${styles.formWrapperInner} ${!!activeNickname ? styles.activeFormWrapper : ''}`}>
           {activeNickname && (
             <div className={styles.activeReplyWrapper}>

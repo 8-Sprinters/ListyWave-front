@@ -14,6 +14,12 @@ export const wrapper = style({
   transform: 'translateZ(0px)',
 });
 
+export const profileImageParent = style({
+  width: 35,
+  height: 35,
+  position: 'relative',
+});
+
 export const profileImage = style({
   marginRight: '-10px',
   width: '36px',

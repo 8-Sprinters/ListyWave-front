@@ -1,4 +1,5 @@
 import { style } from '@vanilla-extract/css';
+import { relative } from 'path';
 
 /**
  * @todo 공용 폰트 스타일 적용
@@ -36,6 +37,13 @@ export const itemWrapper = style({
   display: 'flex',
   alignItems: 'center',
   gap: '8px',
+});
+
+export const profileImageParent = style({
+  width: '25px',
+  height: '25px',
+
+  position: 'relative',
 });
 
 export const profileImage = style({

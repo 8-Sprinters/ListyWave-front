@@ -87,13 +87,17 @@ function ListInformation() {
       <ListDetailInner data={list} listId={params && params?.listId} />
       <div className={styles.bottomWrapper}>
         <div className={styles.bottomLeftWrapper}>
-          <Image
-            src={list?.ownerProfileImageUrl}
-            alt="사용자 프로필 이미지"
-            width={36}
-            height={36}
-            className={styles.profileImage}
-          />
+          <div className={styles.profileImageParent}>
+            <Image
+              src={list?.ownerProfileImageUrl}
+              alt="사용자 프로필 이미지"
+              className={styles.profileImage}
+              fill
+              style={{
+                objectFit: 'cover',
+              }}
+            />
+          </div>
           <div className={styles.informationWrapper}>
             <div className={styles.listOwnerNickname}>{list?.ownerNickname}</div>
             <div className={styles.infoDetailWrapper}>

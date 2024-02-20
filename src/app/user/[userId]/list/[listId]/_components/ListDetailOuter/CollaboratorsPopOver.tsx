@@ -3,7 +3,7 @@ import * as styles from './CollaboratorsPopOver.css';
 import { UserProfileType } from '@/lib/types/userProfileType';
 
 interface CollaboratorsProps {
-  collaborators: UserProfileType[] | null;
+  collaborators?: UserProfileType[] | null;
 }
 
 function CollaboratorsPopOver({ collaborators }: CollaboratorsProps) {
@@ -14,16 +14,17 @@ function CollaboratorsPopOver({ collaborators }: CollaboratorsProps) {
         {collaborators?.map((item: UserProfileType) => {
           return (
             <li className={styles.itemWrapper} key={item.id}>
-              <Image
-                src={item.profileImageUrl}
-                className={styles.profileImage}
-                alt="사용자 프로필 이미지"
-                width={25}
-                height={25}
-                style={{
-                  objectFit: 'cover',
-                }}
-              />
+              <div className={styles.profileImageParent}>
+                <Image
+                  src={item.profileImageUrl}
+                  className={styles.profileImage}
+                  alt="사용자 프로필 이미지"
+                  fill
+                  style={{
+                    objectFit: 'cover',
+                  }}
+                />
+              </div>
               <span className={styles.nickname}>{item.nickname}</span>
             </li>
           );
