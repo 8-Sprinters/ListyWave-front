@@ -9,7 +9,7 @@ interface GetCommentsType {
 //리스트 상세 페이지 리스트 조회 api
 const getComments = async ({ listId, cursorId }: GetCommentsType) => {
   const params = new URLSearchParams({
-    size: '5',
+    size: '24',
   });
 
   if (cursorId) {
