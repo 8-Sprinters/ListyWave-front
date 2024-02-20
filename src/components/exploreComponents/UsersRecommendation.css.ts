@@ -1,16 +1,9 @@
 import { style } from '@vanilla-extract/css';
 import { vars } from '@/styles/theme.css';
+import { titleSmall } from '@/styles/font.css';
 
 export const wrapper = style({
   padding: '0 16px',
-});
-
-export const userRecommendationTitle = style({
-  marginBottom: '13px',
-
-  color: '#19191B',
-  fontSize: '1.5rem',
-  fontWeight: 600,
 });
 
 export const recommendUsersListWrapper = style({
@@ -40,7 +33,7 @@ export const recommendUserWrapper = style({
   flexShrink: 0,
 
   borderRadius: '5px',
-  border: '1px solid #EFEFF0',
+  border: `1px solid ${vars.color.gray5}`,
 });
 
 export const closeButton = style({
@@ -63,39 +56,30 @@ export const recommendUserProfileImage = style({
   borderRadius: '50%',
 });
 
-export const recommendUserNickname = style({
-  marginBottom: '10px',
+export const recommendUserNickname = style([
+  titleSmall,
+  {
+    marginBottom: '10px',
 
-  color: '#19191B',
-  fontSize: '1.5rem',
-  fontWeight: 600,
-  letterSpacing: '-0.45px',
-});
+    color: vars.color.black,
+  },
+]);
 
-export const recommendUserDescription = style({
-  marginBottom: '17px',
+export const followButtonDefault = style([
+  titleSmall,
+  {
+    width: '100%',
+    padding: '8px 0',
 
-  color: '#61646B',
-  fontSize: '1.3rem',
-  fontWeight: 400,
-  letterSpacing: '-0.39px',
-});
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
 
-export const followButtonDefault = style({
-  width: '100%',
-  padding: '8px 0',
-
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'center',
-
-  backgroundColor: '#0047FF',
-  borderRadius: '10px',
-  color: '#fff',
-  fontSize: '1.5rem',
-  fontWeight: 600,
-  letterSpacing: '-0.45px',
-});
+    backgroundColor: vars.color.blue,
+    borderRadius: '10px',
+    color: vars.color.white,
+  },
+]);
 
 export const followButtonFollowing = style({
   background: vars.color.white,
