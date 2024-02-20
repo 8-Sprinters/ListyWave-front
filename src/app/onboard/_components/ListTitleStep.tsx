@@ -1,6 +1,7 @@
-import { CategoryType } from '@/lib/types/categoriesType';
 import { useFormContext } from 'react-hook-form';
-import { FormErrors } from '../page';
+
+import { CategoryType } from '@/lib/types/categoriesType';
+import { ListCreateType } from '@/lib/types/listType';
 
 interface ListTitleStepProps {
   selectedCategory: Omit<CategoryType, 'codeValue'>;
@@ -19,7 +20,7 @@ export default function ListTitleStep({ selectedCategory }: ListTitleStepProps) 
     register,
     watch,
     formState: { errors },
-  } = useFormContext();
+  } = useFormContext<ListCreateType>();
 
   // const formErrors: FieldErrors = errors;
 
@@ -34,7 +35,7 @@ export default function ListTitleStep({ selectedCategory }: ListTitleStepProps) 
         autoComplete="off"
         // onChange={(e) => setTitle(e.target.value)} // TODO 렌더링 최소화 하는 방법으로 리팩토링 하기(watch or ref)
       />
-      {/* <p>{errors.title?.message}</p> */}
+      <p>{errors.title?.message}</p>
       <div>
         <span>{selectedCategory.korNameValue}</span>
         <p>{watchForm}</p>

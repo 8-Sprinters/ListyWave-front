@@ -2,7 +2,7 @@
 
 // 최초 로그인한 사용자가 보는 페이지
 
-import { FieldErrors, FormProvider, useForm } from 'react-hook-form';
+import { FormProvider, useForm } from 'react-hook-form';
 import { useQuery } from '@tanstack/react-query';
 import { useState } from 'react';
 
@@ -14,9 +14,6 @@ import { QUERY_KEYS } from '@/lib/constants/queryKeys';
 
 import CreateListStep from './_components/CreateListStep';
 import CreateNicknameStep from './_components/CreateNicnameStep';
-import { ListCreateType } from '@/lib/types/listType';
-
-export type FormErrors = FieldErrors<ListCreateType>;
 
 export default function OnbsoardPage() {
   const { user } = useUser();
@@ -36,7 +33,7 @@ export default function OnbsoardPage() {
   return (
     <FormProvider {...methods}>
       {stepIndex === 0 && userData && <CreateNicknameStep userData={userData} handleNextStep={handleNextStep} />}
-      {stepIndex === 1 && userData && <CreateListStep userId={userData?.id} />}
+      {stepIndex === 0 && userData && <CreateListStep userId={userData?.id} />}
     </FormProvider>
   );
 }

@@ -2,6 +2,7 @@ import { useFormContext } from 'react-hook-form';
 
 import { itemTitleRules } from '@/lib/constants/formInputValidationRules';
 import { CategoryType } from '@/lib/types/categoriesType';
+import { ListCreateType } from '@/lib/types/listType';
 
 interface ItemsStepProps {
   selectedCategory: Omit<CategoryType, 'codeValue'>;
@@ -12,7 +13,7 @@ export default function ItemsStep({ selectedCategory }: ItemsStepProps) {
     register,
     getValues,
     formState: { errors },
-  } = useFormContext();
+  } = useFormContext<ListCreateType>();
 
   return (
     <>
@@ -30,7 +31,7 @@ export default function ItemsStep({ selectedCategory }: ItemsStepProps) {
                 placeholder={`${index + 1}위 아이템을 입력해주세요.`}
                 autoComplete="off"
               />
-              {/* <p>{errors.items?.[index]?.title?.message}</p> */}
+              <p>{errors.items?.[index]?.title?.message}</p>
             </div>
           ))}
         </div>
