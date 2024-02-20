@@ -26,22 +26,26 @@ function UsersRecommendation({ userId }: { userId: number }) {
   };
 
   return (
-    <div className={styles.wrapper}>
-      {usersList?.length !== 0 && (
-        <>
-          <ul className={styles.recommendUsersListWrapper} ref={wrapperRef}>
-            {usersList &&
-              usersList?.map((item: UserProfileType) => {
-                return (
-                  <li key={item.id}>
-                    <UserRecommendListItem data={item} handleScrollToRight={handleScrollToRight} userId={userId} />
-                  </li>
-                );
-              })}
-          </ul>
-        </>
+    <>
+      {userId && (
+        <div className={styles.wrapper}>
+          {usersList?.length !== 0 && (
+            <>
+              <ul className={styles.recommendUsersListWrapper} ref={wrapperRef}>
+                {usersList &&
+                  usersList?.map((item: UserProfileType) => {
+                    return (
+                      <li key={item.id}>
+                        <UserRecommendListItem data={item} handleScrollToRight={handleScrollToRight} userId={userId} />
+                      </li>
+                    );
+                  })}
+              </ul>
+            </>
+          )}
+        </div>
       )}
-    </div>
+    </>
   );
 }
 
