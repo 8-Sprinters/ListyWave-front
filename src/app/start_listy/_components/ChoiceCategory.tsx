@@ -2,6 +2,7 @@ import { MouseEvent } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { useFormContext } from 'react-hook-form';
 
+import * as styles from './CategoryButton.css';
 import getCategories from '@/app/_api/category/getCategories';
 
 import { QUERY_KEYS } from '@/lib/constants/queryKeys';
@@ -49,10 +50,15 @@ export default function ChoiceCategory({ handleChangeCategory }: CategoryProps) 
 
   return (
     <>
-      <label>무엇에 대한 리스트인가요?</label>
-      <div onClick={onClickChangeCategory}>
+      <label className={styles.title}>무엇에 대한 리스트인가요?</label>
+      <div onClick={onClickChangeCategory} className={styles.container}>
         {categories.map((category) => (
-          <button key={category.codeValue} id={category.nameValue} type="button">
+          <button
+            key={category.codeValue}
+            id={category.nameValue}
+            type="button"
+            className={styles.variants[`${category.nameValue}Button`]}
+          >
             {category.korNameValue}
           </button>
         ))}
