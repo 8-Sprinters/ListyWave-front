@@ -3,28 +3,29 @@
  - [ ] 온보딩을 했던 사용자라면 해당 페이지 노출 x, 접근 x
  - [ ] 온보딩 중간 종료된 사용자는 온보딩 페이지 재노출 o
  - [ ] 온보딩 중 뒤로가기 방지
- - [ ] 리스트 완성 후 뒤로가기 확인
+ - [ ] 리스트 완성 후 뒤로가기 
  */
 
 import { useRouter } from 'next/navigation';
-import { MouseEvent, useState } from 'react';
+import { useState } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
-import { useQuery } from '@tanstack/react-query';
 
-import getCategories from '@/app/_api/category/getCategories';
 import createList from '@/app/_api/list/createList';
 
-import { QUERY_KEYS } from '@/lib/constants/queryKeys';
 import { CategoryType } from '@/lib/types/categoriesType';
 import { ListCreateType } from '@/lib/types/listType';
-import { itemTitleRules } from '@/lib/constants/formInputValidationRules';
 import toastMessage from '@/lib/constants/toastMessage';
 import toasting from '@/lib/utils/toasting';
+
 import Category from './Category';
 import ListTitleStep from './ListTitleStep';
 import ItemsStep from './ItemsStep';
 
-export default function CreateListStep() {
+interface CreateListStepProps {
+  userId: number;
+}
+
+export default function CreateListStep({ userId }: CreateListStepProps) {
   const router = useRouter();
   const [stepIndex, setStepIndex] = useState(0);
   const [title, setTitle] = useState('');
@@ -36,14 +37,14 @@ export default function CreateListStep() {
   const methods = useForm<ListCreateType>({
     mode: 'onChange',
     defaultValues: {
-      ownerId: 13, // userId 변경 예정
+      ownerId: userId,
       category: '',
       labels: [],
       collaboratorIds: [],
       title: '',
       description: '',
       isPublic: true,
-      backgroundColor: '#FFFFFF',
+      backgroundColor: '#FFFFFF', // default 색상 변경
       items: [
         {
           rank: 1,
@@ -89,13 +90,12 @@ export default function CreateListStep() {
   const onSubmit = async (data: ListCreateType) => {
     console.log('리스트 생성'); // 삭제 예정
     console.log(data); // 삭제 예정
-    console.log(methods.getValues('category'), methods.getValues('title'));
 
     try {
       const result = await createList(data);
 
       if (result.listId) {
-        router.push(`user/13/mylist`);
+        router.push(`user/${userId}/mylist`);
       }
     } catch (error) {
       if (error instanceof Error) {
