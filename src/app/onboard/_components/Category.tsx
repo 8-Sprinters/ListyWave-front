@@ -8,7 +8,7 @@ import { QUERY_KEYS } from '@/lib/constants/queryKeys';
 import { CategoryType } from '@/lib/types/categoriesType';
 
 interface CategoryProps {
-  handleChangeCategory: (category: { nameValue: string; korNameValue: string }) => void;
+  handleChangeCategory: (category: Omit<CategoryType, 'codeValue'>) => void;
 }
 
 export default function Category({ handleChangeCategory }: CategoryProps) {
