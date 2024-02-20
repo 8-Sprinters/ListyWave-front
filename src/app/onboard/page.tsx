@@ -4,6 +4,7 @@
 
 import { FormProvider, useForm } from 'react-hook-form';
 import { useQuery } from '@tanstack/react-query';
+import { useState } from 'react';
 
 import { useUser } from '@/store/useUser';
 import getUserOne from '../_api/user/getUserOne';
@@ -17,6 +18,7 @@ import CreateNicknameStep from './_components/CreateNicnameStep';
 export default function OnbsoardPage() {
   const { user } = useUser();
   const methods = useForm();
+  const [stepIndex, setStepIndex] = useState(0);
 
   const { data: userData } = useQuery<UserType>({
     queryKey: [QUERY_KEYS.userOne, user.id],
@@ -24,10 +26,14 @@ export default function OnbsoardPage() {
     enabled: !!user.id,
   });
 
+  const handleNextStep = () => {
+    setStepIndex((prev) => prev + 1);
+  };
+
   return (
     <FormProvider {...methods}>
-      {userData && <CreateNicknameStep userData={userData} />}
-      <CreateListStep />
+      {stepIndex === 0 && userData && <CreateNicknameStep userData={userData} handleNextStep={handleNextStep} />}
+      {stepIndex === 1 && <CreateListStep />}
     </FormProvider>
   );
 }

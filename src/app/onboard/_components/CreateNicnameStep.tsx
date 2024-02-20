@@ -7,9 +7,10 @@ import updateProfile from '@/app/_api/user/updateProfile';
 
 interface CreateNicnameStepProps {
   userData: UserType;
+  handleNextStep: () => void;
 }
 
-export default function CreateNicknameStep({ userData }: CreateNicnameStepProps) {
+export default function CreateNicknameStep({ userData, handleNextStep }: CreateNicnameStepProps) {
   const {
     register,
     handleSubmit,
@@ -49,6 +50,7 @@ export default function CreateNicknameStep({ userData }: CreateNicnameStepProps)
     });
 
     // 변경 성공시 next step
+    handleNextStep();
   };
 
   return (
