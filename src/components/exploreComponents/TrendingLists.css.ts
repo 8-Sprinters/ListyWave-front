@@ -75,8 +75,8 @@ export const itemWrapperStyle3 = style([
 export const itemWrapperStyle4 = style([
   itemWrapper,
   {
-    width: '258px',
-    padding: '68px 52px',
+    width: '172px',
+    padding: '68px 20px',
     borderRadius: '30px',
   },
 ]);
