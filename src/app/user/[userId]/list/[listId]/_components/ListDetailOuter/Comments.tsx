@@ -15,6 +15,7 @@ import { QUERY_KEYS } from '@/lib/constants/queryKeys';
 import { CommentType } from '@/lib/types/commentType';
 import { UserType } from '@/lib/types/userProfileType';
 import { useUser } from '@/store/useUser';
+import useCommentIdStore from '@/store/useCommentIdStore';
 
 import * as styles from './Comments.css';
 import CancelButton from '/public/icons/cancel_button.svg';
@@ -25,6 +26,7 @@ function Comments() {
   const [comment, setComment] = useState<string>('');
   const params = useParams<{ listId: string }>();
   const queryClient = useQueryClient();
+  const { addCommentId } = useCommentIdStore();
 
   const [imgSrc, setImgSrc] = useState(false);
 
@@ -104,6 +106,7 @@ function Comments() {
     mutationFn: () => createReply({ listId: Number(params?.listId), commentId: commentId, data: comment }),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: [QUERY_KEYS.getComments] });
+      addCommentId(commentId as number);
     },
     onSettled: () => {
       setComment('');
@@ -189,7 +192,7 @@ function Comments() {
                 activeNickname={activeNickname}
                 handleSetCommentId={handleSetCommentId}
                 listId={Number(params?.listId)}
-                commentId={commentId}
+                commentId={item.id}
                 currentUserInfo={userInformation}
               />
             )}

@@ -23,12 +23,14 @@ interface CommentProps {
   activeNickname?: string | null;
   handleSetCommentId: (id: number | undefined) => void;
   listId?: number;
-  commentId?: null | number;
+  commentId?: number;
   currentUserInfo?: UserType;
 }
 
 function Comment({ comment, onUpdate, handleSetCommentId, listId, commentId, currentUserInfo }: CommentProps) {
   const queryClient = useQueryClient();
+
+  console.log(commentId);
 
   //현재 작성중인 답글의 원댓글 정보를 업데이트 하는 로직
   const handleActiveNicknameAndIdUpdate = () => {

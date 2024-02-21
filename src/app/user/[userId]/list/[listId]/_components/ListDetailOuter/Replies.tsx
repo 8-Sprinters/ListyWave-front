@@ -1,10 +1,10 @@
 'use client';
-import { useState } from 'react';
 import Image from 'next/image';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 
 import DeleteModalButton from '@/app/user/[userId]/list/[listId]/_components/ListDetailOuter/DeleteModalButton';
 import deleteReply from '@/app/_api/comment/deleteReply';
+import useCommentIdStore from '@/store/useCommentIdStore';
 import { QUERY_KEYS } from '@/lib/constants/queryKeys';
 import timeDiff from '@/lib/utils/time-diff';
 import { ReplyType } from '@/lib/types/commentType';
@@ -16,26 +16,28 @@ import Line from '/public/icons/horizontal_line.svg';
 interface RepliesProps {
   replies?: ReplyType[] | null;
   listId?: number;
-  commentId?: null | number;
+  commentId?: number;
   currentUserInfo?: UserType;
 }
 
-function Replies({ replies, listId, currentUserInfo }: RepliesProps) {
-  const [showReplies, setShowReplies] = useState(false);
+function Replies({ replies, listId, currentUserInfo, commentId }: RepliesProps) {
+  const { commentIds, addCommentId } = useCommentIdStore();
 
-  const handleShowReplies = () => {
-    setShowReplies((prev) => !prev);
+  const handleShowReplies = (commentId: number) => () => {
+    addCommentId(commentId);
   };
+
+  const isOpenedReplies = commentIds.includes(commentId as number);
 
   return (
     <>
-      {replies?.length !== 0 && !showReplies && (
-        <div className={styles.showMoreRepliesWrapper} onClick={handleShowReplies}>
+      {replies?.length !== 0 && !isOpenedReplies && (
+        <div className={styles.showMoreRepliesWrapper} onClick={handleShowReplies(commentId as number)}>
           <Line alt="답글 구분선" />
           <div className={styles.showMoreReplies}>{`답글 ${replies?.length}개 더 보기`}</div>
         </div>
       )}
-      {showReplies && (
+      {isOpenedReplies && (
         <ul className={styles.repliesWrapper}>
           {replies?.map((item: ReplyType) => {
             return (
