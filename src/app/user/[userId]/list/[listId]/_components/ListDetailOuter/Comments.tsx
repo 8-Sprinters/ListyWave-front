@@ -27,6 +27,7 @@ function Comments() {
   const [commentId, setCommentId] = useState<null | number>(null);
   const [comment, setComment] = useState<string>('');
   const params = useParams<{ listId: string }>();
+  const [isEditing, setIsEditing] = useState(false);
   const queryClient = useQueryClient();
   const { addCommentId } = useCommentIdStore();
   const { isOn, handleSetOff, handleSetOn } = useBooleanOutput();
@@ -89,6 +90,19 @@ function Comments() {
   //댓글 폼 사용(추후 리액트 훅폼으로 수정해 볼 예정)
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     setComment(e.target.value);
+  };
+
+  //댓글 수정 버튼 클릭시, 댓글 수정을 위한 폼 셋팅
+  const handleEditComment = (comment?: string) => {
+    if (comment) {
+      setIsEditing(true);
+      setComment(comment);
+    }
+  };
+
+  const handleCancelEdit = () => {
+    setIsEditing(false);
+    setComment('');
   };
 
   //댓글 생성 리액트 쿼리 함수
@@ -155,6 +169,8 @@ function Comments() {
           handleUpdate={handleReplyInformationDelete}
           handleSubmit={handleSubmit}
           imageSrc={userInformation?.profileImageUrl}
+          isEditing={isEditing}
+          handleCancel={handleCancelEdit}
         />
         <div className={styles.totalCount}>{`${comments?.totalCount}개의 댓글`}</div>
         {comments?.commentsList?.map((item: CommentType) => {
@@ -171,6 +187,7 @@ function Comments() {
                   listId={Number(params?.listId)}
                   commentId={item.id}
                   currentUserInfo={userInformation}
+                  handleEdit={handleEditComment}
                 />
               )}
             </div>

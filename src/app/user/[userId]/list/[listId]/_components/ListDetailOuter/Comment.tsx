@@ -26,9 +26,18 @@ interface CommentProps {
   listId?: number;
   commentId?: number;
   currentUserInfo?: UserType;
+  handleEdit: (comment: string) => void;
 }
 
-function Comment({ comment, onUpdate, handleSetCommentId, listId, commentId, currentUserInfo }: CommentProps) {
+function Comment({
+  comment,
+  onUpdate,
+  handleSetCommentId,
+  listId,
+  commentId,
+  currentUserInfo,
+  handleEdit,
+}: CommentProps) {
   const queryClient = useQueryClient();
 
   //현재 작성중인 답글의 원댓글 정보를 업데이트 하는 로직
@@ -85,7 +94,7 @@ function Comment({ comment, onUpdate, handleSetCommentId, listId, commentId, cur
         </div>
         {!comment?.isDeleted && currentUserInfo?.id === comment?.userId && (
           <div className={styles.actionButtonWrapper}>
-            <button className={styles.editButton}>
+            <button className={styles.editButton} onClick={() => comment && handleEdit(comment?.content)}>
               <EditPen />
             </button>
             <DeleteModalButton onDelete={handleClickDeleteButton} />
@@ -95,7 +104,13 @@ function Comment({ comment, onUpdate, handleSetCommentId, listId, commentId, cur
       <button className={styles.createReplyButton} onClick={handleActiveNicknameAndIdUpdate}>
         <span>답글 달기</span>
       </button>
-      <Replies replies={comment?.replies} listId={listId} commentId={commentId} currentUserInfo={currentUserInfo} />
+      <Replies
+        replies={comment?.replies}
+        listId={listId}
+        commentId={commentId}
+        currentUserInfo={currentUserInfo}
+        handleEdit={handleEdit}
+      />
     </>
   );
 }

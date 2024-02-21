@@ -19,9 +19,10 @@ interface RepliesProps {
   listId?: number;
   commentId?: number;
   currentUserInfo?: UserType;
+  handleEdit: (comment: string) => void;
 }
 
-function Replies({ replies, listId, currentUserInfo, commentId }: RepliesProps) {
+function Replies({ replies, listId, currentUserInfo, commentId, handleEdit }: RepliesProps) {
   const { commentIds, addCommentId } = useCommentIdStore();
 
   const handleShowReplies = (commentId: number) => () => {
@@ -43,7 +44,7 @@ function Replies({ replies, listId, currentUserInfo, commentId }: RepliesProps) 
           {replies?.map((item: ReplyType) => {
             return (
               <li key={item.id} className={styles.repliesOuterWrapper}>
-                <Reply reply={item} listId={listId} currentUserInfo={currentUserInfo} />
+                <Reply reply={item} listId={listId} currentUserInfo={currentUserInfo} handleEdit={handleEdit} />
               </li>
             );
           })}
@@ -59,9 +60,10 @@ interface ReplyProps {
   reply: ReplyType;
   listId?: number;
   currentUserInfo?: UserType;
+  handleEdit: (comment: string) => void;
 }
 
-function Reply({ reply, listId, currentUserInfo }: ReplyProps) {
+function Reply({ reply, listId, currentUserInfo, handleEdit }: ReplyProps) {
   const queryClient = useQueryClient();
   const deleteReplyMutation = useMutation({
     mutationFn: () => deleteReply({ listId: listId, commentId: reply?.commentId, replyId: reply?.id }),
@@ -96,7 +98,7 @@ function Reply({ reply, listId, currentUserInfo }: ReplyProps) {
       </div>
       {currentUserInfo?.id === reply.userId && (
         <div className={styles.actionButtonWrapper}>
-          <button className={styles.editButton}>
+          <button className={styles.editButton} onClick={() => handleEdit(reply.content)}>
             <EditPen />
           </button>
           <DeleteModalButton onDelete={handleDeleteButtonClick} />

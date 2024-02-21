@@ -12,6 +12,8 @@ interface CommentFormProps {
   handleUpdate?: () => void;
   handleChange: (e: ChangeEvent<HTMLInputElement>) => void;
   imageSrc?: string;
+  isEditing?: boolean;
+  handleCancel: () => void;
 }
 
 function CommentForm({
@@ -21,6 +23,8 @@ function CommentForm({
   activeNickname,
   handleSubmit,
   handleUpdate,
+  isEditing,
+  handleCancel,
 }: CommentFormProps) {
   const [imgSrc, setImgSrc] = useState(false);
   const { user } = useUser();
@@ -46,11 +50,17 @@ function CommentForm({
           onError={handleImageError}
         />
       </div>
-      <div className={`${styles.formWrapperInner} ${!!activeNickname ? styles.activeFormWrapper : ''}`}>
+      <div className={`${styles.formWrapperInner} ${!!activeNickname || isEditing ? styles.activeFormWrapper : ''}`}>
         {activeNickname && (
           <div className={styles.activeReplyWrapper}>
             <span className={styles.replyNickname}>{`@${activeNickname}님에게 남긴 답글`}</span>
             <CancelButton className={styles.clearButton} alt="지우기 버튼" onClick={handleUpdate} />
+          </div>
+        )}
+        {isEditing && (
+          <div className={styles.activeReplyWrapper}>
+            <span className={styles.replyNickname}>{`원문 수정 중`}</span>
+            <CancelButton className={styles.clearButton} alt="지우기 버튼" onClick={handleCancel} />
           </div>
         )}
         <form className={styles.formContainer} onSubmit={handleSubmit}>
