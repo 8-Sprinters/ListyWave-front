@@ -75,6 +75,12 @@ export default function CreateListStep({ userId, nickname }: CreateListStepProps
   console.log(selectedCategory); // 삭제 예정
   console.log(stepIndex); // 삭제 예정
 
+  const {
+    handleSubmit,
+    getValues,
+    formState: { errors },
+  } = methods;
+
   const handleNextStep = () => {
     setStepIndex((prev) => prev + 1);
   };
@@ -112,7 +118,7 @@ export default function CreateListStep({ userId, nickname }: CreateListStepProps
 
   return (
     <FormProvider {...methods}>
-      <form onSubmit={methods.handleSubmit(onSubmit, onError)} noValidate className={styles.background}>
+      <form onSubmit={handleSubmit(onSubmit, onError)} noValidate className={styles.background}>
         {stepIndex === 0 && (
           <>
             <div className={styles.step}>
@@ -140,17 +146,28 @@ export default function CreateListStep({ userId, nickname }: CreateListStepProps
           </>
         )}
         {stepIndex === 1 && (
-          <div className={styles.container}>
-            <RegisterListTitle selectedCategory={selectedCategory} />
-            <button
-              type="button"
-              onClick={handleNextStep}
-              className={styles.variant.active}
-              disabled={!selectedCategory.nameValue}
-            >
-              다음으로
-            </button>
-          </div>
+          <>
+            <div className={styles.step}>
+              <div className={styles.barContainer}>
+                <span className={styles.bar.dafult}></span>
+                <span
+                  className={!getValues('title') || errors.title ? styles.statusBar.divide : styles.statusBar.sixty}
+                ></span>
+              </div>
+              <p className={styles.stepText}>step2</p>
+            </div>
+            <div className={styles.container}>
+              <RegisterListTitle selectedCategory={selectedCategory} />
+              <button
+                type="button"
+                onClick={handleNextStep}
+                className={!getValues('title') || errors.title ? styles.variant.default : styles.variant.active}
+                disabled={!getValues('title') || !!errors.title}
+              >
+                다음으로
+              </button>
+            </div>
+          </>
         )}
         {stepIndex === 2 && (
           <div>

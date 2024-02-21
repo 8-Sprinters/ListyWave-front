@@ -61,6 +61,7 @@ export const statusBar = styleVariants({
   zero: [bar.progress, { width: '1%' }],
   divide: [bar.progress, { width: '33%' }],
   half: [bar.progress, { width: '50%' }],
+  sixty: [bar.progress, { width: '66%' }],
   full: [bar.progress, { width: '100%' }],
 });
 
