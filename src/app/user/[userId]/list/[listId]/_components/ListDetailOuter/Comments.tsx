@@ -16,6 +16,9 @@ import { CommentType } from '@/lib/types/commentType';
 import { UserType } from '@/lib/types/userProfileType';
 import { useUser } from '@/store/useUser';
 import useCommentIdStore from '@/store/useCommentIdStore';
+import Modal from '@/components/Modal/Modal';
+import LoginModal from '@/components/login/LoginModal';
+import useBooleanOutput from '@/hooks/useBooleanOutput';
 
 import * as styles from './Comments.css';
 import CancelButton from '/public/icons/cancel_button.svg';
@@ -27,6 +30,7 @@ function Comments() {
   const params = useParams<{ listId: string }>();
   const queryClient = useQueryClient();
   const { addCommentId } = useCommentIdStore();
+  const { isOn, handleSetOff, handleSetOn } = useBooleanOutput();
 
   const [imgSrc, setImgSrc] = useState(false);
 
@@ -119,6 +123,7 @@ function Comments() {
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (!userId) {
+      handleSetOn();
       return;
     }
     if (commentId && activeNickname) {
@@ -143,65 +148,72 @@ function Comments() {
   }, [queryClient]);
 
   return (
-    <div className={styles.wrapper}>
-      <div className={styles.formWrapperOuter}>
-        <div className={styles.profileImageParent}>
-          <Image
-            src={imgSrc ? `${userInformation?.profileImageUrl}` : '/public/images/mock_profile.png'}
-            alt="프로필 이미지"
-            className={styles.profileImage}
-            fill
-            style={{
-              objectFit: 'cover',
-            }}
-            onError={handleImageError}
-          />
-        </div>
-        <div className={`${styles.formWrapperInner} ${!!activeNickname ? styles.activeFormWrapper : ''}`}>
-          {activeNickname && (
-            <div className={styles.activeReplyWrapper}>
-              <span className={styles.replyNickname}>{`@${activeNickname}님에게 남긴 답글`}</span>
-              <CancelButton className={styles.clearButton} alt="지우기 버튼" onClick={handleReplyInformationDelete} />
-            </div>
-          )}
-          <form className={styles.formContainer} onSubmit={handleSubmit}>
-            <input
-              className={styles.formInput}
-              value={comment}
-              onChange={handleInputChange}
-              placeholder={userId === 0 ? '로그인 후 댓글을 작성할 수 있습니다.' : ''}
+    <>
+      {isOn && (
+        <Modal handleModalClose={handleSetOff} size="large">
+          <LoginModal />
+        </Modal>
+      )}
+      <div className={styles.wrapper}>
+        <div className={styles.formWrapperOuter}>
+          <div className={styles.profileImageParent}>
+            <Image
+              src={imgSrc ? `${userInformation?.profileImageUrl}` : ''}
+              alt="프로필 이미지"
+              className={styles.profileImage}
+              fill
+              style={{
+                objectFit: 'cover',
+              }}
+              onError={handleImageError}
             />
-            {comment && userId && (
-              <button type="submit" className={styles.formButton}>
-                게시
-              </button>
-            )}
-          </form>
-        </div>
-      </div>
-      <div className={styles.totalCount}>{`${comments?.totalCount}개의 댓글`}</div>
-      {comments?.commentsList?.map((item: CommentType) => {
-        return (
-          <div key={item.id} className={styles.commentWrapper}>
-            {isFetching ? (
-              <CommentsSkeleton />
-            ) : (
-              <Comment
-                comment={item}
-                onUpdate={setActiveNickname}
-                activeNickname={activeNickname}
-                handleSetCommentId={handleSetCommentId}
-                listId={Number(params?.listId)}
-                commentId={item.id}
-                currentUserInfo={userInformation}
-              />
-            )}
           </div>
-        );
-      })}
-      {/* {옵저버를 위한 요소} */}
-      <div ref={ref}></div>
-    </div>
+          <div className={`${styles.formWrapperInner} ${!!activeNickname ? styles.activeFormWrapper : ''}`}>
+            {activeNickname && (
+              <div className={styles.activeReplyWrapper}>
+                <span className={styles.replyNickname}>{`@${activeNickname}님에게 남긴 답글`}</span>
+                <CancelButton className={styles.clearButton} alt="지우기 버튼" onClick={handleReplyInformationDelete} />
+              </div>
+            )}
+            <form className={styles.formContainer} onSubmit={handleSubmit}>
+              <input
+                className={styles.formInput}
+                value={comment}
+                onChange={handleInputChange}
+                placeholder={userId === 0 ? '로그인 후 댓글을 작성할 수 있습니다.' : ''}
+              />
+              {comment && (
+                <button type="submit" className={styles.formButton}>
+                  게시
+                </button>
+              )}
+            </form>
+          </div>
+        </div>
+        <div className={styles.totalCount}>{`${comments?.totalCount}개의 댓글`}</div>
+        {comments?.commentsList?.map((item: CommentType) => {
+          return (
+            <div key={item.id} className={styles.commentWrapper}>
+              {isFetching ? (
+                <CommentsSkeleton />
+              ) : (
+                <Comment
+                  comment={item}
+                  onUpdate={setActiveNickname}
+                  activeNickname={activeNickname}
+                  handleSetCommentId={handleSetCommentId}
+                  listId={Number(params?.listId)}
+                  commentId={item.id}
+                  currentUserInfo={userInformation}
+                />
+              )}
+            </div>
+          );
+        })}
+        {/* {옵저버를 위한 요소} */}
+        <div ref={ref}></div>
+      </div>
+    </>
   );
 }
 
