@@ -72,7 +72,7 @@ function ListInformation() {
       <Header
         title="리스트"
         left="back"
-        right={<HeaderRight isCollaborator={isCollaborator} userId={list.ownerId} />}
+        right={<HeaderRight isCollaborator={isCollaborator} ownerId={list?.ownerId} />}
         leftClick={() => router.back()}
       />
       <div className={styles.wrapper}>
