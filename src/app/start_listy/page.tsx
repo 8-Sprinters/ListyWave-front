@@ -1,5 +1,14 @@
 'use client';
 
+/**
+ TODO 
+ - [ ] 온보딩을 했던 사용자라면 해당 페이지 노출 x, 접근 x
+ - [ ] 온보딩 중간 종료된 사용자는 온보딩 페이지 재노출 o
+ - [ ] 온보딩 중 뒤로가기 방지
+ - [ ] 리스트 완성 후 뒤로가기 
+ - [ ] 새로고침 시
+ */
+
 import { useQuery } from '@tanstack/react-query';
 import { useState } from 'react';
 

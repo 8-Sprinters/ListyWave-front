@@ -51,8 +51,7 @@ export const barContainer = style({
 
 // progress bar
 export const bar = styleVariants({
-  dafult: {
-    // 오타 수정하기
+  default: {
     width: '100%',
     height: '10px',
     position: 'absolute',

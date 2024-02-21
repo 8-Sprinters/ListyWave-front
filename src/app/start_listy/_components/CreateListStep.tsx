@@ -1,11 +1,3 @@
-/**
- TODO 
- - [ ] 온보딩을 했던 사용자라면 해당 페이지 노출 x, 접근 x
- - [ ] 온보딩 중간 종료된 사용자는 온보딩 페이지 재노출 o
- - [ ] 온보딩 중 뒤로가기 방지
- - [ ] 리스트 완성 후 뒤로가기 
- */
-
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
@@ -46,7 +38,7 @@ export default function CreateListStep({ userId, nickname }: CreateListStepProps
       title: '',
       description: '',
       isPublic: true,
-      backgroundColor: '#FFFFFF', // default 색상 변경
+      backgroundColor: '#FFFFFF', // TODO 리스트 생성 색상 랜덤하게 적용하기
       items: [
         {
           rank: 1,
@@ -73,9 +65,6 @@ export default function CreateListStep({ userId, nickname }: CreateListStepProps
     },
   });
 
-  console.log(selectedCategory); // 삭제 예정
-  console.log(stepIndex); // 삭제 예정
-
   const {
     handleSubmit,
     getValues,
@@ -97,13 +86,7 @@ export default function CreateListStep({ userId, nickname }: CreateListStepProps
     });
   };
 
-  console.log(selectedCategory);
-  console.log(isValid);
-
   const onSubmit = async (data: ListCreateType) => {
-    console.log('리스트 생성'); // 삭제 예정
-    console.log(data); // 삭제 예정
-
     if (!isValid) return;
 
     try {
@@ -127,7 +110,7 @@ export default function CreateListStep({ userId, nickname }: CreateListStepProps
           <>
             <div className={styles.step}>
               <div className={styles.barContainer}>
-                <span className={styles.bar.dafult}></span>
+                <span className={styles.bar.default}></span>
                 <span className={selectedCategory.nameValue ? styles.statusBar.divide : styles.statusBar.zero}></span>
               </div>
               <p className={styles.stepText}>step2</p>
@@ -158,7 +141,7 @@ export default function CreateListStep({ userId, nickname }: CreateListStepProps
             </div>
             <div className={styles.step}>
               <div className={styles.barContainer}>
-                <span className={styles.bar.dafult}></span>
+                <span className={styles.bar.default}></span>
                 <span
                   className={!getValues('title') || errors.title ? styles.statusBar.divide : styles.statusBar.sixty}
                 ></span>
@@ -187,7 +170,7 @@ export default function CreateListStep({ userId, nickname }: CreateListStepProps
             </div>
             <div className={styles.step}>
               <div className={styles.barContainer}>
-                <span className={styles.bar.dafult}></span>
+                <span className={styles.bar.default}></span>
                 <span className={isValid ? styles.statusBar.full : styles.statusBar.sixty}></span>
               </div>
               <p className={styles.stepText}>step2</p>

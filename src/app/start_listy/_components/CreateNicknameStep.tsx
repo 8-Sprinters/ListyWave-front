@@ -25,22 +25,18 @@ export default function CreateNicknameStep({ userData, handleNextStep, refetch }
   });
 
   const onSubmit = async (data: UserProfileEditType) => {
-    console.log(data.nickname); // 삭제 예정
-    console.log(userData.id); // 삭제 예정
-
     if (!userData.id) {
       alert('로그인이 필요해요.');
       return;
     }
 
     const isDuplitedNickname = await checkNicknameDuplication(data.nickname);
-    // isDuplitedNickname이 true면, return + 에러메세지
+
     if (isDuplitedNickname) {
       setError('nickname', nicknameDuplicateRules);
       return;
     }
 
-    // isDuplitedNickname이 false면, 프로필 업데이트
     try {
       await updateProfile({
         userId: userData.id as number,
@@ -54,20 +50,18 @@ export default function CreateNicknameStep({ userData, handleNextStep, refetch }
         },
       });
 
-      refetch();
       // 변경 성공시 next step
+      refetch();
       handleNextStep();
     } catch (error) {
       console.error(error);
     }
   };
 
-  console.log(isValid);
-
   return (
     <form onSubmit={handleSubmit(onSubmit)} noValidate className={styles.background}>
       <div className={styles.step}>
-        <div className={styles.bar.dafult}></div>
+        <div className={styles.bar.default}></div>
         <div className={isValid ? styles.statusBar.full : styles.statusBar.half}></div>
         <p className={styles.stepText}>step1</p>
       </div>

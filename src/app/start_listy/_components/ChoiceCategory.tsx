@@ -30,8 +30,6 @@ export default function ChoiceCategory({ handleChangeCategory }: CategoryProps) 
     const targetId = (e.target as HTMLButtonElement).id;
     const category = data?.find((category) => category.nameValue === targetId);
 
-    console.log(category); // 삭제 예정
-
     if (category) {
       handleChangeCategory({
         nameValue: category.nameValue,
@@ -40,7 +38,6 @@ export default function ChoiceCategory({ handleChangeCategory }: CategoryProps) 
       setValue('category', category.nameValue);
     } else {
       console.log('선택한 카테고리를 찾을 수 없어요.');
-
       handleChangeCategory({
         nameValue: '',
         korNameValue: '',

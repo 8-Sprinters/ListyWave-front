@@ -26,19 +26,13 @@ export default function RegisterListTitle({ selectedCategory }: ListTitleStepPro
     formState: { errors },
   } = useFormContext<ListCreateType>();
 
-  const watchForm = watch('title');
+  const watchForm = watch('title'); // TODO 렌더링 최소화 하는 방법으로 리팩토링 하기(ex. debounced)
 
   return (
     <>
       <label className={styles.title}>리스트의 제목을 지어주세요.</label>
       <div className={styles.inputWrapper}>
-        <input
-          {...register('title', onBoardlistTitleRules)}
-          autoComplete="off"
-          autoFocus
-          className={styles.input}
-          // onChange={(e) => setTitle(e.target.value)} // TODO 렌더링 최소화 하는 방법으로 리팩토링 하기(watch or ref)
-        />
+        <input {...register('title', onBoardlistTitleRules)} autoComplete="off" autoFocus className={styles.input} />
         <p className={styles.errorMessage}>{errors.title?.message}</p>
       </div>
       <div className={stylesList.container}>
