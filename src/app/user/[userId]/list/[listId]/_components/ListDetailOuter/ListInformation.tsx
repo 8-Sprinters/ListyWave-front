@@ -14,6 +14,7 @@ import useBooleanOutput from '@/hooks/useBooleanOutput';
 import { useUser } from '@/store/useUser';
 import { QUERY_KEYS } from '@/lib/constants/queryKeys';
 import timeDiff from '@/lib/utils/time-diff';
+import useMoveToPage from '@/hooks/useMoveToPage';
 import { UserProfileType } from '@/lib/types/userProfileType';
 import { LabelType, ListDetailType } from '@/lib/types/listType';
 import ListDetailInner from '@/app/user/[userId]/list/[listId]/_components/ListDetailInner';
@@ -23,6 +24,7 @@ function ListInformation() {
   const params = useParams<{ listId: string; userId: string }>();
   const router = useRouter();
   const { handleSetOff } = useBooleanOutput();
+  const { onClickMoveToPage } = useMoveToPage();
 
   //zustand로 관리하는 user정보 불러오기
   const { user } = useUser();
@@ -87,7 +89,7 @@ function ListInformation() {
       <ListDetailInner data={list} listId={params && params?.listId} />
       <div className={styles.bottomWrapper}>
         <div className={styles.bottomLeftWrapper}>
-          <div className={styles.profileImageParent}>
+          <div className={styles.profileImageParent} onClick={onClickMoveToPage(`/user/${list.ownerId}/mylist`)}>
             <Image
               src={list?.ownerProfileImageUrl}
               alt="사용자 프로필 이미지"

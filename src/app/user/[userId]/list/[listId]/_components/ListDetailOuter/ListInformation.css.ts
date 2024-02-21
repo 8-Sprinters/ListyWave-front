@@ -62,6 +62,8 @@ export const profileImageParent = style({
   width: '36px',
   height: '36px',
   position: 'relative',
+
+  cursor: 'pointer',
 });
 
 export const profileImage = style({
