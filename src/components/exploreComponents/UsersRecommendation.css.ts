@@ -1,10 +1,19 @@
 import { style } from '@vanilla-extract/css';
 import { vars } from '@/styles/theme.css';
-import { titleSmall } from '@/styles/font.css';
+import { titleSmall, headlineSmall } from '@/styles/font.css';
 
 export const wrapper = style({
   padding: '0 16px',
 });
+
+export const sectionTitle = style([
+  headlineSmall,
+  {
+    marginBottom: '26px',
+
+    fontWeight: 600,
+  },
+]);
 
 export const recommendUsersListWrapper = style({
   marginBottom: '30px',
@@ -20,9 +29,9 @@ export const recommendUsersListWrapper = style({
 });
 
 export const recommendUserWrapper = style({
-  padding: '16px 12px 11px',
-  width: '228px',
-  height: '288px',
+  padding: '12px 9px',
+  width: '160px',
+  height: 'auto',
 
   position: 'relative',
 
@@ -44,8 +53,8 @@ export const closeButton = style({
 
 export const imageWrapper = style({
   marginBottom: '13px',
-  width: '153px',
-  height: '153px',
+  width: '110px',
+  height: '110px',
 
   position: 'relative',
 });
@@ -69,14 +78,14 @@ export const followButtonDefault = style([
   titleSmall,
   {
     width: '100%',
-    padding: '8px 0',
+    padding: '4px 0',
 
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
 
     backgroundColor: vars.color.blue,
-    borderRadius: '10px',
+    borderRadius: '9px',
     color: vars.color.white,
   },
 ]);
