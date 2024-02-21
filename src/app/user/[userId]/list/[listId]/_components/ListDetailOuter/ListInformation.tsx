@@ -21,7 +21,7 @@ import ListDetailInner from '@/app/user/[userId]/list/[listId]/_components/ListD
 import * as styles from './ListInformation.css';
 
 function ListInformation() {
-  const params = useParams<{ listId: string; userId: string }>();
+  const params = useParams<{ listId: string }>();
   const router = useRouter();
   const { handleSetOff } = useBooleanOutput();
   const { onClickMoveToPage } = useMoveToPage();
@@ -41,7 +41,7 @@ function ListInformation() {
   const filteredCollaborators = list?.collaborators.filter((item: UserProfileType) => item?.id !== list.ownerId);
   //리스트 오너가 아니고 콜라보레이터인 경우에 권한을 설정하기 위한 변수
   const isCollaborator: boolean | undefined =
-    list?.collaborators.some((item: UserProfileType) => item?.id === userId) && userId !== Number(params?.userId);
+    list?.collaborators.some((item: UserProfileType) => item?.id === userId) && userId !== list.ownerId;
 
   const handleConfirmButtonClick = () => {
     router.push('/');
@@ -72,7 +72,7 @@ function ListInformation() {
       <Header
         title="리스트"
         left="back"
-        right={<HeaderRight isCollaborator={isCollaborator} />}
+        right={<HeaderRight isCollaborator={isCollaborator} userId={list.ownerId} />}
         leftClick={() => router.back()}
       />
       <div className={styles.wrapper}>
