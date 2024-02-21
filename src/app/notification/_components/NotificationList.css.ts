@@ -1,4 +1,4 @@
-import { style } from '@vanilla-extract/css';
+import { style, styleVariants } from '@vanilla-extract/css';
 import * as fonts from '@/styles/font.css';
 import { vars } from '@/styles/theme.css';
 
@@ -36,12 +36,17 @@ export const notification = style({
   },
 });
 
-export const message = style([
+const baseMessage = style([
   fonts.bodyRegular,
   {
     display: 'inline',
   },
 ]);
+
+export const message = styleVariants({
+  new: [baseMessage, { color: vars.color.black }],
+  checked: [baseMessage, { color: vars.color.gray7 }],
+});
 
 export const date = style([
   fonts.bodyMedium,

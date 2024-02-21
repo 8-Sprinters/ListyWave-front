@@ -1,15 +1,18 @@
 'use client';
 
+import { useMutation, useQuery } from '@tanstack/react-query';
+import { useRouter } from 'next/navigation';
+import Link from 'next/link';
+
+import checkNotification from '@/app/_api/notification/checkNotification';
 import getNotifications from '@/app/_api/notification/getNotification';
+
 import { QUERY_KEYS } from '@/lib/constants/queryKeys';
 import { NotificationType, NotificationsType } from '@/lib/types/notificationType';
-import { useQuery } from '@tanstack/react-query';
-
 import timeDiff from '@/lib/utils/time-diff';
+
 import ProfileImage from './ProfileImage';
 import * as styles from './NotificationList.css';
-import useMoveToPage from '@/hooks/useMoveToPage';
-import Link from 'next/link';
 
 /**
  * 알림 데이터의 type에 따라 알림 메시지를 만들어주는 함수입니다.
@@ -51,14 +54,23 @@ const dataToPath = (data: NotificationType, userId: number) => {
 /**TODO:
  * - 제대로 된 path로 보내기. (listOwnerId도 함께 받거나, 리스트 상세 URL 변경)
  * - 코멘트 위치로 스크롤은 무한스크롤 때문에 어려울 것으로 예상 => 코멘트 컴포넌트로 스크롤 하도록 (리스트상세-코멘트 파일에서 작업 필요)
+ * - 댓글/답글의 경우 색으로 구분. 가능하다면 관련 답글 열기
  */
 export default function NotificationList() {
-  const { onClickMoveToPage } = useMoveToPage();
-
+  const router = useRouter();
   const { data, isLoading } = useQuery<NotificationsType>({
     queryKey: [QUERY_KEYS.notifications],
     queryFn: getNotifications,
   });
+
+  const { mutate: checkNotificationMutate } = useMutation({
+    mutationFn: checkNotification,
+  });
+
+  const handleOnClick = (notification: NotificationType) => {
+    checkNotificationMutate(notification.id);
+    router.push(dataToPath(notification, 2));
+  };
 
   //첫 7일 전 알림 index 구하기
   const getTimeDiff = (date: string) => {
@@ -72,8 +84,6 @@ export default function NotificationList() {
   const CUTOFF_DATE = 7;
 
   const firstOldNotificationsIndex = data?.findIndex((notification) => {
-    // TODO: 아래 주석은 test용 코드 지우기
-    // return getTimeDiff(notification.createdDate) > 60 * 60 * 4;
     return getTimeDiff(notification.createdDate) > 60 * 60 * 24 * CUTOFF_DATE;
   });
 
@@ -91,15 +101,18 @@ export default function NotificationList() {
                 <Link href={`/user/${notification.sendUserId}/mylist`}>
                   <ProfileImage profileImageUrl={notification.profileImageUrl} />
                 </Link>
-                <Link href={dataToPath(notification, 2)}>
-                  <div role="button">
-                    <p className={styles.message}>
-                      <span className={styles.nickname}>{notification.nickname}</span>
-                      {message}
-                    </p>
-                    <span className={styles.date}>{timeDiff(notification.createdDate)}</span>
-                  </div>
-                </Link>
+                <div
+                  role="button"
+                  onClick={() => {
+                    handleOnClick(notification);
+                  }}
+                >
+                  <p className={notification.checked ? styles.message['checked'] : styles.message['new']}>
+                    <span className={styles.nickname}>{notification.nickname}</span>
+                    {message}
+                  </p>
+                  <span className={styles.date}>{timeDiff(notification.createdDate)}</span>
+                </div>
               </li>
             </>
           );
