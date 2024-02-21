@@ -78,7 +78,7 @@ export default function CreateListStep({ userId, nickname }: CreateListStepProps
   const {
     handleSubmit,
     getValues,
-    formState: { errors },
+    formState: { errors, isValid },
   } = methods;
 
   const handleNextStep = () => {
@@ -93,10 +93,13 @@ export default function CreateListStep({ userId, nickname }: CreateListStepProps
   };
 
   console.log(selectedCategory);
+  console.log(isValid);
 
   const onSubmit = async (data: ListCreateType) => {
     console.log('리스트 생성'); // 삭제 예정
     console.log(data); // 삭제 예정
+
+    if (!isValid) return;
 
     try {
       const result = await createList(data);
@@ -112,13 +115,9 @@ export default function CreateListStep({ userId, nickname }: CreateListStepProps
     }
   };
 
-  const onError = () => {
-    console.log('에러 발생');
-  };
-
   return (
     <FormProvider {...methods}>
-      <form onSubmit={handleSubmit(onSubmit, onError)} noValidate className={styles.background}>
+      <div className={styles.background}>
         {stepIndex === 0 && (
           <>
             <div className={styles.step}>
@@ -170,12 +169,28 @@ export default function CreateListStep({ userId, nickname }: CreateListStepProps
           </>
         )}
         {stepIndex === 2 && (
-          <div className={styles.container}>
-            <RegisterItems selectedCategory={selectedCategory} />
-            <button type="submit">완료</button>
-          </div>
+          <>
+            <div className={styles.step}>
+              <div className={styles.barContainer}>
+                <span className={styles.bar.dafult}></span>
+                <span className={isValid ? styles.statusBar.full : styles.statusBar.sixty}></span>
+              </div>
+              <p className={styles.stepText}>step2</p>
+            </div>
+            <div className={styles.container}>
+              <RegisterItems selectedCategory={selectedCategory} />
+              <button
+                type="button"
+                onClick={handleSubmit(onSubmit)}
+                className={isValid ? styles.variant.active : styles.variant.default}
+                disabled={!isValid}
+              >
+                완료
+              </button>
+            </div>
+          </>
         )}
-      </form>
+      </div>
     </FormProvider>
   );
 }
