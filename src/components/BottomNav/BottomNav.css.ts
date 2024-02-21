@@ -7,12 +7,11 @@ export const navDiv = style({
 
   position: 'fixed',
   bottom: 0,
-  zIndex: 10,
 
   display: 'flex',
 
   backgroundColor: vars.color.white,
-  border: `1px solid ${vars.color.gray5}`,
+  borderTop: `1px solid ${vars.color.gray5}`,
 });
 
 export const buttonDiv = style({

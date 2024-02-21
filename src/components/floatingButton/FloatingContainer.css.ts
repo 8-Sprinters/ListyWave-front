@@ -1,9 +1,18 @@
 import { style, keyframes } from '@vanilla-extract/css';
 import { vars } from '@/styles/theme.css';
 
-export const container = style({
+export const wrapper = style({
+  width: '100%',
+  maxWidth: 430,
+  margin: 'auto',
+
   position: 'fixed',
   bottom: '96px',
+});
+
+export const container = style({
+  position: 'absolute',
+  bottom: 0,
   right: '26px',
 
   display: 'flex',

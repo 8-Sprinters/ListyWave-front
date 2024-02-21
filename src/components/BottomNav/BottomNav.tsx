@@ -16,6 +16,13 @@ export default function BottomNav() {
   const pathname = usePathname() as string;
   const { onClickMoveToPage } = useMoveToPage();
 
+  // 숨기고 싶은 경로 패턴 배열
+  const hiddenPaths = ['/list', '/intro', '/start-listy', '/account', '/followings', '/followers', '/notification'];
+  const isHidden = hiddenPaths.some((path) => pathname.includes(path));
+
+  if (isHidden) return;
+
+  //파란색 선택 표시를 위한 분기처리
   const selectedItem = (() => {
     if (pathname === '/' || pathname.includes('/search')) {
       return 'explore';
@@ -29,16 +36,18 @@ export default function BottomNav() {
   })();
 
   return (
-    <div className={styles.navDiv}>
-      <div className={styles.buttonDiv} onClick={onClickMoveToPage('/')}>
-        <ExploreIcon fill={selectedItem === 'explore' ? vars.color.blue : vars.color.gray7} />
-      </div>
-      <div className={styles.buttonDiv} onClick={onClickMoveToPage(`/user/${userId}/mylist`)}>
-        <MyFeedIcon fill={selectedItem === 'my-feed' ? vars.color.blue : vars.color.gray7} />
-      </div>
-      <div className={styles.buttonDiv} onClick={onClickMoveToPage('/collection')}>
-        <CollectionIcon fill={selectedItem === 'collection' ? vars.color.blue : vars.color.gray7} />
-      </div>
-    </div>
+    <nav>
+      <ul className={styles.navDiv}>
+        <li className={styles.buttonDiv} onClick={onClickMoveToPage('/')}>
+          <ExploreIcon fill={selectedItem === 'explore' ? vars.color.blue : vars.color.gray7} />
+        </li>
+        <li className={styles.buttonDiv} onClick={onClickMoveToPage(`/user/${userId}/mylist`)}>
+          <MyFeedIcon fill={selectedItem === 'my-feed' ? vars.color.blue : vars.color.gray7} />
+        </li>
+        <li className={styles.buttonDiv} onClick={onClickMoveToPage('/collection')}>
+          <CollectionIcon fill={selectedItem === 'collection' ? vars.color.blue : vars.color.gray7} />
+        </li>
+      </ul>
+    </nav>
   );
 }
