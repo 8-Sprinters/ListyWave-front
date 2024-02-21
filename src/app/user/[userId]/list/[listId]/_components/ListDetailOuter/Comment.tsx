@@ -13,6 +13,7 @@ import { UserType } from '@/lib/types/userProfileType';
 
 import * as styles from './Comment.css';
 import DefaultProfile from '/public/icons/default_profile_temporary.svg';
+import EditPen from '/public/icons/edit_pen.svg';
 
 /**
  * @todo 타입 정리 필요
@@ -83,7 +84,12 @@ function Comment({ comment, onUpdate, handleSetCommentId, listId, commentId, cur
           </div>
         </div>
         {!comment?.isDeleted && currentUserInfo?.id === comment?.userId && (
-          <DeleteModalButton onDelete={handleClickDeleteButton} />
+          <div className={styles.actionButtonWrapper}>
+            <button className={styles.editButton}>
+              <EditPen />
+            </button>
+            <DeleteModalButton onDelete={handleClickDeleteButton} />
+          </div>
         )}
       </div>
       <button className={styles.createReplyButton} onClick={handleActiveNicknameAndIdUpdate}>

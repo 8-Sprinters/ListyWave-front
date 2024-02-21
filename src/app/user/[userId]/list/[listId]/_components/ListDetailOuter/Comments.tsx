@@ -1,6 +1,5 @@
 'use client';
 import { useParams } from 'next/navigation';
-import Image from 'next/image';
 import { ChangeEvent, useEffect, useMemo, useState } from 'react';
 import { useMutation, useQueryClient, useInfiniteQuery, useQuery } from '@tanstack/react-query';
 
@@ -17,11 +16,11 @@ import { UserType } from '@/lib/types/userProfileType';
 import { useUser } from '@/store/useUser';
 import useCommentIdStore from '@/store/useCommentIdStore';
 import Modal from '@/components/Modal/Modal';
+import CommentForm from './CommentForm';
 import LoginModal from '@/components/login/LoginModal';
 import useBooleanOutput from '@/hooks/useBooleanOutput';
 
 import * as styles from './Comments.css';
-import CancelButton from '/public/icons/cancel_button.svg';
 
 function Comments() {
   const [activeNickname, setActiveNickname] = useState<string | null | undefined>(null);
@@ -31,8 +30,6 @@ function Comments() {
   const queryClient = useQueryClient();
   const { addCommentId } = useCommentIdStore();
   const { isOn, handleSetOff, handleSetOn } = useBooleanOutput();
-
-  const [imgSrc, setImgSrc] = useState(false);
 
   //zustand로 관리하는 user정보 불러오기
   const { user } = useUser();
@@ -133,10 +130,6 @@ function Comments() {
     createCommentMutation.mutate();
   };
 
-  const handleImageError = () => {
-    setImgSrc(false);
-  };
-
   //무한 스크롤시 필요한 쿼리 리셋함수
   useEffect(() => {
     return () => {
@@ -155,41 +148,14 @@ function Comments() {
         </Modal>
       )}
       <div className={styles.wrapper}>
-        <div className={styles.formWrapperOuter}>
-          <div className={styles.profileImageParent}>
-            <Image
-              src={imgSrc ? `${userInformation?.profileImageUrl}` : ''}
-              alt="프로필 이미지"
-              className={styles.profileImage}
-              fill
-              style={{
-                objectFit: 'cover',
-              }}
-              onError={handleImageError}
-            />
-          </div>
-          <div className={`${styles.formWrapperInner} ${!!activeNickname ? styles.activeFormWrapper : ''}`}>
-            {activeNickname && (
-              <div className={styles.activeReplyWrapper}>
-                <span className={styles.replyNickname}>{`@${activeNickname}님에게 남긴 답글`}</span>
-                <CancelButton className={styles.clearButton} alt="지우기 버튼" onClick={handleReplyInformationDelete} />
-              </div>
-            )}
-            <form className={styles.formContainer} onSubmit={handleSubmit}>
-              <input
-                className={styles.formInput}
-                value={comment}
-                onChange={handleInputChange}
-                placeholder={userId === 0 ? '로그인 후 댓글을 작성할 수 있습니다.' : ''}
-              />
-              {comment && (
-                <button type="submit" className={styles.formButton}>
-                  게시
-                </button>
-              )}
-            </form>
-          </div>
-        </div>
+        <CommentForm
+          comment={comment}
+          handleChange={handleInputChange}
+          activeNickname={activeNickname}
+          handleUpdate={handleReplyInformationDelete}
+          handleSubmit={handleSubmit}
+          imageSrc={userInformation?.profileImageUrl}
+        />
         <div className={styles.totalCount}>{`${comments?.totalCount}개의 댓글`}</div>
         {comments?.commentsList?.map((item: CommentType) => {
           return (

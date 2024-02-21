@@ -12,6 +12,7 @@ import { UserType } from '@/lib/types/userProfileType';
 
 import * as styles from './Replies.css';
 import Line from '/public/icons/horizontal_line.svg';
+import EditPen from '/public/icons/edit_pen.svg';
 
 interface RepliesProps {
   replies?: ReplyType[] | null;
@@ -93,7 +94,14 @@ function Reply({ reply, listId, currentUserInfo }: ReplyProps) {
           <p className={styles.replyContent}>{reply.content}</p>
         </div>
       </div>
-      {currentUserInfo?.id === reply.userId && <DeleteModalButton onDelete={handleDeleteButtonClick} />}
+      {currentUserInfo?.id === reply.userId && (
+        <div className={styles.actionButtonWrapper}>
+          <button className={styles.editButton}>
+            <EditPen />
+          </button>
+          <DeleteModalButton onDelete={handleDeleteButtonClick} />
+        </div>
+      )}
     </>
   );
 }

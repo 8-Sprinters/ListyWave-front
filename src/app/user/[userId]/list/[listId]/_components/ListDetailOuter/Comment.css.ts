@@ -72,6 +72,16 @@ export const commentContent = style([
   },
 ]);
 
+export const actionButtonWrapper = style({
+  display: 'flex',
+  gap: '8px',
+  alignItems: 'center',
+});
+
+export const editButton = style({
+  cursor: 'pointer',
+});
+
 export const createReplyButton = style({
   padding: '0 0 0 36px',
 
