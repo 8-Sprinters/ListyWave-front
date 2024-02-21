@@ -47,6 +47,11 @@ function ListInformation() {
     router.push('/');
   };
 
+  console.log(list);
+  console.log(list?.ownerId);
+  console.log(list?.collaborators);
+  console.log(filteredCollaborators);
+
   if (error && error?.message.includes('404')) {
     return (
       <Modal handleModalClose={handleSetOff}>
