@@ -140,9 +140,14 @@ export default function CreateListStep({ userId, nickname }: CreateListStepProps
           </>
         )}
         {stepIndex === 1 && (
-          <div>
+          <div className={styles.container}>
             <RegisterListTitle selectedCategory={selectedCategory} />
-            <button type="button" onClick={handleNextStep}>
+            <button
+              type="button"
+              onClick={handleNextStep}
+              className={styles.variant.active}
+              disabled={!selectedCategory.nameValue}
+            >
               다음으로
             </button>
           </div>

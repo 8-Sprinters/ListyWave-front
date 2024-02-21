@@ -4,6 +4,7 @@ import { vars } from '@/styles/theme.css';
 
 export const container = style({
   width: '80%',
+  padding: '2rem 0 2rem 0',
   display: 'grid',
   gridTemplateAreas: `
     "culture life life"
@@ -26,6 +27,7 @@ const category = style([
     borderRadius: '1rem',
     boxShadow: 'rgba(50, 50, 105, 0.15) 0px 2px 5px 0px, rgba(0, 0, 0, 0.05) 0px 1px 1px 0px',
     transition: 'all 300ms linear',
+    color: vars.color.black,
   },
 ]);
 

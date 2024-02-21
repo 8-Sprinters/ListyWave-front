@@ -72,7 +72,7 @@ export const container = style({
   display: 'flex',
   flexDirection: 'column',
   alignItems: 'center',
-  gap: '3.6rem',
+  gap: '1rem',
 
   backgroundColor: vars.color.white,
   borderRadius: '3rem',
@@ -93,7 +93,7 @@ export const subTitle = style([
 ]);
 
 export const inputWrapper = style({
-  paddingBottom: '3rem',
+  padding: '1.5rem 0 1rem 0',
 });
 
 // input, errormessage
@@ -121,6 +121,7 @@ export const button = style([
   {
     width: '80%',
     padding: '0.7rem 7.6rem',
+    marginTop: '2rem',
 
     display: 'flex',
     justifyContent: 'center',

@@ -1,5 +1,9 @@
 import { useFormContext } from 'react-hook-form';
 
+import * as styles from './CreateNicknameStep.css';
+import * as stylesCategory from './CategoryButton.css';
+import * as stylesList from './ListPreview.css';
+
 import { CategoryType } from '@/lib/types/categoriesType';
 import { ListCreateType } from '@/lib/types/listType';
 
@@ -22,23 +26,26 @@ export default function RegisterListTitle({ selectedCategory }: ListTitleStepPro
     formState: { errors },
   } = useFormContext<ListCreateType>();
 
-  // const formErrors: FieldErrors = errors;
-
   const watchForm = watch('title');
 
   return (
     <>
-      <label>리스트의 제목을 지어주세요.</label>
-      <input
-        {...register('title', onBoardlistTitleRules)}
-        placeholder="리스트의 제목을 지어주세요."
-        autoComplete="off"
-        // onChange={(e) => setTitle(e.target.value)} // TODO 렌더링 최소화 하는 방법으로 리팩토링 하기(watch or ref)
-      />
-      <p>{errors.title?.message}</p>
-      <div>
-        <span>{selectedCategory.korNameValue}</span>
-        <p>{watchForm}</p>
+      <label className={styles.title}>리스트의 제목을 지어주세요.</label>
+      <div className={styles.inputWrapper}>
+        <input
+          {...register('title', onBoardlistTitleRules)}
+          autoComplete="off"
+          autoFocus
+          className={styles.input}
+          // onChange={(e) => setTitle(e.target.value)} // TODO 렌더링 최소화 하는 방법으로 리팩토링 하기(watch or ref)
+        />
+        <p className={styles.errorMessage}>{errors.title?.message}</p>
+      </div>
+      <div className={stylesList.container}>
+        <button className={stylesCategory.variants[`${selectedCategory.nameValue}Button`]}>
+          {selectedCategory.korNameValue}
+        </button>
+        <p className={stylesList.title}>{watchForm}</p>
       </div>
     </>
   );
