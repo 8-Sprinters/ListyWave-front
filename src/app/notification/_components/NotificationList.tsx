@@ -8,42 +8,33 @@ import { useQuery } from '@tanstack/react-query';
 import timeDiff from '@/lib/utils/time-diff';
 import ProfileImage from './ProfileImage';
 import * as styles from './NotificationList.css';
+import useMoveToPage from '@/hooks/useMoveToPage';
+import Link from 'next/link';
 
-const dataToMessage = (data: NotificationType) => {
+/**
+ * 알림 데이터의 type에 따라 알림 메시지를 만들어주는 함수입니다.
+ * @param data 알림 하나의 데이터
+ * @param language 선택 언어
+ * @return 공용 부분을 제외한 메시지
+ */
+const dataToMessage = (data: NotificationType, language: 'ko' | 'en') => {
   switch (data.type) {
     case 'FOLLOW':
-      return (
-        <p className={styles.message}>
-          <span className={styles.nickname}>{data.nickname}</span> 님이 팔로우했어요.
-        </p>
-      );
+      return language === 'ko' ? ' 님이 팔로우했어요.' : ' started following you.';
     case 'COLLECT':
-      return (
-        <p className={styles.message}>
-          <span className={styles.nickname}>{data.nickname}</span> 님이 '{data.listTitle}'을 콜렉트했어요.
-        </p>
-      );
+      return language === 'ko' ? ` 님이 '${data.listTitle}'를 콜렉트했어요.` : ' collected your list.';
     case 'COMMENT':
-      return (
-        <p className={styles.message}>
-          <span className={styles.nickname}>{data.nickname}</span> 님이 '{data.listTitle}'에 댓글을 남겼어요.
-        </p>
-      );
+      return language === 'ko' ? ` 님이 '${data.listTitle}'에 댓글을 남겼어요.` : ' commented on your list.';
     case 'REPLY':
-      return (
-        <p className={styles.message}>
-          <span className={styles.nickname}>{data.nickname}</span> 님이 답글을 남겼어요.
-        </p>
-      );
+      return language === 'ko' ? ' 님이 답글을 남겼어요.' : ' replied to your comment.';
   }
 };
 
-//listOwnerId도 함께 와야한다.. 또는 path
-
-//코멘트 위치로 스크롤 하는 기능.
-//우선 코멘트에 id를 넣어두었을테니, 쿼리로 commentId=13이렇게 해서 해당 13보고 그 위치로 이동하도록
-//무한스크롤 때문에 어려울 수도 있을 듯. 그렇다면 그냥 코멘트 쪽으로 내려보내는 정도로 하자.
-
+/**
+ * 알림 데이터의 type에 따라 경로를 설정해주는 함수입니다.
+ * @param data 알림 하나의 데이터
+ * @param userId userId는 임시로 넣어두었습니다. TODO: 추후 삭제되어야 합니다.
+ */
 const dataToPath = (data: NotificationType, userId: number) => {
   switch (data.type) {
     case 'FOLLOW':
@@ -51,13 +42,19 @@ const dataToPath = (data: NotificationType, userId: number) => {
     case 'COLLECT':
       return `/user/${userId}/list/${data.listId}`;
     case 'COMMENT':
-      return `/user/${userId}/list/${data.listId}`;
+      return `/user/${userId}/list/${data.listId}#comment`;
     case 'REPLY':
-      return `/user/${userId}/list/${data.listId}`;
+      return `/user/${userId}/list/${data.listId}#comment`;
   }
 };
 
+/**TODO:
+ * - 제대로 된 path로 보내기. (listOwnerId도 함께 받거나, 리스트 상세 URL 변경)
+ * - 코멘트 위치로 스크롤은 무한스크롤 때문에 어려울 것으로 예상 => 코멘트 컴포넌트로 스크롤 하도록 (리스트상세-코멘트 파일에서 작업 필요)
+ */
 export default function NotificationList() {
+  const { onClickMoveToPage } = useMoveToPage();
+
   const { data, isLoading } = useQuery<NotificationsType>({
     queryKey: [QUERY_KEYS.notifications],
     queryFn: getNotifications,
@@ -86,16 +83,23 @@ export default function NotificationList() {
       <h3 className={styles.label}>이번 주</h3>
       <ul className={styles.list}>
         {data?.map((notification, index) => {
-          const message = dataToMessage(notification);
+          const message = dataToMessage(notification, 'ko');
           return (
             <>
               {index === firstOldNotificationsIndex && <li key="separator" className={styles.separator} />}
               <li key={notification.id} className={styles.notification}>
-                <ProfileImage profileImageUrl={notification.profileImageUrl} />
-                <div>
-                  {message}
-                  <span className={styles.date}>{timeDiff(notification.createdDate)}</span>
-                </div>
+                <Link href={`/user/${notification.sendUserId}/mylist`}>
+                  <ProfileImage profileImageUrl={notification.profileImageUrl} />
+                </Link>
+                <Link href={dataToPath(notification, 2)}>
+                  <div role="button">
+                    <p className={styles.message}>
+                      <span className={styles.nickname}>{notification.nickname}</span>
+                      {message}
+                    </p>
+                    <span className={styles.date}>{timeDiff(notification.createdDate)}</span>
+                  </div>
+                </Link>
               </li>
             </>
           );
