@@ -11,6 +11,7 @@ import { useState } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 
 import * as styles from './CreateNicknameStep.css';
+import BackIcon from '/public/icons/back.svg';
 import createList from '@/app/_api/list/createList';
 
 import { CategoryType } from '@/lib/types/categoriesType';
@@ -81,8 +82,12 @@ export default function CreateListStep({ userId, nickname }: CreateListStepProps
     formState: { errors, isValid },
   } = methods;
 
-  const handleNextStep = () => {
-    setStepIndex((prev) => prev + 1);
+  const handleMoveToStep = (step: 'prev' | 'next') => () => {
+    if (step === 'prev') {
+      setStepIndex((prev) => prev - 1);
+    } else {
+      setStepIndex((prev) => prev + 1);
+    }
   };
 
   const handleChangeCategory = (category: Omit<CategoryType, 'codeValue'>) => {
@@ -135,7 +140,7 @@ export default function CreateListStep({ userId, nickname }: CreateListStepProps
               <ChoiceCategory handleChangeCategory={handleChangeCategory} />
               <button
                 type="button"
-                onClick={handleNextStep}
+                onClick={handleMoveToStep('next')}
                 className={selectedCategory.nameValue ? styles.variant.active : styles.variant.default}
                 disabled={!selectedCategory.nameValue}
               >
@@ -146,6 +151,11 @@ export default function CreateListStep({ userId, nickname }: CreateListStepProps
         )}
         {stepIndex === 1 && (
           <>
+            <div className={styles.header}>
+              <button className={styles.headerButton} onClick={handleMoveToStep('prev')}>
+                <BackIcon alt="뒤로가기 버튼" />
+              </button>
+            </div>
             <div className={styles.step}>
               <div className={styles.barContainer}>
                 <span className={styles.bar.dafult}></span>
@@ -159,7 +169,7 @@ export default function CreateListStep({ userId, nickname }: CreateListStepProps
               <RegisterListTitle selectedCategory={selectedCategory} />
               <button
                 type="button"
-                onClick={handleNextStep}
+                onClick={handleMoveToStep('next')}
                 className={!getValues('title') || errors.title ? styles.variant.default : styles.variant.active}
                 disabled={!getValues('title') || !!errors.title}
               >
@@ -170,6 +180,11 @@ export default function CreateListStep({ userId, nickname }: CreateListStepProps
         )}
         {stepIndex === 2 && (
           <>
+            <div className={styles.header}>
+              <button className={styles.headerButton} onClick={handleMoveToStep('prev')}>
+                <BackIcon alt="뒤로가기 버튼" />
+              </button>
+            </div>
             <div className={styles.step}>
               <div className={styles.barContainer}>
                 <span className={styles.bar.dafult}></span>

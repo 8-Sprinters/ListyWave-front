@@ -15,6 +15,19 @@ export const background = style({
   backgroundColor: vars.color.lightblue,
 });
 
+// header
+export const header = style({
+  width: '100%',
+});
+
+export const headerButton = style({
+  width: '10%',
+  padding: '1rem 1rem 1rem 0',
+  display: 'flex',
+  justifyContent: 'flex-start',
+  cursor: 'pointer',
+});
+
 // step container
 export const step = style({
   width: '95%',
