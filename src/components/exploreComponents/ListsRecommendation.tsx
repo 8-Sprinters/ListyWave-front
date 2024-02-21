@@ -15,6 +15,7 @@ import Label from '@/components/Label/Label';
 import * as styles from './ListsRecommendation.css';
 import NoDataComponent from '@/components/NoData/NoDataComponent';
 import { backgroundColors } from '@/lib/constants/exploreListBackgroundColor';
+import ListRecommendationSkeleton from './ListRecommendationSkeleton';
 
 import ChevronRight from '/public/icons/chevron_right.svg';
 
@@ -49,8 +50,6 @@ function ListRecommendation() {
     return list;
   }, [result]);
 
-  console.log(recommendLists);
-
   const handleShowMoreButtonClick = (url: string) => {
     router.push(`${url}`);
   };
@@ -62,54 +61,59 @@ function ListRecommendation() {
         {recommendLists?.length !== 0 ? (
           recommendLists?.map((item: ListRecommendationType, index) => {
             return (
-              <li
-                key={item.id}
-                className={styles.listWrapper}
-                style={assignInlineVars({ [styles.listBackground]: backgroundColors[COLOR_INDEX(index)] })}
-              >
-                <div className={styles.categoryWrapper}>
-                  <div className={styles.labelWrapper}>
-                    <Label colorType="blue">{item.category}</Label>
-                  </div>
-                  <ul className={styles.labelsWrapper}>
-                    {item.labels.map((label) => {
-                      return (
-                        <div key={label.id}>
-                          <Label colorType="white">{label.name}</Label>
-                        </div>
-                      );
-                    })}
-                  </ul>
-                </div>
-                <div className={styles.listInformationWrapper}>
-                  <div className={styles.listTitle}>{item.title}</div>
-                  <div className={styles.ownerInformationWrapper}>
-                    <div>{`By. ${item.ownerNickname}`}</div>
-                    <div className={styles.profileImageWrapper}>
-                      <Image
-                        src={item.ownerProfileImage}
-                        alt="리스트 생성자 이미지"
-                        fill
-                        className={styles.ownerProfileImage}
-                        style={{
-                          objectFit: 'cover',
-                        }}
-                      />
+              <div key={item.id}>
+                {isFetching ? (
+                  <ListRecommendationSkeleton />
+                ) : (
+                  <li
+                    className={styles.listWrapper}
+                    style={assignInlineVars({ [styles.listBackground]: backgroundColors[COLOR_INDEX(index)] })}
+                  >
+                    <div className={styles.categoryWrapper}>
+                      <div className={styles.labelWrapper}>
+                        <Label colorType="blue">{item.category}</Label>
+                      </div>
+                      <ul className={styles.labelsWrapper}>
+                        {item.labels.map((label) => {
+                          return (
+                            <div key={label.id}>
+                              <Label colorType="white">{label.name}</Label>
+                            </div>
+                          );
+                        })}
+                      </ul>
                     </div>
-                  </div>
-                  <div className={styles.listDescription}>{item.description}</div>
-                </div>
-                <div className={styles.simpleListWrapper}>
-                  <SimpleList items={item?.items} />
-                </div>
-                <div
-                  className={styles.showMoreButtonWrapper}
-                  onClick={() => handleShowMoreButtonClick(`/user/${item.ownerId}/list/${item.id}`)}
-                >
-                  <ChevronRight width={18} height={18} />
-                  <span className={styles.showMoreButton}>더보기</span>
-                </div>
-              </li>
+                    <div className={styles.listInformationWrapper}>
+                      <div className={styles.listTitle}>{item.title}</div>
+                      <div className={styles.ownerInformationWrapper}>
+                        <div>{`By. ${item.ownerNickname}`}</div>
+                        <div className={styles.profileImageWrapper}>
+                          <Image
+                            src={item.ownerProfileImage}
+                            alt="리스트 생성자 이미지"
+                            fill
+                            className={styles.ownerProfileImage}
+                            style={{
+                              objectFit: 'cover',
+                            }}
+                          />
+                        </div>
+                      </div>
+                      <div className={styles.listDescription}>{item.description}</div>
+                    </div>
+                    <div className={styles.simpleListWrapper}>
+                      <SimpleList items={item?.items} />
+                    </div>
+                    <div
+                      className={styles.showMoreButtonWrapper}
+                      onClick={() => handleShowMoreButtonClick(`/user/${item.ownerId}/list/${item.id}`)}
+                    >
+                      <ChevronRight width={18} height={18} />
+                      <span className={styles.showMoreButton}>더보기</span>
+                    </div>
+                  </li>
+                )}
+              </div>
             );
           })
         ) : (
