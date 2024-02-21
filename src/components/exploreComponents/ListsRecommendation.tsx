@@ -2,11 +2,11 @@
 
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
-import { useMutation, useQueryClient, useInfiniteQuery, useQuery } from '@tanstack/react-query';
+import { useInfiniteQuery } from '@tanstack/react-query';
 import { useMemo } from 'react';
 import { assignInlineVars } from '@vanilla-extract/dynamic';
 
-import { SimpleList } from '@/app/user/[userId]/list/[listId]/_components/ListDetailInner/RankList';
+import SimpleList from '@/components/SimpleList/SimpleList';
 import getRecommendedLists from '@/app/_api/explore/getRecommendedLists';
 import { QUERY_KEYS } from '@/lib/constants/queryKeys';
 import useIntersectionObserver from '@/hooks/useIntersectionObserver';
@@ -14,9 +14,13 @@ import { ListRecommendationType } from '@/lib/types/exploreType';
 import Label from '@/components/Label/Label';
 import * as styles from './ListsRecommendation.css';
 import NoDataComponent from '@/components/NoData/NoDataComponent';
+import { backgroundColors } from '@/lib/constants/exploreListBackgroundColor';
+
+import ChevronRight from '/public/icons/chevron_right.svg';
 
 function ListRecommendation() {
   const router = useRouter();
+  const COLOR_INDEX = (num: number) => num % 5;
 
   //리스트 무한스크롤 리액트 쿼리 함수
   const {
@@ -45,72 +49,77 @@ function ListRecommendation() {
     return list;
   }, [result]);
 
+  console.log(recommendLists);
+
   const handleShowMoreButtonClick = (url: string) => {
     router.push(`${url}`);
   };
 
   return (
-    <ul className={styles.wrapperOuter}>
-      {recommendLists?.length !== 0 ? (
-        recommendLists?.map((item: ListRecommendationType) => {
-          return (
-            <li key={item.id} className={styles.listWrapper}>
-              <div className={styles.categoryWrapper}>
-                <div className={styles.labelWrapper}>
-                  <Label colorType="skyblue">{item.category}</Label>
-                </div>
-                <ul className={styles.labelsWrapper}>
-                  {item.labels.map((label) => {
-                    return (
-                      <div key={label.id}>
-                        <Label colorType="blue">{label.name}</Label>
-                      </div>
-                    );
-                  })}
-                </ul>
-              </div>
-              <div className={styles.listInformationWrapper}>
-                <div className={styles.listTitle}>{item.title}</div>
-                <div className={styles.listDescription}>{item.description}</div>
-                <div className={styles.ownerInformationWrapper}>
-                  <div className={styles.profileImageWrapper}>
-                    <Image
-                      src={item.ownerProfileImage}
-                      alt="리스트 생성자 이미지"
-                      fill
-                      className={styles.ownerProfileImage}
-                      style={{
-                        objectFit: 'cover',
-                      }}
-                    />
-                  </div>
-                  <span>{item.ownerNickname}</span>
-                </div>
-              </div>
-              <div
-                className={styles.simpleListWrapper}
-                style={assignInlineVars({ [styles.simpleListBackground]: `${item.backgroundColor}` })}
+    <section className={styles.wrapperOuter}>
+      <div className={styles.sectionTitle}>NEW ✨</div>
+      <ul>
+        {recommendLists?.length !== 0 ? (
+          recommendLists?.map((item: ListRecommendationType, index) => {
+            return (
+              <li
+                key={item.id}
+                className={styles.listWrapper}
+                style={assignInlineVars({ [styles.listBackground]: backgroundColors[COLOR_INDEX(index)] })}
               >
-                <SimpleList listData={item.items} />
-                <div className={styles.blurBox}>
-                  <button
-                    className={styles.showMoreButton}
-                    onClick={() => handleShowMoreButtonClick(`/user/${item.ownerId}/list/${item.id}`)}
-                  >
-                    <span>더보기</span>
-                  </button>
+                <div className={styles.categoryWrapper}>
+                  <div className={styles.labelWrapper}>
+                    <Label colorType="blue">{item.category}</Label>
+                  </div>
+                  <ul className={styles.labelsWrapper}>
+                    {item.labels.map((label) => {
+                      return (
+                        <div key={label.id}>
+                          <Label colorType="white">{label.name}</Label>
+                        </div>
+                      );
+                    })}
+                  </ul>
                 </div>
-              </div>
-            </li>
-          );
-        })
-      ) : (
-        <div className={styles.noData}>
-          <NoDataComponent message="팔로잉 중인 사용자의 최신 리스트가 없어요" />
-        </div>
-      )}
-      <div ref={ref}></div>
-    </ul>
+                <div className={styles.listInformationWrapper}>
+                  <div className={styles.listTitle}>{item.title}</div>
+                  <div className={styles.ownerInformationWrapper}>
+                    <div>{`By. ${item.ownerNickname}`}</div>
+                    <div className={styles.profileImageWrapper}>
+                      <Image
+                        src={item.ownerProfileImage}
+                        alt="리스트 생성자 이미지"
+                        fill
+                        className={styles.ownerProfileImage}
+                        style={{
+                          objectFit: 'cover',
+                        }}
+                      />
+                    </div>
+                  </div>
+                  <div className={styles.listDescription}>{item.description}</div>
+                </div>
+                <div className={styles.simpleListWrapper}>
+                  <SimpleList items={item?.items} />
+                </div>
+                <div
+                  className={styles.showMoreButtonWrapper}
+                  onClick={() => handleShowMoreButtonClick(`/user/${item.ownerId}/list/${item.id}`)}
+                >
+                  <ChevronRight width={18} height={18} />
+                  <span className={styles.showMoreButton}>더보기</span>
+                </div>
+              </li>
+            );
+          })
+        ) : (
+          <div className={styles.noData}>
+            <NoDataComponent message="팔로잉 중인 사용자의 최신 리스트가 없어요" />
+          </div>
+        )}
+        <div ref={ref}></div>
+      </ul>
+    </section>
   );
 }
 

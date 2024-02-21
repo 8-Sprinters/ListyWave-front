@@ -1,26 +1,37 @@
 import { style, createVar } from '@vanilla-extract/css';
 import { vars } from '@/styles/theme.css';
-import { headlineSmall, bodyMedium, bodySmall } from '@/styles/font.css';
+import { headlineSmall, bodyMedium, bodySmall, labelSmall } from '@/styles/font.css';
 
 /**@todo 바뀐 피그마 디자인에 따라 수정 */
 
-export const simpleListBackground = createVar();
+export const listBackground = createVar();
 
 export const wrapperOuter = style({
-  padding: '0 43px 70px',
+  padding: '0 16px 70px',
 
   display: 'flex',
   flexDirection: 'column',
 });
 
+export const sectionTitle = style([
+  headlineSmall,
+  {
+    marginBottom: '26px',
+
+    fontWeight: 600,
+  },
+]);
+
 export const listWrapper = style({
   marginBottom: '35px',
-  padding: '24px 0',
+  padding: '44px 24px 14px',
 
   position: 'relative',
 
   display: 'flex',
   flexDirection: 'column',
+  borderRadius: '24px',
+  backgroundColor: listBackground,
 });
 
 export const labelsWrapper = style({
@@ -33,7 +44,7 @@ export const labelWrapper = style({
 });
 
 export const categoryWrapper = style({
-  marginBottom: '16px',
+  marginBottom: '11px',
 
   display: 'flex',
   justifyContent: 'flex-start',
@@ -41,11 +52,10 @@ export const categoryWrapper = style({
 });
 
 export const listInformationWrapper = style({
-  marginBottom: '16px',
+  marginBottom: '23px',
 
   display: 'flex',
   flexDirection: 'column',
-  gap: '16px',
 });
 
 export const listTitle = style([
@@ -58,12 +68,15 @@ export const listTitle = style([
 export const listDescription = style([
   bodyMedium,
   {
+    marginTop: '13px',
+
     color: vars.color.gray9,
   },
 ]);
 
 export const ownerInformationWrapper = style({
   display: 'flex',
+  justifyContent: 'flex-end',
   alignItems: 'center',
   gap: '8px',
 });
@@ -87,42 +100,33 @@ export const ownerProfileImage = style({
 });
 
 export const simpleListWrapper = style({
-  height: '295px',
-  padding: '11px 16px 0',
+  height: 'auto',
+  padding: '8px 16px 9px',
+  marginBottom: '16px',
 
   display: 'flex',
   flexDirection: 'column',
-  gap: '1rem',
+  gap: '5px',
 
   borderRadius: '10px',
   border: `1px solid ${vars.color.gray5}`,
-  backgroundColor: simpleListBackground,
+  backgroundColor: vars.color.white,
 });
 
-export const blurBox = style({
-  width: '100%',
-  height: '172px',
-  padding: '0 16px',
-
-  position: 'absolute',
-  bottom: -17,
-  left: 0,
-
+export const showMoreButtonWrapper = style({
   display: 'flex',
-  justifyContent: 'center',
+  alignItems: 'center',
+  justifyContent: 'flex-end',
 
-  borderRadius: '24px',
-  background:
-    'linear-gradient(0deg, rgba(255,255,255,1) 0%, rgba(255,255,255,1) 60%, rgba(255,255,255,0.8) 70%, rgba(255,255,255,0) 100%)',
+  cursor: 'pointer',
 });
 
-export const showMoreButton = style({
-  position: 'absolute',
-  bottom: '2.3rem',
-
-  color: '#0047FF',
-  fontSize: '1.6rem',
-});
+export const showMoreButton = style([
+  labelSmall,
+  {
+    color: vars.color.gray9,
+  },
+]);
 
 export const noData = style({
   marginTop: '50px',
