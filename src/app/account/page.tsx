@@ -3,7 +3,7 @@
 import useBooleanOutput from '@/hooks/useBooleanOutput';
 import useMoveToPage from '@/hooks/useMoveToPage';
 import Header from '@/components/Header/Header';
-import LogoutModal from './_components/LogoutModal';
+import { useUser } from '@/store/useUser';
 
 import UserIcon from '/public/icons/user.svg';
 import SettingIcon from '/public/icons/settings.svg';
@@ -12,9 +12,10 @@ import HelpIcon from '/public/icons/help_circle.svg';
 import MessageIcon from '/public/icons/message_square.svg';
 import LogoutIcon from '/public/icons/logout.svg';
 import WithdrawIcon from '/public/icons/withdraw_x.svg';
-import * as styles from './style.css';
+
+import LogoutModal from './_components/LogoutModal';
 import LanguageDropdown from './_components/LanguageDropdown';
-import { useUser } from '@/store/useUser';
+import * as styles from './page.css';
 
 export default function AccountPage() {
   const { user } = useUser();

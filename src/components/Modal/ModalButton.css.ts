@@ -13,7 +13,7 @@ export const buttonContainer = style({
 export const baseButton = style([
   body3,
   {
-    padding: '12px 16px',
+    padding: '10px 16px',
 
     display: 'flex',
     justifyContent: 'center',
@@ -36,7 +36,7 @@ export const button = styleVariants({
   secondary: [
     baseButton,
     {
-      backgroundColor: vars.color.lightblue,
+      backgroundColor: vars.color.blueGray,
       color: vars.color.blue,
     },
   ],

@@ -1,9 +1,10 @@
 import { ReactNode } from 'react';
 import ModalPortal from '@/components/modal-portal';
-import * as styles from './Modal.css';
+import useOnClickOutside from '@/hooks/useOnClickOutside';
 import ModalTitle from './ModalTitle';
 import ModalButton from './ModalButton';
-import useOnClickOutside from '@/hooks/useOnClickOutside';
+import ModalSingleButton from './ModalSingleButton';
+import * as styles from './Modal.css';
 
 interface ModalMainProps {
   size?: 'basic' | 'large';
@@ -30,6 +31,7 @@ function ModalMain({ size = 'basic', children, handleModalClose }: ModalMainProp
 const Modal = Object.assign(ModalMain, {
   Title: ModalTitle,
   Button: ModalButton,
+  SingleButton: ModalSingleButton,
 });
 
 export default Modal;
