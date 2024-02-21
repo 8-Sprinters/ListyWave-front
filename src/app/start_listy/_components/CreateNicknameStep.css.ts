@@ -80,7 +80,12 @@ export const container = style({
 });
 
 // title
-export const title = style([headlineSmall]); // titleLarge랑 고민
+export const title = style([
+  headlineSmall,
+  {
+    textAlign: 'center',
+  },
+]); // titleLarge랑 고민
 
 export const subTitle = style([
   titleRegular,

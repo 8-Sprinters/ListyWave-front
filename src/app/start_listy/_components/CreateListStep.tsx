@@ -170,7 +170,7 @@ export default function CreateListStep({ userId, nickname }: CreateListStepProps
           </>
         )}
         {stepIndex === 2 && (
-          <div>
+          <div className={styles.container}>
             <RegisterItems selectedCategory={selectedCategory} />
             <button type="submit">완료</button>
           </div>

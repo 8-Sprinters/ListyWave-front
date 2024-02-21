@@ -1,5 +1,9 @@
 import { useFormContext } from 'react-hook-form';
 
+import * as styles from './CreateNicknameStep.css';
+import * as stylesCategory from './CategoryButton.css';
+import * as stylesList from './ListPreview.css';
+
 import { itemTitleRules } from '@/lib/constants/formInputValidationRules';
 import { CategoryType } from '@/lib/types/categoriesType';
 import { ListCreateType } from '@/lib/types/listType';
@@ -17,21 +21,30 @@ export default function RegisterItems({ selectedCategory }: ItemsStepProps) {
 
   return (
     <>
-      <label>
+      <label className={styles.title}>
         리스트에 넣을 1, 2, 3위 <br /> 아이템을 적어주세요.
       </label>
-      <div>
-        <span>{selectedCategory.korNameValue}</span>
-        <p>{getValues('title')}</p>
-        <div>
+      <div className={stylesList.container}>
+        <button className={stylesCategory.variants[`${selectedCategory.nameValue}Button`]}>
+          {selectedCategory.korNameValue}
+        </button>
+        <p className={stylesList.title}>{getValues('title')}</p>
+        <div className={stylesList.items}>
           {new Array(3).fill(0).map((_, index) => (
-            <div key={index}>
-              <input
-                {...register(`items.${index}.title`, itemTitleRules)}
-                placeholder={`${index + 1}위 아이템을 입력해주세요.`}
-                autoComplete="off"
-              />
-              <p>{errors.items?.[index]?.title?.message}</p>
+            <div key={index} className={stylesList.item}>
+              <div className={stylesList.inputBox}>
+                <div>
+                  {index + 1}
+                  {'. '}
+                </div>
+                <input
+                  {...register(`items.${index}.title`, itemTitleRules)}
+                  autoComplete="off"
+                  className={stylesList.input}
+                  autoFocus={index === 0}
+                />
+              </div>
+              <p className={stylesList.errorMessage}>{errors.items?.[index]?.title?.message}</p>
             </div>
           ))}
         </div>

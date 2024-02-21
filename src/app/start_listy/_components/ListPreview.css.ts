@@ -1,5 +1,5 @@
-import { style, styleVariants, ComplexStyleRule } from '@vanilla-extract/css';
-import { bodyLarge, bodySmall, headlineSmall, titleMedium } from '@/styles/font.css';
+import { style } from '@vanilla-extract/css';
+import { bodySmall, labelLarge, titleMedium } from '@/styles/font.css';
 import { vars } from '@/styles/theme.css';
 
 export const container = style({
@@ -21,5 +21,51 @@ export const title = style([
   {
     height: '24px',
     color: vars.color.gray9,
+    textAlign: 'center',
+  },
+]);
+
+export const items = style({
+  width: '100%',
+  padding: '0 1rem',
+  display: 'flex',
+  flexDirection: 'column',
+  gap: '1.2rem',
+});
+
+export const item = style({
+  padding: '0 1rem',
+  display: 'flex',
+  flexDirection: 'column',
+  gap: '5px',
+  color: vars.color.black,
+});
+
+export const inputBox = style([
+  labelLarge,
+  {
+    paddingBottom: '5px',
+    display: 'flex',
+    gap: '8px',
+    alignItems: 'center',
+    justifyContent: 'flex-start',
+    borderBottom: `1px solid ${vars.color.gray5}`,
+  },
+]);
+
+export const input = style([
+  labelLarge,
+  {
+    caretColor: vars.color.blue,
+    color: vars.color.black,
+  },
+]);
+
+export const errorMessage = style([
+  bodySmall,
+  {
+    paddingLeft: '1.8rem',
+    height: '16px',
+    color: vars.color.red,
   },
 ]);
