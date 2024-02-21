@@ -8,7 +8,8 @@ export const background = style({
   height: '100vh',
   zIndex: 100,
 
-  position: 'absolute',
+  // position: 'absolute',
+  position: 'fixed',
 
   display: 'flex',
   justifyContent: 'center',
