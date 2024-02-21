@@ -19,32 +19,36 @@ function TrendingList() {
     queryFn: () => getTrendingLists(),
   });
 
+  console.log(trendingLists);
+
   const STYLE_INDEX = (num: number) => num % 4;
 
   return (
     <div className={styles.wrapper}>
       <h2 className={styles.sectionTitle}>TRENDING ️🌊 </h2>
-      <div className={styles.listWrapper}>
+      <ul className={styles.listWrapper}>
         {trendingLists?.map((item: TrendingListType, index) => {
           return (
-            <div
-              key={item.id}
-              className={styles.itemWrapper}
-              style={assignInlineVars({
-                [styles.customBackgroundColor]: item.backgroundColor,
-              })}
-            >
-              <div className={styles.itemInformationWrapper}>
-                <div className={styles.itemTitle}>{item.title}</div>
-                <div>
-                  <div className={styles.temporaryCircle}></div>
-                  <span>nickname</span>
+            <li key={item.id}>
+              <div
+                className={styles[`itemWrapperStyle${STYLE_INDEX(index) + 1}`]}
+                style={assignInlineVars({
+                  [styles.customBackgroundColor]: item.backgroundColor,
+                  [styles.customItemBorder]: item.backgroundColor === '#FFFFFF' ? '1px solid #EFEFF0' : 'none',
+                })}
+              >
+                <div className={styles.itemInformationWrapper}>
+                  <div className={styles.itemTitle}>{item.title}</div>
+                  <div className={styles.ownerProfileWrapper}>
+                    <div className={styles.temporaryCircle}></div>
+                    <span>nickname</span>
+                  </div>
                 </div>
               </div>
-            </div>
+            </li>
           );
         })}
-      </div>
+      </ul>
     </div>
   );
 }

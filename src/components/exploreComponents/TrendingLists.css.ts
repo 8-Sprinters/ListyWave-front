@@ -39,53 +39,59 @@ export const listWrapper = style({
 });
 
 export const itemWrapper = style({
-  width: '250px',
   height: '229px',
 
   background: customBackgroundColor,
   border: customItemBorder,
 });
 
-export const itemWrapperStyle1 = [
+export const itemWrapperStyle1 = style([
   itemWrapper,
   {
     width: '258px',
     padding: '68px 52px',
     borderRadius: '80px',
   },
-];
+]);
 
-export const itemWrapperStyle2 = [
+export const itemWrapperStyle2 = style([
   itemWrapper,
   {
     width: '190px',
     padding: '68px 29px',
     borderRadius: '180px',
   },
-];
+]);
 
-export const itemWrapperStyle3 = [
+export const itemWrapperStyle3 = style([
   itemWrapper,
   {
     width: '258px',
     padding: '68px 52px',
     borderRadius: '80px',
   },
-];
+]);
 
-export const itemWrapperStyle4 = [
+export const itemWrapperStyle4 = style([
   itemWrapper,
   {
     width: '258px',
     padding: '68px 52px',
     borderRadius: '30px',
   },
-];
+]);
 
 export const itemInformationWrapper = style({
   display: 'flex',
   flexDirection: 'column',
   alignItems: 'center',
+});
+
+export const ownerProfileWrapper = style({
+  display: 'flex',
+  flexDirection: 'column',
+  alignItems: 'center',
+  gap: '8px',
 });
 
 export const itemTitle = style([
