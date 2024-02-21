@@ -36,6 +36,7 @@ export const profileImageContainer = style({
   display: 'flex',
   justifyContent: 'center',
   alignItems: 'center',
+  flexShrink: 0,
 
   position: 'relative',
 
