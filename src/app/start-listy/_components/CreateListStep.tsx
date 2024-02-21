@@ -14,6 +14,7 @@ import toasting from '@/lib/utils/toasting';
 import ChoiceCategory from './ChoiceCategory';
 import RegisterListTitle from './RegisterListTitle';
 import RegisterItems from './RegisterItems';
+import { BACKGROUND_COLOR } from '@/styles/Color';
 
 interface CreateListStepProps {
   userId: number;
@@ -28,6 +29,10 @@ export default function CreateListStep({ userId, nickname }: CreateListStepProps
     korNameValue: '',
   });
 
+  // 리스트 생성 배경색상 렌덤하게 적용
+  const listColors = Object.values(BACKGROUND_COLOR);
+  const randomIndex = Math.floor(Math.random() * listColors.length);
+
   const methods = useForm<ListCreateType>({
     mode: 'onChange',
     defaultValues: {
@@ -38,7 +43,7 @@ export default function CreateListStep({ userId, nickname }: CreateListStepProps
       title: '',
       description: '',
       isPublic: true,
-      backgroundColor: '#FFFFFF', // TODO 리스트 생성 색상 랜덤하게 적용하기
+      backgroundColor: listColors[randomIndex],
       items: [
         {
           rank: 1,
