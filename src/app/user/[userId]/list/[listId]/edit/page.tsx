@@ -19,7 +19,7 @@ export default function EditPage() {
   const param = useParams<{ userId: string; listId: string }>();
 
   const { data } = useQuery<ListDetailType>({
-    queryKey: [QUERY_KEYS.getListDetail],
+    queryKey: [QUERY_KEYS.getListDetail, param?.listId],
     queryFn: () => getListDetail(Number(param?.listId)),
   });
 

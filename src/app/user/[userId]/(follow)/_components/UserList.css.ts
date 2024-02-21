@@ -37,5 +37,9 @@ export const button = style({
 });
 
 export const emptyMessage = style({
+  marginTop: '18px',
+
   fontSize: '1.6rem',
+
+  textAlign: 'center',
 });
