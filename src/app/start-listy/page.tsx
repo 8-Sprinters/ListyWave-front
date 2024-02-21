@@ -10,7 +10,7 @@
  */
 
 import { useQuery } from '@tanstack/react-query';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import { useUser } from '@/store/useUser';
 import getUserOne from '../_api/user/getUserOne';
@@ -22,6 +22,18 @@ import CreateListStep from './_components/CreateListStep';
 import CreateNicknameStep from './_components/CreateNicknameStep';
 
 export default function StartListyPage() {
+  function handleBackControl() {
+    /**
+     * 온보딩을 종료할까요? 모달
+     * 닉네임 변경한 사용자가 종료를 원하면, '/'로 이동
+     * 단, 닉네임 미변경 사용자는 닉네임 변경이 필요해요 알려주기
+     * 닉네임 변경 상태 저장해서 체크하기
+     */
+
+    alert('온보딩 끝낼까요?');
+    // 다른 페이지로 이동
+  }
+
   const { user } = useUser();
   const [stepIndex, setStepIndex] = useState(0);
 
@@ -38,6 +50,14 @@ export default function StartListyPage() {
   const handleNextStep = () => {
     setStepIndex((prev) => prev + 1);
   };
+
+  useEffect(() => {
+    history.pushState('onboard', '', '/'); // 브라우저 기본 동작으로 온보딩페이지에 접근하지 못하도록 설정
+    window.addEventListener('popstate', handleBackControl); // 온보딩 페이지에서 브라우저 이동 시, 수행할 로직
+    return () => {
+      window.removeEventListener('popstate', handleBackControl);
+    };
+  }, []);
 
   if (isLoading) {
     return <div>로딩중</div>;
