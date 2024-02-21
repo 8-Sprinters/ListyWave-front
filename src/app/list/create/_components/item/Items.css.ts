@@ -21,7 +21,7 @@ export const item = style([
 
     backgroundColor: '#fff',
 
-    border: `solid 1px ${vars.color.gray7}`,
+    border: `solid 1px ${vars.color.gray5}`,
     borderRadius: '6px',
 
     transition: 'box-shadow 0.3s ease',

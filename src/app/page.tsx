@@ -5,7 +5,7 @@ import Header from '@/components/exploreComponents/Header';
 import FloatingContainer from '@/components/floatingButton/FloatingContainer';
 import PlusOptionFloatingButton from '@/components/floatingButton/PlusOptionFloatingButton';
 import ArrowUpFloatingButton from '@/components/floatingButton/ArrowUpFloatingButton';
-import * as styles from './layout.css';
+import * as styles from './page.css';
 
 interface ExplorePageProps {
   params: {
