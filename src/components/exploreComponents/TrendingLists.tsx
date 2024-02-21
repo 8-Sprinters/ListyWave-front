@@ -1,13 +1,11 @@
 'use client';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
-import { Swiper, SwiperSlide } from 'swiper/react';
 import { useQuery } from '@tanstack/react-query';
 import { QUERY_KEYS } from '@/lib/constants/queryKeys';
 import getTrendingLists from '@/app/_api/explore/getTrendingLists';
 import { TrendingListType } from '@/lib/types/exploreType';
 import { assignInlineVars } from '@vanilla-extract/dynamic';
-import { Autoplay } from 'swiper/modules';
 import 'swiper/css';
 
 import * as styles from './TrendingLists.css';
@@ -21,77 +19,32 @@ function TrendingList() {
     queryFn: () => getTrendingLists(),
   });
 
+  const STYLE_INDEX = (num: number) => num % 4;
+
   return (
     <div className={styles.wrapper}>
-      <h2 className={styles.title}>트렌딩</h2>
-      <Swiper
-        spaceBetween={30}
-        centeredSlides={true}
-        autoplay={{
-          delay: 4000,
-          disableOnInteraction: false,
-        }}
-        modules={[Autoplay]}
-        className={styles.swiper}
-      >
-        {trendingLists?.map((item: TrendingListType) => {
+      <h2 className={styles.sectionTitle}>TRENDING ️🌊 </h2>
+      <div className={styles.listWrapper}>
+        {trendingLists?.map((item: TrendingListType, index) => {
           return (
-            <SwiperSlide
+            <div
               key={item.id}
-              className={styles.swiperSlide}
-              onClick={() => {
-                router.push(`/user/${item.ownerId}/list/${item.id}`);
-              }}
+              className={styles.itemWrapper}
+              style={assignInlineVars({
+                [styles.customBackgroundColor]: item.backgroundColor,
+              })}
             >
-              <div
-                className={styles.swiperContainer}
-                style={assignInlineVars({
-                  [styles.blackLayer]: `${item.itemImageUrl !== '' ? 'rgba(25, 25, 27, 0.5)' : 'none'}`,
-                })}
-              >
-                <div className={styles.swiperSlide}>
-                  <div className={styles.listInformationWrapper}>
-                    <h4
-                      className={styles.trendingListTitle}
-                      style={assignInlineVars({
-                        [styles.itemFontColor]: `${item.itemImageUrl === '' ? '#19191B' : '#fff'}`,
-                      })}
-                    >
-                      {item.title}
-                    </h4>
-                    <p
-                      className={styles.trendingListDescription}
-                      style={assignInlineVars({
-                        [styles.itemFontColor]: `${item.itemImageUrl === '' ? '#19191B' : '#fff'}`,
-                      })}
-                    >
-                      {item.description}
-                    </p>
-                  </div>
+              <div className={styles.itemInformationWrapper}>
+                <div className={styles.itemTitle}>{item.title}</div>
+                <div>
+                  <div className={styles.temporaryCircle}></div>
+                  <span>nickname</span>
                 </div>
               </div>
-              {item.itemImageUrl ? (
-                <Image
-                  src={item.itemImageUrl}
-                  alt="배경 이미지"
-                  fill
-                  style={{
-                    objectFit: 'cover',
-                  }}
-                  className={styles.backgroundImage}
-                />
-              ) : (
-                <div
-                  className={styles.noImageUrlBox}
-                  style={assignInlineVars({
-                    [styles.itemBackgroundColor]: `${item.backgroundColor}`,
-                  })}
-                />
-              )}
-            </SwiperSlide>
+            </div>
           );
         })}
-      </Swiper>
+      </div>
     </div>
   );
 }
