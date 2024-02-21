@@ -10,6 +10,7 @@ export const wrapper = style({
 
 export const formWrapperOuter = style({
   padding: '15px 10px',
+  margin: 'auto',
 
   width: '100%',
   height: 'auto',
