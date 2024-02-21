@@ -80,7 +80,7 @@ export default function NotificationList() {
   return (
     <main className={styles.main}>
       {isLoading && <span>로딩중</span>}
-      <h3 className={styles.label}>이번 주</h3>
+      <h3 className={styles.label}>최근 7일</h3>
       <ul className={styles.list}>
         {data?.map((notification, index) => {
           const message = dataToMessage(notification, 'ko');
