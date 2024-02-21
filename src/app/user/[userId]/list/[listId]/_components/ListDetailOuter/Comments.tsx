@@ -15,11 +15,9 @@ import { QUERY_KEYS } from '@/lib/constants/queryKeys';
 import { CommentType } from '@/lib/types/commentType';
 import { UserType } from '@/lib/types/userProfileType';
 import { useUser } from '@/store/useUser';
-import DefaultProfile from '/public/images/mock_profile.png';
 
 import * as styles from './Comments.css';
 import CancelButton from '/public/icons/cancel_button.svg';
-import { imageListItemBarClasses } from '@mui/material';
 
 function Comments() {
   const [activeNickname, setActiveNickname] = useState<string | null | undefined>(null);
