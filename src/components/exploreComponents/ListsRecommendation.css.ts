@@ -7,7 +7,7 @@ import { headlineSmall, bodyMedium, bodySmall } from '@/styles/font.css';
 export const simpleListBackground = createVar();
 
 export const wrapperOuter = style({
-  padding: '0 43px 0',
+  padding: '0 43px 70px',
 
   display: 'flex',
   flexDirection: 'column',
