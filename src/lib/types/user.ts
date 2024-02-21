@@ -1,3 +1,5 @@
+import { UserProfileType } from './userProfileType';
+
 // 로그인한 사용자 리스폰스 타입
 export interface UserOnLoginType {
   id: number;
@@ -9,4 +11,10 @@ export interface UserOnLoginType {
   followingCount: number;
   isFirst: boolean;
   accessToken: string;
+}
+
+export interface UserSearchType {
+  collaborators: UserProfileType[];
+  totalCount: number;
+  hasNext: boolean;
 }
