@@ -4,8 +4,8 @@
  TODO 
  - [ ] 온보딩을 했던 사용자라면 해당 페이지 노출 x, 접근 x
  - [ ] 온보딩 중간 종료된 사용자는 온보딩 페이지 재노출 o
- - [ ] 온보딩 중 뒤로가기 방지
- - [ ] 리스트 완성 후 뒤로가기 
+ - [x] 온보딩 중 뒤로가기 방지
+ - [x] 리스트 완성 후 뒤로가기 
  - [ ] 새로고침 시
  */
 
@@ -22,18 +22,6 @@ import CreateListStep from './_components/CreateListStep';
 import CreateNicknameStep from './_components/CreateNicknameStep';
 
 export default function StartListyPage() {
-  function handleBackControl() {
-    /**
-     * 온보딩을 종료할까요? 모달
-     * 닉네임 변경한 사용자가 종료를 원하면, '/'로 이동
-     * 단, 닉네임 미변경 사용자는 닉네임 변경이 필요해요 알려주기
-     * 닉네임 변경 상태 저장해서 체크하기
-     */
-
-    alert('온보딩 끝낼까요?');
-    // 다른 페이지로 이동
-  }
-
   const { user } = useUser();
   const [stepIndex, setStepIndex] = useState(0);
 
@@ -49,6 +37,19 @@ export default function StartListyPage() {
 
   const handleNextStep = () => {
     setStepIndex((prev) => prev + 1);
+  };
+
+  const handleBackControl = () => {
+    /**
+     TODO
+     * 뒤로가기 클릭시, [온보딩을 종료할까요?] 모달
+     * 닉네임 변경한 사용자가 종료를 원하면, '/'로 이동
+     * 단, 닉네임 미변경 사용자는 [닉네임 변경이 필요해요.] 알려주기
+     * 닉네임 변경 상태 저장해서 체크하기
+     */
+
+    alert('온보딩 끝낼까요?');
+    // 다른 페이지로 이동
   };
 
   useEffect(() => {
