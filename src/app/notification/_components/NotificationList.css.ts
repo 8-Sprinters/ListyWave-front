@@ -6,6 +6,17 @@ export const main = style({
   paddingBottom: 24,
 });
 
+export const noData = style({
+  width: '100%',
+  marginTop: 148,
+
+  display: 'flex',
+  flexDirection: 'column',
+  alignItems: 'center',
+});
+
+export const noDataMessage = style([fonts.titleRegular]);
+
 export const label = style([
   fonts.labelLarge,
   {
@@ -22,7 +33,9 @@ export const list = style({
 });
 
 export const notification = style({
+  width: '100%',
   padding: '6px 16px',
+
   display: 'flex',
   alignItems: 'center',
   gap: 12,
@@ -36,10 +49,11 @@ export const notification = style({
   },
 });
 
-const baseMessage = style([
+export const baseMessage = style([
   fonts.bodyRegular,
   {
     display: 'inline',
+    flexGrow: 1,
   },
 ]);
 
