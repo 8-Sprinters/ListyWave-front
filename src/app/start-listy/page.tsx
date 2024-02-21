@@ -21,7 +21,7 @@ import { QUERY_KEYS } from '@/lib/constants/queryKeys';
 import CreateListStep from './_components/CreateListStep';
 import CreateNicknameStep from './_components/CreateNicknameStep';
 
-export default function OnbsoardPage() {
+export default function StartListyPage() {
   const { user } = useUser();
   const [stepIndex, setStepIndex] = useState(0);
 
