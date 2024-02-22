@@ -1,8 +1,9 @@
 import { ReactNode } from 'react';
 
 import DndIcon from '/public/icons/dnd.svg';
-import ClearGrayIcon from '/public/icons/clear_x_gray.svg';
+import DeleteIcon from '/public/icons/trash_bin.svg';
 import Label from '@/components/Label/Label';
+import { vars } from '@/styles/theme.css';
 import ImageUploader from './ImageUploader';
 import * as styles from './ItemLayout.css';
 
@@ -43,17 +44,13 @@ export default function ItemLayout({
           <Label colorType={index === 0 ? 'blue' : 'skyblue'}>{`${index + 1}위`}</Label>
           {titleInput}
         </div>
-        {itemLength > MIN_ITEM_COUNT && (
-          <button onClick={handleDeleteItem}>
-            <ClearGrayIcon alt="아이템 삭제" className={styles.headerIcon} />
-          </button>
-        )}
       </div>
 
       <hr className={styles.line} role="separator" />
 
       <div className={styles.moreInfo}>
         {commentTextArea}
+        <div className={styles.countLength}>{commentLength}</div>
         <div className={styles.toolbar}>
           <div className={styles.fileButtons}>
             {linkModal}
@@ -61,7 +58,11 @@ export default function ItemLayout({
               {imageInput}
             </ImageUploader>
           </div>
-          {commentLength}
+          {itemLength > MIN_ITEM_COUNT && (
+            <button onClick={handleDeleteItem}>
+              <DeleteIcon fill={vars.color.gray9} alt="아이템 삭제" />
+            </button>
+          )}
         </div>
 
         <div className={styles.previewContainer}>

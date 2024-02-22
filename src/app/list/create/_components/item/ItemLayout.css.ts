@@ -36,6 +36,14 @@ export const moreInfo = style({
   gap: '8px',
 });
 
+export const countLength = style({
+  width: '100%',
+
+  display: 'flex',
+  justifyContent: 'end',
+  alignItems: 'center',
+});
+
 export const toolbar = style({
   width: '100%',
 
@@ -49,7 +57,6 @@ export const fileButtons = style({
 
   display: 'flex',
   alignItems: 'center',
-  justifyContent: 'center',
   gap: '10px',
 });
 

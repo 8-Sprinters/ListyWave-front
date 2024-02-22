@@ -142,6 +142,7 @@ export default function Items({ type, setItemChanged }: ItemsProps) {
                           <textarea
                             className={styles.comment}
                             placeholder={itemPlaceholder.comment}
+                            rows={3}
                             maxLength={100}
                             {...register(`items.${index}.comment`, itemCommentRules)}
                           />
