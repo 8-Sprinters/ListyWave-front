@@ -17,4 +17,6 @@ export const QUERY_KEYS = {
   getUsersByNicknameSearch: 'getUsersByNicknameSearch',
   notifications: 'notifications',
   getHistories: 'getHistories',
+  toggleHistoryPublic: 'toggleHistoryPublic',
+  deleteHistory: 'deleteHistory',
 };
