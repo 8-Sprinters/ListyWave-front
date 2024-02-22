@@ -1,6 +1,6 @@
 import axios, { AxiosResponse } from 'axios';
-import cheerio from 'cheerio';
 import { NextApiRequest, NextApiResponse } from 'next';
+import cheerio from 'cheerio';
 
 interface OpenGraphData {
   [key: string]: string;

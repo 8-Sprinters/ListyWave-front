@@ -1,8 +1,15 @@
-import * as styles from './UserList.css';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 
-function UserList({ user }) {
+import * as styles from './SearchUserProfile.css';
+
+interface UserListProps {
+  id: number;
+  profileImageUrl: string;
+  nickname: string;
+}
+
+function SearchUserProfile({ user }: { user: UserListProps }) {
   const router = useRouter();
   const handleProfileClick = () => {
     router.push(`/user/${user.id}/mylist`);
@@ -27,4 +34,4 @@ function UserList({ user }) {
   );
 }
 
-export default UserList;
+export default SearchUserProfile;

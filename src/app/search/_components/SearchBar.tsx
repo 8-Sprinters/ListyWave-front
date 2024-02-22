@@ -1,10 +1,12 @@
 'use client';
 
+import { ChangeEvent, useState, KeyboardEvent, MouseEvent } from 'react';
+import { useRouter } from 'next/navigation';
+
+import * as styles from '@/app/search/_components/SearchBar.css';
+
 import CategoryArea from '@/app/search/_components/CategoryArea';
 import KeywordArea from '@/app/search/_components/KeywordArea';
-import { useRouter } from 'next/navigation';
-import { ChangeEvent, useState, KeyboardEvent, MouseEvent } from 'react';
-import * as styles from '@/app/search/_components/SearchBar.css';
 
 function SearchBar() {
   const router = useRouter();
@@ -14,7 +16,7 @@ function SearchBar() {
     router.push(`/search?keyword=${keyword}`);
   };
 
-  const handleKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
+  const handleEnterKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter') {
       router.push(`/search?keyword=${keyword}`);
     }
@@ -30,7 +32,7 @@ function SearchBar() {
 
   return (
     <div className={styles.searchWrapper}>
-      <KeywordArea onClick={handleSearchClick} onKeyDown={handleKeyDown} onInput={handleInputChange} />
+      <KeywordArea onClick={handleSearchClick} onKeyDown={handleEnterKeyDown} onInput={handleInputChange} />
       <CategoryArea onClick={handelCategoryClick} />
     </div>
   );

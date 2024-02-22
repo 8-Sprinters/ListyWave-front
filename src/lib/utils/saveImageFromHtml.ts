@@ -3,14 +3,16 @@ import toasting from '@/lib/utils/toasting';
 
 interface SaveImageFromHtmlProps {
   filename: string;
+  element: HTMLElement;
 }
 
-async function saveImageFromHtml({ filename }: SaveImageFromHtmlProps) {
+async function saveImageFromHtml({ filename, element }: SaveImageFromHtmlProps) {
   const saveElement: HTMLElement | null = document.querySelector('#rankList');
   if (!saveElement) {
     console.error('리스트를 찾을 수 없습니다.');
     return;
   }
+
   try {
     toPng(saveElement)
       .then((dataUrl) => {

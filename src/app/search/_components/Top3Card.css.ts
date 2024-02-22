@@ -24,7 +24,7 @@ export const container = style({
   },
 });
 
-export const userInfoWrapper = style({
+export const userProfiles = style({
   display: 'flex',
   alignItems: 'center',
   gap: '.8rem',
@@ -89,7 +89,7 @@ export const list = style({
   letterSpacing: '-0.36px',
 });
 
-export const skeletonContainer = style({
+export const skeleton = style({
   width: '185px',
 
   display: 'flex',

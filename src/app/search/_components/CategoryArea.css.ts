@@ -1,9 +1,5 @@
 import { style } from '@vanilla-extract/css';
-
-export const container = style({
-  display: 'flex',
-  flexDirection: 'column',
-});
+import { vars } from '@/styles/theme.css';
 
 export const categoryWrapper = style({
   display: 'flex',
@@ -16,7 +12,7 @@ export const categoryWrapper = style({
   },
 });
 
-export const categoryItemWrapper = style({
+export const category = style({
   position: 'relative',
 
   display: 'flex',
@@ -28,39 +24,31 @@ export const categoryItemWrapper = style({
   cursor: 'pointer',
 });
 
+export const categoryImage = style({
+  width: '6rem',
+  height: '6rem',
+
+  border: `1px solid ${vars.color.gray5}`,
+  borderRadius: '8px',
+});
+
+export const selectedCategoryImage = style([categoryImage, { filter: 'opacity(50%)' }]);
+
+export const categoryText = style({});
+
 export const selectedIconWrapper = style({
   width: '2.5rem',
   height: '2.5rem',
 
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'center',
-
   position: 'absolute',
   top: '2rem',
   zIndex: '2',
+
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center',
 });
 
 export const selectedIcon = style({
-  fill: '#ffffff',
+  fill: vars.color.white,
 });
-
-export const itemImage = style({
-  width: '6rem',
-  height: '6rem',
-
-  border: '1px solid lightgray',
-  borderRadius: '8px',
-});
-
-export const selectedItemImage = style({
-  width: '6rem',
-  height: '6rem',
-
-  border: '1px solid lightgray',
-  borderRadius: '8px',
-
-  filter: 'opacity(50%)',
-});
-
-export const itemText = style({});

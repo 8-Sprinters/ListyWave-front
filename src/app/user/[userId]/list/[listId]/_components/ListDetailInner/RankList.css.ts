@@ -1,4 +1,5 @@
 import { createVar, style } from '@vanilla-extract/css';
+import { vars } from '@/styles/theme.css';
 
 export const listColor = createVar();
 
@@ -15,9 +16,10 @@ export const container = style({
 
   display: 'flex',
   justifyContent: 'left',
-
   alignItems: 'center',
-  backgroundColor: 'white',
+
+  backgroundColor: vars.color.white,
+
   borderRadius: '30px',
 });
 
@@ -33,6 +35,7 @@ export const listWrapper = style({
 
 export const simpleItemWrapper = style({
   width: '100%',
+
   display: 'flex',
   justifyContent: 'space-between',
   gap: '4rem',
@@ -41,11 +44,13 @@ export const simpleItemWrapper = style({
 
 export const detailItemWrapper = style({
   width: '100%',
+  marginBottom: '6rem',
+
   display: 'flex',
   flexDirection: 'column',
   gap: '1.6rem',
   alignItems: 'left',
-  marginBottom: '6rem',
+
   ':last-child': {
     marginBottom: 0,
   },
@@ -53,10 +58,13 @@ export const detailItemWrapper = style({
 
 export const commentText = style({
   width: '100%',
-  backgroundColor: 'white',
   padding: '2rem',
-  border: '1px solid #EFEFF0',
+
+  backgroundColor: vars.color.white,
+
+  border: `1px solid ${vars.color.gray5}`,
   borderRadius: '10px',
+
   fontSize: '1.4rem',
 });
 
@@ -66,6 +74,15 @@ export const rankAndTitle = style({
   alignItems: 'center',
   justifyContent: 'flex-start',
   gap: '2rem',
+});
+
+export const rankWrapper = style({
+  width: '35px',
+  height: '35px',
+
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center',
 });
 
 export const rankTextWrapper = style({
@@ -93,12 +110,9 @@ export const firstRankTextWrapper = style({
   justifyContent: 'center',
   flexShrink: 0,
 
-  backgroundColor: '#0047FF',
-  borderRadius: '99px',
-
   fontSize: '2.4rem',
   fontWeight: 'bold',
-  color: 'white',
+  color: vars.color.white,
   textAlign: 'center',
 });
 
@@ -116,12 +130,12 @@ export const top3RankTextWrapper = style({
   justifyContent: 'center',
   flexShrink: 0,
 
-  backgroundColor: '#EBF4FF',
+  backgroundColor: vars.color.lightblue,
   borderRadius: '99px',
 
   fontSize: '2.4rem',
   fontWeight: 'bold',
-  color: '#0047FF',
+  color: vars.color.blue,
   textAlign: 'center',
 });
 
@@ -170,7 +184,7 @@ export const detailImage = style({
   maxHeight: '35rem',
   height: 'auto',
 
-  border: '1px solid #EFEFF0',
+  border: `1px solid ${vars.color.gray5}`,
   borderRadius: '10px',
 
   objectFit: 'cover',

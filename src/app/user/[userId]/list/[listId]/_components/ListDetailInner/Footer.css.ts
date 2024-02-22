@@ -31,22 +31,6 @@ export const buttonComponent = style({
   cursor: 'pointer',
 });
 
-export const collectWrapper = style({
-  display: 'flex',
-  flexDirection: 'column',
-  justifyContent: 'center',
-  alignItems: 'center',
-
-  cursor: 'pointer',
-});
-
-export const myCollectWrapper = style({
-  display: 'flex',
-  flexDirection: 'column',
-  justifyContent: 'center',
-  alignItems: 'center',
-});
-
 // TODO: 조회수 증가 기능이 완료되면 display: 'flex' 로 수정 예정
 export const viewCountWrapper = style({
   // display: 'flex',
@@ -54,5 +38,6 @@ export const viewCountWrapper = style({
   flexDirection: 'column',
   justifyContent: 'center',
   alignItems: 'center',
+
   cursor: 'pointer',
 });

@@ -12,7 +12,6 @@ export const container = style({
 
 export const listAndFooter = style({
   width: '100%',
-  // padding: '4rem 4rem 2rem 4rem',
 
   display: 'flex',
   flexDirection: 'column',

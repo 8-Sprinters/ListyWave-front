@@ -1,17 +1,13 @@
-import { ListType } from '@/app/[userNickname]/[listId]/mockData/mockDataTypes'; // 삭제 예정
-import { assignInlineVars } from '@vanilla-extract/dynamic';
-import * as styles from './Top3Card.css';
-import formatDate from '@/lib/utils/dateFormat';
-
-import Top3CardItem from './Top3CardItem';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
+import { assignInlineVars } from '@vanilla-extract/dynamic';
 
-interface CardProps {
-  list: ListType;
-}
+import * as styles from './Top3Card.css';
+import { SearchListType } from '@/lib/types/listType';
+import formatDate from '@/lib/utils/dateFormat';
+import Top3CardItem from './Top3CardItem';
 
-export default function Top3Card({ list }: CardProps) {
+export default function Top3Card({ list }: { list: SearchListType }) {
   const router = useRouter();
   const handleCardClick = () => {
     router.push(`user/${list.ownerId}/list/${list.id}`);
@@ -25,7 +21,7 @@ export default function Top3Card({ list }: CardProps) {
       })}
       onClick={handleCardClick}
     >
-      <div className={styles.userInfoWrapper}>
+      <div className={styles.userProfiles}>
         <div className={styles.userImageWrapper}>
           <Image
             alt="프로필 이미지"

@@ -1,22 +1,13 @@
 'use client';
 
 import { useState } from 'react';
+
+import * as styles from './index.css';
+
+import { ListDetailType } from '@/lib/types/listType';
 import Header from '@/app/user/[userId]/list/[listId]/_components/ListDetailInner/Header';
 import RankList from '@/app/user/[userId]/list/[listId]/_components/ListDetailInner/RankList';
 import Footer from '@/app/user/[userId]/list/[listId]/_components/ListDetailInner/Footer';
-import * as styles from './index.css';
-import { ListDetailType } from '@/lib/types/listType';
-import { useUser } from '@/store/useUser';
-
-export interface ListItemProps {
-  id?: number;
-  rank?: number;
-  ranking?: number;
-  title?: string;
-  comment?: string;
-  link?: string | null;
-  imageUrl?: string | null;
-}
 
 interface OptionsProps {
   value: string;
@@ -25,7 +16,7 @@ interface OptionsProps {
 
 interface ListDetailInnerProps {
   data: ListDetailType;
-  listId: string | null;
+  listId: number;
 }
 
 function ListDetailInner({ data, listId }: ListDetailInnerProps) {
@@ -38,11 +29,11 @@ function ListDetailInner({ data, listId }: ListDetailInnerProps) {
   };
 
   const footerData = {
-    category: data?.category,
     listId: listId,
+    items: listData,
+    category: data?.category,
     title: data?.title,
     description: data?.description,
-    items: listData,
     collaborators: data?.collaborators,
     ownerNickname: data?.ownerNickname,
     collectCount: data?.collectCount,
@@ -50,13 +41,9 @@ function ListDetailInner({ data, listId }: ListDetailInnerProps) {
     isCollected: data?.isCollected,
   };
 
-  const headerData = {
-    viewCount: data?.viewCount,
-  };
-
   return (
     <div className={styles.container}>
-      <Header data={headerData} handleChangeListType={handleChangeListType} />
+      <Header handleChangeListType={handleChangeListType} />
       <div className={styles.listAndFooter}>
         <RankList backgroundColor={data?.backgroundColor} listData={listData} type={listType} />
         <Footer data={footerData} />

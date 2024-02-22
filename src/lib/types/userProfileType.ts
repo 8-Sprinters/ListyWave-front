@@ -9,6 +9,12 @@ export interface UserProfileType {
   nickname: string;
 }
 
+export interface SearchUserType {
+  users: UserProfileType[];
+  totalCount: number;
+  hasNext: boolean;
+}
+
 // 유저 타입
 export interface UserType {
   id: number;

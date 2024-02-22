@@ -1,10 +1,11 @@
 import { style } from '@vanilla-extract/css';
 
 export const container = style({
+  padding: '1.6rem',
+
   display: 'flex',
   flexDirection: 'column',
   justifyContent: 'center',
-  padding: '1.6rem',
   gap: '3rem',
 });
 

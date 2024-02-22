@@ -6,6 +6,7 @@ export const container = style({
   flexDirection: 'column',
   alignItems: 'center',
   justifyContent: 'center',
+
   cursor: 'pointer',
   gap: '1rem',
 
@@ -23,7 +24,7 @@ export const profileImageWrapper = style({
   alignItems: 'center',
   justifyContent: 'center',
 
-  border: '1px solid #EFEFF0',
+  border: `1px solid ${vars.color.gray5}`,
   borderRadius: '50px',
 
   overflow: 'hidden',
@@ -32,6 +33,7 @@ export const profileImageWrapper = style({
 export const userImage = style({
   width: '4rem',
   height: '4rem',
+
   flex: '0 0 1',
   flexShrink: 0,
 
@@ -40,6 +42,7 @@ export const userImage = style({
 
 export const nicknameText = style({
   width: '6rem',
+
   fontSize: '1.1rem',
   fontWeight: '500',
   textAlign: 'center',

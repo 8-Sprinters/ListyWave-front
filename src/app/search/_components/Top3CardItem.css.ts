@@ -10,7 +10,6 @@ export const container = style({
 });
 
 export const titleText = style({
-  // maxHeight: '2rem',
   overflow: 'hidden',
   textOverflow: 'ellipsis',
   display: '-webkit-box',

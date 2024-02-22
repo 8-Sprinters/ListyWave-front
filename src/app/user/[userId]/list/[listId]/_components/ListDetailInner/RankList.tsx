@@ -1,19 +1,22 @@
 'use client';
+
 import Image from 'next/image';
-import { ListItemProps } from './index';
-import LinkPreview from '@/components/LinkPreview/LinkPreview';
-import VideoEmbed from '@/components/VideoEmbed/VideoEmbed';
-import * as styles from './RankList.css';
-import CrownIcon from '/public/icons/crown.svg';
 import { assignInlineVars } from '@vanilla-extract/dynamic';
 
+import * as styles from './RankList.css';
+
+import { ItemType } from '@/lib/types/listType';
+import LinkPreview from '@/components/LinkPreview/LinkPreview';
+import VideoEmbed from '@/components/VideoEmbed/VideoEmbed';
+import CrownIcon from '/public/icons/crown_new.svg';
+
 interface RankListProps {
-  listData: ListItemProps[];
+  listData: ItemType[];
   type?: string;
   backgroundColor?: string;
 }
 
-export function SimpleList({ listData }: RankListProps) {
+function SimpleList({ listData }: RankListProps) {
   return listData.map((item, index) => {
     return (
       <div key={item.id} className={styles.simpleItemWrapper}>
@@ -27,8 +30,9 @@ export function SimpleList({ listData }: RankListProps) {
                   : styles.rankTextWrapper
             }
           >
-            {index === 0 && <CrownIcon className={styles.crownIcon} />}
-            <div className={styles.rankText}>{item.rank}</div>
+            <div className={styles.rankWrapper}>
+              <div className={styles.rankText}>{item.rank === 1 ? <CrownIcon /> : item.rank}</div>
+            </div>
           </div>
           <div className={styles.titleText}>{item.title}</div>
         </div>
@@ -79,8 +83,9 @@ function DetailList({ listData }: RankListProps) {
                   : styles.rankTextWrapper
             }
           >
-            {index === 0 && <CrownIcon className={styles.crownIcon} />}
-            <div className={styles.rankText}>{item.rank}</div>
+            <div className={styles.rankWrapper}>
+              <div className={styles.rankText}>{item.rank === 1 ? <CrownIcon /> : item.rank}</div>
+            </div>
           </div>
           <div className={styles.titleText}>{item.title}</div>
         </div>
@@ -99,12 +104,13 @@ function DetailList({ listData }: RankListProps) {
 function RankList({ listData, type, backgroundColor }: RankListProps) {
   return (
     <div
+      id="rankList"
       className={styles.background}
       style={assignInlineVars({
         [styles.listColor]: `${backgroundColor}`,
       })}
     >
-      <div id="rankList" className={styles.container}>
+      <div className={styles.container}>
         <div className={styles.listWrapper}>
           {listData ? (
             type == 'simple' ? (

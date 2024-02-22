@@ -1,17 +1,8 @@
 import * as styles from './Top3CardItem.css';
-
-interface ItemType {
-  id: number;
-  rank: number;
-  title: string;
-  comment?: string;
-  link?: string;
-  imageUrl?: string;
-  // items 다른 속성 추가 될 수도 있음
-}
+import { ListItemType } from '@/lib/types/listType';
 
 interface CardItemProps {
-  item: ItemType;
+  item: ListItemType;
   index: number;
 }
 
