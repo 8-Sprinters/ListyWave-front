@@ -2,13 +2,20 @@
 import { useState, useRef } from 'react';
 import Image from 'next/image';
 import { useQuery } from '@tanstack/react-query';
+
 import { QUERY_KEYS } from '@/lib/constants/queryKeys';
 import getRecommendedUsers from '@/app/_api/explore/getRecommendedUsers';
-
-import * as styles from './UsersRecommendation.css';
+import { useUser } from '@/store/useUser';
+import FollowButton from './FollowButton';
 import { UserProfileType } from '@/lib/types/userProfileType';
 
-function UsersRecommendation() {
+import * as styles from './UsersRecommendation.css';
+
+function UsersRecommendation({ userId }: { userId: number }) {
+  //zustand로 관리하는 user정보 불러오기
+  const { user: userMe } = useUser();
+  const myId = userMe.id;
+
   const wrapperRef = useRef<HTMLUListElement>(null);
   const { data: usersList } = useQuery<UserProfileType[]>({
     queryKey: [QUERY_KEYS.getRecommendedUsers],
@@ -25,23 +32,24 @@ function UsersRecommendation() {
   };
 
   return (
-    <div className={styles.wrapper}>
-      {usersList?.length !== 0 && (
-        <>
-          <div className={styles.userRecommendationTitle}>사용자 추천</div>
-          <ul className={styles.recommendUsersListWrapper} ref={wrapperRef}>
-            {usersList &&
-              usersList?.map((item: UserProfileType) => {
+    <section>
+      {myId && (
+        <div className={styles.wrapper}>
+          <h2 className={styles.sectionTitle}>HI, LISTER 👋</h2>
+          {usersList?.length !== 0 && (
+            <ul className={styles.recommendUsersListWrapper} ref={wrapperRef}>
+              {usersList?.map((item: UserProfileType) => {
                 return (
                   <li key={item.id}>
-                    <UserRecommendListItem data={item} handleScrollToRight={handleScrollToRight} />
+                    <UserRecommendListItem data={item} handleScrollToRight={handleScrollToRight} userId={userId} />
                   </li>
                 );
               })}
-          </ul>
-        </>
+            </ul>
+          )}
+        </div>
       )}
-    </div>
+    </section>
   );
 }
 
@@ -50,11 +58,13 @@ export default UsersRecommendation;
 interface UserRecommendListItemProps {
   data: UserProfileType;
   handleScrollToRight: () => void;
+  userId: number;
 }
 
-function UserRecommendListItem({ data, handleScrollToRight }: UserRecommendListItemProps) {
+function UserRecommendListItem({ data, handleScrollToRight, userId }: UserRecommendListItemProps) {
   const [isFollowing, setIsFollowing] = useState(false);
 
+  //boolean 값을 바꾸기 위한 함수
   const handleFollowingState = () => {
     setIsFollowing((prev) => !prev);
   };
@@ -80,13 +90,7 @@ function UserRecommendListItem({ data, handleScrollToRight }: UserRecommendListI
           />
         </div>
         <h6 className={styles.recommendUserNickname}>{data.nickname}</h6>
-        <p className={styles.recommendUserDescription}>최근 활동한 사용자입니다.</p>
-        <button
-          className={`${styles.followButtonDefault} ${isFollowing === true ? styles.followButtonFollowing : ''}`}
-          onClick={handleFollowButtonClick}
-        >
-          <span>{isFollowing ? '팔로잉' : '팔로우'}</span>
-        </button>
+        <FollowButton isFollowing={isFollowing} onClick={handleFollowButtonClick} userId={userId} targetId={data.id} />
       </div>
     </>
   );

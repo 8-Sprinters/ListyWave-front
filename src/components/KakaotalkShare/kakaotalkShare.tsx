@@ -1,5 +1,4 @@
 'use client';
-
 import { UserProfileType } from '@/lib/types/userProfileType';
 
 interface kakaotalkShareProps {
