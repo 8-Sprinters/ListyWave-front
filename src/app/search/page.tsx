@@ -78,7 +78,7 @@ export default function Search() {
         <div className={styles.searchArea}>
           <div className={styles.keywordWrapper}>
             <button className={styles.buttonResetStyle} onClick={handleBackClick}>
-              <BackButton width={'16'} height={'28'} fill={'#AFB1B6'} alt="뒤로 가기 버튼" />
+              <BackButton width={'8'} height={'14'} alt="뒤로 가기 버튼" />
             </button>
             <KeywordArea onClick={handeSearchClick} onInput={handleKeywordChange} onKeyDown={handleKeyDown} />
           </div>
