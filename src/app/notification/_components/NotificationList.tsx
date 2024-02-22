@@ -11,7 +11,7 @@ import getNotifications from '@/app/_api/notification/getNotification';
 import { QUERY_KEYS } from '@/lib/constants/queryKeys';
 import { NotificationType, NotificationsType } from '@/lib/types/notificationType';
 import timeDiff from '@/lib/utils/time-diff';
-import NoDataImage from '/public/images/no_data_image.svg';
+import NoDataComponent from '@/components/NoData/NoDataComponent';
 
 import ProfileImage from './ProfileImage';
 import * as styles from './NotificationList.css';
@@ -95,8 +95,7 @@ export default function NotificationList() {
       {data?.alarmList?.length === 0 ? (
         /**TODO: NO DATA 공용 컴포넌트 사용하기 */
         <div className={styles.noData}>
-          <NoDataImage alt="데이터가 없을 때 이미지" />
-          <p className={styles.noDataMessage}>최근 30일 내 새로운 알림이 없어요.</p>
+          <NoDataComponent message="최근 30일 내 새로운 알림이 없어요." />
         </div>
       ) : (
         <>
