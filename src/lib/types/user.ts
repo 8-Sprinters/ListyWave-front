@@ -14,7 +14,7 @@ export interface UserOnLoginType {
 }
 
 export interface UserSearchType {
-  collaborators: UserProfileType[];
+  users: UserProfileType[];
   totalCount: number;
   hasNext: boolean;
 }

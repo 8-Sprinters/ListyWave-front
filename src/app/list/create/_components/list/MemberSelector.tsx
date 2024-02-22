@@ -107,15 +107,15 @@ function MemberSelector({ placeholder, followingList, onClickAdd, onClickDelete,
       {isDropDownOpen && (
         <div className={styles.dropdown} ref={dropdownRef} style={{ height: isDropDownOpen ? '152px' : '0' }}>
           {input !== '' ? (
-            searchResult?.collaborators.length === 0 ? (
+            searchResult?.users.length === 0 ? (
               <>
-                {searchResult?.collaborators.filter((user) =>
+                {searchResult?.users.filter((user) =>
                   user.nickname.toLocaleLowerCase().includes(input.toLocaleLowerCase())
                 ).length === 0 && <div className={styles.noResultMessage}>검색결과가 없어요.</div>}
               </>
             ) : (
               <>
-                {searchResult?.collaborators.map((user) => (
+                {searchResult?.users.map((user) => (
                   <div
                     key={user.id}
                     className={styles.profileContainer}
@@ -141,7 +141,7 @@ function MemberSelector({ placeholder, followingList, onClickAdd, onClickDelete,
             )
           ) : followingList.length === 0 ? (
             <>
-              {searchResult?.collaborators.filter((user) =>
+              {searchResult?.users.filter((user) =>
                 user.nickname.toLocaleLowerCase().includes(input.toLocaleLowerCase())
               ).length === 0 && <div className={styles.noResultMessage}>검색결과가 없어요.</div>}
             </>
