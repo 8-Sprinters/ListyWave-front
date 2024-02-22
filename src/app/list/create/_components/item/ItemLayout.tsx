@@ -19,6 +19,7 @@ interface ItemLayoutProps {
   linkPreview: ReactNode;
   imageInput: ReactNode;
   imagePreview: ReactNode;
+  handleImageAdd?: () => void;
 }
 
 export default function ItemLayout({
@@ -32,6 +33,7 @@ export default function ItemLayout({
   linkPreview,
   imageInput,
   imagePreview,
+  handleImageAdd,
 }: ItemLayoutProps) {
   return (
     <>
@@ -55,7 +57,9 @@ export default function ItemLayout({
         <div className={styles.toolbar}>
           <div className={styles.fileButtons}>
             {linkModal}
-            <ImageUploader index={index}>{imageInput}</ImageUploader>
+            <ImageUploader index={index} handleImageAdd={handleImageAdd}>
+              {imageInput}
+            </ImageUploader>
           </div>
           {commentLength}
         </div>

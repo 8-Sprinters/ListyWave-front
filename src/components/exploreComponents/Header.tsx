@@ -1,35 +1,60 @@
 'use client';
 import Image from 'next/image';
-import { useRouter } from 'next/navigation';
+import { useQuery } from '@tanstack/react-query';
+
+import { useUser } from '@/store/useUser';
+import useMoveToPage from '@/hooks/useMoveToPage';
+import getUserOne from '@/app/_api/user/getUserOne';
+import { QUERY_KEYS } from '@/lib/constants/queryKeys';
+import { UserType } from '@/lib/types/userProfileType';
+
 import * as styles from './Header.css';
 import Logo from '/public/icons/logo.svg';
 import BellIcon from '/public/icons/bell.svg';
+import NoneProfileImage from '/public/icons/avatar.svg';
 
 function Header() {
-  const router = useRouter();
+  const { onClickMoveToPage } = useMoveToPage();
 
-  const handleBellIconClick = () => {
-    router.push('/notification');
-  };
+  //zustand로 관리하는 user정보 불러오기
+  const { user } = useUser();
+  const userId = user.id;
+
+  const { data: userMe } = useQuery<UserType>({
+    queryKey: [QUERY_KEYS.userOne, userId],
+    queryFn: () => getUserOne(userId as number),
+    enabled: !!userId,
+  });
 
   return (
     <nav className={styles.wrapper}>
-      <div className={styles.logoWrapper}>
+      <button className={styles.logoWrapper} onClick={onClickMoveToPage('/intro')}>
         <Logo alt="로고 이미지" />
-      </div>
+      </button>
       <div className={styles.userInfoOuterWrapper}>
-        <div className={styles.userInfoWrapper}>
-          <Image
-            src="https://p.turbosquid.com/ts-thumb/dF/nW94b5/5gsXLi9h/17/jpg/1542722468/600x600/fit_q87/b36d8ed4b788d00f54eeb1be4094ddab0deb0474/17.jpg"
-            alt="사용자 프로필 이미지"
-            width={32}
-            height={32}
-            className={styles.userProfile}
-          />
-          <h5 className={styles.userName}>{`진저브레드`}</h5>
+        <div
+          className={styles.userInfoWrapper}
+          onClick={userId ? onClickMoveToPage('/account') : onClickMoveToPage('/login')}
+        >
+          {userMe?.profileImageUrl ? (
+            <Image
+              src={userMe.profileImageUrl}
+              alt="사용자 프로필 이미지"
+              width={32}
+              height={32}
+              className={styles.userProfile}
+            />
+          ) : (
+            <NoneProfileImage width={32} height={32} alt="존재하지 않는 사용자 프로필 이미지" />
+          )}
+          {userId !== null ? (
+            <h5 className={styles.userName}>{userMe?.nickname}</h5>
+          ) : (
+            <h5 className={styles.loginButton}>로그인/회원가입</h5>
+          )}
         </div>
-        <button onClick={handleBellIconClick}>
-          <BellIcon alt="알림 페이지 이동 버튼" />
+        <button onClick={onClickMoveToPage('/notification')}>
+          {userId !== null && <BellIcon alt="알림 페이지 이동 버튼" />}
         </button>
       </div>
     </nav>

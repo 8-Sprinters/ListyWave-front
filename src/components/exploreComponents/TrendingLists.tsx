@@ -1,16 +1,16 @@
 'use client';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
-import { Swiper, SwiperSlide } from 'swiper/react';
 import { useQuery } from '@tanstack/react-query';
 import { QUERY_KEYS } from '@/lib/constants/queryKeys';
 import getTrendingLists from '@/app/_api/explore/getTrendingLists';
 import { TrendingListType } from '@/lib/types/exploreType';
 import { assignInlineVars } from '@vanilla-extract/dynamic';
-import { Autoplay } from 'swiper/modules';
 import 'swiper/css';
 
 import * as styles from './TrendingLists.css';
+
+/**@todo 트렌딩 리스트 바뀐 디자인에 맞게 새로 갈아엎을 예정 */
 
 function TrendingList() {
   const router = useRouter();
@@ -19,77 +19,34 @@ function TrendingList() {
     queryFn: () => getTrendingLists(),
   });
 
+  const STYLE_INDEX = (num: number) => num % 4;
+
   return (
     <div className={styles.wrapper}>
-      <h2 className={styles.title}>트렌딩</h2>
-      <Swiper
-        spaceBetween={30}
-        centeredSlides={true}
-        autoplay={{
-          delay: 4000,
-          disableOnInteraction: false,
-        }}
-        modules={[Autoplay]}
-        className={styles.swiper}
-      >
-        {trendingLists?.map((item: TrendingListType) => {
+      <h2 className={styles.sectionTitle}>TRENDING ️🌊 </h2>
+      <ul className={styles.listWrapper}>
+        {trendingLists?.map((item: TrendingListType, index) => {
           return (
-            <SwiperSlide
-              key={item.id}
-              className={styles.swiperSlide}
-              onClick={() => {
-                router.push(`/user/${item.ownerId}/list/${item.id}`);
-              }}
-            >
+            <li key={item.id}>
               <div
-                className={styles.swiperContainer}
+                className={styles.wrapper}
                 style={assignInlineVars({
-                  [styles.blackLayer]: `${item.itemImageUrl !== '' ? 'rgba(25, 25, 27, 0.5)' : 'none'}`,
+                  [styles.customBackgroundColor]: item.backgroundColor,
+                  [styles.customItemBorder]: item.backgroundColor === '#FFFFFF' ? '1px solid #EFEFF0' : 'none',
                 })}
               >
-                <div className={styles.swiperSlide}>
-                  <div className={styles.listInformationWrapper}>
-                    <h4
-                      className={styles.trendingListTitle}
-                      style={assignInlineVars({
-                        [styles.itemFontColor]: `${item.itemImageUrl === '' ? '#19191B' : '#fff'}`,
-                      })}
-                    >
-                      {item.title}
-                    </h4>
-                    <p
-                      className={styles.trendingListDescription}
-                      style={assignInlineVars({
-                        [styles.itemFontColor]: `${item.itemImageUrl === '' ? '#19191B' : '#fff'}`,
-                      })}
-                    >
-                      {item.description}
-                    </p>
+                <div className={styles.itemInformationWrapper}>
+                  <div className={styles.itemTitle}>{item.title}</div>
+                  <div className={styles.ownerProfileWrapper}>
+                    <div className={styles.temporaryCircle}></div>
+                    <span>nickname</span>
                   </div>
                 </div>
               </div>
-              {item.itemImageUrl ? (
-                <Image
-                  src={item.itemImageUrl}
-                  alt="배경 이미지"
-                  fill
-                  style={{
-                    objectFit: 'cover',
-                  }}
-                  className={styles.backgroundImage}
-                />
-              ) : (
-                <div
-                  className={styles.noImageUrlBox}
-                  style={assignInlineVars({
-                    [styles.itemBackgroundColor]: `${item.backgroundColor}`,
-                  })}
-                />
-              )}
-            </SwiperSlide>
+            </li>
           );
         })}
-      </Swiper>
+      </ul>
     </div>
   );
 }
