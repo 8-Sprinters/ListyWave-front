@@ -10,6 +10,13 @@ export const container = style({
   padding: '1rem 4rem 2rem 4rem',
 });
 
+export const collectAndView = style({
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center',
+  gap: '1.6rem',
+});
+
 export const shareAndOthers = style({
   width: '100%',
 
@@ -29,4 +36,23 @@ export const collectWrapper = style({
   flexDirection: 'column',
   justifyContent: 'center',
   alignItems: 'center',
+
+  cursor: 'pointer',
+});
+
+export const myCollectWrapper = style({
+  display: 'flex',
+  flexDirection: 'column',
+  justifyContent: 'center',
+  alignItems: 'center',
+});
+
+// TODO: 조회수 증가 기능이 완료되면 display: 'flex' 로 수정 예정
+export const viewCountWrapper = style({
+  // display: 'flex',
+  display: 'none',
+  flexDirection: 'column',
+  justifyContent: 'center',
+  alignItems: 'center',
+  cursor: 'pointer',
 });

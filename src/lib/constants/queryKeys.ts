@@ -13,4 +13,5 @@ export const QUERY_KEYS = {
   deleteFollow: 'deleteFollow',
   searchListResult: 'searchListResult',
   searchUserResult: 'searchUserResult',
+  collect: 'collect',
 };
