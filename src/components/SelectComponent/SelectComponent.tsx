@@ -8,7 +8,7 @@ interface OptionsProps {
 interface SelectProps {
   name: string;
   options: OptionsProps[];
-  defaultValue: OptionsProps;
+  defaultValue?: OptionsProps;
   isSearchable?: boolean;
   onChange?: any;
 }

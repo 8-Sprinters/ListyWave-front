@@ -5,7 +5,7 @@ import Header from '@/components/exploreComponents/Header';
 import FloatingContainer from '@/components/floatingButton/FloatingContainer';
 import PlusOptionFloatingButton from '@/components/floatingButton/PlusOptionFloatingButton';
 import ArrowUpFloatingButton from '@/components/floatingButton/ArrowUpFloatingButton';
-import SearchBar from "@/app/search/_components/SearchBar";
+import SearchBar from '@/app/search/_components/SearchBar';
 import * as styles from './page.css';
 
 interface ExplorePageProps {
@@ -19,7 +19,7 @@ function LandingPage({ params }: ExplorePageProps) {
     <>
       <div className={styles.wrapper}>
         <Header />
-        <SearchBar/>
+        <SearchBar />
         <TrendingList />
         <UsersRecommendation userId={params.userId} />
         <ListRecommendation />
