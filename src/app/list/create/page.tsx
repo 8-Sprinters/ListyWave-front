@@ -12,10 +12,12 @@ import toasting from '@/lib/utils/toasting';
 import toastMessage from '@/lib/constants/toastMessage';
 import createList from '@/app/_api/list/createList';
 import uploadItemImages from '@/app/_api/list/uploadItemImages';
+import { useUser } from '@/store/useUser';
 
 export type FormErrors = FieldErrors<ListCreateType>;
 
 export default function CreatePage() {
+  const { user: owner } = useUser();
   const [step, setStep] = useState<'list' | 'item'>('list');
   const [newListId, setNewListId] = useState(0);
   const router = useRouter();
@@ -23,7 +25,7 @@ export default function CreatePage() {
   const methods = useForm<ListCreateType>({
     mode: 'onChange',
     defaultValues: {
-      ownerId: 2, //로그인 후 수정 필요
+      ownerId: owner.id || 0, // 수정필요
       category: 'culture',
       labels: [],
       collaboratorIds: [],
@@ -82,14 +84,15 @@ export default function CreatePage() {
     };
 
     const imageData: ItemImagesType = {
-      ownerId: originData.ownerId,
+      ownerId: owner.id || 0,
       listId: 0, //temp
       extensionRanks: originData.items
         .filter(({ imageUrl }) => imageUrl !== '')
         .map(({ rank, imageUrl }) => {
           return {
             rank: rank,
-            extension: imageUrl !== '' ? (imageUrl?.[0]?.type.split('/')[1] as 'jpg' | 'jpeg' | 'png') : '',
+            extension:
+              typeof imageUrl === 'object' ? (imageUrl?.[0]?.type.split('/')[1] as 'jpg' | 'jpeg' | 'png') : '',
           };
         }),
     };
