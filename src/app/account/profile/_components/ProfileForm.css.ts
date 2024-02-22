@@ -11,24 +11,19 @@ export const form = style({
   gap: '12px',
 });
 
-const container = style({
+export const inputContainer = style({
   width: '100%',
-
   padding: '10px 12px',
 
+  display: 'flex',
+  flexDirection: 'column',
+  gap: '8px',
+
   border: `1px solid ${vars.color.gray5}`,
+  borderRadius: 10,
 });
 
-export const inputContainer = style([
-  container,
-  {
-    display: 'flex',
-    flexDirection: 'column',
-    gap: '8px',
-  },
-]);
-
-export const label = style([labelSmall, { color: vars.color.gray9 }]);
+export const label = style([labelSmall, { color: vars.color.gray7 }]);
 
 export const inputText = style([bodyMedium]);
 
@@ -43,7 +38,7 @@ export const textarea = style([
 export const textLength = style([
   bodyMedium,
   {
-    color: vars.color.gray9,
+    color: vars.color.gray7,
     textAlign: 'end',
   },
 ]);
@@ -73,16 +68,13 @@ const option = style({
   },
 });
 
-export const backgroundOptionContainer = style([
-  container,
-  {
-    display: 'grid',
-    gridTemplateColumns: 'repeat(4, 1fr)',
-    gridTemplateRows: '1fr 1fr',
-    gridColumnGap: 8,
-    gridRowGap: 10,
-  },
-]);
+export const backgroundOptionContainer = style({
+  display: 'grid',
+  gridTemplateColumns: 'repeat(4, 1fr)',
+  gridTemplateRows: '1fr 1fr',
+  gridColumnGap: 8,
+  gridRowGap: 10,
+});
 
 export const backgroundOption = style([
   option,
@@ -94,16 +86,13 @@ export const backgroundOption = style([
   },
 ]);
 
-export const profileOptionContainer = style([
-  container,
-  {
-    display: 'flex',
-    justifyContent: 'space-between',
-    gap: 14,
+export const profileOptionContainer = style({
+  display: 'flex',
+  justifyContent: 'space-between',
+  gap: 14,
 
-    position: 'relative',
-  },
-]);
+  position: 'relative',
+});
 
 export const profileOption = style([
   option,

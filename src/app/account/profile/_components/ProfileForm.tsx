@@ -1,4 +1,5 @@
-import { FieldErrors, useForm, useFormContext, useWatch } from 'react-hook-form';
+import { useFormContext, useWatch } from 'react-hook-form';
+import { ChangeEvent } from 'react';
 import { useMutation } from '@tanstack/react-query';
 
 import Camera from '/public/icons/camera.svg';
@@ -18,7 +19,6 @@ import toastMessage from '@/lib/constants/toastMessage';
 import toasting from '@/lib/utils/toasting';
 
 import * as styles from './ProfileForm.css';
-import { ChangeEvent } from 'react';
 
 const MockBackground = ['기본배경A', '기본배경B', '기본배경C', '기본배경D', '기본배경E', '기본배경F', '기본배경G'];
 const MockProfile = ['A', 'B', 'C', 'D', 'E'];
@@ -135,41 +135,47 @@ export default function ProfileForm({ userNickname, onProfileChange, onBackgroun
           )}
         </div>
 
-        <div className={styles.backgroundOptionContainer}>
-          <label className={`${styles.backgroundOption} ${styles.inputFileLabel}`} htmlFor="backgroundImage">
-            <Camera />
-          </label>
-          <input
-            type="file"
-            id="backgroundImage"
-            className={styles.inputFile}
-            accept=".jpg, .jpeg, .png"
-            {...newBackgroundImageRegister}
-            onChange={(e) => handleBackgroundChange(e)}
-          />
-          {MockBackground.map((image, index) => (
-            <button key={`defaultBackgroundImage${index}`} type="button" className={styles.backgroundOption}>
-              {image}
-            </button>
-          ))}
+        <div className={styles.inputContainer}>
+          <p className={styles.label}>배경이미지</p>
+          <div className={styles.backgroundOptionContainer}>
+            <label className={`${styles.backgroundOption} ${styles.inputFileLabel}`} htmlFor="backgroundImage">
+              <Camera />
+            </label>
+            <input
+              type="file"
+              id="backgroundImage"
+              className={styles.inputFile}
+              accept=".jpg, .jpeg, .png"
+              {...newBackgroundImageRegister}
+              onChange={(e) => handleBackgroundChange(e)}
+            />
+            {MockBackground.map((image, index) => (
+              <button key={`defaultBackgroundImage${index}`} type="button" className={styles.backgroundOption}>
+                {image}
+              </button>
+            ))}
+          </div>
         </div>
-        <div className={styles.profileOptionContainer}>
-          <label className={`${styles.profileOption} ${styles.inputFileLabel}`} htmlFor="profileImage">
-            <Camera />
-          </label>
-          <input
-            type="file"
-            id="profileImage"
-            className={styles.inputFile}
-            accept=".jpg, .jpeg, .png"
-            {...newProfileImageRegister}
-            onChange={(e) => handleProfileChange(e)}
-          />
-          {MockProfile.map((image, index) => (
-            <button key={`defaultProfileImage${index}`} type="button" className={styles.profileOption}>
-              {image}
-            </button>
-          ))}
+        <div className={styles.inputContainer}>
+          <p className={styles.label}>프로필이미지</p>
+          <div className={styles.profileOptionContainer}>
+            <label className={`${styles.profileOption} ${styles.inputFileLabel}`} htmlFor="profileImage">
+              <Camera />
+            </label>
+            <input
+              type="file"
+              id="profileImage"
+              className={styles.inputFile}
+              accept=".jpg, .jpeg, .png"
+              {...newProfileImageRegister}
+              onChange={(e) => handleProfileChange(e)}
+            />
+            {MockProfile.map((image, index) => (
+              <button key={`defaultProfileImage${index}`} type="button" className={styles.profileOption}>
+                {image}
+              </button>
+            ))}
+          </div>
         </div>
       </div>
     </>
