@@ -30,8 +30,6 @@ function CommentForm({
   const [imgSrc, setImgSrc] = useState(false);
   const { isEditing } = useIsEditing();
 
-  console.log(isEditing);
-
   const { user } = useUser();
   const userId = user.id;
 
