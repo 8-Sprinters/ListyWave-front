@@ -19,6 +19,7 @@ import BlueButton from '@/components/BlueButton/BlueButton';
 import ProfileForm from './_components/ProfileForm';
 import * as styles from './page.css';
 import ImagePreview from './_components/ImagePreview';
+import ProfileSkeleton from './_components/ProfileSkeleton';
 
 /** TODO 데이터 가져오는 중 보여줄 화면 필요(로딩UI) */
 
@@ -98,14 +99,18 @@ export default function ProfilePage() {
               </BlueButton>
             }
           />
-          <main className={styles.content}>
-            <ImagePreview profileImageUrl={profilePreviewUrl} backgroundImageUrl={backgroundPreviewUrl} />
-            <ProfileForm
-              userNickname={userData?.nickname ?? ''}
-              onProfileChange={handleProfileChange}
-              onBackgroundChange={handleBackgroundChange}
-            />
-          </main>
+          {!userData ? (
+            <ProfileSkeleton />
+          ) : (
+            <main className={styles.content}>
+              <ImagePreview profileImageUrl={profilePreviewUrl} backgroundImageUrl={backgroundPreviewUrl} />
+              <ProfileForm
+                userNickname={userData?.nickname ?? ''}
+                onProfileChange={handleProfileChange}
+                onBackgroundChange={handleBackgroundChange}
+              />
+            </main>
+          )}
         </form>
       </FormProvider>
     </>
