@@ -1,12 +1,8 @@
 'use client';
 import Image from 'next/image';
 import { useEffect, useRef } from 'react';
-import { useRouter } from 'next/navigation';
 import { useQuery } from '@tanstack/react-query';
 import { assignInlineVars } from '@vanilla-extract/dynamic';
-import Slider from 'react-slick';
-import 'slick-carousel/slick/slick.css';
-import 'slick-carousel/slick/slick-theme.css';
 
 import getTrendingLists from '@/app/_api/explore/getTrendingLists';
 import { QUERY_KEYS } from '@/lib/constants/queryKeys';
@@ -18,13 +14,10 @@ import * as styles from './TrendingLists.css';
 /**@todo 트렌딩 리스트 바뀐 디자인에 맞게 새로 갈아엎을 예정 */
 
 function TrendingList() {
-  const router = useRouter();
-  const { data: trendingLists, isPending } = useQuery({
+  const { data: trendingLists } = useQuery({
     queryKey: [QUERY_KEYS.getTrendingLists],
     queryFn: () => getTrendingLists(),
   });
-
-  console.log(trendingLists);
 
   const STYLE_INDEX = (num: number) => num % 4;
 
