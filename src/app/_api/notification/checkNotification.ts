@@ -1,10 +1,8 @@
 import axiosInstance from '@/lib/axios/axiosInstance';
-import { NotificationListType } from '@/lib/types/notificationType';
+import { NotificationsType } from '@/lib/types/notificationType';
 
 const checkNotification = async (alarmId: number) => {
-  const response = await axiosInstance.patch<NotificationListType>(`/alarms/${alarmId}`);
-
-  return response;
+  await axiosInstance.patch(`/alarms/${alarmId}`);
 };
 
 export default checkNotification;
