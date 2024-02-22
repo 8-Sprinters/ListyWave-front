@@ -20,6 +20,7 @@ function UsersRecommendation({ userId }: { userId: number }) {
   const { data: usersList } = useQuery<UserProfileType[]>({
     queryKey: [QUERY_KEYS.getRecommendedUsers],
     queryFn: () => getRecommendedUsers(),
+    enabled: !!myId,
   });
 
   const handleScrollToRight = () => {
