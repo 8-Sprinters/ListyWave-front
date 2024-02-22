@@ -6,7 +6,7 @@ import { useInfiniteQuery } from '@tanstack/react-query';
 import { useMemo } from 'react';
 import { assignInlineVars } from '@vanilla-extract/dynamic';
 
-import SimpleList from '@/components/SimpleList/SimpleList';
+import SimpleList from '@/components/simpleList/SimpleList';
 import getRecommendedLists from '@/app/_api/explore/getRecommendedLists';
 import { QUERY_KEYS } from '@/lib/constants/queryKeys';
 import useIntersectionObserver from '@/hooks/useIntersectionObserver';
@@ -14,7 +14,7 @@ import { ListRecommendationType } from '@/lib/types/exploreType';
 import Label from '@/components/Label/Label';
 import * as styles from './ListsRecommendation.css';
 import NoDataComponent from '@/components/NoData/NoDataComponent';
-import { backgroundColors } from '@/lib/constants/exploreListBackgroundColor';
+import { exploreBackgroundColors } from '@/lib/constants/exploreListBackgroundColor';
 import ListRecommendationSkeleton from './ListRecommendationSkeleton';
 
 import ChevronRight from '/public/icons/chevron_right.svg';
@@ -67,7 +67,7 @@ function ListRecommendation() {
                 ) : (
                   <li
                     className={styles.listWrapper}
-                    style={assignInlineVars({ [styles.listBackground]: backgroundColors[COLOR_INDEX(index)] })}
+                    style={assignInlineVars({ [styles.listBackground]: exploreBackgroundColors[COLOR_INDEX(index)] })}
                   >
                     <div className={styles.categoryWrapper}>
                       <div className={styles.labelWrapper}>
