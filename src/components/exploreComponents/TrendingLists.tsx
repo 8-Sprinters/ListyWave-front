@@ -19,7 +19,16 @@ function TrendingList() {
     queryFn: () => getTrendingLists(),
   });
 
-  const STYLE_INDEX = (num: number) => num % 4;
+  let addedList: TrendingListType[] = [];
+
+  if (trendingLists && trendingLists.length > 0) {
+    addedList.push(trendingLists[trendingLists.length - 1]); // trendingLists의 마지막 요소를 addedList의 첫 번째로 추가
+    addedList = [...addedList, ...(trendingLists || [])]; // trendingLists를 추가
+    addedList.push(trendingLists[0]); // trendingLists의 첫 번째 요소를 addedList의 마지막으로 추가
+  }
+
+  console.log(addedList);
+  const STYLE_INDEX = (num: number) => num % 12;
 
   const ref = useRef<HTMLDivElement>(null);
 
@@ -31,7 +40,8 @@ function TrendingList() {
       const slideTimer = setInterval(() => {
         element.scrollLeft += 10;
         scrollAmount += 10;
-        if (scrollAmount >= 1000) {
+        // console.log(scroll);
+        if (scrollAmount >= 2230) {
           element.scrollLeft = 0;
           scrollAmount = 0;
         }
@@ -47,7 +57,7 @@ function TrendingList() {
       <h2 className={styles.sectionTitle}>TRENDING ️🌊 </h2>
       <div className={styles.listWrapper} ref={ref}>
         <ul className={styles.slide}>
-          {trendingLists?.map((item: TrendingListType, index) => {
+          {addedList?.map((item: TrendingListType, index) => {
             return (
               <li key={item.id}>
                 {item.itemImageUrl ? (
