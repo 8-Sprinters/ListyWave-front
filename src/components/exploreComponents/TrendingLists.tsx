@@ -19,8 +19,6 @@ function TrendingList() {
     queryFn: () => getTrendingLists(),
   });
 
-  console.log(trendingLists);
-
   const STYLE_INDEX = (num: number) => num % 4;
 
   return (

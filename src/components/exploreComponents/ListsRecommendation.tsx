@@ -6,7 +6,7 @@ import { useInfiniteQuery } from '@tanstack/react-query';
 import { useMemo } from 'react';
 import { assignInlineVars } from '@vanilla-extract/dynamic';
 
-import SimpleList from '@/components/simpleList/SimpleList';
+import SimpleList from '@/components/SimpleList/SimpleList';
 import getRecommendedLists from '@/app/_api/explore/getRecommendedLists';
 import { QUERY_KEYS } from '@/lib/constants/queryKeys';
 import useIntersectionObserver from '@/hooks/useIntersectionObserver';
