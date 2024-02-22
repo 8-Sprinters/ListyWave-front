@@ -31,8 +31,6 @@ function CommentForm({
   const { user } = useUser();
   const userId = user.id;
 
-  console.log(comment);
-
   const handleImageError = () => {
     setImgSrc(false);
   };
@@ -52,7 +50,7 @@ function CommentForm({
             onError={handleImageError}
           />
         ) : (
-          <Avatar />
+          <Avatar width={30} height={30} />
         )}
       </div>
       <div className={`${styles.formWrapperInner} ${!!activeNickname || isEditing ? styles.activeFormWrapper : ''}`}>
