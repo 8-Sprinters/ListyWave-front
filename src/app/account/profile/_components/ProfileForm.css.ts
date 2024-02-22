@@ -112,7 +112,7 @@ export const profileOption = style([
   },
 ]);
 
-export const error = style({
+export const validationMessage = style({
   marginTop: '0.6rem',
   marginLeft: '0.9rem',
 
@@ -125,5 +125,12 @@ export const errorText = style([
   caption,
   {
     color: vars.color.red,
+  },
+]);
+
+export const successText = style([
+  caption,
+  {
+    color: vars.color.blue,
   },
 ]);

@@ -1,9 +1,10 @@
 import { useFormContext, useWatch } from 'react-hook-form';
-import { ChangeEvent } from 'react';
+import { ChangeEvent, useState } from 'react';
 import { useMutation } from '@tanstack/react-query';
 
 import Camera from '/public/icons/camera.svg';
 import ErrorIcon from '/public/icons/error_x.svg';
+import CheckIcon from '/public/icons/check_blue.svg';
 
 import checkNicknameDuplication from '@/app/_api/user/checkNicknameDuplication';
 
@@ -30,10 +31,12 @@ interface ProfileFormProps {
 }
 
 export default function ProfileForm({ userNickname, onProfileChange, onBackgroundChange }: ProfileFormProps) {
+  const [isNicknameValidated, setIsNicknameValidated] = useState(false);
   const {
     register,
     control,
     setError,
+    getValues,
     formState: { errors },
   } = useFormContext<UserProfileEditType>();
 
@@ -43,6 +46,7 @@ export default function ProfileForm({ userNickname, onProfileChange, onBackgroun
   const { mutate: checkNickname } = useMutation({
     mutationFn: checkNicknameDuplication,
     onSuccess: (result) => {
+      setIsNicknameValidated(!result);
       if (result) {
         setError('nickname', nicknameDuplicateRules);
       }
@@ -52,6 +56,7 @@ export default function ProfileForm({ userNickname, onProfileChange, onBackgroun
   const debouncedOnNicknameChange = useDebounce<typeof checkNickname>(checkNickname, 500);
   const handleNicknameChange = (e: ChangeEvent<HTMLInputElement>) => {
     nicknameRegister.onChange(e);
+    setIsNicknameValidated(false);
     if (e.target.value && e.target.value !== userNickname) {
       debouncedOnNicknameChange(e.target.value);
     }
@@ -108,11 +113,19 @@ export default function ProfileForm({ userNickname, onProfileChange, onBackgroun
               }}
             />
           </div>
-          {errors.nickname && (
-            <div className={styles.error}>
-              <ErrorIcon alt="닉네임 에러" />
+          {errors.nickname ? (
+            <div className={styles.validationMessage}>
+              <ErrorIcon alt="닉네임 중복 검사 결과 실패" />
               <span className={styles.errorText}>{errors?.nickname?.message}</span>
             </div>
+          ) : (
+            getValues('nickname') !== userNickname &&
+            isNicknameValidated && (
+              <div className={styles.validationMessage}>
+                <CheckIcon alt="닉네임 중복 검사 결과 성공" />
+                <span className={styles.successText}>사용 가능한 닉네임이에요.</span>
+              </div>
+            )
           )}
         </div>
 
@@ -128,7 +141,7 @@ export default function ProfileForm({ userNickname, onProfileChange, onBackgroun
             <span className={styles.textLength}>{`${watchDescription?.length}/160`}</span>
           </div>
           {errors.description && (
-            <div className={styles.error}>
+            <div className={styles.validationMessage}>
               <ErrorIcon alt="소개 에러" />
               <span className={styles.errorText}>{errors?.description?.message}</span>
             </div>
