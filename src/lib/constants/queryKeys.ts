@@ -16,4 +16,5 @@ export const QUERY_KEYS = {
   getFollowerList: 'getFollowerList',
   getUsersByNicknameSearch: 'getUsersByNicknameSearch',
   notifications: 'notifications',
+  getHistories: 'getHistories',
 };
