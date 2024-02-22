@@ -33,6 +33,8 @@ export const blueLabel = style([
   },
 ]);
 
+export const whiteLabel = style([baseLabel, { backgroundColor: vars.color.white, color: vars.color.blue }]);
+
 export const labelContent = style({
   height: '24px',
 

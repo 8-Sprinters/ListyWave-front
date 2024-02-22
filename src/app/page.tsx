@@ -7,14 +7,20 @@ import PlusOptionFloatingButton from '@/components/floatingButton/PlusOptionFloa
 import ArrowUpFloatingButton from '@/components/floatingButton/ArrowUpFloatingButton';
 import * as styles from './page.css';
 
-function LandingPage() {
+interface ExplorePageProps {
+  params: {
+    userId: number;
+  };
+}
+
+function LandingPage({ params }: ExplorePageProps) {
   return (
     <>
       <div className={styles.wrapper}>
         <Header />
         <div>검색 및 카테고리 컴포넌트</div>
         <TrendingList />
-        <UsersRecommendation />
+        <UsersRecommendation userId={params.userId} />
         <ListRecommendation />
         <FloatingContainer>
           <PlusOptionFloatingButton />
