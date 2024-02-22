@@ -94,9 +94,11 @@ function Comment({
               <span className={styles.commentWriter}>{comment?.isDeleted ? '알 수 없음' : comment?.userNickname}</span>
               <span className={styles.commentCreatedTime}>{comment && timeDiff(comment?.updatedDate)}</span>
             </div>
-            <div className={styles.commentContent}>
-              {comment?.isDeleted ? '작성자의 요청으로 삭제된 댓글이에요.' : comment?.content}
-            </div>
+            {!comment?.isDeleted ? (
+              <p className={styles.commentContent}>{comment?.content}</p>
+            ) : (
+              <span className={styles.deletedComment}>작성자의 요청으로 삭제된 댓글이에요.</span>
+            )}
           </div>
         </div>
         {!comment?.isDeleted && currentUserInfo?.id === comment?.userId && (

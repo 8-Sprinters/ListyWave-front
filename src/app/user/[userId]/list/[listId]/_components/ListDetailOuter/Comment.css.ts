@@ -5,7 +5,7 @@ import { caption1 } from '@/styles/font.css';
 /**@todo 공용폰트 스타일 적용 */
 
 export const commentOuterWrapper = style({
-  marginBottom: '9px',
+  marginBottom: '6px',
 
   position: 'relative',
 
@@ -69,6 +69,14 @@ export const commentContent = style([
   {
     fontWeight: 500,
     lineHeight: 'normal',
+  },
+]);
+
+export const deletedComment = style([
+  commentContent,
+  {
+    fontWeight: 400,
+    color: vars.color.gray9,
   },
 ]);
 
