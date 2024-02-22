@@ -32,14 +32,17 @@ export const listWrapper = style({
   marginBottom: '30px',
   height: '229px',
 
-  display: 'flex',
-  alignItems: 'center',
-  gap: '6px',
   overflowX: 'scroll',
 
   '::-webkit-scrollbar': {
     display: 'none',
   },
+});
+
+export const slide = style({
+  display: 'flex',
+  alignItems: 'center',
+  gap: '6px',
 });
 
 export const itemWrapper = style({
