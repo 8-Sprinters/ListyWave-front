@@ -4,6 +4,7 @@ import { ChangeEvent, useState } from 'react';
 import { useUser } from '@/store/useUser';
 import * as styles from './Comments.css';
 import CancelButton from '/public/icons/cancel_button.svg';
+import Avatar from '/public/icons/avatar.svg';
 
 interface CommentFormProps {
   comment?: string;
@@ -39,16 +40,20 @@ function CommentForm({
   return (
     <div className={styles.formWrapperOuter}>
       <div className={styles.profileImageParent}>
-        <Image
-          src={imgSrc ? `${imageSrc}` : ''}
-          alt="프로필 이미지"
-          className={styles.profileImage}
-          fill
-          style={{
-            objectFit: 'cover',
-          }}
-          onError={handleImageError}
-        />
+        {imageSrc ? (
+          <Image
+            src={imageSrc}
+            alt="프로필 이미지"
+            className={styles.profileImage}
+            fill
+            style={{
+              objectFit: 'cover',
+            }}
+            onError={handleImageError}
+          />
+        ) : (
+          <Avatar />
+        )}
       </div>
       <div className={`${styles.formWrapperInner} ${!!activeNickname || isEditing ? styles.activeFormWrapper : ''}`}>
         {activeNickname && (
