@@ -10,6 +10,7 @@ import timeDiff from '@/lib/utils/time-diff';
 import { QUERY_KEYS } from '@/lib/constants/queryKeys';
 import { CommentType } from '@/lib/types/commentType';
 import { UserType } from '@/lib/types/userProfileType';
+import { useCommentId } from '@/store/useComment';
 
 import * as styles from './Comment.css';
 import DefaultProfile from '/public/icons/default_profile_temporary.svg';
@@ -39,6 +40,7 @@ function Comment({
   handleEdit,
 }: CommentProps) {
   const queryClient = useQueryClient();
+  const { setCommentId } = useCommentId();
 
   //현재 작성중인 답글의 원댓글 정보를 업데이트 하는 로직
   const handleActiveNicknameAndIdUpdate = () => {
@@ -49,6 +51,11 @@ function Comment({
     }
     onUpdate(currentUserName);
     handleSetCommentId(currentCommentId);
+  };
+
+  const handleEditButtonClick = (comment: string) => {
+    handleEdit(comment);
+    setCommentId(commentId as number);
   };
 
   //댓글 삭제 리액트 쿼리 함수
@@ -94,7 +101,7 @@ function Comment({
         </div>
         {!comment?.isDeleted && currentUserInfo?.id === comment?.userId && (
           <div className={styles.actionButtonWrapper}>
-            <button className={styles.editButton} onClick={() => comment && handleEdit(comment?.content)}>
+            <button className={styles.editButton} onClick={() => comment && handleEditButtonClick(comment?.content)}>
               <EditPen />
             </button>
             <DeleteModalButton onDelete={handleClickDeleteButton} />

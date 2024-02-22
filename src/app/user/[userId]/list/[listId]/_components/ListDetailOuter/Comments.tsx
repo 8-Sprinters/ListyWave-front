@@ -7,6 +7,8 @@ import Comment from './Comment';
 import CommentsSkeleton from './CommentsSkeleton';
 import createComment from '@/app/_api/comment/createComment';
 import createReply from '@/app/_api/comment/createReply';
+import editComment from '@/app/_api/comment/EditComment';
+import editReply from '@/app/_api/comment/EditReply';
 import getComments from '@/app/_api/comment/getComments';
 import getUserOne from '@/app/_api/user/getUserOne';
 import useIntersectionObserver from '@/hooks/useIntersectionObserver';
@@ -14,7 +16,7 @@ import { QUERY_KEYS } from '@/lib/constants/queryKeys';
 import { CommentType } from '@/lib/types/commentType';
 import { UserType } from '@/lib/types/userProfileType';
 import { useUser } from '@/store/useUser';
-import useCommentIdStore from '@/store/useCommentIdStore';
+import { useReplyId, useCommentId, useCommentIdStore, useIsEditing } from '@/store/useComment';
 import Modal from '@/components/Modal/Modal';
 import CommentForm from './CommentForm';
 import LoginModal from '@/components/login/LoginModal';
@@ -24,13 +26,18 @@ import * as styles from './Comments.css';
 
 function Comments() {
   const [activeNickname, setActiveNickname] = useState<string | null | undefined>(null);
-  const [commentId, setCommentId] = useState<null | number>(null);
   const [comment, setComment] = useState<string>('');
   const params = useParams<{ listId: string }>();
-  const [isEditing, setIsEditing] = useState(false);
+  // const [isEditing, setIsEditing] = useState(false);
   const queryClient = useQueryClient();
   const { addCommentId } = useCommentIdStore();
   const { isOn, handleSetOff, handleSetOn } = useBooleanOutput();
+  const { replyId, deleteReplyId } = useReplyId();
+  const { commentId, setCommentId, deleteCommentId } = useCommentId();
+  const { setIsEditing, setIsNotEditing, setToggleEditing, isEditing } = useIsEditing();
+
+  console.log(commentId);
+  console.log(comment);
 
   //zustand로 관리하는 user정보 불러오기
   const { user } = useUser();
@@ -76,7 +83,7 @@ function Comments() {
   const handleReplyInformationDelete = () => {
     if (activeNickname) {
       setActiveNickname(null);
-      setCommentId(null);
+      deleteCommentId();
     }
   };
 
@@ -95,14 +102,16 @@ function Comments() {
   //댓글 수정 버튼 클릭시, 댓글 수정을 위한 폼 셋팅
   const handleEditComment = (comment?: string) => {
     if (comment) {
-      setIsEditing(true);
+      setIsEditing();
       setComment(comment);
     }
   };
 
   const handleCancelEdit = () => {
-    setIsEditing(false);
+    setIsNotEditing();
     setComment('');
+    deleteCommentId();
+    deleteReplyId();
   };
 
   //댓글 생성 리액트 쿼리 함수
@@ -125,8 +134,23 @@ function Comments() {
     },
     onSettled: () => {
       setComment('');
-      setCommentId(null);
+      deleteCommentId();
       setActiveNickname(null);
+    },
+  });
+
+  //댓글 수정 리액트 쿼리 함수
+  const editCommentMutation = useMutation({
+    mutationFn: () => editComment(Number(params?.listId) as number, commentId as number, comment),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: [QUERY_KEYS.getComments] });
+      addCommentId(commentId as number);
+      setIsNotEditing();
+    },
+    onSettled: () => {
+      setComment('');
+      deleteCommentId();
+      setIsNotEditing();
     },
   });
 
@@ -139,6 +163,14 @@ function Comments() {
     }
     if (commentId && activeNickname) {
       createReplyMutation.mutate();
+      return;
+    }
+    if (isEditing) {
+      if (replyId) {
+        return;
+      }
+      editCommentMutation.mutate();
+      setIsNotEditing();
       return;
     }
     createCommentMutation.mutate();

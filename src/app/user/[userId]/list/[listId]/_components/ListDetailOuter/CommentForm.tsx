@@ -2,6 +2,7 @@ import Image from 'next/image';
 import { ChangeEvent, useState } from 'react';
 
 import { useUser } from '@/store/useUser';
+import { useIsEditing } from '@/store/useComment';
 import * as styles from './Comments.css';
 import CancelButton from '/public/icons/cancel_button.svg';
 import Avatar from '/public/icons/avatar.svg';
@@ -24,10 +25,13 @@ function CommentForm({
   activeNickname,
   handleSubmit,
   handleUpdate,
-  isEditing,
   handleCancel,
 }: CommentFormProps) {
   const [imgSrc, setImgSrc] = useState(false);
+  const { isEditing } = useIsEditing();
+
+  console.log(isEditing);
+
   const { user } = useUser();
   const userId = user.id;
 
