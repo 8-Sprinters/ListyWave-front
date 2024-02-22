@@ -1,10 +1,9 @@
-import axios, { AxiosRequestConfig } from 'axios';
-// import { useUser } from '@/store/useUser';
-import { getCookie } from '../utils/cookie';
+import axios from 'axios';
+import { getCookie, setCookie } from '../utils/cookie';
 
 const axiosInstance = axios.create({
   baseURL: 'https://dev.api.listywave.com',
-  withCredentials: true, // refreshToken을 고려해서 true로 설정
+  // withCredentials: true, // refreshToken을 고려해서 true로 설정
 });
 
 axiosInstance.interceptors.request.use(
@@ -23,6 +22,43 @@ axiosInstance.interceptors.request.use(
   },
   (error) => {
     console.log(error);
+    return Promise.reject(error);
+  }
+);
+
+// (참고) refresh도 만료되어, 쿠키에 없다면 로그인으로 리다이렉트
+
+// interceptors header로 보내기 버전 - 방법 2
+axiosInstance.interceptors.response.use(
+  (res) => res,
+  async (error) => {
+    console.log(error);
+
+    const originalRequest = error.config;
+    const refreshToken = getCookie('refreshToken');
+    // console.log(refreshToken);
+    // console.log(!originalRequest._retry);
+
+    if (
+      error.response?.status === 401 &&
+      error.response?.data.code === 'INVALID_ACCESS_TOKEN' &&
+      !originalRequest._retry
+    ) {
+      const { data } = await axios.get('https://dev.api.listywave.com/auth/token', {
+        _retry: true, // TODO 무한루프 방지 다른 방법 고안
+        headers: {
+          Authorization: `Bearer ${refreshToken}`,
+        },
+      });
+      console.log(data);
+
+      originalRequest._retry = true;
+      const newAccessToken = data.accessToken;
+      setCookie('accessToken', newAccessToken, 'AT');
+
+      originalRequest.headers.authorization = `Bearer ${newAccessToken}`;
+      return axiosInstance(originalRequest);
+    }
     return Promise.reject(error);
   }
 );
