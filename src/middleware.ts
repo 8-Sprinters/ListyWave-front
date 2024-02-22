@@ -11,6 +11,8 @@ export function middleware(request: NextRequest) {
   const accessToken = getCookie('accessToken');
 
   if (!accessToken && REQUIRED_TOKEN.includes(request.nextUrl.pathname)) {
-    return NextResponse.rewrite(new URL('/login', request.url));
+    const url = new URL('/', request.url);
+    url.searchParams.set('loginRequired', 'true'); // 쿼리 파라미터 추가
+    return NextResponse.redirect(url);
   }
 }
