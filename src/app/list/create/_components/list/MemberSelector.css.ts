@@ -1,21 +1,28 @@
 import { style } from '@vanilla-extract/css';
+import { vars } from '@/styles/theme.css';
+import * as fonts from '@/styles/font.css';
 
 export const container = style({
   position: 'relative',
 });
 
-export const inputBox = style({
-  width: '100%',
-  padding: '10px',
-  paddingLeft: '30px',
+export const inputBox = style([
+  fonts.bodyMedium,
+  {
+    width: '100%',
+    padding: '10px',
+    paddingLeft: '30px',
 
-  fontSize: '1.5rem',
+    borderRadius: '10px',
+    border: `1px solid ${vars.color.gray5}`,
+    outline: 'none',
+    cursor: 'pointer',
 
-  borderRadius: '10px',
-  border: '1px solid rgba(0, 0, 0, 0.1)',
-  outline: 'none',
-  cursor: 'pointer',
-});
+    '::placeholder': {
+      color: `${vars.color.gray7}`,
+    },
+  },
+]);
 
 export const dropdown = style({
   height: '152px',
@@ -28,7 +35,7 @@ export const dropdown = style({
   rowGap: '5px',
 
   borderRadius: '10px',
-  border: '1px solid rgba(0, 0, 0, 0.1)',
+  border: `1px solid ${vars.color.gray5}`,
 
   overflowY: 'auto',
   transition: 'height 0.3s ease-in-out',
@@ -75,7 +82,7 @@ export const checkedIcon = style({
 
 export const noResultMessage = style({
   textAlign: 'center',
-  color: '#909090',
+  color: vars.color.gray7,
 });
 
 export const error = style({

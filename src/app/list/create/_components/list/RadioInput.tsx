@@ -29,9 +29,10 @@ function RadioInput({ messages, onClick, defaultValue }: RadioInputProps) {
   return (
     <>
       <div className={styles.container}>
-        <label>
+        <label className={styles.label}>
           <input
             type="radio"
+            className={styles.radioInput}
             checked={value}
             readOnly
             onClick={() => {
@@ -42,9 +43,10 @@ function RadioInput({ messages, onClick, defaultValue }: RadioInputProps) {
           공개
         </label>
 
-        <label>
+        <label className={styles.label}>
           <input
             type="radio"
+            className={styles.radioInput}
             checked={!value}
             readOnly
             onClick={() => {

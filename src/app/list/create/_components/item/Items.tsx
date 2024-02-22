@@ -15,8 +15,8 @@ import { getListDetail } from '@/app/_api/list/getLists';
 import ItemLayout from './ItemLayout';
 import LinkModal from './LinkModal';
 import Preview from './Preview';
-import * as styles from './Items.css';
 import AddItemButton from './AddItemButton';
+import * as styles from './Items.css';
 
 // http:// 없을경우 추가
 const ensureHttp = (link: string) => {
