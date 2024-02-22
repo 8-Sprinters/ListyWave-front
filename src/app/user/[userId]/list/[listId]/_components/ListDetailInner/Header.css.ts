@@ -6,12 +6,6 @@ export const container = style({
   padding: ' 0 3rem 0 4rem',
 
   display: 'flex',
-  justifyContent: 'space-between',
+  justifyContent: 'flex-end',
   alignItems: 'center',
-});
-
-export const viewCountWrapper = style({
-  display: 'flex',
-  alignItems: 'center',
-  gap: '.5rem',
 });
