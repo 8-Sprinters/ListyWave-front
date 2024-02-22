@@ -39,6 +39,10 @@ export const listWrapper = style({
   },
 });
 
+export const listItem = style({
+  cursor: 'pointer',
+});
+
 export const slide = style({
   display: 'flex',
   alignItems: 'center',
@@ -55,6 +59,7 @@ export const itemWrapper = style({
 
   background: customBackgroundColor,
   border: customItemBorder,
+  cursor: 'pointer',
 });
 
 export const itemWrapperWithImage = style([

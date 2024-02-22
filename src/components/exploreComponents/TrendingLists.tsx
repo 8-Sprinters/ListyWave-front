@@ -5,6 +5,7 @@ import { useQuery } from '@tanstack/react-query';
 import { assignInlineVars } from '@vanilla-extract/dynamic';
 
 import getTrendingLists from '@/app/_api/explore/getTrendingLists';
+import useMoveToPage from '@/hooks/useMoveToPage';
 import { QUERY_KEYS } from '@/lib/constants/queryKeys';
 import { TrendingListType } from '@/lib/types/exploreType';
 import { CUSTOM_WRAPPER, CUSTOM_PADDING, CUSTOM_BORDER_RADIUS } from '@/lib/constants/trendingListCustomStyle';
@@ -14,6 +15,8 @@ import * as styles from './TrendingLists.css';
 /**@todo 트렌딩 리스트 바뀐 디자인에 맞게 새로 갈아엎을 예정 */
 
 function TrendingList() {
+  const { onClickMoveToPage } = useMoveToPage();
+
   const { data: trendingLists } = useQuery({
     queryKey: [QUERY_KEYS.getTrendingLists],
     queryFn: () => getTrendingLists(),
@@ -27,7 +30,6 @@ function TrendingList() {
     addedList.push(trendingLists[0]); // trendingLists의 첫 번째 요소를 addedList의 마지막으로 추가
   }
 
-  console.log(addedList);
   const STYLE_INDEX = (num: number) => num % 12;
 
   const ref = useRef<HTMLDivElement>(null);
@@ -41,7 +43,7 @@ function TrendingList() {
         element.scrollLeft += 10;
         scrollAmount += 10;
         // console.log(scroll);
-        if (scrollAmount >= 2230) {
+        if (scrollAmount >= 2325) {
           element.scrollLeft = 0;
           scrollAmount = 0;
         }
@@ -59,7 +61,7 @@ function TrendingList() {
         <ul className={styles.slide}>
           {addedList?.map((item: TrendingListType, index) => {
             return (
-              <li key={item.id}>
+              <li key={item.id} onClick={onClickMoveToPage(`/list/${item.id}`)}>
                 {item.itemImageUrl ? (
                   <div
                     className={styles.itemWrapperWithImage}
