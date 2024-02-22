@@ -10,9 +10,6 @@ export interface NotificationType {
   createdDate: string;
   checked: boolean;
 }
-
-export type NotificationsType = NotificationType[];
-
-export interface NotificationListType {
-  alarmList: NotificationsType;
+export interface NotificationsType {
+  alarmList: NotificationType[];
 }

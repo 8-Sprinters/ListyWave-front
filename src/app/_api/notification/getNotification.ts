@@ -1,10 +1,10 @@
 import axiosInstance from '@/lib/axios/axiosInstance';
-import { NotificationListType } from '@/lib/types/notificationType';
+import { NotificationsType } from '@/lib/types/notificationType';
 
 const getNotifications = async () => {
-  const response = await axiosInstance.get<NotificationListType>('/alarms');
+  const response = await axiosInstance.get<NotificationsType>('/alarms');
 
-  return response.data.alarmList;
+  return response.data;
 };
 
 export default getNotifications;

@@ -86,13 +86,13 @@ export default function NotificationList() {
 
   const DIVISION_STANDARD_DAYS = 7;
 
-  const firstOldNotificationsIndex = data?.findIndex((notification) => {
+  const firstOldNotificationsIndex = data?.alarmList?.findIndex((notification) => {
     return getTimeDiff(notification.createdDate) > 60 * 60 * 24 * DIVISION_STANDARD_DAYS;
   });
 
   return (
     <main className={styles.main}>
-      {data?.length === 0 ? (
+      {data?.alarmList?.length === 0 ? (
         /**TODO: NO DATA 공용 컴포넌트 사용하기 */
         <div className={styles.noData}>
           <NoDataImage alt="데이터가 없을 때 이미지" />
@@ -105,7 +105,7 @@ export default function NotificationList() {
             {isLoading ? (
               <NotificationListSkeleton />
             ) : (
-              data?.map((notification, index) => {
+              data?.alarmList?.map((notification, index) => {
                 const message = dataToMessage(notification, 'ko');
                 return (
                   <>
