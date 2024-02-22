@@ -61,6 +61,20 @@ export const itemWrapperWithImage = style([
     backgroundRepeat: 'no-repeat',
     backgroundSize: 'cover',
     backgroundPosition: 'center',
+    zIndex: 0,
+
+    selectors: {
+      '&:after': {
+        content: '',
+        position: 'absolute',
+        top: 0,
+        left: 0,
+        width: '100%',
+        height: '100%',
+        backgroundColor: 'rgba(0, 0, 0, 0.3)',
+        borderRadius: customBorderRadius,
+      },
+    },
   },
 ]);
 
@@ -83,6 +97,7 @@ export const itemTitle = style([
     marginBottom: '16px',
     color: customFontColor,
     textAlign: 'center',
+    zIndex: 1,
   },
 ]);
 
@@ -117,34 +132,6 @@ export const ownerNickname = style([
   caption,
   {
     color: customFontColor,
+    zIndex: 1,
   },
 ]);
-
-export const trendingListTitle = style({
-  color: itemFontColor,
-  fontSize: '2.2rem',
-  fontWeight: 600,
-  letterSpacing: '-0.6',
-});
-
-export const trendingListDescription = style({
-  color: itemFontColor,
-  fontSize: '1.4rem',
-  fontWeight: 400,
-  letterSpacing: '-0.42px',
-});
-
-export const listInformationWrapper = style({
-  padding: '0 26px',
-
-  display: 'flex',
-  flexDirection: 'column',
-  gap: '15px',
-});
-
-export const black = style({
-  width: '100%',
-  height: '100%',
-
-  background: 'rgba(25, 25, 27, 0.5)',
-});

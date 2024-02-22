@@ -75,7 +75,12 @@ interface TrendingListInformationType {
 function TrendingListInformation({ item }: TrendingListInformationType) {
   return (
     <div className={styles.itemInformationWrapper}>
-      <div className={styles.itemTitle}>{item.title}</div>
+      <div
+        className={styles.itemTitle}
+        style={assignInlineVars({ [styles.customFontColor]: item.itemImageUrl ? '#fff' : '#000' })}
+      >
+        {item.title}
+      </div>
       <div className={styles.ownerProfileWrapper}>
         <div className={styles.profileImageWrapper}>
           <div className={styles.profileTransparentBlack}></div>
@@ -87,7 +92,12 @@ function TrendingListInformation({ item }: TrendingListInformationType) {
             className={styles.profileImage}
           />
         </div>
-        <span className={styles.ownerNickname}>{item.ownerNickname}</span>
+        <span
+          className={styles.ownerNickname}
+          style={assignInlineVars({ [styles.customFontColor]: item.itemImageUrl ? '#fff' : '#000' })}
+        >
+          {item.ownerNickname}
+        </span>
       </div>
     </div>
   );
