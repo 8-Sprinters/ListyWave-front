@@ -2,13 +2,12 @@
 
 import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
-import { getCookie } from './lib/utils/cookie';
 
 const REQUIRED_TOKEN = ['/account', '/start-listy', '/list/create', '/collection', '/notification'];
 
-export function middleware(request: NextRequest) {
+export async function middleware(request: NextRequest) {
   // 만약, 쿠키에 accessToken이 없다면 '/'페이지로 리다이렉트
-  const accessToken = getCookie('accessToken');
+  const accessToken = request.cookies.get('accessToken');
 
   if (!accessToken && REQUIRED_TOKEN.includes(request.nextUrl.pathname)) {
     const url = new URL('/', request.url);
