@@ -32,6 +32,18 @@ export const profileContainer = style({
   display: 'flex',
   flexDirection: 'column',
   gap: '1.5rem',
+
+  '@media': {
+    'screen and (max-width: 414px)': {
+      padding: '0 3rem',
+    },
+    'screen and (max-width: 400px)': {
+      padding: '0 2rem',
+    },
+    'screen and (max-width: 390px)': {
+      padding: '0 1.5rem',
+    },
+  },
 });
 
 export const icon = style({
@@ -76,6 +88,12 @@ export const nickName = style({
   fontWeight: ' 700',
   color: vars.color.black,
   letterSpacing: '-0.6px',
+
+  '@media': {
+    'screen and (max-width: 414px)': {
+      fontSize: '1.8rem',
+    },
+  },
 });
 
 export const follow = style({

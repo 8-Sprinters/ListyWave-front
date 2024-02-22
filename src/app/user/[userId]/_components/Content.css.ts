@@ -1,5 +1,6 @@
-import { style, styleVariants } from '@vanilla-extract/css';
+import { style } from '@vanilla-extract/css';
 import { vars } from '@/styles/theme.css';
+import { bodyLarge } from '@/styles/font.css';
 
 export const container = style({
   width: '100%',
@@ -17,60 +18,51 @@ export const options = style({
   height: '6.4rem',
   display: 'flex',
   borderBottom: '1px solid rgba(0, 0, 0, 0.10)',
+  borderTopLeftRadius: '2.5rem',
+  borderTopRightRadius: '2.5rem',
 });
 
 export const link = style({
+  padding: '0 1.5rem',
+  display: 'flex',
+  flexDirection: 'column',
+  alignItems: 'center',
+  justifyContent: 'center',
+
   flexGrow: '1',
   textDecoration: 'none',
   color: vars.color.black,
 });
 
-export const button = style({
-  width: '100%',
-  height: '100%',
-
-  backgroundColor: vars.color.white,
-  borderTop: '1px solid rgba(0, 0, 0, 0.25)',
-  borderBottom: '1px solid rgba(0, 0, 0, 0.10)',
-
-  /** TODO - 공용폰트 body large 적용 */
-  fontSize: '1.6rem',
-  fontWeight: '500',
-});
-
-export const leftButton = style([
-  button,
+export const button = style([
+  bodyLarge,
   {
-    paddingLeft: '5.75rem',
-    borderTopLeftRadius: '2.5rem',
+    height: '100%',
+
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'center',
+
+    backgroundColor: vars.color.white,
   },
 ]);
 
-export const rightButton = style([
-  button,
+export const line = style({
+  width: '60%',
+  height: '5px',
+  borderRadius: '50px',
+});
+
+export const currentLine = style([
+  line,
   {
-    paddingRight: '5.75rem',
-    borderTopRightRadius: '2.5rem',
+    backgroundColor: vars.color.blue,
   },
 ]);
 
 export const cards = style({
   padding: '2.1rem',
-});
-
-export const variantLine = styleVariants({
-  left: [
-    {
-      position: 'absolute',
-      left: '22%',
-    },
-  ],
-  right: [
-    {
-      position: 'absolute',
-      left: '57%',
-    },
-  ],
 });
 
 export const target = style({
