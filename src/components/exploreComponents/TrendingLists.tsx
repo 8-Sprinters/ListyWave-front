@@ -20,6 +20,8 @@ function TrendingList() {
     queryFn: () => getTrendingLists(),
   });
 
+  console.log(trendingLists);
+
   const STYLE_INDEX = (num: number) => num % 4;
 
   return (
@@ -29,24 +31,33 @@ function TrendingList() {
         {trendingLists?.map((item: TrendingListType, index) => {
           return (
             <li key={item.id}>
-              <div
-                className={styles.itemWrapper}
-                style={assignInlineVars({
-                  [styles.customWidth]: CUSTOM_WRAPPER[STYLE_INDEX(index)],
-                  [styles.customPadding]: CUSTOM_PADDING[STYLE_INDEX(index)],
-                  [styles.customBorderRadius]: CUSTOM_BORDER_RADIUS[STYLE_INDEX(index)],
-                  [styles.customBackgroundColor]: item.backgroundColor,
-                  [styles.customItemBorder]: item.backgroundColor === '#FFFFFF' ? '1px solid #EFEFF0' : 'none',
-                })}
-              >
-                <div className={styles.itemInformationWrapper}>
-                  <div className={styles.itemTitle}>{item.title}</div>
-                  <div className={styles.ownerProfileWrapper}>
-                    <div className={styles.temporaryCircle}></div>
-                    <span>nickname</span>
-                  </div>
+              {item.itemImageUrl ? (
+                <div
+                  className={styles.itemWrapperWithImage}
+                  style={assignInlineVars({
+                    [styles.customBackgroundImage]: `url(${item.itemImageUrl})`,
+                    [styles.customWidth]: CUSTOM_WRAPPER[STYLE_INDEX(index)],
+                    [styles.customPadding]: CUSTOM_PADDING[STYLE_INDEX(index)],
+                    [styles.customBorderRadius]: CUSTOM_BORDER_RADIUS[STYLE_INDEX(index)],
+                  })}
+                >
+                  {/* <Image src={item.itemImageUrl} alt="트렌딩 리스트 배경" fill /> */}
+                  <TrendingListInformation item={item} />
                 </div>
-              </div>
+              ) : (
+                <div
+                  className={styles.itemWrapper}
+                  style={assignInlineVars({
+                    [styles.customWidth]: CUSTOM_WRAPPER[STYLE_INDEX(index)],
+                    [styles.customPadding]: CUSTOM_PADDING[STYLE_INDEX(index)],
+                    [styles.customBorderRadius]: CUSTOM_BORDER_RADIUS[STYLE_INDEX(index)],
+                    [styles.customBackgroundColor]: item.backgroundColor,
+                    [styles.customItemBorder]: item.backgroundColor === '#FFFFFF' ? '1px solid #EFEFF0' : 'none',
+                  })}
+                >
+                  <TrendingListInformation item={item} />
+                </div>
+              )}
             </li>
           );
         })}
@@ -56,3 +67,28 @@ function TrendingList() {
 }
 
 export default TrendingList;
+
+interface TrendingListInformationType {
+  item: TrendingListType;
+}
+
+function TrendingListInformation({ item }: TrendingListInformationType) {
+  return (
+    <div className={styles.itemInformationWrapper}>
+      <div className={styles.itemTitle}>{item.title}</div>
+      <div className={styles.ownerProfileWrapper}>
+        <div className={styles.profileImageWrapper}>
+          <div className={styles.profileTransparentBlack}></div>
+          <Image
+            src={item.ownerProfileImageUrl}
+            alt="사용자 이미지"
+            fill
+            style={{ objectFit: 'cover' }}
+            className={styles.profileImage}
+          />
+        </div>
+        <span className={styles.ownerNickname}>{item.ownerNickname}</span>
+      </div>
+    </div>
+  );
+}

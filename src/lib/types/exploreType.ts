@@ -1,6 +1,8 @@
 export interface TrendingListType {
   id: number;
   ownerId: number;
+  ownerNickname: string;
+  ownerProfileImageUrl: string;
   title: string;
   description: string;
   backgroundColor: string;

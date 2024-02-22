@@ -13,6 +13,7 @@ export const customBorderRadius = createVar();
 export const customBackgroundColor = createVar();
 export const customFontColor = createVar();
 export const customItemBorder = createVar();
+export const customBackgroundImage = createVar();
 
 export const sectionTitle = style([
   headlineSmall,
@@ -47,43 +48,19 @@ export const itemWrapper = style({
   padding: customPadding,
   borderRadius: customBorderRadius,
 
+  position: 'relative',
+
   background: customBackgroundColor,
   border: customItemBorder,
 });
 
-export const itemWrapperStyle1 = style([
+export const itemWrapperWithImage = style([
   itemWrapper,
   {
-    width: '258px',
-    padding: '68px 52px',
-    borderRadius: '80px',
-  },
-]);
-
-export const itemWrapperStyle2 = style([
-  itemWrapper,
-  {
-    width: '190px',
-    padding: '68px 29px',
-    borderRadius: '180px',
-  },
-]);
-
-export const itemWrapperStyle3 = style([
-  itemWrapper,
-  {
-    width: '258px',
-    padding: '68px 52px',
-    borderRadius: '80px',
-  },
-]);
-
-export const itemWrapperStyle4 = style([
-  itemWrapper,
-  {
-    width: '172px',
-    padding: '68px 20px',
-    borderRadius: '30px',
+    backgroundImage: customBackgroundImage,
+    backgroundRepeat: 'no-repeat',
+    backgroundSize: 'cover',
+    backgroundPosition: 'center',
   },
 ]);
 
@@ -109,13 +86,31 @@ export const itemTitle = style([
   },
 ]);
 
-export const temporaryCircle = style({
+export const profileImageWrapper = style({
   width: '32px',
   height: '32px',
 
+  position: 'relative',
+
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+});
+
+export const profileImage = style({
   background: vars.color.gray5,
   borderRadius: '50px',
   border: `2px solid ${vars.color.white}`,
+});
+
+export const profileTransparentBlack = style({
+  width: '100%',
+  height: '100%',
+
+  border: `2px solid ${vars.color.white}`,
+  borderRadius: '50px',
+  backgroundColor: 'rgba(0, 0, 0, 0.1)',
+  zIndex: 1,
 });
 
 export const ownerNickname = style([
@@ -145,10 +140,6 @@ export const listInformationWrapper = style({
   display: 'flex',
   flexDirection: 'column',
   gap: '15px',
-});
-
-export const backgroundImage = style({
-  zIndex: -2,
 });
 
 export const black = style({
