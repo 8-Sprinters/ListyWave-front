@@ -81,8 +81,6 @@ function Reply({ reply, listId, currentUserInfo, handleEdit, commentId }: ReplyP
     },
   });
 
-  console.log(reply);
-
   const handleEditButtonClick = (content: string) => {
     handleEdit(content);
     setCommentId(commentId as number);
