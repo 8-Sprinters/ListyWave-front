@@ -39,7 +39,7 @@ export default function TempLayout({ children }: { children: ReactNode }) {
           <div id="modal-root" />
           <div>
             {children}
-            {/* <BottomNav /> */}
+            <BottomNav />
           </div>
           <ToastContainer />
         </QueryClientProvider>
