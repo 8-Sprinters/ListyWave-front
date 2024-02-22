@@ -4,7 +4,7 @@ import Header from '@/components/Header/Header';
 import NotificationList from './_components/NotificationList';
 import useMoveToPage from '@/hooks/useMoveToPage';
 
-export default function notificationPage() {
+export default function NotificationPage() {
   const { onClickMoveToPage } = useMoveToPage();
   return (
     <>
