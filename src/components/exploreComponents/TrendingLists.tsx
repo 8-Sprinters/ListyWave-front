@@ -31,7 +31,7 @@ function TrendingList() {
           return (
             <li key={item.id}>
               <div
-                className={styles[`itemWrapperStyle${STYLE_INDEX(index) + 1}`]}
+                className={styles.wrapper}
                 style={assignInlineVars({
                   [styles.customBackgroundColor]: item.backgroundColor,
                   [styles.customItemBorder]: item.backgroundColor === '#FFFFFF' ? '1px solid #EFEFF0' : 'none',

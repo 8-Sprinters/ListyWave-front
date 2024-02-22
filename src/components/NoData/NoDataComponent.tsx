@@ -1,7 +1,7 @@
 import Image from 'next/image';
 
 import * as styles from './NoData.css';
-import NoDataImg from '/public/images/NoDataImage.png';
+import NoDataImg from '/public/images/no_data_image.png';
 import { ReactNode } from 'react';
 
 function NoDataComponent({ message, button }: { message: string; button?: ReactNode }) {

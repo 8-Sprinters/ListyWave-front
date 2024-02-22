@@ -38,14 +38,13 @@ function UsersRecommendation({ userId }: { userId: number }) {
           <h2 className={styles.sectionTitle}>HI, LISTER 👋</h2>
           {usersList?.length !== 0 && (
             <ul className={styles.recommendUsersListWrapper} ref={wrapperRef}>
-              {usersList &&
-                usersList?.map((item: UserProfileType) => {
-                  return (
-                    <li key={item.id}>
-                      <UserRecommendListItem data={item} handleScrollToRight={handleScrollToRight} userId={userId} />
-                    </li>
-                  );
-                })}
+              {usersList?.map((item: UserProfileType) => {
+                return (
+                  <li key={item.id}>
+                    <UserRecommendListItem data={item} handleScrollToRight={handleScrollToRight} userId={userId} />
+                  </li>
+                );
+              })}
             </ul>
           )}
         </div>
