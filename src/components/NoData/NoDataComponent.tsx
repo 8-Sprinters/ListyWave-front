@@ -1,5 +1,3 @@
-import Image from 'next/image';
-
 import * as styles from './NoData.css';
 import NoDataImg from '/public/images/no_data_image.svg';
 import { ReactNode } from 'react';

@@ -7,6 +7,9 @@ import { headlineSmall, titleMedium, caption } from '@/styles/font.css';
 export const blackLayer = createVar();
 export const itemFontColor = createVar();
 
+export const customWidth = createVar();
+export const customPadding = createVar();
+export const customBorderRadius = createVar();
 export const customBackgroundColor = createVar();
 export const customFontColor = createVar();
 export const customItemBorder = createVar();
@@ -40,6 +43,9 @@ export const listWrapper = style({
 
 export const itemWrapper = style({
   height: '229px',
+  width: customWidth,
+  padding: customPadding,
+  borderRadius: customBorderRadius,
 
   background: customBackgroundColor,
   border: customItemBorder,
@@ -118,31 +124,6 @@ export const ownerNickname = style([
     color: customFontColor,
   },
 ]);
-
-export const swiper = style({
-  width: '100%',
-  height: '180px',
-});
-
-export const swiperSlide = style({
-  // padding: '0 26px',
-  width: '100%',
-  height: 'inherit',
-
-  display: 'flex',
-  flexDirection: 'column',
-  alignItems: 'flex-start',
-  justifyContent: 'center',
-  gap: '15px',
-});
-
-export const swiperContainer = style({
-  width: '100%',
-  height: '100%',
-
-  background: blackLayer,
-  cursor: 'pointer',
-});
 
 export const trendingListTitle = style({
   color: itemFontColor,

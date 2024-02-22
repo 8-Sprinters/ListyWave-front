@@ -2,11 +2,12 @@
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { useQuery } from '@tanstack/react-query';
-import { QUERY_KEYS } from '@/lib/constants/queryKeys';
-import getTrendingLists from '@/app/_api/explore/getTrendingLists';
-import { TrendingListType } from '@/lib/types/exploreType';
 import { assignInlineVars } from '@vanilla-extract/dynamic';
-import 'swiper/css';
+
+import getTrendingLists from '@/app/_api/explore/getTrendingLists';
+import { QUERY_KEYS } from '@/lib/constants/queryKeys';
+import { TrendingListType } from '@/lib/types/exploreType';
+import { CUSTOM_WRAPPER, CUSTOM_PADDING, CUSTOM_BORDER_RADIUS } from '@/lib/constants/trendingListCustomStyle';
 
 import * as styles from './TrendingLists.css';
 
@@ -29,8 +30,11 @@ function TrendingList() {
           return (
             <li key={item.id}>
               <div
-                className={styles.wrapper}
+                className={styles.itemWrapper}
                 style={assignInlineVars({
+                  [styles.customWidth]: CUSTOM_WRAPPER[STYLE_INDEX(index)],
+                  [styles.customPadding]: CUSTOM_PADDING[STYLE_INDEX(index)],
+                  [styles.customBorderRadius]: CUSTOM_BORDER_RADIUS[STYLE_INDEX(index)],
                   [styles.customBackgroundColor]: item.backgroundColor,
                   [styles.customItemBorder]: item.backgroundColor === '#FFFFFF' ? '1px solid #EFEFF0' : 'none',
                 })}
