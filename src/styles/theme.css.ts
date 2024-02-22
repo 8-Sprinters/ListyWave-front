@@ -14,6 +14,12 @@ export const vars = createThemeContract({
     yellow: 'color-yellow',
     red: 'color-red',
   },
+  breakpoints: {
+    common: 'mobile-common',
+    medium: 'mobile-medium',
+    mediumSmall: 'mobile-mediumSmall',
+    small: 'mobile-small',
+  },
 });
 
 createGlobalTheme(':root', vars, {
@@ -29,5 +35,11 @@ createGlobalTheme(':root', vars, {
     lightblue: '#EBF4FF',
     yellow: '#FFF6A5',
     red: '#FF5454',
+  },
+  breakpoints: {
+    common: '414px',
+    medium: '400px',
+    mediumSmall: '390px',
+    small: '375px',
   },
 });

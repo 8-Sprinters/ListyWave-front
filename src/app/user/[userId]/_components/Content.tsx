@@ -105,7 +105,7 @@ export default function Content({ userId, type }: ContentProps) {
       )}
       <Categories handleFetchListsOnCategory={handleFetchListsOnCategory} selectedCategory={selectedCategory} />
       <div className={styles.cards}>
-        <MasonryGrid gap={16} defaultDirection={'end'} align={'start'}>
+        <MasonryGrid className="container" gap={16} defaultDirection={'end'} align={'start'} column={2}>
           {lists.map((list) => (
             <Card key={list.id} list={list} isOwner={!!userData?.isOwner} userId={userId} />
           ))}
