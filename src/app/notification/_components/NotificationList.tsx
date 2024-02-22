@@ -84,10 +84,10 @@ export default function NotificationList() {
     return diff;
   };
 
-  const CUTOFF_DATE = 7;
+  const DIVISION_STANDARD_DAYS = 7;
 
   const firstOldNotificationsIndex = data?.findIndex((notification) => {
-    return getTimeDiff(notification.createdDate) > 60 * 60 * 24 * CUTOFF_DATE;
+    return getTimeDiff(notification.createdDate) > 60 * 60 * 24 * DIVISION_STANDARD_DAYS;
   });
 
   return (
