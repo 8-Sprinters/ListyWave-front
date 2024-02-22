@@ -42,7 +42,7 @@ export const listWrapper = style({
 export const slide = style({
   display: 'flex',
   alignItems: 'center',
-  gap: '6px',
+  gap: '12px',
 });
 
 export const itemWrapper = style({
