@@ -64,7 +64,7 @@ function CommentForm({
         )}
         {isEditing && (
           <div className={styles.activeReplyWrapper}>
-            <span className={styles.replyNickname}>{`원문 수정 중`}</span>
+            <span className={styles.replyNickname}>{`댓글/답글 수정 중`}</span>
             <CancelButton className={styles.clearButton} alt="지우기 버튼" onClick={handleCancel} />
           </div>
         )}
