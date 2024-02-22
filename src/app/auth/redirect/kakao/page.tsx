@@ -7,6 +7,7 @@ import { AxiosError } from 'axios';
 import axiosInstance from '@/lib/axios/axiosInstance';
 import { useUser } from '@/store/useUser';
 import { UserOnLoginType } from '@/lib/types/user';
+import { setCookie } from '@/lib/utils/cookie';
 
 export default function KakaoRedirectPage() {
   const router = useRouter();
@@ -29,7 +30,8 @@ export default function KakaoRedirectPage() {
         });
 
         const { id, accessToken } = res.data;
-        updateUser({ id, accessToken });
+        updateUser({ id, accessToken }); // TODO id만 저장하기
+        setCookie('accessToken', accessToken);
 
         router.push('/');
       } catch (error) {
