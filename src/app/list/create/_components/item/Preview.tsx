@@ -13,7 +13,6 @@ interface PreviewBaseProps {
 type LinkProps = PreviewBaseProps & {
   type: 'link';
   url: string;
-  domain: string;
 };
 
 type ImageProps = PreviewBaseProps & {
@@ -62,7 +61,7 @@ export default function Preview(props: PreviewProps) {
       {props.type === 'link' && (
         <>
           <LinkIcon fill="#61646B" />
-          <p className={styles.domainText}>{props.domain}</p>
+          <p className={styles.domainText}>{props.url}</p>
         </>
       )}
       {preview !== null && (
