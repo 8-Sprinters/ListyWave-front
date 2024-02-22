@@ -14,6 +14,7 @@ export const vars = createThemeContract({
     yellow: 'color-yellow',
     red: 'color-red',
   },
+  // TODO 반응형 코드 수정 필요
   breakpoints: {
     common: 'mobile-common',
     medium: 'mobile-medium',

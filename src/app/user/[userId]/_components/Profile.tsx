@@ -14,6 +14,7 @@ import * as styles from './Profile.css';
 
 import FollowButton from './FollowButton';
 import SettingIcon from '/public/icons/setting.svg';
+import ProfileSkeleton from './ProfileSkeleton';
 
 import useMoveToPage from '@/hooks/useMoveToPage';
 import getUserOne from '@/app/_api/user/getUserOne';
@@ -27,7 +28,7 @@ export default function Profile({ userId }: { userId: number }) {
 
   const fallbackProfileImageSrc = 'https://image.utoimage.com/preview/cp872722/2022/12/202212008462_500.jpg';
 
-  const { data, isLoading } = useQuery<UserType>({
+  const { data, isFetching } = useQuery<UserType>({
     queryKey: [QUERY_KEYS.userOne, userId],
     queryFn: () => getUserOne(userId),
   });
@@ -43,10 +44,6 @@ export default function Profile({ userId }: { userId: number }) {
     setHasError(true);
   };
 
-  if (isLoading) {
-    return <div>프로필 로딩중입니다.</div>;
-  }
-
   return (
     <div
       className={styles.container}
@@ -60,45 +57,51 @@ export default function Profile({ userId }: { userId: number }) {
         )}
       </div>
       <div className={styles.profileContainer}>
-        <div className={styles.profile}>
-          <div className={styles.profileImageWrapper}>
-            {data?.profileImageUrl ? (
-              <Image
-                className={styles.profileImage}
-                src={`${hasError ? fallbackProfileImageSrc : data?.profileImageUrl}`}
-                alt="프로필 이미지"
-                width={50}
-                height={50}
-                priority
-                onError={handleImageError}
-                style={{ objectFit: 'cover' }}
-              />
-            ) : (
-              <div className={styles.profileImage}></div>
-            )}
-          </div>
-          <div className={styles.info}>
-            <div className={styles.user}>
-              <span className={styles.nickName}>{data?.nickname}</span>
-              {!data?.isOwner && <FollowButton userId={userId} isFollowed={!!data?.isFollowed} />}
-            </div>
-            <div className={styles.follow}>
-              <div className={styles.text} onClick={onClickMoveToPage(`/user/${userId}/followings`)}>
-                <span className={styles.count}>
-                  {data?.followingCount !== undefined && numberFormatter(data.followingCount, 'ko')}
-                </span>
-                <span>팔로잉</span>
+        {isFetching ? (
+          <ProfileSkeleton />
+        ) : (
+          <>
+            <div className={styles.profile}>
+              <div className={styles.profileImageWrapper}>
+                {data?.profileImageUrl ? (
+                  <Image
+                    className={styles.profileImage}
+                    src={`${hasError ? fallbackProfileImageSrc : data?.profileImageUrl}`}
+                    alt="프로필 이미지"
+                    width={50}
+                    height={50}
+                    priority
+                    onError={handleImageError}
+                    style={{ objectFit: 'cover' }}
+                  />
+                ) : (
+                  <div className={styles.profileImage}></div>
+                )}
               </div>
-              <div className={styles.text} onClick={onClickMoveToPage(`/user/${userId}/followers`)}>
-                <span className={styles.count}>
-                  {data?.followerCount !== undefined && numberFormatter(data.followerCount, 'ko')}
-                </span>
-                <span>팔로워</span>
+              <div className={styles.info}>
+                <div className={styles.user}>
+                  <span className={styles.nickName}>{data?.nickname}</span>
+                  {!data?.isOwner && <FollowButton userId={userId} isFollowed={!!data?.isFollowed} />}
+                </div>
+                <div className={styles.follow}>
+                  <div className={styles.text} onClick={onClickMoveToPage(`/user/${userId}/followings`)}>
+                    <span className={styles.count}>
+                      {data?.followingCount !== undefined && numberFormatter(data.followingCount, 'ko')}
+                    </span>
+                    <span>팔로잉</span>
+                  </div>
+                  <div className={styles.text} onClick={onClickMoveToPage(`/user/${userId}/followers`)}>
+                    <span className={styles.count}>
+                      {data?.followerCount !== undefined && numberFormatter(data.followerCount, 'ko')}
+                    </span>
+                    <span>팔로워</span>
+                  </div>
+                </div>
               </div>
             </div>
-          </div>
-        </div>
-        <p className={styles.description}>{`" ${data?.description} "`}</p>
+            <p className={styles.description}>{`" ${data?.description} "`}</p>
+          </>
+        )}
       </div>
     </div>
   );

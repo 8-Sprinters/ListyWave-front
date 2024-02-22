@@ -23,6 +23,7 @@ import { UserType } from '@/lib/types/userProfileType';
 import { AllListType } from '@/lib/types/listType';
 
 import useIntersectionObserver from '@/hooks/useIntersectionObserver';
+import MasonryGridSkeleton from './MasonryGridSkeleton';
 
 interface ContentProps {
   userId: number;
@@ -101,13 +102,16 @@ export default function Content({ userId, type }: ContentProps) {
       </div>
       <Categories handleFetchListsOnCategory={handleFetchListsOnCategory} selectedCategory={selectedCategory} />
       <div className={styles.cards}>
-        <MasonryGrid className="container" gap={16} defaultDirection={'end'} align={'start'} column={2}>
-          {lists.map((list) => (
-            <Card key={list.id} list={list} isOwner={!!userData?.isOwner} userId={userId} />
-          ))}
-        </MasonryGrid>
+        {isFetching ? (
+          <MasonryGridSkeleton />
+        ) : (
+          <MasonryGrid className="container" gap={16} defaultDirection={'end'} align={'start'} column={2}>
+            {lists.map((list) => (
+              <Card key={list.id} list={list} isOwner={!!userData?.isOwner} userId={userId} />
+            ))}
+          </MasonryGrid>
+        )}
       </div>
-      {isFetching && <div>로딩중</div>}
       <div className={styles.target} ref={ref}></div>
     </div>
   );
