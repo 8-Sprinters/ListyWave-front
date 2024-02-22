@@ -8,6 +8,9 @@ import BottomNav from '@/components/BottomNav/BottomNav';
 import '@/styles/GlobalStyles.css';
 
 import * as styles from './layout.css';
+import Modal from '@/components/Modal/Modal';
+import LoginModal from '@/components/login/LoginModal';
+import useModalState from '@/store/useModalState';
 
 const queryClient = new QueryClient();
 declare global {
@@ -16,6 +19,8 @@ declare global {
   }
 }
 export default function TempLayout({ children }: { children: ReactNode }) {
+  const { isOn, handleSetOff } = useModalState();
+
   function kakaoInit() {
     window.Kakao.init(process.env.NEXT_PUBLIC_KAKAO_API_KEY);
     console.log('kakaoShareStatus:', window.Kakao.isInitialized());
@@ -43,6 +48,11 @@ export default function TempLayout({ children }: { children: ReactNode }) {
           </div>
           <ToastContainer />
         </QueryClientProvider>
+        {isOn && (
+          <Modal handleModalClose={handleSetOff} size="large">
+            <LoginModal />
+          </Modal>
+        )}
       </body>
     </html>
   );
