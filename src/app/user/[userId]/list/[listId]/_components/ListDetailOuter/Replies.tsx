@@ -4,7 +4,7 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 
 import DeleteModalButton from '@/app/user/[userId]/list/[listId]/_components/ListDetailOuter/DeleteModalButton';
 import deleteReply from '@/app/_api/comment/deleteReply';
-import { useCommentIdStore } from '@/store/useComment';
+import { useCommentIdStore, useReplyId, useCommentId } from '@/store/useComment';
 import { QUERY_KEYS } from '@/lib/constants/queryKeys';
 import timeDiff from '@/lib/utils/time-diff';
 import { ReplyType } from '@/lib/types/commentType';
@@ -44,7 +44,13 @@ function Replies({ replies, listId, currentUserInfo, commentId, handleEdit }: Re
           {replies?.map((item: ReplyType) => {
             return (
               <li key={item.id} className={styles.repliesOuterWrapper}>
-                <Reply reply={item} listId={listId} currentUserInfo={currentUserInfo} handleEdit={handleEdit} />
+                <Reply
+                  reply={item}
+                  listId={listId}
+                  currentUserInfo={currentUserInfo}
+                  handleEdit={handleEdit}
+                  commentId={commentId}
+                />
               </li>
             );
           })}
@@ -61,16 +67,27 @@ interface ReplyProps {
   listId?: number;
   currentUserInfo?: UserType;
   handleEdit: (comment: string) => void;
+  commentId?: number;
 }
 
-function Reply({ reply, listId, currentUserInfo, handleEdit }: ReplyProps) {
+function Reply({ reply, listId, currentUserInfo, handleEdit, commentId }: ReplyProps) {
   const queryClient = useQueryClient();
+  const { setCommentId } = useCommentId();
+  const { setReplyId } = useReplyId();
   const deleteReplyMutation = useMutation({
     mutationFn: () => deleteReply({ listId: listId, commentId: reply?.commentId, replyId: reply?.id }),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: [QUERY_KEYS.getComments] });
     },
   });
+
+  console.log(reply);
+
+  const handleEditButtonClick = (content: string) => {
+    handleEdit(content);
+    setCommentId(commentId as number);
+    setReplyId(reply?.id);
+  };
 
   const handleDeleteButtonClick = () => {
     deleteReplyMutation.mutate();
@@ -91,14 +108,14 @@ function Reply({ reply, listId, currentUserInfo, handleEdit }: ReplyProps) {
         <div className={styles.replyContainer}>
           <div className={styles.replyInformationWrapper}>
             <span className={styles.replyWriter}>{reply.userNickname}</span>
-            <span className={styles.replyCreatedTime}>{timeDiff(reply.createdDate)}</span>
+            <span className={styles.replyCreatedTime}>{timeDiff(reply.updatedDate)}</span>
           </div>
           <p className={styles.replyContent}>{reply.content}</p>
         </div>
       </div>
       {currentUserInfo?.id === reply.userId && (
         <div className={styles.actionButtonWrapper}>
-          <button className={styles.editButton} onClick={() => handleEdit(reply.content)}>
+          <button className={styles.editButton} onClick={() => handleEditButtonClick(reply.content)}>
             <EditPen />
           </button>
           <DeleteModalButton onDelete={handleDeleteButtonClick} />

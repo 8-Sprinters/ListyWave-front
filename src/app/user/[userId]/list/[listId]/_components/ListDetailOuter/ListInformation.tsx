@@ -37,8 +37,6 @@ function ListInformation() {
     retry: 0,
   });
 
-  console.log(list);
-
   /**@todo 다시 닉네임 말고 아이디로 바꾸기 */
 
   //리스트 생성자 제외한 사람들만 콜라보레이터들로 설정

@@ -36,9 +36,6 @@ function Comments() {
   const { commentId, setCommentId, deleteCommentId } = useCommentId();
   const { setIsEditing, setIsNotEditing, setToggleEditing, isEditing } = useIsEditing();
 
-  console.log(commentId);
-  console.log(comment);
-
   //zustand로 관리하는 user정보 불러오기
   const { user } = useUser();
   const userId = user.id;
@@ -144,12 +141,25 @@ function Comments() {
     mutationFn: () => editComment(Number(params?.listId) as number, commentId as number, comment),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: [QUERY_KEYS.getComments] });
-      addCommentId(commentId as number);
-      setIsNotEditing();
     },
     onSettled: () => {
       setComment('');
       deleteCommentId();
+      setIsNotEditing();
+    },
+  });
+
+  //답글 수정 리액트 쿼리 함수
+  const editReplyMutation = useMutation({
+    mutationFn: () => editReply(Number(params?.listId) as number, commentId as number, replyId as number, comment),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: [QUERY_KEYS.getComments] });
+      addCommentId(commentId as number);
+    },
+    onSettled: () => {
+      setComment('');
+      deleteCommentId();
+      deleteReplyId();
       setIsNotEditing();
     },
   });
@@ -167,10 +177,10 @@ function Comments() {
     }
     if (isEditing) {
       if (replyId) {
+        editReplyMutation.mutate();
         return;
       }
       editCommentMutation.mutate();
-      setIsNotEditing();
       return;
     }
     createCommentMutation.mutate();
