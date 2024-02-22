@@ -74,9 +74,9 @@ export function Chart({ histories, itemRankHistories }: ChartProps) {
     noData: {
       text: '히스토리가 없어요.',
       align: 'center',
-      verticalAlign: 'middle',
+      verticalAlign: 'bottom',
       offsetX: 0,
-      offsetY: -30,
+      offsetY: 0,
       style: {
         fontSize: '20px',
       },

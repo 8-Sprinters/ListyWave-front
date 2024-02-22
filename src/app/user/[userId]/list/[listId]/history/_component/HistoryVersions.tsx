@@ -17,6 +17,7 @@ import { QUERY_KEYS } from '@/lib/constants/queryKeys';
 
 import * as styles from './HistoryVersions.css';
 import deleteHistory from '@/app/_api/history/deleteHistory';
+import NoDataComponent from '@/components/NoData/NoDataComponent';
 
 interface VersionHistoryProps {
   histories: HistoryType[];
@@ -97,28 +98,40 @@ function HistoryVersions({ histories, listOwnerId }: VersionHistoryProps) {
   return (
     <>
       <div className={styles.container}>
-        <button className={styles.dateDropdown} onClick={openHistorySelection}>
-          {timeDiff(String(selectedHistory.createdDate))}
-          <ArrowDown alt="날짜 드롭다운" />
-        </button>
-        {user.id === listOwnerId ? (
-          <button className={styles.kebabButton} onClick={openControl}>
-            <Kebab className={styles.kebabIcon} alt="더보기 버튼" />
-          </button>
-        ) : null}
-
-        {user.id === listOwnerId || selectedHistory.isPublic ? (
+        {histories.length !== 0 && (
           <>
-            <div className={styles.date}>
-              {selectedHistory.isPublic ? null : <Private />}
-              {timeDiff(String(selectedHistory?.createdDate))}
-            </div>
-            <div className={styles.itemsContainer}>
-              {selectedHistory?.items.map((item) => <Item key={item.id} rank={item.rank} title={item.title} />)}
-            </div>
+            <button className={styles.dateDropdown} onClick={openHistorySelection}>
+              {timeDiff(String(selectedHistory.createdDate))}
+              <ArrowDown alt="날짜 드롭다운" />
+            </button>
+            {user.id === listOwnerId ? (
+              <button className={styles.kebabButton} onClick={openControl}>
+                <Kebab className={styles.kebabIcon} alt="더보기 버튼" />
+              </button>
+            ) : null}
           </>
+        )}
+
+        {histories.length === 0 ? (
+          <div className={styles.noDataImage}>
+            <NoDataComponent message="히스토리가 없어요" />
+          </div>
         ) : (
-          <div>비공개 히스토리에요.</div>
+          <>
+            {user.id === listOwnerId || selectedHistory.isPublic ? (
+              <>
+                <div className={styles.date}>
+                  {selectedHistory.isPublic ? null : <Private />}
+                  {timeDiff(String(selectedHistory?.createdDate))}
+                </div>
+                <div className={styles.itemsContainer}>
+                  {selectedHistory?.items.map((item) => <Item key={item.id} rank={item.rank} title={item.title} />)}
+                </div>
+              </>
+            ) : (
+              <div>비공개 히스토리에요.</div>
+            )}
+          </>
         )}
       </div>
 

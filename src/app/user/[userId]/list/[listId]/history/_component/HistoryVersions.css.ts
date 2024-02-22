@@ -92,3 +92,7 @@ export const crown = style({
   right: '9px',
   bottom: '5px',
 });
+
+export const noDataImage = style({
+  marginTop: '40px',
+});
