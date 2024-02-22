@@ -32,8 +32,6 @@ function HistoryPage() {
     queryFn: () => getHistories(listId),
   });
 
-  console.log(historyData);
-
   return (
     <div className={styles.container}>
       <Header
@@ -57,7 +55,11 @@ function HistoryPage() {
 
       <div className={styles.listTitle}>{listData?.title}</div>
       <div className={styles.contentContainer}>
-        {type === 'graph' ? <Graph histories={historyData ? historyData : []} /> : <Version />}
+        {type === 'graph' ? (
+          <Graph histories={historyData ? historyData : []} />
+        ) : (
+          <Version histories={historyData ? historyData : []} listOwnerId={listData?.ownerId} />
+        )}
       </div>
     </div>
   );
