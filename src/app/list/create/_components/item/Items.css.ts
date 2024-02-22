@@ -62,6 +62,7 @@ export const comment = style([
   placeholder,
   {
     width: '100%',
+    height: 80,
     resize: 'none',
 
     flexGrow: 1,

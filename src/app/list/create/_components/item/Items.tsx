@@ -4,18 +4,19 @@ import { DragDropContext, Draggable, DropResult } from 'react-beautiful-dnd';
 import { useParams } from 'next/navigation';
 import { useQuery } from '@tanstack/react-query';
 
+import { QUERY_KEYS } from '@/lib/constants/queryKeys';
+import { ListDetailType } from '@/lib/types/listType';
 import { itemPlaceholder } from '@/lib/constants/placeholder';
 import { itemTitleRules, itemCommentRules, itemLinkRules } from '@/lib/constants/formInputValidationRules';
 import { StrictModeDroppable } from '@/components/StrictModeDroppable';
 import { FormErrors } from '@/app/list/create/page';
+import { getListDetail } from '@/app/_api/list/getLists';
+
 import ItemLayout from './ItemLayout';
 import LinkModal from './LinkModal';
 import Preview from './Preview';
 import * as styles from './Items.css';
 import AddItemButton from './AddItemButton';
-import { QUERY_KEYS } from '@/lib/constants/queryKeys';
-import { getListDetail } from '@/app/_api/list/getLists';
-import { ListDetailType } from '@/lib/types/listType';
 
 // http:// 없을경우 추가
 const ensureHttp = (link: string) => {
