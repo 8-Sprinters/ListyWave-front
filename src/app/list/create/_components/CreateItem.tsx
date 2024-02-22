@@ -1,5 +1,6 @@
 import { useFormContext } from 'react-hook-form';
 
+import BlueButton from '@/components/BlueButton/BlueButton';
 import Header from '@/components/Header/Header';
 import Items from './item/Items';
 import * as styles from './CreateItem.css';
@@ -30,13 +31,9 @@ export default function CreateItem({
         left="back"
         leftClick={onBackClick}
         right={
-          <button
-            className={isValid && !isSubmitting ? styles.headerNextButton.active : styles.headerNextButton.inactive}
-            disabled={!isValid || isSubmitting}
-            onClick={onSubmitClick}
-          >
+          <BlueButton onClick={onSubmitClick} disabled={!isValid || isSubmitting}>
             완료
-          </button>
+          </BlueButton>
         }
       />
       <div className={styles.article}>
