@@ -11,6 +11,7 @@ export interface UserOnLoginType {
   followingCount: number;
   isFirst: boolean;
   accessToken: string;
+  refreshToken: string;
 }
 
 export interface UserSearchType {

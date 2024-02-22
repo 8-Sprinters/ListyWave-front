@@ -2,11 +2,11 @@ import { Cookies } from 'react-cookie';
 
 const cookies = new Cookies();
 
-export const setCookie = (name: string, value: string) => {
+export const setCookie = (name: string, value: string, type: 'AT' | 'RT') => {
   return cookies.set(name, value, {
     path: '/',
     secure: true,
-    maxAge: 60 * 2, // 현재 2분 후 토큰 만료되고, 자동사라짐
+    maxAge: type === 'AT' ? 60 * 10 : 60 * 60 * 24, // 현재 refreshToken 쿠키로 전달 도입 전까지, AT는 만료 시간 2분, RT는 24시간으로 설정
   });
 };
 

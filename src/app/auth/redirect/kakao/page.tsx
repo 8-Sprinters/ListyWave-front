@@ -29,9 +29,10 @@ export default function KakaoRedirectPage() {
           signal: controller.signal,
         });
 
-        const { id, accessToken } = res.data;
-        updateUser({ id, accessToken }); // TODO id만 저장하기
-        setCookie('accessToken', accessToken);
+        const { id, accessToken, refreshToken } = res.data;
+        updateUser({ id, accessToken: '' }); // TODO id만 저장하기
+        setCookie('accessToken', accessToken, 'AT');
+        setCookie('refreshToken', refreshToken, 'RT');
 
         router.push('/');
       } catch (error) {
