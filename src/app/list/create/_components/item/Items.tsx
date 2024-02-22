@@ -3,6 +3,7 @@ import { useFieldArray, useFormContext, useWatch } from 'react-hook-form';
 import { DragDropContext, Draggable, DropResult } from 'react-beautiful-dnd';
 import { useParams } from 'next/navigation';
 import { useQuery } from '@tanstack/react-query';
+import { Accordion } from '@mui/material';
 
 import { QUERY_KEYS } from '@/lib/constants/queryKeys';
 import { ListDetailType } from '@/lib/types/listType';

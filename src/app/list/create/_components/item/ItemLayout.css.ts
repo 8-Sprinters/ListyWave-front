@@ -1,4 +1,5 @@
 import { style } from '@vanilla-extract/css';
+import { vars } from '@/styles/theme.css';
 
 export const itemHeader = style({
   width: '100%',
@@ -23,11 +24,8 @@ export const rankAndTitle = style({
   gap: '8px',
 });
 
-export const line = style({
-  width: '100%',
-  margin: '0px',
-
-  border: 'solid 1px #AFB1B6',
+export const details = style({
+  borderTop: `solid 1px ${vars.color.gray5} `,
 });
 
 export const moreInfo = style({

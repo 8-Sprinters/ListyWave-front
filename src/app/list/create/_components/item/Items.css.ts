@@ -13,16 +13,11 @@ export const itemsContainer = style({
 export const item = style([
   fonts.bodyLarge,
   {
-    padding: '12px 18px',
-
     display: 'flex',
     flexDirection: 'column',
     gap: '12px',
 
-    backgroundColor: '#fff',
-
-    border: `solid 1px ${vars.color.gray7}`,
-    borderRadius: '6px',
+    backgroundColor: vars.color.white,
 
     transition: 'box-shadow 0.3s ease',
   },
