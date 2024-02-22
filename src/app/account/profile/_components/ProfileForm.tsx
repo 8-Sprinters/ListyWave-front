@@ -20,8 +20,6 @@ import toasting from '@/lib/utils/toasting';
 import * as styles from './ProfileForm.css';
 import { ChangeEvent } from 'react';
 
-type FormErrors = FieldErrors<UserProfileEditType>;
-
 const MockBackground = ['기본배경A', '기본배경B', '기본배경C', '기본배경D', '기본배경E', '기본배경F', '기본배경G'];
 const MockProfile = ['A', 'B', 'C', 'D', 'E'];
 
@@ -37,7 +35,7 @@ export default function ProfileForm({ userNickname, onProfileChange, onBackgroun
     control,
     setError,
     formState: { errors },
-  } = useFormContext();
+  } = useFormContext<UserProfileEditType>();
 
   //닉네임 중복 검사
   const nicknameRegister = register('nickname', nicknameRules);
@@ -113,7 +111,7 @@ export default function ProfileForm({ userNickname, onProfileChange, onBackgroun
           {errors.nickname && (
             <div className={styles.error}>
               <ErrorIcon alt="닉네임 에러" />
-              <span className={styles.errorText}>{(errors as FormErrors)?.nickname?.message}</span>
+              <span className={styles.errorText}>{errors?.nickname?.message}</span>
             </div>
           )}
         </div>
@@ -132,7 +130,7 @@ export default function ProfileForm({ userNickname, onProfileChange, onBackgroun
           {errors.description && (
             <div className={styles.error}>
               <ErrorIcon alt="소개 에러" />
-              <span className={styles.errorText}>{(errors as FormErrors)?.description?.message}</span>
+              <span className={styles.errorText}>{errors?.description?.message}</span>
             </div>
           )}
         </div>
