@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import { useFieldArray, useFormContext, useWatch } from 'react-hook-form';
 import { DragDropContext, Draggable, DropResult } from 'react-beautiful-dnd';
+import { useParams } from 'next/navigation';
+import { useQuery } from '@tanstack/react-query';
 
 import { itemPlaceholder } from '@/lib/constants/placeholder';
 import { itemTitleRules, itemCommentRules, itemLinkRules } from '@/lib/constants/formInputValidationRules';
@@ -11,6 +13,9 @@ import LinkModal from './LinkModal';
 import Preview from './Preview';
 import * as styles from './Items.css';
 import AddItemButton from './AddItemButton';
+import { QUERY_KEYS } from '@/lib/constants/queryKeys';
+import { getListDetail } from '@/app/_api/list/getLists';
+import { ListDetailType } from '@/lib/types/listType';
 
 // http:// 없을경우 추가
 const ensureHttp = (link: string) => {
@@ -27,10 +32,11 @@ const ensureHttp = (link: string) => {
 // };
 
 interface ItemsProps {
-  disabled?: boolean;
+  type: 'create' | 'edit';
+  setItemChanged?: () => void;
 }
 
-export default function Items({ disabled }: ItemsProps) {
+export default function Items({ type, setItemChanged }: ItemsProps) {
   const [currentLink, setCurrentLink] = useState<string>('');
   const {
     register,
@@ -78,6 +84,18 @@ export default function Items({ disabled }: ItemsProps) {
     }
   };
 
+  const handleDeleteItem = (itemId: number) => {
+    remove(itemId);
+  };
+
+  const param = useParams<{ listId: string }>();
+  const listId = param?.listId;
+
+  const { data: listDetailData } = useQuery<ListDetailType>({
+    queryKey: [QUERY_KEYS.getListDetail, listId],
+    queryFn: () => getListDetail(listId),
+  });
+
   return (
     <DragDropContext onDragEnd={handleOnDragEnd}>
       <StrictModeDroppable droppableId="items">
@@ -102,7 +120,9 @@ export default function Items({ disabled }: ItemsProps) {
                     >
                       <ItemLayout
                         index={index}
-                        handleDeleteItem={() => remove(index)}
+                        handleDeleteItem={() => {
+                          handleDeleteItem(index);
+                        }}
                         itemLength={watchItems.length}
                         titleInput={
                           <input
@@ -111,7 +131,10 @@ export default function Items({ disabled }: ItemsProps) {
                             autoComplete="off"
                             maxLength={100}
                             {...register(`items.${index}.title`, itemTitleRules)}
-                            disabled={disabled}
+                            readOnly={
+                              type === 'edit' &&
+                              listDetailData?.items.some((x) => x.id === getValues(`items.${index}.id`))
+                            }
                           />
                         }
                         commentTextArea={
@@ -186,6 +209,7 @@ export default function Items({ disabled }: ItemsProps) {
                             />
                           )
                         }
+                        handleImageAdd={setItemChanged}
                       />
                     </div>
                   )}
@@ -197,6 +221,7 @@ export default function Items({ disabled }: ItemsProps) {
               <AddItemButton
                 handleAddButtonClick={() =>
                   append({
+                    id: 0,
                     rank: 0,
                     title: '',
                     comment: '',

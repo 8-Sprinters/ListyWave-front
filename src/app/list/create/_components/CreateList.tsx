@@ -4,8 +4,8 @@ import { useEffect, useState } from 'react';
 import { useFormContext, useWatch } from 'react-hook-form';
 import { useRouter } from 'next/navigation';
 import { useSearchParams } from 'next/navigation';
+import { useQuery } from '@tanstack/react-query';
 
-// import Header from './list/Header';
 import Header from '@/components/Header/Header';
 import Section from './list/Section';
 import SimpleInput from './list/SimpleInput';
@@ -15,16 +15,17 @@ import MemberSelector from './list/MemberSelector';
 import ColorSelector from './list/ColorSelector';
 import RadioInput from './list/RadioInput';
 
-import * as styles from './CreateList.css';
-
-import { listPlaceholder } from '@/lib/constants/placeholder';
-import { BACKGROUND_COLOR } from '@/styles/Color';
-import { CategoryType } from '@/lib/types/categoriesType';
-import { UserProfileType } from '@/lib/types/userProfileType';
+import { useUser } from '@/store/useUser';
+import { QUERY_KEYS } from '@/lib/constants/queryKeys';
 import getCategories from '@/app/_api/category/getCategories';
-import getUsers from '@/app/_api/user/getUsers';
+import getFollowingList from '@/app/_api/follow/getFollowingList';
+import { CategoryType } from '@/lib/types/categoriesType';
+import { FollowingListType } from '@/lib/types/followType';
+import { BACKGROUND_COLOR } from '@/styles/Color';
+import { listPlaceholder } from '@/lib/constants/placeholder';
 import { listDescriptionRules, listLabelRules, listTitleRules } from '@/lib/constants/formInputValidationRules';
-// import { listDescription } from '@/app/[userNickname]/[listId]/_components/ListDetailOuter/ListInformation.css';
+
+import * as styles from './CreateList.css';
 
 interface CreateListProps {
   onNextClick: () => void;
@@ -40,7 +41,7 @@ interface CreateListProps {
  */
 function CreateList({ onNextClick, type }: CreateListProps) {
   const [categories, setCategories] = useState<CategoryType[]>([]);
-  const [users, setUsers] = useState<UserProfileType[]>([]);
+  const { user: me } = useUser();
 
   const { setValue, getValues, control } = useFormContext();
   const collaboIDs = useWatch({ control, name: 'collaboratorIds' });
@@ -51,12 +52,10 @@ function CreateList({ onNextClick, type }: CreateListProps) {
   const searchParams = useSearchParams();
   const isTemplateCreation = searchParams?.has('title') && searchParams?.has('category');
 
-  const fetchUsers = async () => {
-    try {
-      const data = await getUsers();
-      setUsers(data.userInfos);
-    } catch (error) {}
-  };
+  const { data: followingList } = useQuery<FollowingListType>({
+    queryKey: [QUERY_KEYS.getFollowingList, me.id],
+    queryFn: () => getFollowingList(me.id),
+  });
 
   useEffect(() => {
     const fetchCategories = async () => {
@@ -140,8 +139,7 @@ function CreateList({ onNextClick, type }: CreateListProps) {
         <Section title="콜라보레이터 추가">
           <MemberSelector
             placeholder={listPlaceholder.collaborator}
-            members={users}
-            fetchData={fetchUsers}
+            followingList={followingList?.followings || []}
             onClickAdd={(userId: number) => {
               setValue('collaboratorIds', [...collaboIDs, userId]);
             }}
@@ -157,7 +155,6 @@ function CreateList({ onNextClick, type }: CreateListProps) {
                 errorMessage: `콜라보레이터는 최대 20명까지 지정할 수 있어요.`,
               },
             }}
-            defaultValue={getValues('collaboratorIds')}
           />
         </Section>
 

@@ -17,7 +17,7 @@ import Header from '@/components/Header/Header';
 import BlueButton from '@/components/BlueButton/BlueButton';
 
 import ProfileForm from './_components/ProfileForm';
-import * as styles from './styles.css';
+import * as styles from './page.css';
 import ImagePreview from './_components/ImagePreview';
 
 /** TODO 데이터 가져오는 중 보여줄 화면 필요(로딩UI) */
@@ -30,7 +30,7 @@ export default function ProfilePage() {
 
   const { data: userData } = useQuery<UserType>({
     queryKey: [QUERY_KEYS.userOne, user.id],
-    queryFn: () => getUserOne(user.id),
+    queryFn: () => getUserOne(user.id as number),
     enabled: !!user.id,
   });
 
@@ -79,7 +79,7 @@ export default function ProfilePage() {
   });
 
   const handleFormSubmit = () => {
-    updateProfileMutate({ userId: user.id, data: methods.getValues() });
+    updateProfileMutate({ userId: user.id as number, data: methods.getValues() });
   };
 
   return (

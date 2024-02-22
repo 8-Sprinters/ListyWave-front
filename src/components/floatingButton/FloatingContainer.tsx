@@ -5,5 +5,9 @@ interface FloatingButtonProps {
 }
 
 export default function FloatingContainer({ children }: FloatingButtonProps) {
-  return <div className={styles.container}>{children}</div>;
+  return (
+    <div className={styles.wrapper}>
+      <div className={styles.container}>{children}</div>
+    </div>
+  );
 }

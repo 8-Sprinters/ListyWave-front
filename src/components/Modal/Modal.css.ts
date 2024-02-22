@@ -1,14 +1,14 @@
-import { style } from '@vanilla-extract/css';
+import { style, styleVariants, ComplexStyleRule } from '@vanilla-extract/css';
 import { vars } from '@/styles/theme.css';
 
 export const background = style({
-  width: '100vw',
+  maxWidth: 430,
+  margin: 'auto',
+  width: '100vh',
   height: '100vh',
   zIndex: 100,
 
-  position: 'fixed',
-  top: '0px',
-  left: '0px',
+  position: 'absolute',
 
   display: 'flex',
   justifyContent: 'center',
@@ -17,10 +17,7 @@ export const background = style({
   backgroundColor: 'rgba(25, 25, 27, 0.3)',
 });
 
-export const container = style({
-  width: '326px',
-  padding: '24px',
-
+const container = style({
   display: 'flex',
   flexDirection: 'column',
   justifyContent: 'center',
@@ -28,6 +25,27 @@ export const container = style({
   gap: '2.4rem',
 
   backgroundColor: vars.color.white,
+});
 
-  borderRadius: '8px',
+interface SizeVariantsType {
+  [key: string]: ComplexStyleRule;
+}
+
+export const sizeVariants = styleVariants<SizeVariantsType>({
+  basic: [
+    container,
+    {
+      width: '326px',
+      padding: '2.4rem',
+      borderRadius: '0.8rem',
+    },
+  ],
+  large: [
+    container,
+    {
+      width: '391px',
+      padding: '6rem 7.5rem',
+      borderRadius: '3rem',
+    },
+  ],
 });

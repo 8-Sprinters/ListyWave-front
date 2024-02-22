@@ -15,11 +15,9 @@ import { QUERY_KEYS } from '@/lib/constants/queryKeys';
 import { CommentType } from '@/lib/types/commentType';
 import { UserType } from '@/lib/types/userProfileType';
 import { useUser } from '@/store/useUser';
-import DefaultProfile from '/public/images/mock_profile.png';
 
 import * as styles from './Comments.css';
 import CancelButton from '/public/icons/cancel_button.svg';
-import { imageListItemBarClasses } from '@mui/material';
 
 function Comments() {
   const [activeNickname, setActiveNickname] = useState<string | null | undefined>(null);
@@ -32,13 +30,13 @@ function Comments() {
 
   //zustand로 관리하는 user정보 불러오기
   const { user } = useUser();
-  const userId = user?.id;
+  const userId = user.id;
 
   //user정보 불러오는 리액트 쿼리 함수
   const { data: userInformation } = useQuery<UserType>({
     queryKey: [QUERY_KEYS.userOne, userId],
-    queryFn: () => getUserOne(userId),
-    enabled: userId !== 0,
+    queryFn: () => getUserOne(userId as number),
+    enabled: !!userId,
   });
 
   //댓글 무한스크롤 리액트 쿼리 함수
@@ -167,7 +165,7 @@ function Comments() {
               onChange={handleInputChange}
               placeholder={userId === 0 ? '로그인 후 댓글을 작성할 수 있습니다.' : ''}
             />
-            {comment && userId !== 0 && (
+            {comment && userId && (
               <button type="submit" className={styles.formButton}>
                 게시
               </button>

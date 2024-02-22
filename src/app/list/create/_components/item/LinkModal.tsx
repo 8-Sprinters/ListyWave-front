@@ -41,7 +41,7 @@ export default function LinkModal({
         <LinkIcon fill="#61646B" />
       </button>
       {isOn && (
-        <Modal handleModalClose={handleCancelButtonClick}>
+        <Modal size="basic" handleModalClose={handleCancelButtonClick}>
           <Modal.Title>링크 추가</Modal.Title>
           {children}
           <Modal.Button isDisabled={!isLinkValid} onCancel={handleCancelButtonClick} onClick={handleConfirmButtonClick}>
