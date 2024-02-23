@@ -30,6 +30,7 @@ export const listDescription = style([
   body2,
   {
     color: vars.color.black,
+    wordBreak: 'break-word',
   },
 ]);
 

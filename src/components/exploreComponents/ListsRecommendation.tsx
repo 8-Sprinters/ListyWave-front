@@ -18,7 +18,7 @@ import NoDataComponent from '@/components/NoData/NoDataComponent';
 import { exploreBackgroundColors } from '@/lib/constants/exploreListBackgroundColor';
 import ListRecommendationSkeleton from './ListRecommendationSkeleton';
 
-import ChevronRight from '/public/icons/chevron_right.svg';
+import ChevronDown from '/public/icons/chevron_down.svg';
 
 function ListRecommendation() {
   const router = useRouter();
@@ -89,15 +89,19 @@ function ListRecommendation() {
                       <div className={styles.ownerInformationWrapper}>
                         <div>{`By. ${item.ownerNickname}`}</div>
                         <div className={styles.profileImageWrapper}>
-                          <Image
-                            src={item.ownerProfileImage}
-                            alt="리스트 생성자 이미지"
-                            fill
-                            className={styles.ownerProfileImage}
-                            style={{
-                              objectFit: 'cover',
-                            }}
-                          />
+                          {item?.ownerProfileImage ? (
+                            <Image
+                              src={item.ownerProfileImage}
+                              alt="리스트 생성자 이미지"
+                              fill
+                              className={styles.ownerProfileImage}
+                              style={{
+                                objectFit: 'cover',
+                              }}
+                            />
+                          ) : (
+                            <div className={styles.noImage}></div>
+                          )}
                         </div>
                       </div>
                       <div className={styles.listDescription}>{item.description}</div>
@@ -107,7 +111,7 @@ function ListRecommendation() {
                     </div>
                     <Link href={`/list/${item.id}`}>
                       <div className={styles.showMoreButtonWrapper}>
-                        <ChevronRight width={18} height={18} />
+                        <ChevronDown width={18} height={18} />
                         <span className={styles.showMoreButton}>더보기</span>
                       </div>
                     </Link>

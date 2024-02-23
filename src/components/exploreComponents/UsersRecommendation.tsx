@@ -1,6 +1,7 @@
 'use client';
 import { useState, useRef } from 'react';
 import Image from 'next/image';
+import Link from 'next/link';
 import { useQuery } from '@tanstack/react-query';
 
 import { QUERY_KEYS } from '@/lib/constants/queryKeys';
@@ -11,7 +12,7 @@ import { UserProfileType } from '@/lib/types/userProfileType';
 
 import * as styles from './UsersRecommendation.css';
 
-function UsersRecommendation({ userId }: { userId: number }) {
+function UsersRecommendation() {
   //zustand로 관리하는 user정보 불러오기
   const { user: userMe } = useUser();
   const myId = userMe.id;
@@ -20,17 +21,22 @@ function UsersRecommendation({ userId }: { userId: number }) {
   const { data: usersList } = useQuery<UserProfileType[]>({
     queryKey: [QUERY_KEYS.getRecommendedUsers],
     queryFn: () => getRecommendedUsers(),
-    enabled: !!myId,
+    enabled: userMe && !!myId,
+    retry: 1,
   });
 
   const handleScrollToRight = () => {
     if (wrapperRef.current) {
       wrapperRef.current.scrollTo({
-        left: wrapperRef.current.scrollLeft + 234,
+        left: wrapperRef.current.scrollLeft + 166,
         behavior: 'smooth',
       });
     }
   };
+
+  if (!userMe) {
+    return null;
+  }
 
   return (
     <section>
@@ -42,7 +48,7 @@ function UsersRecommendation({ userId }: { userId: number }) {
               {usersList?.map((item: UserProfileType) => {
                 return (
                   <li key={item.id}>
-                    <UserRecommendListItem data={item} handleScrollToRight={handleScrollToRight} userId={userId} />
+                    <UserRecommendListItem data={item} handleScrollToRight={handleScrollToRight} userId={userMe?.id} />
                   </li>
                 );
               })}
@@ -78,18 +84,24 @@ function UserRecommendListItem({ data, handleScrollToRight, userId }: UserRecomm
   return (
     <>
       <div className={styles.recommendUserWrapper}>
-        <div className={styles.imageWrapper}>
-          <Image
-            src={data?.profileImageUrl}
-            alt="추천 사용자 프로필 이미지"
-            fill
-            sizes="100vw 100vh"
-            className={styles.recommendUserProfileImage}
-            style={{
-              objectFit: 'cover',
-            }}
-          />
-        </div>
+        <Link href={`/user/${data.id}/mylist`}>
+          <div className={styles.imageWrapper}>
+            {data?.profileImageUrl ? (
+              <Image
+                src={data?.profileImageUrl}
+                alt="추천 사용자 프로필 이미지"
+                fill
+                sizes="100vw 100vh"
+                className={styles.recommendUserProfileImage}
+                style={{
+                  objectFit: 'cover',
+                }}
+              />
+            ) : (
+              <div className={styles.noImage}></div>
+            )}
+          </div>
+        </Link>
         <h6 className={styles.recommendUserNickname}>{data.nickname}</h6>
         <FollowButton isFollowing={isFollowing} onClick={handleFollowButtonClick} userId={userId} targetId={data.id} />
       </div>

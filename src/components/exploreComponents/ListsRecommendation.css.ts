@@ -77,6 +77,7 @@ export const listTitle = style([
   headlineSmall,
   {
     color: vars.color.black,
+    wordBreak: 'break-word',
   },
 ]);
 
@@ -86,6 +87,7 @@ export const listDescription = style([
     marginTop: '13px',
 
     color: vars.color.gray9,
+    wordBreak: 'break-word',
   },
 ]);
 
@@ -114,6 +116,15 @@ export const ownerProfileImage = style({
   borderRadius: '50%',
 });
 
+export const noImage = style([
+  ownerProfileImage,
+  {
+    width: '30px',
+    height: '30px',
+    backgroundColor: vars.color.blueGray,
+  },
+]);
+
 export const simpleListWrapper = style({
   height: 'auto',
   padding: '8px 16px 9px',
@@ -131,7 +142,8 @@ export const simpleListWrapper = style({
 export const showMoreButtonWrapper = style({
   display: 'flex',
   alignItems: 'center',
-  justifyContent: 'flex-end',
+  justifyContent: 'center',
+  gap: '3px',
 
   cursor: 'pointer',
 });

@@ -41,9 +41,6 @@ export const deleteButton = style({
 });
 
 export const profileImage = style({
-  width: '30px',
-  minWidth: '30px',
-  height: '30px',
   flex: '0 0 1',
 
   borderRadius: '16px',
