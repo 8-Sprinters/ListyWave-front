@@ -39,7 +39,7 @@ export default function BottomNav() {
       return 'explore';
     } else if (pathname === `/user/${userId}/mylist` || pathname === `/user/${userId}/collabolist`) {
       return 'my-feed';
-    } else if (pathname === '/collection') {
+    } else if (pathname.startsWith('/collection')) {
       return 'collection';
     } else {
       return null;

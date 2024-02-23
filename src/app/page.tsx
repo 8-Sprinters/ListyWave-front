@@ -10,6 +10,7 @@ import Header from '@/components/exploreComponents/Header';
 import FloatingContainer from '@/components/floatingButton/FloatingContainer';
 import PlusOptionFloatingButton from '@/components/floatingButton/PlusOptionFloatingButton';
 import ArrowUpFloatingButton from '@/components/floatingButton/ArrowUpFloatingButton';
+import SearchBar from '@/app/search/_components/SearchBar';
 import Modal from '@/components/Modal/Modal';
 import LoginModal from '@/components/login/LoginModal';
 
@@ -45,7 +46,7 @@ function LandingPage({ params }: ExplorePageProps) {
     <>
       <div className={styles.wrapper}>
         <Header />
-        <div>검색 및 카테고리 컴포넌트</div>
+        <SearchBar />
         <TrendingList />
         <UsersRecommendation userId={params.userId} />
         <ListRecommendation />

@@ -18,7 +18,7 @@ function Header({ title, left, leftClick, right }: HeaderProps) {
     <div className={styles.header}>
       <button type="button" onClick={leftClick}>
         {left === 'close' && <CloseButton width={'24'} height={'24'} alt="닫기버튼" />}
-        {left === 'back' && <BackIcon alt="뒤로가기 버튼" />}
+        {left === 'back' && <BackIcon width={'8'} height={'14'} alt="뒤로가기 버튼" />}
         {left === null && <></>}
       </button>
 

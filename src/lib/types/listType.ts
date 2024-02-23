@@ -93,6 +93,7 @@ export interface LabelType {
 }
 
 export interface ListDetailType {
+  id?: number;
   category: string;
   labels: LabelType[];
   title: string;
@@ -109,4 +110,48 @@ export interface ListDetailType {
   backgroundColor: string;
   collectCount: number;
   viewCount: number;
+}
+
+export interface ListItemType {
+  id: number;
+  title: string;
+  rank?: number;
+  imageUrl?: string;
+}
+
+export interface SearchListType {
+  id: number;
+  title: string;
+  items: ListItemType[];
+  listItems: ListItemType[];
+  isPublic: boolean;
+  backgroundColor: string;
+  updatedDate: Date;
+  ownerId: number;
+  ownerNickname: string;
+  ownerProfileImageUrl: string;
+  representImageUrl: string;
+}
+
+export interface SearchResultType {
+  resultLists: SearchListType[];
+  totalCount: number;
+  cursorId: number;
+  hasNext: boolean;
+}
+
+export interface CollectionType {
+  id: number;
+  list: CollectionListType;
+}
+
+export interface CollectionListType {
+  id: number;
+  backgroundColor: string;
+  title: string;
+  ownerId: string;
+  ownerNickname: string;
+  ownerProfileImageUrl: string;
+  updatedDate: Date;
+  listItems: ListItemType[];
 }

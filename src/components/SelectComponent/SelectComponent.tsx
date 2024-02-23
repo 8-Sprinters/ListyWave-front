@@ -8,6 +8,7 @@ interface OptionsProps {
 interface SelectProps {
   name: string;
   options: OptionsProps[];
+  defaultValue?: OptionsProps;
   isSearchable?: boolean;
   onChange?: any;
 }
@@ -15,7 +16,7 @@ interface SelectProps {
 const selectStyles = {
   control: (provided: object, state: { isFocused: boolean }) => ({
     ...provided,
-    maxWidth: '200px',
+    maxWidth: '320px',
     backgroundColor: 'white',
     boxShadow: 'none',
     border: 0,
@@ -23,7 +24,7 @@ const selectStyles = {
     cursor: 'pointer',
     '&:hover': {
       borderColor: 'none',
-      backgroundColor: 'lightgray',
+      backgroundColor: '#EBF4FF',
     },
   }),
   singleValue: (provided: object) => ({
@@ -32,7 +33,7 @@ const selectStyles = {
   }),
   option: (provided: object, { isFocused, isSelected }: { isFocused: boolean; isSelected: boolean }) => ({
     ...provided,
-    backgroundColor: isSelected || isFocused ? 'lightgray' : 'white',
+    backgroundColor: isSelected || isFocused ? '#EBF4FF' : 'white',
     color: 'black',
     fontSize: '1.3rem',
   }),
@@ -45,7 +46,7 @@ const selectStyles = {
   }),
 };
 
-function SelectComponent({ name, options, isSearchable = false, onChange }: SelectProps) {
+function SelectComponent({ name, options, defaultValue, isSearchable = false, onChange }: SelectProps) {
   return (
     <Select
       id={name}
@@ -53,7 +54,7 @@ function SelectComponent({ name, options, isSearchable = false, onChange }: Sele
       options={options}
       styles={selectStyles}
       isSearchable={isSearchable}
-      defaultValue={options[0]}
+      defaultValue={defaultValue}
       onChange={onChange}
       components={{
         IndicatorSeparator: () => null,
