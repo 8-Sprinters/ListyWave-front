@@ -1,5 +1,9 @@
 import axios from 'axios';
-import { getCookie, setCookie } from '../utils/cookie';
+
+import { getCookie, removeCookie, setCookie } from '../utils/cookie';
+import toasting from '../utils/toasting';
+import { useUser } from '@/store/useUser';
+import toastMessage from '../constants/toastMessage';
 
 const axiosInstance = axios.create({
   baseURL: 'https://dev.api.listywave.com',
@@ -26,38 +30,53 @@ axiosInstance.interceptors.request.use(
   }
 );
 
-// (참고) refresh도 만료되어, 쿠키에 없다면 로그인으로 리다이렉트
+let isRefreshing = false;
 
 // interceptors header로 보내기 버전 - 방법 2
 axiosInstance.interceptors.response.use(
   (res) => res,
   async (error) => {
-    console.log(error);
-
     const originalRequest = error.config;
     const refreshToken = getCookie('refreshToken');
-    // console.log(refreshToken);
-    // console.log(!originalRequest._retry);
 
-    if (
-      error.response?.status === 401 &&
-      error.response?.data.code === 'INVALID_ACCESS_TOKEN' &&
-      !originalRequest._retry
-    ) {
-      const { data } = await axios.get('https://dev.api.listywave.com/auth/token', {
-        _retry: true, // TODO 무한루프 방지 다른 방법 고안
-        headers: {
-          Authorization: `Bearer ${refreshToken}`,
-        },
-      });
-      console.log(data);
+    if (error.response?.status === 401 && error.response?.data.code === 'INVALID_ACCESS_TOKEN') {
+      if (refreshToken === undefined) {
+        console.log('로그인이 다시 필요한 회원');
 
-      originalRequest._retry = true;
-      const newAccessToken = data.accessToken;
-      setCookie('accessToken', newAccessToken, 'AT');
+        // accessToken 만료되었는데, refreshToken 없는 경우, storage 비우기
+        useUser.getState().logoutUser();
+        removeCookie('accessToken');
+        removeCookie('refreshToken');
+        toasting({ type: 'error', txt: toastMessage.ko.userStatusLoggedOut });
+      }
 
-      originalRequest.headers.authorization = `Bearer ${newAccessToken}`;
-      return axiosInstance(originalRequest);
+      if (!isRefreshing) {
+        isRefreshing = true;
+
+        try {
+          // instance 대신 axios 요청
+          // refreshtToken으로 accessToken 재발급 요청
+          const { data } = await axios.get('https://dev.api.listywave.com/auth/token', {
+            headers: {
+              Authorization: `Bearer ${refreshToken}`,
+            },
+          });
+
+          const newAccessToken = data.accessToken;
+          setCookie('accessToken', newAccessToken, 'AT');
+
+          originalRequest.headers.authorization = `Bearer ${newAccessToken}`;
+          return axiosInstance(originalRequest);
+        } catch (error) {
+          // refreshToken 생성 실패 시,
+          useUser.getState().logoutUser();
+          removeCookie('accessToken'); // TODO removeCookieAll
+          removeCookie('refreshToken');
+          toasting({ type: 'error', txt: toastMessage.ko.userStatusLoggedOut });
+        } finally {
+          isRefreshing = false;
+        }
+      }
     }
     return Promise.reject(error);
   }
