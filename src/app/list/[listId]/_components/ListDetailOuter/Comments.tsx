@@ -199,6 +199,23 @@ function Comments() {
     };
   }, [queryClient]);
 
+  useEffect(() => {
+    // 페이지가 로드될 때마다 실행됩니다.
+    const handleRouteChange = () => {
+      // URL에서 해시를 가져옵니다.
+      const hash = window.location.hash;
+      if (hash) {
+        // 해시가 있다면 해당 요소를 찾아 스크롤을 이동합니다.
+        const targetElement = document.getElementById('commentRef');
+        if (targetElement) {
+          targetElement.scrollIntoView({ behavior: 'smooth' });
+        }
+      }
+    };
+
+    handleRouteChange();
+  }, []);
+
   return (
     <>
       {isOn && (
@@ -217,7 +234,7 @@ function Comments() {
           isEditing={isEditing}
           handleCancel={handleCancelEdit}
         />
-        <div className={styles.totalCount}>{`${comments?.totalCount}개의 댓글`}</div>
+        <div id="commentRef" className={styles.totalCount}>{`${comments?.totalCount}개의 댓글`}</div>
         {comments?.commentsList?.map((item: CommentType) => {
           return (
             <div key={item.id} className={styles.commentWrapper}>
