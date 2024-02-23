@@ -2,9 +2,9 @@
 import Image from 'next/image';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 
-import Replies from '@/app/user/[userId]/list/[listId]/_components/ListDetailOuter/Replies';
+import Replies from '@/app/list/[listId]/_components/ListDetailOuter/Replies';
 import deleteComment from '@/app/_api/comment/deleteComment';
-import DeleteModalButton from '@/app/user/[userId]/list/[listId]/_components/ListDetailOuter/DeleteModalButton';
+import DeleteModalButton from '@/app/list/[listId]/_components/ListDetailOuter/DeleteModalButton';
 
 import timeDiff from '@/lib/utils/time-diff';
 import { QUERY_KEYS } from '@/lib/constants/queryKeys';

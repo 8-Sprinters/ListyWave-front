@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 
 import Modal from '@/components/Modal/Modal';
-import BottomSheet from '../../_components/BottomSheet/BottomSheet';
+import BottomSheet from '@/components/BottomSheet/BottomSheet';
 import Kebab from '/public/icons/vertical_kebab_button.svg';
 import Crown from '/public/icons/crown.svg';
 import Private from '/public/icons/lock_alt.svg';

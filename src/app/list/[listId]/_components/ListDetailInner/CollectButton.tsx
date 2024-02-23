@@ -1,7 +1,7 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useParams } from 'next/navigation';
 
-import * as styles from '@/app/user/[userId]/list/[listId]/_components/ListDetailInner/CollectButton.css';
+import * as styles from '@/app/list/[listId]/_components/ListDetailInner/CollectButton.css';
 
 import { QUERY_KEYS } from '@/lib/constants/queryKeys';
 import { AxiosError } from 'axios';

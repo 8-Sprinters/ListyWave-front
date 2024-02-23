@@ -2,8 +2,9 @@
 import { useRouter } from 'next/navigation';
 import deleteList from '@/app/_api/list/deleteList';
 import useBooleanOutput from '@/hooks/useBooleanOutput';
-import BottomSheet from '@/app/user/[userId]/list/[listId]/_components/BottomSheet/BottomSheet';
+import BottomSheet from '@/components/BottomSheet/BottomSheet';
 import Modal from '@/components/Modal/Modal';
+import { useUser } from '@/store/useUser';
 import KebabButton from '/public/icons/vertical_kebab_button.svg';
 import * as styles from './ModalButtonStyle.css';
 
@@ -16,6 +17,8 @@ export default function OpenBottomSheetButton({ listId, isCollaborator }: OpenBo
   const router = useRouter();
   const { isOn, handleSetOff, handleSetOn } = useBooleanOutput(); //바텀시트 열림,닫힘 상태 관리
   const { isOn: isModalOn, handleSetOff: handleSetModalOff, handleSetOn: handleSetModalOn } = useBooleanOutput(); //모달 상태 관리
+  const { user } = useUser();
+
   const bottomSheetOptionList = [
     {
       key: 'editList',
@@ -34,11 +37,8 @@ export default function OpenBottomSheetButton({ listId, isCollaborator }: OpenBo
     },
   ];
 
-  /**
-   * @todo 유저 정보 받아서 유저 ID로 바꿔줘야 함
-   */
   const handleEditClick = () => {
-    router.push(`/user/${1}/list/${listId}/edit`);
+    router.push(`/list/${listId}/edit`);
     handleSetOff(); //닫기
   };
 
@@ -47,7 +47,7 @@ export default function OpenBottomSheetButton({ listId, isCollaborator }: OpenBo
    */
   const handleDeleteClick = () => {
     deleteList(listId);
-    router.push('/');
+    router.push(`/user/${user.id}/mylist`);
   };
 
   return (

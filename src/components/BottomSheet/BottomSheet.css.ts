@@ -1,7 +1,9 @@
 import { keyframes, style } from '@vanilla-extract/css';
+import { vars } from '@/styles/theme.css';
 
 export const backGround = style({
   position: 'fixed',
+  margin: 'auto',
   top: 0,
   left: 0,
   bottom: 0,
@@ -12,6 +14,7 @@ export const backGround = style({
 
 export const wrapper = style({
   padding: '37px 0 43px',
+  margin: 'auto',
 
   position: 'fixed',
   bottom: 0,
@@ -28,6 +31,7 @@ export const wrapper = style({
 
   transitionProperty: 'all',
   transitionDuration: '0.2s',
+  overflow: 'none',
 });
 
 const slideIn = keyframes({
@@ -48,7 +52,7 @@ export const sheetItemWrapper = style({
   alignItems: 'center',
 
   ':hover': {
-    backgroundColor: '#EFEFF0',
+    backgroundColor: vars.color.lightblue,
   },
 });
 
@@ -71,14 +75,14 @@ export const sheetItem = style({
 
   selectors: {
     [`${sheetItemWrapper}:hover &`]: {
-      color: '#FF5454',
+      color: vars.color.blue,
     },
   },
 });
 
 export const disabledSheetItemWrapper = style({
   ':hover': {
-    backgroundColor: '#ffffff',
+    backgroundColor: vars.color.gray3,
   },
 });
 
@@ -86,7 +90,7 @@ export const disabledSheetItem = style({
   cursor: 'not-allowed',
   selectors: {
     [`${sheetItemWrapper}:hover &`]: {
-      color: '#e9e9e9',
+      color: vars.color.gray7,
     },
   },
 });

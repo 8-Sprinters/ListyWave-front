@@ -3,7 +3,7 @@ import Image from 'next/image';
 import { useQuery } from '@tanstack/react-query';
 import { useParams, useRouter } from 'next/navigation';
 
-import Collaborators from '@/app/user/[userId]/list/[listId]/_components/ListDetailOuter/Collaborators';
+import Collaborators from '@/app/list/[listId]/_components/ListDetailOuter/Collaborators';
 import getListDetail from '@/app/_api/list/getListDetail';
 import Label from '@/components/Label/Label';
 import Modal from '@/components/Modal/Modal';
@@ -17,7 +17,7 @@ import timeDiff from '@/lib/utils/time-diff';
 import useMoveToPage from '@/hooks/useMoveToPage';
 import { UserProfileType } from '@/lib/types/userProfileType';
 import { LabelType, ListDetailType } from '@/lib/types/listType';
-import ListDetailInner from '@/app/user/[userId]/list/[listId]/_components/ListDetailInner';
+import ListDetailInner from '@/app/list/[listId]/_components/ListDetailInner';
 import * as styles from './ListInformation.css';
 
 function ListInformation() {

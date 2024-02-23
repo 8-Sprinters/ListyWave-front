@@ -5,9 +5,9 @@ import { useState } from 'react';
 import * as styles from './index.css';
 
 import { ListDetailType } from '@/lib/types/listType';
-import Header from '@/app/user/[userId]/list/[listId]/_components/ListDetailInner/Header';
-import RankList from '@/app/user/[userId]/list/[listId]/_components/ListDetailInner/RankList';
-import Footer from '@/app/user/[userId]/list/[listId]/_components/ListDetailInner/Footer';
+import Header from '@/app/list/[listId]/_components/ListDetailInner/Header';
+import RankList from '@/app/list/[listId]/_components/ListDetailInner/RankList';
+import Footer from '@/app/list/[listId]/_components/ListDetailInner/Footer';
 
 interface OptionsProps {
   value: string;

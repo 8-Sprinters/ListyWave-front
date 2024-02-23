@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import CollaboratorsPopOver from '@/app/user/[userId]/list/[listId]/_components/ListDetailOuter/CollaboratorsPopOver';
+import CollaboratorsPopOver from '@/app/list/[listId]/_components/ListDetailOuter/CollaboratorsPopOver';
 import * as styles from './Collaborators.css';
 import PlusIcon from '/public/icons/collaborators_plus.svg';
 import { UserProfileType } from '@/lib/types/userProfileType';
