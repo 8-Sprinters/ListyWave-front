@@ -18,7 +18,7 @@ import NoDataComponent from '@/components/NoData/NoDataComponent';
 import { exploreBackgroundColors } from '@/lib/constants/exploreListBackgroundColor';
 import ListRecommendationSkeleton from './ListRecommendationSkeleton';
 
-import ChevronRight from '/public/icons/chevron_right.svg';
+import ChevronDown from '/public/icons/chevron_down.svg';
 
 function ListRecommendation() {
   const router = useRouter();
@@ -111,7 +111,7 @@ function ListRecommendation() {
                     </div>
                     <Link href={`/list/${item.id}`}>
                       <div className={styles.showMoreButtonWrapper}>
-                        <ChevronRight width={18} height={18} />
+                        <ChevronDown width={18} height={18} />
                         <span className={styles.showMoreButton}>더보기</span>
                       </div>
                     </Link>

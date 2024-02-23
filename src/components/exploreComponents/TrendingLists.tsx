@@ -6,14 +6,12 @@ import { useQuery } from '@tanstack/react-query';
 import { assignInlineVars } from '@vanilla-extract/dynamic';
 
 import getTrendingLists from '@/app/_api/explore/getTrendingLists';
-import useMoveToPage from '@/hooks/useMoveToPage';
 import { QUERY_KEYS } from '@/lib/constants/queryKeys';
 import { TrendingListType } from '@/lib/types/exploreType';
 import { CUSTOM_WRAPPER, CUSTOM_PADDING, CUSTOM_BORDER_RADIUS } from '@/lib/constants/trendingListCustomStyle';
 
 import * as styles from './TrendingLists.css';
 import { vars } from '@/styles/theme.css';
-import Avatar from '/public/icons/avatar.svg';
 
 /**@todo 트렌딩 리스트 바뀐 디자인에 맞게 새로 갈아엎을 예정 */
 

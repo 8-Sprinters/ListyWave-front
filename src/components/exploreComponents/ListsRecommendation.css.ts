@@ -140,7 +140,8 @@ export const simpleListWrapper = style({
 export const showMoreButtonWrapper = style({
   display: 'flex',
   alignItems: 'center',
-  justifyContent: 'flex-end',
+  justifyContent: 'center',
+  gap: '3px',
 
   cursor: 'pointer',
 });
