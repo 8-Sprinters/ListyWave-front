@@ -42,7 +42,7 @@ function UsersRecommendation() {
     <section>
       {myId && (
         <div className={styles.wrapper}>
-          <h2 className={styles.sectionTitle}>HI, LISTER 👋</h2>
+          <h2 className={styles.sectionTitle}>HI, LISTER👋</h2>
           {usersList?.length !== 0 && (
             <ul className={styles.recommendUsersListWrapper} ref={wrapperRef}>
               {usersList?.map((item: UserProfileType) => {

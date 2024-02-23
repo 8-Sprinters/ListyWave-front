@@ -55,7 +55,7 @@ function TrendingList() {
 
   return (
     <div className={styles.wrapper}>
-      <h2 className={styles.sectionTitle}>TRENDING ️🌊 </h2>
+      <h2 className={styles.sectionTitle}>TRENDING🌊</h2>
       <div className={styles.listWrapper} ref={ref}>
         <ul className={styles.slide}>
           {addedList?.map((item: TrendingListType, index) => {
