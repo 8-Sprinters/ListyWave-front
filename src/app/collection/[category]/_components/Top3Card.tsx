@@ -13,7 +13,7 @@ export default function Top3Card({ collectionList }: { collectionList: Collectio
 
   const router = useRouter();
   const handleCardClick = () => {
-    router.push(`/user/${list.ownerId}/list/${list.id}`);
+    router.push(`/list/${list.id}`);
   };
 
   return (
