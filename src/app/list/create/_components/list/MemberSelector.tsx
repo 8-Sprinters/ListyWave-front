@@ -55,7 +55,7 @@ function MemberSelector({ placeholder, followingList, onClickAdd, onClickDelete,
     queryFn: () => getUsersByNicknameSearch(input),
   });
 
-  const param = useParams<{ userId: string; listId: string }>();
+  const param = useParams<{ listId: string }>();
 
   const { data: listDataBeforeEdit } = useQuery<ListDetailType>({
     queryKey: [QUERY_KEYS.getListDetail, param?.listId],

@@ -20,7 +20,7 @@ export type FormErrors = FieldErrors<ListEditType>;
 
 export default function EditPage() {
   const router = useRouter();
-  const param = useParams<{ userId: string; listId: string }>();
+  const param = useParams<{ listId: string }>();
   const { user: owner } = useUser();
 
   const [step, setStep] = useState<'list' | 'item'>('list');
