@@ -38,7 +38,7 @@ export default function ItemLayout({
   handleImageAdd,
 }: ItemLayoutProps) {
   return (
-    <Accordion defaultExpanded={index === 0}>
+    <Accordion>
       <AccordionSummary>
         <div className={styles.itemHeader}>
           <DndIcon width="18" height="18" alt="드래그앤드롭" className={styles.headerIcon} />

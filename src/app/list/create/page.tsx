@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { FieldErrors, FormProvider, useForm } from 'react-hook-form';
 import { useMutation } from '@tanstack/react-query';
 import { useRouter } from 'next/navigation';
@@ -12,12 +12,10 @@ import toasting from '@/lib/utils/toasting';
 import toastMessage from '@/lib/constants/toastMessage';
 import createList from '@/app/_api/list/createList';
 import uploadItemImages from '@/app/_api/list/uploadItemImages';
-import { useUser } from '@/store/useUser';
 
 export type FormErrors = FieldErrors<ListCreateType>;
 
 export default function CreatePage() {
-  const { user: owner } = useUser();
   const [step, setStep] = useState<'list' | 'item'>('list');
   const router = useRouter();
 
