@@ -1,13 +1,21 @@
 import { style } from '@vanilla-extract/css';
+import { vars } from '@/styles/theme.css';
+import * as fonts from '@/styles/font.css';
 
-export const title = style({
-  marginBottom: '16px',
-  fontSize: '1.6rem',
-  fontWeight: '600',
-});
+export const title = style([
+  fonts.labelLarge,
+  {
+    marginBottom: '1rem',
+  },
+]);
 
 export const required = style({
-  color: '#ff0000',
+  marginLeft: '5px',
+
+  fontSize: '1.7rem',
+  fontWeight: '400',
+  lineHeight: '2.2rem',
+  color: vars.color.red,
 });
 
 export const content = style({

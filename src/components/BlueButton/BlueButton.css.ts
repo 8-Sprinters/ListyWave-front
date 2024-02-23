@@ -1,9 +1,9 @@
 import { style } from '@vanilla-extract/css';
-import { body3 } from '@/styles/font.css';
+import * as fonts from '@/styles/font.css';
 import { vars } from '@/styles/theme.css';
 
 export const button = style([
-  body3,
+  fonts.bodyLarge,
   {
     padding: '2px 12px',
 

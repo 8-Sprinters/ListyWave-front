@@ -1,4 +1,5 @@
 import { style } from '@vanilla-extract/css';
+import { vars } from '@/styles/theme.css';
 
 export const wrapper = style({
   padding: '0 16px',
@@ -25,6 +26,8 @@ export const userInfoWrapper = style({
   display: 'flex',
   alignItems: 'center',
   gap: '12px',
+
+  cursor: 'pointer',
 });
 
 export const userProfile = style({
@@ -32,7 +35,9 @@ export const userProfile = style({
 });
 
 export const userName = style({
-  color: '#202020',
-  fontSize: '1.5rem',
+  color: vars.color.black,
+  fontSize: '1.4rem',
   fontWeight: 600,
 });
+
+export const loginButton = style([userName, { cursor: 'pointer' }]);

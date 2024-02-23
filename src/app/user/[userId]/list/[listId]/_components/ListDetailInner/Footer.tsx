@@ -1,19 +1,19 @@
 'use client';
 
-import { useParams, useRouter } from 'next/navigation';
 import { MouseEvent, useState } from 'react';
-import BottomSheet from '@/app/user/[userId]/list/[listId]/_components/BottomSheet/BottomSheet';
-import ModalPortal from '@/components/modal-portal';
-import saveImageFromHtml from '@/lib/utils/saveImageFromHtml';
-import copyUrl from '@/lib/utils/copyUrl';
-import toasting from '@/lib/utils/toasting';
-import kakaotalkShare from '@/components/KakaotalkShare/kakaotalkShare';
+import { useParams, useRouter } from 'next/navigation';
 import * as styles from './Footer.css';
-import CollectIcon from '/public/icons/collect.svg';
-import ShareIcon from '/public/icons/share.svg';
-import EtcIcon from '/public/icons/etc.svg';
+
+import { useUser } from '@/store/useUser';
 import { ItemType } from '@/lib/types/listType';
 import { UserProfileType } from '@/lib/types/userProfileType';
+import BottomSheet from '@/app/user/[userId]/list/[listId]/_components/BottomSheet/BottomSheet';
+import ModalPortal from '@/components/modal-portal';
+import CollectButton from '@/app/user/[userId]/list/[listId]/_components/ListDetailInner/CollectButton';
+import getBottomSheetOptionList from '@/app/user/[userId]/list/[listId]/_components/ListDetailInner/getBottomSheetOptionList';
+import ShareIcon from '/public/icons/share.svg';
+import EtcIcon from '/public/icons/etc.svg';
+import EyeIcon from '/public/icons/eye.svg';
 
 interface BottomSheetOptionsProps {
   key: string;
@@ -21,101 +21,59 @@ interface BottomSheetOptionsProps {
   onClick: () => void;
 }
 
-interface SheetTypeProps {
-  type: 'share' | 'etc';
-}
-
 interface FooterProps {
   category: string;
-  listId: string | null;
+  listId: number;
   title: string;
   description: string;
   items: ItemType[];
   collaborators: UserProfileType[];
   ownerNickname: string;
+  isCollected: boolean;
+  viewCount: number;
+  collectCount: number;
 }
 
 function Footer({ data }: { data: FooterProps }) {
   const router = useRouter();
-  const params = useParams<{ userNickname: string; listId: string }>();
-
+  const params = useParams<{ userId: string; listId: string }>();
+  const { user: loginUser } = useUser();
   const [isSheetActive, setSheetActive] = useState<boolean>(false);
   const [sheetOptionList, setSheetOptionList] = useState<BottomSheetOptionsProps[]>([]);
+  const writerId = parseInt(params?.userId ?? '0');
+  const listUrl = `${process.env.NEXT_PUBLIC_BASE_URL}/user/${params?.userId}/list/${params?.listId}`;
 
-  const handleSheetOptionList = ({ type }: SheetTypeProps) => {
-    const listUrl = `${process.env.NEXT_PUBLIC_BASE_URL}/${params?.userNickname}/${params?.listId}`;
-
-    if (type === 'share') {
-      const optionList = [
-        {
-          key: 'copyLink',
-          title: '리스트 링크 복사하기',
-          onClick: () => {
-            copyUrl(listUrl);
-            setSheetActive(false);
-          },
-        },
-        {
-          key: 'kakaoShare',
-          title: '리스트 카카오톡으로 공유하기',
-          onClick: () => {
-            // TODO: image로 저장한다음에 해당 image를 보내줘야한다.
-            kakaotalkShare({
-              title: data.title,
-              description: data.description,
-              image:
-                'https://i.namu.wiki/i/-8Iah6PGZzzQuY1KtJIbj8_KBbX4whnbaq8AYShoqphdJOpfJDskZZ2Y3bU2I5Jpnx8aRi1LXTz1_e0v_fMrp172modjOmKRcxcME5dmM6IDAIgqktw5yIs75is2CgC1GrGoxZPwxpeTXudKIxWn2w.webp',
-              listItem: data.items,
-              collaborators: data.collaborators,
-              listId: data.listId,
-              userNickname: data.ownerNickname,
-            });
-            setSheetActive(false);
-          },
-        },
-      ];
-      setSheetOptionList([...optionList]);
-      return;
-    }
-
-    if (type === 'etc') {
-      const optionList = [
-        {
-          key: 'saveToImg',
-          title: '리스트 이미지로 저장하기',
-          onClick: () => {
-            setSheetActive(false);
-            saveImageFromHtml({ filename: `${data.category}_${data.listId}` });
-          },
-        },
-        {
-          key: 'copyAndCreateList',
-          title: '이 리스트 템플릿으로 바로 리스트 작성하기',
-          onClick: () => {
-            toasting({ type: 'default', txt: '리스트 작성 페이지로 이동합니다.' });
-            router.push(`/create?title=${data.title}&category=${data.category}`);
-          },
-        },
-      ];
-      setSheetOptionList([...optionList]);
-      return;
-    }
+  const goToCreateList = () => {
+    router.push(`/list/create?title=${data.title}&category=${data.category}`);
   };
 
-  const handleSheetActive = ({ type }: SheetTypeProps) => {
-    handleSheetOptionList({ type });
+  const closeBottomSheet = () => {
+    setSheetActive(false);
+  };
+
+  const handleSheetActive = ({ type }: { type: 'share' | 'etc' }) => {
+    const optionList = getBottomSheetOptionList({ type, data, closeBottomSheet, listUrl, goToCreateList });
+    setSheetOptionList(optionList);
     setSheetActive((prev: boolean) => !prev);
   };
 
   const handleOutsideClick = (e: MouseEvent) => {
     if (e.target === e.currentTarget) {
-      setSheetActive(false);
+      closeBottomSheet();
     }
   };
 
-  // TODO: 콜렉트 API생성되면 요청보내고 UI변경시키기
-  const handleCollect = () => {
-    console.log('콜렉트기능 미구현');
+  const ViewCount = () => {
+    return (
+      <>
+        {loginUser.id === writerId && (
+          <div className={styles.viewCountWrapper}>
+            <EyeIcon />
+            {data.viewCount ?? 0}
+          </div>
+        )}
+      </>
+    );
   };
 
   return (
@@ -126,8 +84,9 @@ function Footer({ data }: { data: FooterProps }) {
         </ModalPortal>
       )}
       <div className={styles.container}>
-        <div className={styles.buttonComponent}>
-          <CollectIcon onClick={handleCollect} />
+        <div className={styles.collectAndView}>
+          <CollectButton data={data} />
+          <ViewCount />
         </div>
         <div className={styles.shareAndOthers}>
           <div className={styles.buttonComponent} onClick={() => handleSheetActive({ type: 'share' })}>

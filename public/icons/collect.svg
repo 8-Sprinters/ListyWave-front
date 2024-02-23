@@ -1,3 +1,5 @@
-<svg width="14" height="19" viewBox="0 0 14 19" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path fill-rule="evenodd" clip-rule="evenodd" d="M2 2V15.865L7 11.6983L12 15.865V2H2ZM0 1.5C0 0.671572 0.671574 0 1.5 0H12.5C13.3284 0 14 0.671575 14 1.5V16.9325C14 18.2042 12.5167 18.899 11.5397 18.0848L7 14.3017L2.46028 18.0848C1.48329 18.899 0 18.2042 0 16.9325V1.5Z" fill="black"/>
+<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g id="Actions &#38; UI/bookmark-full">
+<path id="Vector 524 (Stroke)" fill-rule="evenodd" clip-rule="evenodd" d="M7 5V18.865L12 14.6983L17 18.865V5H7ZM5 4.5C5 3.67157 5.67157 3 6.5 3H17.5C18.3284 3 19 3.67157 19 4.5V19.9325C19 21.2042 17.5167 21.899 16.5397 21.0848L12 17.3017L7.46028 21.0848C6.48329 21.899 5 21.2042 5 19.9325V4.5Z" fill="#61646B"/>
+</g>
 </svg>

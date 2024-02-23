@@ -6,6 +6,7 @@ import { AxiosError } from 'axios';
 import axiosInstance from '@/lib/axios/axiosInstance';
 import toasting from '@/lib/utils/toasting';
 import toastMessage from '@/lib/constants/toastMessage';
+import { removeCookie } from '@/lib/utils/cookie';
 
 import { useUser } from '@/store/useUser';
 
@@ -32,6 +33,9 @@ export default function LogoutModal({ handleSetOff }: LogOutModalProps) {
 
       if (result.status === 204) {
         logoutUser();
+        removeCookie('accessToken'); // TODO removeCookieAll
+        removeCookie('refreshToken');
+
         toasting({ type: 'success', txt: toastMessage.ko.loggedOut });
         router.push('/');
       }

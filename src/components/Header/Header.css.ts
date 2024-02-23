@@ -1,4 +1,5 @@
 import { style } from '@vanilla-extract/css';
+import * as fonts from '@/styles/font.css';
 
 export const header = style({
   width: '100%',
@@ -21,6 +22,4 @@ export const header = style({
   borderBottom: '1px solid rgba(0, 0, 0, 0.10)',
 });
 
-export const headerTitle = style({
-  fontSize: '2rem',
-});
+export const headerTitle = style([fonts.titleMedium]);

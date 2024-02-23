@@ -23,7 +23,13 @@ const dropdownOptions = [
 function Header({ handleChangeListType }: HeaderProps) {
   return (
     <div className={styles.container}>
-      <SelectComponent name="listType" options={dropdownOptions} isSearchable={false} onChange={handleChangeListType} />
+      <SelectComponent
+        defaultValue={dropdownOptions[0]}
+        name="listType"
+        options={dropdownOptions}
+        isSearchable={false}
+        onChange={handleChangeListType}
+      />
     </div>
   );
 }

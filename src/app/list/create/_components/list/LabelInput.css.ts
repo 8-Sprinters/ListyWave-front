@@ -1,16 +1,23 @@
 import { style } from '@vanilla-extract/css';
+import { vars } from '@/styles/theme.css';
+import * as fonts from '@/styles/font.css';
 
-export const inputBox = style({
-  width: '100%',
-  padding: '10px',
+export const inputBox = style([
+  fonts.bodyMedium,
+  {
+    width: '100%',
+    padding: '10px',
 
-  fontSize: '1.5rem',
+    borderRadius: '10px',
+    border: `1px solid ${vars.color.gray5}`,
+    outline: 'none',
+    cursor: 'pointer',
 
-  borderRadius: '10px',
-  border: '1px solid rgba(0, 0, 0, 0.1)',
-  outline: 'none',
-  cursor: 'pointer',
-});
+    '::placeholder': {
+      color: `${vars.color.gray7}`,
+    },
+  },
+]);
 
 export const labels = style({
   marginTop: '10px',
@@ -20,22 +27,23 @@ export const labels = style({
   columnGap: '5px',
 });
 
-export const label = style({
-  width: 'fit-content',
-  padding: '7px',
-  paddingRight: '20px',
+export const label = style([
+  fonts.bodyMedium,
+  {
+    width: 'fit-content',
+    padding: '7px',
+    paddingRight: '20px',
 
-  position: 'relative',
+    position: 'relative',
 
-  color: '#333333',
-  backgroundColor: '#EBF4FF',
+    color: '#333333',
+    backgroundColor: vars.color.lightblue,
 
-  fontSize: '1.3rem',
-
-  borderRadius: '10px',
-  border: '1px solid rgba(0, 0, 0, 0.1)',
-  cursor: 'pointer',
-});
+    borderRadius: '10px',
+    border: '1px solid rgba(0, 0, 0, 0.1)',
+    cursor: 'pointer',
+  },
+]);
 
 export const deleteButton = style({
   position: 'absolute',

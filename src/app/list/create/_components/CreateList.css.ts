@@ -2,7 +2,7 @@ import { style } from '@vanilla-extract/css';
 
 export const body = style({
   width: '100vw',
-  padding: '37px 20px 100px',
+  padding: '16px 20px 50px',
 
   display: 'flex',
   flexDirection: 'column',

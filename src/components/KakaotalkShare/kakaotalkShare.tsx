@@ -1,5 +1,4 @@
 'use client';
-
 import { UserProfileType } from '@/lib/types/userProfileType';
 
 interface kakaotalkShareProps {
@@ -9,12 +8,11 @@ interface kakaotalkShareProps {
   listItem?: { title: string }[];
   collaborators: UserProfileType[];
   userNickname: string;
-  listId: string | null;
+  listId: number | null;
 }
 function kakaotalkShare({
   title,
   description,
-  image,
   listItem = [],
   collaborators,
   userNickname,

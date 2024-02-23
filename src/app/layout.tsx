@@ -4,7 +4,15 @@ import { ReactNode } from 'react';
 import { ToastContainer } from 'react-toastify';
 import Script from 'next/script';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { CookiesProvider } from 'react-cookie';
+
+import BottomNav from '@/components/BottomNav/BottomNav';
+
 import '@/styles/GlobalStyles.css';
+import * as styles from './layout.css';
+import Modal from '@/components/Modal/Modal';
+import LoginModal from '@/components/login/LoginModal';
+import useModalState from '@/store/useModalState';
 
 const queryClient = new QueryClient();
 declare global {
@@ -13,9 +21,11 @@ declare global {
   }
 }
 export default function TempLayout({ children }: { children: ReactNode }) {
+  const { isOn, handleSetOff } = useModalState();
+
   function kakaoInit() {
     window.Kakao.init(process.env.NEXT_PUBLIC_KAKAO_API_KEY);
-    window.Kakao.isInitialized();
+    console.log('kakaoShareStatus:', window.Kakao.isInitialized());
   }
 
   return (
@@ -31,12 +41,22 @@ export default function TempLayout({ children }: { children: ReactNode }) {
           strategy="lazyOnload"
         />
       </head>
-      <body>
+      <body className={styles.body}>
         <QueryClientProvider client={queryClient}>
-          <div id="modal-root" />
-          <div>{children}</div>
-          <ToastContainer />
+          <CookiesProvider>
+            <div id="modal-root" />
+            <div>
+              {children}
+              <BottomNav />
+            </div>
+            <ToastContainer />
+          </CookiesProvider>
         </QueryClientProvider>
+        {isOn && (
+          <Modal handleModalClose={handleSetOff} size="large">
+            <LoginModal />
+          </Modal>
+        )}
       </body>
     </html>
   );

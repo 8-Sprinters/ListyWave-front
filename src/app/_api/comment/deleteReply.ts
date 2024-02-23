@@ -1,15 +1,14 @@
 import axiosInstance from '@/lib/axios/axiosInstance';
 
 interface DeleteReplyType {
-  listId: number | undefined;
-  commentId: number | undefined | null;
-  replyId: number | undefined | null;
+  listId?: number;
+  commentId?: number | null;
+  replyId?: number | null;
 }
 
 //답글 삭제 api
-async function deleteReply({ listId, commentId, replyId }: DeleteReplyType) {
-  const response = await axiosInstance.delete(`/lists/${listId}/comments/${commentId}/replies/${replyId}`);
-  return response.data;
-}
+const deleteReply = async ({ listId, commentId, replyId }: DeleteReplyType) => {
+  await axiosInstance.delete(`/lists/${listId}/comments/${commentId}/replies/${replyId}`);
+};
 
 export default deleteReply;

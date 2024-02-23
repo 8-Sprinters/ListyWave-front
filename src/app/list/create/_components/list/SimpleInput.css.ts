@@ -1,37 +1,50 @@
 import { style } from '@vanilla-extract/css';
+import { vars } from '@/styles/theme.css';
+import * as fonts from '@/styles/font.css';
 
 export const container = style({
   width: '100%',
   position: 'relative',
 });
 
-export const inputBox = style({
-  width: '100%',
-  padding: '11px',
+export const inputBox = style([
+  fonts.bodyRegular,
+  {
+    width: '100%',
+    padding: '11px',
 
-  position: 'relative',
+    position: 'relative',
 
-  fontSize: '1.5rem',
-  border: '0px',
-  borderBottom: '1px solid rgba(0, 0, 0, 0.10)',
-  outline: 'none',
-});
+    border: '0px',
+    borderBottom: `1px solid ${vars.color.gray7}`,
+    outline: 'none',
 
-export const textareaBox = style({
-  width: '100%',
-  padding: '12px',
+    '::placeholder': {
+      color: `${vars.color.gray7}`,
+    },
+  },
+]);
 
-  fontSize: '1.5rem',
+export const textareaBox = style([
+  fonts.bodyMedium,
+  {
+    width: '100%',
+    padding: '12px',
 
-  resize: 'none',
-  whiteSpace: 'pre-wrap',
-  // overflowY: 'hidden',
+    resize: 'none',
+    whiteSpace: 'pre-wrap',
+    // overflowY: 'hidden',
 
-  border: '1px solid rgba(0, 0, 0, 0.10)',
-  borderRadius: '8px',
+    border: `1px solid ${vars.color.gray7}`,
+    borderRadius: '8px',
 
-  outline: 'none',
-});
+    outline: 'none',
+
+    '::placeholder': {
+      color: `${vars.color.gray7}`,
+    },
+  },
+]);
 
 export const clearButton = style({
   position: 'absolute',
@@ -41,10 +54,13 @@ export const clearButton = style({
   cursor: 'pointer',
 });
 
-export const error = style({
-  margin: '10px',
+export const error = style([
+  fonts.bodyRegular,
+  {
+    marginTop: '8px',
+    marginLeft: '4px',
 
-  fontSize: '1.5rem',
-
-  color: 'red',
-});
+    flexShrink: '0',
+    color: vars.color.red,
+  },
+]);

@@ -2,6 +2,8 @@ import { ReactNode } from 'react';
 import LinkIcon from '/public/icons/link.svg';
 import Modal from '@/components/Modal/Modal';
 import useBooleanOutput from '@/hooks/useBooleanOutput';
+import { vars } from '@/styles/theme.css';
+import * as styles from './LinkModal.css';
 
 interface LinkModalProps {
   children: ReactNode;
@@ -37,11 +39,11 @@ export default function LinkModal({
 
   return (
     <>
-      <button onClick={handleOpenClick}>
-        <LinkIcon fill="#61646B" />
+      <button className={styles.button} onClick={handleOpenClick}>
+        <LinkIcon fill={vars.color.gray9} />
       </button>
       {isOn && (
-        <Modal handleModalClose={handleCancelButtonClick}>
+        <Modal size="basic" handleModalClose={handleCancelButtonClick}>
           <Modal.Title>링크 추가</Modal.Title>
           {children}
           <Modal.Button isDisabled={!isLinkValid} onCancel={handleCancelButtonClick} onClick={handleConfirmButtonClick}>

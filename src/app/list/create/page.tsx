@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { FieldErrors, FormProvider, useForm } from 'react-hook-form';
 import { useMutation } from '@tanstack/react-query';
 import { useRouter } from 'next/navigation';
@@ -12,18 +12,19 @@ import toasting from '@/lib/utils/toasting';
 import toastMessage from '@/lib/constants/toastMessage';
 import createList from '@/app/_api/list/createList';
 import uploadItemImages from '@/app/_api/list/uploadItemImages';
+import { useUser } from '@/store/useUser';
 
 export type FormErrors = FieldErrors<ListCreateType>;
 
 export default function CreatePage() {
+  const { user: owner } = useUser();
   const [step, setStep] = useState<'list' | 'item'>('list');
-  const [newListId, setNewListId] = useState(0);
   const router = useRouter();
 
   const methods = useForm<ListCreateType>({
     mode: 'onChange',
     defaultValues: {
-      ownerId: 2, //로그인 후 수정 필요
+      ownerId: owner.id || 0, // 수정필요
       category: 'culture',
       labels: [],
       collaboratorIds: [],
@@ -82,14 +83,15 @@ export default function CreatePage() {
     };
 
     const imageData: ItemImagesType = {
-      ownerId: originData.ownerId,
+      ownerId: owner.id || 0,
       listId: 0, //temp
       extensionRanks: originData.items
         .filter(({ imageUrl }) => imageUrl !== '')
         .map(({ rank, imageUrl }) => {
           return {
             rank: rank,
-            extension: imageUrl !== '' ? (imageUrl?.[0]?.type.split('/')[1] as 'jpg' | 'jpeg' | 'png') : '',
+            extension:
+              typeof imageUrl === 'object' ? (imageUrl?.[0]?.type.split('/')[1] as 'jpg' | 'jpeg' | 'png') : '',
           };
         }),
     };
@@ -108,9 +110,6 @@ export default function CreatePage() {
     onError: () => {
       toasting({ type: 'error', txt: toastMessage.ko.uploadImageError });
     },
-    onSettled: () => {
-      router.push(`/user/${formatData().listData.ownerId}/list/${newListId}`);
-    },
   });
 
   const {
@@ -120,12 +119,14 @@ export default function CreatePage() {
   } = useMutation({
     mutationFn: createList,
     onSuccess: (data) => {
-      setNewListId(data.listId);
-      uploadImageMutate({
-        listId: data.listId,
-        imageData: formatData().imageData,
-        imageFileList: formatData().imageFileList,
-      });
+      if (formatData().imageData.extensionRanks.length !== 0) {
+        uploadImageMutate({
+          listId: data.listId,
+          imageData: formatData().imageData,
+          imageFileList: formatData().imageFileList,
+        });
+      }
+      router.push(`/user/${formatData().listData.ownerId}/list/${data.listId}`);
     },
     onError: () => {
       toasting({ type: 'error', txt: toastMessage.ko.createListError });
@@ -136,6 +137,11 @@ export default function CreatePage() {
     const { listData } = formatData();
     createListMutate(listData);
   };
+
+  //TODO: api에 ownerId 지워지면 아래 코드 삭제
+  useEffect(() => {
+    methods.setValue('ownerId', owner.id || 0);
+  }, [owner]);
 
   return (
     <>

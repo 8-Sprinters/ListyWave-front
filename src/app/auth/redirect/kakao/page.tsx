@@ -7,6 +7,7 @@ import { AxiosError } from 'axios';
 import axiosInstance from '@/lib/axios/axiosInstance';
 import { useUser } from '@/store/useUser';
 import { UserOnLoginType } from '@/lib/types/user';
+import { setCookie } from '@/lib/utils/cookie';
 
 export default function KakaoRedirectPage() {
   const router = useRouter();
@@ -22,19 +23,31 @@ export default function KakaoRedirectPage() {
       return;
     }
 
+    // 브라우저 기본 동작으로 리다이렉트 페이지에 접근하지 못하도록 설정
+    history.replaceState(null, '', '/');
+
     const loginKakao = async () => {
       try {
         const res = await axiosInstance.get<UserOnLoginType>(`/auth/redirect/kakao?code=${code}`, {
           signal: controller.signal,
         });
 
-        const { id, accessToken } = res.data;
-        updateUser({ id, accessToken });
+        const { id, accessToken, refreshToken } = res.data;
+        updateUser({ id, accessToken: '' }); // TODO id만 저장하기
+        setCookie('accessToken', accessToken, 'AT');
+        setCookie('refreshToken', refreshToken, 'RT');
 
-        router.push('/');
+        if (res.data.isFirst) {
+          router.push('/start-listy');
+        } else {
+          router.push('/');
+        }
       } catch (error) {
         if (error instanceof AxiosError) {
-          if (!controller.signal.aborted) {
+          if (error.response?.status === 400) {
+            // 탈퇴한 사용자(status 400)일 경우, 리다이렉트
+            router.push('/withdrawn-account');
+          } else if (!controller.signal.aborted) {
             console.error(error.message);
           } else {
             console.log('Request canceled:', error.message);

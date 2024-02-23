@@ -3,7 +3,7 @@ import * as styles from './Label.css';
 
 interface LabelProps {
   children: ReactNode;
-  colorType?: 'blue' | 'skyblue';
+  colorType?: 'blue' | 'skyblue' | 'white';
 }
 
 function Label({ children, colorType = 'blue' }: LabelProps) {
@@ -13,6 +13,8 @@ function Label({ children, colorType = 'blue' }: LabelProps) {
         return styles.blueLabel;
       case 'skyblue':
         return styles.skyblueLabel;
+      case 'white':
+        return styles.whiteLabel;
       default:
         return styles.blueLabel;
     }

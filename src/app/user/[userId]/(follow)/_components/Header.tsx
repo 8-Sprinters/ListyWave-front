@@ -17,7 +17,7 @@ function Header({ title }: HeaderProps) {
 
   return (
     <div className={styles.header}>
-      <BackButton width={'24'} height={'24'} alt="뒤로가기" onClick={handleBackButtonClick} />
+      <BackButton width={'8'} height={'14'} alt="뒤로가기" onClick={handleBackButtonClick} />
       <h1 className={styles.headerTitle}>{title}</h1>
     </div>
   );
