@@ -17,7 +17,7 @@ interface CardProps {
   userId: number;
 }
 
-export default function Card({ list, isOwner, userId }: CardProps) {
+export default function Card({ list, isOwner }: CardProps) {
   const { onClickMoveToPage } = useMoveToPage();
   const isVisibleLockIcon = isOwner && !list.isPublic;
 
