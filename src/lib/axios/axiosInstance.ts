@@ -39,8 +39,8 @@ axiosInstance.interceptors.response.use(
     const originalRequest = error.config;
     const refreshToken = getCookie('refreshToken');
 
-    if (error.response?.status === 401 && error.response?.data.code === 'INVALID_ACCESS_TOKEN') {
-      if (refreshToken === undefined) {
+    if (error.response?.status === 401 && error.response?.data.error === 'UNAUTHORIZED') {
+      if (!isRefreshing && refreshToken === undefined) {
         console.log('로그인이 다시 필요한 회원');
 
         // accessToken 만료되었는데, refreshToken 없는 경우, storage 비우기
@@ -48,6 +48,13 @@ axiosInstance.interceptors.response.use(
         removeCookie('accessToken');
         removeCookie('refreshToken');
         toasting({ type: 'error', txt: toastMessage.ko.userStatusLoggedOut });
+
+        isRefreshing = true;
+
+        // 토스트 메세지 후 리다이렉트 시키는게 맞는지 확인
+        // setTimeout(() => {
+        //   location.href = '/';
+        // }, 2000);
       }
 
       if (!isRefreshing) {
@@ -73,6 +80,10 @@ axiosInstance.interceptors.response.use(
           removeCookie('accessToken'); // TODO removeCookieAll
           removeCookie('refreshToken');
           toasting({ type: 'error', txt: toastMessage.ko.userStatusLoggedOut });
+
+          // setTimeout(() => {
+          //   location.href = '/';
+          // }, 2000);
         } finally {
           isRefreshing = false;
         }
