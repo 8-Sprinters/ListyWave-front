@@ -2,7 +2,7 @@
 import { useRouter } from 'next/navigation';
 import deleteList from '@/app/_api/list/deleteList';
 import useBooleanOutput from '@/hooks/useBooleanOutput';
-import BottomSheet from '@/app/user/[userId]/list/[listId]/_components/BottomSheet/BottomSheet';
+import BottomSheet from '@/app/list/[listId]/_components/BottomSheet/BottomSheet';
 import Modal from '@/components/Modal/Modal';
 import KebabButton from '/public/icons/vertical_kebab_button.svg';
 import * as styles from './ModalButtonStyle.css';
