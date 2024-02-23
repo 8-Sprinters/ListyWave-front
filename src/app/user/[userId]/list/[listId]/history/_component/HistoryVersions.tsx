@@ -21,10 +21,11 @@ import NoDataComponent from '@/components/NoData/NoDataComponent';
 
 interface VersionHistoryProps {
   histories: HistoryType[];
+  listId: string | undefined;
   listOwnerId: number | undefined;
 }
 
-function HistoryVersions({ histories, listOwnerId }: VersionHistoryProps) {
+function HistoryVersions({ histories, listId, listOwnerId }: VersionHistoryProps) {
   const [selectedHistory, setSelectedHistory] = useState<HistoryType>(histories[histories.length - 1] || {});
   const { user } = useUser();
   const queryClient = useQueryClient();
@@ -41,8 +42,9 @@ function HistoryVersions({ histories, listOwnerId }: VersionHistoryProps) {
     mutationFn: toggleHistoryPublic,
     onSuccess: () => {
       queryClient.invalidateQueries({
-        queryKey: [QUERY_KEYS.toggleHistoryPublic, selectedHistory.id],
+        queryKey: [QUERY_KEYS.getHistories, listId],
       });
+      setSelectedHistory(selectedHistory);
     },
   });
 
@@ -50,10 +52,10 @@ function HistoryVersions({ histories, listOwnerId }: VersionHistoryProps) {
     mutationFn: deleteHistory,
     onSuccess: () => {
       queryClient.invalidateQueries({
-        queryKey: [QUERY_KEYS.deleteHistory, selectedHistory.id],
+        queryKey: [QUERY_KEYS.getHistories, listId],
       });
+      setSelectedHistory(histories[histories.length - 1]);
       // TODO: 삭제 토스트 띄우기
-      setSelectedHistory(histories[0]);
     },
   });
 

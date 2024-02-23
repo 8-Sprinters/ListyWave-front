@@ -58,7 +58,7 @@ function HistoryPage() {
         {type === 'graph' ? (
           <Graph histories={historyData ? historyData : []} />
         ) : (
-          <Version histories={historyData ? historyData : []} listOwnerId={listData?.ownerId} />
+          <Version histories={historyData ? historyData : []} listId={listId} listOwnerId={listData?.ownerId} />
         )}
       </div>
     </div>

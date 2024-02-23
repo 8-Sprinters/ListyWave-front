@@ -15,7 +15,7 @@ function FollowersPage() {
   const param = useParams<{ userId: string }>();
 
   const { data: followerList } = useQuery<FollowerListType>({
-    queryKey: [QUERY_KEYS.getFollowerList],
+    queryKey: [QUERY_KEYS.getFollowerList, param?.userId],
     queryFn: () => getFollowerList(Number(param?.userId)),
   });
 

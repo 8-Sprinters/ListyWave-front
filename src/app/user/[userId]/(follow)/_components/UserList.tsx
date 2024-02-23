@@ -12,6 +12,7 @@ import { QUERY_KEYS } from '@/lib/constants/queryKeys';
 
 import * as styles from './UserList.css';
 import NoDataComponent from '@/components/NoData/NoDataComponent';
+import getFollowerList from '@/app/_api/follow/getFollowerList';
 
 const BUTTON_MESSAGE = {
   ko: {
@@ -27,6 +28,7 @@ const EMPTY_MESSAGE = {
 };
 
 function DeleteFollowerButton({ userId }: { userId: number }) {
+  const { user } = useUser();
   const queryClient = useQueryClient();
 
   const deleteUser = useMutation({
@@ -34,7 +36,7 @@ function DeleteFollowerButton({ userId }: { userId: number }) {
     mutationFn: () => deleteFollower(userId),
     onSuccess: () => {
       queryClient.invalidateQueries({
-        queryKey: [QUERY_KEYS.deleteFollower, userId],
+        queryKey: [QUERY_KEYS.getFollowerList, String(user.id)],
       });
     },
   });
