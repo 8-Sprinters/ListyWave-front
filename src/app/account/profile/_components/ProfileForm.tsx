@@ -1,6 +1,7 @@
 import { useFormContext, useWatch } from 'react-hook-form';
-import { ChangeEvent, useState } from 'react';
+import { ChangeEvent, useEffect, useState } from 'react';
 import { useMutation, useQuery } from '@tanstack/react-query';
+import { assignInlineVars } from '@vanilla-extract/dynamic';
 
 import Camera from '/public/icons/camera.svg';
 import ErrorIcon from '/public/icons/error_x.svg';
@@ -23,7 +24,6 @@ import toastMessage from '@/lib/constants/toastMessage';
 import toasting from '@/lib/utils/toasting';
 
 import * as styles from './ProfileForm.css';
-import { assignInlineVars } from '@vanilla-extract/dynamic';
 
 const MockBackground = ['기본배경B', '기본배경C', '기본배경D', '기본배경E', '기본배경F', '기본배경G'];
 const MockProfile = ['B', 'C', 'D', 'E'];
@@ -40,6 +40,9 @@ export default function ProfileForm({
   handleBackgroundPreviewChange,
 }: ProfileFormProps) {
   const [isNicknameValidated, setIsNicknameValidated] = useState(false);
+  const [selectedBackground, setSelectedBackground] = useState('');
+  const [selectedProfile, setSelectedProfile] = useState('');
+
   const {
     register,
     control,
@@ -98,8 +101,9 @@ export default function ProfileForm({
         toasting({ type: 'error', txt: toastMessage.ko.imageSizeError });
       } else {
         newBackgroundImageRegister.onChange(e);
-        setValue('backgroundImageUrl', '');
         handleBackgroundPreviewChange(e.target.files[0]);
+        setValue('backgroundImageUrl', '');
+        setSelectedBackground('file');
       }
     }
   };
@@ -111,8 +115,9 @@ export default function ProfileForm({
         toasting({ type: 'error', txt: toastMessage.ko.imageSizeError });
       } else {
         newProfileImageRegister.onChange(e);
-        setValue('profileImageUrl', '');
         handleProfilePreviewChange(e.target.files[0]);
+        setValue('profileImageUrl', '');
+        setSelectedProfile('file');
       }
     }
   };
@@ -123,12 +128,20 @@ export default function ProfileForm({
       handleProfilePreviewChange(imageUrl);
       setValue('profileImageUrl', imageUrl, { shouldDirty: true });
       setValue('newProfileFileList', null);
+      setSelectedProfile(imageUrl);
     } else {
       handleBackgroundPreviewChange(imageUrl);
       setValue('backgroundImageUrl', imageUrl, { shouldDirty: true });
       setValue('newBackgroundFileList', null);
+      setSelectedBackground(imageUrl);
     }
   };
+
+  //선택 이미지 표시
+  useEffect(() => {
+    setSelectedBackground(getValues('backgroundImageUrl') as string);
+    setSelectedProfile(getValues('profileImageUrl') as string);
+  }, []);
 
   return (
     <>
@@ -186,7 +199,7 @@ export default function ProfileForm({
         <div className={styles.inputContainer}>
           <p className={styles.label}>배경이미지</p>
           <div className={styles.backgroundOptionContainer}>
-            <label className={`${styles.backgroundOption} ${styles.inputFileLabel}`} htmlFor="backgroundImage">
+            <label className={styles.backgroundOption} htmlFor="backgroundImage">
               <Camera />
             </label>
             <input
@@ -201,7 +214,7 @@ export default function ProfileForm({
               <button
                 key={image.name}
                 type="button"
-                className={styles.backgroundOption}
+                className={`${styles.backgroundOption} ${selectedBackground === image.imageUrl ? styles.selectedOption : ''}`}
                 style={assignInlineVars({
                   [styles.imageUrl]: `url(${image?.imageUrl})`,
                 })}
@@ -220,7 +233,7 @@ export default function ProfileForm({
         <div className={styles.inputContainer}>
           <p className={styles.label}>프로필이미지</p>
           <div className={styles.profileOptionContainer}>
-            <label className={`${styles.profileOption} ${styles.inputFileLabel}`} htmlFor="profileImage">
+            <label className={styles.profileOption} htmlFor="profileImage">
               <Camera />
             </label>
             <input
@@ -235,7 +248,7 @@ export default function ProfileForm({
               <button
                 key={image.name}
                 type="button"
-                className={styles.profileOption}
+                className={`${styles.profileOption} ${selectedProfile === image.imageUrl ? styles.selectedOption : ''}`}
                 style={assignInlineVars({
                   [styles.imageUrl]: `url(${image?.imageUrl})`,
                 })}

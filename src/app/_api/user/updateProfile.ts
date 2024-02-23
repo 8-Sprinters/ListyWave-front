@@ -35,7 +35,6 @@ const updateProfile = async ({ userId, data }: UpdateProfileParams) => {
     backgroundExtension: newBackgroundFileList?.[0].type.split('/')[1],
     profileExtension: newProfileFileList?.[0].type.split('/')[1],
   };
-
   const response = await axiosInstance.post<UserPresignedUrlsType>('/users/upload-url', imageData);
   //3. presignedUrl에 사진 업로드
   const { backgroundPresignedUrl, profilePresignedUrl } = response?.data;

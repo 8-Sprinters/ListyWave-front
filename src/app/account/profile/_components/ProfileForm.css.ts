@@ -47,11 +47,6 @@ export const inputFile = style({
   display: 'none',
 });
 
-export const inputFileLabel = style({
-  // border: `1px solid ${vars.color.black}`,
-  // backgroundColor: vars.color.gray5,
-});
-
 export const imageUrl = createVar();
 
 const option = style({
@@ -72,6 +67,10 @@ const option = style({
       border: `2px solid ${vars.color.blue}`,
     },
   },
+});
+
+export const selectedOption = style({
+  border: `2px solid ${vars.color.blue}`,
 });
 
 export const backgroundOptionContainer = style({
