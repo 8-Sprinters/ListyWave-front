@@ -32,7 +32,9 @@ globalStyle('ol, ul', {
 
 globalStyle('button', {
   cursor: 'pointer',
+  color: vars.color.black,
   backgroundColor: 'transparent',
+  WebkitTapHighlightColor: 'transparent',
 });
 
 globalStyle('input', {
