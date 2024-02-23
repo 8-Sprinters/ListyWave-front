@@ -25,6 +25,7 @@ export const sectionTitle = style([
 ]);
 
 export const wrapper = style({
+  marginTop: '50px',
   padding: '0 16px',
 });
 
