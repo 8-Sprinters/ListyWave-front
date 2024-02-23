@@ -8,6 +8,7 @@ export const wrapper = style({
 
   position: 'fixed',
   bottom: '96px',
+  zIndex: 3,
 });
 
 export const container = style({
