@@ -1,7 +1,7 @@
 'use client';
 
 import { MouseEvent, useState } from 'react';
-import { useParams, useRouter } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 import * as styles from './Footer.css';
 
 import { useUser } from '@/store/useUser';
@@ -22,6 +22,7 @@ interface BottomSheetOptionsProps {
 }
 
 interface FooterProps {
+  ownerId: number;
   category: string;
   listId: number;
   title: string;
@@ -36,12 +37,10 @@ interface FooterProps {
 
 function Footer({ data }: { data: FooterProps }) {
   const router = useRouter();
-  const params = useParams<{ userId: string; listId: string }>();
   const { user: loginUser } = useUser();
   const [isSheetActive, setSheetActive] = useState<boolean>(false);
   const [sheetOptionList, setSheetOptionList] = useState<BottomSheetOptionsProps[]>([]);
-  const writerId = parseInt(params?.userId ?? '0');
-  const listUrl = `${process.env.NEXT_PUBLIC_BASE_URL}/user/${params?.userId}/list/${params?.listId}`;
+  const listUrl = `${process.env.NEXT_PUBLIC_BASE_URL}/user/${data.ownerId}/list/${data.listId}`;
 
   const goToCreateList = () => {
     router.push(`/list/create?title=${data.title}&category=${data.category}`);
@@ -66,7 +65,7 @@ function Footer({ data }: { data: FooterProps }) {
   const ViewCount = () => {
     return (
       <>
-        {loginUser.id === writerId && (
+        {loginUser.id === data.ownerId && (
           <div className={styles.viewCountWrapper}>
             <EyeIcon />
             {data.viewCount ?? 0}
