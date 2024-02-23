@@ -63,6 +63,7 @@ export const currentLine = style([
 
 export const cards = style({
   padding: '2.1rem',
+  marginBottom: '70px',
 });
 
 export const target = style({

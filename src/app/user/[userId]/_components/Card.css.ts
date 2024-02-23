@@ -13,6 +13,8 @@ export const container = style({
   backgroundColor: listColor,
   border: `1px solid ${vars.color.gray5}`,
 
+  cursor: 'pointer',
+
   '@media': {
     // 화면이 414px 이하일 때,
     'screen and (max-width: 414px)': {
@@ -42,7 +44,7 @@ export const title = style({
   color: vars.color.black,
   textAlign: 'center',
   letterSpacing: '-0.51px',
-  wordBreak: 'keep-all',
+  wordBreak: 'break-all',
 });
 
 export const list = style({
