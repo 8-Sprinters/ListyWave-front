@@ -11,7 +11,6 @@ export interface ItemCreateType {
 
 // 리스트 생성 타입
 export interface ListCreateType {
-  ownerId?: number;
   category: string;
   labels: string[];
   collaboratorIds: number[];
@@ -45,7 +44,6 @@ export interface ItemImageType {
 }
 
 export interface ItemImagesType {
-  ownerId: number;
   listId: number;
   extensionRanks: ItemImageType[] | [];
 }

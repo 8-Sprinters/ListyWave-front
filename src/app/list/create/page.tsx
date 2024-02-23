@@ -24,7 +24,6 @@ export default function CreatePage() {
   const methods = useForm<ListCreateType>({
     mode: 'onChange',
     defaultValues: {
-      ownerId: owner.id || 0, // 수정필요
       category: 'culture',
       labels: [],
       collaboratorIds: [],
@@ -83,7 +82,6 @@ export default function CreatePage() {
     };
 
     const imageData: ItemImagesType = {
-      ownerId: owner.id || 0,
       listId: 0, //temp
       extensionRanks: originData.items
         .filter(({ imageUrl }) => imageUrl !== '')
@@ -126,7 +124,7 @@ export default function CreatePage() {
           imageFileList: formatData().imageFileList,
         });
       }
-      router.push(`/user/${formatData().listData.ownerId}/list/${data.listId}`);
+      router.push(`/list/${data.listId}`);
     },
     onError: () => {
       toasting({ type: 'error', txt: toastMessage.ko.createListError });
@@ -137,11 +135,6 @@ export default function CreatePage() {
     const { listData } = formatData();
     createListMutate(listData);
   };
-
-  //TODO: api에 ownerId 지워지면 아래 코드 삭제
-  useEffect(() => {
-    methods.setValue('ownerId', owner.id || 0);
-  }, [owner]);
 
   return (
     <>
