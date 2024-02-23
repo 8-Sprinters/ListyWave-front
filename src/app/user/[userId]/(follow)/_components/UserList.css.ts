@@ -1,8 +1,10 @@
 import { style } from '@vanilla-extract/css';
+import * as fonts from '@/styles/font.css';
+import { vars } from '@/styles/theme.css';
 
 export const container = style({
   width: '100%',
-  padding: '18px',
+  padding: '0 18px',
 
   display: 'flex',
   flexDirection: 'column',
@@ -24,20 +26,26 @@ export const wrapper = style({
   fontWeight: '600',
 });
 
-export const button = style({
-  padding: '10px',
+export const button = style([
+  fonts.caption,
+  {
+    height: '24px',
+    padding: '8px 12px',
 
-  display: 'inline-block',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
 
-  fontSize: '1.6rem',
-  color: '#fff',
-  backgroundColor: 'skyblue',
+    fontSize: '1.6rem',
+    color: vars.color.blue,
+    backgroundColor: '#EBF4FF',
 
-  borderRadius: '10px',
-});
+    borderRadius: '50px',
+  },
+]);
 
 export const emptyMessage = style({
-  marginTop: '18px',
+  marginTop: '69px',
 
   fontSize: '1.6rem',
 

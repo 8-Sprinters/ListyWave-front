@@ -9,6 +9,8 @@ import getFollowingList from '@/app/_api/follow/getFollowingList';
 import { FollowingListType } from '@/lib/types/followType';
 import { QUERY_KEYS } from '@/lib/constants/queryKeys';
 
+import * as styles from '../follow.css';
+
 function FollowingPage() {
   const param = useParams<{ userId: string }>();
 
@@ -20,6 +22,9 @@ function FollowingPage() {
   return (
     <div>
       <Header title="팔로잉" />
+      {followingList?.followings.length !== 0 && (
+        <div className={styles.totalMessage}>총 {followingList?.followings.length}명</div>
+      )}
       <UserList type="following" list={followingList?.followings || []} />
     </div>
   );

@@ -3,8 +3,13 @@ import { vars } from '@/styles/theme.css';
 import * as fonts from '@/styles/font.css';
 
 export const container = style({
+  width: '100%',
   minWidth: 'calc(200vw - 54px)',
   height: '345px',
+  padding: '20px',
+
+  display: 'flex',
+  alignItems: 'center',
 
   borderRadius: '20px',
   backgroundColor: vars.color.white,

@@ -65,6 +65,7 @@ function SimpleInput({ type, name, placeholder, rules, defaultValue }: SimpleInp
             className={styles.inputBox}
             type="text"
             placeholder={placeholder}
+            maxLength={rules.maxLength?.length + 1}
             {...register(name, {
               required: rules.required && rules.required.errorMessage,
               maxLength: rules.maxLength && {
