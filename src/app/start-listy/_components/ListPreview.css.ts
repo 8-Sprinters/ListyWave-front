@@ -1,10 +1,11 @@
 import { style } from '@vanilla-extract/css';
-import { bodySmall, labelLarge, titleMedium } from '@/styles/font.css';
+import { bodyMedium, labelLarge, titleMedium } from '@/styles/font.css';
 import { vars } from '@/styles/theme.css';
 
 export const container = style({
   width: '100%',
   padding: '2.9rem 2.1rem',
+  marginTop: '4rem',
 
   display: 'flex',
   flexDirection: 'column',
@@ -19,7 +20,7 @@ export const container = style({
 export const title = style([
   titleMedium,
   {
-    height: '24px',
+    minHeight: '24px',
     color: vars.color.gray9,
     textAlign: 'center',
   },
@@ -62,7 +63,7 @@ export const input = style([
 ]);
 
 export const errorMessage = style([
-  bodySmall,
+  bodyMedium,
   {
     paddingLeft: '1.8rem',
     height: '16px',
