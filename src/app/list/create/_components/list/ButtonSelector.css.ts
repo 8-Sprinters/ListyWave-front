@@ -1,4 +1,6 @@
 import { style } from '@vanilla-extract/css';
+import { vars } from '@/styles/theme.css';
+import * as fonts from '@/styles/font.css';
 
 export const container = style({
   display: 'flex',
@@ -12,23 +14,23 @@ export const container = style({
   },
 });
 
-export const button = style({
-  height: '40px',
-  marginRight: '12px',
-  padding: '8px 12px',
+export const button = style([
+  fonts.labelLarge,
+  {
+    height: '40px',
+    marginRight: '12px',
+    padding: '8px 12px',
 
-  fontSize: '1.6rem',
-  fontWeight: '600',
+    color: vars.color.black,
+    backgroundColor: 'transparent',
 
-  color: '#000',
-  backgroundColor: 'transparent',
+    whiteSpace: 'nowrap',
 
-  whiteSpace: 'nowrap',
-
-  border: '1px solid #DEDEDE',
-  borderRadius: '10px',
-});
+    border: `1px solid ${vars.color.gray5}`,
+    borderRadius: '10px',
+  },
+]);
 
 export const buttonActive = style({
-  backgroundColor: '#EBF4FF',
+  backgroundColor: vars.color.lightblue,
 });

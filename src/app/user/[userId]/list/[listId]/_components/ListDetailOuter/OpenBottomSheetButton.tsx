@@ -8,8 +8,8 @@ import KebabButton from '/public/icons/vertical_kebab_button.svg';
 import * as styles from './ModalButtonStyle.css';
 
 interface OpenBottomSheetButtonProps {
-  listId: string | undefined;
-  isCollaborator: boolean | undefined;
+  listId?: string;
+  isCollaborator?: boolean;
 }
 
 export default function OpenBottomSheetButton({ listId, isCollaborator }: OpenBottomSheetButtonProps) {
@@ -52,6 +52,7 @@ export default function OpenBottomSheetButton({ listId, isCollaborator }: OpenBo
 
   return (
     <>
+      {/* {바텀시트로 넘겨주는 옵션에 모달 로직을 걸어주기 위함} */}
       <button className={styles.resetButtonStyle} onClick={handleSetOn}>
         <KebabButton className={styles.buttonCursor} alt="케밥 버튼" />
       </button>

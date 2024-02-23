@@ -7,9 +7,13 @@ import { headlineSmall, titleMedium, caption } from '@/styles/font.css';
 export const blackLayer = createVar();
 export const itemFontColor = createVar();
 
+export const customWidth = createVar();
+export const customPadding = createVar();
+export const customBorderRadius = createVar();
 export const customBackgroundColor = createVar();
 export const customFontColor = createVar();
 export const customItemBorder = createVar();
+export const customBackgroundImage = createVar();
 
 export const sectionTitle = style([
   headlineSmall,
@@ -28,9 +32,6 @@ export const listWrapper = style({
   marginBottom: '30px',
   height: '229px',
 
-  display: 'flex',
-  alignItems: 'center',
-  gap: '6px',
   overflowX: 'scroll',
 
   '::-webkit-scrollbar': {
@@ -38,46 +39,50 @@ export const listWrapper = style({
   },
 });
 
+export const listItem = style({
+  cursor: 'pointer',
+});
+
+export const slide = style({
+  display: 'flex',
+  alignItems: 'center',
+  gap: '12px',
+});
+
 export const itemWrapper = style({
   height: '229px',
+  width: customWidth,
+  padding: customPadding,
+  borderRadius: customBorderRadius,
+
+  position: 'relative',
 
   background: customBackgroundColor,
   border: customItemBorder,
+  cursor: 'pointer',
 });
 
-export const itemWrapperStyle1 = style([
+export const itemWrapperWithImage = style([
   itemWrapper,
   {
-    width: '258px',
-    padding: '68px 52px',
-    borderRadius: '80px',
-  },
-]);
+    backgroundImage: customBackgroundImage,
+    backgroundRepeat: 'no-repeat',
+    backgroundSize: 'cover',
+    backgroundPosition: 'center',
+    zIndex: 0,
 
-export const itemWrapperStyle2 = style([
-  itemWrapper,
-  {
-    width: '190px',
-    padding: '68px 29px',
-    borderRadius: '180px',
-  },
-]);
-
-export const itemWrapperStyle3 = style([
-  itemWrapper,
-  {
-    width: '258px',
-    padding: '68px 52px',
-    borderRadius: '80px',
-  },
-]);
-
-export const itemWrapperStyle4 = style([
-  itemWrapper,
-  {
-    width: '172px',
-    padding: '68px 20px',
-    borderRadius: '30px',
+    selectors: {
+      '&:after': {
+        content: '',
+        position: 'absolute',
+        top: 0,
+        left: 0,
+        width: '100%',
+        height: '100%',
+        backgroundColor: 'rgba(0, 0, 0, 0.3)',
+        borderRadius: customBorderRadius,
+      },
+    },
   },
 ]);
 
@@ -100,79 +105,41 @@ export const itemTitle = style([
     marginBottom: '16px',
     color: customFontColor,
     textAlign: 'center',
+    zIndex: 1,
   },
 ]);
 
-export const temporaryCircle = style({
+export const profileImageWrapper = style({
   width: '32px',
   height: '32px',
 
+  position: 'relative',
+
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+});
+
+export const profileImage = style({
   background: vars.color.gray5,
   borderRadius: '50px',
   border: `2px solid ${vars.color.white}`,
+});
+
+export const profileTransparentBlack = style({
+  width: '100%',
+  height: '100%',
+
+  border: `2px solid ${vars.color.white}`,
+  borderRadius: '50px',
+  backgroundColor: 'rgba(0, 0, 0, 0.1)',
+  zIndex: 1,
 });
 
 export const ownerNickname = style([
   caption,
   {
     color: customFontColor,
+    zIndex: 1,
   },
 ]);
-
-export const swiper = style({
-  width: '100%',
-  height: '180px',
-});
-
-export const swiperSlide = style({
-  // padding: '0 26px',
-  width: '100%',
-  height: 'inherit',
-
-  display: 'flex',
-  flexDirection: 'column',
-  alignItems: 'flex-start',
-  justifyContent: 'center',
-  gap: '15px',
-});
-
-export const swiperContainer = style({
-  width: '100%',
-  height: '100%',
-
-  background: blackLayer,
-  cursor: 'pointer',
-});
-
-export const trendingListTitle = style({
-  color: itemFontColor,
-  fontSize: '2.2rem',
-  fontWeight: 600,
-  letterSpacing: '-0.6',
-});
-
-export const trendingListDescription = style({
-  color: itemFontColor,
-  fontSize: '1.4rem',
-  fontWeight: 400,
-  letterSpacing: '-0.42px',
-});
-
-export const listInformationWrapper = style({
-  padding: '0 26px',
-
-  display: 'flex',
-  flexDirection: 'column',
-  gap: '15px',
-});
-
-export const backgroundImage = style({
-  zIndex: -2,
-});
-
-export const black = style({
-  width: '100%',
-  height: '100%',
-
-  background: 'rgba(25, 25, 27, 0.5)',
-});

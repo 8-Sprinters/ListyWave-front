@@ -1,9 +1,9 @@
 import { style } from '@vanilla-extract/css';
 import { vars } from '@/styles/theme.css';
-import { body1 } from '@/styles/font.css';
+import * as fonts from '@/styles/font.css';
 
 export const addButton = style([
-  body1,
+  fonts.bodyLarge,
   {
     width: '100%',
     height: '60px',

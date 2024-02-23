@@ -60,6 +60,7 @@ function MemberSelector({ placeholder, followingList, onClickAdd, onClickDelete,
   const { data: listDataBeforeEdit } = useQuery<ListDetailType>({
     queryKey: [QUERY_KEYS.getListDetail, param?.listId],
     queryFn: () => getListDetail(Number(param?.listId)),
+    enabled: !!param?.listId,
   });
 
   useEffect(() => {

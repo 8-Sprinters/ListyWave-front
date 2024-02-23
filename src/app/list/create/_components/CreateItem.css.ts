@@ -1,42 +1,31 @@
-import { style, styleVariants } from '@vanilla-extract/css';
-import { body1, body3 } from '@/styles/font.css';
+import { style } from '@vanilla-extract/css';
 import { vars } from '@/styles/theme.css';
-
-//header
-export const baseButton = style([body1]);
-
-export const headerNextButton = styleVariants({
-  active: [baseButton],
-  inactive: [baseButton, { color: vars.color.gray7, cursor: 'default' }],
-});
+import * as fonts from '@/styles/font.css';
 
 export const article = style({
-  padding: '16px 20px 30px',
+  padding: '16px 20px 35px',
 });
 
-//body1
 export const label = style([
-  body1,
+  fonts.labelLarge,
   {
-    marginBottom: '1.6rem',
+    marginBottom: '1rem',
   },
 ]);
 
-export const required = style([
-  body1,
-  {
-    marginLeft: '6px',
+export const required = style({
+  marginLeft: '5px',
 
-    fontWeight: '500',
-    color: vars.color.red,
-  },
-]);
+  fontSize: '1.7rem',
+  fontWeight: '400',
+  lineHeight: '2.2rem',
+  color: vars.color.red,
+});
 
-//body3
 export const description = style([
-  body3,
+  fonts.bodyMedium,
   {
-    marginBottom: '1.6rem',
+    marginBottom: '2.4rem',
 
     color: vars.color.gray9,
   },

@@ -3,7 +3,12 @@ export interface UserProfilesType {
   userInfos: UserProfileType[];
 }
 
+/**
+ * @todo 백엔드에서 CollaboratorType userId -> id로 받은 다음에 userId 삭제
+ */
+
 export interface UserProfileType {
+  userId?: number;
   id: number;
   profileImageUrl: string;
   nickname: string;

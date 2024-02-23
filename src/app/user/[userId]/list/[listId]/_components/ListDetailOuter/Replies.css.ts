@@ -62,6 +62,16 @@ export const replyInformationWrapper = style({
   gap: '8.85px',
 });
 
+export const editButton = style({
+  cursor: 'pointer',
+});
+
+export const actionButtonWrapper = style({
+  display: 'flex',
+  gap: '8px',
+  alignItems: 'center',
+});
+
 export const replyWriter = style({
   fontSize: '1.2rem',
   fontWeight: 600,

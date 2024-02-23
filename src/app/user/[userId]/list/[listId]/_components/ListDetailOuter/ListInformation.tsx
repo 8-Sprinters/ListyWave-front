@@ -14,15 +14,17 @@ import useBooleanOutput from '@/hooks/useBooleanOutput';
 import { useUser } from '@/store/useUser';
 import { QUERY_KEYS } from '@/lib/constants/queryKeys';
 import timeDiff from '@/lib/utils/time-diff';
+import useMoveToPage from '@/hooks/useMoveToPage';
 import { UserProfileType } from '@/lib/types/userProfileType';
 import { LabelType, ListDetailType } from '@/lib/types/listType';
 import ListDetailInner from '@/app/user/[userId]/list/[listId]/_components/ListDetailInner';
 import * as styles from './ListInformation.css';
 
 function ListInformation() {
-  const params = useParams<{ listId: string; userId: string }>();
+  const params = useParams<{ listId: string }>();
   const router = useRouter();
   const { handleSetOff } = useBooleanOutput();
+  const { onClickMoveToPage } = useMoveToPage();
 
   //zustand로 관리하는 user정보 불러오기
   const { user } = useUser();
@@ -35,11 +37,13 @@ function ListInformation() {
     retry: 0,
   });
 
+  /**@todo 다시 닉네임 말고 아이디로 바꾸기 */
+
   //리스트 생성자 제외한 사람들만 콜라보레이터들로 설정
-  const filteredCollaboratorsList = list?.collaborators.filter((item: UserProfileType) => item?.id !== list.ownerId);
+  const filteredCollaborators = list?.collaborators.filter((item: UserProfileType) => item?.userId !== list.ownerId);
   //리스트 오너가 아니고 콜라보레이터인 경우에 권한을 설정하기 위한 변수
   const isCollaborator: boolean | undefined =
-    list?.collaborators.some((item: UserProfileType) => item?.id === userId) && userId !== Number(params?.userId);
+    list?.collaborators.some((item: UserProfileType) => item?.id === userId) && userId !== list.ownerId;
 
   const handleConfirmButtonClick = () => {
     router.push('/');
@@ -65,7 +69,7 @@ function ListInformation() {
       <Header
         title="리스트"
         left="back"
-        right={<HeaderRight isCollaborator={isCollaborator} />}
+        right={<HeaderRight isCollaborator={isCollaborator} ownerId={list?.ownerId} />}
         leftClick={() => router.back()}
       />
       <div className={styles.wrapper}>
@@ -87,13 +91,17 @@ function ListInformation() {
       <ListDetailInner data={list} listId={params && params?.listId} />
       <div className={styles.bottomWrapper}>
         <div className={styles.bottomLeftWrapper}>
-          <Image
-            src={list?.ownerProfileImageUrl}
-            alt="사용자 프로필 이미지"
-            width={36}
-            height={36}
-            className={styles.profileImage}
-          />
+          <div className={styles.profileImageParent} onClick={onClickMoveToPage(`/user/${list.ownerId}/mylist`)}>
+            <Image
+              src={list?.ownerProfileImageUrl}
+              alt="사용자 프로필 이미지"
+              className={styles.profileImage}
+              fill
+              style={{
+                objectFit: 'cover',
+              }}
+            />
+          </div>
           <div className={styles.informationWrapper}>
             <div className={styles.listOwnerNickname}>{list?.ownerNickname}</div>
             <div className={styles.infoDetailWrapper}>
@@ -103,7 +111,7 @@ function ListInformation() {
           </div>
         </div>
         <div className={styles.collaboratorWrapper}>
-          <Collaborators collaborators={filteredCollaboratorsList} />
+          <Collaborators collaborators={filteredCollaborators} />
         </div>
       </div>
       <Comments />

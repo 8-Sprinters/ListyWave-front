@@ -6,12 +6,14 @@ import { useUser } from '@/store/useUser';
 import useMoveToPage from '@/hooks/useMoveToPage';
 import getUserOne from '@/app/_api/user/getUserOne';
 import { QUERY_KEYS } from '@/lib/constants/queryKeys';
+import getNotificationAllChecked from '@/app/_api/explore/getNotificationAllChecked';
 import { UserType } from '@/lib/types/userProfileType';
 
 import * as styles from './Header.css';
 import Logo from '/public/icons/logo.svg';
 import BellIcon from '/public/icons/bell.svg';
 import NoneProfileImage from '/public/icons/avatar.svg';
+import NotificationOn from '/public/icons/notification_on.svg';
 
 function Header() {
   const { onClickMoveToPage } = useMoveToPage();
@@ -25,6 +27,14 @@ function Header() {
     queryFn: () => getUserOne(userId as number),
     enabled: !!userId,
   });
+
+  const { data: result } = useQuery({
+    queryKey: [QUERY_KEYS.getNotificationAllChecked],
+    queryFn: () => getNotificationAllChecked(),
+    enabled: !!userId,
+  });
+
+  const isNotificationAllChecked = result?.isAllChecked;
 
   return (
     <nav className={styles.wrapper}>
@@ -53,9 +63,11 @@ function Header() {
             <h5 className={styles.loginButton}>로그인/회원가입</h5>
           )}
         </div>
-        <button onClick={onClickMoveToPage('/notification')}>
-          {userId !== null && <BellIcon alt="알림 페이지 이동 버튼" />}
-        </button>
+        {userId !== null && (
+          <button onClick={onClickMoveToPage('/notification')}>
+            {isNotificationAllChecked ? <BellIcon alt="알림 페이지 이동 버튼" /> : <NotificationOn />}
+          </button>
+        )}
       </div>
     </nav>
   );

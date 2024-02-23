@@ -5,7 +5,7 @@ import { caption1 } from '@/styles/font.css';
 /**@todo 공용폰트 스타일 적용 */
 
 export const commentOuterWrapper = style({
-  marginBottom: '9px',
+  marginBottom: '6px',
 
   position: 'relative',
 
@@ -14,10 +14,17 @@ export const commentOuterWrapper = style({
   gap: '16px',
 });
 
-export const profileImage = style({
+export const profileImageParent = style({
   width: '30px',
-  minWidth: '30px',
   height: '30px',
+  position: 'relative',
+
+  flex: '0 0 1',
+
+  borderRadius: '16px',
+});
+
+export const profileImage = style({
   flex: '0 0 1',
 
   borderRadius: '16px',
@@ -64,6 +71,24 @@ export const commentContent = style([
     lineHeight: 'normal',
   },
 ]);
+
+export const deletedComment = style([
+  commentContent,
+  {
+    fontWeight: 400,
+    color: vars.color.gray9,
+  },
+]);
+
+export const actionButtonWrapper = style({
+  display: 'flex',
+  gap: '8px',
+  alignItems: 'center',
+});
+
+export const editButton = style({
+  cursor: 'pointer',
+});
 
 export const createReplyButton = style({
   padding: '0 0 0 36px',

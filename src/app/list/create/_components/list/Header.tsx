@@ -6,6 +6,8 @@ interface HeaderProps {
   onClickNext: () => void;
 }
 
+/**TODO: 공용 헤더 컴포넌트 사용으로 이 컴포넌트는 삭제 필요 */
+
 function Header({ isNextActive, onClickNext }: HeaderProps) {
   return (
     <div className={styles.header}>

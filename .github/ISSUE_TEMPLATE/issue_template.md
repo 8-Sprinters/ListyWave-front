@@ -1,3 +1,11 @@
+---
+name: Issue Template
+about: 다양하게 사용할 수 있는 Issue Template 입니다.
+title: ''
+labels: ''
+assignees: ''
+---
+
 ### 카테고리
 
 - [ ]  질문하기/도움받기
