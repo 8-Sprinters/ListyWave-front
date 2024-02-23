@@ -75,12 +75,12 @@ function ListInformation() {
       <div className={styles.wrapper}>
         <div className={styles.categoryWrapper}>
           <div className={styles.labelWrapper}>
-            <Label colorType="skyblue">{list?.category}</Label>
+            <Label colorType="blue">{list?.category}</Label>
           </div>
           {list?.labels.map((item: LabelType) => {
             return (
               <div className={styles.labelWrapper} key={item.name}>
-                <Label colorType="blue">{`${item.name}`}</Label>
+                <Label colorType="skyblue">{`${item.name}`}</Label>
               </div>
             );
           })}
