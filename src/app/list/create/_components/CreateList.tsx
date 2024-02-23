@@ -81,8 +81,6 @@ function CreateList({ onNextClick, type }: CreateListProps) {
     handleQueryParams();
   }, []);
 
-  console.log(errors);
-
   return (
     <div>
       {/* 헤더 */}
