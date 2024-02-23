@@ -86,6 +86,7 @@ export const listDescription = style([
     marginTop: '13px',
 
     color: vars.color.gray9,
+    wordBreak: 'break-word',
   },
 ]);
 
