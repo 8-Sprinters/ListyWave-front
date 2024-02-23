@@ -24,8 +24,6 @@ export const profileImageParent = style({
 
 export const profileImage = style({
   marginRight: '-10px',
-  width: '36px',
-  height: '36px',
 
   display: 'flex',
   justifyContent: 'center',
