@@ -11,7 +11,7 @@ export interface ItemCreateType {
 
 // 리스트 생성 타입
 export interface ListCreateType {
-  ownerId: number;
+  ownerId?: number;
   category: string;
   labels: string[];
   collaboratorIds: number[];

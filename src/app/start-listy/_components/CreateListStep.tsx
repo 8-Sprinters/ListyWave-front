@@ -36,7 +36,6 @@ export default function CreateListStep({ userId, nickname }: CreateListStepProps
   const methods = useForm<ListCreateType>({
     mode: 'onChange',
     defaultValues: {
-      ownerId: userId,
       category: '',
       labels: [],
       collaboratorIds: [],
