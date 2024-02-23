@@ -1,8 +1,3 @@
-/**
- TODO
- - [ ] 다른 사람 피드볼때, 비공개 리스트는 보여지지 않음
- */
-
 import { assignInlineVars } from '@vanilla-extract/dynamic';
 
 import * as styles from './Card.css';
@@ -22,6 +17,7 @@ export default function Card({ list, isOwner }: CardProps) {
   const isVisibleLockIcon = isOwner && !list.isPublic;
 
   return (
+    // MasonryGrid 라이브러리에서는 ul로 감싸줘야 하므로 Link태그 미사용
     <ul
       onClick={onClickMoveToPage(`/list/${list.id}`)}
       className={styles.container}
