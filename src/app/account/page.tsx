@@ -20,6 +20,10 @@ export default function AccountPage() {
   const router = useRouter();
   const { isOn, handleSetOn, handleSetOff } = useBooleanOutput();
 
+  const handleDivLinkClick = (url: string) => {
+    window.open(url, '_blank');
+  };
+
   return (
     <>
       <Header
@@ -44,7 +48,12 @@ export default function AccountPage() {
           </div>
           <LanguageDropdown />
         </div>
-        <div className={styles.buttonDiv}>
+        <div
+          className={styles.buttonDiv}
+          onClick={() => {
+            handleDivLinkClick('https://open.kakao.com/o/saz6DObg');
+          }}
+        >
           <div className={styles.titleDiv}>
             <HelpIcon width={24} height={24} alt="문의하기" />
             문의하기
