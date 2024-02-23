@@ -30,11 +30,15 @@ const MockProfile = ['B', 'C', 'D', 'E'];
 
 interface ProfileFormProps {
   userNickname: string;
-  onProfileChange: (arg: File | string) => void;
-  onBackgroundChange: (arg: File | string) => void;
+  handleProfilePreviewChange: (arg: File | string) => void;
+  handleBackgroundPreviewChange: (arg: File | string) => void;
 }
 
-export default function ProfileForm({ userNickname, onProfileChange, onBackgroundChange }: ProfileFormProps) {
+export default function ProfileForm({
+  userNickname,
+  handleProfilePreviewChange,
+  handleBackgroundPreviewChange,
+}: ProfileFormProps) {
   const [isNicknameValidated, setIsNicknameValidated] = useState(false);
   const {
     register,
@@ -45,9 +49,7 @@ export default function ProfileForm({ userNickname, onProfileChange, onBackgroun
     formState: { errors },
   } = useFormContext<UserProfileEditType>();
 
-  //닉네임 중복 검사
-  const nicknameRegister = register('nickname', nicknameRules);
-
+  //기본 이미지 조회
   const { data: defaultBackgroundImages } = useQuery<DefaultImagesType>({
     queryKey: [QUERY_KEYS.getDefaultBackgroundImages],
     queryFn: getDefaultBackgroundImages,
@@ -57,6 +59,9 @@ export default function ProfileForm({ userNickname, onProfileChange, onBackgroun
     queryKey: [QUERY_KEYS.getDefaultProfileImages],
     queryFn: getDefaultProfileImages,
   });
+
+  //닉네임 중복 검사
+  const nicknameRegister = register('nickname', nicknameRules);
 
   const { mutate: checkNickname } = useMutation({
     mutationFn: checkNicknameDuplication,
@@ -80,43 +85,48 @@ export default function ProfileForm({ userNickname, onProfileChange, onBackgroun
   //글자수세기
   const watchDescription = useWatch({ control, name: 'description' });
 
-  //이미지 미리보기
+  //이미지 업로드
   const newBackgroundImageRegister = register('newBackgroundFileList');
   const newProfileImageRegister = register('newProfileFileList');
 
   const MAX_IMAGE_INPUT_SIZE_MB = 50 * 1024 * 1024; //50MB
 
-  const handleBackgroundChange = (e: ChangeEvent<HTMLInputElement>) => {
+  const handleBackgroundFileInput = (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
       const targetFile = e.target.files[0];
       if (targetFile?.size > MAX_IMAGE_INPUT_SIZE_MB) {
         toasting({ type: 'error', txt: toastMessage.ko.imageSizeError });
       } else {
         newBackgroundImageRegister.onChange(e);
-        onBackgroundChange(e.target.files[0]);
+        setValue('backgroundImageUrl', '');
+        handleBackgroundPreviewChange(e.target.files[0]);
       }
     }
   };
 
-  const handleProfileChange = (e: ChangeEvent<HTMLInputElement>) => {
+  const handleProfileFileInput = (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
       const targetFile = e.target.files[0];
       if (targetFile?.size > MAX_IMAGE_INPUT_SIZE_MB) {
         toasting({ type: 'error', txt: toastMessage.ko.imageSizeError });
       } else {
         newProfileImageRegister.onChange(e);
-        onProfileChange(e.target.files[0]);
+        setValue('profileImageUrl', '');
+        handleProfilePreviewChange(e.target.files[0]);
       }
     }
   };
 
+  //기본 이미지 선택
   const handleDefaultImageClick = (type: 'background' | 'profile', imageUrl: string) => {
     if (type === 'profile') {
-      onProfileChange(imageUrl);
+      handleProfilePreviewChange(imageUrl);
       setValue('profileImageUrl', imageUrl, { shouldDirty: true });
+      setValue('newProfileFileList', null);
     } else {
-      onBackgroundChange(imageUrl);
+      handleBackgroundPreviewChange(imageUrl);
       setValue('backgroundImageUrl', imageUrl, { shouldDirty: true });
+      setValue('newBackgroundFileList', null);
     }
   };
 
@@ -185,7 +195,7 @@ export default function ProfileForm({ userNickname, onProfileChange, onBackgroun
               className={styles.inputFile}
               accept=".jpg, .jpeg, .png"
               {...newBackgroundImageRegister}
-              onChange={(e) => handleBackgroundChange(e)}
+              onChange={(e) => handleBackgroundFileInput(e)}
             />
             {defaultBackgroundImages?.map((image) => (
               <button
@@ -219,7 +229,7 @@ export default function ProfileForm({ userNickname, onProfileChange, onBackgroun
               className={styles.inputFile}
               accept=".jpg, .jpeg, .png"
               {...newProfileImageRegister}
-              onChange={(e) => handleProfileChange(e)}
+              onChange={(e) => handleProfileFileInput(e)}
             />
             {defaultProfileImages?.map((image) => (
               <button

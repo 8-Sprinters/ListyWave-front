@@ -65,9 +65,11 @@ const option = style({
 
   cursor: 'pointer',
 
+  border: `2px solid ${vars.color.white}`,
+
   selectors: {
     '&:hover': {
-      border: `1px solid ${vars.color.blue}`,
+      border: `2px solid ${vars.color.blue}`,
     },
   },
 });

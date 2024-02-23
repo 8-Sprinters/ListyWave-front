@@ -21,13 +21,14 @@ import * as styles from './page.css';
 import ImagePreview from './_components/ImagePreview';
 import ProfileSkeleton from './_components/ProfileSkeleton';
 
-/** TODO 데이터 가져오는 중 보여줄 화면 필요(로딩UI) */
-
 export default function ProfilePage() {
-  const { user } = useUser();
   const router = useRouter();
+  //미리보기
   const [profilePreviewUrl, setProfilePreviewUrl] = useState('');
   const [backgroundPreviewUrl, setBackgroundPreviewUrl] = useState('');
+
+  //사용자 정보
+  const { user } = useUser();
 
   const { data: userData } = useQuery<UserType>({
     queryKey: [QUERY_KEYS.userOne, user.id],
@@ -35,6 +36,7 @@ export default function ProfilePage() {
     enabled: !!user.id,
   });
 
+  //form 관리
   const methods = useForm<UserProfileEditType>({
     mode: 'onChange',
   });
@@ -53,7 +55,7 @@ export default function ProfilePage() {
   }, [userData]);
 
   //미리보기 이미지 변경
-  const handleProfileChange = async (image: File | string) => {
+  const handleProfilePreviewChange = async (image: File | string) => {
     if (typeof image === 'string') {
       setProfilePreviewUrl(image);
     } else if (typeof image === 'object') {
@@ -62,7 +64,7 @@ export default function ProfilePage() {
     }
   };
 
-  const handleBackgroundChange = async (image: File | string) => {
+  const handleBackgroundPreviewChange = async (image: File | string) => {
     if (typeof image === 'string') {
       setBackgroundPreviewUrl(image);
     } else if (typeof image === 'object') {
@@ -114,8 +116,8 @@ export default function ProfilePage() {
               <ImagePreview profileImageUrl={profilePreviewUrl} backgroundImageUrl={backgroundPreviewUrl} />
               <ProfileForm
                 userNickname={userData?.nickname ?? ''}
-                onProfileChange={handleProfileChange}
-                onBackgroundChange={handleBackgroundChange}
+                handleProfilePreviewChange={handleProfilePreviewChange}
+                handleBackgroundPreviewChange={handleBackgroundPreviewChange}
               />
             </main>
           )}
