@@ -19,4 +19,5 @@ export const QUERY_KEYS = {
   searchListResult: 'searchListResult',
   searchUserResult: 'searchUserResult',
   collect: 'collect',
+  getCollection: 'getCollection',
 };

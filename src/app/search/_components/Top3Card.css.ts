@@ -12,7 +12,7 @@ export const container = style({
   flexDirection: 'column',
   justifyContent: 'center',
 
-  border: '1px solid #EFEFF0',
+  border: `1px solid ${vars.color.gray5}`,
   borderRadius: '24px',
 
   backgroundColor: listColor,
@@ -34,7 +34,7 @@ export const userImageWrapper = style({
   width: '3rem',
   height: '3rem',
 
-  border: '1px solid #EFEFF0',
+  border: `1px solid ${vars.color.gray5}`,
   borderRadius: '50px',
 
   overflow: 'hidden',
@@ -61,7 +61,7 @@ export const nameText = style({
 
 export const updatedDateText = style({
   fontSize: '1.1rem',
-  color: '#AFB1B6',
+  color: vars.color.gray7,
 });
 
 export const title = style({

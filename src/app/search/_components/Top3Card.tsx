@@ -43,10 +43,15 @@ export default function Top3Card({ list }: { list: SearchListType }) {
       <h2 className={styles.title}>{list.title}</h2>
       <ul>
         <ol className={styles.list}>
-          {list.items.map((item, index) => {
-            if (index > 2) return;
-            return <Top3CardItem key={item.id} item={item} index={index} />;
-          })}
+          {list.items
+            ? list.items.map((item, index) => {
+                if (index > 2) return;
+                return <Top3CardItem key={item.id} item={item} index={index} />;
+              })
+            : list.list.listItems.map((item, index) => {
+                if (index > 2) return;
+                return <Top3CardItem key={item.id} item={item} index={index} />;
+              })}
         </ol>
       </ul>
     </div>

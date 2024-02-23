@@ -115,12 +115,15 @@ export interface ListDetailType {
 export interface ListItemType {
   id: number;
   title: string;
+  rank?: number;
+  imageUrl?: string;
 }
 
 export interface SearchListType {
   id: number;
   title: string;
   items: ListItemType[];
+  listItems: ListItemType[];
   isPublic: boolean;
   backgroundColor: string;
   updatedDate: Date;
