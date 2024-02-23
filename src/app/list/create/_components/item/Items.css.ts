@@ -32,7 +32,7 @@ export const draggingItem = style([
 
 export const placeholder = style({
   '::placeholder': {
-    color: `${vars.color.gray7}`,
+    color: vars.color.gray7,
   },
 });
 
@@ -49,7 +49,16 @@ export const title = style([
   },
 ]);
 
-export const errorTitle = style([title, placeholder]);
+export const errorTitle = style([
+  title,
+  placeholder,
+  {
+    color: vars.color.red,
+    '::placeholder': {
+      color: vars.color.red,
+    },
+  },
+]);
 
 export const comment = style([
   fonts.bodyMedium,
@@ -86,11 +95,14 @@ export const imageInput = style({
 
 export const countLength = style([fonts.bodyMedium, { color: vars.color.gray7 }]);
 
+export const errorCountLength = style([fonts.bodyMedium, { color: vars.color.red }]);
+
 export const error = style([
-  fonts.bodyRegular,
+  fonts.bodySmall,
   {
     marginTop: '8px',
     marginLeft: '4px',
+    marginBottom: '4px',
 
     flexShrink: '0',
     color: vars.color.red,

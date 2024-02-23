@@ -12,6 +12,7 @@ const toastMessage = {
     updateProfileSuccess: '프로필을 수정했습니다.🥰',
     updateProfileError: '프로필 수정에 실패했어요. 다시 시도해주세요.🥲',
     imageSizeError: '사진이 너무 커요. 50MB 이하 사진을 넣어주세요.🥹',
+    duplicatedItemError: '중복된 아이템이 있어요🥲',
   },
   en: {
     requiredLogin: 'Login is required.',
@@ -24,6 +25,7 @@ const toastMessage = {
     updateProfileSuccess: 'Profile updated successfully.🥰',
     updateProfileError: 'Failed to update the profile. Please try again.🥲',
     imageSizeError: 'The image is too large. Please insert an image smaller than 50MB.🥹',
+    duplicatedItemError: 'Duplicated items exist🥲',
   },
 };
 

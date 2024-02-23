@@ -72,7 +72,6 @@ export default function EditPage() {
     };
 
     const imageData: ItemImagesType = {
-      ownerId: Number(listDetailData?.ownerId),
       listId: Number(param?.listId),
       extensionRanks: originData.items
         .filter(({ imageUrl }) => imageUrl !== '')

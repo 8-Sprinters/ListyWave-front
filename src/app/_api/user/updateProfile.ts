@@ -32,7 +32,6 @@ const updateProfile = async ({ userId, data }: UpdateProfileParams) => {
 
   //1. presignedUrl 생성요청
   const imageData = {
-    ownerId: userId,
     backgroundExtension: newBackgroundFileList?.[0].type.split('/')[1],
     profileExtension: newProfileFileList?.[0].type.split('/')[1],
   };

@@ -49,7 +49,7 @@ export default function TempLayout({ children }: { children: ReactNode }) {
               {children}
               <BottomNav />
             </div>
-            <ToastContainer />
+            <ToastContainer className={styles.toastContainer} />
           </CookiesProvider>
         </QueryClientProvider>
         {isOn && (

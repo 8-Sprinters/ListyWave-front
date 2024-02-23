@@ -43,7 +43,12 @@ function CreateList({ onNextClick, type }: CreateListProps) {
   const [categories, setCategories] = useState<CategoryType[]>([]);
   const { user: me } = useUser();
 
-  const { setValue, getValues, control } = useFormContext();
+  const {
+    setValue,
+    getValues,
+    control,
+    formState: { errors },
+  } = useFormContext();
   const collaboIDs = useWatch({ control, name: 'collaboratorIds' });
   const title = useWatch({ control, name: 'title' });
   const category = useWatch({ control, name: 'category' });
@@ -88,7 +93,9 @@ function CreateList({ onNextClick, type }: CreateListProps) {
         right={
           <button
             className={title && category ? styles.headerNextButtonActive : styles.headerNextButton}
-            disabled={!title && !category}
+            disabled={
+              !!errors.title || !!errors.category || !!errors.labels || !!errors.collaboratorIds || !!errors.description
+            }
             onClick={onNextClick}
           >
             다음

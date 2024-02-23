@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { FieldErrors, FormProvider, useForm } from 'react-hook-form';
 import { useMutation } from '@tanstack/react-query';
 import { useRouter } from 'next/navigation';
@@ -12,19 +12,16 @@ import toasting from '@/lib/utils/toasting';
 import toastMessage from '@/lib/constants/toastMessage';
 import createList from '@/app/_api/list/createList';
 import uploadItemImages from '@/app/_api/list/uploadItemImages';
-import { useUser } from '@/store/useUser';
 
 export type FormErrors = FieldErrors<ListCreateType>;
 
 export default function CreatePage() {
-  const { user: owner } = useUser();
   const [step, setStep] = useState<'list' | 'item'>('list');
   const router = useRouter();
 
   const methods = useForm<ListCreateType>({
     mode: 'onChange',
     defaultValues: {
-      ownerId: owner.id || 0, // 수정필요
       category: 'culture',
       labels: [],
       collaboratorIds: [],
@@ -83,7 +80,6 @@ export default function CreatePage() {
     };
 
     const imageData: ItemImagesType = {
-      ownerId: owner.id || 0,
       listId: 0, //temp
       extensionRanks: originData.items
         .filter(({ imageUrl }) => imageUrl !== '')
@@ -126,22 +122,30 @@ export default function CreatePage() {
           imageFileList: formatData().imageFileList,
         });
       }
-      router.push(`/user/${formatData().listData.ownerId}/list/${data.listId}`);
+      router.push(`/list/${data.listId}`);
     },
     onError: () => {
       toasting({ type: 'error', txt: toastMessage.ko.createListError });
     },
   });
 
-  const handleSubmit = () => {
-    const { listData } = formatData();
-    createListMutate(listData);
+  //아이템 중복 확인
+  const getIsAllUnique = () => {
+    const allTitles = methods.getValues().items.map((item, itemIndex) => {
+      return item.title === '' ? itemIndex : item.title;
+    });
+    const isAllUnique = new Set(allTitles).size === allTitles.length;
+    return isAllUnique;
   };
 
-  //TODO: api에 ownerId 지워지면 아래 코드 삭제
-  useEffect(() => {
-    methods.setValue('ownerId', owner.id || 0);
-  }, [owner]);
+  const handleSubmit = () => {
+    if (getIsAllUnique()) {
+      const { listData } = formatData();
+      createListMutate(listData);
+    } else {
+      toasting({ type: 'error', txt: toastMessage.ko.duplicatedItemError });
+    }
+  };
 
   return (
     <>
