@@ -1,7 +1,7 @@
 import { useRouter } from 'next/navigation';
 
 import * as styles from '@/app/search/_components/NoData.css';
-import NoListImage from '/public/images/no-list.svg';
+import NoListImage from '/public/images/no_data_image.svg';
 
 function NoData() {
   const router = useRouter();
