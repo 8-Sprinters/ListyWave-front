@@ -124,7 +124,7 @@ export default function Items({ type, setItemChanged }: ItemsProps) {
 
               const imageRegister = register(`items.${index}.imageUrl`);
               return (
-                <div>
+                <div key={item.id}>
                   {titleError?.type !== 'required' && (
                     <p key={item.id} className={styles.error}>
                       {titleError?.message}
