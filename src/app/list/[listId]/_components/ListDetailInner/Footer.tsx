@@ -7,7 +7,7 @@ import * as styles from './Footer.css';
 import { useUser } from '@/store/useUser';
 import { ItemType } from '@/lib/types/listType';
 import { UserProfileType } from '@/lib/types/userProfileType';
-import BottomSheet from '@/app/list/[listId]/_components/BottomSheet/BottomSheet';
+import BottomSheet from '@/components/BottomSheet/BottomSheet';
 import ModalPortal from '@/components/modal-portal';
 import CollectButton from '@/app/list/[listId]/_components/ListDetailInner/CollectButton';
 import getBottomSheetOptionList from '@/app/list/[listId]/_components/ListDetailInner/getBottomSheetOptionList';

@@ -25,10 +25,7 @@ function HeaderRight({ isCollaborator, ownerId }: HeaderRightProps) {
   return (
     <>
       <div className={styles.headerRightWrapper}>
-        <button
-          className={styles.buttonResetStyle}
-          onClick={onClickMoveToPage(`user/${ownerId}/list/${params?.listId}/history`)}
-        >
+        <button className={styles.buttonResetStyle} onClick={onClickMoveToPage(`/list/${params?.listId}/history`)}>
           <HistoryButton alt="히스토리 버튼" />
         </button>
         {/* {리스트 관리 버튼은 리스트 오너, 콜라보레이터일 때만 보이게 하기} */}

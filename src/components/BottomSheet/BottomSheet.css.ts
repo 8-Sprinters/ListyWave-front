@@ -2,6 +2,7 @@ import { keyframes, style } from '@vanilla-extract/css';
 
 export const backGround = style({
   position: 'fixed',
+  margin: 'auto',
   top: 0,
   left: 0,
   bottom: 0,
@@ -12,6 +13,7 @@ export const backGround = style({
 
 export const wrapper = style({
   padding: '37px 0 43px',
+  margin: 'auto',
 
   position: 'fixed',
   bottom: 0,
