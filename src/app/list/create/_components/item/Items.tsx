@@ -36,7 +36,6 @@ interface ItemsProps {
 
 export default function Items({ type, setItemChanged }: ItemsProps) {
   const [currentLink, setCurrentLink] = useState<string>('');
-  const [isAllUnique, setIsAllUnique] = useState(true);
   const {
     register,
     control,
@@ -110,13 +109,6 @@ export default function Items({ type, setItemChanged }: ItemsProps) {
     queryFn: () => getListDetail(listId),
     enabled: type === 'edit',
   });
-
-  const clearDuplicationError = () => {
-    const allTitles = getValues().items.map((item: ItemCreateType, itemIndex: number) => {
-      return item.title === '' ? itemIndex : item.title;
-    });
-    setIsAllUnique(new Set(allTitles).size === allTitles.length);
-  };
 
   return (
     <DragDropContext onDragEnd={handleOnDragEnd}>

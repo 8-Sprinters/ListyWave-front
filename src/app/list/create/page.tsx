@@ -129,9 +129,22 @@ export default function CreatePage() {
     },
   });
 
+  //아이템 중복 확인
+  const getIsAllUnique = () => {
+    const allTitles = methods.getValues().items.map((item, itemIndex) => {
+      return item.title === '' ? itemIndex : item.title;
+    });
+    const isAllUnique = new Set(allTitles).size === allTitles.length;
+    return isAllUnique;
+  };
+
   const handleSubmit = () => {
-    const { listData } = formatData();
-    createListMutate(listData);
+    if (getIsAllUnique()) {
+      const { listData } = formatData();
+      createListMutate(listData);
+    } else {
+      toasting({ type: 'error', txt: toastMessage.ko.duplicatedItemError });
+    }
   };
 
   return (
