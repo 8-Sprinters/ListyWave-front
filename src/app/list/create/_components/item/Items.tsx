@@ -1,21 +1,25 @@
-import { useState } from 'react';
-import { useFieldArray, useFormContext, useWatch } from 'react-hook-form';
+import { ChangeEvent, useState } from 'react';
+import { UseFormRegisterReturn, useFieldArray, useFormContext, useWatch } from 'react-hook-form';
 import { DragDropContext, Draggable, DropResult } from 'react-beautiful-dnd';
 import { useParams } from 'next/navigation';
 import { useQuery } from '@tanstack/react-query';
 
+import { QUERY_KEYS } from '@/lib/constants/queryKeys';
+import { ListDetailType } from '@/lib/types/listType';
 import { itemPlaceholder } from '@/lib/constants/placeholder';
+import toasting from '@/lib/utils/toasting';
+import toastMessage from '@/lib/constants/toastMessage';
 import { itemTitleRules, itemCommentRules, itemLinkRules } from '@/lib/constants/formInputValidationRules';
 import { StrictModeDroppable } from '@/components/StrictModeDroppable';
 import { FormErrors } from '@/app/list/create/page';
+import { getListDetail } from '@/app/_api/list/getLists';
+
 import ItemLayout from './ItemLayout';
 import LinkModal from './LinkModal';
-import Preview from './Preview';
-import * as styles from './Items.css';
+import LinkPreview from './LinkPreview';
+import ImagePreview from './ImagePreview';
 import AddItemButton from './AddItemButton';
-import { QUERY_KEYS } from '@/lib/constants/queryKeys';
-import { getListDetail } from '@/app/_api/list/getLists';
-import { ListDetailType } from '@/lib/types/listType';
+import * as styles from './Items.css';
 
 // http:// 없을경우 추가
 const ensureHttp = (link: string) => {
@@ -24,12 +28,6 @@ const ensureHttp = (link: string) => {
   }
   return link;
 };
-
-// 링크 도메인만 추출 (e.g. naver.com)
-// const urlToDomain = (link: string) => {
-//   const domain = new URL(link).hostname.replace('www.', '');
-//   return domain;
-// };
 
 interface ItemsProps {
   type: 'create' | 'edit';
@@ -84,6 +82,24 @@ export default function Items({ type, setItemChanged }: ItemsProps) {
     }
   };
 
+  //-- 이미지 미리보기
+  const MAX_IMAGE_INPUT_SIZE_MB = 50 * 1024 * 1024; //50MB
+
+  const handleImageChange = async (
+    e: ChangeEvent<HTMLInputElement>,
+    register: UseFormRegisterReturn,
+    index: number
+  ) => {
+    if (e.target.files) {
+      const targetFile = e.target.files[0];
+      if (targetFile?.size > MAX_IMAGE_INPUT_SIZE_MB) {
+        toasting({ type: 'error', txt: toastMessage.ko.imageSizeError });
+      } else {
+        register.onChange(e);
+      }
+    }
+  };
+
   const handleDeleteItem = (itemId: number) => {
     remove(itemId);
   };
@@ -94,6 +110,7 @@ export default function Items({ type, setItemChanged }: ItemsProps) {
   const { data: listDetailData } = useQuery<ListDetailType>({
     queryKey: [QUERY_KEYS.getListDetail, listId],
     queryFn: () => getListDetail(listId),
+    enabled: type === 'edit',
   });
 
   return (
@@ -108,6 +125,8 @@ export default function Items({ type, setItemChanged }: ItemsProps) {
               const commentError = errorMessage('comment');
               const linkError = errorMessage('link');
               // const imageError = errorMessage('imageUrl');
+
+              const imageRegister = register(`items.${index}.imageUrl`);
               return (
                 <Draggable key={item.id} draggableId={item.id} index={index}>
                   {(provided, snapshot) => (
@@ -133,7 +152,7 @@ export default function Items({ type, setItemChanged }: ItemsProps) {
                             {...register(`items.${index}.title`, itemTitleRules)}
                             readOnly={
                               type === 'edit' &&
-                              listDetailData?.items.some((x) => x.id === getValues(`items.${index}.id`))
+                              listDetailData?.items.some((item) => item.id === getValues(`items.${index}.id`))
                             }
                           />
                         }
@@ -141,6 +160,7 @@ export default function Items({ type, setItemChanged }: ItemsProps) {
                           <textarea
                             className={styles.comment}
                             placeholder={itemPlaceholder.comment}
+                            rows={3}
                             maxLength={100}
                             {...register(`items.${index}.comment`, itemCommentRules)}
                           />
@@ -183,15 +203,16 @@ export default function Items({ type, setItemChanged }: ItemsProps) {
                             type="file"
                             accept=".jpg, .jpeg, .png"
                             id={`${index}-image`}
-                            {...register(`items.${index}.imageUrl`)}
+                            {...imageRegister}
+                            onChange={(e) => {
+                              handleImageChange(e, imageRegister, index);
+                            }}
                           />
                         }
                         linkPreview={
                           watchItems[index]?.link && (
-                            <Preview
-                              type="link"
+                            <LinkPreview
                               url={watchItems[index].link}
-                              domain={''}
                               handleClearButtonClick={() => {
                                 setValue(`items.${index}.link`, '');
                               }}
@@ -200,9 +221,8 @@ export default function Items({ type, setItemChanged }: ItemsProps) {
                         }
                         imagePreview={
                           watchItems[index]?.imageUrl !== '' && (
-                            <Preview
-                              type="image"
-                              imageFile={watchItems[index]?.imageUrl}
+                            <ImagePreview
+                              image={watchItems[index]?.imageUrl}
                               handleClearButtonClick={() => {
                                 setValue(`items.${index}.imageUrl`, '');
                               }}

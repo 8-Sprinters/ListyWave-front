@@ -1,6 +1,6 @@
 import { style } from '@vanilla-extract/css';
 import { vars } from '@/styles/theme.css';
-import { body1, body2 } from '@/styles/font.css';
+import * as fonts from '@/styles/font.css';
 
 export const itemsContainer = style({
   display: 'flex',
@@ -11,28 +11,22 @@ export const itemsContainer = style({
 });
 
 export const item = style([
-  body1,
+  fonts.bodyLarge,
   {
-    padding: '12px 18px',
-
     display: 'flex',
     flexDirection: 'column',
     gap: '12px',
 
-    backgroundColor: '#fff',
-
-    border: `solid 1px ${vars.color.gray5}`,
-    borderRadius: '6px',
+    backgroundColor: vars.color.white,
 
     transition: 'box-shadow 0.3s ease',
-    boxShadow: 'rgba(0, 0, 0, 0.1) 0px 2px 2px;',
   },
 ]);
 
 export const draggingItem = style([
   item,
   {
-    boxShadow: `0px 20px 50px -5px ${vars.color.gray7}`,
+    boxShadow: 'rgba(0, 0, 0, 0.1) 0px 4px 6px -1px, rgba(0, 0, 0, 0.06) 0px 2px 4px -1px',
   },
 ]);
 
@@ -43,7 +37,7 @@ export const placeholder = style({
 });
 
 export const title = style([
-  body1,
+  fonts.bodyLarge,
   placeholder,
   {
     width: 0,
@@ -58,7 +52,7 @@ export const title = style([
 export const errorTitle = style([title, placeholder]);
 
 export const comment = style([
-  body2,
+  fonts.bodyMedium,
   placeholder,
   {
     width: '100%',
@@ -76,7 +70,7 @@ export const linkModalChildren = style({
 });
 
 export const linkInput = style([
-  title,
+  fonts.bodyLarge,
   {
     width: '100%',
     padding: '8px',
@@ -90,10 +84,10 @@ export const imageInput = style({
   display: 'none',
 });
 
-export const countLength = style([body2, { color: `${vars.color.gray9}` }]);
+export const countLength = style([fonts.bodyMedium, { color: vars.color.gray7 }]);
 
 export const error = style([
-  body2,
+  fonts.bodyRegular,
   {
     marginTop: '8px',
     marginLeft: '4px',

@@ -1,4 +1,5 @@
 import { useFormContext } from 'react-hook-form';
+import useResizeTextarea from '@/hooks/useResizeTextarea';
 import ClearButton from '/public/icons/x_circle_fill.svg';
 import * as styles from './SimpleInput.css';
 
@@ -30,7 +31,16 @@ interface SimpleInputProps {
  */
 function SimpleInput({ type, name, placeholder, rules, defaultValue }: SimpleInputProps) {
   const { register, setValue, formState } = useFormContext();
+  const { textareaRef, handleResizeHeight } = useResizeTextarea();
   const { errors } = formState;
+
+  const textareaRegister = register(name, {
+    required: rules.required && rules.required.errorMessage,
+    maxLength: rules.maxLength && {
+      value: rules.maxLength.length,
+      message: rules.maxLength.errorMessage,
+    },
+  });
 
   return (
     <div className={styles.container}>
@@ -38,13 +48,15 @@ function SimpleInput({ type, name, placeholder, rules, defaultValue }: SimpleInp
         <textarea
           className={styles.textareaBox}
           placeholder={placeholder}
-          {...register(name, {
-            required: rules.required && rules.required.errorMessage,
-            maxLength: rules.maxLength && {
-              value: rules.maxLength.length,
-              message: rules.maxLength.errorMessage,
-            },
-          })}
+          {...textareaRegister}
+          ref={(e) => {
+            textareaRegister.ref(e);
+            textareaRef.current = e;
+          }}
+          onChange={(e) => {
+            textareaRegister.onChange(e);
+            handleResizeHeight();
+          }}
           defaultValue={defaultValue}
         />
       ) : (
