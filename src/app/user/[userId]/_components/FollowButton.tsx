@@ -43,7 +43,7 @@ export default function FollowButton({ isFollowed, userId }: FollowButtonProps) 
     onError: (error: AxiosError) => {
       if (error.response?.status === 401) {
         toasting({ type: 'warning', txt: toastMessage.ko.requiredLogin });
-        router.push('/login');
+        router.push('/login'); // interceptors에서 핸들링 하므로 불필요??
       }
     },
   });

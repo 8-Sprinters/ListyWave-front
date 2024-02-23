@@ -3,6 +3,7 @@ export const MAX_FOLLOWING = 1000;
 const toastMessage = {
   ko: {
     requiredLogin: '로그인이 필요해요.',
+    userStatusLoggedOut: '로그아웃 된 사용자에요. 다시 로그인 해주세요.',
     loggedOut: '로그아웃 되었어요.',
     loggedOutError: '로그아웃에 실패했어요. 다시 시도해주세요.🥲',
     limitFollow: `최대 ${MAX_FOLLOWING.toLocaleString('ko-KR')}명까지 팔로우할 수 있어요.`,
@@ -14,6 +15,7 @@ const toastMessage = {
   },
   en: {
     requiredLogin: 'Login is required.',
+    userStatusLoggedOut: 'You have been logged out. Please log in again.',
     loggedOut: 'Logged out successfully.',
     loggedOutError: 'Failed to log out. Please try again.🥲',
     limitFollow: `Following exceeds the limit of ${MAX_FOLLOWING.toLocaleString('en-US')}.`,

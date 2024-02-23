@@ -4,9 +4,11 @@ import { ReactNode } from 'react';
 import { ToastContainer } from 'react-toastify';
 import Script from 'next/script';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import BottomNav from '@/components/BottomNav/BottomNav';
-import '@/styles/GlobalStyles.css';
+import { CookiesProvider } from 'react-cookie';
 
+import BottomNav from '@/components/BottomNav/BottomNav';
+
+import '@/styles/GlobalStyles.css';
 import * as styles from './layout.css';
 
 const queryClient = new QueryClient();
@@ -36,12 +38,14 @@ export default function TempLayout({ children }: { children: ReactNode }) {
       </head>
       <body className={styles.body}>
         <QueryClientProvider client={queryClient}>
-          <div id="modal-root" />
-          <div>
-            {children}
-            <BottomNav />
-          </div>
-          <ToastContainer />
+          <CookiesProvider>
+            <div id="modal-root" />
+            <div>
+              {children}
+              <BottomNav />
+            </div>
+            <ToastContainer />
+          </CookiesProvider>
         </QueryClientProvider>
       </body>
     </html>
