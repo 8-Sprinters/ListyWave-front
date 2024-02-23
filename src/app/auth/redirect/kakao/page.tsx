@@ -37,7 +37,10 @@ export default function KakaoRedirectPage() {
         router.push('/');
       } catch (error) {
         if (error instanceof AxiosError) {
-          if (!controller.signal.aborted) {
+          if (error.response?.status === 500) {
+            // 탈퇴한 사용자(status 400)일 경우, 리다이렉트
+            router.push('/withdrawn-account');
+          } else if (!controller.signal.aborted) {
             console.error(error.message);
           } else {
             console.log('Request canceled:', error.message);
