@@ -1,6 +1,7 @@
 'use client';
 
 import Image from 'next/image';
+import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useInfiniteQuery } from '@tanstack/react-query';
 import { useMemo } from 'react';
@@ -104,13 +105,12 @@ function ListRecommendation() {
                     <div className={styles.simpleListWrapper}>
                       <SimpleList items={item?.items} />
                     </div>
-                    <div
-                      className={styles.showMoreButtonWrapper}
-                      onClick={() => handleShowMoreButtonClick(`/user/${item.ownerId}/list/${item.id}`)}
-                    >
-                      <ChevronRight width={18} height={18} />
-                      <span className={styles.showMoreButton}>더보기</span>
-                    </div>
+                    <Link href={`/list/${item.id}`}>
+                      <div className={styles.showMoreButtonWrapper}>
+                        <ChevronRight width={18} height={18} />
+                        <span className={styles.showMoreButton}>더보기</span>
+                      </div>
+                    </Link>
                   </li>
                 )}
               </div>

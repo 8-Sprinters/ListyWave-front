@@ -1,5 +1,6 @@
 'use client';
 import Image from 'next/image';
+import Link from 'next/link';
 import { useQuery } from '@tanstack/react-query';
 
 import { useUser } from '@/store/useUser';
@@ -64,9 +65,9 @@ function Header() {
           )}
         </div>
         {userId !== null && (
-          <button onClick={onClickMoveToPage('/notification')}>
+          <Link href={'/notification'}>
             {isNotificationAllChecked ? <BellIcon alt="알림 페이지 이동 버튼" /> : <NotificationOn />}
-          </button>
+          </Link>
         )}
       </div>
     </nav>

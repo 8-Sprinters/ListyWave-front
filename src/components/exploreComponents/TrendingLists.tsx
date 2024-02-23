@@ -1,5 +1,6 @@
 'use client';
 import Image from 'next/image';
+import Link from 'next/link';
 import { useEffect, useRef } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { assignInlineVars } from '@vanilla-extract/dynamic';
@@ -62,35 +63,37 @@ function TrendingList() {
         <ul className={styles.slide}>
           {addedList?.map((item: TrendingListType, index) => {
             return (
-              <li key={item.id} onClick={onClickMoveToPage(`/list/${item.id}`)}>
-                {item.itemImageUrl ? (
-                  <div
-                    className={styles.itemWrapperWithImage}
-                    style={assignInlineVars({
-                      [styles.customBackgroundImage]: `url(${item.itemImageUrl})`,
-                      [styles.customWidth]: CUSTOM_WRAPPER[STYLE_INDEX(index)],
-                      [styles.customPadding]: CUSTOM_PADDING[STYLE_INDEX(index)],
-                      [styles.customBorderRadius]: CUSTOM_BORDER_RADIUS[STYLE_INDEX(index)],
-                    })}
-                  >
-                    {/* <Image src={item.itemImageUrl} alt="트렌딩 리스트 배경" fill /> */}
-                    <TrendingListInformation item={item} />
-                  </div>
-                ) : (
-                  <div
-                    className={styles.itemWrapper}
-                    style={assignInlineVars({
-                      [styles.customWidth]: CUSTOM_WRAPPER[STYLE_INDEX(index)],
-                      [styles.customPadding]: CUSTOM_PADDING[STYLE_INDEX(index)],
-                      [styles.customBorderRadius]: CUSTOM_BORDER_RADIUS[STYLE_INDEX(index)],
-                      [styles.customBackgroundColor]: item.backgroundColor,
-                      [styles.customItemBorder]:
-                        item.backgroundColor === '#FFFFFF' ? `1px solid ${vars.color.gray5}` : 'none',
-                    })}
-                  >
-                    <TrendingListInformation item={item} />
-                  </div>
-                )}
+              <li key={item.id}>
+                <Link href={`/list/${item.id}`}>
+                  {item.itemImageUrl ? (
+                    <div
+                      className={styles.itemWrapperWithImage}
+                      style={assignInlineVars({
+                        [styles.customBackgroundImage]: `url(${item.itemImageUrl})`,
+                        [styles.customWidth]: CUSTOM_WRAPPER[STYLE_INDEX(index)],
+                        [styles.customPadding]: CUSTOM_PADDING[STYLE_INDEX(index)],
+                        [styles.customBorderRadius]: CUSTOM_BORDER_RADIUS[STYLE_INDEX(index)],
+                      })}
+                    >
+                      {/* <Image src={item.itemImageUrl} alt="트렌딩 리스트 배경" fill /> */}
+                      <TrendingListInformation item={item} />
+                    </div>
+                  ) : (
+                    <div
+                      className={styles.itemWrapper}
+                      style={assignInlineVars({
+                        [styles.customWidth]: CUSTOM_WRAPPER[STYLE_INDEX(index)],
+                        [styles.customPadding]: CUSTOM_PADDING[STYLE_INDEX(index)],
+                        [styles.customBorderRadius]: CUSTOM_BORDER_RADIUS[STYLE_INDEX(index)],
+                        [styles.customBackgroundColor]: item.backgroundColor,
+                        [styles.customItemBorder]:
+                          item.backgroundColor === '#FFFFFF' ? `1px solid ${vars.color.gray5}` : 'none',
+                      })}
+                    >
+                      <TrendingListInformation item={item} />
+                    </div>
+                  )}
+                </Link>
               </li>
             );
           })}

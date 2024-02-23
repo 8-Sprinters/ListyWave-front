@@ -1,9 +1,6 @@
 import { style } from '@vanilla-extract/css';
 
 export const buttonResetStyle = style({
-  width: '24px',
-  height: '24px',
-
   display: 'flex',
   justifyContent: 'center',
   alignItems: 'center',
