@@ -1,12 +1,14 @@
 import { useFormContext, useWatch } from 'react-hook-form';
 import { ChangeEvent, useState } from 'react';
-import { useMutation } from '@tanstack/react-query';
+import { useMutation, useQuery } from '@tanstack/react-query';
 
 import Camera from '/public/icons/camera.svg';
 import ErrorIcon from '/public/icons/error_x.svg';
 import CheckIcon from '/public/icons/check_blue.svg';
 
 import checkNicknameDuplication from '@/app/_api/user/checkNicknameDuplication';
+import getDefaultBackgroundImages from '@/app/_api/user/getDefaultBackgroundImages';
+import getDefaultProfileImages from '@/app/_api/user/getDefaultProfileImages';
 
 import useDebounce from '@/hooks/useDebounce';
 import { profilePlaceholder } from '@/lib/constants/placeholder';
@@ -15,19 +17,21 @@ import {
   profileDescriptionRules,
   nicknameDuplicateRules,
 } from '@/lib/constants/formInputValidationRules';
-import { UserProfileEditType } from '@/lib/types/userProfileType';
+import { QUERY_KEYS } from '@/lib/constants/queryKeys';
+import { DefaultImagesType, UserProfileEditType } from '@/lib/types/userProfileType';
 import toastMessage from '@/lib/constants/toastMessage';
 import toasting from '@/lib/utils/toasting';
 
 import * as styles from './ProfileForm.css';
+import { assignInlineVars } from '@vanilla-extract/dynamic';
 
-const MockBackground = ['기본배경A', '기본배경B', '기본배경C', '기본배경D', '기본배경E', '기본배경F', '기본배경G'];
-const MockProfile = ['A', 'B', 'C', 'D', 'E'];
+const MockBackground = ['기본배경B', '기본배경C', '기본배경D', '기본배경E', '기본배경F', '기본배경G'];
+const MockProfile = ['B', 'C', 'D', 'E'];
 
 interface ProfileFormProps {
   userNickname: string;
-  onProfileChange: (arg: File) => void;
-  onBackgroundChange: (arg: File) => void;
+  onProfileChange: (arg: File | string) => void;
+  onBackgroundChange: (arg: File | string) => void;
 }
 
 export default function ProfileForm({ userNickname, onProfileChange, onBackgroundChange }: ProfileFormProps) {
@@ -37,11 +41,22 @@ export default function ProfileForm({ userNickname, onProfileChange, onBackgroun
     control,
     setError,
     getValues,
+    setValue,
     formState: { errors },
   } = useFormContext<UserProfileEditType>();
 
   //닉네임 중복 검사
   const nicknameRegister = register('nickname', nicknameRules);
+
+  const { data: defaultBackgroundImages } = useQuery<DefaultImagesType>({
+    queryKey: [QUERY_KEYS.getDefaultBackgroundImages],
+    queryFn: getDefaultBackgroundImages,
+  });
+
+  const { data: defaultProfileImages } = useQuery<DefaultImagesType>({
+    queryKey: [QUERY_KEYS.getDefaultProfileImages],
+    queryFn: getDefaultProfileImages,
+  });
 
   const { mutate: checkNickname } = useMutation({
     mutationFn: checkNicknameDuplication,
@@ -92,6 +107,16 @@ export default function ProfileForm({ userNickname, onProfileChange, onBackgroun
         newProfileImageRegister.onChange(e);
         onProfileChange(e.target.files[0]);
       }
+    }
+  };
+
+  const handleDefaultImageClick = (type: 'background' | 'profile', imageUrl: string) => {
+    if (type === 'profile') {
+      onProfileChange(imageUrl);
+      setValue('profileImageUrl', imageUrl, { shouldDirty: true });
+    } else {
+      onBackgroundChange(imageUrl);
+      setValue('backgroundImageUrl', imageUrl, { shouldDirty: true });
     }
   };
 
@@ -162,6 +187,19 @@ export default function ProfileForm({ userNickname, onProfileChange, onBackgroun
               {...newBackgroundImageRegister}
               onChange={(e) => handleBackgroundChange(e)}
             />
+            {defaultBackgroundImages?.map((image) => (
+              <button
+                key={image.name}
+                type="button"
+                className={styles.backgroundOption}
+                style={assignInlineVars({
+                  [styles.imageUrl]: `url(${image?.imageUrl})`,
+                })}
+                onClick={() => {
+                  handleDefaultImageClick('background', image.imageUrl);
+                }}
+              />
+            ))}
             {MockBackground.map((image, index) => (
               <button key={`defaultBackgroundImage${index}`} type="button" className={styles.backgroundOption}>
                 {image}
@@ -183,6 +221,19 @@ export default function ProfileForm({ userNickname, onProfileChange, onBackgroun
               {...newProfileImageRegister}
               onChange={(e) => handleProfileChange(e)}
             />
+            {defaultProfileImages?.map((image) => (
+              <button
+                key={image.name}
+                type="button"
+                className={styles.profileOption}
+                style={assignInlineVars({
+                  [styles.imageUrl]: `url(${image?.imageUrl})`,
+                })}
+                onClick={() => {
+                  handleDefaultImageClick('profile', image.imageUrl);
+                }}
+              />
+            ))}
             {MockProfile.map((image, index) => (
               <button key={`defaultProfileImage${index}`} type="button" className={styles.profileOption}>
                 {image}

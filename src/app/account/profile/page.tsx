@@ -53,14 +53,22 @@ export default function ProfilePage() {
   }, [userData]);
 
   //미리보기 이미지 변경
-  const handleProfileChange = async (file: File) => {
-    const compressedFile = await compressFile(file);
-    fileToBase64(compressedFile, setProfilePreviewUrl);
+  const handleProfileChange = async (image: File | string) => {
+    if (typeof image === 'string') {
+      setProfilePreviewUrl(image);
+    } else if (typeof image === 'object') {
+      const compressedFile = await compressFile(image);
+      fileToBase64(compressedFile, setProfilePreviewUrl);
+    }
   };
 
-  const handleBackgroundChange = async (file: File) => {
-    const compressedFile = await compressFile(file);
-    fileToBase64(compressedFile, setBackgroundPreviewUrl);
+  const handleBackgroundChange = async (image: File | string) => {
+    if (typeof image === 'string') {
+      setBackgroundPreviewUrl(image);
+    } else if (typeof image === 'object') {
+      const compressedFile = await compressFile(image);
+      fileToBase64(compressedFile, setBackgroundPreviewUrl);
+    }
   };
 
   //프로필 수정 저장

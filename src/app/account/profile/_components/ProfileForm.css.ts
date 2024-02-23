@@ -48,16 +48,20 @@ export const inputFile = style({
 });
 
 export const inputFileLabel = style({
-  border: `1px solid ${vars.color.black}`,
+  // border: `1px solid ${vars.color.black}`,
+  // backgroundColor: vars.color.gray5,
 });
+
+export const imageUrl = createVar();
 
 const option = style({
   display: 'flex',
   justifyContent: 'center',
   alignItems: 'center',
 
-  backgroundColor: vars.color.gray3 /**TODO: white로 대체예정*/,
-  backgroundImage: 'none' /**TODO: backgroundImage로 대체예정*/,
+  backgroundColor: vars.color.gray5 /**TODO: white로 대체예정*/,
+  backgroundImage: imageUrl,
+  backgroundSize: 'cover',
 
   cursor: 'pointer',
 
