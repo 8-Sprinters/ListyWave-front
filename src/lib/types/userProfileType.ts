@@ -8,7 +8,6 @@ export interface UserProfilesType {
  */
 
 export interface UserProfileType {
-  userId?: number;
   id: number;
   profileImageUrl: string;
   nickname: string;

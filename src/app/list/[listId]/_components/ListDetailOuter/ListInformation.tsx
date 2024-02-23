@@ -40,7 +40,7 @@ function ListInformation() {
   /**@todo 다시 닉네임 말고 아이디로 바꾸기 */
 
   //리스트 생성자 제외한 사람들만 콜라보레이터들로 설정
-  const filteredCollaborators = list?.collaborators.filter((item: UserProfileType) => item?.userId !== list.ownerId);
+  const filteredCollaborators = list?.collaborators.filter((item: UserProfileType) => item?.id !== list.ownerId);
   //리스트 오너가 아니고 콜라보레이터인 경우에 권한을 설정하기 위한 변수
   const isCollaborator: boolean | undefined =
     list?.collaborators.some((item: UserProfileType) => item?.id === userId) && userId !== list.ownerId;
