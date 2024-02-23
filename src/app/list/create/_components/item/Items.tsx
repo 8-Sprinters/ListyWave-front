@@ -5,7 +5,7 @@ import { useParams } from 'next/navigation';
 import { useQuery } from '@tanstack/react-query';
 
 import { QUERY_KEYS } from '@/lib/constants/queryKeys';
-import { ItemCreateType, ListDetailType } from '@/lib/types/listType';
+import { ListDetailType } from '@/lib/types/listType';
 import { itemPlaceholder } from '@/lib/constants/placeholder';
 import toasting from '@/lib/utils/toasting';
 import toastMessage from '@/lib/constants/toastMessage';
@@ -41,7 +41,6 @@ export default function Items({ type, setItemChanged }: ItemsProps) {
     control,
     getValues,
     setValue,
-    setError,
     formState: { errors },
   } = useFormContext();
 
@@ -126,7 +125,11 @@ export default function Items({ type, setItemChanged }: ItemsProps) {
               const imageRegister = register(`items.${index}.imageUrl`);
               return (
                 <div>
-                  {titleError?.type !== 'required' && <p className={styles.error}>{titleError?.message}</p>}
+                  {titleError?.type !== 'required' && (
+                    <p key={item.id} className={styles.error}>
+                      {titleError?.message}
+                    </p>
+                  )}
                   <Draggable key={item.id} draggableId={item.id} index={index}>
                     {(provided, snapshot) => (
                       <div
