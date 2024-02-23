@@ -139,3 +139,19 @@ export interface SearchResultType {
   cursorId: number;
   hasNext: boolean;
 }
+
+export interface CollectionType {
+  id: number;
+  list: CollectionListType;
+}
+
+export interface CollectionListType {
+  id: number;
+  backgroundColor: string;
+  title: string;
+  ownerId: string;
+  ownerNickname: string;
+  ownerProfileImageUrl: string;
+  updatedDate: Date;
+  listItems: ListItemType[];
+}

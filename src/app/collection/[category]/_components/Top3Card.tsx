@@ -3,14 +3,17 @@ import { useRouter } from 'next/navigation';
 import { assignInlineVars } from '@vanilla-extract/dynamic';
 
 import * as styles from './Top3Card.css';
-import { SearchListType } from '@/lib/types/listType';
+import { CollectionType } from '@/lib/types/listType';
 import formatDate from '@/lib/utils/dateFormat';
 import Top3CardItem from './Top3CardItem';
 
-export default function Top3Card({ list }: { list: SearchListType }) {
+// TODO: search 아래의 Top3Card와 공통으로 수정하기
+export default function Top3Card({ collectionList }: { collectionList: CollectionType }) {
+  const { list } = collectionList;
+
   const router = useRouter();
   const handleCardClick = () => {
-    router.push(`user/${list.ownerId}/list/${list.id}`);
+    router.push(`/user/${list.ownerId}/list/${list.id}`);
   };
 
   return (
@@ -25,7 +28,7 @@ export default function Top3Card({ list }: { list: SearchListType }) {
         <div className={styles.listWrapper}>
           <ul>
             <ol className={styles.list}>
-              {list.items.map((item, index) => {
+              {list.listItems.map((item, index) => {
                 if (index > 2) return;
                 return <Top3CardItem key={item.id} item={item} index={index} />;
               })}

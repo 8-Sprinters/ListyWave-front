@@ -12,4 +12,6 @@ export const cards = style({
   flexWrap: 'wrap',
   rowGap: '1rem',
   columnGap: '0.8rem',
+  justifyContent: 'space-evenly',
+  alignItems: 'flex-start',
 });

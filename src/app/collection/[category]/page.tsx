@@ -9,10 +9,10 @@ import { QUERY_KEYS } from '@/lib/constants/queryKeys';
 import { useEffect, useMemo } from 'react';
 import useIntersectionObserver from '@/hooks/useIntersectionObserver';
 import getCollection from '@/app/_api/collect/getCollection';
-import Top3CardSkeleton from '@/app/search/_components/Top3CardSkeleton';
+import Top3CardSkeleton from '@/app/collection/[category]/_components/Top3CardSkeleton';
 import NoData from '@/app/collection/[category]/_components/NoData';
-import { SearchListType } from '@/lib/types/listType';
-import Top3Card from '@/app/search/_components/Top3Card';
+import { CollectionType, SearchListType } from '@/lib/types/listType';
+import Top3Card from '@/app/collection/[category]/_components/Top3Card';
 
 function CollectionByCategory() {
   const queryClient = useQueryClient();
@@ -62,10 +62,13 @@ function CollectionByCategory() {
   }, [queryClient, category]);
 
   const Result = () => {
+    console.log('resultList', result?.resultList);
     return (
       <div className={styles.container}>
         <div className={styles.cards}>
-          {result?.resultList?.map((list: SearchListType) => <Top3Card key={list.id} list={list} />)}
+          {result?.resultList?.map((collectionList: CollectionType) => (
+            <Top3Card key={collectionList.id} collectionList={collectionList} />
+          ))}
           {isFetchingNextPage && result?.resultList?.map((_, index) => <Top3CardSkeleton key={index} />)}
         </div>
         {hasNextPage && <div ref={ref}></div>}

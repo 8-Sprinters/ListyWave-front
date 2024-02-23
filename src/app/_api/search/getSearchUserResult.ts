@@ -9,7 +9,7 @@ async function getSearchUserResult({ keyword }: GetSearchUserResultType) {
     size: '3',
   });
 
-  const response = await axiosInstance.get(`/collaborators?search=${keyword}&${params.toString()}`);
+  const response = await axiosInstance.get(`/users?search=${keyword}&${params.toString()}`);
 
   return response.data;
 }

@@ -20,11 +20,13 @@ interface OptionDataProps {
 interface SheetTypeProps {
   type: 'share' | 'etc';
   closeBottomSheet: () => void;
+  goToCreateList: () => void;
+  listUrl: string;
   data: OptionDataProps;
 }
 
-const getBottomSheetOptionList = ({ type, data, closeBottomSheet }: SheetTypeProps) => {
-  // TODO: 테스트용
+const getBottomSheetOptionList = ({ type, data, closeBottomSheet, listUrl, goToCreateList }: SheetTypeProps) => {
+  // TODO: 테스트용 > 이미지저장 로직 수정예정입니다.
   function imageSaveTest() {
     const listContent = document.querySelector('#rankList');
     const tempDiv = document.createElement('div');
@@ -32,10 +34,6 @@ const getBottomSheetOptionList = ({ type, data, closeBottomSheet }: SheetTypePro
     // console.log(tempDiv);
     return tempDiv;
   }
-
-  const router = useRouter();
-  const params = useParams<{ userId: string; listId: string }>();
-  const listUrl = `${process.env.NEXT_PUBLIC_BASE_URL}/user/${params?.userId}/list/${params?.listId}`;
 
   if (type === 'share') {
     const optionList = [
@@ -81,7 +79,7 @@ const getBottomSheetOptionList = ({ type, data, closeBottomSheet }: SheetTypePro
         title: '이 타이틀로 리스트 생성하기',
         onClick: () => {
           toasting({ type: 'default', txt: '리스트 작성 페이지로 이동합니다.' });
-          router.push(`/list/create?title=${data.title}&category=${data.category}`);
+          goToCreateList();
         },
       },
     ];
