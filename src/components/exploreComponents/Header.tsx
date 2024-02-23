@@ -52,10 +52,8 @@ function Header() {
           <LoginModal />
         </Modal>
       )}
-      <Link href={'/intro'}>
-        <button className={styles.logoWrapper}>
-          <Logo alt="로고 이미지" />
-        </button>
+      <Link href={'/intro'} className={styles.logoWrapper}>
+        <Logo alt="로고 이미지" />
       </Link>
       <div className={styles.userInfoOuterWrapper}>
         <div className={styles.userInfoWrapper} onClick={userId ? onClickMoveToPage('/account') : handleSetOn}>
