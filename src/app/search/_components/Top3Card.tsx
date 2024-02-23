@@ -10,7 +10,7 @@ import Top3CardItem from './Top3CardItem';
 export default function Top3Card({ list }: { list: SearchListType }) {
   const router = useRouter();
   const handleCardClick = () => {
-    router.push(`user/${list.ownerId}/list/${list.id}`);
+    router.push(`/list/${list.id}`);
   };
 
   return (

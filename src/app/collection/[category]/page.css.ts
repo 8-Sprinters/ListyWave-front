@@ -1,8 +1,14 @@
 import { style } from '@vanilla-extract/css';
-import { vars } from '@/styles/theme.css';
 
 export const container = style({
+  paddingBottom: '9rem',
+});
+
+export const cardsWrapper = style({
   padding: '1.8rem 1.2rem',
+
+  display: 'flex',
+  justifyContent: 'space-between',
 });
 
 export const cards = style({
@@ -12,6 +18,6 @@ export const cards = style({
   flexWrap: 'wrap',
   rowGap: '1rem',
   columnGap: '0.8rem',
-  justifyContent: 'space-evenly',
+  justifyContent: 'flex-start',
   alignItems: 'flex-start',
 });
