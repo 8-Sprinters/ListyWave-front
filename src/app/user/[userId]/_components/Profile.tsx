@@ -99,7 +99,7 @@ export default function Profile({ userId }: { userId: number }) {
                 </div>
               </div>
             </div>
-            <p className={styles.description}>{`" ${data?.description} "`}</p>
+            <p className={styles.description}>{data?.description ? `" ${data.description} "` : ''}</p>
           </>
         )}
       </div>
