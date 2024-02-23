@@ -1,5 +1,4 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { useParams } from 'next/navigation';
 
 import * as styles from '@/app/list/[listId]/_components/ListDetailInner/CollectButton.css';
 
@@ -14,6 +13,7 @@ import CollectedIcon from '/public/icons/collected.svg';
 import useModalState from '@/store/useModalState';
 
 interface CollectProps {
+  ownerId: number;
   listId: number;
   collectCount: number;
   isCollected: boolean;
@@ -23,9 +23,7 @@ const CollectButton = ({ data }: { data: CollectProps }) => {
   const { handleSetOn } = useModalState();
 
   const queryClient = useQueryClient();
-  const params = useParams<{ userId: string; listId: string }>();
   const { user: loginUser } = useUser();
-  const writerId = parseInt(params?.userId ?? '0');
 
   const collect = useMutation({
     mutationKey: [QUERY_KEYS.collect, data.listId],
@@ -56,7 +54,7 @@ const CollectButton = ({ data }: { data: CollectProps }) => {
   }
 
   // TODO: 언어설정이 생기면 'ko' 부분을 변수로 수정하기
-  if (loginUser?.id === writerId) {
+  if (loginUser?.id === data.ownerId) {
     return (
       <div className={styles.myCollectWrapper}>
         <CollectedIcon />

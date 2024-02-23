@@ -65,13 +65,15 @@ function CollectionByCategory() {
     console.log('resultList', result?.resultList);
     return (
       <div className={styles.container}>
-        <div className={styles.cards}>
-          {result?.resultList?.map((collectionList: CollectionType) => (
-            <Top3Card key={collectionList.id} collectionList={collectionList} />
-          ))}
-          {isFetchingNextPage && result?.resultList?.map((_, index) => <Top3CardSkeleton key={index} />)}
+        <div className={styles.cardsWrapper}>
+          <div className={styles.cards}>
+            {result?.resultList?.map((collectionList: CollectionType) => (
+              <Top3Card key={collectionList.id} collectionList={collectionList} />
+            ))}
+            {isFetchingNextPage && result?.resultList?.map((_, index) => <Top3CardSkeleton key={index} />)}
+          </div>
+          {hasNextPage && <div ref={ref}></div>}
         </div>
-        {hasNextPage && <div ref={ref}></div>}
       </div>
     );
   };

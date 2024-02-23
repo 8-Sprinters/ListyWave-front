@@ -104,16 +104,18 @@ function SearchListResult() {
 
   const Result = () => {
     return (
-      <div>
+      <div className={styles.container}>
         <div className={styles.header}>
           <div className={styles.countText}>리스트 {result.totalCount}건</div>
           <SortDropdown defaultSort={sort} handleChangeSortType={handleChangeSortType} hasKeyword={!!keyword} />
         </div>
-        <div className={styles.cards}>
-          {result?.resultList?.map((list: SearchListType) => <Top3Card key={list.id} list={list} />)}
-          {isFetchingNextPage && result?.resultList?.map((_, index) => <Top3CardSkeleton key={index} />)}
+        <div className={styles.cardsWrapper}>
+          <div className={styles.cards}>
+            {result?.resultList?.map((list: SearchListType) => <Top3Card key={list.id} list={list} />)}
+            {isFetchingNextPage && result?.resultList?.map((_, index) => <Top3CardSkeleton key={index} />)}
+          </div>
+          {hasNextPage && <div ref={ref}></div>}
         </div>
-        {hasNextPage && <div ref={ref}></div>}
       </div>
     );
   };
