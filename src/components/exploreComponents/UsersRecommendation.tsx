@@ -11,7 +11,7 @@ import { UserProfileType } from '@/lib/types/userProfileType';
 
 import * as styles from './UsersRecommendation.css';
 
-function UsersRecommendation({ userId }: { userId: number }) {
+function UsersRecommendation() {
   //zustand로 관리하는 user정보 불러오기
   const { user: userMe } = useUser();
   const myId = userMe.id;
@@ -42,7 +42,7 @@ function UsersRecommendation({ userId }: { userId: number }) {
               {usersList?.map((item: UserProfileType) => {
                 return (
                   <li key={item.id}>
-                    <UserRecommendListItem data={item} handleScrollToRight={handleScrollToRight} userId={userId} />
+                    <UserRecommendListItem data={item} handleScrollToRight={handleScrollToRight} userId={userMe?.id} />
                   </li>
                 );
               })}
