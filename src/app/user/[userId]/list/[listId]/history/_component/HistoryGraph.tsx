@@ -40,8 +40,52 @@ interface ChartProps {
   histories: HistoryType[];
 }
 
+interface Option {
+  chart: {
+    id: string;
+    width: string;
+    height: string;
+    zoom: {
+      enabled: boolean;
+    };
+  };
+  xaxis: {
+    categories: string[];
+    tickPlacement: string;
+    type: 'category';
+  };
+  yaxis: {
+    categories: number[];
+    reversed: boolean;
+    stepSize: number;
+  };
+  grid: {
+    padding: {
+      left: number;
+      bottom: number;
+    };
+  };
+  legend: {
+    show: boolean;
+    horizontalAlign: 'left';
+  };
+  noData: {
+    text: string;
+    align: 'center';
+    verticalAlign: 'bottom';
+    offsetX: number;
+    offsetY: number;
+    style: {
+      fontSize: string;
+    };
+  };
+  stroke: {
+    curve: 'smooth';
+  };
+}
+
 export function Chart({ histories, itemRankHistories }: ChartProps) {
-  const option = {
+  const option: Option = {
     chart: {
       id: 'history graph',
       width: '100%',
@@ -57,7 +101,7 @@ export function Chart({ histories, itemRankHistories }: ChartProps) {
     },
     yaxis: {
       categories: Array.from({ length: 10 }, (_, index) => 10 - index),
-      reversed: 'true',
+      reversed: true,
       stepSize: 1,
     },
     grid: {
