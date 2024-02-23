@@ -30,6 +30,7 @@ export const wrapper = style({
 
   transitionProperty: 'all',
   transitionDuration: '0.2s',
+  overflow: 'none',
 });
 
 const slideIn = keyframes({
