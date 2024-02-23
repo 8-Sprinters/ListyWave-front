@@ -13,12 +13,11 @@ import { CUSTOM_WRAPPER, CUSTOM_PADDING, CUSTOM_BORDER_RADIUS } from '@/lib/cons
 
 import * as styles from './TrendingLists.css';
 import { vars } from '@/styles/theme.css';
+import Avatar from '/public/icons/avatar.svg';
 
 /**@todo 트렌딩 리스트 바뀐 디자인에 맞게 새로 갈아엎을 예정 */
 
 function TrendingList() {
-  const { onClickMoveToPage } = useMoveToPage();
-
   const { data: trendingLists } = useQuery({
     queryKey: [QUERY_KEYS.getTrendingLists],
     queryFn: () => getTrendingLists(),
@@ -63,7 +62,7 @@ function TrendingList() {
         <ul className={styles.slide}>
           {addedList?.map((item: TrendingListType, index) => {
             return (
-              <li key={item.id}>
+              <li key={index.toString()}>
                 <Link href={`/list/${item.id}`}>
                   {item.itemImageUrl ? (
                     <div
@@ -121,13 +120,17 @@ function TrendingListInformation({ item }: TrendingListInformationType) {
       <div className={styles.ownerProfileWrapper}>
         <div className={styles.profileImageWrapper}>
           <div className={styles.profileTransparentBlack}></div>
-          <Image
-            src={item.ownerProfileImageUrl}
-            alt="사용자 이미지"
-            fill
-            style={{ objectFit: 'cover' }}
-            className={styles.profileImage}
-          />
+          {item?.ownerProfileImageUrl ? (
+            <Image
+              src={item?.ownerProfileImageUrl}
+              alt="사용자 이미지"
+              fill
+              style={{ objectFit: 'cover' }}
+              className={styles.profileImage}
+            />
+          ) : (
+            <div className={styles.profileImage}></div>
+          )}
         </div>
         <span
           className={styles.ownerNickname}

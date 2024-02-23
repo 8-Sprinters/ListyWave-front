@@ -26,7 +26,8 @@ function Header() {
   const { data: userMe } = useQuery<UserType>({
     queryKey: [QUERY_KEYS.userOne, userId],
     queryFn: () => getUserOne(userId as number),
-    enabled: !!userId,
+    enabled: user && !!userId,
+    retry: 1,
   });
 
   const { data: result } = useQuery({
@@ -36,6 +37,10 @@ function Header() {
   });
 
   const isNotificationAllChecked = result?.isAllChecked;
+
+  if (!user) {
+    return null;
+  }
 
   return (
     <nav className={styles.wrapper}>

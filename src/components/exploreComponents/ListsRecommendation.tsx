@@ -89,15 +89,19 @@ function ListRecommendation() {
                       <div className={styles.ownerInformationWrapper}>
                         <div>{`By. ${item.ownerNickname}`}</div>
                         <div className={styles.profileImageWrapper}>
-                          <Image
-                            src={item.ownerProfileImage}
-                            alt="리스트 생성자 이미지"
-                            fill
-                            className={styles.ownerProfileImage}
-                            style={{
-                              objectFit: 'cover',
-                            }}
-                          />
+                          {item?.ownerProfileImage ? (
+                            <Image
+                              src={item.ownerProfileImage}
+                              alt="리스트 생성자 이미지"
+                              fill
+                              className={styles.ownerProfileImage}
+                              style={{
+                                objectFit: 'cover',
+                              }}
+                            />
+                          ) : (
+                            <div className={styles.noImage}></div>
+                          )}
                         </div>
                       </div>
                       <div className={styles.listDescription}>{item.description}</div>

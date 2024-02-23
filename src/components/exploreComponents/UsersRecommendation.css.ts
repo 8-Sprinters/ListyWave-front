@@ -63,7 +63,16 @@ export const recommendUserProfileImage = style({
   position: 'relative',
 
   borderRadius: '50%',
+  backgroundColor: vars.color.lightblue,
 });
+
+export const noImage = style([
+  recommendUserProfileImage,
+  {
+    width: '110px',
+    height: '110px',
+  },
+]);
 
 export const recommendUserNickname = style([
   titleSmall,

@@ -20,7 +20,8 @@ function UsersRecommendation() {
   const { data: usersList } = useQuery<UserProfileType[]>({
     queryKey: [QUERY_KEYS.getRecommendedUsers],
     queryFn: () => getRecommendedUsers(),
-    enabled: !!myId,
+    enabled: userMe && !!myId,
+    retry: 1,
   });
 
   const handleScrollToRight = () => {
@@ -31,6 +32,10 @@ function UsersRecommendation() {
       });
     }
   };
+
+  if (!userMe) {
+    return null;
+  }
 
   return (
     <section>
@@ -79,16 +84,20 @@ function UserRecommendListItem({ data, handleScrollToRight, userId }: UserRecomm
     <>
       <div className={styles.recommendUserWrapper}>
         <div className={styles.imageWrapper}>
-          <Image
-            src={data?.profileImageUrl}
-            alt="추천 사용자 프로필 이미지"
-            fill
-            sizes="100vw 100vh"
-            className={styles.recommendUserProfileImage}
-            style={{
-              objectFit: 'cover',
-            }}
-          />
+          {data?.profileImageUrl ? (
+            <Image
+              src={data?.profileImageUrl}
+              alt="추천 사용자 프로필 이미지"
+              fill
+              sizes="100vw 100vh"
+              className={styles.recommendUserProfileImage}
+              style={{
+                objectFit: 'cover',
+              }}
+            />
+          ) : (
+            <div className={styles.noImage}></div>
+          )}
         </div>
         <h6 className={styles.recommendUserNickname}>{data.nickname}</h6>
         <FollowButton isFollowing={isFollowing} onClick={handleFollowButtonClick} userId={userId} targetId={data.id} />

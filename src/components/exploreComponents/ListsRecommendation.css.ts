@@ -114,6 +114,15 @@ export const ownerProfileImage = style({
   borderRadius: '50%',
 });
 
+export const noImage = style([
+  ownerProfileImage,
+  {
+    width: '30px',
+    height: '30px',
+    backgroundColor: vars.color.blueGray,
+  },
+]);
+
 export const simpleListWrapper = style({
   height: 'auto',
   padding: '8px 16px 9px',
