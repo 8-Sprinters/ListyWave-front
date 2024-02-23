@@ -13,8 +13,7 @@ export const container = style({
 export const baseDiv = style([
   fonts.titleSmall,
   {
-    margin: '0 16px',
-    padding: '16px 16px',
+    padding: '16px 32px',
 
     display: 'flex',
     justifyContent: 'space-between',

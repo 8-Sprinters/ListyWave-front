@@ -1,9 +1,8 @@
 'use client';
-
+import { useRouter } from 'next/navigation';
 import useBooleanOutput from '@/hooks/useBooleanOutput';
-import useMoveToPage from '@/hooks/useMoveToPage';
 import Header from '@/components/Header/Header';
-import { useUser } from '@/store/useUser';
+import useMoveToPage from '@/hooks/useMoveToPage';
 
 import UserIcon from '/public/icons/user.svg';
 import SettingIcon from '/public/icons/settings.svg';
@@ -18,16 +17,17 @@ import LanguageDropdown from './_components/LanguageDropdown';
 import * as styles from './page.css';
 
 export default function AccountPage() {
-  const { user } = useUser();
-  const userId = user.id;
   const { onClickMoveToPage } = useMoveToPage();
+  const router = useRouter();
   const { isOn, handleSetOn, handleSetOff } = useBooleanOutput();
 
   return (
     <>
       <Header
         left="back"
-        leftClick={onClickMoveToPage(`/user/${userId}/mylist`)}
+        leftClick={() => {
+          router.back();
+        }}
         title="마이페이지"
         right={<div />} //TODO: 공용HEADER 수정후 DIV없애기
       />
