@@ -57,7 +57,7 @@ function ListRecommendation() {
 
   return (
     <section className={styles.wrapperOuter}>
-      <div className={styles.sectionTitle}>NEW ✨</div>
+      <div className={styles.sectionTitle}>NEW✨</div>
       <ul>
         {recommendLists?.length !== 0 ? (
           recommendLists?.map((item: ListRecommendationType, index) => {
