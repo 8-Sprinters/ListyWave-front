@@ -13,13 +13,15 @@ import getCategories from '@/app/_api/category/getCategories';
 import { CategoryType } from '@/lib/types/categoriesType';
 import { QUERY_KEYS } from '@/lib/constants/queryKeys';
 
+import CategoriesSkeleton from './CategoriesSkeleton';
+
 interface CategoriesProps {
   handleFetchListsOnCategory: (category: string) => void;
   selectedCategory: string;
 }
 
 export default function Categories({ handleFetchListsOnCategory, selectedCategory }: CategoriesProps) {
-  const { data } = useQuery<CategoryType[]>({
+  const { data, isFetching } = useQuery<CategoryType[]>({
     queryKey: [QUERY_KEYS.getCategories],
     queryFn: getCategories,
   });
@@ -30,15 +32,19 @@ export default function Categories({ handleFetchListsOnCategory, selectedCategor
 
   return (
     <div className={styles.container}>
-      {data?.map((category) => (
-        <button
-          key={category.codeValue}
-          onClick={handleChangeCategory(category.nameValue)}
-          className={`${styles.button} ${category.nameValue === selectedCategory ? styles.variant : ''}`}
-        >
-          {category.korNameValue}
-        </button>
-      ))}
+      {isFetching ? (
+        <CategoriesSkeleton />
+      ) : (
+        data?.map((category) => (
+          <button
+            key={category.codeValue}
+            onClick={handleChangeCategory(category.nameValue)}
+            className={`${styles.button} ${category.nameValue === selectedCategory ? styles.variant : ''}`}
+          >
+            {category.korNameValue}
+          </button>
+        ))
+      )}
     </div>
   );
 }

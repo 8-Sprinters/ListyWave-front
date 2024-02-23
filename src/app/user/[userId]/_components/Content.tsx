@@ -11,8 +11,6 @@ import { useInfiniteQuery, useQuery, useQueryClient } from '@tanstack/react-quer
 import { MasonryGrid } from '@egjs/react-grid';
 
 import * as styles from './Content.css';
-import BlueLineIcon from '/public/icons/blue_line.svg';
-import BlueLineLongIcon from '/public/icons/blue_line_long.svg';
 
 import Card from './Card';
 import Categories from './Categories';
@@ -25,6 +23,7 @@ import { UserType } from '@/lib/types/userProfileType';
 import { AllListType } from '@/lib/types/listType';
 
 import useIntersectionObserver from '@/hooks/useIntersectionObserver';
+import MasonryGridSkeleton from './MasonryGridSkeleton';
 
 interface ContentProps {
   userId: number;
@@ -57,8 +56,12 @@ export default function Content({ userId, type }: ContentProps) {
   });
 
   const lists = useMemo(() => {
-    return listsData ? listsData.pages.flatMap(({ feedLists }) => feedLists) : [];
-  }, [listsData]);
+    return listsData
+      ? listsData.pages.flatMap(({ feedLists }) =>
+          userData && userData.isOwner ? feedLists : feedLists.filter((list) => list.isPublic)
+        )
+      : [];
+  }, [listsData, userData]);
 
   const ref = useIntersectionObserver(() => {
     if (hasNextPage) {
@@ -88,26 +91,27 @@ export default function Content({ userId, type }: ContentProps) {
     <div className={styles.container}>
       <div className={styles.options}>
         <Link href={`/user/${userData?.id}/mylist`} className={styles.link}>
-          <button className={styles.leftButton}>마이 리스트</button>
+          <span className={styles.button}>마이 리스트</span>
+          <div className={type === 'my' ? styles.currentLine : styles.line}></div>
         </Link>
+        <div style={{ backgroundColor: 'black', height: '2px' }}></div>
         <Link href={`/user/${userData?.id}/collabolist`} className={styles.link}>
-          <button className={styles.rightButton}>콜라보 리스트</button>
+          <button className={styles.button}>콜라보 리스트</button>
+          <div className={type === 'collabo' ? styles.currentLine : styles.line}></div>
         </Link>
       </div>
-      {type === 'my' ? (
-        <BlueLineIcon className={styles.variantLine.left} />
-      ) : (
-        <BlueLineLongIcon className={styles.variantLine.right} />
-      )}
       <Categories handleFetchListsOnCategory={handleFetchListsOnCategory} selectedCategory={selectedCategory} />
       <div className={styles.cards}>
-        <MasonryGrid gap={16} defaultDirection={'end'} align={'start'}>
-          {lists.map((list) => (
-            <Card key={list.id} list={list} isOwner={!!userData?.isOwner} />
-          ))}
-        </MasonryGrid>
+        {isFetching ? (
+          <MasonryGridSkeleton />
+        ) : (
+          <MasonryGrid className="container" gap={16} defaultDirection={'end'} align={'start'} column={2}>
+            {lists.map((list) => (
+              <Card key={list.id} list={list} isOwner={!!userData?.isOwner} userId={userId} />
+            ))}
+          </MasonryGrid>
+        )}
       </div>
-      {isFetching && <div>로딩중</div>}
       <div className={styles.target} ref={ref}></div>
     </div>
   );

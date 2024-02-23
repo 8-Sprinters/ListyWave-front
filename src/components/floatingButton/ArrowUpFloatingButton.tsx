@@ -31,7 +31,7 @@ export default function ArrowUpFloatingButton() {
   return (
     <>
       {isVisible && (
-        <div className={styles.arrowUpButton} onClick={handleScrollToTop}>
+        <div className={styles.variant.arrowUp} onClick={handleScrollToTop}>
           <ArrowUpIcon alt="상단으로 이동하기 버튼" className={styles.icon} />
         </div>
       )}

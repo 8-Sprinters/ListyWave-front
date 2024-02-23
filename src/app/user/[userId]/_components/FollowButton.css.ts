@@ -4,6 +4,7 @@ import { vars } from '@/styles/theme.css';
 export const button = style({
   padding: '0.8rem 1.2rem',
   borderRadius: '5rem',
+  fontSize: '1.1rem',
   fontWeight: '400',
   lineHeight: '1.6rem',
 });

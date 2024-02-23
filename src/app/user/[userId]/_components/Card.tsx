@@ -7,19 +7,23 @@ import { assignInlineVars } from '@vanilla-extract/dynamic';
 
 import * as styles from './Card.css';
 
+import useMoveToPage from '@/hooks/useMoveToPage';
 import LockIcon from '/public/icons/lock_alt.svg';
 import { ListType } from '@/lib/types/listType';
 
 interface CardProps {
   list: ListType;
   isOwner: boolean;
+  userId: number;
 }
 
 export default function Card({ list, isOwner }: CardProps) {
+  const { onClickMoveToPage } = useMoveToPage();
   const isVisibleLockIcon = isOwner && !list.isPublic;
 
   return (
     <ul
+      onClick={onClickMoveToPage(`/list/${list.id}`)}
       className={styles.container}
       style={assignInlineVars({
         [styles.listColor]: `${list.backgroundColor}`,

@@ -15,6 +15,13 @@ export const vars = createThemeContract({
     yellow: 'color-yellow',
     red: 'color-red',
   },
+  // TODO 반응형 코드 수정 필요
+  breakpoints: {
+    common: 'mobile-common',
+    medium: 'mobile-medium',
+    mediumSmall: 'mobile-mediumSmall',
+    small: 'mobile-small',
+  },
 });
 
 createGlobalTheme(':root', vars, {
@@ -31,5 +38,11 @@ createGlobalTheme(':root', vars, {
     blueGray: '#F7F5FF',
     yellow: '#FFF6A5',
     red: '#FF5454',
+  },
+  breakpoints: {
+    common: '414px',
+    medium: '400px',
+    mediumSmall: '390px',
+    small: '375px',
   },
 });

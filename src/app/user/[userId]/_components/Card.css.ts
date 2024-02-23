@@ -1,5 +1,6 @@
 import { style, createVar } from '@vanilla-extract/css';
 import { vars } from '@/styles/theme.css';
+import { bodyMedium } from '@/styles/font.css';
 
 export const listColor = createVar();
 
@@ -11,6 +12,26 @@ export const container = style({
   borderRadius: '1.5rem',
   backgroundColor: listColor,
   border: `1px solid ${vars.color.gray5}`,
+
+  '@media': {
+    // 화면이 414px 이하일 때,
+    'screen and (max-width: 414px)': {
+      // iPhone XR, 갤럭시 S20
+      maxWidth: '180px',
+    },
+    'screen and (max-width: 400px)': {
+      // 중간 point
+      maxWidth: '170px',
+    },
+    'screen and (max-width: 390px)': {
+      // iPhone 12 Pro
+      maxWidth: '165px',
+    },
+    'screen and (max-width: 375px)': {
+      // iPhone SE
+      maxWidth: '160px',
+    },
+  },
 });
 
 export const title = style({
@@ -19,7 +40,7 @@ export const title = style({
   fontSize: '1.7rem',
   fontWeight: '600',
   color: vars.color.black,
-  textAlign: 'right',
+  textAlign: 'center',
   letterSpacing: '-0.51px',
   wordBreak: 'keep-all',
 });
@@ -57,12 +78,18 @@ export const item = style({
   gap: '5px',
 });
 
-export const rank = style({
-  width: '1.2rem',
-});
+export const rank = style([
+  bodyMedium,
+  {
+    width: '1.2rem',
+  },
+]);
 
-export const itemTitle = style({
-  overflow: 'hidden',
-  textOverflow: 'ellipsis',
-  whiteSpace: 'nowrap',
-});
+export const itemTitle = style([
+  bodyMedium,
+  {
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
+    whiteSpace: 'nowrap',
+  },
+]);

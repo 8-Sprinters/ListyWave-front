@@ -1,6 +1,7 @@
 'use client';
 
 import { usePathname } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 
 import ExploreIcon from '/public/icons/explore.svg';
 import MyFeedIcon from '/public/icons/my_feed.svg';
@@ -15,6 +16,7 @@ import toastMessage from '@/lib/constants/toastMessage';
 
 export default function BottomNav() {
   const { user } = useUser();
+  const router = useRouter();
   const userId = user.id;
   const pathname = usePathname() as string;
   const { onClickMoveToPage } = useMoveToPage();
@@ -30,7 +32,7 @@ export default function BottomNav() {
       toasting({ type: 'error', txt: toastMessage.ko.requiredLogin });
       return;
     }
-    onClickMoveToPage(`/user/${userId}/mylist`);
+    router.push(`/user/${userId}/mylist`);
   };
 
   //파란색 선택 표시를 위한 분기처리

@@ -32,6 +32,18 @@ export const profileContainer = style({
   display: 'flex',
   flexDirection: 'column',
   gap: '1.5rem',
+
+  '@media': {
+    'screen and (max-width: 414px)': {
+      padding: '0 3rem',
+    },
+    'screen and (max-width: 400px)': {
+      padding: '0 2rem',
+    },
+    'screen and (max-width: 390px)': {
+      padding: '0 1.5rem',
+    },
+  },
 });
 
 export const icon = style({
@@ -44,12 +56,19 @@ export const profile = style({
   gap: '1.6rem',
 });
 
-export const profileImage = style({
+export const profileImageWrapper = style({
   width: '5rem',
   height: '5rem',
 
   borderRadius: '50%',
-  border: `2px solid ${vars.color.white}`,
+  backgroundColor: vars.color.white,
+});
+
+export const profileImage = style({
+  width: '5rem',
+  height: '5rem',
+  padding: '2px',
+  borderRadius: '50%',
 });
 
 export const info = style({
@@ -69,6 +88,12 @@ export const nickName = style({
   fontWeight: ' 700',
   color: vars.color.black,
   letterSpacing: '-0.6px',
+
+  '@media': {
+    'screen and (max-width: 414px)': {
+      fontSize: '1.8rem',
+    },
+  },
 });
 
 export const follow = style({
@@ -93,6 +118,7 @@ export const count = style({
 });
 
 export const description = style({
+  paddingLeft: '2.5rem',
   marginBottom: '2.5rem',
 
   width: '100%',
