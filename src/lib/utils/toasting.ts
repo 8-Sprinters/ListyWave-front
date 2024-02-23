@@ -1,4 +1,4 @@
-import { toast, ToastOptions } from 'react-toastify';
+import { toast, ToastOptions, Slide } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 interface ToastingProps {
@@ -9,13 +9,14 @@ interface ToastingProps {
 function toasting({ type = 'default', txt = '' }: ToastingProps) {
   const toastOption: ToastOptions = {
     position: 'bottom-center',
-    autoClose: 1000,
+    autoClose: 2000,
     hideProgressBar: true,
     closeOnClick: true,
-    pauseOnHover: false,
+    pauseOnHover: true,
     draggable: false,
     progress: undefined,
     theme: 'light',
+    transition: Slide,
   };
 
   if (type !== ('success' || 'error' || 'warning')) {

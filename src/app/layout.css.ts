@@ -1,4 +1,5 @@
 import { vars } from '@/styles/theme.css';
+import * as fonts from '@/styles/font.css';
 import { style } from '@vanilla-extract/css';
 
 export const body = style({
@@ -11,3 +12,10 @@ export const body = style({
 
   backgroundColor: vars.color.white,
 });
+
+export const toastContainer = style([
+  fonts.labelMedium,
+  {
+    marginBottom: 50,
+  },
+]);
