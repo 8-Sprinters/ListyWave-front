@@ -2,13 +2,12 @@ import { style, styleVariants, ComplexStyleRule } from '@vanilla-extract/css';
 import { vars } from '@/styles/theme.css';
 
 export const background = style({
-  maxWidth: 430,
   margin: 'auto',
-  width: '100vh',
+  width: '100vw',
   height: '100vh',
   zIndex: 100,
 
-  position: 'absolute',
+  position: 'fixed',
 
   display: 'flex',
   justifyContent: 'center',
@@ -35,9 +34,10 @@ export const sizeVariants = styleVariants<SizeVariantsType>({
   basic: [
     container,
     {
-      width: '326px',
-      padding: '2.4rem',
-      borderRadius: '0.8rem',
+      minWidth: '270px',
+      margin: '0px 52px',
+      padding: '24px',
+      borderRadius: '8px',
     },
   ],
   large: [

@@ -14,6 +14,14 @@ export const wrapper = style({
   transform: 'translateZ(0px)',
 });
 
+export const profileImageParent = style({
+  marginRight: '-10px',
+  width: 35,
+  height: 35,
+
+  position: 'relative',
+});
+
 export const profileImage = style({
   marginRight: '-10px',
   width: '36px',
@@ -24,6 +32,7 @@ export const profileImage = style({
   alignItems: 'center',
 
   border: `3px solid ${vars.color.white}`,
+  backgroundColor: vars.color.white,
   borderRadius: '9999px',
 });
 

@@ -20,7 +20,7 @@ export default function DeleteModal({ children, onDelete }: DeleteModalProps) {
     <>
       {/*👆 누르면 모달이 열리는 트리거 버튼*/}
       <button onClick={handleSetOn} className={styles.resetButtonStyle}>
-        <DeleteButton alt="삭제 버튼" />
+        <DeleteButton alt="삭제 버튼" fill="#AFB1B6" />
       </button>
 
       {/*✨ 조합한 모달 */}

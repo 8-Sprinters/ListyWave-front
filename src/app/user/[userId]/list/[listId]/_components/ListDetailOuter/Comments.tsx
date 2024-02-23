@@ -1,6 +1,5 @@
 'use client';
 import { useParams } from 'next/navigation';
-import Image from 'next/image';
 import { ChangeEvent, useEffect, useMemo, useState } from 'react';
 import { useMutation, useQueryClient, useInfiniteQuery, useQuery } from '@tanstack/react-query';
 
@@ -8,6 +7,8 @@ import Comment from './Comment';
 import CommentsSkeleton from './CommentsSkeleton';
 import createComment from '@/app/_api/comment/createComment';
 import createReply from '@/app/_api/comment/createReply';
+import editComment from '@/app/_api/comment/EditComment';
+import editReply from '@/app/_api/comment/EditReply';
 import getComments from '@/app/_api/comment/getComments';
 import getUserOne from '@/app/_api/user/getUserOne';
 import useIntersectionObserver from '@/hooks/useIntersectionObserver';
@@ -15,18 +16,25 @@ import { QUERY_KEYS } from '@/lib/constants/queryKeys';
 import { CommentType } from '@/lib/types/commentType';
 import { UserType } from '@/lib/types/userProfileType';
 import { useUser } from '@/store/useUser';
+import { useReplyId, useCommentId, useCommentIdStore, useIsEditing } from '@/store/useComment';
+import Modal from '@/components/Modal/Modal';
+import CommentForm from './CommentForm';
+import LoginModal from '@/components/login/LoginModal';
+import useBooleanOutput from '@/hooks/useBooleanOutput';
 
 import * as styles from './Comments.css';
-import CancelButton from '/public/icons/cancel_button.svg';
 
 function Comments() {
   const [activeNickname, setActiveNickname] = useState<string | null | undefined>(null);
-  const [commentId, setCommentId] = useState<null | number | undefined>(null);
   const [comment, setComment] = useState<string>('');
   const params = useParams<{ listId: string }>();
+  // const [isEditing, setIsEditing] = useState(false);
   const queryClient = useQueryClient();
-
-  const [imgSrc, setImgSrc] = useState(false);
+  const { addCommentId } = useCommentIdStore();
+  const { isOn, handleSetOff, handleSetOn } = useBooleanOutput();
+  const { replyId, deleteReplyId } = useReplyId();
+  const { commentId, setCommentId, deleteCommentId } = useCommentId();
+  const { setIsEditing, setIsNotEditing, setToggleEditing, isEditing } = useIsEditing();
 
   //zustand로 관리하는 user정보 불러오기
   const { user } = useUser();
@@ -72,18 +80,35 @@ function Comments() {
   const handleReplyInformationDelete = () => {
     if (activeNickname) {
       setActiveNickname(null);
-      setCommentId(null);
+      deleteCommentId();
     }
   };
 
   //답글 생성중인 댓글에 대한 id를 받아오는 함수
-  const handleSetCommentId = (id: number | undefined) => {
-    setCommentId(id);
+  const handleSetCommentId = (id?: number) => {
+    if (id) {
+      setCommentId(id);
+    }
   };
 
   //댓글 폼 사용(추후 리액트 훅폼으로 수정해 볼 예정)
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     setComment(e.target.value);
+  };
+
+  //댓글 수정 버튼 클릭시, 댓글 수정을 위한 폼 셋팅
+  const handleEditComment = (comment?: string) => {
+    if (comment) {
+      setIsEditing();
+      setComment(comment);
+    }
+  };
+
+  const handleCancelEdit = () => {
+    setIsNotEditing();
+    setComment('');
+    deleteCommentId();
+    deleteReplyId();
   };
 
   //댓글 생성 리액트 쿼리 함수
@@ -102,11 +127,40 @@ function Comments() {
     mutationFn: () => createReply({ listId: Number(params?.listId), commentId: commentId, data: comment }),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: [QUERY_KEYS.getComments] });
+      addCommentId(commentId as number);
     },
     onSettled: () => {
       setComment('');
-      setCommentId(null);
+      deleteCommentId();
       setActiveNickname(null);
+    },
+  });
+
+  //댓글 수정 리액트 쿼리 함수
+  const editCommentMutation = useMutation({
+    mutationFn: () => editComment(Number(params?.listId) as number, commentId as number, comment),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: [QUERY_KEYS.getComments] });
+    },
+    onSettled: () => {
+      setComment('');
+      deleteCommentId();
+      setIsNotEditing();
+    },
+  });
+
+  //답글 수정 리액트 쿼리 함수
+  const editReplyMutation = useMutation({
+    mutationFn: () => editReply(Number(params?.listId) as number, commentId as number, replyId as number, comment),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: [QUERY_KEYS.getComments] });
+      addCommentId(commentId as number);
+    },
+    onSettled: () => {
+      setComment('');
+      deleteCommentId();
+      deleteReplyId();
+      setIsNotEditing();
     },
   });
 
@@ -114,17 +168,22 @@ function Comments() {
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (!userId) {
+      handleSetOn();
       return;
     }
     if (commentId && activeNickname) {
       createReplyMutation.mutate();
       return;
     }
+    if (isEditing) {
+      if (replyId) {
+        editReplyMutation.mutate();
+        return;
+      }
+      editCommentMutation.mutate();
+      return;
+    }
     createCommentMutation.mutate();
-  };
-
-  const handleImageError = () => {
-    setImgSrc(false);
   };
 
   //무한 스크롤시 필요한 쿼리 리셋함수
@@ -138,64 +197,48 @@ function Comments() {
   }, [queryClient]);
 
   return (
-    <div className={styles.wrapper}>
-      <div className={styles.formWrapperOuter}>
-        <Image
-          src={imgSrc ? `${userInformation?.profileImageUrl}` : '/public/images/mock_profile.png'}
-          alt="프로필 이미지"
-          width={36}
-          height={36}
-          className={styles.profileImage}
-          style={{
-            objectFit: 'cover',
-          }}
-          onError={handleImageError}
+    <>
+      {isOn && (
+        <Modal handleModalClose={handleSetOff} size="large">
+          <LoginModal />
+        </Modal>
+      )}
+      <div className={styles.wrapper}>
+        <CommentForm
+          comment={comment}
+          handleChange={handleInputChange}
+          activeNickname={activeNickname}
+          handleUpdate={handleReplyInformationDelete}
+          handleSubmit={handleSubmit}
+          imageSrc={userInformation?.profileImageUrl}
+          isEditing={isEditing}
+          handleCancel={handleCancelEdit}
         />
-        <div className={`${styles.formWrapperInner} ${!!activeNickname ? styles.activeFormWrapper : ''}`}>
-          {activeNickname && (
-            <div className={styles.activeReplyWrapper}>
-              <span className={styles.replyNickname}>{`@${activeNickname}님에게 남긴 답글`}</span>
-              <CancelButton className={styles.clearButton} alt="지우기 버튼" onClick={handleReplyInformationDelete} />
+        <div className={styles.totalCount}>{`${comments?.totalCount}개의 댓글`}</div>
+        {comments?.commentsList?.map((item: CommentType) => {
+          return (
+            <div key={item.id} className={styles.commentWrapper}>
+              {isFetching ? (
+                <CommentsSkeleton />
+              ) : (
+                <Comment
+                  comment={item}
+                  onUpdate={setActiveNickname}
+                  activeNickname={activeNickname}
+                  handleSetCommentId={handleSetCommentId}
+                  listId={Number(params?.listId)}
+                  commentId={item.id}
+                  currentUserInfo={userInformation}
+                  handleEdit={handleEditComment}
+                />
+              )}
             </div>
-          )}
-          <form className={styles.formContainer} onSubmit={handleSubmit}>
-            <input
-              className={styles.formInput}
-              value={comment}
-              onChange={handleInputChange}
-              placeholder={userId === 0 ? '로그인 후 댓글을 작성할 수 있습니다.' : ''}
-            />
-            {comment && userId && (
-              <button type="submit" className={styles.formButton}>
-                게시
-              </button>
-            )}
-          </form>
-        </div>
+          );
+        })}
+        {/* {옵저버를 위한 요소} */}
+        <div ref={ref}></div>
       </div>
-      <div className={styles.totalCount}>{`${comments?.totalCount}개의 댓글`}</div>
-      {comments?.commentsList?.map((item: CommentType) => {
-        return (
-          <div key={item.id} className={styles.commentWrapper}>
-            {isFetching ? (
-              <CommentsSkeleton />
-            ) : (
-              <Comment
-                comment={item}
-                onUpdate={setActiveNickname}
-                activeNickname={activeNickname}
-                handleSetCommentId={handleSetCommentId}
-                listId={Number(params?.listId)}
-                commentId={commentId}
-                currentUserInfo={userInformation}
-              />
-            )}
-          </div>
-        );
-      })}
-      {/* {옵저버를 위한 요소} */}
-      <div ref={ref}></div>
-    </div>
+    </>
   );
 }
 

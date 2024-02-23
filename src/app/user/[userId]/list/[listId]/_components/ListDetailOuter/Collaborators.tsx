@@ -5,7 +5,7 @@ import PlusIcon from '/public/icons/collaborators_plus.svg';
 import { UserProfileType } from '@/lib/types/userProfileType';
 
 interface CollaboratorsProps {
-  collaborators: UserProfileType[] | undefined;
+  collaborators?: UserProfileType[];
 }
 
 function Collaborators({ collaborators }: CollaboratorsProps) {
@@ -30,13 +30,12 @@ function Collaborators({ collaborators }: CollaboratorsProps) {
             )}
             {collaboratorsList?.map((item: UserProfileType) => {
               return (
-                <div key={item.id}>
+                <div key={item.id} className={styles.profileImageParent}>
                   <Image
                     className={styles.profileImage}
                     src={item.profileImageUrl}
                     alt="사용자 프로필 이미지"
-                    width={35}
-                    height={35}
+                    fill
                     style={{
                       objectFit: 'cover',
                     }}

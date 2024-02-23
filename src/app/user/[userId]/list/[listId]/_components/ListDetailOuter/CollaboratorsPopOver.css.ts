@@ -1,4 +1,6 @@
 import { style } from '@vanilla-extract/css';
+import { vars } from '@/styles/theme.css';
+import { titleSmall } from '@/styles/font.css';
 
 /**
  * @todo 공용 폰트 스타일 적용
@@ -33,9 +35,25 @@ export const listWrapper = style({
 });
 
 export const itemWrapper = style({
+  marginTop: '10px',
+
   display: 'flex',
   alignItems: 'center',
   gap: '8px',
+});
+
+export const collaboratorTitle = style([
+  titleSmall,
+  {
+    color: vars.color.black,
+  },
+]);
+
+export const profileImageParent = style({
+  width: '25px',
+  height: '25px',
+
+  position: 'relative',
 });
 
 export const profileImage = style({

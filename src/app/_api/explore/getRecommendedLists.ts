@@ -5,7 +5,7 @@ interface GetRecommendedListsType {
   cursorId?: number | null;
 }
 
-async function getRecommendedLists({ cursorId }: GetRecommendedListsType) {
+const getRecommendedLists = async ({ cursorId }: GetRecommendedListsType) => {
   const params = new URLSearchParams({
     size: '10',
   });
@@ -17,6 +17,6 @@ async function getRecommendedLists({ cursorId }: GetRecommendedListsType) {
   const response = await axiosInstance.get(`/lists?${params.toString()}`);
 
   return response.data;
-}
+};
 
 export default getRecommendedLists;
