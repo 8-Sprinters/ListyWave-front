@@ -11,6 +11,7 @@ import { UserProfileType } from '@/lib/types/userProfileType';
 import { QUERY_KEYS } from '@/lib/constants/queryKeys';
 
 import * as styles from './UserList.css';
+import NoDataComponent from '@/components/NoData/NoDataComponent';
 
 const BUTTON_MESSAGE = {
   ko: {
@@ -33,7 +34,7 @@ function DeleteFollowerButton({ userId }: { userId: number }) {
     mutationFn: () => deleteFollower(userId),
     onSuccess: () => {
       queryClient.invalidateQueries({
-        queryKey: [QUERY_KEYS.userOne, userId],
+        queryKey: [QUERY_KEYS.deleteFollower, userId],
       });
     },
   });
@@ -88,7 +89,7 @@ function UserList({ type, list }: UserListProps) {
   return (
     <div className={styles.container}>
       {list.length === 0 ? (
-        <div className={styles.emptyMessage}>{EMPTY_MESSAGE.ko[type]}</div>
+        <NoDataComponent message={EMPTY_MESSAGE.ko[type]} />
       ) : (
         <>
           {type === 'following' && list?.map((user: UserProfileType) => <User key={user.id} user={user} />)}
