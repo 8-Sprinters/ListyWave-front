@@ -11,6 +11,7 @@ import { TrendingListType } from '@/lib/types/exploreType';
 import { CUSTOM_WRAPPER, CUSTOM_PADDING, CUSTOM_BORDER_RADIUS } from '@/lib/constants/trendingListCustomStyle';
 
 import * as styles from './TrendingLists.css';
+import { vars } from '@/styles/theme.css';
 
 /**@todo 트렌딩 리스트 바뀐 디자인에 맞게 새로 갈아엎을 예정 */
 
@@ -83,7 +84,8 @@ function TrendingList() {
                       [styles.customPadding]: CUSTOM_PADDING[STYLE_INDEX(index)],
                       [styles.customBorderRadius]: CUSTOM_BORDER_RADIUS[STYLE_INDEX(index)],
                       [styles.customBackgroundColor]: item.backgroundColor,
-                      [styles.customItemBorder]: item.backgroundColor === '#FFFFFF' ? '1px solid #EFEFF0' : 'none',
+                      [styles.customItemBorder]:
+                        item.backgroundColor === '#FFFFFF' ? `1px solid ${vars.color.gray5}` : 'none',
                     })}
                   >
                     <TrendingListInformation item={item} />
@@ -109,7 +111,7 @@ function TrendingListInformation({ item }: TrendingListInformationType) {
     <div className={styles.itemInformationWrapper}>
       <div
         className={styles.itemTitle}
-        style={assignInlineVars({ [styles.customFontColor]: item.itemImageUrl ? '#fff' : '#000' })}
+        style={assignInlineVars({ [styles.customFontColor]: item.itemImageUrl ? vars.color.white : vars.color.black })}
       >
         {item.title}
       </div>
