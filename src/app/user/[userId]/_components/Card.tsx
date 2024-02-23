@@ -23,7 +23,7 @@ export default function Card({ list, isOwner, userId }: CardProps) {
 
   return (
     <ul
-      onClick={onClickMoveToPage(`/user/${userId}/list/${list.id}`)}
+      onClick={onClickMoveToPage(`/list/${list.id}`)}
       className={styles.container}
       style={assignInlineVars({
         [styles.listColor]: `${list.backgroundColor}`,
