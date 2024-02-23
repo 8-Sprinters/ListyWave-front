@@ -11,6 +11,7 @@ export const backGround = style({
 });
 
 export const wrapper = style({
+  maxHeight: '40%',
   padding: '37px 0 43px',
 
   position: 'fixed',
@@ -28,6 +29,8 @@ export const wrapper = style({
 
   transitionProperty: 'all',
   transitionDuration: '0.2s',
+
+  overflow: 'scroll',
 });
 
 const slideIn = keyframes({

@@ -10,6 +10,8 @@ export const colorCircle = style({
   width: '50px',
   height: '50px',
 
+  flexShrink: '0',
+
   appearance: 'none',
   MozAppearance: 'none',
   WebkitAppearance: 'none',

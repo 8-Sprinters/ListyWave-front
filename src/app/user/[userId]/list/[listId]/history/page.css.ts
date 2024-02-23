@@ -15,7 +15,6 @@ export const navContainer = style({
 
   position: 'fixed',
   top: '70px',
-  left: '0',
 
   backgroundColor: vars.color.white,
 });

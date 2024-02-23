@@ -1,3 +1,6 @@
+import { useState } from 'react';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
+
 import Modal from '@/components/Modal/Modal';
 import BottomSheet from '../../_components/BottomSheet/BottomSheet';
 import Kebab from '/public/icons/vertical_kebab_button.svg';
@@ -5,17 +8,58 @@ import Crown from '/public/icons/crown.svg';
 import Private from '/public/icons/lock_alt.svg';
 import ArrowDown from '/public/icons/chevron_down_sm.svg';
 
+import { useUser } from '@/store/useUser';
 import useBooleanOutput from '@/hooks/useBooleanOutput';
-import mock from '../mock.json';
+import toggleHistoryPublic from '@/app/_api/history/toggleHistoryPulblic';
+import timeDiff from '@/lib/utils/time-diff';
+import { HistoryType } from '@/lib/types/historyType';
+import { QUERY_KEYS } from '@/lib/constants/queryKeys';
 
 import * as styles from './HistoryVersions.css';
+import deleteHistory from '@/app/_api/history/deleteHistory';
+import NoDataComponent from '@/components/NoData/NoDataComponent';
 
-// interface VersionHistoryProps {}
-function HistoryVersions() {
-  const { isOn: isBottonsheetOpen, handleSetOff: closeBottomsheet, handleSetOn: openBottomsheet } = useBooleanOutput();
+interface VersionHistoryProps {
+  histories: HistoryType[];
+  listId: string | undefined;
+  listOwnerId: number | undefined;
+}
+
+function HistoryVersions({ histories, listId, listOwnerId }: VersionHistoryProps) {
+  const [selectedHistory, setSelectedHistory] = useState<HistoryType>(histories[histories.length - 1] || {});
+  const { user } = useUser();
+  const queryClient = useQueryClient();
+
+  const { isOn: isControlOpen, handleSetOff: closeControl, handleSetOn: openControl } = useBooleanOutput();
+  const {
+    isOn: isHistorySelectionOpen,
+    handleSetOff: closeHistorySelection,
+    handleSetOn: openHistorySelection,
+  } = useBooleanOutput();
   const { isOn: isModalOn, handleSetOff: closeModal, handleSetOn: openModal } = useBooleanOutput();
 
-  const bottomSheetOptionList = [
+  const { mutate: togglePublicMutation } = useMutation({
+    mutationFn: toggleHistoryPublic,
+    onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: [QUERY_KEYS.getHistories, listId],
+      });
+      setSelectedHistory(selectedHistory);
+    },
+  });
+
+  const { mutate: deleteMutation } = useMutation({
+    mutationFn: deleteHistory,
+    onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: [QUERY_KEYS.getHistories, listId],
+      });
+      setSelectedHistory(histories[histories.length - 1]);
+      // TODO: 삭제 토스트 띄우기
+    },
+  });
+
+  const historyControlBottomsheetOption = [
     {
       key: 'setHistoryPrivate',
       title: '히스토리 비공개하기',
@@ -32,40 +76,77 @@ function HistoryVersions() {
     },
   ];
 
+  const historySelectOption = histories
+    .map((history) => {
+      return {
+        key: String(history.id),
+        title: timeDiff(String(history.createdDate)),
+        onClick: () => {
+          setSelectedHistory(history);
+        },
+      };
+    })
+    .reverse();
+
   const handleTogglePublic = () => {
-    // console.log('히스토리 공개/비공개 토글 API');
+    togglePublicMutation({ historyId: selectedHistory.id });
   };
 
   const handleDeleteHistory = () => {
-    // console.log('히스토리 삭제 API');
+    deleteMutation({ historyId: selectedHistory.id });
+    closeModal();
   };
 
   return (
     <>
       <div className={styles.container}>
-        <div className={styles.dateDropdown}>
-          02-21
-          {false ? null : <ArrowDown alt="날짜 드롭다운" />}
-        </div>
-        {true ? (
-          <button className={styles.kebabButton} onClick={openBottomsheet}>
-            <Kebab className={styles.kebabIcon} alt="더보기 버튼" />
-          </button>
-        ) : null}
+        {histories.length !== 0 && (
+          <>
+            <button className={styles.dateDropdown} onClick={openHistorySelection}>
+              {timeDiff(String(selectedHistory.createdDate))}
+              <ArrowDown alt="날짜 드롭다운" />
+            </button>
+            {user.id === listOwnerId ? (
+              <button className={styles.kebabButton} onClick={openControl}>
+                <Kebab className={styles.kebabIcon} alt="더보기 버튼" />
+              </button>
+            ) : null}
+          </>
+        )}
 
-        <div className={styles.date}>
-          {false ? null : <Private />}
-          2024-02-20
-        </div>
-        <div className={styles.itemsContainer}>
-          <Item rank={1} title={'니가가라 하와이'} />
-          <Item rank={2} title={'얼마면 돼'} />
-          <Item rank={3} title={'견우야~ 엄청 긴 아이템 타이틀 길이도 커버를 할 수 있어야 한다는게 어렵다'} />
-        </div>
+        {histories.length === 0 ? (
+          <div className={styles.noDataImage}>
+            <NoDataComponent message="히스토리가 없어요" />
+          </div>
+        ) : (
+          <>
+            {user.id === listOwnerId || selectedHistory.isPublic ? (
+              <>
+                <div className={styles.date}>
+                  {selectedHistory.isPublic ? null : <Private />}
+                  {timeDiff(String(selectedHistory?.createdDate))}
+                </div>
+                <div className={styles.itemsContainer}>
+                  {selectedHistory?.items.map((item) => <Item key={item.id} rank={item.rank} title={item.title} />)}
+                </div>
+              </>
+            ) : (
+              <div>비공개 히스토리에요.</div>
+            )}
+          </>
+        )}
       </div>
 
-      {isBottonsheetOpen && (
-        <BottomSheet onClose={closeBottomsheet} optionList={bottomSheetOptionList} isActive={isBottonsheetOpen} />
+      {isControlOpen && (
+        <BottomSheet onClose={closeControl} optionList={historyControlBottomsheetOption} isActive={isControlOpen} />
+      )}
+
+      {isHistorySelectionOpen && (
+        <BottomSheet
+          onClose={closeHistorySelection}
+          optionList={historySelectOption}
+          isActive={isHistorySelectionOpen}
+        />
       )}
 
       {isModalOn && (
