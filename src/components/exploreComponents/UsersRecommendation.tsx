@@ -28,7 +28,7 @@ function UsersRecommendation() {
   const handleScrollToRight = () => {
     if (wrapperRef.current) {
       wrapperRef.current.scrollTo({
-        left: wrapperRef.current.scrollLeft + 234,
+        left: wrapperRef.current.scrollLeft + 166,
         behavior: 'smooth',
       });
     }
