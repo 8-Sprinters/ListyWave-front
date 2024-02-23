@@ -88,7 +88,7 @@ function ListInformation() {
         <div className={styles.listTitle}>{list?.title}</div>
         <div className={styles.listDescription}>{list?.description}</div>
       </div>
-      <ListDetailInner data={list} listId={params && params?.listId} />
+      <ListDetailInner data={list} listId={Number(params?.listId)} />
       <div className={styles.bottomWrapper}>
         <div className={styles.bottomLeftWrapper}>
           <div className={styles.profileImageParent} onClick={onClickMoveToPage(`/user/${list.ownerId}/mylist`)}>
