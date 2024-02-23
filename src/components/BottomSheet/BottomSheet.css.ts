@@ -1,4 +1,5 @@
 import { keyframes, style } from '@vanilla-extract/css';
+import { vars } from '@/styles/theme.css';
 
 export const backGround = style({
   position: 'fixed',
@@ -51,7 +52,7 @@ export const sheetItemWrapper = style({
   alignItems: 'center',
 
   ':hover': {
-    backgroundColor: '#EFEFF0',
+    backgroundColor: vars.color.lightblue,
   },
 });
 
@@ -74,14 +75,14 @@ export const sheetItem = style({
 
   selectors: {
     [`${sheetItemWrapper}:hover &`]: {
-      color: '#FF5454',
+      color: vars.color.blue,
     },
   },
 });
 
 export const disabledSheetItemWrapper = style({
   ':hover': {
-    backgroundColor: '#ffffff',
+    backgroundColor: vars.color.gray3,
   },
 });
 
@@ -89,7 +90,7 @@ export const disabledSheetItem = style({
   cursor: 'not-allowed',
   selectors: {
     [`${sheetItemWrapper}:hover &`]: {
-      color: '#e9e9e9',
+      color: vars.color.gray7,
     },
   },
 });
