@@ -77,6 +77,7 @@ export const listTitle = style([
   headlineSmall,
   {
     color: vars.color.black,
+    wordBreak: 'break-word',
   },
 ]);
 
