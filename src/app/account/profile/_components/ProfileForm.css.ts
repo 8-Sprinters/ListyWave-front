@@ -11,24 +11,19 @@ export const form = style({
   gap: '12px',
 });
 
-const container = style({
+export const inputContainer = style({
   width: '100%',
-
   padding: '10px 12px',
 
+  display: 'flex',
+  flexDirection: 'column',
+  gap: '8px',
+
   border: `1px solid ${vars.color.gray5}`,
+  borderRadius: 10,
 });
 
-export const inputContainer = style([
-  container,
-  {
-    display: 'flex',
-    flexDirection: 'column',
-    gap: '8px',
-  },
-]);
-
-export const label = style([labelSmall, { color: vars.color.gray9 }]);
+export const label = style([labelSmall, { color: vars.color.gray7 }]);
 
 export const inputText = style([bodyMedium]);
 
@@ -43,7 +38,7 @@ export const textarea = style([
 export const textLength = style([
   bodyMedium,
   {
-    color: vars.color.gray9,
+    color: vars.color.gray7,
     textAlign: 'end',
   },
 ]);
@@ -52,37 +47,39 @@ export const inputFile = style({
   display: 'none',
 });
 
-export const inputFileLabel = style({
-  border: `1px solid ${vars.color.black}`,
-});
+export const imageUrl = createVar();
 
 const option = style({
   display: 'flex',
   justifyContent: 'center',
   alignItems: 'center',
 
-  backgroundColor: vars.color.gray3 /**TODO: white로 대체예정*/,
-  backgroundImage: 'none' /**TODO: backgroundImage로 대체예정*/,
+  backgroundColor: vars.color.gray5 /**TODO: white로 대체예정*/,
+  backgroundImage: imageUrl,
+  backgroundSize: 'cover',
 
   cursor: 'pointer',
 
+  border: `2px solid ${vars.color.white}`,
+
   selectors: {
     '&:hover': {
-      border: `1px solid ${vars.color.blue}`,
+      border: `2px solid ${vars.color.blue}`,
     },
   },
 });
 
-export const backgroundOptionContainer = style([
-  container,
-  {
-    display: 'grid',
-    gridTemplateColumns: 'repeat(4, 1fr)',
-    gridTemplateRows: '1fr 1fr',
-    gridColumnGap: 8,
-    gridRowGap: 10,
-  },
-]);
+export const selectedOption = style({
+  border: `2px solid ${vars.color.blue}`,
+});
+
+export const backgroundOptionContainer = style({
+  display: 'grid',
+  gridTemplateColumns: 'repeat(4, 1fr)',
+  gridTemplateRows: '1fr 1fr',
+  gridColumnGap: 8,
+  gridRowGap: 10,
+});
 
 export const backgroundOption = style([
   option,
@@ -94,16 +91,13 @@ export const backgroundOption = style([
   },
 ]);
 
-export const profileOptionContainer = style([
-  container,
-  {
-    display: 'flex',
-    justifyContent: 'space-between',
-    gap: 14,
+export const profileOptionContainer = style({
+  display: 'flex',
+  justifyContent: 'space-between',
+  gap: 14,
 
-    position: 'relative',
-  },
-]);
+  position: 'relative',
+});
 
 export const profileOption = style([
   option,
@@ -123,7 +117,7 @@ export const profileOption = style([
   },
 ]);
 
-export const error = style({
+export const validationMessage = style({
   marginTop: '0.6rem',
   marginLeft: '0.9rem',
 
@@ -136,5 +130,12 @@ export const errorText = style([
   caption,
   {
     color: vars.color.red,
+  },
+]);
+
+export const successText = style([
+  caption,
+  {
+    color: vars.color.blue,
   },
 ]);

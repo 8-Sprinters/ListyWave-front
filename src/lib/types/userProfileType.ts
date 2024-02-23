@@ -38,3 +38,9 @@ export interface UserProfileEditType
   newBackgroundFileList: FileList | null;
   newProfileFileList: FileList | null;
 }
+
+interface DefaultImageType {
+  name: string;
+  imageUrl: string;
+}
+export type DefaultImagesType = DefaultImageType[];

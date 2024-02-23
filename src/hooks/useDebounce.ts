@@ -15,7 +15,7 @@ const useDebounce = <T extends (...args: any[]) => any>(callback: T, time: numbe
     }
 
     debounceTimer.current = setTimeout(() => {
-      callback.apply(args);
+      callback(...args);
     }, time);
   };
 };
