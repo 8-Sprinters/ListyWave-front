@@ -8,7 +8,6 @@ import { useRouter, useParams } from 'next/navigation';
 import CreateItem from '@/app/list/create/_components/CreateItem';
 import CreateList from '@/app/list/create/_components/CreateList';
 
-import { useUser } from '@/store/useUser';
 import updateList from '@/app/_api/list/updateList';
 import getListDetail from '@/app/_api/list/getListDetail';
 import getCategories from '@/app/_api/category/getCategories';
@@ -23,7 +22,6 @@ export default function EditPage() {
   const param = useParams<{ listId: string }>();
 
   const [step, setStep] = useState<'list' | 'item'>('list');
-  const [isItemChanged, setIsItemChanged] = useState(false);
 
   const { data: listDetailData } = useQuery<ListDetailType>({
     queryKey: [QUERY_KEYS.getListDetail, param?.listId],
@@ -106,7 +104,6 @@ export default function EditPage() {
     const updateData = {
       listId: Number(param?.listId) || 0,
       listData: listData,
-      isItemChanged: isItemChanged,
       imageData: imageData,
       imageFileList: imageFileList,
     };
@@ -166,9 +163,6 @@ export default function EditPage() {
             onSubmitClick={handleSubmit}
             isSubmitting={isUpdatingList || isSuccess}
             type="edit"
-            setItemChanged={() => {
-              setIsItemChanged(true);
-            }}
           />
         )}
       </FormProvider>

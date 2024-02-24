@@ -10,16 +10,9 @@ interface CreateItemProps {
   onSubmitClick: () => void;
   isSubmitting: boolean;
   type: 'create' | 'edit';
-  setItemChanged?: () => void;
 }
 
-export default function CreateItem({
-  onBackClick,
-  onSubmitClick,
-  isSubmitting,
-  type,
-  setItemChanged,
-}: CreateItemProps) {
+export default function CreateItem({ onBackClick, onSubmitClick, isSubmitting, type }: CreateItemProps) {
   const {
     formState: { isValid },
   } = useFormContext();
@@ -44,7 +37,7 @@ export default function CreateItem({
           최소 3개, 최대 10개까지 아이템을 추가할 수 있어요. <br />
           아이템의 순서대로 순위가 정해져요.
         </p>
-        <Items type={type} setItemChanged={setItemChanged} />
+        <Items type={type} />
       </div>
     </div>
   );
