@@ -8,7 +8,6 @@ import { useRouter, useParams } from 'next/navigation';
 import CreateItem from '@/app/list/create/_components/CreateItem';
 import CreateList from '@/app/list/create/_components/CreateList';
 
-import { useUser } from '@/store/useUser';
 import updateList from '@/app/_api/list/updateList';
 import getListDetail from '@/app/_api/list/getListDetail';
 import getCategories from '@/app/_api/category/getCategories';
@@ -21,10 +20,8 @@ export type FormErrors = FieldErrors<ListEditType>;
 export default function EditPage() {
   const router = useRouter();
   const param = useParams<{ listId: string }>();
-  const { user: owner } = useUser();
 
   const [step, setStep] = useState<'list' | 'item'>('list');
-  const [isItemChanged, setIsItemChanged] = useState(false);
 
   const { data: listDetailData } = useQuery<ListDetailType>({
     queryKey: [QUERY_KEYS.getListDetail, param?.listId],
@@ -64,17 +61,24 @@ export default function EditPage() {
     const listData: ListEditType = {
       ...originData,
       items: originData.items.map(({ imageUrl, ...rest }) => {
-        return {
-          ...rest,
-          imageUrl: '',
-        };
+        if (typeof imageUrl === 'string') {
+          return {
+            ...rest,
+            imageUrl,
+          };
+        } else {
+          return {
+            ...rest,
+            imageUrl: '',
+          };
+        }
       }),
     };
 
     const imageData: ItemImagesType = {
       listId: Number(param?.listId),
       extensionRanks: originData.items
-        .filter(({ imageUrl }) => imageUrl !== '')
+        .filter(({ imageUrl }) => typeof imageUrl !== 'string')
         .map(({ rank, imageUrl }) => {
           return {
             rank: rank,
@@ -85,7 +89,7 @@ export default function EditPage() {
     };
 
     const imageFileList: File[] = originData.items
-      .filter(({ imageUrl }) => imageUrl !== '')
+      .filter(({ imageUrl }) => typeof imageUrl !== 'string')
       .map(({ imageUrl }) => imageUrl?.[0] as File);
 
     return { listData, imageData, imageFileList };
@@ -100,7 +104,6 @@ export default function EditPage() {
     const updateData = {
       listId: Number(param?.listId) || 0,
       listData: listData,
-      isItemChanged: isItemChanged,
       imageData: imageData,
       imageFileList: imageFileList,
     };
@@ -138,7 +141,7 @@ export default function EditPage() {
   } = useMutation({
     mutationFn: updateList,
     onSettled: () => {
-      router.push(`/user/${owner.id}/list/${param?.listId}`);
+      router.replace(`/list/${param?.listId}`);
     },
   });
 
@@ -160,9 +163,6 @@ export default function EditPage() {
             onSubmitClick={handleSubmit}
             isSubmitting={isUpdatingList || isSuccess}
             type="edit"
-            setItemChanged={() => {
-              setIsItemChanged(true);
-            }}
           />
         )}
       </FormProvider>
