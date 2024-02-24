@@ -56,20 +56,22 @@ function Header() {
         <Link href={'/intro'} className={styles.logoWrapper}>
           <Logo alt="로고 이미지" />
         </Link>
-        <div className={styles.userInfoWrapper} onClick={userId ? onClickMoveToPage('/account') : handleSetOn}>
+        <div className={styles.userInfoWrapper}>
           {userId ? (
             <>
-              {userMe?.profileImageUrl ? (
-                <Image
-                  src={userMe.profileImageUrl}
-                  alt="사용자 프로필 이미지"
-                  width={26}
-                  height={26}
-                  className={styles.userProfile}
-                />
-              ) : (
-                <NoneProfileImage width={26} height={26} alt="존재하지 않는 사용자 프로필 이미지" />
-              )}
+              <Link href={`/account`}>
+                {userMe?.profileImageUrl ? (
+                  <Image
+                    src={userMe.profileImageUrl}
+                    alt="사용자 프로필 이미지"
+                    width={26}
+                    height={26}
+                    className={styles.userProfile}
+                  />
+                ) : (
+                  <NoneProfileImage width={26} height={26} alt="존재하지 않는 사용자 프로필 이미지" />
+                )}
+              </Link>
               <Link href={'/notification'}>
                 {isNotificationAllChecked ? <BellIcon alt="알림 페이지 이동 버튼" /> : <NotificationOn />}
               </Link>
