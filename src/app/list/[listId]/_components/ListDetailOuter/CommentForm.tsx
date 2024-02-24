@@ -1,13 +1,11 @@
-import Image from 'next/image';
-import Link from 'next/link';
 import { ChangeEvent, useState } from 'react';
 
 import { useUser } from '@/store/useUser';
 import { useIsEditing } from '@/store/useComment';
 import * as styles from './Comments.css';
 import CancelButton from '/public/icons/cancel_button.svg';
-import Avatar from '/public/icons/avatar.svg';
 import { vars } from '@/styles/theme.css';
+import Airplane from '/public/icons/airplane_send.svg';
 
 interface CommentFormProps {
   comment?: string;
@@ -23,42 +21,18 @@ interface CommentFormProps {
 function CommentForm({
   comment,
   handleChange,
-  imageSrc,
   activeNickname,
   handleSubmit,
   handleUpdate,
   handleCancel,
 }: CommentFormProps) {
-  const [imgSrc, setImgSrc] = useState(false);
   const { isEditing } = useIsEditing();
 
   const { user } = useUser();
   const userId = user.id;
 
-  const handleImageError = () => {
-    setImgSrc(false);
-  };
-
   return (
     <div className={styles.formWrapperOuter}>
-      <div className={styles.profileImageParent}>
-        {imageSrc ? (
-          <Link href={`/user/${userId}/mylist`}>
-            <Image
-              src={imageSrc}
-              alt="프로필 이미지"
-              className={styles.profileImage}
-              fill
-              style={{
-                objectFit: 'cover',
-              }}
-              onError={handleImageError}
-            />
-          </Link>
-        ) : (
-          <Avatar width={30} height={30} />
-        )}
-      </div>
       <div className={`${styles.formWrapperInner} ${!!activeNickname || isEditing ? styles.activeFormWrapper : ''}`}>
         {activeNickname && (
           <div className={styles.activeReplyWrapper}>
@@ -91,11 +65,11 @@ function CommentForm({
             className={styles.formInput}
             value={comment}
             onChange={handleChange}
-            placeholder={userId === 0 ? '로그인 후 댓글을 작성할 수 있습니다.' : ''}
+            placeholder={userId === 0 ? '로그인 후 댓글을 작성할 수 있습니다.' : '댓글을 입력해주세요'}
           />
           {comment && (
             <button type="submit" className={styles.formButton}>
-              게시
+              <Airplane width={20} height={20} fill={vars.color.blue} />
             </button>
           )}
         </form>

@@ -13,6 +13,7 @@ import { CUSTOM_WRAPPER, CUSTOM_PADDING, CUSTOM_BORDER_RADIUS } from '@/lib/cons
 import * as styles from './TrendingLists.css';
 import { vars } from '@/styles/theme.css';
 import { TrendingListsSkeleton } from './Skeleton';
+import oceanEmoji from '/public/images/ocean.png';
 
 /**@todo 트렌딩 리스트 바뀐 디자인에 맞게 새로 갈아엎을 예정 */
 
@@ -60,7 +61,10 @@ function TrendingList() {
 
   return (
     <div className={styles.wrapper}>
-      <h2 className={styles.sectionTitle}>TRENDING🌊</h2>
+      <div className={styles.titleWrapper}>
+        <h2 className={styles.sectionTitle}>TRENDING</h2>
+        <Image src={oceanEmoji} alt="바다의 파도 이모지" width="22" />
+      </div>
       <div className={styles.listWrapper} ref={ref}>
         <ul className={styles.slide}>
           {addedList?.map((item: TrendingListType, index) => {
