@@ -1,7 +1,7 @@
 'use client';
 
 import { MouseEvent, useState } from 'react';
-import { useParams, useRouter } from 'next/navigation';
+import { useParams, usePathname, useRouter } from 'next/navigation';
 import * as styles from './Footer.css';
 
 import { useUser } from '@/store/useUser';
@@ -36,12 +36,13 @@ interface FooterProps {
 
 function Footer({ data }: { data: FooterProps }) {
   const router = useRouter();
+  const path = usePathname();
   const params = useParams<{ userId: string; listId: string }>();
   const { user: loginUser } = useUser();
   const [isSheetActive, setSheetActive] = useState<boolean>(false);
   const [sheetOptionList, setSheetOptionList] = useState<BottomSheetOptionsProps[]>([]);
   const writerId = parseInt(params?.userId ?? '0');
-  const listUrl = `${process.env.NEXT_PUBLIC_BASE_URL}/user/${params?.userId}/list/${params?.listId}`;
+  const listUrl = `https://listywave.vercel.app${path}`;
 
   const goToCreateList = () => {
     router.push(`/list/create?title=${data.title}&category=${data.category}`);
