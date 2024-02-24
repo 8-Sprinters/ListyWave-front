@@ -21,7 +21,6 @@ import ListRecommendationSkeleton from './ListRecommendationSkeleton';
 import ChevronDown from '/public/icons/chevron_down.svg';
 
 function ListRecommendation() {
-  const router = useRouter();
   const COLOR_INDEX = (num: number) => num % 5;
 
   //리스트 무한스크롤 리액트 쿼리 함수
@@ -51,10 +50,6 @@ function ListRecommendation() {
     return list;
   }, [result]);
 
-  const handleShowMoreButtonClick = (url: string) => {
-    router.push(`${url}`);
-  };
-
   return (
     <section className={styles.wrapperOuter}>
       <div className={styles.sectionTitle}>NEW✨</div>
@@ -62,7 +57,7 @@ function ListRecommendation() {
         {recommendLists?.length !== 0 ? (
           recommendLists?.map((item: ListRecommendationType, index) => {
             return (
-              <div key={item.id}>
+              <Link href={`/list/${item.id}`} key={item.id}>
                 {isFetching ? (
                   <ListRecommendationSkeleton />
                 ) : (
@@ -117,7 +112,7 @@ function ListRecommendation() {
                     </Link>
                   </li>
                 )}
-              </div>
+              </Link>
             );
           })
         ) : (

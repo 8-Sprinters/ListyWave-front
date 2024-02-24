@@ -1,4 +1,4 @@
-import { style, createVar } from '@vanilla-extract/css';
+import { style, createVar, keyframes } from '@vanilla-extract/css';
 import { vars } from '@/styles/theme.css';
 import { headlineSmall, bodyMedium, bodySmall, labelSmall } from '@/styles/font.css';
 
@@ -22,7 +22,17 @@ export const sectionTitle = style([
   },
 ]);
 
+const listWrapperHoverAnimation = keyframes({
+  '0%': {
+    transform: 'scale(1)',
+  },
+  '100%': {
+    transform: 'scale(1.01)',
+  },
+});
+
 export const listWrapper = style({
+  width: '100%',
   marginBottom: '35px',
   padding: '44px 24px 14px',
 
@@ -32,6 +42,11 @@ export const listWrapper = style({
   flexDirection: 'column',
   borderRadius: '24px',
   backgroundColor: listBackground,
+
+  ':hover': {
+    animation: `${listWrapperHoverAnimation} 0.1s forwards`,
+    boxShadow: 'rgba(0, 0, 0, 0.04) 0px 3px 5px',
+  },
 });
 
 export const listSkeletonWrapper = style({
