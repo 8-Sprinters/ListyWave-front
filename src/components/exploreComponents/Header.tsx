@@ -63,12 +63,12 @@ function Header() {
                 <Image
                   src={userMe.profileImageUrl}
                   alt="사용자 프로필 이미지"
-                  width={24}
-                  height={24}
+                  width={26}
+                  height={26}
                   className={styles.userProfile}
                 />
               ) : (
-                <NoneProfileImage width={24} height={24} alt="존재하지 않는 사용자 프로필 이미지" />
+                <NoneProfileImage width={26} height={26} alt="존재하지 않는 사용자 프로필 이미지" />
               )}
               <Link href={'/notification'}>
                 {isNotificationAllChecked ? <BellIcon alt="알림 페이지 이동 버튼" /> : <NotificationOn />}
