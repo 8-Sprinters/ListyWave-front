@@ -40,7 +40,7 @@ export default function ItemLayout({
   return (
     <div>
       {titleErrorMessage && <p className={styles.titleError}> {titleErrorMessage}</p>}
-      <Accordion>
+      <Accordion defaultExpanded={true}>
         <AccordionSummary>
           <div className={styles.itemHeader}>
             <DndIcon width="18" height="18" alt="드래그앤드롭" className={styles.headerIcon} />
