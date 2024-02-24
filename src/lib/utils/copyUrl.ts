@@ -1,12 +1,13 @@
 import copy from 'copy-to-clipboard';
 import toasting from '@/lib/utils/toasting';
+import toastMessage from '../constants/toastMessage';
 
 function copyUrl(listUrl: string) {
   try {
     copy(listUrl);
-    toasting({ type: 'default', txt: '링크가 복사되었습니다.' });
+    toasting({ type: 'default', txt: toastMessage.ko.copyLink });
   } catch (error) {
-    toasting({ type: 'default', txt: '링크 복사를 실패했습니다.' });
+    toasting({ type: 'default', txt: toastMessage.ko.failedCopyLink });
   }
 }
 

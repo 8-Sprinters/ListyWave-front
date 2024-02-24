@@ -23,11 +23,19 @@ const category = style([
     padding: '0.8rem 1.2rem',
     height: '40px',
 
-    border: `1px solid ${vars.color.lightblue}`,
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+
+    border: `2px solid ${vars.color.lightblue}`,
     borderRadius: '1rem',
-    boxShadow: 'rgba(50, 50, 105, 0.15) 0px 2px 5px 0px, rgba(0, 0, 0, 0.05) 0px 1px 1px 0px',
-    transition: 'all 300ms linear',
     color: vars.color.black,
+
+    selectors: {
+      '&:hover': {
+        boxShadow: 'rgba(50, 50, 105, 0.15) 0px 2px 5px 0px, rgba(0, 0, 0, 0.05) 0px 1px 1px 0px',
+      },
+    },
   },
 ]);
 
@@ -95,5 +103,5 @@ export const variants = styleVariants<ColorVariantsType>({
 });
 
 export const selected = style({
-  border: `1px solid ${vars.color.gray7}`,
+  border: `2px solid ${vars.color.blue}`,
 });

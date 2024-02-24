@@ -11,9 +11,12 @@ import Image from 'next/image';
 
 import * as styles from './LoginModal.css';
 
-import NaverLoginIcon from '/public/icons/naver_login.svg';
-import GoogleLoginIcon from '/public/icons/google_login.svg';
-import KakaoLoginIcon from '/public/icons/kakao_login.svg';
+import KakaoLoginIcon from '/public/icons/kakao_login_medium_narrow.svg';
+
+// 다른 소셜 로그인 도입을 위해 주석처리 해둠
+// import NaverLoginIcon from '/public/icons/naver_login.svg';
+// import GoogleLoginIcon from '/public/icons/google_login.svg';
+// import KakaoLoginIcon from '/public/icons/kakao_login.svg';
 
 const oauthType = {
   naver: 'naver',
@@ -36,12 +39,12 @@ export default function LoginModal() {
         </div>
       </div>
       <div className={styles.buttonContainer}>
-        <Link href={`${baseUrl}/auth/${oauthType.naver}`}>
+        {/* <Link href={`${baseUrl}/auth/${oauthType.naver}`}>
           <NaverLoginIcon />
         </Link>
         <Link href={`${baseUrl}/auth/${oauthType.google}`}>
           <GoogleLoginIcon />
-        </Link>
+        </Link> */}
         <Link href={`${baseUrl}/auth/${oauthType.kakao}`}>
           <KakaoLoginIcon />
         </Link>

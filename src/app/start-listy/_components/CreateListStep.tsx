@@ -140,7 +140,7 @@ export default function CreateListStep({ userId, nickname }: CreateListStepProps
           <>
             <div className={styles.header}>
               <button className={styles.headerButton} onClick={handleMoveToStep('prev')}>
-                <BackIcon alt="뒤로가기 버튼" />
+                <BackIcon alt="뒤로가기 버튼" width={7.7} height={13.4} />
               </button>
             </div>
             <div className={styles.step}>
@@ -169,7 +169,7 @@ export default function CreateListStep({ userId, nickname }: CreateListStepProps
           <>
             <div className={styles.header}>
               <button className={styles.headerButton} onClick={handleMoveToStep('prev')}>
-                <BackIcon alt="뒤로가기 버튼" />
+                <BackIcon alt="뒤로가기 버튼" width={7.7} height={13.4} />
               </button>
             </div>
             <div className={styles.step}>

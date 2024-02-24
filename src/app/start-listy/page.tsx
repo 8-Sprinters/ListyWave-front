@@ -20,14 +20,18 @@ import { QUERY_KEYS } from '@/lib/constants/queryKeys';
 
 import CreateListStep from './_components/CreateListStep';
 import CreateNicknameStep from './_components/CreateNicknameStep';
+import Modal from '@/components/Modal/Modal';
+
+import useBooleanOutput from '@/hooks/useBooleanOutput';
 
 export default function StartListyPage() {
   const { user } = useUser();
   const [stepIndex, setStepIndex] = useState(0);
+  const { isOn, handleSetOn, handleSetOff } = useBooleanOutput();
 
   const {
     data: userData,
-    isLoading,
+    isFetching,
     refetch,
   } = useQuery<UserType>({
     queryKey: [QUERY_KEYS.userOne, user.id],
@@ -48,7 +52,7 @@ export default function StartListyPage() {
      * 닉네임 변경 상태 저장해서 체크하기
      */
 
-    alert('온보딩 끝낼까요?');
+    alert('온보딩 종료할까요?');
     // 다른 페이지로 이동
   };
 
@@ -60,25 +64,29 @@ export default function StartListyPage() {
     };
   }, []);
 
-  if (isLoading) {
+  if (isFetching) {
     return <div>로딩중</div>;
   }
 
   return (
     <>
-      {userData ? (
+      {userData && (
         <div>
           {stepIndex === 0 && (
             <CreateNicknameStep userData={userData} handleNextStep={handleNextStep} refetch={refetch} />
           )}
           {stepIndex === 1 && <CreateListStep userId={userData?.id} nickname={userData.nickname} />}
         </div>
-      ) : (
-        <div>
-          <p>잘못된 접근 경로에요.</p>
-          <button>되돌아가기</button>
-        </div>
       )}
+      {/* alert창을 나중에 모달로 변경하기 위해 주석처리 해둠 */}
+      {/* {isOn && (
+        <Modal handleModalClose={handleSetOff}>
+          <Modal.Title>온보딩을 종료할까요?</Modal.Title>
+          <Modal.Button onCancel={handleSetOff} onClick={handleMoveToPage}>
+            확인
+          </Modal.Button>
+        </Modal>
+      )} */}
     </>
   );
 }

@@ -72,7 +72,7 @@ export default function CreateNicknameStep({ userData, handleNextStep, refetch }
           <p className={styles.errorMessage}>{errors.nickname?.message}</p>
         </div>
         <button type="submit" disabled={!isValid} className={isValid ? styles.variant.active : styles.variant.default}>
-          <span className={styles.buttonText}>다음으로</span>
+          <span>다음으로</span>
         </button>
       </div>
     </form>

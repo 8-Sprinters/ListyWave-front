@@ -1,5 +1,5 @@
 import { style, styleVariants } from '@vanilla-extract/css';
-import { bodyLarge, bodySmall, headlineSmall, labelMedium, titleMedium, titleRegular } from '@/styles/font.css';
+import { bodyLarge, headlineSmall, labelMedium, titleMedium, titleRegular } from '@/styles/font.css';
 import { vars } from '@/styles/theme.css';
 
 export const background = style({
@@ -118,15 +118,16 @@ export const inputWrapper = style({
 export const input = style([
   bodyLarge,
   {
+    width: '100%',
     textAlign: 'center',
     caretColor: vars.color.blue,
   },
 ]);
 
 export const errorMessage = style([
-  bodySmall,
+  bodyLarge,
   {
-    height: '26px',
+    height: '34px',
     paddingTop: '1rem',
     textAlign: 'center',
     color: vars.color.red,
@@ -137,8 +138,8 @@ export const errorMessage = style([
 export const button = style([
   titleMedium,
   {
-    width: '80%',
-    padding: '0.7rem 7.6rem',
+    width: '100%',
+    padding: '1.4rem 7.6rem',
     marginTop: '2rem',
 
     display: 'flex',
@@ -150,15 +151,6 @@ export const button = style([
     transition: 'all 500ms ease',
   },
 ]);
-
-export const buttonText = style({
-  width: '183px',
-  height: '37.9px',
-
-  display: 'flex',
-  flexDirection: 'column',
-  justifyContent: 'center',
-});
 
 export const variant = styleVariants({
   default: [

@@ -88,18 +88,18 @@ export default function Profile({ userId }: { userId: number }) {
                     <span className={styles.count}>
                       {data?.followingCount !== undefined && numberFormatter(data.followingCount, 'ko')}
                     </span>
-                    <span>팔로잉</span>
+                    <span className={styles.captionText}>팔로잉</span>
                   </div>
                   <div className={styles.text} onClick={onClickMoveToPage(`/user/${userId}/followers`)}>
                     <span className={styles.count}>
                       {data?.followerCount !== undefined && numberFormatter(data.followerCount, 'ko')}
                     </span>
-                    <span>팔로워</span>
+                    <span className={styles.captionText}>팔로워</span>
                   </div>
                 </div>
               </div>
             </div>
-            <p className={styles.description}>{`" ${data?.description} "`}</p>
+            <p className={styles.description}>{data?.description ? `" ${data.description} "` : ''}</p>
           </>
         )}
       </div>
