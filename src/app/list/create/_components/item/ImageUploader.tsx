@@ -5,14 +5,13 @@ import * as styles from './ImageUploader.css';
 interface ImageUploaderProps {
   index: number;
   children: ReactNode;
-  handleImageAdd?: () => void;
 }
 
-export default function ImageUploader({ index, children, handleImageAdd }: ImageUploaderProps) {
+export default function ImageUploader({ index, children }: ImageUploaderProps) {
   return (
     <>
       <label className={styles.label} htmlFor={`${index}-image`}>
-        <ImageIcon onClick={handleImageAdd} />
+        <ImageIcon />
       </label>
       {children}
     </>

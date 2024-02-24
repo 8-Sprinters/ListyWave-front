@@ -133,11 +133,6 @@ export default function Items({ type, setItemChanged }: ItemsProps) {
                       {...provided.draggableProps}
                       {...provided.dragHandleProps}
                     >
-                      {/* {titleError?.type !== 'required' && (
-                        <p key={item.id} className={styles.itemTitleError}>
-                          {titleError?.message}
-                        </p>
-                      )} */}
                       <ItemLayout
                         index={index}
                         handleDeleteItem={() => {
@@ -233,7 +228,6 @@ export default function Items({ type, setItemChanged }: ItemsProps) {
                             />
                           )
                         }
-                        handleImageAdd={setItemChanged}
                       />
                     </div>
                   )}
