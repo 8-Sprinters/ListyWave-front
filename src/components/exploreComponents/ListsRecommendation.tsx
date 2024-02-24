@@ -2,7 +2,6 @@
 
 import Image from 'next/image';
 import Link from 'next/link';
-import { useRouter } from 'next/navigation';
 import { useInfiniteQuery } from '@tanstack/react-query';
 import { useMemo } from 'react';
 import { assignInlineVars } from '@vanilla-extract/dynamic';

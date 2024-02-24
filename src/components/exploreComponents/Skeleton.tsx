@@ -24,27 +24,19 @@ export const TrendingListsSkeleton = () => {
 };
 
 export const ListsSkeleton = () => {
+  const NUMBER_OF_SKELETON_ITEM = 3;
+
   return (
-    <div className={styles.listSkeletonWrapper}>
-      <div className={styles.listSkeletonWrapper}>
-        <Skeleton variant="rounded" width={50} height={30} animation="wave" />
-        <Skeleton variant="rounded" width={300} height={64} animation="wave" />
-        <Skeleton variant="rounded" width={300} height={27} animation="wave" />
-        <Skeleton variant="rounded" width={300} height={206} animation="wave" />
-      </div>
-      <div className={styles.listSkeletonWrapper}>
-        <Skeleton variant="rounded" width={50} height={30} animation="wave" />
-        <Skeleton variant="rounded" width={300} height={64} animation="wave" />
-        <Skeleton variant="rounded" width={300} height={27} animation="wave" />
-        <Skeleton variant="rounded" width={300} height={206} animation="wave" />
-      </div>
-      <div className={styles.listSkeletonWrapper}>
-        <Skeleton variant="rounded" width={50} height={30} animation="wave" />
-        <Skeleton variant="rounded" width={300} height={64} animation="wave" />
-        <Skeleton variant="rounded" width={300} height={27} animation="wave" />
-        <Skeleton variant="rounded" width={300} height={206} animation="wave" />
-      </div>
-    </div>
+    <>
+      {Array.from({ length: NUMBER_OF_SKELETON_ITEM }).map((_, index) => (
+        <div className={styles.listSkeletonWrapper} key={index}>
+          <Skeleton variant="rounded" width={50} height={30} animation="wave" />
+          <Skeleton variant="rounded" width={300} height={64} animation="wave" />
+          <Skeleton variant="rounded" width={300} height={27} animation="wave" />
+          <Skeleton variant="rounded" width={300} height={206} animation="wave" />
+        </div>
+      ))}
+    </>
   );
 };
 
