@@ -68,5 +68,6 @@ export const cards = style({
 });
 
 export const target = style({
-  height: '1px',
+  width: '100%',
+  height: '2px',
 });
