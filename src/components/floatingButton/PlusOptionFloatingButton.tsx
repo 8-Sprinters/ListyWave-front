@@ -1,6 +1,6 @@
 'use client';
 
-import { useRouter } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 
 import * as styles from './FloatingContainer.css';
 
@@ -12,17 +12,20 @@ import useBooleanOutput from '@/hooks/useBooleanOutput';
 import toasting from '@/lib/utils/toasting';
 import toastMessage from '@/lib/constants/toastMessage';
 import { useUser } from '@/store/useUser';
+import copyUrl from '@/lib/utils/copyUrl';
 
 import LoginModal from '@/components/login/LoginModal';
 import Modal from '@/components/Modal/Modal';
 
 function FloatingMenu() {
   const router = useRouter();
+  const path = usePathname();
   const { user } = useUser();
   const { isOn, handleSetOn, handleSetOff } = useBooleanOutput();
 
   const handleSharePage = () => {
-    // TODO 카카오 공유하기 기능 (공유 가능한 페이지 확인하기)
+    // TODO 카카오 공유하기 기능으로 변경하기
+    copyUrl(`https://listywave.vercel.app${path}`);
   };
 
   const handleMoveToPage = () => {
@@ -40,7 +43,7 @@ function FloatingMenu() {
     <>
       <div className={styles.menuButtons}>
         <div className={styles.basicButton} onClick={handleSharePage}>
-          <ShareAltIcon alt="내 피드 공유하기 버튼" className={styles.icon} />
+          <ShareAltIcon alt="링크 공유하기 버튼" className={styles.icon} />
         </div>
         <div className={styles.basicButton} onClick={handleMoveToPage}>
           <WriteIcon alt="리스트 작성하기 버튼" className={styles.icon} />
