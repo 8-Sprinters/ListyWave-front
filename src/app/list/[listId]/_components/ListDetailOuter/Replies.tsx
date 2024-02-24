@@ -11,6 +11,7 @@ import { ReplyType } from '@/lib/types/commentType';
 import { UserType } from '@/lib/types/userProfileType';
 
 import * as styles from './Replies.css';
+import { vars } from '@/styles/theme.css';
 import Line from '/public/icons/horizontal_line.svg';
 import EditPen from '/public/icons/edit_pen.svg';
 
@@ -114,7 +115,7 @@ function Reply({ reply, listId, currentUserInfo, handleEdit, commentId }: ReplyP
       {currentUserInfo?.id === reply.userId && (
         <div className={styles.actionButtonWrapper}>
           <button className={styles.editButton} onClick={() => handleEditButtonClick(reply.content)}>
-            <EditPen />
+            <EditPen width={17} height={17} fill={vars.color.gray7} />
           </button>
           <DeleteModalButton onDelete={handleDeleteButtonClick} />
         </div>
