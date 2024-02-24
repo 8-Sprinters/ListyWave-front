@@ -57,28 +57,24 @@ function Header() {
         <Logo alt="로고 이미지" />
       </Link>
       <div className={styles.userInfoOuterWrapper}>
-        {isFetching ? (
-          <UserSkeleton />
-        ) : (
-          <div className={styles.userInfoWrapper} onClick={userId ? onClickMoveToPage('/account') : handleSetOn}>
-            {userMe?.profileImageUrl ? (
-              <Image
-                src={userMe.profileImageUrl}
-                alt="사용자 프로필 이미지"
-                width={32}
-                height={32}
-                className={styles.userProfile}
-              />
-            ) : (
-              <NoneProfileImage width={32} height={32} alt="존재하지 않는 사용자 프로필 이미지" />
-            )}
-            {userId !== null ? (
-              <h5 className={styles.userName}>{userMe?.nickname}</h5>
-            ) : (
-              <h5 className={styles.loginButton}>로그인/회원가입</h5>
-            )}
-          </div>
-        )}
+        <div className={styles.userInfoWrapper} onClick={userId ? onClickMoveToPage('/account') : handleSetOn}>
+          {userMe?.profileImageUrl ? (
+            <Image
+              src={userMe.profileImageUrl}
+              alt="사용자 프로필 이미지"
+              width={32}
+              height={32}
+              className={styles.userProfile}
+            />
+          ) : (
+            <NoneProfileImage width={32} height={32} alt="존재하지 않는 사용자 프로필 이미지" />
+          )}
+          {userId !== null ? (
+            <h5 className={styles.userName}>{userMe?.nickname}</h5>
+          ) : (
+            <h5 className={styles.loginButton}>로그인/회원가입</h5>
+          )}
+        </div>
 
         {userId !== null && (
           <Link href={'/notification'}>

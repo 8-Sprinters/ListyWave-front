@@ -53,7 +53,6 @@ function ListRecommendation() {
   if (!result) {
     return (
       <section className={styles.wrapperOuter}>
-        <div className={styles.sectionTitle}>NEW✨</div>
         <ListsSkeleton />
       </section>
     );
