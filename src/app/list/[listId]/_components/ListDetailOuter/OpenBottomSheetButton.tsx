@@ -1,10 +1,13 @@
 'use client';
 import { useRouter } from 'next/navigation';
-import deleteList from '@/app/_api/list/deleteList';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
+
 import useBooleanOutput from '@/hooks/useBooleanOutput';
 import BottomSheet from '@/components/BottomSheet/BottomSheet';
 import Modal from '@/components/Modal/Modal';
 import { useUser } from '@/store/useUser';
+import { QUERY_KEYS } from '@/lib/constants/queryKeys';
+import deleteList from '@/app/_api/list/deleteList';
 import KebabButton from '/public/icons/vertical_kebab_button.svg';
 import * as styles from './ModalButtonStyle.css';
 
@@ -18,6 +21,7 @@ export default function OpenBottomSheetButton({ listId, isCollaborator }: OpenBo
   const { isOn, handleSetOff, handleSetOn } = useBooleanOutput(); //바텀시트 열림,닫힘 상태 관리
   const { isOn: isModalOn, handleSetOff: handleSetModalOff, handleSetOn: handleSetModalOn } = useBooleanOutput(); //모달 상태 관리
   const { user } = useUser();
+  const queryClient = useQueryClient();
 
   const bottomSheetOptionList = [
     {
@@ -37,6 +41,13 @@ export default function OpenBottomSheetButton({ listId, isCollaborator }: OpenBo
     },
   ];
 
+  const deleteCommentMutation = useMutation({
+    mutationFn: () => deleteList(listId),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: [QUERY_KEYS.getAllList, user.id] });
+    },
+  });
+
   const handleEditClick = () => {
     router.push(`/list/${listId}/edit`);
     handleSetOff(); //닫기
@@ -46,7 +57,7 @@ export default function OpenBottomSheetButton({ listId, isCollaborator }: OpenBo
    * @todo 삭제 시 어느 경로로 이동되는지 확인해야 함
    */
   const handleDeleteClick = () => {
-    deleteList(listId);
+    deleteCommentMutation.mutate();
     router.push(`/user/${user.id}/mylist`);
   };
 
