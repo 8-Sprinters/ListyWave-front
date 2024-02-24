@@ -76,7 +76,7 @@ export default function Content({ userId, type }: ContentProps) {
         exact: true,
       });
     };
-  }, []);
+  }, [queryClient, selectedCategory, type, userId]);
 
   return (
     <div className={styles.container}>
