@@ -20,6 +20,8 @@ export const QUERY_KEYS = {
   getHistories: 'getHistories',
   toggleHistoryPublic: 'toggleHistoryPublic',
   deleteHistory: 'deleteHistory',
+  getDefaultBackgroundImages: 'getDefaultBackgroundImages',
+  getDefaultProfileImages: 'getDefaultProfileImages',
   searchListResult: 'searchListResult',
   searchUserResult: 'searchUserResult',
   collect: 'collect',

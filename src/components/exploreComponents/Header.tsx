@@ -4,10 +4,10 @@ import Link from 'next/link';
 import { useQuery } from '@tanstack/react-query';
 
 import { useUser } from '@/store/useUser';
-import useMoveToPage from '@/hooks/useMoveToPage';
 import getUserOne from '@/app/_api/user/getUserOne';
 import { QUERY_KEYS } from '@/lib/constants/queryKeys';
 import getNotificationAllChecked from '@/app/_api/explore/getNotificationAllChecked';
+import useMoveToPage from '@/hooks/useMoveToPage';
 import { UserType } from '@/lib/types/userProfileType';
 
 import * as styles from './Header.css';
@@ -15,18 +15,22 @@ import Logo from '/public/icons/logo.svg';
 import BellIcon from '/public/icons/bell.svg';
 import NoneProfileImage from '/public/icons/avatar.svg';
 import NotificationOn from '/public/icons/notification_on.svg';
+import Modal from '@/components/Modal/Modal';
+import LoginModal from '@/components/login/LoginModal';
+import useBooleanOutput from '@/hooks/useBooleanOutput';
 
 function Header() {
-  const { onClickMoveToPage } = useMoveToPage();
-
   //zustand로 관리하는 user정보 불러오기
   const { user } = useUser();
   const userId = user.id;
+  const { onClickMoveToPage } = useMoveToPage();
+  const { isOn, handleSetOff, handleSetOn } = useBooleanOutput();
 
   const { data: userMe } = useQuery<UserType>({
     queryKey: [QUERY_KEYS.userOne, userId],
     queryFn: () => getUserOne(userId as number),
-    enabled: !!userId,
+    enabled: user && !!userId,
+    retry: 1,
   });
 
   const { data: result } = useQuery({
@@ -37,16 +41,22 @@ function Header() {
 
   const isNotificationAllChecked = result?.isAllChecked;
 
+  if (!user) {
+    return null;
+  }
+
   return (
     <nav className={styles.wrapper}>
-      <button className={styles.logoWrapper} onClick={onClickMoveToPage('/intro')}>
+      {isOn && (
+        <Modal handleModalClose={handleSetOff} size="large">
+          <LoginModal />
+        </Modal>
+      )}
+      <Link href={'/intro'} className={styles.logoWrapper}>
         <Logo alt="로고 이미지" />
-      </button>
+      </Link>
       <div className={styles.userInfoOuterWrapper}>
-        <div
-          className={styles.userInfoWrapper}
-          onClick={userId ? onClickMoveToPage('/account') : onClickMoveToPage('/login')}
-        >
+        <div className={styles.userInfoWrapper} onClick={userId ? onClickMoveToPage('/account') : handleSetOn}>
           {userMe?.profileImageUrl ? (
             <Image
               src={userMe.profileImageUrl}

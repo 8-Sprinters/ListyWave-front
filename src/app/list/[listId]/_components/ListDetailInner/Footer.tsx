@@ -1,7 +1,7 @@
 'use client';
 
 import { MouseEvent, useState } from 'react';
-import { useParams, usePathname, useRouter } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import * as styles from './Footer.css';
 
 import { useUser } from '@/store/useUser';
@@ -22,6 +22,7 @@ interface BottomSheetOptionsProps {
 }
 
 interface FooterProps {
+  ownerId: number;
   category: string;
   listId: number;
   title: string;
@@ -37,11 +38,9 @@ interface FooterProps {
 function Footer({ data }: { data: FooterProps }) {
   const router = useRouter();
   const path = usePathname();
-  const params = useParams<{ userId: string; listId: string }>();
   const { user: loginUser } = useUser();
   const [isSheetActive, setSheetActive] = useState<boolean>(false);
   const [sheetOptionList, setSheetOptionList] = useState<BottomSheetOptionsProps[]>([]);
-  const writerId = parseInt(params?.userId ?? '0');
   const listUrl = `https://listywave.vercel.app${path}`;
 
   const goToCreateList = () => {
@@ -67,7 +66,7 @@ function Footer({ data }: { data: FooterProps }) {
   const ViewCount = () => {
     return (
       <>
-        {loginUser.id === writerId && (
+        {loginUser.id === data.ownerId && (
           <div className={styles.viewCountWrapper}>
             <EyeIcon />
             {data.viewCount ?? 0}

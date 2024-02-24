@@ -19,7 +19,7 @@ const updateProfile = async ({ userId, data }: UpdateProfileParams) => {
   const { nickname, description, backgroundImageUrl, profileImageUrl, newBackgroundFileList, newProfileFileList } =
     data;
 
-  //프로필 수정
+  //1.프로필 수정
   const result = await axiosInstance.patch(`/users/${userId}`, {
     nickname,
     description,
@@ -27,18 +27,16 @@ const updateProfile = async ({ userId, data }: UpdateProfileParams) => {
     profileImageUrl,
   });
 
-  //이미지 수정 없는 경우 return
+  //이미지 파일 없는 경우 return
   if (result.status !== 204 || (newBackgroundFileList === null && newProfileFileList === null)) return;
 
-  //1. presignedUrl 생성요청
+  //2. presignedUrl 생성요청
   const imageData = {
-    ownerId: userId,
     backgroundExtension: newBackgroundFileList?.[0].type.split('/')[1],
     profileExtension: newProfileFileList?.[0].type.split('/')[1],
   };
   const response = await axiosInstance.post<UserPresignedUrlsType>('/users/upload-url', imageData);
-
-  //2. presignedUrl에 사진 업로드
+  //3. presignedUrl에 사진 업로드
   const { backgroundPresignedUrl, profilePresignedUrl } = response?.data;
 
   if (newBackgroundFileList !== null) {
@@ -51,7 +49,7 @@ const updateProfile = async ({ userId, data }: UpdateProfileParams) => {
     await axios.put(profilePresignedUrl, resultFile);
   }
 
-  //3.서버에 성공 알림
+  //4.서버에 성공 알림
   await axiosInstance.post('/users/upload-complete', imageData);
 };
 

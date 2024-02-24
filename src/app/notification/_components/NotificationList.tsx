@@ -39,18 +39,17 @@ const dataToMessage = (data: NotificationType, language: 'ko' | 'en') => {
 /**
  * 알림 데이터의 type에 따라 경로를 설정해주는 함수입니다.
  * @param data 알림 하나의 데이터
- * @param userId userId는 임시로 넣어두었습니다. TODO: 추후 삭제되어야 합니다.
  */
-const dataToPath = (data: NotificationType, userId: number) => {
+const dataToPath = (data: NotificationType) => {
   switch (data.type) {
     case 'FOLLOW':
       return `/user/${data.sendUserId}/mylist`;
     case 'COLLECT':
-      return `/user/${userId}/list/${data.listId}`;
+      return `list/${data.listId}`;
     case 'COMMENT':
-      return `/user/${userId}/list/${data.listId}#comment`;
+      return `list/${data.listId}#comment`;
     case 'REPLY':
-      return `/user/${userId}/list/${data.listId}#comment`;
+      return `list/${data.listId}#comment`;
   }
 };
 
@@ -72,7 +71,7 @@ export default function NotificationList() {
 
   const handleOnClick = (notification: NotificationType) => {
     checkNotificationMutate(notification.id);
-    router.push(dataToPath(notification, 2));
+    router.push(dataToPath(notification));
   };
 
   //첫 7일 전 알림 index 구하기
@@ -93,7 +92,6 @@ export default function NotificationList() {
   return (
     <main className={styles.main}>
       {data?.alarmList?.length === 0 ? (
-        /**TODO: NO DATA 공용 컴포넌트 사용하기 */
         <div className={styles.noData}>
           <NoDataComponent message="최근 30일 내 새로운 알림이 없어요." />
         </div>

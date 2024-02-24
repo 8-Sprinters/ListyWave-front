@@ -43,6 +43,9 @@ export const listWrapper = style({
 });
 
 export const userProfiles = style({
+  position: 'absolute',
+  bottom: '1rem',
+
   display: 'flex',
   alignItems: 'center',
   gap: '.8rem',
@@ -90,7 +93,7 @@ export const title = style({
   color: 'var(--text-text-grey-dark, #202020)',
   textAlign: 'left',
   letterSpacing: '0.14px',
-  wordBreak: 'keep-all',
+  wordWrap: 'break-word',
 });
 
 export const list = style({

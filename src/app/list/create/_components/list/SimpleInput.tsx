@@ -47,6 +47,7 @@ function SimpleInput({ type, name, placeholder, rules, defaultValue }: SimpleInp
       {type === 'long' ? (
         <textarea
           className={styles.textareaBox}
+          maxLength={201}
           placeholder={placeholder}
           {...textareaRegister}
           ref={(e) => {

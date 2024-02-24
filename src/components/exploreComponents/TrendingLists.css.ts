@@ -25,6 +25,7 @@ export const sectionTitle = style([
 ]);
 
 export const wrapper = style({
+  marginTop: '50px',
   padding: '0 16px',
 });
 
@@ -52,10 +53,14 @@ export const slide = style({
 export const itemWrapper = style({
   height: '229px',
   width: customWidth,
-  padding: customPadding,
+  padding: '30px',
   borderRadius: customBorderRadius,
 
   position: 'relative',
+
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center',
 
   background: customBackgroundColor,
   border: customItemBorder,
@@ -106,6 +111,13 @@ export const itemTitle = style([
     color: customFontColor,
     textAlign: 'center',
     zIndex: 1,
+    overflow: 'hidden',
+    whiteSpace: 'normal',
+    textOverflow: 'ellipsis',
+    display: '-webkit-box',
+    WebkitLineClamp: 3,
+    WebkitBoxOrient: 'vertical',
+    wordBreak: 'break-word',
   },
 ]);
 

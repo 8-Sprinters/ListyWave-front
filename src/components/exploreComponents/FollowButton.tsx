@@ -30,6 +30,7 @@ function FollowButton({ isFollowing, onClick, userId, targetId }: FollowButtonPr
     queryKey: [QUERY_KEYS.userOne, userId],
     queryFn: () => getUserOne(userId),
     enabled: !!userMe.id,
+    retry: 1,
   });
 
   const followUser = useMutation({
@@ -71,6 +72,10 @@ function FollowButton({ isFollowing, onClick, userId, targetId }: FollowButtonPr
       onClick();
     }
   };
+
+  if (!userMe) {
+    return null;
+  }
 
   return (
     <button

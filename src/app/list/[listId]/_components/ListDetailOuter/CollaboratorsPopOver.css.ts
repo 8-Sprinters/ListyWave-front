@@ -57,9 +57,6 @@ export const profileImageParent = style({
 });
 
 export const profileImage = style({
-  width: '25px',
-  height: '25px',
-
   borderRadius: '9999px',
 });
 

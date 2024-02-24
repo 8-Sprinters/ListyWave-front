@@ -30,6 +30,7 @@ function ListDetailInner({ data, listId }: ListDetailInnerProps) {
 
   const footerData = {
     listId: listId,
+    ownerId: data?.ownerId,
     items: listData,
     category: data?.category,
     title: data?.title,

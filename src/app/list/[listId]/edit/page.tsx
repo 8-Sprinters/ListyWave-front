@@ -20,13 +20,13 @@ export type FormErrors = FieldErrors<ListEditType>;
 
 export default function EditPage() {
   const router = useRouter();
-  const param = useParams<{ userId: string; listId: string }>();
+  const param = useParams<{ listId: string }>();
   const { user: owner } = useUser();
 
   const [step, setStep] = useState<'list' | 'item'>('list');
   const [isItemChanged, setIsItemChanged] = useState(false);
 
-  const { data: listData } = useQuery<ListDetailType>({
+  const { data: listDetailData } = useQuery<ListDetailType>({
     queryKey: [QUERY_KEYS.getListDetail, param?.listId],
     queryFn: () => getListDetail(Number(param?.listId)),
   });
@@ -72,7 +72,6 @@ export default function EditPage() {
     };
 
     const imageData: ItemImagesType = {
-      ownerId: Number(param?.userId),
       listId: Number(param?.listId),
       extensionRanks: originData.items
         .filter(({ imageUrl }) => imageUrl !== '')
@@ -109,16 +108,16 @@ export default function EditPage() {
   };
 
   useEffect(() => {
-    if (listData) {
+    if (listDetailData) {
       methods.reset({
-        category: categories?.find((c) => c.korNameValue === listData.category)?.nameValue || 'culture',
-        labels: listData.labels.map((obj) => obj.name),
-        collaboratorIds: listData.collaborators,
-        title: listData.title,
-        description: listData.description,
-        isPublic: listData.isPublic,
-        backgroundColor: listData.backgroundColor,
-        items: listData.items.map(({ id, rank, title, comment, link, imageUrl }) => {
+        category: categories?.find((c) => c.korNameValue === listDetailData.category)?.nameValue || 'culture',
+        labels: listDetailData.labels.map((obj) => obj.name),
+        collaboratorIds: listDetailData.collaborators,
+        title: listDetailData.title,
+        description: listDetailData.description,
+        isPublic: listDetailData.isPublic,
+        backgroundColor: listDetailData.backgroundColor,
+        items: listDetailData.items.map(({ id, rank, title, comment, link, imageUrl }) => {
           return {
             rank: rank,
             id: id,
@@ -130,7 +129,7 @@ export default function EditPage() {
         }),
       });
     }
-  }, [listData, categories, methods]);
+  }, [listDetailData, categories, methods]);
 
   const {
     mutate: updateListMutation,

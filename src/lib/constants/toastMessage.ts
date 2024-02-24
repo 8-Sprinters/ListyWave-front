@@ -14,6 +14,7 @@ const toastMessage = {
     imageSizeError: '사진이 너무 커요. 50MB 이하 사진을 넣어주세요.🥹',
     copyLink: '링크를 복사했어요. 붙여넣기 해주세요.',
     failedCopyLink: '링크 복사에 실패했어요. 다시 시도해주세요.',
+    duplicatedItemError: '중복된 아이템이 있어요🥲',
   },
   en: {
     requiredLogin: 'Login is required.',
@@ -28,6 +29,7 @@ const toastMessage = {
     imageSizeError: 'The image is too large. Please insert an image smaller than 50MB.🥹',
     copyLink: 'The link has been copied. Please paste it.',
     failedCopyLink: 'Failed to copy the link. Please try again.',
+    duplicatedItemError: 'Duplicated items exist🥲',
   },
 };
 

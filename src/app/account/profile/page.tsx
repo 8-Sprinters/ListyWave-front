@@ -19,14 +19,16 @@ import BlueButton from '@/components/BlueButton/BlueButton';
 import ProfileForm from './_components/ProfileForm';
 import * as styles from './page.css';
 import ImagePreview from './_components/ImagePreview';
-
-/** TODO 데이터 가져오는 중 보여줄 화면 필요(로딩UI) */
+import ProfileSkeleton from './_components/ProfileSkeleton';
 
 export default function ProfilePage() {
-  const { user } = useUser();
   const router = useRouter();
+  //미리보기
   const [profilePreviewUrl, setProfilePreviewUrl] = useState('');
   const [backgroundPreviewUrl, setBackgroundPreviewUrl] = useState('');
+
+  //사용자 정보
+  const { user } = useUser();
 
   const { data: userData } = useQuery<UserType>({
     queryKey: [QUERY_KEYS.userOne, user.id],
@@ -34,6 +36,7 @@ export default function ProfilePage() {
     enabled: !!user.id,
   });
 
+  //form 관리
   const methods = useForm<UserProfileEditType>({
     mode: 'onChange',
   });
@@ -52,14 +55,22 @@ export default function ProfilePage() {
   }, [userData]);
 
   //미리보기 이미지 변경
-  const handleProfileChange = async (file: File) => {
-    const compressedFile = await compressFile(file);
-    fileToBase64(compressedFile, setProfilePreviewUrl);
+  const handleProfilePreviewChange = async (image: File | string) => {
+    if (typeof image === 'string') {
+      setProfilePreviewUrl(image);
+    } else if (typeof image === 'object') {
+      const compressedFile = await compressFile(image);
+      fileToBase64(compressedFile, setProfilePreviewUrl);
+    }
   };
 
-  const handleBackgroundChange = async (file: File) => {
-    const compressedFile = await compressFile(file);
-    fileToBase64(compressedFile, setBackgroundPreviewUrl);
+  const handleBackgroundPreviewChange = async (image: File | string) => {
+    if (typeof image === 'string') {
+      setBackgroundPreviewUrl(image);
+    } else if (typeof image === 'object') {
+      const compressedFile = await compressFile(image);
+      fileToBase64(compressedFile, setBackgroundPreviewUrl);
+    }
   };
 
   //프로필 수정 저장
@@ -98,14 +109,18 @@ export default function ProfilePage() {
               </BlueButton>
             }
           />
-          <main className={styles.content}>
-            <ImagePreview profileImageUrl={profilePreviewUrl} backgroundImageUrl={backgroundPreviewUrl} />
-            <ProfileForm
-              userNickname={userData?.nickname ?? ''}
-              onProfileChange={handleProfileChange}
-              onBackgroundChange={handleBackgroundChange}
-            />
-          </main>
+          {!userData ? (
+            <ProfileSkeleton />
+          ) : (
+            <main className={styles.content}>
+              <ImagePreview profileImageUrl={profilePreviewUrl} backgroundImageUrl={backgroundPreviewUrl} />
+              <ProfileForm
+                userNickname={userData?.nickname ?? ''}
+                handleProfilePreviewChange={handleProfilePreviewChange}
+                handleBackgroundPreviewChange={handleBackgroundPreviewChange}
+              />
+            </main>
+          )}
         </form>
       </FormProvider>
     </>
