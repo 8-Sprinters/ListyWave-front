@@ -1,10 +1,5 @@
 'use client';
 
-/**
- TODO
- - [ ] 피드페이지 스켈레톤 ui 적용
- */
-
 import Link from 'next/link';
 import { useEffect, useMemo, useState } from 'react';
 import { useInfiniteQuery, useQuery, useQueryClient } from '@tanstack/react-query';
@@ -45,7 +40,7 @@ export default function Content({ userId, type }: ContentProps) {
     data: listsData,
     hasNextPage,
     fetchNextPage,
-    isFetching,
+    isLoading,
   } = useInfiniteQuery<AllListType>({
     queryKey: [QUERY_KEYS.getAllList, userId, type, selectedCategory],
     queryFn: ({ pageParam: cursorId }) => {
@@ -71,11 +66,6 @@ export default function Content({ userId, type }: ContentProps) {
 
   const handleFetchListsOnCategory = (category: string) => {
     setSelectedCategory(category);
-
-    queryClient.resetQueries({
-      queryKey: [QUERY_KEYS.getAllList, userId, type, selectedCategory],
-      exact: true,
-    });
   };
 
   useEffect(() => {
@@ -94,7 +84,6 @@ export default function Content({ userId, type }: ContentProps) {
           <span className={styles.button}>마이 리스트</span>
           <div className={type === 'my' ? styles.currentLine : styles.line}></div>
         </Link>
-        <div style={{ backgroundColor: 'black', height: '2px' }}></div>
         <Link href={`/user/${userData?.id}/collabolist`} className={styles.link}>
           <button className={styles.button}>콜라보 리스트</button>
           <div className={type === 'collabo' ? styles.currentLine : styles.line}></div>
@@ -102,7 +91,7 @@ export default function Content({ userId, type }: ContentProps) {
       </div>
       <Categories handleFetchListsOnCategory={handleFetchListsOnCategory} selectedCategory={selectedCategory} />
       <div className={styles.cards}>
-        {isFetching ? (
+        {isLoading ? (
           <MasonryGridSkeleton />
         ) : (
           <MasonryGrid className="container" gap={16} defaultDirection={'end'} align={'start'} column={2}>
