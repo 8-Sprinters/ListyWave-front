@@ -25,7 +25,7 @@ interface LabelInputProps {
  * @param rules 라벨 개수, 길이, 고유성 규칙과 그 에러메시지
  */
 function LabelInput({ name, placeholder, rules }: LabelInputProps) {
-  const { setValue, setError, formState, control } = useFormContext();
+  const { setValue, setError, formState, control, clearErrors } = useFormContext();
   const { errors } = formState;
   const labels = useWatch({ control, name: name });
 
@@ -66,7 +66,7 @@ function LabelInput({ name, placeholder, rules }: LabelInputProps) {
         placeholder={placeholder}
         onKeyDown={handleEnterKeyDown}
         onChange={(e) => {
-          setError(name, { message: '' });
+          clearErrors(name);
           setLabelInput(e.target.value);
         }}
       />
