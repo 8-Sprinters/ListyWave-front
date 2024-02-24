@@ -43,8 +43,10 @@ export const sizeVariants = styleVariants<SizeVariantsType>({
   large: [
     container,
     {
-      width: '391px',
-      padding: '6rem 7.5rem',
+      minWidth: '327px',
+      width: '100%',
+      margin: '0px 24px',
+      padding: '6rem 2.5rem',
       borderRadius: '3rem',
     },
   ],
