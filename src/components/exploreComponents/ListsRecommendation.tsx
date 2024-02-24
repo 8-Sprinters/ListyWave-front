@@ -17,6 +17,7 @@ import * as styles from './ListsRecommendation.css';
 import NoDataComponent from '@/components/NoData/NoDataComponent';
 import { exploreBackgroundColors } from '@/lib/constants/exploreListBackgroundColor';
 import { ListRecommendationSkeleton, ListsSkeleton } from './Skeleton';
+import sparkleEmoji from '/public/images/sparkle.png';
 
 import ChevronDown from '/public/icons/chevron_down.svg';
 
@@ -60,7 +61,10 @@ function ListRecommendation() {
 
   return (
     <section className={styles.wrapperOuter}>
-      <div className={styles.sectionTitle}>NEW✨</div>
+      <div className={styles.titleWrapper}>
+        <div className={styles.sectionTitle}>NEW</div>
+        <Image src={sparkleEmoji} alt="빛나는 반짝 이모지" width="22" />
+      </div>
       <ul>
         {recommendLists?.length !== 0 ? (
           recommendLists?.map((item: ListRecommendationType, index) => {
@@ -91,7 +95,7 @@ function ListRecommendation() {
                       <div className={styles.listTitle}>{item.title}</div>
                       <div className={styles.ownerInformationWrapper}>
                         <div>{`By. ${item.ownerNickname}`}</div>
-                        <div className={styles.profileImageWrapper}>
+                        <Link href={`/user/${item.ownerId}/mylist`} className={styles.profileImageWrapper}>
                           {item?.ownerProfileImage ? (
                             <Image
                               src={item.ownerProfileImage}
@@ -105,7 +109,7 @@ function ListRecommendation() {
                           ) : (
                             <div className={styles.noImage}></div>
                           )}
-                        </div>
+                        </Link>
                       </div>
                       <div className={styles.listDescription}>{item.description}</div>
                     </div>
