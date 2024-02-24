@@ -40,23 +40,6 @@ export default function TempLayout({ children }: { children: ReactNode }) {
           onLoad={kakaoInit}
           strategy="lazyOnload"
         />
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `
-                document.addEventListener('focusin', function(event) {
-                  if (event.target.tagName.toLowerCase() === 'input') {
-                    document.querySelector('meta[name="viewport"]').setAttribute('content', 'width=device-width, initial-scale=1');
-                  }
-                });
-
-                document.addEventListener('focusout', function(event) {
-                  if (event.target.tagName.toLowerCase() === 'input') {
-                    document.querySelector('meta[name="viewport"]').setAttribute('content', 'width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0');
-                  }
-                });
-              `,
-          }}
-        />
       </head>
       <body className={styles.body}>
         <QueryClientProvider client={queryClient}>

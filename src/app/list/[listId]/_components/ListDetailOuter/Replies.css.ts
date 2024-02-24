@@ -80,10 +80,9 @@ export const replyCreatedTime = style({
   color: vars.color.gray9,
 });
 
-export const replyContent = style([
-  caption1,
-  {
-    fontWeight: 500,
-    lineHeight: 'normal',
-  },
-]);
+export const replyContent = style({
+  fontSize: '1.2rem',
+  fontWeight: 500,
+  lineHeight: 'normal',
+  letterSpacing: '-0.36px',
+});

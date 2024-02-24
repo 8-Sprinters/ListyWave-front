@@ -18,7 +18,6 @@ import NotificationOn from '/public/icons/notification_on.svg';
 import Modal from '@/components/Modal/Modal';
 import LoginModal from '@/components/login/LoginModal';
 import useBooleanOutput from '@/hooks/useBooleanOutput';
-import { UserSkeleton } from './Skeleton';
 
 function Header() {
   //zustand로 관리하는 user정보 불러오기
@@ -27,7 +26,7 @@ function Header() {
   const { onClickMoveToPage } = useMoveToPage();
   const { isOn, handleSetOff, handleSetOn } = useBooleanOutput();
 
-  const { data: userMe, isFetching } = useQuery<UserType>({
+  const { data: userMe } = useQuery<UserType>({
     queryKey: [QUERY_KEYS.userOne, userId],
     queryFn: () => getUserOne(userId as number),
     enabled: user && !!userId,
