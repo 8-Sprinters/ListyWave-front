@@ -22,7 +22,7 @@ export default function LinkPreview({ handleClearButtonClick, url }: LinkPreview
       role="button"
     >
       <LinkIcon fill="#61646B" />
-
+      <p className={styles.domainText}>{url}</p>
       <button className={styles.clearButton} onClick={handleClearClick}>
         <ClearBlackIcon alt="링크 삭제 버튼" />
       </button>
