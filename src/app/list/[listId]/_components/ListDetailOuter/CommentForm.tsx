@@ -1,4 +1,5 @@
 import Image from 'next/image';
+import Link from 'next/link';
 import { ChangeEvent, useState } from 'react';
 
 import { useUser } from '@/store/useUser';
@@ -42,16 +43,18 @@ function CommentForm({
     <div className={styles.formWrapperOuter}>
       <div className={styles.profileImageParent}>
         {imageSrc ? (
-          <Image
-            src={imageSrc}
-            alt="프로필 이미지"
-            className={styles.profileImage}
-            fill
-            style={{
-              objectFit: 'cover',
-            }}
-            onError={handleImageError}
-          />
+          <Link href={`/user/${userId}/mylist`}>
+            <Image
+              src={imageSrc}
+              alt="프로필 이미지"
+              className={styles.profileImage}
+              fill
+              style={{
+                objectFit: 'cover',
+              }}
+              onError={handleImageError}
+            />
+          </Link>
         ) : (
           <Avatar width={30} height={30} />
         )}
