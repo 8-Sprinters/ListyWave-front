@@ -16,7 +16,10 @@ export const container = style({
   flexDirection: 'column',
   justifyContent: 'space-between',
 
-  background: `linear-gradient(180deg, rgba(0, 0, 0, 0.00) 12%, rgba(0, 0, 0, 0.80) 100%), ${imageUrl} lightgray 50% / cover no-repeat`,
+  // 좀 더 어두운 버전
+  // background: `linear-gradient(180deg, rgba(0, 0, 0, 0.00) 12%, rgba(0, 0, 0, 0.80) 100%), ${imageUrl} lightgray 50% / cover no-repeat`,
+
+  background: `linear-gradient(180deg, rgba(0, 0, 0, 0.00) 0%, rgba(0, 0, 0, 0.20) 68%), ${imageUrl} lightgray 50% / cover no-repeat`,
   backgroundPosition: 'center',
 });
 
