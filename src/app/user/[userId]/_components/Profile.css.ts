@@ -1,5 +1,6 @@
 import { style, createVar } from '@vanilla-extract/css';
 import { vars } from '@/styles/theme.css';
+import { bodySmall, caption, titleMedium } from '@/styles/font.css';
 
 export const imageUrl = createVar();
 
@@ -15,10 +16,8 @@ export const container = style({
   flexDirection: 'column',
   justifyContent: 'space-between',
 
-  backgroundImage: imageUrl,
-  backgroundSize: 'cover',
+  background: `linear-gradient(180deg, rgba(0, 0, 0, 0.00) 12%, rgba(0, 0, 0, 0.80) 100%), ${imageUrl} lightgray 50% / cover no-repeat`,
   backgroundPosition: 'center',
-  backgroundRepeat: 'no-repeat',
 });
 
 export const header = style({
@@ -83,18 +82,18 @@ export const user = style({
   gap: '1.2rem',
 });
 
-export const nickName = style({
-  fontSize: '2rem',
-  fontWeight: ' 700',
-  color: vars.color.black,
-  letterSpacing: '-0.6px',
+export const nickName = style([
+  titleMedium,
+  {
+    color: vars.color.white,
 
-  '@media': {
-    'screen and (max-width: 414px)': {
-      fontSize: '1.8rem',
+    '@media': {
+      'screen and (max-width: 414px)': {
+        fontSize: '1.8rem',
+      },
     },
   },
-});
+]);
 
 export const follow = style({
   display: 'flex',
@@ -106,27 +105,32 @@ export const text = style({
   alignItems: 'center',
   gap: '0.5rem',
 
-  fontSize: '1.1rem',
-  fontWeight: '500',
-  letterSpacing: '-0.3px',
+  cursor: 'pointer',
 });
 
-export const count = style({
-  fontSize: '1.2rem',
-  fontWeight: '600',
-  letterSpacing: '-0.39px',
-});
+export const count = style([
+  bodySmall,
+  {
+    color: vars.color.white,
+  },
+]);
 
-export const description = style({
-  paddingLeft: '2.5rem',
-  marginBottom: '2.5rem',
+export const captionText = style([
+  caption,
+  {
+    color: vars.color.white,
+  },
+]);
 
-  width: '100%',
-  maxHeight: '80px',
+export const description = style([
+  bodySmall,
+  {
+    paddingLeft: '2.5rem',
+    marginBottom: '2.5rem',
 
-  fontSize: '1.2rem',
-  fontWeight: '500',
-  color: vars.color.black,
-  lineHeight: '1.6rem',
-  letterSpacing: '-0.36px',
-});
+    width: '100%',
+    maxHeight: '80px',
+
+    color: vars.color.white,
+  },
+]);
