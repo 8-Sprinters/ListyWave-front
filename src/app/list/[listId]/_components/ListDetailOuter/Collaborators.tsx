@@ -1,5 +1,4 @@
 import Image from 'next/image';
-import CollaboratorsPopOver from '@/app/list/[listId]/_components/ListDetailOuter/CollaboratorsPopOver';
 import * as styles from './Collaborators.css';
 import PlusIcon from '/public/icons/collaborators_plus.svg';
 import { UserProfileType } from '@/lib/types/userProfileType';
@@ -18,9 +17,6 @@ function Collaborators({ collaborators }: CollaboratorsProps) {
     <>
       {collaborators && (
         <div className={styles.collaboratorWrapper}>
-          <div className={styles.collaboratorsPopOverWrapper}>
-            <CollaboratorsPopOver collaborators={collaborators} />
-          </div>
           <div className={styles.wrapper}>
             {collaborators.length > MAX_NUMBER && (
               <div className={`${styles.profileImage} ${styles.profilePlus}`}>

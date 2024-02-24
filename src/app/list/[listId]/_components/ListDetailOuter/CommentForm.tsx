@@ -1,4 +1,5 @@
 import Image from 'next/image';
+import Link from 'next/link';
 import { ChangeEvent, useState } from 'react';
 
 import { useUser } from '@/store/useUser';
@@ -6,6 +7,7 @@ import { useIsEditing } from '@/store/useComment';
 import * as styles from './Comments.css';
 import CancelButton from '/public/icons/cancel_button.svg';
 import Avatar from '/public/icons/avatar.svg';
+import { vars } from '@/styles/theme.css';
 
 interface CommentFormProps {
   comment?: string;
@@ -41,16 +43,18 @@ function CommentForm({
     <div className={styles.formWrapperOuter}>
       <div className={styles.profileImageParent}>
         {imageSrc ? (
-          <Image
-            src={imageSrc}
-            alt="프로필 이미지"
-            className={styles.profileImage}
-            fill
-            style={{
-              objectFit: 'cover',
-            }}
-            onError={handleImageError}
-          />
+          <Link href={`/user/${userId}/mylist`}>
+            <Image
+              src={imageSrc}
+              alt="프로필 이미지"
+              className={styles.profileImage}
+              fill
+              style={{
+                objectFit: 'cover',
+              }}
+              onError={handleImageError}
+            />
+          </Link>
         ) : (
           <Avatar width={30} height={30} />
         )}
@@ -59,13 +63,27 @@ function CommentForm({
         {activeNickname && (
           <div className={styles.activeReplyWrapper}>
             <span className={styles.replyNickname}>{`@${activeNickname}님에게 남긴 답글`}</span>
-            <CancelButton className={styles.clearButton} alt="지우기 버튼" onClick={handleUpdate} />
+            <CancelButton
+              className={styles.clearButton}
+              alt="지우기 버튼"
+              onClick={handleUpdate}
+              width={18}
+              height={18}
+              fill={vars.color.gray7}
+            />
           </div>
         )}
         {isEditing && (
           <div className={styles.activeReplyWrapper}>
             <span className={styles.replyNickname}>{`댓글/답글 수정 중`}</span>
-            <CancelButton className={styles.clearButton} alt="지우기 버튼" onClick={handleCancel} />
+            <CancelButton
+              className={styles.clearButton}
+              alt="지우기 버튼"
+              onClick={handleCancel}
+              width={18}
+              height={18}
+              fill={vars.color.gray7}
+            />
           </div>
         )}
         <form className={styles.formContainer} onSubmit={handleSubmit}>

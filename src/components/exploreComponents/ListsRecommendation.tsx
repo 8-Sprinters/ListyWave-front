@@ -16,12 +16,11 @@ import Label from '@/components/Label/Label';
 import * as styles from './ListsRecommendation.css';
 import NoDataComponent from '@/components/NoData/NoDataComponent';
 import { exploreBackgroundColors } from '@/lib/constants/exploreListBackgroundColor';
-import ListRecommendationSkeleton from './ListRecommendationSkeleton';
+import { ListRecommendationSkeleton, ListsSkeleton } from './Skeleton';
 
 import ChevronDown from '/public/icons/chevron_down.svg';
 
 function ListRecommendation() {
-  const router = useRouter();
   const COLOR_INDEX = (num: number) => num % 5;
 
   //리스트 무한스크롤 리액트 쿼리 함수
@@ -51,9 +50,13 @@ function ListRecommendation() {
     return list;
   }, [result]);
 
-  const handleShowMoreButtonClick = (url: string) => {
-    router.push(`${url}`);
-  };
+  if (!result) {
+    return (
+      <section className={styles.wrapperOuter}>
+        <ListsSkeleton />
+      </section>
+    );
+  }
 
   return (
     <section className={styles.wrapperOuter}>
@@ -62,7 +65,7 @@ function ListRecommendation() {
         {recommendLists?.length !== 0 ? (
           recommendLists?.map((item: ListRecommendationType, index) => {
             return (
-              <div key={item.id}>
+              <Link href={`/list/${item.id}`} key={item.id}>
                 {isFetching ? (
                   <ListRecommendationSkeleton />
                 ) : (
@@ -117,7 +120,7 @@ function ListRecommendation() {
                     </Link>
                   </li>
                 )}
-              </div>
+              </Link>
             );
           })
         ) : (

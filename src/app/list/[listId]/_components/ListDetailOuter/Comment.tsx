@@ -13,6 +13,7 @@ import { UserType } from '@/lib/types/userProfileType';
 import { useCommentId } from '@/store/useComment';
 
 import * as styles from './Comment.css';
+import { vars } from '@/styles/theme.css';
 import DefaultProfile from '/public/icons/default_profile_temporary.svg';
 import EditPen from '/public/icons/edit_pen.svg';
 
@@ -104,7 +105,7 @@ function Comment({
         {!comment?.isDeleted && currentUserInfo?.id === comment?.userId && (
           <div className={styles.actionButtonWrapper}>
             <button className={styles.editButton} onClick={() => comment && handleEditButtonClick(comment?.content)}>
-              <EditPen />
+              <EditPen width={17} height={17} fill={vars.color.gray7} />
             </button>
             <DeleteModalButton onDelete={handleClickDeleteButton} />
           </div>

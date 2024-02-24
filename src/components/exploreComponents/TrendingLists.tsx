@@ -12,11 +12,12 @@ import { CUSTOM_WRAPPER, CUSTOM_PADDING, CUSTOM_BORDER_RADIUS } from '@/lib/cons
 
 import * as styles from './TrendingLists.css';
 import { vars } from '@/styles/theme.css';
+import { TrendingListsSkeleton } from './Skeleton';
 
 /**@todo 트렌딩 리스트 바뀐 디자인에 맞게 새로 갈아엎을 예정 */
 
 function TrendingList() {
-  const { data: trendingLists } = useQuery({
+  const { data: trendingLists, isFetching } = useQuery({
     queryKey: [QUERY_KEYS.getTrendingLists],
     queryFn: () => getTrendingLists(),
   });
@@ -52,6 +53,10 @@ function TrendingList() {
       };
     }
   }, []);
+
+  if (isFetching) {
+    return <TrendingListsSkeleton />;
+  }
 
   return (
     <div className={styles.wrapper}>

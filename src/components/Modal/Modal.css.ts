@@ -50,4 +50,12 @@ export const sizeVariants = styleVariants<SizeVariantsType>({
       borderRadius: '3rem',
     },
   ],
+  small: [
+    container,
+    {
+      width: '220px',
+      padding: '23px 22px',
+      borderRadius: '24px',
+    },
+  ],
 });

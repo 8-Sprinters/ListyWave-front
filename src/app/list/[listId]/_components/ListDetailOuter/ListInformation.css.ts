@@ -90,4 +90,5 @@ export const infoDetailWrapper = style({
 
 export const collaboratorWrapper = style({
   display: 'flex',
+  cursor: 'pointer',
 });

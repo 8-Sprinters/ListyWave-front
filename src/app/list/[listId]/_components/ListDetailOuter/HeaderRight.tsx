@@ -6,6 +6,9 @@ import { useUser } from '@/store/useUser';
 import OpenBottomSheetButton from './OpenBottomSheetButton';
 import * as styles from './HeaderRight.css';
 import HistoryButton from '/public/icons/history.svg';
+import PencilButton from '/public/icons/edit_pen.svg';
+
+import { vars } from '@/styles/theme.css';
 
 interface HeaderRightProps {
   isCollaborator?: boolean;
@@ -30,10 +33,15 @@ function HeaderRight({ isCollaborator, ownerId }: HeaderRightProps) {
           </button>
         </Link>
         {/* {리스트 관리 버튼은 리스트 오너, 콜라보레이터일 때만 보이게 하기} */}
-        {(ownerId === userId || isCollaborator) && (
+        {ownerId === userId && (
           <div className={styles.buttonResetStyle}>
             <OpenBottomSheetButton listId={params?.listId} isCollaborator={isCollaborator} />
           </div>
+        )}
+        {isCollaborator && (
+          <Link href={`/list/${params?.listId}/edit`}>
+            <PencilButton width={24} height={24} fill={vars.color.black} />
+          </Link>
         )}
       </div>
     </>

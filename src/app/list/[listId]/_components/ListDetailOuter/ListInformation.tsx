@@ -10,21 +10,22 @@ import Modal from '@/components/Modal/Modal';
 import Header from '@/components/Header/Header';
 import HeaderRight from './HeaderRight';
 import Comments from './Comments';
-import useBooleanOutput from '@/hooks/useBooleanOutput';
 import { useUser } from '@/store/useUser';
 import { QUERY_KEYS } from '@/lib/constants/queryKeys';
 import timeDiff from '@/lib/utils/time-diff';
 import useMoveToPage from '@/hooks/useMoveToPage';
+import useBooleanOutput from '@/hooks/useBooleanOutput';
 import { UserProfileType } from '@/lib/types/userProfileType';
 import { LabelType, ListDetailType } from '@/lib/types/listType';
 import ListDetailInner from '@/app/list/[listId]/_components/ListDetailInner';
 import * as styles from './ListInformation.css';
+import CollaboratorsModal from './CollaboratorsModal';
 
 function ListInformation() {
   const params = useParams<{ listId: string }>();
   const router = useRouter();
-  const { handleSetOff } = useBooleanOutput();
   const { onClickMoveToPage } = useMoveToPage();
+  const { isOn, handleSetOn, handleSetOff } = useBooleanOutput();
 
   //zustand로 관리하는 user정보 불러오기
   const { user } = useUser();
@@ -66,6 +67,11 @@ function ListInformation() {
 
   return (
     <>
+      {isOn && (
+        <Modal handleModalClose={handleSetOff} size="small">
+          <CollaboratorsModal collaborators={filteredCollaborators} handleSetOff={handleSetOff} />
+        </Modal>
+      )}
       <Header
         title="리스트"
         left="back"
@@ -110,7 +116,7 @@ function ListInformation() {
             </div>
           </div>
         </div>
-        <div className={styles.collaboratorWrapper}>
+        <div className={styles.collaboratorWrapper} onClick={handleSetOn}>
           <Collaborators collaborators={filteredCollaborators} />
         </div>
       </div>

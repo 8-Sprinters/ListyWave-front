@@ -74,6 +74,7 @@ function Header() {
             <h5 className={styles.loginButton}>로그인/회원가입</h5>
           )}
         </div>
+
         {userId !== null && (
           <Link href={'/notification'}>
             {isNotificationAllChecked ? <BellIcon alt="알림 페이지 이동 버튼" /> : <NotificationOn />}
