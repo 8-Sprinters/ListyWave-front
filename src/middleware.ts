@@ -8,7 +8,7 @@ const REQUIRED_TOKEN = ['/account', '/start-listy', '/list/create', '/collection
 export async function middleware(request: NextRequest) {
   // 만약, 쿠키에 accessToken이 없다면 '/'페이지로 리다이렉트
   const accessToken = request.cookies.get('accessToken');
-  console.log(!accessToken);
+  // console.log(!accessToken);
 
   // '/account'로 시작하는 하위 URL 포함 조건 추가
   const isAccountSubPath = request.nextUrl.pathname.startsWith('/account');
