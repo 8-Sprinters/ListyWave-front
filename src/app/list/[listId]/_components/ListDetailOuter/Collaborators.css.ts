@@ -15,7 +15,7 @@ export const wrapper = style({
 });
 
 export const profileImageParent = style({
-  marginRight: '-10px',
+  marginRight: '-7px',
   width: 35,
   height: 35,
 
@@ -23,8 +23,6 @@ export const profileImageParent = style({
 });
 
 export const profileImage = style({
-  marginRight: '-10px',
-
   display: 'flex',
   justifyContent: 'center',
   alignItems: 'center',
@@ -35,12 +33,14 @@ export const profileImage = style({
 });
 
 export const profilePlus = style({
+  width: 35,
+  height: 35,
   backgroundColor: vars.color.gray7,
 });
 
 export const profileText = style({
   color: vars.color.lightblue,
-  fontSize: '2rem',
+  fontSize: '1.5rem',
 });
 
 export const collaboratorsPopOverWrapper = style({
