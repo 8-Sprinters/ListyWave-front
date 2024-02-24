@@ -122,7 +122,7 @@ export default function CreatePage() {
           imageFileList: formatData().imageFileList,
         });
       }
-      router.push(`/list/${data.listId}`);
+      router.replace(`/list/${data.listId}`);
     },
     onError: () => {
       toasting({ type: 'error', txt: toastMessage.ko.createListError });
