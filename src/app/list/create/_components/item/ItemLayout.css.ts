@@ -1,5 +1,6 @@
 import { style } from '@vanilla-extract/css';
 import { vars } from '@/styles/theme.css';
+import * as fonts from '@/styles/font.css';
 
 export const itemHeader = style({
   width: '100%',
@@ -12,6 +13,15 @@ export const itemHeader = style({
 
   overflow: 'hidden',
 });
+
+export const titleError = style([
+  fonts.bodySmall,
+  {
+    marginBottom: '4px',
+    flexShrink: '0',
+    color: vars.color.red,
+  },
+]);
 
 export const headerIcon = style({
   flexShrink: '0',

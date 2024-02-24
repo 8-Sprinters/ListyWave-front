@@ -34,7 +34,7 @@ globalStyle('button', {
   cursor: 'pointer',
   color: vars.color.black,
   backgroundColor: 'transparent',
-  WebkitTapHighlightColor: 'transparent',
+  WebkitTapHighlightColor: 'rgba(0,0,0,0)',
 });
 
 globalStyle('input', {

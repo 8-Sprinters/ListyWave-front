@@ -124,119 +124,120 @@ export default function Items({ type, setItemChanged }: ItemsProps) {
 
               const imageRegister = register(`items.${index}.imageUrl`);
               return (
-                <div key={item.id}>
-                  {titleError?.type !== 'required' && (
-                    <p key={item.id} className={styles.error}>
-                      {titleError?.message}
-                    </p>
+                <Draggable key={item.id} draggableId={item.id} index={index}>
+                  {(provided, snapshot) => (
+                    <div
+                      className={snapshot.isDragging ? styles.draggingItem : styles.item}
+                      key={item.id}
+                      ref={provided.innerRef}
+                      {...provided.draggableProps}
+                      {...provided.dragHandleProps}
+                    >
+                      {/* {titleError?.type !== 'required' && (
+                        <p key={item.id} className={styles.itemTitleError}>
+                          {titleError?.message}
+                        </p>
+                      )} */}
+                      <ItemLayout
+                        index={index}
+                        handleDeleteItem={() => {
+                          handleDeleteItem(index);
+                        }}
+                        itemLength={watchItems.length}
+                        titleErrorMessage={
+                          titleError && titleError?.type !== 'required' ? titleError?.message : undefined
+                        }
+                        titleInput={
+                          <input
+                            className={titleError ? styles.errorTitle : styles.title}
+                            placeholder={itemPlaceholder.title}
+                            autoComplete="off"
+                            maxLength={101}
+                            {...register(`items.${index}.title`, itemTitleRules)}
+                            readOnly={
+                              type === 'edit' &&
+                              listDetailData?.items.some((item) => item.id === getValues(`items.${index}.id`))
+                            }
+                          />
+                        }
+                        commentTextArea={
+                          <textarea
+                            className={styles.comment}
+                            placeholder={itemPlaceholder.comment}
+                            rows={3}
+                            maxLength={101}
+                            {...register(`items.${index}.comment`, itemCommentRules)}
+                          />
+                        }
+                        commentLength={
+                          <p className={commentError ? styles.errorCountLength : styles.countLength}>
+                            {watchItems[index]?.comment?.length ?? 0}/100
+                          </p>
+                        }
+                        linkModal={
+                          <LinkModal
+                            onCancelButtonClick={() => {
+                              handleLinkModalCancel(index);
+                            }}
+                            onTriggerButtonClick={() => {
+                              handleLinkModalOpen(index);
+                            }}
+                            onConfirmButtonClick={() => {
+                              handleLinkModalConfirm(index);
+                            }}
+                            isLinkValid={!linkError && watchItems[index]?.link?.length !== 0}
+                          >
+                            <div className={styles.linkModalChildren}>
+                              <input
+                                className={styles.linkInput}
+                                type="url"
+                                placeholder={itemPlaceholder.link}
+                                autoComplete="off"
+                                {...register(`items.${index}.link`, itemLinkRules)}
+                              />
+                              {watchItems[index]?.link?.length !== 0 && linkError && (
+                                <p className={styles.error}>{linkError.message}</p>
+                              )}
+                            </div>
+                          </LinkModal>
+                        }
+                        imageInput={
+                          <input
+                            className={styles.imageInput}
+                            type="file"
+                            accept=".jpg, .jpeg, .png"
+                            id={`${index}-image`}
+                            {...imageRegister}
+                            onChange={(e) => {
+                              handleImageChange(e, imageRegister);
+                            }}
+                          />
+                        }
+                        linkPreview={
+                          watchItems[index]?.link && (
+                            <LinkPreview
+                              url={watchItems[index].link}
+                              handleClearButtonClick={() => {
+                                setValue(`items.${index}.link`, '');
+                              }}
+                            />
+                          )
+                        }
+                        imagePreview={
+                          watchItems[index]?.imageUrl !== '' && (
+                            <ImagePreview
+                              image={watchItems[index]?.imageUrl}
+                              handleClearButtonClick={() => {
+                                setValue(`items.${index}.imageUrl`, '');
+                              }}
+                            />
+                          )
+                        }
+                        handleImageAdd={setItemChanged}
+                      />
+                    </div>
                   )}
-                  <Draggable key={item.id} draggableId={item.id} index={index}>
-                    {(provided, snapshot) => (
-                      <div
-                        className={snapshot.isDragging ? styles.draggingItem : styles.item}
-                        key={item.id}
-                        ref={provided.innerRef}
-                        {...provided.draggableProps}
-                        {...provided.dragHandleProps}
-                      >
-                        <ItemLayout
-                          index={index}
-                          handleDeleteItem={() => {
-                            handleDeleteItem(index);
-                          }}
-                          itemLength={watchItems.length}
-                          titleInput={
-                            <input
-                              className={titleError ? styles.errorTitle : styles.title}
-                              placeholder={itemPlaceholder.title}
-                              autoComplete="off"
-                              maxLength={101}
-                              {...register(`items.${index}.title`, itemTitleRules)}
-                              readOnly={
-                                type === 'edit' &&
-                                listDetailData?.items.some((item) => item.id === getValues(`items.${index}.id`))
-                              }
-                            />
-                          }
-                          commentTextArea={
-                            <textarea
-                              className={styles.comment}
-                              placeholder={itemPlaceholder.comment}
-                              rows={3}
-                              maxLength={101}
-                              {...register(`items.${index}.comment`, itemCommentRules)}
-                            />
-                          }
-                          commentLength={
-                            <p className={commentError ? styles.errorCountLength : styles.countLength}>
-                              {watchItems[index]?.comment?.length ?? 0}/100
-                            </p>
-                          }
-                          linkModal={
-                            <LinkModal
-                              onCancelButtonClick={() => {
-                                handleLinkModalCancel(index);
-                              }}
-                              onTriggerButtonClick={() => {
-                                handleLinkModalOpen(index);
-                              }}
-                              onConfirmButtonClick={() => {
-                                handleLinkModalConfirm(index);
-                              }}
-                              isLinkValid={!linkError && watchItems[index]?.link?.length !== 0}
-                            >
-                              <div className={styles.linkModalChildren}>
-                                <input
-                                  className={styles.linkInput}
-                                  type="url"
-                                  placeholder={itemPlaceholder.link}
-                                  autoComplete="off"
-                                  {...register(`items.${index}.link`, itemLinkRules)}
-                                />
-                                {watchItems[index]?.link?.length !== 0 && linkError && (
-                                  <p className={styles.error}>{linkError.message}</p>
-                                )}
-                              </div>
-                            </LinkModal>
-                          }
-                          imageInput={
-                            <input
-                              className={styles.imageInput}
-                              type="file"
-                              accept=".jpg, .jpeg, .png"
-                              id={`${index}-image`}
-                              {...imageRegister}
-                              onChange={(e) => {
-                                handleImageChange(e, imageRegister);
-                              }}
-                            />
-                          }
-                          linkPreview={
-                            watchItems[index]?.link && (
-                              <LinkPreview
-                                url={watchItems[index].link}
-                                handleClearButtonClick={() => {
-                                  setValue(`items.${index}.link`, '');
-                                }}
-                              />
-                            )
-                          }
-                          imagePreview={
-                            watchItems[index]?.imageUrl !== '' && (
-                              <ImagePreview
-                                image={watchItems[index]?.imageUrl}
-                                handleClearButtonClick={() => {
-                                  setValue(`items.${index}.imageUrl`, '');
-                                }}
-                              />
-                            )
-                          }
-                          handleImageAdd={setItemChanged}
-                        />
-                      </div>
-                    )}
-                  </Draggable>
-                </div>
+                </Draggable>
               );
             })}
             {provided.placeholder}
