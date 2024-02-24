@@ -21,7 +21,6 @@ export type FormErrors = FieldErrors<ListEditType>;
 export default function EditPage() {
   const router = useRouter();
   const param = useParams<{ listId: string }>();
-  const { user: owner } = useUser();
 
   const [step, setStep] = useState<'list' | 'item'>('list');
   const [isItemChanged, setIsItemChanged] = useState(false);
@@ -64,17 +63,24 @@ export default function EditPage() {
     const listData: ListEditType = {
       ...originData,
       items: originData.items.map(({ imageUrl, ...rest }) => {
-        return {
-          ...rest,
-          imageUrl: '',
-        };
+        if (typeof imageUrl === 'string') {
+          return {
+            ...rest,
+            imageUrl,
+          };
+        } else {
+          return {
+            ...rest,
+            imageUrl: '',
+          };
+        }
       }),
     };
 
     const imageData: ItemImagesType = {
       listId: Number(param?.listId),
       extensionRanks: originData.items
-        .filter(({ imageUrl }) => imageUrl !== '')
+        .filter(({ imageUrl }) => typeof imageUrl !== 'string')
         .map(({ rank, imageUrl }) => {
           return {
             rank: rank,
@@ -85,7 +91,7 @@ export default function EditPage() {
     };
 
     const imageFileList: File[] = originData.items
-      .filter(({ imageUrl }) => imageUrl !== '')
+      .filter(({ imageUrl }) => typeof imageUrl !== 'string')
       .map(({ imageUrl }) => imageUrl?.[0] as File);
 
     return { listData, imageData, imageFileList };
