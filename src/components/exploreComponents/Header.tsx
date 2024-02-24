@@ -18,6 +18,7 @@ import NotificationOn from '/public/icons/notification_on.svg';
 import Modal from '@/components/Modal/Modal';
 import LoginModal from '@/components/login/LoginModal';
 import useBooleanOutput from '@/hooks/useBooleanOutput';
+import { UserSkeleton } from './Skeleton';
 
 function Header() {
   //zustand로 관리하는 user정보 불러오기
@@ -26,7 +27,7 @@ function Header() {
   const { onClickMoveToPage } = useMoveToPage();
   const { isOn, handleSetOff, handleSetOn } = useBooleanOutput();
 
-  const { data: userMe } = useQuery<UserType>({
+  const { data: userMe, isFetching } = useQuery<UserType>({
     queryKey: [QUERY_KEYS.userOne, userId],
     queryFn: () => getUserOne(userId as number),
     enabled: user && !!userId,
@@ -56,24 +57,29 @@ function Header() {
         <Logo alt="로고 이미지" />
       </Link>
       <div className={styles.userInfoOuterWrapper}>
-        <div className={styles.userInfoWrapper} onClick={userId ? onClickMoveToPage('/account') : handleSetOn}>
-          {userMe?.profileImageUrl ? (
-            <Image
-              src={userMe.profileImageUrl}
-              alt="사용자 프로필 이미지"
-              width={32}
-              height={32}
-              className={styles.userProfile}
-            />
-          ) : (
-            <NoneProfileImage width={32} height={32} alt="존재하지 않는 사용자 프로필 이미지" />
-          )}
-          {userId !== null ? (
-            <h5 className={styles.userName}>{userMe?.nickname}</h5>
-          ) : (
-            <h5 className={styles.loginButton}>로그인/회원가입</h5>
-          )}
-        </div>
+        {isFetching ? (
+          <UserSkeleton />
+        ) : (
+          <div className={styles.userInfoWrapper} onClick={userId ? onClickMoveToPage('/account') : handleSetOn}>
+            {userMe?.profileImageUrl ? (
+              <Image
+                src={userMe.profileImageUrl}
+                alt="사용자 프로필 이미지"
+                width={32}
+                height={32}
+                className={styles.userProfile}
+              />
+            ) : (
+              <NoneProfileImage width={32} height={32} alt="존재하지 않는 사용자 프로필 이미지" />
+            )}
+            {userId !== null ? (
+              <h5 className={styles.userName}>{userMe?.nickname}</h5>
+            ) : (
+              <h5 className={styles.loginButton}>로그인/회원가입</h5>
+            )}
+          </div>
+        )}
+
         {userId !== null && (
           <Link href={'/notification'}>
             {isNotificationAllChecked ? <BellIcon alt="알림 페이지 이동 버튼" /> : <NotificationOn />}

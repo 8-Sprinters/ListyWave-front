@@ -12,11 +12,12 @@ import { CUSTOM_WRAPPER, CUSTOM_PADDING, CUSTOM_BORDER_RADIUS } from '@/lib/cons
 
 import * as styles from './TrendingLists.css';
 import { vars } from '@/styles/theme.css';
+import { TrendingListsSkeleton } from './Skeleton';
 
 /**@todo 트렌딩 리스트 바뀐 디자인에 맞게 새로 갈아엎을 예정 */
 
 function TrendingList() {
-  const { data: trendingLists } = useQuery({
+  const { data: trendingLists, isFetching } = useQuery({
     queryKey: [QUERY_KEYS.getTrendingLists],
     queryFn: () => getTrendingLists(),
   });
@@ -57,44 +58,48 @@ function TrendingList() {
     <div className={styles.wrapper}>
       <h2 className={styles.sectionTitle}>TRENDING🌊</h2>
       <div className={styles.listWrapper} ref={ref}>
-        <ul className={styles.slide}>
-          {addedList?.map((item: TrendingListType, index) => {
-            return (
-              <li key={index.toString()}>
-                <Link href={`/list/${item.id}`}>
-                  {item.itemImageUrl ? (
-                    <div
-                      className={styles.itemWrapperWithImage}
-                      style={assignInlineVars({
-                        [styles.customBackgroundImage]: `url(${item.itemImageUrl})`,
-                        [styles.customWidth]: CUSTOM_WRAPPER[STYLE_INDEX(index)],
-                        [styles.customPadding]: CUSTOM_PADDING[STYLE_INDEX(index)],
-                        [styles.customBorderRadius]: CUSTOM_BORDER_RADIUS[STYLE_INDEX(index)],
-                      })}
-                    >
-                      {/* <Image src={item.itemImageUrl} alt="트렌딩 리스트 배경" fill /> */}
-                      <TrendingListInformation item={item} />
-                    </div>
-                  ) : (
-                    <div
-                      className={styles.itemWrapper}
-                      style={assignInlineVars({
-                        [styles.customWidth]: CUSTOM_WRAPPER[STYLE_INDEX(index)],
-                        [styles.customPadding]: CUSTOM_PADDING[STYLE_INDEX(index)],
-                        [styles.customBorderRadius]: CUSTOM_BORDER_RADIUS[STYLE_INDEX(index)],
-                        [styles.customBackgroundColor]: item.backgroundColor,
-                        [styles.customItemBorder]:
-                          item.backgroundColor === '#FFFFFF' ? `1px solid ${vars.color.gray5}` : 'none',
-                      })}
-                    >
-                      <TrendingListInformation item={item} />
-                    </div>
-                  )}
-                </Link>
-              </li>
-            );
-          })}
-        </ul>
+        {isFetching ? (
+          <TrendingListsSkeleton />
+        ) : (
+          <ul className={styles.slide}>
+            {addedList?.map((item: TrendingListType, index) => {
+              return (
+                <li key={index.toString()}>
+                  <Link href={`/list/${item.id}`}>
+                    {item.itemImageUrl ? (
+                      <div
+                        className={styles.itemWrapperWithImage}
+                        style={assignInlineVars({
+                          [styles.customBackgroundImage]: `url(${item.itemImageUrl})`,
+                          [styles.customWidth]: CUSTOM_WRAPPER[STYLE_INDEX(index)],
+                          [styles.customPadding]: CUSTOM_PADDING[STYLE_INDEX(index)],
+                          [styles.customBorderRadius]: CUSTOM_BORDER_RADIUS[STYLE_INDEX(index)],
+                        })}
+                      >
+                        {/* <Image src={item.itemImageUrl} alt="트렌딩 리스트 배경" fill /> */}
+                        <TrendingListInformation item={item} />
+                      </div>
+                    ) : (
+                      <div
+                        className={styles.itemWrapper}
+                        style={assignInlineVars({
+                          [styles.customWidth]: CUSTOM_WRAPPER[STYLE_INDEX(index)],
+                          [styles.customPadding]: CUSTOM_PADDING[STYLE_INDEX(index)],
+                          [styles.customBorderRadius]: CUSTOM_BORDER_RADIUS[STYLE_INDEX(index)],
+                          [styles.customBackgroundColor]: item.backgroundColor,
+                          [styles.customItemBorder]:
+                            item.backgroundColor === '#FFFFFF' ? `1px solid ${vars.color.gray5}` : 'none',
+                        })}
+                      >
+                        <TrendingListInformation item={item} />
+                      </div>
+                    )}
+                  </Link>
+                </li>
+              );
+            })}
+          </ul>
+        )}
       </div>
     </div>
   );

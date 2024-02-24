@@ -49,21 +49,6 @@ export const listWrapper = style({
   },
 });
 
-export const listSkeletonWrapper = style({
-  width: '370px',
-  height: '490px',
-  padding: '44px 24px 14px',
-  marginBottom: '24px',
-
-  position: 'relative',
-
-  display: 'flex',
-  flexDirection: 'column',
-  borderRadius: '24px',
-  gap: '24px',
-  backgroundColor: vars.color.gray3,
-});
-
 export const labelsWrapper = style({
   display: 'flex',
   gap: '8px',

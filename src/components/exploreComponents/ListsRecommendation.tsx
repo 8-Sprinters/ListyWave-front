@@ -16,7 +16,7 @@ import Label from '@/components/Label/Label';
 import * as styles from './ListsRecommendation.css';
 import NoDataComponent from '@/components/NoData/NoDataComponent';
 import { exploreBackgroundColors } from '@/lib/constants/exploreListBackgroundColor';
-import ListRecommendationSkeleton from './ListRecommendationSkeleton';
+import { ListRecommendationSkeleton, ListsSkeleton } from './Skeleton';
 
 import ChevronDown from '/public/icons/chevron_down.svg';
 
@@ -49,6 +49,15 @@ function ListRecommendation() {
     const list = result ? result.pages.flatMap(({ lists }) => lists) : [];
     return list;
   }, [result]);
+
+  if (!result) {
+    return (
+      <section className={styles.wrapperOuter}>
+        <div className={styles.sectionTitle}>NEW✨</div>
+        <ListsSkeleton />
+      </section>
+    );
+  }
 
   return (
     <section className={styles.wrapperOuter}>
