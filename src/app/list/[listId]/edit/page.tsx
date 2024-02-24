@@ -138,7 +138,7 @@ export default function EditPage() {
   } = useMutation({
     mutationFn: updateList,
     onSettled: () => {
-      router.push(`/user/${owner.id}/list/${param?.listId}`);
+      router.replace(`/list/${param?.listId}`);
     },
   });
 
