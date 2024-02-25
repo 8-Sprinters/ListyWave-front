@@ -32,7 +32,7 @@ export const profileImage = style({
 export const commentWrapper = style({
   display: 'flex',
   gap: '8.85px',
-  alignItems: 'center',
+  alignItems: 'flex-start',
 });
 
 export const commentContainer = style({
@@ -78,7 +78,8 @@ export const deletedComment = style({
 export const actionButtonWrapper = style({
   display: 'flex',
   gap: '8px',
-  alignItems: 'center',
+  alignItems: 'flex-start',
+  marginTop: '20px',
 });
 
 export const editButton = style({
