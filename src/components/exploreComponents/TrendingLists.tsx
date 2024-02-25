@@ -16,9 +16,7 @@ import { vars } from '@/styles/theme.css';
 import { TrendingListsSkeleton } from './Skeleton';
 import oceanEmoji from '/public/images/ocean.png';
 
-/**@todo 트렌딩 리스트 바뀐 디자인에 맞게 새로 갈아엎을 예정 */
-
-const swiperSliderStyle = [
+const SWIPER_SLIDER_STYLE = [
   {
     width: '258px',
     borderRadius: '40px',
@@ -77,34 +75,34 @@ function TrendingList() {
               className="mySwiper"
               style={swiperStyle}
             >
-              <SwiperSlide className={styles.test} style={swiperSliderStyle[0]}>
+              <SwiperSlide className={styles.test} style={SWIPER_SLIDER_STYLE[0]}>
                 <TrendingListItem item={trendingLists[0]} index={0} />
               </SwiperSlide>
-              <SwiperSlide className={styles.test} style={swiperSliderStyle[1]}>
+              <SwiperSlide className={styles.test} style={SWIPER_SLIDER_STYLE[1]}>
                 <TrendingListItem item={trendingLists[1]} index={1} />
               </SwiperSlide>
-              <SwiperSlide className={styles.test} style={swiperSliderStyle[2]}>
+              <SwiperSlide className={styles.test} style={SWIPER_SLIDER_STYLE[2]}>
                 <TrendingListItem item={trendingLists[2]} index={2} />
               </SwiperSlide>
-              <SwiperSlide className={styles.test} style={swiperSliderStyle[3]}>
+              <SwiperSlide className={styles.test} style={SWIPER_SLIDER_STYLE[3]}>
                 <TrendingListItem item={trendingLists[3]} index={3} />
               </SwiperSlide>
-              <SwiperSlide className={styles.test} style={swiperSliderStyle[0]}>
+              <SwiperSlide className={styles.test} style={SWIPER_SLIDER_STYLE[0]}>
                 <TrendingListItem item={trendingLists[4]} index={4} />
               </SwiperSlide>
-              <SwiperSlide className={styles.test} style={swiperSliderStyle[1]}>
+              <SwiperSlide className={styles.test} style={SWIPER_SLIDER_STYLE[1]}>
                 <TrendingListItem item={trendingLists[5]} index={5} />
               </SwiperSlide>
-              <SwiperSlide className={styles.test} style={swiperSliderStyle[2]}>
+              <SwiperSlide className={styles.test} style={SWIPER_SLIDER_STYLE[2]}>
                 <TrendingListItem item={trendingLists[6]} index={6} />
               </SwiperSlide>
-              <SwiperSlide className={styles.test} style={swiperSliderStyle[3]}>
+              <SwiperSlide className={styles.test} style={SWIPER_SLIDER_STYLE[3]}>
                 <TrendingListItem item={trendingLists[7]} index={7} />
               </SwiperSlide>
-              <SwiperSlide className={styles.test} style={swiperSliderStyle[0]}>
+              <SwiperSlide className={styles.test} style={SWIPER_SLIDER_STYLE[0]}>
                 <TrendingListItem item={trendingLists[8]} index={8} />
               </SwiperSlide>
-              <SwiperSlide className={styles.test} style={swiperSliderStyle[1]}>
+              <SwiperSlide className={styles.test} style={SWIPER_SLIDER_STYLE[1]}>
                 <TrendingListItem item={trendingLists[9]} index={9} />
               </SwiperSlide>
             </Swiper>
@@ -134,7 +132,7 @@ function TrendingListItem({ item, index }: TrendingListItemProps) {
             className={styles.itemWrapperWithImage}
             style={assignInlineVars({
               [styles.customBackgroundImage]: `url(${item.itemImageUrl})`,
-              [styles.customBorderRadius]: swiperSliderStyle[STYLE_INDEX(index)]['borderRadius'],
+              [styles.customBorderRadius]: SWIPER_SLIDER_STYLE[STYLE_INDEX(index)]['borderRadius'],
             })}
           >
             <TrendingListInformation item={item} />
@@ -144,7 +142,7 @@ function TrendingListItem({ item, index }: TrendingListItemProps) {
             className={styles.itemWrapper}
             style={assignInlineVars({
               [styles.customBackgroundColor]: item?.backgroundColor,
-              [styles.customBorderRadius]: swiperSliderStyle[STYLE_INDEX(index)]['borderRadius'],
+              [styles.customBorderRadius]: SWIPER_SLIDER_STYLE[STYLE_INDEX(index)]['borderRadius'],
               [styles.customItemBorder]: item?.backgroundColor === '#FFFFFF' ? `1px solid ${vars.color.gray7}` : '',
             })}
           >

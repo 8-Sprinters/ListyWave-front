@@ -2,8 +2,6 @@ import { style, createVar } from '@vanilla-extract/css';
 import { vars } from '@/styles/theme.css';
 import { headlineSmall, titleMedium, caption } from '@/styles/font.css';
 
-/**@todo 트렌딩 리스트 바뀐 디자인에 맞게 새로 갈아엎을 예정 */
-
 export const blackLayer = createVar();
 export const itemFontColor = createVar();
 
@@ -42,8 +40,6 @@ export const listWrapper = style({
   display: 'flex',
   alignItems: 'center',
 
-  // overflowX: 'scroll',
-
   '::-webkit-scrollbar': {
     display: 'none',
   },
@@ -80,10 +76,10 @@ export const itemWrapper = style({
   border: customItemBorder,
   cursor: 'pointer',
 
-  transition: 'transform 0.3s ease', // 애니메이션 효과를 부여할 속성 및 시간을 지정합니다.
+  transition: 'transform 0.3s ease',
 
   ':hover': {
-    transform: 'scale(1.01)', // hover 시 scale을 1.02로 변경합니다.
+    transform: 'scale(1.01)',
     boxShadow: 'rgba(99, 99, 99, 0.2) 0px 2px 8px 0px',
   },
 });
