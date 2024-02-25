@@ -37,7 +37,7 @@ export const wrapper = style({
 
 export const listWrapper = style({
   marginBottom: '30px',
-  height: '229px',
+  height: '200px',
 
   overflowX: 'scroll',
 
@@ -46,14 +46,26 @@ export const listWrapper = style({
   },
 });
 
+export const test = style({
+  height: 'auto',
+  backgroundColor: vars.color.blue,
+  borderRadius: '20px',
+});
+
 export const listItem = style({
   cursor: 'pointer',
+});
+
+export const testItem = style({
+  width: '20px',
+  height: '100%',
 });
 
 export const slide = style({
   display: 'flex',
   alignItems: 'center',
   gap: '12px',
+  height: '100%',
 });
 
 export const itemWrapper = style({
