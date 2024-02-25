@@ -13,11 +13,17 @@ export const wrapperOuter = style({
   flexDirection: 'column',
 });
 
+export const titleWrapper = style({
+  marginBottom: '26px',
+
+  display: 'flex',
+  alignItems: 'baseline',
+  gap: '5px',
+});
+
 export const sectionTitle = style([
   headlineSmall,
   {
-    marginBottom: '26px',
-
     fontWeight: 600,
   },
 ]);

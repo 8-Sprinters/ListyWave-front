@@ -1,6 +1,7 @@
 'use client';
 
 import { ReactNode } from 'react';
+import type { Viewport } from 'next';
 import { ToastContainer } from 'react-toastify';
 import Script from 'next/script';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
@@ -20,11 +21,22 @@ declare global {
     Kakao: any;
   }
 }
+
+export const viewport: Viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  maximumScale: 1,
+  userScalable: false,
+  viewportFit: 'cover',
+};
+
 export default function TempLayout({ children }: { children: ReactNode }) {
   const { isOn, handleSetOff } = useModalState();
 
   function kakaoInit() {
-    window.Kakao.init(process.env.NEXT_PUBLIC_KAKAO_API_KEY);
+    if (!window.Kakao.isInitialized()) {
+      window.Kakao.init(process.env.NEXT_PUBLIC_KAKAO_API_KEY);
+    }
     console.log('kakaoShareStatus:', window.Kakao.isInitialized());
   }
 
@@ -32,11 +44,6 @@ export default function TempLayout({ children }: { children: ReactNode }) {
     <html lang="ko">
       <head>
         <title>ListyWave</title>
-        <meta
-          name="viewport"
-          content="width=device-width, initial-scale=1, maximum-scale=1.0, 
-    user-scalable=0"
-        />
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css" />
         <Script
           src="https://t1.kakaocdn.net/kakao_js_sdk/2.6.0/kakao.min.js"

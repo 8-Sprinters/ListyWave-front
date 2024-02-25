@@ -52,34 +52,34 @@ function Header() {
           <LoginModal />
         </Modal>
       )}
-      <Link href={'/intro'} className={styles.logoWrapper}>
-        <Logo alt="로고 이미지" />
-      </Link>
       <div className={styles.userInfoOuterWrapper}>
-        <div className={styles.userInfoWrapper} onClick={userId ? onClickMoveToPage('/account') : handleSetOn}>
-          {userMe?.profileImageUrl ? (
-            <Image
-              src={userMe.profileImageUrl}
-              alt="사용자 프로필 이미지"
-              width={32}
-              height={32}
-              className={styles.userProfile}
-            />
-          ) : (
-            <NoneProfileImage width={32} height={32} alt="존재하지 않는 사용자 프로필 이미지" />
-          )}
-          {userId !== null ? (
-            <h5 className={styles.userName}>{userMe?.nickname}</h5>
+        <Link href={'/intro'} className={styles.logoWrapper}>
+          <Logo alt="로고 이미지" />
+        </Link>
+        <div className={styles.userInfoWrapper}>
+          {userId ? (
+            <>
+              <Link href={`/account`}>
+                {userMe?.profileImageUrl ? (
+                  <Image
+                    src={userMe.profileImageUrl}
+                    alt="사용자 프로필 이미지"
+                    width={26}
+                    height={26}
+                    className={styles.userProfile}
+                  />
+                ) : (
+                  <NoneProfileImage width={26} height={26} alt="존재하지 않는 사용자 프로필 이미지" />
+                )}
+              </Link>
+              <Link href={'/notification'}>
+                {isNotificationAllChecked ? <BellIcon alt="알림 페이지 이동 버튼" /> : <NotificationOn />}
+              </Link>
+            </>
           ) : (
             <h5 className={styles.loginButton}>로그인/회원가입</h5>
           )}
         </div>
-
-        {userId !== null && (
-          <Link href={'/notification'}>
-            {isNotificationAllChecked ? <BellIcon alt="알림 페이지 이동 버튼" /> : <NotificationOn />}
-          </Link>
-        )}
       </div>
     </nav>
   );

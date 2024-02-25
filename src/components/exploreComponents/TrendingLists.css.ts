@@ -18,15 +18,21 @@ export const customBackgroundImage = createVar();
 export const sectionTitle = style([
   headlineSmall,
   {
-    marginBottom: '26px',
-
     fontWeight: 600,
   },
 ]);
 
+export const titleWrapper = style({
+  marginBottom: '26px',
+  padding: '0 16px',
+
+  display: 'flex',
+  alignItems: 'baseline',
+  gap: '5px',
+});
+
 export const wrapper = style({
   marginTop: '50px',
-  padding: '0 16px',
 });
 
 export const listWrapper = style({

@@ -89,7 +89,7 @@ function LabelInput({ name, placeholder, rules }: LabelInputProps) {
                   name,
                   labels.filter((l: string) => l !== label)
                 );
-                setError(name, {});
+                clearErrors(name);
               }}
             />
           </div>

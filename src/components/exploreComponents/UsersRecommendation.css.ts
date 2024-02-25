@@ -9,11 +9,17 @@ export const wrapper = style({
 export const sectionTitle = style([
   headlineSmall,
   {
-    marginBottom: '26px',
-
     fontWeight: 600,
   },
 ]);
+
+export const titleWrapper = style({
+  marginBottom: '26px',
+
+  display: 'flex',
+  alignItems: 'baseline',
+  gap: '5px',
+});
 
 export const recommendUsersListWrapper = style({
   marginBottom: '30px',

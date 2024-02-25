@@ -22,7 +22,6 @@ interface ItemLayoutProps {
   linkPreview: ReactNode;
   imageInput: ReactNode;
   imagePreview: ReactNode;
-  handleImageAdd?: () => void;
 }
 
 export default function ItemLayout({
@@ -37,12 +36,11 @@ export default function ItemLayout({
   linkPreview,
   imageInput,
   imagePreview,
-  handleImageAdd,
 }: ItemLayoutProps) {
   return (
     <div>
       {titleErrorMessage && <p className={styles.titleError}> {titleErrorMessage}</p>}
-      <Accordion>
+      <Accordion defaultExpanded={true}>
         <AccordionSummary>
           <div className={styles.itemHeader}>
             <DndIcon width="18" height="18" alt="드래그앤드롭" className={styles.headerIcon} />
@@ -59,9 +57,7 @@ export default function ItemLayout({
             <div className={styles.toolbar}>
               <div className={styles.fileButtons}>
                 {linkModal}
-                <ImageUploader index={index} handleImageAdd={handleImageAdd}>
-                  {imageInput}
-                </ImageUploader>
+                <ImageUploader index={index}>{imageInput}</ImageUploader>
               </div>
               {itemLength > MIN_ITEM_COUNT && (
                 <button onClick={handleDeleteItem}>
