@@ -14,6 +14,7 @@ export const commentOuterWrapper = style({
 });
 
 export const profileImageParent = style({
+  minWidth: '30px',
   width: '30px',
   height: '30px',
   position: 'relative',
@@ -24,8 +25,6 @@ export const profileImageParent = style({
 });
 
 export const profileImage = style({
-  flex: '0 0 1',
-
   borderRadius: '16px',
   backgroundColor: vars.color.gray7,
 });
