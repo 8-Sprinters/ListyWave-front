@@ -27,14 +27,6 @@ export default function BottomNav() {
 
   if (isHidden) return;
 
-  const handleOnclickMyfeed = () => {
-    if (!userId) {
-      toasting({ type: 'error', txt: toastMessage.ko.requiredLogin });
-      return;
-    }
-    router.push(`/user/${userId}/mylist`);
-  };
-
   //파란색 선택 표시를 위한 분기처리
   const selectedItem = (() => {
     if (pathname === '/' || pathname.includes('/search')) {
@@ -48,16 +40,25 @@ export default function BottomNav() {
     }
   })();
 
+  // 로그인한 사용자 검증
+  const handleMoveToPageOnLogin = (path: string) => () => {
+    if (!userId) {
+      toasting({ type: 'error', txt: toastMessage.ko.requiredLogin });
+      return;
+    }
+    path === 'my-feed' ? router.push(`/user/${userId}/mylist`) : router.push('/collection');
+  };
+
   return (
     <nav>
       <ul className={styles.navDiv}>
         <li className={styles.buttonDiv} onClick={onClickMoveToPage('/')}>
           <ExploreIcon fill={selectedItem === 'explore' ? vars.color.blue : vars.color.gray7} />
         </li>
-        <li className={styles.buttonDiv} onClick={handleOnclickMyfeed}>
+        <li className={styles.buttonDiv} onClick={handleMoveToPageOnLogin('my-feed')}>
           <MyFeedIcon fill={selectedItem === 'my-feed' ? vars.color.blue : vars.color.gray7} />
         </li>
-        <li className={styles.buttonDiv} onClick={onClickMoveToPage('/collection')}>
+        <li className={styles.buttonDiv} onClick={handleMoveToPageOnLogin('collection')}>
           <CollectionIcon fill={selectedItem === 'collection' ? vars.color.blue : vars.color.gray7} />
         </li>
       </ul>
