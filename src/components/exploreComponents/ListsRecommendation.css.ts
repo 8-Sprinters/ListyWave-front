@@ -2,8 +2,6 @@ import { style, createVar, keyframes } from '@vanilla-extract/css';
 import { vars } from '@/styles/theme.css';
 import { headlineSmall, bodyMedium, bodySmall, labelSmall } from '@/styles/font.css';
 
-/**@todo 바뀐 피그마 디자인에 따라 수정 */
-
 export const listBackground = createVar();
 
 export const wrapperOuter = style({
@@ -133,7 +131,7 @@ export const noImage = style([
 
 export const simpleListWrapper = style({
   height: 'auto',
-  padding: '8px 16px 9px',
+  padding: '20px 16px',
   marginBottom: '16px',
 
   display: 'flex',
