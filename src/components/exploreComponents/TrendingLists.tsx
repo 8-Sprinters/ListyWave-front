@@ -137,7 +137,6 @@ function TrendingListItem({ item, index }: TrendingListItemProps) {
               [styles.customBorderRadius]: swiperSliderStyle[STYLE_INDEX(index)]['borderRadius'],
             })}
           >
-            {/* <Image src={item.itemImageUrl} alt="트렌딩 리스트 배경" fill /> */}
             <TrendingListInformation item={item} />
           </div>
         ) : (
@@ -184,7 +183,7 @@ function TrendingListInformation({ item }: TrendingListInformationType) {
               className={styles.profileImage}
             />
           ) : (
-            <div className={styles.profileImage}></div>
+            <></>
           )}
         </div>
         <span

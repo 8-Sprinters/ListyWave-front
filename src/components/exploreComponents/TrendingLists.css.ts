@@ -66,7 +66,7 @@ export const slide = style({});
 
 export const itemWrapper = style({
   height: '200px',
-  padding: '0 30px',
+  padding: '0 40px',
   width: customWidth,
   borderRadius: customBorderRadius,
 
