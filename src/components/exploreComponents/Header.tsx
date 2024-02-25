@@ -7,7 +7,6 @@ import { useUser } from '@/store/useUser';
 import getUserOne from '@/app/_api/user/getUserOne';
 import { QUERY_KEYS } from '@/lib/constants/queryKeys';
 import getNotificationAllChecked from '@/app/_api/explore/getNotificationAllChecked';
-import useMoveToPage from '@/hooks/useMoveToPage';
 import { UserType } from '@/lib/types/userProfileType';
 
 import * as styles from './Header.css';
@@ -23,7 +22,6 @@ function Header() {
   //zustand로 관리하는 user정보 불러오기
   const { user } = useUser();
   const userId = user.id;
-  const { onClickMoveToPage } = useMoveToPage();
   const { isOn, handleSetOff, handleSetOn } = useBooleanOutput();
 
   const { data: userMe } = useQuery<UserType>({
@@ -77,7 +75,9 @@ function Header() {
               </Link>
             </>
           ) : (
-            <h5 className={styles.loginButton}>로그인/회원가입</h5>
+            <h5 className={styles.loginButton} onClick={handleSetOn}>
+              로그인/회원가입
+            </h5>
           )}
         </div>
       </div>
