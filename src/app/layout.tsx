@@ -22,6 +22,14 @@ declare global {
   }
 }
 
+export const viewport: Viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  maximumScale: 1,
+  userScalable: false,
+  viewportFit: 'cover',
+};
+
 export default function TempLayout({ children }: { children: ReactNode }) {
   const { isOn, handleSetOff } = useModalState();
 
@@ -36,11 +44,6 @@ export default function TempLayout({ children }: { children: ReactNode }) {
     <html lang="ko">
       <head>
         <title>ListyWave</title>
-        <meta
-          id="viewport"
-          name="viewport"
-          content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, viewport-fit=cover"
-        />
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css" />
         <Script
           src="https://t1.kakaocdn.net/kakao_js_sdk/2.6.0/kakao.min.js"

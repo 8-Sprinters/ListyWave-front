@@ -2,8 +2,8 @@ import { vars } from '@/styles/theme.css';
 import { style } from '@vanilla-extract/css';
 
 export const profileImageContainer = style({
-  width: 50,
-  height: 50,
+  width: 45,
+  height: 45,
 
   display: 'flex',
   justifyContent: 'center',
