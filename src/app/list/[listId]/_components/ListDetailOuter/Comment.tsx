@@ -1,5 +1,6 @@
 'use client';
 import Image from 'next/image';
+import Link from 'next/link';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 
 import Replies from '@/app/list/[listId]/_components/ListDetailOuter/Replies';
@@ -77,17 +78,19 @@ function Comment({
       <div className={styles.commentOuterWrapper}>
         <div className={styles.commentWrapper}>
           {comment && !comment.isDeleted && (
-            <div className={styles.profileImageParent}>
-              <Image
-                alt="프로필 이미지"
-                src={comment.userProfileImageUrl}
-                className={styles.profileImage}
-                fill
-                style={{
-                  objectFit: 'cover',
-                }}
-              />
-            </div>
+            <Link href={`/user/${comment?.userId}/mylist`}>
+              <div className={styles.profileImageParent}>
+                <Image
+                  alt="프로필 이미지"
+                  src={comment.userProfileImageUrl}
+                  className={styles.profileImage}
+                  fill
+                  style={{
+                    objectFit: 'cover',
+                  }}
+                />
+              </div>
+            </Link>
           )}
           {comment?.isDeleted && <DefaultProfile width={30} height={30} />}
           <div className={styles.commentContainer}>

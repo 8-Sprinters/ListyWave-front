@@ -27,6 +27,7 @@ export const trendingListSkeletonWrapper = style({
   // width: 'auto',
   padding: '0 16px',
   marginBottom: '24px',
+  marginTop: '30px',
 
   display: 'flex',
   gap: '12px',
