@@ -1,6 +1,5 @@
 'use client';
 
-import { useRouter } from 'next/navigation';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { AxiosError } from 'axios';
 
@@ -15,6 +14,9 @@ import { UserType } from '@/lib/types/userProfileType';
 import { useUser } from '@/store/useUser';
 import toasting from '@/lib/utils/toasting';
 import toastMessage, { MAX_FOLLOWING } from '@/lib/constants/toastMessage';
+import useBooleanOutput from '@/hooks/useBooleanOutput';
+import Modal from '@/components/Modal/Modal';
+import LoginModal from '@/components/login/LoginModal';
 
 interface FollowButtonProps {
   userId: number;
@@ -23,8 +25,8 @@ interface FollowButtonProps {
 
 export default function FollowButton({ isFollowed, userId }: FollowButtonProps) {
   const queryClient = useQueryClient();
-  const router = useRouter();
   const { user: userMe } = useUser();
+  const { isOn, handleSetOff, handleSetOn } = useBooleanOutput();
 
   const { data: userMeData } = useQuery<UserType>({
     queryKey: [QUERY_KEYS.userOne, userMe.id],
@@ -43,7 +45,7 @@ export default function FollowButton({ isFollowed, userId }: FollowButtonProps) 
     onError: (error: AxiosError) => {
       if (error.response?.status === 401) {
         toasting({ type: 'warning', txt: toastMessage.ko.requiredLogin });
-        router.push('/login'); // interceptors에서 핸들링 하므로 불필요??
+        handleSetOn();
       }
     },
   });
@@ -55,6 +57,12 @@ export default function FollowButton({ isFollowed, userId }: FollowButtonProps) 
       queryClient.invalidateQueries({
         queryKey: [QUERY_KEYS.userOne, userId],
       });
+    },
+    onError: (error: AxiosError) => {
+      if (error.response?.status === 401) {
+        toasting({ type: 'warning', txt: toastMessage.ko.requiredLogin });
+        handleSetOn();
+      }
     },
   });
 
@@ -71,11 +79,18 @@ export default function FollowButton({ isFollowed, userId }: FollowButtonProps) 
   };
 
   return (
-    <button
-      className={`${isFollowed ? styles.variant.gray : styles.variant.primary}`}
-      onClick={handleFollowUser(isFollowed)}
-    >
-      {isFollowed ? '팔로우 취소' : '팔로우'}
-    </button>
+    <>
+      <button
+        className={`${isFollowed ? styles.variant.gray : styles.variant.primary}`}
+        onClick={handleFollowUser(isFollowed)}
+      >
+        {isFollowed ? '팔로우 취소' : '팔로우'}
+      </button>
+      {isOn && (
+        <Modal handleModalClose={handleSetOff} size="large">
+          <LoginModal />
+        </Modal>
+      )}
+    </>
   );
 }
