@@ -8,13 +8,13 @@ import { useEffect, useRef } from 'react';
  * @returns target 요소에 전달할 ref 값
  */
 
-const options = {
-  root: null,
-  rootMain: '0px',
-  threshold: 1, // 단계별 콜백함수 호출
-};
+const useIntersectionObserver = (callback: (entry: IntersectionObserverEntry) => void, threshold?: number) => {
+  const options = {
+    root: null,
+    rootMain: '0px',
+    threshold: threshold ?? 1, // 단계별 콜백함수 호출
+  };
 
-const useIntersectionObserver = (callback: (entry: IntersectionObserverEntry) => void) => {
   const ref = useRef(null);
 
   useEffect(() => {
