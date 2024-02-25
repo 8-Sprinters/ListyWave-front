@@ -47,7 +47,7 @@ axiosInstance.interceptors.response.use(
         useUser.getState().logoutUser();
         removeCookie('accessToken');
         removeCookie('refreshToken');
-        toasting({ type: 'error', txt: toastMessage.ko.userStatusLoggedOut });
+        // toasting({ type: 'error', txt: toastMessage.ko.userStatusLoggedOut });
 
         isRefreshing = true;
 
