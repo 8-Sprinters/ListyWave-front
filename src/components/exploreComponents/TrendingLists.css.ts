@@ -40,6 +40,8 @@ export const listWrapper = style({
   display: 'flex',
   alignItems: 'center',
 
+  overflowX: 'scroll',
+
   '::-webkit-scrollbar': {
     display: 'none',
   },
