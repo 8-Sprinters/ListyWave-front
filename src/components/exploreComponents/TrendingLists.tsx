@@ -33,7 +33,7 @@ const swiperSliderStyle = [
   },
   {
     width: '172px',
-    borderRadius: '30px',
+    borderRadius: '20px',
   },
 ];
 const STYLE_INDEX = (num: number) => num % 4;
