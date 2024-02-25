@@ -47,7 +47,6 @@ function FollowButton({ isFollowing, onClick, userId, targetId }: FollowButtonPr
     },
     onError: (error: AxiosError) => {
       if (error.response?.status === 401) {
-        toasting({ type: 'warning', txt: toastMessage.ko.requiredLogin });
         handleSetOn();
       }
     },
@@ -63,7 +62,6 @@ function FollowButton({ isFollowing, onClick, userId, targetId }: FollowButtonPr
     },
     onError: (error: AxiosError) => {
       if (error.response?.status === 401) {
-        toasting({ type: 'warning', txt: toastMessage.ko.requiredLogin });
         handleSetOn();
       }
     },

@@ -44,7 +44,6 @@ export default function FollowButton({ isFollowed, userId }: FollowButtonProps) 
     },
     onError: (error: AxiosError) => {
       if (error.response?.status === 401) {
-        toasting({ type: 'warning', txt: toastMessage.ko.requiredLogin });
         handleSetOn();
       }
     },
@@ -60,7 +59,6 @@ export default function FollowButton({ isFollowed, userId }: FollowButtonProps) 
     },
     onError: (error: AxiosError) => {
       if (error.response?.status === 401) {
-        toasting({ type: 'warning', txt: toastMessage.ko.requiredLogin });
         handleSetOn();
       }
     },
