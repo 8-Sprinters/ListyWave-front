@@ -38,6 +38,7 @@
     "browser-image-compression": "^2.0.2",
     "cheerio": "^1.0.0-rc.12",
     "copy-to-clipboard": "^3.3.3",
+    "framer-motion": "^11.0.6",
     "html-to-image": "^1.11.11",
     "http-proxy-middleware": "^2.0.6",
     "next": "14.0.4",
