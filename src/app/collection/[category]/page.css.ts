@@ -5,7 +5,7 @@ export const container = style({
 });
 
 export const cardsWrapper = style({
-  padding: '1.8rem 1.2rem',
+  padding: '1.8rem 2.8rem',
 
   display: 'flex',
   justifyContent: 'space-between',

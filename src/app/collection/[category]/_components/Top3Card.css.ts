@@ -42,6 +42,17 @@ export const listWrapper = style({
   },
 });
 
+export const skeletonListWrapper = style([
+  listWrapper,
+  {
+    cursor: 'default',
+    ':hover': {
+      boxShadow: 'none',
+      borderWidth: '1px',
+    },
+  },
+]);
+
 export const userProfiles = style({
   position: 'absolute',
   bottom: '1rem',
@@ -108,15 +119,4 @@ export const list = style({
   color: 'var(--text-text-grey-dark, #202020)',
   lineHeight: '2.5rem',
   letterSpacing: '-0.36px',
-});
-
-export const skeleton = style({
-  width: '185px',
-
-  display: 'flex',
-  flexDirection: 'column',
-  alignItems: 'center',
-  justifyContent: 'center',
-
-  borderRadius: '1.5rem',
 });

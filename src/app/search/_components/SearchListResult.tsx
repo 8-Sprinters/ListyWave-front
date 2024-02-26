@@ -123,10 +123,12 @@ function SearchListResult() {
   return (
     <>
       {!searchListData && isFetching ? ( // 최초 검색결과 받기 전
-        <div className={styles.cards}>
-          {Array.from({ length: 6 }).map((_, index) => (
-            <Top3CardSkeleton key={index} />
-          ))}
+        <div className={styles.cardsWrapper}>
+          <div className={styles.cards}>
+            {Array.from({ length: 6 }).map((_, index) => (
+              <Top3CardSkeleton key={index} />
+            ))}
+          </div>
         </div>
       ) : result.totalCount > 0 ? ( // 데이터가 있는 경우
         <Result />

@@ -23,6 +23,7 @@ function Top3CardSkeleton() {
           </div>
         </div>
       </div>
+      <Skeleton variant="text" width="18rem" height="3rem" animation="wave" />
     </div>
   );
 }
