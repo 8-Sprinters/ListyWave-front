@@ -76,15 +76,20 @@ function ListInformation() {
       <Header
         title="리스트"
         left="back"
-        right={<HeaderRight isCollaborator={isCollaborator} ownerId={list?.ownerId} />}
+        right={
+          <HeaderRight
+            isCollaborator={isCollaborator}
+            isOwner={isOwner}
+            isPublic={list?.isPublic}
+            ownerId={list?.ownerId}
+          />
+        }
         leftClick={() => router.back()}
       />
-      {list?.isPublic === false && !isOwner ? (
-        !isCollaborator && (
-          <div className={styles.noDataWrapper}>
-            <NoDataComponent message="비공개 처리된 게시물이에요." />
-          </div>
-        )
+      {list?.isPublic === false && !isOwner && !isCollaborator ? (
+        <div className={styles.noDataWrapper}>
+          <NoDataComponent message="비공개 처리된 게시물이에요." />
+        </div>
       ) : (
         <>
           <div className={styles.wrapper}>
