@@ -11,6 +11,7 @@ export const header = style({
 });
 
 export const countText = style({
+  minWidth: '5rem',
   width: '20rem',
 
   fontWeight: '600',
@@ -28,19 +29,24 @@ export const sort = style({
 });
 
 export const cardsWrapper = style({
-  padding: '1.8rem 1.2rem',
+  width: '100%',
 
   display: 'flex',
-  justifyContent: 'space-between',
+  justifyContent: 'center',
+  alignItems: 'center',
 });
 
 export const cards = style({
-  display: 'flex',
+  width: '100%',
 
-  flexShrink: 0,
-  flexWrap: 'wrap',
-  rowGap: '1rem',
-  columnGap: '0.8rem',
-  justifyContent: 'flex-start',
-  alignItems: 'flex-start',
+  display: 'grid',
+  gridTemplateColumns: 'repeat(2, 49%)',
+  gridAutoRows: 'auto',
+  gap: '1.6rem 0.8rem',
+
+  '@media': {
+    'screen and (max-width: 380px)': {
+      gridTemplateColumns: 'repeat(1, 100%)',
+    },
+  },
 });

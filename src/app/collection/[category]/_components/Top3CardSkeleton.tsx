@@ -8,7 +8,7 @@ function Top3CardSkeleton() {
         <ul>
           <ol className={styles.list}>
             {Array.from({ length: 3 }).map((_, index) => (
-              <Skeleton variant="text" width="15rem" height="2.5rem" animation="wave" key={index} />
+              <Skeleton variant="text" width="100%" height="2.5rem" animation="wave" key={index} />
             ))}
           </ol>
         </ul>
@@ -18,12 +18,12 @@ function Top3CardSkeleton() {
             <Skeleton variant="circular" width="30px" height="30px" animation="wave" />
           </div>
           <div className={styles.userTextWrapper}>
-            <Skeleton variant="text" width="10rem" height="1.4rem" animation="wave" />
-            <Skeleton variant="text" width="10rem" height="1.4rem" animation="wave" />
+            <Skeleton variant="text" width="100%" height="1.4rem" animation="wave" />
+            <Skeleton variant="text" width="100%" height="1.4rem" animation="wave" />
           </div>
         </div>
       </div>
-      <Skeleton variant="text" width="18rem" height="3rem" animation="wave" />
+      <Skeleton variant="text" width="100%" height="3rem" animation="wave" />
     </div>
   );
 }
