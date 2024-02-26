@@ -10,7 +10,9 @@ import collectList from '@/app/_api/collect/collectList';
 import toasting from '@/lib/utils/toasting';
 import CollectIcon from '/public/icons/collect.svg';
 import CollectedIcon from '/public/icons/collected.svg';
-import useModalState from '@/store/useModalState';
+import Modal from '@/components/Modal/Modal';
+import LoginModal from '@/components/login/LoginModal';
+import useBooleanOutput from '@/hooks/useBooleanOutput';
 
 interface CollectProps {
   ownerId: number;
@@ -20,7 +22,7 @@ interface CollectProps {
 }
 
 const CollectButton = ({ data }: { data: CollectProps }) => {
-  const { handleSetOn } = useModalState();
+  const { isOn, handleSetOff, handleSetOn } = useBooleanOutput();
 
   const queryClient = useQueryClient();
   const { user: loginUser } = useUser();
@@ -47,9 +49,16 @@ const CollectButton = ({ data }: { data: CollectProps }) => {
   // TODO: (로그인유저 !== 작성자) 인경우, viewCount, CollectCount를 아예 받아오면안된다.
   if (loginUser?.id == null) {
     return (
-      <div className={styles.collectWrapper}>
-        <CollectIcon onClick={handleSetOn} />
-      </div>
+      <>
+        <div className={styles.collectWrapper}>
+          <CollectIcon onClick={handleSetOn} />
+        </div>
+        {isOn && (
+          <Modal handleModalClose={handleSetOff} size="large">
+            <LoginModal />
+          </Modal>
+        )}
+      </>
     );
   }
 
