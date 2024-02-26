@@ -5,7 +5,7 @@ import { motion } from 'framer-motion';
 
 import * as styles from './Section1.css';
 import Logo from '/public/icons/logo.svg';
-import SurfImage from '/public/images/surf_image.svg';
+import SurfImage from '/public/images/surf_image_white.svg';
 import Telescope from '/public/icons/telescope.svg';
 import ChevronDown from '/public/icons/chevron_down_double.svg';
 import MotionWrapper from './MotionWrapper';
