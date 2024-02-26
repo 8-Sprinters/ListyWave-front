@@ -1,16 +1,13 @@
 'use client';
 
-/**
- TODO
- - [ ] 프로필 이미지 받아오는 중일때 next/Image에 넣을 기본 이미지 세팅(스켈레톤)
- */
-
 import Image from 'next/image';
 import { useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { assignInlineVars } from '@vanilla-extract/dynamic';
+import { AxiosError } from 'axios';
 
 import * as styles from './Profile.css';
+import * as modalStyles from '@/components/Modal/ModalButton.css';
 
 import FollowButton from './FollowButton';
 import SettingIcon from '/public/icons/setting.svg';
@@ -18,9 +15,12 @@ import ProfileSkeleton from './ProfileSkeleton';
 
 import useMoveToPage from '@/hooks/useMoveToPage';
 import getUserOne from '@/app/_api/user/getUserOne';
+
 import { QUERY_KEYS } from '@/lib/constants/queryKeys';
 import { UserType } from '@/lib/types/userProfileType';
 import numberFormatter from '@/lib/utils/numberFormatter';
+
+import Modal from '@/components/Modal/Modal';
 
 export default function Profile({ userId }: { userId: number }) {
   const [hasError, setHasError] = useState(false);
@@ -28,10 +28,25 @@ export default function Profile({ userId }: { userId: number }) {
 
   const fallbackProfileImageSrc = 'https://image.utoimage.com/preview/cp872722/2022/12/202212008462_500.jpg';
 
-  const { data, isFetching } = useQuery<UserType>({
+  const { data, isFetching, error, isError } = useQuery<UserType>({
     queryKey: [QUERY_KEYS.userOne, userId],
     queryFn: () => getUserOne(userId),
+    retry: 1,
   });
+
+  // 탈퇴한 회원이거나(400), 잘못된 id거나(400), 없는 회원(404)인 경우 에러처리
+  if (isError && error instanceof AxiosError) {
+    return (
+      <Modal size="basic" handleModalClose={onClickMoveToPage('/')}>
+        <Modal.Title>{error.response?.data.detail}</Modal.Title>
+        <div className={modalStyles.buttonContainer}>
+          <button type="button" className={modalStyles.button.primary} onClick={onClickMoveToPage('/')}>
+            확인
+          </button>
+        </div>
+      </Modal>
+    );
+  }
 
   const handleImageError = () => {
     /** 
