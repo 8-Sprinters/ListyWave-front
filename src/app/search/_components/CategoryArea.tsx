@@ -10,10 +10,7 @@ import { QUERY_KEYS } from '@/lib/constants/queryKeys';
 import getCategories from '@/app/_api/category/getCategories';
 import CategoryAreaSkeleton from '@/app/search/_components/CategoryAreaSkeleton';
 
-import tempImageSrc from '/public/images/mock_profile.png';
 import CheckIcon from '/public/icons/check_red.svg';
-
-// TODO: 추후 카테고리 리스트 get요청시 'imageUrl'을 받기로했습니다.
 
 function CategoryArea({ onClick }: { onClick: MouseEventHandler }) {
   const searchParams = useSearchParams();
@@ -31,11 +28,12 @@ function CategoryArea({ onClick }: { onClick: MouseEventHandler }) {
         : data &&
           data.map((category) => (
             <div className={styles.category} key={category.codeValue} onClick={onClick} data-value={category.nameValue}>
-              {/*<img className={styles.itemImage} src={category.imageUrl} alt={category.korNameValue}/>*/}
               <Image
-                src={tempImageSrc}
                 className={categoryValue === category.nameValue ? styles.selectedCategoryImage : styles.categoryImage}
+                src={category.categoryImageUrl}
                 alt={category.korNameValue}
+                width="60"
+                height="60"
               />
               <div className={styles.categoryText}>{category.korNameValue}</div>
               {categoryValue === category.nameValue && (

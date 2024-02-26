@@ -35,6 +35,7 @@ export const listWrapper = style({
 
 export const simpleItemWrapper = style({
   width: '100%',
+  height: '7rem',
 
   display: 'flex',
   justifyContent: 'space-between',

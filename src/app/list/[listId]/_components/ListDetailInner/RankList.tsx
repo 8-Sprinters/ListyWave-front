@@ -36,11 +36,11 @@ function SimpleList({ listData }: RankListProps) {
           </div>
           <div className={styles.titleText}>{item.title}</div>
         </div>
-        <div className={styles.simpleImageWrapper}>
-          {item.imageUrl && (
+        {item.imageUrl && (
+          <div className={styles.simpleImageWrapper}>
             <Image className={styles.simpleImage} src={item.imageUrl} alt="img설명" width={70} height={72} />
-          )}
-        </div>
+          </div>
+        )}
       </div>
     );
   });
@@ -92,7 +92,7 @@ function DetailList({ listData }: RankListProps) {
         {item.comment && <div className={styles.commentText}>{item.comment}</div>}
         <div className={styles.detailImageWrapper}>
           {item.imageUrl && (
-            <img className={styles.detailImage} src={item.imageUrl} alt={`"${item.title}" 의 이미지`} />
+            <Image className={styles.detailImage} src={item.imageUrl} alt={`"${item.title}" 의 이미지`} fill={true} />
           )}
         </div>
         {item.link && <EmbedComponent link={item.link} />}
