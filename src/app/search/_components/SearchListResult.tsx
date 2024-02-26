@@ -114,7 +114,6 @@ function SearchListResult() {
             {result?.resultList?.map((list: SearchListType) => <Top3Card key={list.id} list={list} />)}
             {isFetchingNextPage && result?.resultList?.map((_, index) => <Top3CardSkeleton key={index} />)}
           </div>
-          {hasNextPage && <div ref={ref}></div>}
         </div>
       </div>
     );
@@ -136,6 +135,7 @@ function SearchListResult() {
         // 데이터가 없는 경우
         <NoData />
       )}
+      {hasNextPage && <div ref={ref}></div>}
     </>
   );
 }

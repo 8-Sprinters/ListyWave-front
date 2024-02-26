@@ -28,8 +28,11 @@ export const skeletonContainer = style([
 ]);
 
 export const profileImageWrapper = style({
-  width: '4rem',
-  height: '4rem',
+  width: '4.2rem',
+  height: '4.2rem',
+
+  border: `1px solid ${vars.color.gray5}`,
+  borderRadius: '50px',
 
   display: 'flex',
   alignItems: 'center',

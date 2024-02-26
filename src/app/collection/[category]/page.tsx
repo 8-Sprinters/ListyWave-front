@@ -71,7 +71,6 @@ function CollectionByCategory() {
             ))}
             {isFetchingNextPage && result?.resultList?.map((_, index) => <Top3CardSkeleton key={index} />)}
           </div>
-          {hasNextPage && <div ref={ref}></div>}
         </div>
       </div>
     );
@@ -101,6 +100,7 @@ function CollectionByCategory() {
         ) : (
           <NoData />
         )}
+        {hasNextPage && <div ref={ref}></div>}
       </>
     </>
   );

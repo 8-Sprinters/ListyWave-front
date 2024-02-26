@@ -67,23 +67,22 @@ export const userProfiles = style({
 });
 
 export const userImageWrapper = style({
-  width: '3rem',
-  height: '3rem',
+  width: '3.2rem',
+  height: '3.2rem',
 
   border: `1px solid ${vars.color.gray5}`,
   borderRadius: '50px',
 
   flexShrink: 0,
-
-  overflow: 'hidden',
 });
 
 export const userImage = style({
-  minWidth: '30px',
-  minHeight: '30px',
-  flex: '0 0 1',
+  width: '100%',
+  height: '100%',
 
+  borderRadius: '50px',
   backgroundColor: vars.color.gray7,
+  objectFit: 'cover',
 });
 
 export const userTextWrapper = style({
