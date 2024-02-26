@@ -34,21 +34,6 @@ export const profileImageWrapper = style({
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'center',
-
-  border: `1px solid ${vars.color.gray5}`,
-  borderRadius: '50px',
-
-  overflow: 'hidden',
-});
-
-export const userImage = style({
-  width: '4rem',
-  height: '4rem',
-
-  flex: '0 0 1',
-  flexShrink: 0,
-
-  backgroundColor: vars.color.gray7,
 });
 
 export const nicknameText = style({

@@ -6,6 +6,7 @@ import * as styles from './Top3Card.css';
 import { SearchListType } from '@/lib/types/listType';
 import formatDate from '@/lib/utils/dateFormat';
 import Top3CardItem from './Top3CardItem';
+import UserProfileImage from '@/components/UserProfileImage/UserProfileImage';
 
 export default function Top3Card({ list }: { list: SearchListType }) {
   const router = useRouter();
@@ -34,16 +35,7 @@ export default function Top3Card({ list }: { list: SearchListType }) {
 
           <div className={styles.userProfiles}>
             <div className={styles.userImageWrapper}>
-              <Image
-                alt="프로필 이미지"
-                width={30}
-                height={30}
-                src={list.ownerProfileImageUrl}
-                className={styles.userImage}
-                style={{
-                  objectFit: 'cover',
-                }}
-              />
+              <UserProfileImage src={list.ownerProfileImageUrl} size={30} />
             </div>
             <div className={styles.userTextWrapper}>
               <div className={styles.nameText}>{list.ownerNickname}</div>

@@ -70,20 +70,7 @@ export const userImageWrapper = style({
   width: '3rem',
   height: '3rem',
 
-  border: `1px solid ${vars.color.gray5}`,
-  borderRadius: '50px',
-
   flexShrink: 0,
-
-  overflow: 'hidden',
-});
-
-export const userImage = style({
-  minWidth: '30px',
-  minHeight: '30px',
-  flex: '0 0 1',
-
-  backgroundColor: vars.color.gray7,
 });
 
 export const userTextWrapper = style({
