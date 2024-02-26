@@ -72,7 +72,7 @@ export default function AccountPage() {
           </div>
         </div>
         {isOn && <LogoutModal handleSetOff={handleSetOff} />}
-        <div className={styles.buttonDiv}>
+        <div className={styles.buttonDiv} onClick={onClickMoveToPage('account/withdraw')} role="button">
           <div className={styles.titleDiv}>
             <WithdrawIcon width={24} height={24} alt="탈퇴" />
             회원탈퇴
