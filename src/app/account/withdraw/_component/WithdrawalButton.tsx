@@ -16,13 +16,6 @@ interface WithdrawalButtonProps {
   isDisabled: boolean;
 }
 
-const oauthType = {
-  // TODO oauth type 전달
-  kakao: 'kakao',
-  naver: 'naver',
-  google: 'google',
-};
-
 export default function WithdrawalButton({ isDisabled }: WithdrawalButtonProps) {
   const { isOn, handleSetOn, handleSetOff } = useBooleanOutput(false);
   const router = useRouter();
