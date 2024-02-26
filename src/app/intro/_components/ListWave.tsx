@@ -1,14 +1,8 @@
 'use client';
+
+import Image from 'next/image';
 import { assignInlineVars } from '@vanilla-extract/dynamic';
 import * as styles from './ListWave.css';
-
-import CultureIcon from '/public/icons/category_culture.svg';
-import LifeIcon from '/public/icons/category_life.svg';
-import PlaceIcon from '/public/icons/category_place.svg';
-import MusicIcon from '/public/icons/category_music.svg';
-import MovieIcon from '/public/icons/category_movie.svg';
-import BookIcon from '/public/icons/category_book.svg';
-import PlantIcon from '/public/icons/category_plant.svg';
 
 function ListWave() {
   return (
@@ -17,7 +11,7 @@ function ListWave() {
         <div
           className={styles.listWrapper1}
           style={assignInlineVars({
-            [styles.customBackgroundImage]: `url('${'/images/section6_image1.svg'}')`,
+            [styles.customBackgroundImage]: `url('${'/images/section6_image1.png'}')`,
           })}
         >
           <div className={styles.informationWrapper}>
@@ -26,13 +20,13 @@ function ListWave() {
             <span>3.교환학생</span>
           </div>
           <div className={styles.iconWrapper}>
-            <CultureIcon alt="문화 카테고리 아이콘" />
+            <Image src={'/images/category_culture.png'} alt="문화 카테고리 아이콘" width={60} height={60} />
           </div>
         </div>
         <div
           className={styles.listWrapper2}
           style={assignInlineVars({
-            [styles.customBackgroundImage]: `url('${'/images/section6_image2.svg'}')`,
+            [styles.customBackgroundImage]: `url('${'/images/section6_image2.png'}')`,
           })}
         >
           <div className={styles.informationWrapper}>
@@ -41,13 +35,13 @@ function ListWave() {
             <span>3.운동</span>
           </div>
           <div className={styles.iconWrapper}>
-            <LifeIcon alt="일상생활 카테고리 아이콘" />
+            <Image src={'/images/category_life.png'} alt="일상생활 카테고리 아이콘" width={60} height={60} />
           </div>
         </div>
         <div
           className={styles.listWrapper3}
           style={assignInlineVars({
-            [styles.customBackgroundImage]: `url('${'/images/section6_image3.svg'}')`,
+            [styles.customBackgroundImage]: `url('${'/images/section6_image3.png'}')`,
           })}
         >
           <div className={styles.informationWrapper}>
@@ -56,13 +50,13 @@ function ListWave() {
             <span>3.진진빵집</span>
           </div>
           <div className={styles.iconWrapper}>
-            <PlaceIcon alt="장소 카테고리 아이콘" />
+            <Image src={'/images/category_place.png'} alt="장소 카테고리 아이콘" width={60} height={60} />
           </div>
         </div>
         <div
           className={styles.listWrapper4}
           style={assignInlineVars({
-            [styles.customBackgroundImage]: `url('${'/images/section6_image4.svg'}')`,
+            [styles.customBackgroundImage]: `url('${'/images/section6_image4.png'}')`,
           })}
         >
           <div className={styles.informationWrapper}>
@@ -71,13 +65,13 @@ function ListWave() {
             <span>3.봄사랑벚꽃말고</span>
           </div>
           <div className={styles.iconWrapper}>
-            <MusicIcon alt="음악 카테고리 아이콘" />
+            <Image src={'/images/category_music.png'} alt="음악 카테고리 아이콘" width={60} height={60} />
           </div>
         </div>
         <div
           className={styles.listWrapper5}
           style={assignInlineVars({
-            [styles.customBackgroundImage]: `url('${'/images/section6_image5.svg'}')`,
+            [styles.customBackgroundImage]: `url('${'/images/section6_image5.png'}')`,
           })}
         >
           <div className={styles.informationWrapper}>
@@ -86,13 +80,13 @@ function ListWave() {
             <span>3.컨저링</span>
           </div>
           <div className={styles.iconWrapper}>
-            <MovieIcon alt="영화/드라마 카테고리 아이콘" />
+            <Image src={'/images/category_play.png'} alt="영화/드라마 카테고리 아이콘" width={60} height={60} />
           </div>
         </div>
         <div
           className={styles.listWrapper6}
           style={assignInlineVars({
-            [styles.customBackgroundImage]: `url('${'/images/section6_image6.svg'}')`,
+            [styles.customBackgroundImage]: `url('${'/images/section6_image6.png'}')`,
           })}
         >
           <div className={styles.informationWrapper}>
@@ -101,13 +95,13 @@ function ListWave() {
             <span>3.삼국지</span>
           </div>
           <div className={styles.iconWrapper}>
-            <BookIcon alt="도서 카테고리 아이콘" />
+            <Image src={'/images/category_book.png'} alt="도서 카테고리 아이콘" width={60} height={60} />
           </div>
         </div>
         <div
           className={styles.listWrapper7}
           style={assignInlineVars({
-            [styles.customBackgroundImage]: `url('${'/images/section6_image7.svg'}')`,
+            [styles.customBackgroundImage]: `url('${'/images/section6_image7.png'}')`,
           })}
         >
           <div className={styles.informationWrapper}>
@@ -116,7 +110,7 @@ function ListWave() {
             <span>3.푸들</span>
           </div>
           <div className={styles.iconWrapper}>
-            <PlantIcon alt="동/식물 카테고리 아이콘" />
+            <Image src={'/images/category_plant.png'} alt="동/식물 카테고리 아이콘" width={60} height={60} />
           </div>
         </div>
       </div>

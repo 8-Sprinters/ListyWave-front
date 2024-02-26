@@ -1,4 +1,4 @@
-import { style, keyframes } from '@vanilla-extract/css';
+import { style, createVar } from '@vanilla-extract/css';
 import { vars } from '@/styles/theme.css';
 import * as fonts from '@/styles/font.css';
 
@@ -42,8 +42,24 @@ export const titleWrapper = style([
     flexDirection: 'column',
     alignItems: 'center',
     gap: '5px',
+    whiteSpace: 'wrap',
   },
 ]);
+
+export const wordBreakContainer = style({
+  display: 'flex',
+  alignItems: 'center',
+  gap: '8px',
+  '@media': {
+    '(max-width: 415px)': {
+      flexDirection: 'column',
+      gap: '4px',
+    },
+  },
+});
+
+export const titleBreak = style([fonts.headlineLarge, wordBreakContainer, {}]);
+export const subTitleBreak = style([fonts.bodyRegular, wordBreakContainer, {}]);
 
 export const subTitleWrapper = style([
   fonts.bodyRegular,

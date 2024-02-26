@@ -1,6 +1,8 @@
-import { style, keyframes } from '@vanilla-extract/css';
+import { style, createVar } from '@vanilla-extract/css';
 import { vars } from '@/styles/theme.css';
 import * as fonts from '@/styles/font.css';
+
+export const customBackgroundImage = createVar();
 
 export const background = style({
   width: '100%',
@@ -16,23 +18,42 @@ export const wrapper = style({
   paddingTop: '136px',
 
   position: 'relative',
+
+  overflow: 'hidden',
 });
 
 export const imageWrapper = style({
   position: 'absolute',
 
   width: '100%',
-  height: 'auto',
 });
 
 export const tapeImageWrapper = style([
   imageWrapper,
   {
+    width: '100%',
+    height: '170px',
+    left: '50%',
+    transform: 'translateX(-50%)',
+
     bottom: 50,
+    zIndex: 10,
   },
 ]);
 
+export const tapeImageParent = style({
+  width: '100%',
+  height: 'auto',
+  position: 'relative',
+
+  backgroundImage: customBackgroundImage,
+  backgroundSize: 'contain',
+  backgroundRepeat: 'no-repeat',
+});
+
 export const titleWrapper = style({
+  width: '100%',
+
   position: 'absolute',
   left: '50%',
   transform: 'translateX(-50%)',
@@ -58,4 +79,5 @@ export const title = style({
   color: '#fff',
   fontSize: '3.2rem',
   fontWeight: 800,
+  wordBreak: 'keep-all',
 });

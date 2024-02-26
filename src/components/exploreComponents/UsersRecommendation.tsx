@@ -41,23 +41,21 @@ function UsersRecommendation() {
 
   return (
     <section>
-      {myId && (
+      {myId && usersList?.length !== 0 && (
         <div className={styles.wrapper}>
           <div className={styles.titleWrapper}>
             <h2 className={styles.sectionTitle}>HI, LISTER</h2>
             <Image src={waveEmoji} alt="인사하는 손 모양 이모지" width="22" />
           </div>
-          {usersList?.length !== 0 && (
-            <ul className={styles.recommendUsersListWrapper} ref={wrapperRef}>
-              {usersList?.map((item: UserProfileType) => {
-                return (
-                  <li key={item.id}>
-                    <UserRecommendListItem data={item} handleScrollToRight={handleScrollToRight} userId={userMe?.id} />
-                  </li>
-                );
-              })}
-            </ul>
-          )}
+          <ul className={styles.recommendUsersListWrapper} ref={wrapperRef}>
+            {usersList?.map((item: UserProfileType) => {
+              return (
+                <li key={item.id}>
+                  <UserRecommendListItem data={item} handleScrollToRight={handleScrollToRight} userId={userMe?.id} />
+                </li>
+              );
+            })}
+          </ul>
         </div>
       )}
     </section>
