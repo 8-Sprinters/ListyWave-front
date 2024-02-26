@@ -1,17 +1,13 @@
-'use client';
-
 import { ReactNode } from 'react';
 import type { Viewport } from 'next';
 import { ToastContainer } from 'react-toastify';
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { CookiesProvider } from 'react-cookie';
 
 import BottomNav from '@/components/BottomNav/BottomNav';
 
 import '@/styles/GlobalStyles.css';
 import * as styles from './layout.css';
 
-const queryClient = new QueryClient();
+import CommonProvider from './_context/CommonProvider';
 
 export const viewport: Viewport = {
   width: 'device-width',
@@ -21,7 +17,7 @@ export const viewport: Viewport = {
   viewportFit: 'cover',
 };
 
-export default function TempLayout({ children }: { children: ReactNode }) {
+export default function Layout({ children }: { children: ReactNode }) {
   return (
     <html lang="ko">
       <head>
@@ -29,16 +25,14 @@ export default function TempLayout({ children }: { children: ReactNode }) {
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css" />
       </head>
       <body className={styles.body}>
-        <QueryClientProvider client={queryClient}>
-          <CookiesProvider>
-            <div id="modal-root" />
-            <div>
-              {children}
-              <BottomNav />
-            </div>
-            <ToastContainer className={styles.toastContainer} />
-          </CookiesProvider>
-        </QueryClientProvider>
+        <CommonProvider>
+          <div id="modal-root" />
+          <div>
+            {children}
+            <BottomNav />
+          </div>
+          <ToastContainer className={styles.toastContainer} />
+        </CommonProvider>
       </body>
     </html>
   );
