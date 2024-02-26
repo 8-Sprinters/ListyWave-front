@@ -20,14 +20,14 @@ import { QUERY_KEYS } from '@/lib/constants/queryKeys';
 
 import CreateListStep from './_components/CreateListStep';
 import CreateNicknameStep from './_components/CreateNicknameStep';
-import Modal from '@/components/Modal/Modal';
 
-import useBooleanOutput from '@/hooks/useBooleanOutput';
+// import Modal from '@/components/Modal/Modal';
+// import useBooleanOutput from '@/hooks/useBooleanOutput';
 
 export default function StartListyPage() {
   const { user } = useUser();
   const [stepIndex, setStepIndex] = useState(0);
-  const { isOn, handleSetOn, handleSetOff } = useBooleanOutput();
+  // const { isOn, handleSetOn, handleSetOff } = useBooleanOutput();
 
   const {
     data: userData,
@@ -73,7 +73,7 @@ export default function StartListyPage() {
       {userData && (
         <div>
           {stepIndex === 0 && (
-            <CreateNicknameStep userData={userData} handleNextStep={handleNextStep} refetch={refetch} />
+            <CreateNicknameStep userId={userData?.id} handleNextStep={handleNextStep} refetch={refetch} />
           )}
           {stepIndex === 1 && <CreateListStep userId={userData?.id} nickname={userData.nickname} />}
         </div>

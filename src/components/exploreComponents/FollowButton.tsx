@@ -1,5 +1,5 @@
 'use client';
-import { useRouter } from 'next/navigation';
+
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { AxiosError } from 'axios';
 
@@ -14,6 +14,10 @@ import toasting from '@/lib/utils/toasting';
 import toastMessage, { MAX_FOLLOWING } from '@/lib/constants/toastMessage';
 import * as styles from './UsersRecommendation.css';
 
+import useBooleanOutput from '@/hooks/useBooleanOutput';
+import Modal from '@/components/Modal/Modal';
+import LoginModal from '@/components/login/LoginModal';
+
 interface FollowButtonProps {
   isFollowing: boolean;
   onClick: () => void;
@@ -23,8 +27,8 @@ interface FollowButtonProps {
 
 function FollowButton({ isFollowing, onClick, userId, targetId }: FollowButtonProps) {
   const queryClient = useQueryClient();
-  const router = useRouter();
   const { user: userMe } = useUser();
+  const { isOn, handleSetOff, handleSetOn } = useBooleanOutput();
 
   const { data: userMeData } = useQuery<UserType>({
     queryKey: [QUERY_KEYS.userOne, userId],
@@ -43,8 +47,7 @@ function FollowButton({ isFollowing, onClick, userId, targetId }: FollowButtonPr
     },
     onError: (error: AxiosError) => {
       if (error.response?.status === 401) {
-        toasting({ type: 'warning', txt: toastMessage.ko.requiredLogin });
-        router.push('/login');
+        handleSetOn();
       }
     },
   });
@@ -56,6 +59,11 @@ function FollowButton({ isFollowing, onClick, userId, targetId }: FollowButtonPr
       queryClient.invalidateQueries({
         queryKey: [QUERY_KEYS.userOne, userId],
       });
+    },
+    onError: (error: AxiosError) => {
+      if (error.response?.status === 401) {
+        handleSetOn();
+      }
     },
   });
 
@@ -78,12 +86,19 @@ function FollowButton({ isFollowing, onClick, userId, targetId }: FollowButtonPr
   }
 
   return (
-    <button
-      className={`${styles.followButtonDefault} ${isFollowing === true ? styles.followButtonFollowing : ''}`}
-      onClick={handleFollowUser(isFollowing)}
-    >
-      <span>{isFollowing ? '팔로잉' : '팔로우'}</span>
-    </button>
+    <>
+      <button
+        className={`${styles.followButtonDefault} ${isFollowing === true ? styles.followButtonFollowing : ''}`}
+        onClick={handleFollowUser(isFollowing)}
+      >
+        <span>{isFollowing ? '팔로잉' : '팔로우'}</span>
+      </button>
+      {isOn && (
+        <Modal handleModalClose={handleSetOff} size="large">
+          <LoginModal />
+        </Modal>
+      )}
+    </>
   );
 }
 

@@ -53,11 +53,6 @@ const dataToPath = (data: NotificationType) => {
   }
 };
 
-/**TODO:
- * - 제대로 된 path로 보내기. (listOwnerId도 함께 받거나, 리스트 상세 URL 변경)
- * - 코멘트 위치로 스크롤은 무한스크롤 때문에 어려울 것으로 예상 => 코멘트 컴포넌트로 스크롤 하도록 (리스트상세-코멘트 파일에서 작업 필요)
- * - 댓글/답글의 경우 색으로 구분. 가능하다면 관련 답글 열기
- */
 export default function NotificationList() {
   const router = useRouter();
   const { data, isLoading } = useQuery<NotificationsType>({

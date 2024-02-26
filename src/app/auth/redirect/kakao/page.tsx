@@ -9,6 +9,8 @@ import { useUser } from '@/store/useUser';
 import { UserOnLoginType } from '@/lib/types/user';
 import { setCookie } from '@/lib/utils/cookie';
 
+import Loading from '@/components/loading/Loading';
+
 export default function KakaoRedirectPage() {
   const router = useRouter();
   const { updateUser } = useUser();
@@ -19,7 +21,7 @@ export default function KakaoRedirectPage() {
     const controller = new AbortController();
 
     if (!code) {
-      router.push('/login');
+      router.back();
       return;
     }
 
@@ -63,5 +65,17 @@ export default function KakaoRedirectPage() {
     };
   }, [code]);
 
-  return <div>로그인 중입니다.</div>;
+  return (
+    <div
+      style={{
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        justifyContent: 'center',
+        height: '100vh',
+      }}
+    >
+      <Loading />
+    </div>
+  );
 }

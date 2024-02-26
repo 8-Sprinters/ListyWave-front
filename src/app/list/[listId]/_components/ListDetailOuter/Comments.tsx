@@ -208,7 +208,7 @@ function Comments() {
         // 해시가 있다면 해당 요소를 찾아 스크롤을 이동합니다.
         const targetElement = document.getElementById('commentRef');
         if (targetElement) {
-          targetElement.scrollIntoView({ behavior: 'smooth' });
+          targetElement.scrollIntoView({ behavior: 'smooth', block: 'end' });
         }
       }
     };

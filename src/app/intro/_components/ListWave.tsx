@@ -1,4 +1,5 @@
 'use client';
+
 import Image from 'next/image';
 import { assignInlineVars } from '@vanilla-extract/dynamic';
 import * as styles from './ListWave.css';
