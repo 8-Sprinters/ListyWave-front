@@ -4,8 +4,8 @@ import * as fonts from '@/styles/font.css';
 
 export const background = style({
   width: '100%',
-  height: '763px',
-  padding: '81px 30px 20px',
+  height: '670px',
+  padding: '81px 0 20px',
 
   background: vars.color.white,
 });
@@ -16,6 +16,8 @@ export const wrapper = style({
 });
 
 export const contentsWrapper = style({
+  padding: '0 30px',
+
   display: 'flex',
   flexDirection: 'column',
   alignItems: 'flex-end',
@@ -53,7 +55,7 @@ export const titleLine1 = style({
 export const subTitleWrapper = style([
   fonts.bodyRegular,
   {
-    marginBottom: '50px',
+    marginBottom: '32px',
 
     display: 'flex',
     flexDirection: 'column',
@@ -83,3 +85,11 @@ export const linkWrapper = style([
     fontWeight: 700,
   },
 ]);
+
+export const searchBarWrapper = style({
+  padding: '0 30px',
+  marginBottom: '80px',
+
+  display: 'flex',
+  justifyContent: 'flex-end',
+});

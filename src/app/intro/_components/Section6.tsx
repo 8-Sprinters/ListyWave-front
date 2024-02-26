@@ -1,5 +1,7 @@
 'use client';
+import ListWave from './ListWave';
 import MotionWrapper from './MotionWrapper';
+import SearchBar from './SearchBar';
 import * as styles from './Section6.css';
 
 function Section6() {
@@ -21,6 +23,12 @@ function Section6() {
               </div>
               <div className={styles.imageWrapper}></div>
             </MotionWrapper>
+          </div>
+          <div className={styles.searchBarWrapper}>
+            <SearchBar />
+          </div>
+          <div>
+            <ListWave />
           </div>
         </MotionWrapper>
       </div>
