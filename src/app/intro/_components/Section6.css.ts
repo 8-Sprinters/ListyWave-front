@@ -4,7 +4,7 @@ import * as fonts from '@/styles/font.css';
 
 export const background = style({
   width: '100%',
-  height: '670px',
+  height: '750px',
   padding: '81px 0 20px',
 
   background: vars.color.white,
