@@ -35,7 +35,7 @@ export const button = style({
   display: 'flex',
   justifyContent: 'center',
 
-  fontSize: '1.6rem',
+  fontSize: '2rem',
   fontWeight: 700,
   color: vars.color.white,
   borderRadius: '50px',
