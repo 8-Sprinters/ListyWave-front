@@ -15,11 +15,8 @@ function Section2() {
             <WaveImage />
           </div>
           <div className={styles.tapeImageWrapper}>
-            <div
-              className={styles.tapeImageParent}
-              // style={assignInlineVars({ [styles.customBackgroundImage]: `url(${'/images/tape_image.png'})` })}
-            ></div>
-            <Image src={'/images/tape_image.png'} alt="테이프 이미지" fill style={{ objectFit: 'cover' }} />
+            <div className={styles.tapeImageParent}></div>
+            <Image src={'/images/tape_image.png'} alt="테이프 이미지" fill style={{ objectFit: 'contain' }} />
           </div>
           <div className={styles.titleWrapper}>
             <MotionWrapper variantsType="vertical" delay={0.3}>

@@ -18,6 +18,8 @@ export const wrapper = style({
   paddingTop: '136px',
 
   position: 'relative',
+
+  overflow: 'hidden',
 });
 
 export const imageWrapper = style({
@@ -29,10 +31,11 @@ export const imageWrapper = style({
 export const tapeImageWrapper = style([
   imageWrapper,
   {
-    width: '450px',
+    width: '100%',
     height: '170px',
     left: '50%',
     transform: 'translateX(-50%)',
+
     bottom: 50,
     zIndex: 10,
   },
