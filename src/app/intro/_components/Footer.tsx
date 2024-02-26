@@ -32,7 +32,7 @@ function Footer() {
           </div>
           <div className={styles.policyWrapper}>
             <p>개인정보 취급방침</p>
-            <p>seoyoungiyo@gmail.com</p>
+            {/* <p>seoyoungiyo@gmail.com</p> */}
             <p>Copyright ©Listywave - All rights reserved</p>
           </div>
         </div>
