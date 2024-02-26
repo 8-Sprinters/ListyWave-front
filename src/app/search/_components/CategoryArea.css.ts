@@ -24,6 +24,13 @@ export const category = style({
   cursor: 'pointer',
 });
 
+export const skeletonCategory = style([
+  category,
+  {
+    cursor: 'default',
+  },
+]);
+
 export const categoryImage = style({
   width: '6rem',
   height: '6rem',

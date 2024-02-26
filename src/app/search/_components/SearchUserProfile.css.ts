@@ -16,6 +16,17 @@ export const container = style({
   },
 });
 
+export const skeletonContainer = style([
+  container,
+  {
+    cursor: 'default',
+    ':hover': {
+      transform: 'none',
+      transition: 'none',
+    },
+  },
+]);
+
 export const profileImageWrapper = style({
   width: '4rem',
   height: '4rem',

@@ -4,7 +4,7 @@ import * as styles from './Top3Card.css';
 function Top3CardSkeleton() {
   return (
     <div className={styles.card}>
-      <div className={styles.listWrapper}>
+      <div className={styles.skeletonListWrapper}>
         <ul>
           <ol className={styles.list}>
             {Array.from({ length: 3 }).map((_, index) => (
