@@ -4,6 +4,8 @@ const ApexChart = dynamic(() => import('react-apexcharts'), { ssr: false });
 import * as styles from './HistoryGraph.css';
 import { HistoryType } from '@/lib/types/historyType';
 import timeDiff from '@/lib/utils/time-diff';
+import { useLanguage } from '@/store/useLanguage';
+import { listLocale } from '@/app/list/[listId]/locale';
 
 interface ItemType {
   title: string;
@@ -85,6 +87,8 @@ interface Option {
 }
 
 export function Chart({ histories, itemRankHistories }: ChartProps) {
+  const { language } = useLanguage();
+
   const option: Option = {
     chart: {
       id: 'history graph',
@@ -116,7 +120,7 @@ export function Chart({ histories, itemRankHistories }: ChartProps) {
       horizontalAlign: 'left',
     },
     noData: {
-      text: '히스토리가 없어요.',
+      text: listLocale[language].noHistory,
       align: 'center',
       verticalAlign: 'bottom',
       offsetX: 0,

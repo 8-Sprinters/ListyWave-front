@@ -8,6 +8,7 @@ import { vars } from '@/styles/theme.css';
 import Airplane from '/public/icons/airplane_send.svg';
 import { useLanguage } from '@/store/useLanguage';
 import { commentPlaceholder } from '@/lib/constants/placeholder';
+import { commentLocale } from '@/app/list/[listId]/locale';
 
 interface CommentFormProps {
   comment?: string;
@@ -39,10 +40,14 @@ function CommentForm({
       <div className={`${styles.formWrapperInner} ${!!activeNickname || isEditing ? styles.activeFormWrapper : ''}`}>
         {activeNickname && (
           <div className={styles.activeReplyWrapper}>
-            <span className={styles.replyNickname}>{`@${activeNickname}님에게 남긴 답글`}</span>
+            <span className={styles.replyNickname}>
+              {language === 'ko'
+                ? `@${activeNickname} ${commentLocale.ko.replyNickname}`
+                : `${commentLocale.en.replyNickname} @${activeNickname}`}
+            </span>
             <CancelButton
               className={styles.clearButton}
-              alt="지우기 버튼"
+              alt={commentLocale[language].cancelButtonAlt}
               onClick={handleUpdate}
               width={18}
               height={18}
@@ -52,10 +57,10 @@ function CommentForm({
         )}
         {isEditing && (
           <div className={styles.activeReplyWrapper}>
-            <span className={styles.replyNickname}>{`댓글/답글 수정 중`}</span>
+            <span className={styles.replyNickname}>{commentLocale[language].editing}</span>
             <CancelButton
               className={styles.clearButton}
-              alt="지우기 버튼"
+              alt={commentLocale[language].cancelButtonAlt}
               onClick={handleCancel}
               width={18}
               height={18}

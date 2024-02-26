@@ -17,6 +17,7 @@ const toastMessage = {
     duplicatedItemError: '중복된 아이템이 있어요🥲',
     withdraw: '리스티웨이브를 탈퇴했어요.🥲 꼭 돌아와주세요!',
     withdrawError: '탈퇴에 실패했어요. 다시 시도해주세요.',
+    failedCollect: '콜렉트에 실패했어요. 다시 시도해주세요.🥲',
   },
   en: {
     requiredLogin: 'Login is required.',
@@ -34,6 +35,7 @@ const toastMessage = {
     duplicatedItemError: 'Duplicated items exist🥲',
     withdraw: "You've withdrawn from ListyWave. 🥲 Please come back soon!",
     withdrawError: 'Failed to withdraw. Please try again.',
+    failedCollect: 'Failed to collect. Please try again.🥲',
   },
 };
 

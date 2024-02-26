@@ -9,6 +9,8 @@ import { ItemType } from '@/lib/types/listType';
 import LinkPreview from '@/components/LinkPreview/LinkPreview';
 import VideoEmbed from '@/components/VideoEmbed/VideoEmbed';
 import CrownIcon from '/public/icons/crown_new.svg';
+import { useLanguage } from '@/store/useLanguage';
+import { listLocale } from '@/app/list/[listId]/locale';
 
 interface RankListProps {
   listData: ItemType[];
@@ -38,7 +40,7 @@ function SimpleList({ listData }: RankListProps) {
         </div>
         {item.imageUrl && (
           <div className={styles.simpleImageWrapper}>
-            <Image className={styles.simpleImage} src={item.imageUrl} alt="img설명" width={70} height={72} />
+            <Image className={styles.simpleImage} src={item.imageUrl} alt={item.title} width={70} height={72} />
           </div>
         )}
       </div>
@@ -91,9 +93,7 @@ function DetailList({ listData }: RankListProps) {
         </div>
         {item.comment && <div className={styles.commentText}>{item.comment}</div>}
         <div className={styles.detailImageWrapper}>
-          {item.imageUrl && (
-            <Image className={styles.detailImage} src={item.imageUrl} alt={`"${item.title}" 의 이미지`} fill={true} />
-          )}
+          {item.imageUrl && <Image className={styles.detailImage} src={item.imageUrl} alt={item.title} fill={true} />}
         </div>
         {item.link && <EmbedComponent link={item.link} />}
       </div>
@@ -102,6 +102,7 @@ function DetailList({ listData }: RankListProps) {
 }
 
 function RankList({ listData, type, backgroundColor }: RankListProps) {
+  const { language } = useLanguage();
   return (
     <div
       id="rankList"
@@ -119,7 +120,7 @@ function RankList({ listData, type, backgroundColor }: RankListProps) {
               <DetailList listData={listData} />
             )
           ) : (
-            <div>데이터가 없습니다.</div>
+            <div>{listLocale[language].noData}</div>
           )}
         </div>
       </div>
