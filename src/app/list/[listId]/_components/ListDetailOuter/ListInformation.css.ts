@@ -1,6 +1,6 @@
 import { style } from '@vanilla-extract/css';
 import { vars } from '@/styles/theme.css';
-import { body2, title3 } from '@/styles/font.css';
+import { body2, title3, bodyRegular } from '@/styles/font.css';
 /**@todo 공용폰트 스타일 적용 */
 
 export const wrapper = style({
@@ -14,6 +14,13 @@ export const noDataWrapper = style({
   justifyContent: 'center',
   alignItems: 'center',
 });
+
+export const noDataButton = style([
+  bodyRegular,
+  {
+    color: vars.color.red,
+  },
+]);
 
 export const categoryWrapper = style({
   marginBottom: '25px',
