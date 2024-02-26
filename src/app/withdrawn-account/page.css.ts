@@ -10,9 +10,24 @@ export const wrapper = style({
   fontSize: '1.6rem',
 });
 
-export const link = style({
-  backgroundColor: vars.color.blue,
-  color: vars.color.white,
+const baseLink = style({
   padding: '8px 16px',
   borderRadius: 15,
+  marginBottom: '12px',
 });
+
+export const link = style([
+  baseLink,
+  {
+    backgroundColor: vars.color.blue,
+    color: vars.color.white,
+  },
+]);
+
+export const subLink = style([
+  baseLink,
+  {
+    backgroundColor: vars.color.blueGray,
+    color: vars.color.blue,
+  },
+]);

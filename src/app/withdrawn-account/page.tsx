@@ -10,6 +10,9 @@ export default function WithdrawnAccountPage() {
       <Link className={styles.link} href="/">
         홈으로 돌아가기
       </Link>
+      <Link className={styles.subLink} href="https://open.kakao.com/o/saz6DObg" target="_blank">
+        문의하기
+      </Link>
     </div>
   );
 }
