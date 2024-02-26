@@ -2,10 +2,13 @@ import { vars } from '@/styles/theme.css';
 import { style } from '@vanilla-extract/css';
 
 export const wrapper = style({
-  margin: '36px 16px',
+  height: '100vh',
+  padding: '18px 16px',
+
   display: 'flex',
   flexDirection: 'column',
   alignItems: 'center',
+  justifyContent: 'center',
 
   fontSize: '1.6rem',
 });
