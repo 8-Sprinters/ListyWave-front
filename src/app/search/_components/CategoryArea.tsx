@@ -11,8 +11,12 @@ import getCategories from '@/app/_api/category/getCategories';
 import CategoryAreaSkeleton from '@/app/search/_components/CategoryAreaSkeleton';
 
 import CheckIcon from '/public/icons/check_red.svg';
+import { useLanguage } from '@/store/useLanguage';
 
 function CategoryArea({ onClick }: { onClick: MouseEventHandler }) {
+  const { language } = useLanguage();
+  console.log('language:', language);
+
   const searchParams = useSearchParams();
   const categoryValue = searchParams?.get('category');
 

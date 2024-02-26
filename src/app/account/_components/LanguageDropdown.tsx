@@ -2,11 +2,12 @@ import { useState } from 'react';
 import * as styles from './LanguageDropdown.css';
 import useBooleanOutput from '@/hooks/useBooleanOutput';
 import useOnClickOutside from '@/hooks/useOnClickOutside';
+import { useLanguage } from '@/store/useLanguage';
 
 export default function LanguageDropdown() {
   const { isOn, toggle, handleSetOff } = useBooleanOutput();
   const { ref } = useOnClickOutside(handleSetOff);
-  const [language, setLanguage] = useState<'ko' | 'en'>('ko');
+  const { language, setLanguage } = useLanguage();
 
   const handleSelectLanguage = (language: 'ko' | 'en') => {
     setLanguage(language);

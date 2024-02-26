@@ -6,6 +6,8 @@ import * as styles from './Comments.css';
 import CancelButton from '/public/icons/cancel_button.svg';
 import { vars } from '@/styles/theme.css';
 import Airplane from '/public/icons/airplane_send.svg';
+import { useLanguage } from '@/store/useLanguage';
+import { commentPlaceholder } from '@/lib/constants/placeholder';
 
 interface CommentFormProps {
   comment?: string;
@@ -26,6 +28,7 @@ function CommentForm({
   handleUpdate,
   handleCancel,
 }: CommentFormProps) {
+  const { language } = useLanguage();
   const { isEditing } = useIsEditing();
 
   const { user } = useUser();
@@ -65,7 +68,9 @@ function CommentForm({
             className={styles.formInput}
             value={comment}
             onChange={handleChange}
-            placeholder={userId === 0 ? '로그인 후 댓글을 작성할 수 있습니다.' : '댓글을 입력해주세요'}
+            placeholder={
+              userId === 0 ? commentPlaceholder[language].requiredLogin : commentPlaceholder[language].comment
+            }
           />
           {comment && (
             <button type="submit" className={styles.formButton}>

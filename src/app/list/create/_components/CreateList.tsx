@@ -26,6 +26,7 @@ import { listPlaceholder } from '@/lib/constants/placeholder';
 import { listDescriptionRules, listLabelRules, listTitleRules } from '@/lib/constants/formInputValidationRules';
 
 import * as styles from './CreateList.css';
+import { useLanguage } from '@/store/useLanguage';
 
 interface CreateListProps {
   onNextClick: () => void;
@@ -40,6 +41,7 @@ interface CreateListProps {
  * @param props.onNextClick - 헤더의 '다음'버튼을 클릭했을때 동작시킬 함수
  */
 function CreateList({ onNextClick, type }: CreateListProps) {
+  const { language } = useLanguage();
   const [categories, setCategories] = useState<CategoryType[]>([]);
   const { user: me } = useUser();
 
@@ -116,7 +118,7 @@ function CreateList({ onNextClick, type }: CreateListProps) {
           <SimpleInput
             type="short"
             name="title"
-            placeholder={listPlaceholder.title}
+            placeholder={listPlaceholder[language].title}
             rules={listTitleRules}
             defaultValue={getValues('title')}
           />
@@ -127,7 +129,7 @@ function CreateList({ onNextClick, type }: CreateListProps) {
           <SimpleInput
             type="long"
             name="description"
-            placeholder={listPlaceholder.description}
+            placeholder={listPlaceholder[language].description}
             rules={listDescriptionRules}
             defaultValue={getValues('description')}
           ></SimpleInput>
@@ -146,13 +148,13 @@ function CreateList({ onNextClick, type }: CreateListProps) {
 
         {/* 라벨 */}
         <Section title="라벨">
-          <LabelInput name="labels" placeholder={listPlaceholder.label} rules={listLabelRules} />
+          <LabelInput name="labels" placeholder={listPlaceholder[language].label} rules={listLabelRules} />
         </Section>
 
         {/* 콜라보레이터 */}
         <Section title="콜라보레이터 추가">
           <MemberSelector
-            placeholder={listPlaceholder.collaborator}
+            placeholder={listPlaceholder[language].collaborator}
             followingList={followingList?.followings || []}
             onClickAdd={(userId: number) => {
               setValue('collaboratorIds', [...collaboIDs, userId]);
