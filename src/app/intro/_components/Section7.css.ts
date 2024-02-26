@@ -42,6 +42,7 @@ export const titleWrapper = style([
     flexDirection: 'column',
     alignItems: 'center',
     gap: '5px',
+    whiteSpace: 'wrap',
   },
 ]);
 
