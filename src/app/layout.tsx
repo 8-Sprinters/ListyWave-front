@@ -30,11 +30,12 @@ export const metadata: Metadata = {
   applicationName: 'ListyWave',
   referrer: 'origin-when-cross-origin', // Referrer-Policy
   keywords: ['ListyWave', 'list', 'SNS'],
+  metadataBase: new URL('https://listywave.vercel.app'),
   openGraph: {
     title: 'ListyWave',
     description:
       "What’s In Your List? 🌊 나의 취향을 리스트로 기록하고, 공유하고, 발견해요. 리스티웨이브에서 모든 기준은 '나의 취향'이에요. 내 취향 가득한 편안한 공간이 되면 좋겠습니다.",
-    url: 'https://listywave.vercel.app/', // TODO 도메인 변경하기
+    url: 'https://listywave.vercel.app', // TODO 도메인 변경하기
     type: 'website',
     siteName: 'ListyWave',
     locale: 'ko',
