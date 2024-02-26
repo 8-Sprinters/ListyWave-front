@@ -40,6 +40,7 @@ function ListDetailInner({ data, listId }: ListDetailInnerProps) {
     collectCount: data?.collectCount,
     viewCount: data?.viewCount,
     isCollected: data?.isCollected,
+    isPublic: data?.isPublic,
   };
 
   return (
