@@ -2,6 +2,7 @@
 
 import Link from 'next/link';
 
+import { useUser } from '@/store/useUser';
 import Modal from '@/components/Modal/Modal';
 import LoginModal from '@/components/login/LoginModal';
 import useBooleanOutput from '@/hooks/useBooleanOutput';
@@ -10,6 +11,8 @@ import * as styles from './Footer.css';
 
 function Footer() {
   const { isOn, handleSetOn, handleSetOff } = useBooleanOutput();
+  const { user } = useUser();
+  const userId = user?.id;
 
   return (
     <>
@@ -22,9 +25,11 @@ function Footer() {
         <div className={styles.wrapper}>
           <div className={styles.buttonsWrapper}>
             <div className={styles.buttonContainer}>
-              <button className={styles.blueButton} onClick={handleSetOn}>
-                시작하기
-              </button>
+              {userId === null && (
+                <button className={styles.blueButton} onClick={handleSetOn}>
+                  시작하기
+                </button>
+              )}
               <Link href={'/'}>
                 <button className={styles.skyBlueButton}>둘러보기</button>
               </Link>
