@@ -32,7 +32,9 @@ export default function WithdrawalButton({ isDisabled }: WithdrawalButtonProps) 
   const { mutate: withdrawMutate } = useMutation({
     mutationFn: withdraw,
     onSuccess: () => {
+      //사용자 상태 초기화
       logoutUser();
+      //쿠키 삭제
       removeCookie('accessToken');
       removeCookie('refreshToken');
 
@@ -55,8 +57,7 @@ export default function WithdrawalButton({ isDisabled }: WithdrawalButtonProps) 
           <Modal.Button
             onCancel={handleSetOff}
             onClick={() => {
-              console.log('탈퇴합니다');
-              // withdrawMutate();
+              withdrawMutate();
             }}
           >
             확인
