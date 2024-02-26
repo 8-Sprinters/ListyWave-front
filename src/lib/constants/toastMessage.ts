@@ -15,6 +15,8 @@ const toastMessage = {
     copyLink: '링크를 복사했어요. 붙여넣기 해주세요.',
     failedCopyLink: '링크 복사에 실패했어요. 다시 시도해주세요.',
     duplicatedItemError: '중복된 아이템이 있어요🥲',
+    withdraw: '리스티웨이브를 탈퇴했어요.🥲 꼭 돌아와주세요!',
+    withdrawError: '탈퇴에 실패했어요. 다시 시도해주세요.',
   },
   en: {
     requiredLogin: 'Login is required.',
@@ -30,6 +32,8 @@ const toastMessage = {
     copyLink: 'The link has been copied. Please paste it.',
     failedCopyLink: 'Failed to copy the link. Please try again.',
     duplicatedItemError: 'Duplicated items exist🥲',
+    withdraw: "You've withdrawn from ListyWave. 🥲 Please come back soon!",
+    withdrawError: 'Failed to withdraw. Please try again.',
   },
 };
 

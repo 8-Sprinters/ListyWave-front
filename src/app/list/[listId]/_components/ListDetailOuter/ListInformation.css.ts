@@ -1,11 +1,26 @@
 import { style } from '@vanilla-extract/css';
 import { vars } from '@/styles/theme.css';
-import { body2, title3 } from '@/styles/font.css';
+import { body2, title3, bodyRegular } from '@/styles/font.css';
 /**@todo 공용폰트 스타일 적용 */
 
 export const wrapper = style({
   padding: '25px 32px 15px',
 });
+
+export const noDataWrapper = style({
+  width: '100%',
+  height: '80vh',
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center',
+});
+
+export const noDataButton = style([
+  bodyRegular,
+  {
+    color: vars.color.red,
+  },
+]);
 
 export const categoryWrapper = style({
   marginBottom: '25px',

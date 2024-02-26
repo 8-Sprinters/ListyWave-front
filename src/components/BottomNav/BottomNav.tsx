@@ -29,7 +29,16 @@ export default function BottomNav() {
   const { isOn, handleSetOff, handleSetOn } = useBooleanOutput();
 
   // 숨기고 싶은 경로 패턴 배열
-  const hiddenPaths = ['/list', '/intro', '/start-listy', '/account', '/followings', '/followers', '/notification'];
+  const hiddenPaths = [
+    '/list',
+    '/intro',
+    '/start-listy',
+    '/account',
+    '/followings',
+    '/followers',
+    '/notification',
+    '/withdrawn-account',
+  ];
   const isHidden = hiddenPaths.some((path) => pathname.includes(path));
 
   if (isHidden) return;

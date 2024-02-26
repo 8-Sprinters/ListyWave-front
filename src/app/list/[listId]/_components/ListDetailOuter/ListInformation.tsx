@@ -20,6 +20,7 @@ import { LabelType, ListDetailType } from '@/lib/types/listType';
 import ListDetailInner from '@/app/list/[listId]/_components/ListDetailInner';
 import * as styles from './ListInformation.css';
 import CollaboratorsModal from './CollaboratorsModal';
+import NoDataComponent from '@/components/NoData/NoDataComponent';
 
 function ListInformation() {
   const params = useParams<{ listId: string }>();
@@ -38,8 +39,8 @@ function ListInformation() {
     retry: 0,
   });
 
-  /**@todo 다시 닉네임 말고 아이디로 바꾸기 */
-
+  //이 리스트의 오너인 경우
+  const isOwner = list?.ownerId === userId;
   //리스트 생성자 제외한 사람들만 콜라보레이터들로 설정
   const filteredCollaborators = list?.collaborators.filter((item: UserProfileType) => item?.id !== list.ownerId);
   //리스트 오너가 아니고 콜라보레이터인 경우에 권한을 설정하기 위한 변수
@@ -75,52 +76,67 @@ function ListInformation() {
       <Header
         title="리스트"
         left="back"
-        right={<HeaderRight isCollaborator={isCollaborator} ownerId={list?.ownerId} />}
+        right={
+          <HeaderRight
+            isCollaborator={isCollaborator}
+            isOwner={isOwner}
+            isPublic={list?.isPublic}
+            ownerId={list?.ownerId}
+          />
+        }
         leftClick={() => router.back()}
       />
-      <div className={styles.wrapper}>
-        <div className={styles.categoryWrapper}>
-          <div className={styles.labelWrapper}>
-            <Label colorType="blue">{list?.category}</Label>
-          </div>
-          {list?.labels.map((item: LabelType) => {
-            return (
-              <div className={styles.labelWrapper} key={item.name}>
-                <Label colorType="skyblue">{`${item.name}`}</Label>
-              </div>
-            );
-          })}
+      {list?.isPublic === false && !isOwner && !isCollaborator ? (
+        <div className={styles.noDataWrapper}>
+          <NoDataComponent message="비공개 처리된 게시물이에요." />
         </div>
-        <div className={styles.listTitle}>{list?.title}</div>
-        <div className={styles.listDescription}>{list?.description}</div>
-      </div>
-      <ListDetailInner data={list} listId={Number(params?.listId)} />
-      <div className={styles.bottomWrapper}>
-        <div className={styles.bottomLeftWrapper}>
-          <div className={styles.profileImageParent} onClick={onClickMoveToPage(`/user/${list.ownerId}/mylist`)}>
-            <Image
-              src={list?.ownerProfileImageUrl}
-              alt="사용자 프로필 이미지"
-              className={styles.profileImage}
-              fill
-              style={{
-                objectFit: 'cover',
-              }}
-            />
+      ) : (
+        <>
+          <div className={styles.wrapper}>
+            <div className={styles.categoryWrapper}>
+              <div className={styles.labelWrapper}>
+                <Label colorType="blue">{list?.category}</Label>
+              </div>
+              {list?.labels.map((item: LabelType) => {
+                return (
+                  <div className={styles.labelWrapper} key={item.name}>
+                    <Label colorType="skyblue">{`${item.name}`}</Label>
+                  </div>
+                );
+              })}
+            </div>
+            <div className={styles.listTitle}>{list?.title}</div>
+            <div className={styles.listDescription}>{list?.description}</div>
           </div>
-          <div className={styles.informationWrapper}>
-            <div className={styles.listOwnerNickname}>{list?.ownerNickname}</div>
-            <div className={styles.infoDetailWrapper}>
-              <span>{timeDiff(String(list?.createdDate))}</span>
-              <span>{list?.isPublic ? '공개' : '비공개'}</span>
+          <ListDetailInner data={list} listId={Number(params?.listId)} />
+          <div className={styles.bottomWrapper}>
+            <div className={styles.bottomLeftWrapper}>
+              <div className={styles.profileImageParent} onClick={onClickMoveToPage(`/user/${list.ownerId}/mylist`)}>
+                <Image
+                  src={list?.ownerProfileImageUrl}
+                  alt="사용자 프로필 이미지"
+                  className={styles.profileImage}
+                  fill
+                  style={{
+                    objectFit: 'cover',
+                  }}
+                />
+              </div>
+              <div className={styles.informationWrapper}>
+                <div className={styles.listOwnerNickname}>{list?.ownerNickname}</div>
+                <div className={styles.infoDetailWrapper}>
+                  <span>{timeDiff(String(list?.createdDate))}</span>
+                  <span>{list?.isPublic ? '공개' : '비공개'}</span>
+                </div>
+              </div>
+            </div>
+            <div className={styles.collaboratorWrapper} onClick={handleSetOn}>
+              <Collaborators collaborators={filteredCollaborators} />
             </div>
           </div>
-        </div>
-        <div className={styles.collaboratorWrapper} onClick={handleSetOn}>
-          <Collaborators collaborators={filteredCollaborators} />
-        </div>
-      </div>
-      <Comments />
+          <Comments />
+        </>
+      )}
     </>
   );
 }
