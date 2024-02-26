@@ -22,7 +22,7 @@ function Section7() {
               <span>내 취향이 가득한 리스트는 훌륭한 소개가 되어줄 거예요</span>
             </div>
             <div className={styles.imageWrapper}>
-              <MotionWrapper delay={0.4} variantsType="popUp">
+              <MotionWrapper delay={1} variantsType="popUp">
                 <div className={styles.linkWrapper}>listywave.com/user/1</div>
               </MotionWrapper>
               <HeroImage />
