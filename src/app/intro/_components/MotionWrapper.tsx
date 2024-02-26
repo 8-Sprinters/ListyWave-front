@@ -5,7 +5,7 @@ import useIntersectionObserver from '@/hooks/useIntersectionObserver';
 interface MotionWrapperProps {
   children: React.ReactNode;
   delay?: number;
-  variantsType?: 'vertical' | 'horizontal';
+  variantsType?: 'vertical' | 'horizontal' | 'reverseHorizontal' | 'popUp';
 }
 
 function MotionWrapper({ children, delay, variantsType = 'vertical' }: MotionWrapperProps) {
@@ -19,6 +19,14 @@ function MotionWrapper({ children, delay, variantsType = 'vertical' }: MotionWra
     horizontal: {
       hidden: { opacity: 0, x: -30 },
       visible: { opacity: 1, x: 0 },
+    },
+    reverseHorizontal: {
+      hidden: { opacity: 0, x: 30 },
+      visible: { opacity: 1, x: 0 },
+    },
+    popUp: {
+      hidden: { opacity: 0, x: 30, y: 0 },
+      visible: { opacity: 1, x: 0, y: 20 },
     },
   };
 

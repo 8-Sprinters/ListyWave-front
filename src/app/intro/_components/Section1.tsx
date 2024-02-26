@@ -12,10 +12,10 @@ import MotionWrapper from './MotionWrapper';
 
 function Section1() {
   return (
-    <div className={styles.wrapper}>
+    <section className={styles.wrapper}>
       <Link href={'/'}>
         <div className={styles.logoWrapper}>
-          <Logo />
+          <Logo alt="로고 이미지" />
         </div>
       </Link>
       <motion.div
@@ -27,7 +27,7 @@ function Section1() {
           ease: [0, 0.3, 0.6, 1],
         }}
       >
-        <SurfImage width={400} />
+        <SurfImage width={400} alt="서핑 이미지" />
         <div className={styles.titleWrapper}>
           <div className={styles.textWrapper}>
             <MotionWrapper delay={0.2} variantsType="horizontal">
@@ -44,14 +44,14 @@ function Section1() {
             </MotionWrapper>
           </div>
           <div className={styles.telescopeWrapper}>
-            <Telescope width={70} />
+            <Telescope width={70} alt="망원경 아이콘" />
           </div>
         </div>
       </motion.div>
       <button className={styles.chevronWrapper}>
         <ChevronDown width={30} height={33} />
       </button>
-    </div>
+    </section>
   );
 }
 
