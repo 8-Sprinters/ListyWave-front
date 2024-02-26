@@ -1,9 +1,4 @@
-/**
- TODO
- - [ ] 페이지 하위 컴포넌트 global css 변수로 변경
- - [ ] 반응형 UI 구현
- - [ ] 피드페이지 스켈레톤 ui 적용
- */
+import { Metadata } from 'next';
 
 import Profile from '../_components/Profile';
 import Content from '../_components/Content';
@@ -16,6 +11,11 @@ interface CollaboListPageProps {
     userId: number;
   };
 }
+
+export const metadata: Metadata = {
+  title: 'Collabo List',
+  description: '콜라보레이터와 함께 기록한 리스트 입니다.',
+};
 
 export default function CollaboListPage({ params }: CollaboListPageProps) {
   return (
