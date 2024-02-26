@@ -1,7 +1,8 @@
 'use client';
+import Image from 'next/image';
+
 import MotionWrapper from './MotionWrapper';
 import * as styles from './Section7.css';
-import HeroImage from '/public/images/section7_phone.svg';
 import LinkIcon from '/public/icons/linkIcon_3d.svg';
 
 function Section7() {
@@ -25,7 +26,7 @@ function Section7() {
               <MotionWrapper delay={1} variantsType="popUp">
                 <div className={styles.linkWrapper}>listywave.com/user/1</div>
               </MotionWrapper>
-              <HeroImage />
+              <Image src={'/images/section7_phone.png'} alt="핸드폰 이미지" width={255} height={518} />
             </div>
           </div>
         </MotionWrapper>
