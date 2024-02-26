@@ -5,7 +5,7 @@ import { useMutation } from '@tanstack/react-query';
 
 import Modal from '@/components/Modal/Modal';
 import useBooleanOutput from '@/hooks/useBooleanOutput';
-import withdraw from '@/app/_api/auth/withdraw';
+import withdraw from '@/app/_api/user/withdraw';
 import toasting from '@/lib/utils/toasting';
 import { removeCookie } from '@/lib/utils/cookie';
 import toastMessage from '@/lib/constants/toastMessage';
