@@ -13,6 +13,9 @@ import DefaultProfile from '/public/icons/default_profile.svg';
 export default function Top3Card({ collectionList }: { collectionList: CollectionType }) {
   const { list } = collectionList;
 
+  // TODO: collection조회 API에서 representImageUrl 받아오기
+  const representImageUrl = list.listItems.find((item) => item.imageUrl !== '')?.imageUrl || null;
+
   const router = useRouter();
   const handleCardClick = () => {
     router.push(`/list/${list.id}`);
@@ -24,6 +27,7 @@ export default function Top3Card({ collectionList }: { collectionList: Collectio
         className={styles.container}
         style={assignInlineVars({
           [styles.listColor]: `${list.backgroundColor}`,
+          [styles.listBackgroundImage]: `url(${representImageUrl})`,
         })}
         onClick={handleCardClick}
       >

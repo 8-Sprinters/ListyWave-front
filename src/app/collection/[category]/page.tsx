@@ -42,8 +42,6 @@ function CollectionByCategory() {
     return { resultList };
   }, [collectionData]);
 
-  console.log('result', result);
-
   // 옵저버
   const ref = useIntersectionObserver(() => {
     if (hasNextPage) {

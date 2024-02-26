@@ -2,6 +2,7 @@ import { style, createVar } from '@vanilla-extract/css';
 import { vars } from '@/styles/theme.css';
 
 export const listColor = createVar();
+export const listBackgroundImage = createVar();
 
 export const container = style({
   minWidth: '17rem',
@@ -36,11 +37,14 @@ export const listWrapper = style({
   borderRadius: '10px',
 
   backgroundColor: listColor,
+  backgroundImage: `linear-gradient(to top, rgba(0, 0, 0, 0.5), transparent), ${listBackgroundImage}`,
+  backgroundSize: 'cover',
+  backgroundPosition: 'center',
   cursor: 'pointer',
 
   ':hover': {
     boxShadow: 'rgba(0, 0, 0, 0.3) 3px 3px 2px;',
-    borderWidth: '2px',
+    borderWidth: '1.5px',
   },
 });
 
@@ -95,15 +99,17 @@ export const userTextWrapper = style({
 
 export const nameText = style({
   width: '100%',
+
   fontSize: '1.2rem',
   fontWeight: '400',
+  color: vars.color.white,
 
   wordWrap: 'break-word',
 });
 
 export const updatedDateText = style({
   fontSize: '1.1rem',
-  color: vars.color.gray7,
+  color: vars.color.white,
 });
 
 export const title = style({
@@ -124,7 +130,7 @@ export const list = style({
 
   fontSize: '1.2rem',
   fontWeight: '400',
-  color: 'var(--text-text-grey-dark, #202020)',
+  color: vars.color.white,
   lineHeight: '2.5rem',
   letterSpacing: '-0.36px',
 });

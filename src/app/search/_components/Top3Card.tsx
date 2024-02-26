@@ -21,6 +21,7 @@ export default function Top3Card({ list }: { list: SearchListType }) {
         className={styles.container}
         style={assignInlineVars({
           [styles.listColor]: `${list.backgroundColor}`,
+          [styles.listBackgroundImage]: `url(${list.representImageUrl})`,
         })}
         onClick={handleCardClick}
       >
