@@ -6,15 +6,15 @@ import * as styles from './CreateNicknameStep.css';
 import { nicknameDuplicateRules, nicknameRules } from '@/lib/constants/formInputValidationRules';
 import { UserProfileEditType, UserType } from '@/lib/types/userProfileType';
 import checkNicknameDuplication from '@/app/_api/user/checkNicknameDuplication';
-import updateProfile from '@/app/_api/user/updateProfile';
+import axiosInstance from '@/lib/axios/axiosInstance';
 
 interface CreateNicnameStepProps {
-  userData: UserType;
+  userId: number;
   handleNextStep: () => void;
   refetch: (options?: RefetchOptions | undefined) => Promise<QueryObserverResult<UserType, Error>>;
 }
 
-export default function CreateNicknameStep({ userData, handleNextStep, refetch }: CreateNicnameStepProps) {
+export default function CreateNicknameStep({ userId, handleNextStep, refetch }: CreateNicnameStepProps) {
   const {
     register,
     handleSubmit,
@@ -25,7 +25,7 @@ export default function CreateNicknameStep({ userData, handleNextStep, refetch }
   });
 
   const onSubmit = async (data: UserProfileEditType) => {
-    if (!userData.id) {
+    if (!userId) {
       alert('로그인이 필요해요.');
       return;
     }
@@ -38,16 +38,8 @@ export default function CreateNicknameStep({ userData, handleNextStep, refetch }
     }
 
     try {
-      await updateProfile({
-        userId: userData.id as number,
-        data: {
-          nickname: data.nickname,
-          description: userData?.description, // TODO patch method로 변경시, 다른 필드 제거
-          backgroundImageUrl: userData?.backgroundImageUrl,
-          profileImageUrl: userData?.profileImageUrl,
-          newBackgroundFileList: null,
-          newProfileFileList: null,
-        },
+      await axiosInstance.patch(`/users/${userId}`, {
+        nickname: data.nickname,
       });
 
       // 변경 성공시 next step
