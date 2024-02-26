@@ -4,6 +4,7 @@ import { titleMedium, bodyLarge } from '@/styles/font.css';
 
 export const simpleItemWrapper = style({
   width: '100%',
+  height: 'auto',
   display: 'flex',
   justifyContent: 'space-between',
   gap: '40px',
@@ -25,6 +26,7 @@ export const rankWrapper = style({
   display: 'flex',
   justifyContent: 'center',
   alignItems: 'center',
+  flexShrink: 0,
 });
 
 export const rankText = style([
@@ -39,6 +41,8 @@ export const titleText = style([
   bodyLarge,
   {
     color: vars.color.black,
+    wordBreak: 'break-all',
+    wordWrap: 'break-word',
   },
 ]);
 
@@ -49,6 +53,7 @@ export const simpleImageWrapper = style({
   display: 'flex',
   justifyContent: 'center',
   alignItems: 'center',
+  flexShrink: 0,
 
   textAlign: 'center',
 });
