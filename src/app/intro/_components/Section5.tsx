@@ -20,7 +20,11 @@ function Section5() {
             <MotionWrapper variantsType="horizontal" delay={0.6}>
               <div className={styles.titleWrapper}>
                 <div className={styles.titleLine1}>
-                  <h3>검색으로 쉽게 찾는</h3>
+                  <h3>
+                    {'검색으로 '}
+                    <br className={styles.breakTitle} />
+                    쉽게 찾는
+                  </h3>
                   <MagnifyingGlass alt="돋보기 모양 아이콘" />
                 </div>
                 <h3>솔직한 정보</h3>

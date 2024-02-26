@@ -23,6 +23,14 @@ export const contentsWrapper = style({
   alignItems: 'flex-start',
 });
 
+export const breakTitle = style({
+  '@media': {
+    '(min-width: 395px)': {
+      display: 'none',
+    },
+  },
+});
+
 export const sectionNameWrapper = style({
   marginBottom: '55px',
 
