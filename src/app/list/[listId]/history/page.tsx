@@ -36,35 +36,35 @@ function HistoryPage() {
   });
 
   return (
-    <div className={styles.container}>
+    <>
       <Header
         title={listLocale[language].history}
         left="back"
         leftClick={() => {
           router.back();
         }}
-        right={<div></div>}
       />
+      <div>
+        <div className={styles.navContainer}>
+          <button className={styles.navButton} onClick={() => setType('graph')}>
+            {listLocale[language].graph}
+          </button>
+          <button className={styles.navButton} onClick={() => setType('version')}>
+            {listLocale[language].version}
+          </button>
+          <div className={type === 'graph' ? styles.navBar.left : styles.navBar.right} />
+        </div>
 
-      <div className={styles.navContainer}>
-        <button className={styles.navButton} onClick={() => setType('graph')}>
-          {listLocale[language].graph}
-        </button>
-        <button className={styles.navButton} onClick={() => setType('version')}>
-          {listLocale[language].version}
-        </button>
-        <div className={type === 'graph' ? styles.navBar.left : styles.navBar.right} />
+        <div className={styles.listTitle}>{listData?.title}</div>
+        <div className={styles.contentContainer}>
+          {type === 'graph' ? (
+            <Graph histories={historyData ? historyData : []} />
+          ) : (
+            <Version histories={historyData ? historyData : []} listId={listId} listOwnerId={listData?.ownerId} />
+          )}
+        </div>
       </div>
-
-      <div className={styles.listTitle}>{listData?.title}</div>
-      <div className={styles.contentContainer}>
-        {type === 'graph' ? (
-          <Graph histories={historyData ? historyData : []} />
-        ) : (
-          <Version histories={historyData ? historyData : []} listId={listId} listOwnerId={listData?.ownerId} />
-        )}
-      </div>
-    </div>
+    </>
   );
 }
 export default HistoryPage;
