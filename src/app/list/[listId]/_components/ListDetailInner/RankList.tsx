@@ -92,9 +92,13 @@ function DetailList({ listData }: RankListProps) {
           <div className={styles.titleText}>{item.title}</div>
         </div>
         {item.comment && <div className={styles.commentText}>{item.comment}</div>}
-        <div className={styles.detailImageWrapper}>
-          {item.imageUrl && <Image className={styles.detailImage} src={item.imageUrl} alt={item.title} fill={true} />}
-        </div>
+
+        {item.imageUrl && (
+          <div className={styles.detailImageWrapper}>
+            <Image className={styles.detailImage} src={item.imageUrl} alt={item.title} fill={true} />
+          </div>
+        )}
+
         {item.link && <EmbedComponent link={item.link} />}
       </div>
     );
