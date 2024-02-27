@@ -130,7 +130,9 @@ function HistoryVersions({ histories, listId, listOwnerId }: VersionHistoryProps
                   {timeDiff(String(selectedHistory?.createdDate))}
                 </div>
                 <div className={styles.itemsContainer}>
-                  {selectedHistory?.items.map((item) => <Item key={item.id} rank={item.rank} title={item.title} />)}
+                  {selectedHistory?.items
+                    .sort((a, b) => a.rank - b.rank)
+                    .map((item) => <Item key={item.id} rank={item.rank} title={item.title} />)}
                 </div>
               </>
             ) : (
