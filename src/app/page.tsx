@@ -20,8 +20,10 @@ import * as styles from './page.css';
 import useBooleanOutput from '@/hooks/useBooleanOutput';
 import toasting from '@/lib/utils/toasting';
 import toastMessage from '@/lib/constants/toastMessage';
+import { useLanguage } from '@/store/useLanguage';
 
 function LandingPage() {
+  const { language } = useLanguage();
   // TODO 소현 - 나중에 getStaticPaths, getStaticProps로 쿼리 가져오기 (리팩토링)
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -31,7 +33,7 @@ function LandingPage() {
   // TODO 소현 - hoc or hof로 분리하기
   useEffect(() => {
     if (!!isLoginRequired) {
-      toasting({ type: 'error', txt: toastMessage.ko.requiredLogin });
+      toasting({ type: 'error', txt: toastMessage[language].requiredLogin });
       handleSetOn();
       router.replace('/', { scroll: false }); // 쿼리스트링 초가화
     }

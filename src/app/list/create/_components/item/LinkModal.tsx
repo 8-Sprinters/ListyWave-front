@@ -4,6 +4,8 @@ import Modal from '@/components/Modal/Modal';
 import useBooleanOutput from '@/hooks/useBooleanOutput';
 import { vars } from '@/styles/theme.css';
 import * as styles from './LinkModal.css';
+import { useLanguage } from '@/store/useLanguage';
+import { itemLocale } from '@/app/list/create/locale';
 
 interface LinkModalProps {
   children: ReactNode;
@@ -20,6 +22,7 @@ export default function LinkModal({
   onCancelButtonClick,
   onConfirmButtonClick,
 }: LinkModalProps) {
+  const { language } = useLanguage();
   const { isOn, handleSetOff, handleSetOn } = useBooleanOutput();
 
   const handleOpenClick = () => {
@@ -44,10 +47,10 @@ export default function LinkModal({
       </button>
       {isOn && (
         <Modal size="basic" handleModalClose={handleCancelButtonClick}>
-          <Modal.Title>링크 추가</Modal.Title>
+          <Modal.Title>{itemLocale[language].addLink}</Modal.Title>
           {children}
           <Modal.Button isDisabled={!isLinkValid} onCancel={handleCancelButtonClick} onClick={handleConfirmButtonClick}>
-            확인
+            {itemLocale[language].confirm}
           </Modal.Button>
         </Modal>
       )}

@@ -3,8 +3,8 @@ import { vars } from '@/styles/theme.css';
 import * as fonts from '@/styles/font.css';
 
 export const wrapper = style({
-  width: '308px',
-  height: '31px',
+  width: '330px',
+  height: '37px',
   padding: '8px 15px',
 
   display: 'flex',
@@ -15,7 +15,7 @@ export const wrapper = style({
 });
 
 export const slideWrapper = style([
-  fonts.bodySmall,
+  fonts.bodyMedium,
   {
     width: '100%',
 

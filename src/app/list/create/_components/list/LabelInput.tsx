@@ -41,6 +41,9 @@ function LabelInput({ name, placeholder, rules }: LabelInputProps) {
         setError(name, { message: rules.maxLengthRule.errorMessage });
         return;
       }
+      if (labelInput.trim() === '') {
+        return;
+      }
       if (rules.uniqueRule && labels.includes(labelInput)) {
         setError(name, { message: rules.uniqueRule.errorMessage });
 

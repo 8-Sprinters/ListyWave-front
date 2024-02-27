@@ -11,6 +11,7 @@ import { removeCookie } from '@/lib/utils/cookie';
 import { useUser } from '@/store/useUser';
 
 import Modal from '@/components/Modal/Modal';
+import { useLanguage } from '@/store/useLanguage';
 
 interface LogOutModalProps {
   handleSetOff: () => void;
@@ -24,6 +25,7 @@ const oauthType = {
 };
 
 export default function LogoutModal({ handleSetOff }: LogOutModalProps) {
+  const { language } = useLanguage();
   const router = useRouter();
   const { logoutUser } = useUser();
 
@@ -36,12 +38,12 @@ export default function LogoutModal({ handleSetOff }: LogOutModalProps) {
         removeCookie('accessToken'); // TODO removeCookieAll
         removeCookie('refreshToken');
 
-        toasting({ type: 'success', txt: toastMessage.ko.loggedOut });
+        toasting({ type: 'success', txt: toastMessage[language].loggedOut });
         router.push('/');
       }
     } catch (error) {
       if (error instanceof AxiosError) {
-        toasting({ type: 'error', txt: toastMessage.ko.loggedOutError });
+        toasting({ type: 'error', txt: toastMessage[language].loggedOutError });
       }
     }
   };

@@ -10,21 +10,21 @@ interface HeaderProps {
   title: string;
   left?: 'close' | 'back';
   leftClick?: () => void;
-  right: ReactNode;
+  right?: ReactNode;
 }
 
 function Header({ title, left, leftClick, right }: HeaderProps) {
   return (
     <div className={styles.header}>
-      <button type="button" onClick={leftClick}>
+      <button className={`${styles.flexChild} ${styles.leftChild}`} type="button" onClick={leftClick}>
         {left === 'close' && <CloseButton width={'24'} height={'24'} alt="닫기버튼" />}
         {left === 'back' && <BackIcon width={'8'} height={'14'} alt="뒤로가기 버튼" />}
         {left === null && <></>}
       </button>
 
-      <h1 className={styles.headerTitle}>{title}</h1>
+      <h1 className={`${styles.headerTitle} ${styles.flexChild}`}>{title}</h1>
 
-      {right}
+      <div className={`${styles.flexChild} ${styles.rightChild}`}>{right}</div>
     </div>
   );
 }

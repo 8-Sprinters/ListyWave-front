@@ -4,6 +4,8 @@ import { useSearchParams } from 'next/navigation';
 import * as styles from './KeywordArea.css';
 
 import SearchIcon from '/public/icons/search.svg';
+import { useLanguage } from '@/store/useLanguage';
+import { searchPlaceholer } from '@/lib/constants/placeholder';
 
 interface searchKeywordAreaProps {
   onKeyDown?: KeyboardEventHandler;
@@ -12,6 +14,7 @@ interface searchKeywordAreaProps {
 }
 
 function KeywordArea({ onKeyDown, onInput, onClick }: searchKeywordAreaProps) {
+  const { language } = useLanguage();
   const searchParams = useSearchParams();
   const defaultKeyword: string = searchParams?.get('keyword') ?? '';
 
@@ -28,7 +31,7 @@ function KeywordArea({ onKeyDown, onInput, onClick }: searchKeywordAreaProps) {
         ref={inputRef}
         className={`${inputHasValue ? styles.typedKeywordInput : styles.basicKeywordInput}`}
         type="text"
-        placeholder="검색어를 입력해주세요."
+        placeholder={searchPlaceholer[language].keyword}
         onKeyDown={onKeyDown}
         onInput={onInput}
         defaultValue={defaultKeyword}

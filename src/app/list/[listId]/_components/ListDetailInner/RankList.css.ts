@@ -35,6 +35,7 @@ export const listWrapper = style({
 
 export const simpleItemWrapper = style({
   width: '100%',
+  height: '7rem',
 
   display: 'flex',
   justifyContent: 'space-between',
@@ -160,7 +161,9 @@ export const simpleImageWrapper = style({
 
 export const detailImageWrapper = style({
   width: '100%',
-  height: 'auto',
+  height: '35rem',
+
+  position: 'relative',
 
   display: 'flex',
   justifyContent: 'center',

@@ -14,8 +14,11 @@ import { HistoryType } from '@/lib/types/historyType';
 import { QUERY_KEYS } from '@/lib/constants/queryKeys';
 
 import * as styles from './page.css';
+import { useLanguage } from '@/store/useLanguage';
+import { listLocale } from '@/app/list/[listId]/locale';
 
 function HistoryPage() {
+  const { language } = useLanguage();
   const [type, setType] = useState<'graph' | 'version'>('graph');
 
   const router = useRouter();
@@ -33,35 +36,35 @@ function HistoryPage() {
   });
 
   return (
-    <div className={styles.container}>
+    <>
       <Header
-        title="히스토리"
+        title={listLocale[language].history}
         left="back"
         leftClick={() => {
           router.back();
         }}
-        right={<div></div>}
       />
+      <div>
+        <div className={styles.navContainer}>
+          <button className={styles.navButton} onClick={() => setType('graph')}>
+            {listLocale[language].graph}
+          </button>
+          <button className={styles.navButton} onClick={() => setType('version')}>
+            {listLocale[language].version}
+          </button>
+          <div className={type === 'graph' ? styles.navBar.left : styles.navBar.right} />
+        </div>
 
-      <div className={styles.navContainer}>
-        <button className={styles.navButton} onClick={() => setType('graph')}>
-          그래프
-        </button>
-        <button className={styles.navButton} onClick={() => setType('version')}>
-          버전
-        </button>
-        <div className={type === 'graph' ? styles.navBar.left : styles.navBar.right} />
+        <div className={styles.listTitle}>{listData?.title}</div>
+        <div className={styles.contentContainer}>
+          {type === 'graph' ? (
+            <Graph histories={historyData ? historyData : []} />
+          ) : (
+            <Version histories={historyData ? historyData : []} listId={listId} listOwnerId={listData?.ownerId} />
+          )}
+        </div>
       </div>
-
-      <div className={styles.listTitle}>{listData?.title}</div>
-      <div className={styles.contentContainer}>
-        {type === 'graph' ? (
-          <Graph histories={historyData ? historyData : []} />
-        ) : (
-          <Version histories={historyData ? historyData : []} listId={listId} listOwnerId={listData?.ownerId} />
-        )}
-      </div>
-    </div>
+    </>
   );
 }
 export default HistoryPage;

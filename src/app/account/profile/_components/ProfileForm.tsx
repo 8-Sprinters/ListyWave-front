@@ -24,6 +24,7 @@ import toastMessage from '@/lib/constants/toastMessage';
 import toasting from '@/lib/utils/toasting';
 
 import * as styles from './ProfileForm.css';
+import { useLanguage } from '@/store/useLanguage';
 
 interface ProfileFormProps {
   userNickname: string;
@@ -36,6 +37,7 @@ export default function ProfileForm({
   handleProfilePreviewChange,
   handleBackgroundPreviewChange,
 }: ProfileFormProps) {
+  const { language } = useLanguage();
   const [isNicknameValidated, setIsNicknameValidated] = useState(false);
   const [selectedBackground, setSelectedBackground] = useState('');
   const [selectedProfile, setSelectedProfile] = useState('');
@@ -95,7 +97,7 @@ export default function ProfileForm({
     if (e.target.files) {
       const targetFile = e.target.files[0];
       if (targetFile?.size > MAX_IMAGE_INPUT_SIZE_MB) {
-        toasting({ type: 'error', txt: toastMessage.ko.imageSizeError });
+        toasting({ type: 'error', txt: toastMessage[language].imageSizeError });
       } else {
         newBackgroundImageRegister.onChange(e);
         handleBackgroundPreviewChange(e.target.files[0]);
@@ -109,7 +111,7 @@ export default function ProfileForm({
     if (e.target.files) {
       const targetFile = e.target.files[0];
       if (targetFile?.size > MAX_IMAGE_INPUT_SIZE_MB) {
-        toasting({ type: 'error', txt: toastMessage.ko.imageSizeError });
+        toasting({ type: 'error', txt: toastMessage[language].imageSizeError });
       } else {
         newProfileImageRegister.onChange(e);
         handleProfilePreviewChange(e.target.files[0]);
@@ -149,7 +151,7 @@ export default function ProfileForm({
             <label className={styles.label}>닉네임</label>
             <input
               className={styles.inputText}
-              placeholder={profilePlaceholder.nickname}
+              placeholder={profilePlaceholder[language].nickname}
               maxLength={10}
               autoComplete="off"
               {...nicknameRegister}
@@ -179,7 +181,7 @@ export default function ProfileForm({
             <label className={styles.label}>소개</label>
             <textarea
               className={styles.textarea}
-              placeholder={profilePlaceholder.description}
+              placeholder={profilePlaceholder[language].description}
               autoComplete="off"
               {...register('description', profileDescriptionRules)}
             />

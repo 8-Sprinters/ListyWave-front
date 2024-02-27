@@ -12,10 +12,12 @@ import toasting from '@/lib/utils/toasting';
 import toastMessage from '@/lib/constants/toastMessage';
 import createList from '@/app/_api/list/createList';
 import uploadItemImages from '@/app/_api/list/uploadItemImages';
+import { useLanguage } from '@/store/useLanguage';
 
 export type FormErrors = FieldErrors<ListCreateType>;
 
 export default function CreatePage() {
+  const { language } = useLanguage();
   const [step, setStep] = useState<'list' | 'item'>('list');
   const router = useRouter();
 
@@ -104,7 +106,7 @@ export default function CreatePage() {
     retry: 3,
     retryDelay: 1000,
     onError: () => {
-      toasting({ type: 'error', txt: toastMessage.ko.uploadImageError });
+      toasting({ type: 'error', txt: toastMessage[language].uploadImageError });
     },
   });
 
@@ -125,7 +127,7 @@ export default function CreatePage() {
       router.replace(`/list/${data.listId}`);
     },
     onError: () => {
-      toasting({ type: 'error', txt: toastMessage.ko.createListError });
+      toasting({ type: 'error', txt: toastMessage[language].createListError });
     },
   });
 
@@ -143,7 +145,7 @@ export default function CreatePage() {
       const { listData } = formatData();
       createListMutate(listData);
     } else {
-      toasting({ type: 'error', txt: toastMessage.ko.duplicatedItemError });
+      toasting({ type: 'error', txt: toastMessage[language].duplicatedItemError });
     }
   };
 

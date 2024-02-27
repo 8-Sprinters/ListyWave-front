@@ -45,6 +45,7 @@ function TrendingList() {
   });
 
   const swiperStyle = {
+    width: '100vw',
     height: '100%',
     padding: '10px 0',
   };

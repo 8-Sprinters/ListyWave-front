@@ -3,10 +3,12 @@
 import { MouseEvent } from 'react';
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
-
 import { useQuery } from '@tanstack/react-query';
+
 import { CategoryType } from '@/lib/types/categoriesType';
 import { QUERY_KEYS } from '@/lib/constants/queryKeys';
+import { collectionLocale } from '@/app/collection/locale';
+import { useLanguage } from '@/store/useLanguage';
 
 import EntireFolder from '/public/icons/folder_entire.svg';
 import CultureFolder from '/public/icons/folder_culture.svg';
@@ -48,6 +50,7 @@ const codeToFolderIcon = (code: string) => {
 };
 
 export default function CollectionPage() {
+  const { language } = useLanguage();
   const router = useRouter();
 
   const { data } = useQuery<CategoryType[]>({
@@ -62,7 +65,7 @@ export default function CollectionPage() {
   console.log(data);
   return (
     <>
-      <div className={styles.title}>Collection</div>
+      <div className={styles.title}>{collectionLocale[language].collection}</div>
       <div className={styles.categoryFolders}>
         {data &&
           data.map((category) => (
@@ -84,13 +87,6 @@ export default function CollectionPage() {
               </div>
               <p className={styles.categoryLabel}>{category.korNameValue}</p>
             </div>
-            //   className={styles.category}
-            //   key={category.codeValue}
-            //   onClick={handleCategoryClick}
-            //   data-value={category.nameValue}
-            // >
-            //   <div className={styles.categoryText}>{category.korNameValue}</div>
-            // </div>
           ))}
       </div>
     </>

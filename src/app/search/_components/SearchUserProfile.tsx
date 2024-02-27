@@ -2,6 +2,7 @@ import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 
 import * as styles from './SearchUserProfile.css';
+import UserProfileImage from '@/components/UserProfileImage/UserProfileImage';
 
 interface UserListProps {
   id: number;
@@ -18,16 +19,7 @@ function SearchUserProfile({ user }: { user: UserListProps }) {
   return (
     <div className={styles.container} onClick={handleProfileClick}>
       <div className={styles.profileImageWrapper}>
-        <Image
-          alt="프로필 이미지"
-          width={30}
-          height={30}
-          src={user.profileImageUrl}
-          className={styles.userImage}
-          style={{
-            objectFit: 'cover',
-          }}
-        />
+        <UserProfileImage src={user.profileImageUrl} size={40} />
       </div>
       <div className={styles.nicknameText}>{user.nickname}</div>
     </div>

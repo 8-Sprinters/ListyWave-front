@@ -11,12 +11,14 @@ import { removeCookie } from '@/lib/utils/cookie';
 import toastMessage from '@/lib/constants/toastMessage';
 import { useUser } from '@/store/useUser';
 import * as styles from './AgreementConfirmation.css';
+import { useLanguage } from '@/store/useLanguage';
 
 interface WithdrawalButtonProps {
   isDisabled: boolean;
 }
 
 export default function WithdrawalButton({ isDisabled }: WithdrawalButtonProps) {
+  const { language } = useLanguage();
   const { isOn, handleSetOn, handleSetOff } = useBooleanOutput(false);
   const router = useRouter();
   const { logoutUser } = useUser();
@@ -31,11 +33,11 @@ export default function WithdrawalButton({ isDisabled }: WithdrawalButtonProps) 
       removeCookie('accessToken');
       removeCookie('refreshToken');
 
-      toasting({ type: 'success', txt: toastMessage.ko.withdraw });
+      toasting({ type: 'success', txt: toastMessage[language].withdraw });
       router.replace('/');
     },
     onError: () => {
-      toasting({ type: 'error', txt: toastMessage.ko.withdrawError });
+      toasting({ type: 'error', txt: toastMessage[language].withdrawError });
     },
   });
 

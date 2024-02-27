@@ -15,6 +15,7 @@ import ChoiceCategory from './ChoiceCategory';
 import RegisterListTitle from './RegisterListTitle';
 import RegisterItems from './RegisterItems';
 import { BACKGROUND_COLOR } from '@/styles/Color';
+import { useLanguage } from '@/store/useLanguage';
 
 interface CreateListStepProps {
   userId: number;
@@ -22,6 +23,7 @@ interface CreateListStepProps {
 }
 
 export default function CreateListStep({ userId, nickname }: CreateListStepProps) {
+  const { language } = useLanguage();
   const router = useRouter();
   const [stepIndex, setStepIndex] = useState(0);
   const [selectedCategory, setSelectedCategory] = useState({
@@ -102,7 +104,7 @@ export default function CreateListStep({ userId, nickname }: CreateListStepProps
     } catch (error) {
       if (error instanceof Error) {
         console.error(error.message);
-        toasting({ type: 'error', txt: toastMessage.ko.createListError });
+        toasting({ type: 'error', txt: toastMessage[language].createListError });
       }
     }
   };
@@ -120,8 +122,8 @@ export default function CreateListStep({ userId, nickname }: CreateListStepProps
               <p className={styles.stepText}>step2</p>
             </div>
             <p className={styles.subTitle}>
-              <span>{`"${nickname}"`}</span>
-              <span>님만의 리스트를 만들어 보아요.</span>
+              <span>{`"${nickname}"`}님만의</span>
+              <span>리스트를 만들어 보아요.</span>
             </p>
             <div className={styles.container}>
               <ChoiceCategory handleChangeCategory={handleChangeCategory} />

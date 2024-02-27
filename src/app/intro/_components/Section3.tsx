@@ -1,7 +1,8 @@
 'use client';
+import Image from 'next/image';
+
 import MotionWrapper from './MotionWrapper';
 import * as styles from './Section3.css';
-import HeroImage from '/public/images/section3_hero.svg';
 
 function Section3() {
   return (
@@ -22,7 +23,7 @@ function Section3() {
               <span>지극히 개인적인 취향으로 순위를 매겨요.</span>
             </div>
             <div className={styles.imageWrapper}>
-              <HeroImage />
+              <Image src={'/images/section3_hero.png'} alt="리스트 생성하기 요소" width={300} height={314} />
               <div className={styles.blurBox}></div>
             </div>
           </div>
