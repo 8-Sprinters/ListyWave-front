@@ -47,6 +47,7 @@ function CategoryArea({ onClick }: { onClick: MouseEventHandler }) {
               )}
             </div>
           ))}
+      <div className={styles.scrollMessage}>오른쪽으로 스크롤해보세요</div>
     </div>
   );
 }
