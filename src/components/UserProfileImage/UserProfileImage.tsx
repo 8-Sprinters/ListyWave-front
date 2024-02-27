@@ -4,7 +4,7 @@ import Image from 'next/image';
 import * as styles from './UserProfileImage.css';
 
 function UserProfileImage({ src, size }: { src: string; size: number }) {
-  const [isValidImage, setIsValidImage] = useState(false);
+  const [isValidImage, setIsValidImage] = useState(true);
 
   return (
     <Image
