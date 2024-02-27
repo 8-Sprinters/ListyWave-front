@@ -98,9 +98,11 @@ function Comment({
           {comment?.isDeleted && <DefaultProfile width={30} height={30} />}
           <div className={styles.commentContainer}>
             <div className={styles.commentInformationWrapper}>
-              <span className={styles.commentWriter}>
-                {comment?.isDeleted ? commentLocale[language].unknown : comment?.userNickname}
-              </span>
+              <Link href={`/user/${comment?.userId}/mylist`}>
+                <span className={styles.commentWriter}>
+                  {comment?.isDeleted ? commentLocale[language].unknown : comment?.userNickname}
+                </span>
+              </Link>
               <span className={styles.commentCreatedTime}>{comment && timeDiff(comment?.updatedDate)}</span>
             </div>
             {!comment?.isDeleted ? (
