@@ -2,6 +2,8 @@ import { keyframes, style } from '@vanilla-extract/css';
 import { vars } from '@/styles/theme.css';
 
 export const categoryWrapper = style({
+  paddingLeft: '1.6rem',
+
   display: 'flex',
   gap: '1rem',
 
@@ -35,7 +37,6 @@ export const categoryImage = style({
   width: '6rem',
   height: '6rem',
 
-  border: `1px solid ${vars.color.gray5}`,
   borderRadius: '8px',
 
   ':hover': { filter: 'opacity(50%)' },
