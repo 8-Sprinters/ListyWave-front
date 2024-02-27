@@ -10,12 +10,12 @@ function Section6() {
       <div className={styles.wrapper}>
         <MotionWrapper variantsType="vertical" delay={0.3}>
           <div className={styles.contentsWrapper}>
-            <MotionWrapper variantsType="reverseHorizontal" delay={0.5}>
+            <MotionWrapper variantsType="reverseHorizontal" delay={0.8}>
               <div className={styles.titleWrapper}>
                 <h3>취향으로 파도타기</h3>
               </div>
             </MotionWrapper>
-            <MotionWrapper variantsType="reverseHorizontal" delay={0.7}>
+            <MotionWrapper variantsType="reverseHorizontal" delay={1.1}>
               <div className={styles.subTitleWrapper}>
                 <span>나랑 좋아하는 게 비슷한</span>
                 <span>취향 메이트를 발견할 수 있어요.</span>
