@@ -2,10 +2,9 @@ import { style, styleVariants, keyframes } from '@vanilla-extract/css';
 import { vars } from '@/styles/theme.css';
 import * as fonts from '@/styles/font.css';
 
-export const container = style({ overflowY: 'hidden' });
-
 export const navContainer = style({
   width: '100%',
+
   padding: '18px 65.5px 0',
   margin: '0 auto',
 
@@ -17,6 +16,8 @@ export const navContainer = style({
   top: '70px',
 
   backgroundColor: vars.color.white,
+
+  zIndex: '1',
 });
 
 export const navButton = style([
