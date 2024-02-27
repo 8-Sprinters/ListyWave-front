@@ -34,7 +34,7 @@ function CategoryArea({ onClick }: { onClick: MouseEventHandler }) {
             <div className={styles.category} key={category.codeValue} onClick={onClick} data-value={category.nameValue}>
               <Image
                 className={categoryValue === category.nameValue ? styles.selectedCategoryImage : styles.categoryImage}
-                src={category.categoryImageUrl}
+                src={category.categoryImageUrl ?? ''}
                 alt={category.korNameValue}
                 width="60"
                 height="60"
