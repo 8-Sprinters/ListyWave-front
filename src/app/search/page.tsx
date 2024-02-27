@@ -6,20 +6,11 @@ import * as styles from './Search.css';
 import KeywordArea from '@/app/search/_components/KeywordArea';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useEffect, useState, KeyboardEvent, MouseEvent, ChangeEvent } from 'react';
-import Logo from '/public/icons/logo.svg';
 import BackButton from '/public/icons/back.svg';
 import PlusButton from '@/components/floatingButton/PlusOptionFloatingButton';
 import ArrowUpButton from '@/components/floatingButton/ArrowUpFloatingButton';
 import FloatingContainer from '@/components/floatingButton/FloatingContainer';
 import makeSearchUrl from '@/app/search/util/makeSearchUrl';
-
-function Header() {
-  return (
-    <div className={styles.logoWrapper}>
-      <Logo alt="로고 이미지" />
-    </div>
-  );
-}
 
 export default function Search() {
   const router = useRouter();
@@ -62,7 +53,6 @@ export default function Search() {
 
   return (
     <>
-      <Header />
       <div className={styles.container}>
         <div className={styles.searchArea}>
           <div className={styles.keywordWrapper}>
