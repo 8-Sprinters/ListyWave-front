@@ -60,6 +60,7 @@ interface Option {
     categories: number[];
     reversed: boolean;
     stepSize: number;
+    labels: { formatter: (val: number) => string };
   };
   grid: {
     padding: {
@@ -104,9 +105,14 @@ export function Chart({ histories, itemRankHistories }: ChartProps) {
       type: 'category',
     },
     yaxis: {
-      categories: Array.from({ length: 10 }, (_, index) => 10 - index),
+      categories: Array.from({ length: 10 }, (_, index) => Math.round(10 - index)),
       reversed: true,
       stepSize: 1,
+      labels: {
+        formatter: (val: number) => {
+          return `${val.toFixed(0)}위`;
+        },
+      },
     },
     grid: {
       padding: {
