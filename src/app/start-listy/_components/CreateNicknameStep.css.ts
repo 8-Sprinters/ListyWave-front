@@ -1,5 +1,5 @@
 import { style, styleVariants } from '@vanilla-extract/css';
-import { bodyLarge, headlineSmall, labelMedium, titleMedium, titleRegular } from '@/styles/font.css';
+import { bodyLarge, labelMedium, titleLarge, titleMedium, titleRegular } from '@/styles/font.css';
 import { vars } from '@/styles/theme.css';
 
 export const background = style({
@@ -93,11 +93,11 @@ export const container = style({
 
 // title
 export const title = style([
-  headlineSmall,
+  titleLarge,
   {
     textAlign: 'center',
   },
-]); // titleLarge랑 고민
+]);
 
 export const subTitle = style([
   titleRegular,

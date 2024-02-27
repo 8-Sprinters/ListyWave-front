@@ -120,8 +120,8 @@ export default function CreateListStep({ userId, nickname }: CreateListStepProps
               <p className={styles.stepText}>step2</p>
             </div>
             <p className={styles.subTitle}>
-              <span>{`"${nickname}"`}</span>
-              <span>님만의 리스트를 만들어 보아요.</span>
+              <span>{`"${nickname}"`}님만의</span>
+              <span>리스트를 만들어 보아요.</span>
             </p>
             <div className={styles.container}>
               <ChoiceCategory handleChangeCategory={handleChangeCategory} />

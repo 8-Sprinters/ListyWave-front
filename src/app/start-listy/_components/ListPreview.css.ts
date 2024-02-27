@@ -57,6 +57,7 @@ export const inputBox = style([
 export const input = style([
   labelLarge,
   {
+    width: '100%',
     caretColor: vars.color.blue,
     color: vars.color.black,
   },
