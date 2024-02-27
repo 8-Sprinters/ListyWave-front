@@ -87,10 +87,16 @@ export const editButton = style({
 });
 
 export const createReplyButton = style({
-  padding: '0 0 0 36px',
+  padding: '0 0 0 40px',
 
   background: 'none',
   fontSize: '1rem',
   color: vars.color.gray9,
   fontWeight: 500,
+});
+
+export const commentAndReplyButtonWrapper = style({
+  display: 'flex',
+  flexDirection: 'column',
+  gap: '5px',
 });
