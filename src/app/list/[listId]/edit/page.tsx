@@ -62,6 +62,7 @@ export default function EditPage() {
     //데이터 쪼개기
     const listData: ListEditType = {
       ...originData,
+      collaboratorIds: originData.collaboratorIds.length === 0 ? [] : [...originData.collaboratorIds, user.id],
       items: originData.items.map(({ imageUrl, ...rest }) => {
         if (typeof imageUrl === 'string') {
           return {
