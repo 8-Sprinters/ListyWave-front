@@ -157,6 +157,7 @@ function CreateList({ onNextClick, type }: CreateListProps) {
           <MemberSelector
             placeholder={listPlaceholder[language].collaborator}
             followingList={followingList?.followings || []}
+            selectedIds={collaboIDs}
             onClickAdd={(userId: number) => {
               setValue('collaboratorIds', [...collaboIDs, userId]);
             }}
