@@ -12,10 +12,10 @@ import CategoryAreaSkeleton from '@/app/search/_components/CategoryAreaSkeleton'
 
 import CheckIcon from '/public/icons/check_red.svg';
 import { useLanguage } from '@/store/useLanguage';
+import { searchLocale } from '@/app/search/locale';
 
 function CategoryArea({ onClick }: { onClick: MouseEventHandler }) {
   const { language } = useLanguage();
-  console.log('language:', language);
 
   const searchParams = useSearchParams();
   const categoryValue = searchParams?.get('category');
@@ -47,6 +47,7 @@ function CategoryArea({ onClick }: { onClick: MouseEventHandler }) {
               )}
             </div>
           ))}
+      <div className={styles.scrollMessage}>{searchLocale[language].rightScrollMessage}</div>
     </div>
   );
 }

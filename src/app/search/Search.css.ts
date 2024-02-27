@@ -2,7 +2,7 @@ import { style } from '@vanilla-extract/css';
 
 export const container = style({
   width: '100%',
-  padding: '1.6rem',
+  // padding: '1.6rem',
 
   display: 'flex',
   flexDirection: 'column',
@@ -16,11 +16,12 @@ export const searchArea = style({
   display: 'flex',
   flexDirection: 'column',
   justifyContent: 'center',
-  gap: '3rem',
+  gap: '1.8rem',
 });
 
 export const keywordWrapper = style({
   width: '100%',
+  padding: '1.6rem 1.6rem 0 1.6rem',
 
   display: 'flex',
   flexDirection: 'row',

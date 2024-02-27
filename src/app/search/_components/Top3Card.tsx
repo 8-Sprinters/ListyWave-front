@@ -8,8 +8,11 @@ import { SearchListType } from '@/lib/types/listType';
 import formatDate from '@/lib/utils/dateFormat';
 import Top3CardItem from './Top3CardItem';
 import DefaultProfile from '/public/icons/default_profile.svg';
+import { searchLocale } from '@/app/search/locale';
+import { useLanguage } from '@/store/useLanguage';
 
 export default function Top3Card({ list }: { list: SearchListType }) {
+  const { language } = useLanguage();
   const router = useRouter();
   const handleCardClick = () => {
     router.push(`/list/${list.id}`);
@@ -40,7 +43,7 @@ export default function Top3Card({ list }: { list: SearchListType }) {
               <div className={styles.userImageWrapper}>
                 {list.ownerProfileImageUrl ? (
                   <Image
-                    alt="프로필 이미지"
+                    alt={searchLocale[language].profileImageAlt}
                     width={30}
                     height={30}
                     src={list.ownerProfileImageUrl}
