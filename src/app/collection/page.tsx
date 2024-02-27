@@ -1,6 +1,5 @@
 'use client';
 
-import { MouseEvent } from 'react';
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 import { useQuery } from '@tanstack/react-query';
@@ -58,11 +57,10 @@ export default function CollectionPage() {
     queryFn: getCollectionCategories,
   });
 
-  const handleCategoryClick = (e: MouseEvent<HTMLDivElement>, category: string) => {
+  const handleCategoryClick = (category: string) => {
     router.push(`/collection/${category}`);
   };
 
-  console.log(data);
   return (
     <>
       <div className={styles.title}>{collectionLocale[language].collection}</div>
@@ -72,13 +70,13 @@ export default function CollectionPage() {
             <div className={styles.categoryContainer}>
               <div
                 className={styles.categoryFolder}
-                onClick={(event) => {
-                  handleCategoryClick(event, category.nameValue);
+                onClick={() => {
+                  handleCategoryClick(category.nameValue);
                 }}
               >
                 <Image
                   className={styles.categoryIcon}
-                  src={category.categoryImageUrl}
+                  src={category?.categoryImageUrl ?? ''}
                   width={50}
                   height={50}
                   alt={`${category.korNameValue} 폴더`}
