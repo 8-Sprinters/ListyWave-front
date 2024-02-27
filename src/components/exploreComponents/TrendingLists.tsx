@@ -68,7 +68,7 @@ function TrendingList() {
               centeredSlides={true}
               spaceBetween={10}
               autoplay={{
-                delay: 3000,
+                delay: 1500,
                 disableOnInteraction: false,
               }}
               // slidesPerView={4}
