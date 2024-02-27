@@ -99,8 +99,6 @@ export default function Content({ userId, type }: ContentProps) {
       <div className={styles.cards}>
         {isLoading ? (
           <MasonryGridSkeleton />
-        ) : !lists.length ? (
-          <NoDataComponent message="해당 카테고리에 아직 리스트가 없어요" />
         ) : (
           <MasonryGrid className="container" gap={16} defaultDirection={'end'} align={'start'} column={2}>
             {lists.map((list) => (

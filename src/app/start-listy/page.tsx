@@ -20,9 +20,6 @@ import { QUERY_KEYS } from '@/lib/constants/queryKeys';
 
 import CreateListStep from './_components/CreateListStep';
 import CreateNicknameStep from './_components/CreateNicknameStep';
-import Modal from '@/components/Modal/Modal';
-
-import useBooleanOutput from '@/hooks/useBooleanOutput';
 
 // import Modal from '@/components/Modal/Modal';
 // import useBooleanOutput from '@/hooks/useBooleanOutput';
