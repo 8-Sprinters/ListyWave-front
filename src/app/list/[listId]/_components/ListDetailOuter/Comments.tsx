@@ -171,7 +171,7 @@ function Comments() {
   //댓글/답글 폼 submit 함수
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (!comment) {
+    if (!comment.trim()) {
       return null;
     }
     if (!userId) {
