@@ -33,7 +33,7 @@ export const tapeImageWrapper = style([
   {
     width: '100%',
     height: '170px',
-    left: '50%',
+    left: '45%',
     transform: 'translateX(-50%)',
 
     bottom: 50,

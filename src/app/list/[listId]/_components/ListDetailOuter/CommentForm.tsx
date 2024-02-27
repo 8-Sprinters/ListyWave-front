@@ -73,8 +73,9 @@ function CommentForm({
             className={styles.formInput}
             value={comment}
             onChange={handleChange}
+            disabled={!userId}
             placeholder={
-              userId === 0 ? commentPlaceholder[language].requiredLogin : commentPlaceholder[language].comment
+              userId === null ? commentPlaceholder[language].requiredLogin : commentPlaceholder[language].comment
             }
           />
           {comment && (
