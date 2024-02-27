@@ -1,6 +1,8 @@
 import { ReactNode } from 'react';
 import type { Metadata, Viewport } from 'next';
 import { ToastContainer } from 'react-toastify';
+import { GoogleAnalytics } from '@next/third-parties/google';
+import * as gtag from '@/lib/utils/gtag';
 
 import BottomNav from '@/components/BottomNav/BottomNav';
 
@@ -57,6 +59,7 @@ export default function Layout({ children }: { children: ReactNode }) {
           </div>
           <ToastContainer className={styles.toastContainer} />
         </CommonProvider>
+        <GoogleAnalytics gaId={`${gtag.GA_TRACKING_ID}`} />
       </body>
     </html>
   );
