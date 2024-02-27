@@ -11,8 +11,11 @@ import PlusButton from '@/components/floatingButton/PlusOptionFloatingButton';
 import ArrowUpButton from '@/components/floatingButton/ArrowUpFloatingButton';
 import FloatingContainer from '@/components/floatingButton/FloatingContainer';
 import makeSearchUrl from '@/app/search/util/makeSearchUrl';
+import { searchLocale } from '@/app/search/locale';
+import { useLanguage } from '@/store/useLanguage';
 
 export default function Search() {
+  const { language } = useLanguage();
   const router = useRouter();
   const searchParams = useSearchParams();
 
@@ -57,7 +60,7 @@ export default function Search() {
         <div className={styles.searchArea}>
           <div className={styles.keywordWrapper}>
             <button className={styles.backButton} onClick={handleBackClick}>
-              <BackButton width={'8'} height={'14'} alt="뒤로 가기 버튼" />
+              <BackButton width={'8'} height={'14'} alt={searchLocale[language].backButtonAlt} />
             </button>
             <KeywordArea onClick={handeSearchClick} onInput={handleKeywordChange} onKeyDown={handleKeyDown} />
           </div>

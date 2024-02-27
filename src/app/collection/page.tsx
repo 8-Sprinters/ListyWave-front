@@ -8,12 +8,12 @@ import { useQuery } from '@tanstack/react-query';
 import { CategoryType } from '@/lib/types/categoriesType';
 import { QUERY_KEYS } from '@/lib/constants/queryKeys';
 import getCategories from '@/app/_api/category/getCategories';
-import Image from 'next/image';
-import tempImageSrc from '*.png';
-import CheckIcon from '*.svg';
 import { MouseEvent } from 'react';
+import { collectionLocale } from '@/app/collection/locale';
+import { useLanguage } from '@/store/useLanguage';
 
 export default function CollectionPage() {
+  const { language } = useLanguage();
   const router = useRouter();
 
   const { data } = useQuery<CategoryType[]>({
@@ -29,7 +29,7 @@ export default function CollectionPage() {
   return (
     <>
       <Header
-        title="콜렉션"
+        title={collectionLocale[language].collection}
         left="back"
         leftClick={() => {
           router.back();

@@ -12,6 +12,7 @@ import CategoryAreaSkeleton from '@/app/search/_components/CategoryAreaSkeleton'
 
 import CheckIcon from '/public/icons/check_red.svg';
 import { useLanguage } from '@/store/useLanguage';
+import { searchLocale } from '@/app/search/locale';
 
 function CategoryArea({ onClick }: { onClick: MouseEventHandler }) {
   const { language } = useLanguage();
@@ -46,7 +47,7 @@ function CategoryArea({ onClick }: { onClick: MouseEventHandler }) {
               )}
             </div>
           ))}
-      <div className={styles.scrollMessage}>오른쪽으로 스크롤해보세요</div>
+      <div className={styles.scrollMessage}>{searchLocale[language].rightScrollMessage}</div>
     </div>
   );
 }

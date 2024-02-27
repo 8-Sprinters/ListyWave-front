@@ -17,6 +17,8 @@ import SelectComponent from '@/components/SelectComponent/SelectComponent';
 import getSearchListResult from '@/app/_api/search/getSearchListResult';
 import NoData from '@/app/search/_components/NoData';
 import makeSearhUrl from '@/app/search/util/makeSearchUrl';
+import { searchLocale } from '@/app/search/locale';
+import { useLanguage } from '@/store/useLanguage';
 
 interface OptionsProps {
   value: string;
@@ -107,10 +109,14 @@ function SearchListResult() {
   }, [keyword]);
 
   const Result = () => {
+    const { language } = useLanguage();
+
     return (
       <div className={styles.container}>
         <div className={styles.header}>
-          <div className={styles.countText}>리스트 {result.totalCount}건</div>
+          <div
+            className={styles.countText}
+          >{`${searchLocale[language].listCountFirst} ${result.totalCount} ${searchLocale[language].listCountLast}`}</div>
           <SortDropdown defaultSort={sort} handleChangeSortType={handleChangeSortType} hasKeyword={!!keyword} />
         </div>
         <div className={styles.cardsWrapper}>

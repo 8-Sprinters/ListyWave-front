@@ -13,8 +13,11 @@ import Top3CardSkeleton from '@/app/collection/[category]/_components/Top3CardSk
 import NoData from '@/app/collection/[category]/_components/NoData';
 import { CollectionType } from '@/lib/types/listType';
 import Top3Card from '@/app/collection/[category]/_components/Top3Card';
+import { collectionLocale } from '@/app/collection/locale';
+import { useLanguage } from '@/store/useLanguage';
 
 function CollectionByCategory() {
+  const { language } = useLanguage();
   const queryClient = useQueryClient();
   const router = useRouter();
   const params = useParams<{ category: string }>();
@@ -77,7 +80,7 @@ function CollectionByCategory() {
   return (
     <>
       <Header
-        title="콜렉션"
+        title={collectionLocale[language].collection}
         left="back"
         leftClick={() => {
           router.back();

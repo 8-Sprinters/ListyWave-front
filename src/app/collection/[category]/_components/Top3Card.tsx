@@ -8,9 +8,12 @@ import { CollectionType } from '@/lib/types/listType';
 import formatDate from '@/lib/utils/dateFormat';
 import Top3CardItem from './Top3CardItem';
 import DefaultProfile from '/public/icons/default_profile.svg';
+import { collectionLocale } from '@/app/collection/locale';
+import { useLanguage } from '@/store/useLanguage';
 
 // TODO: search 아래의 Top3Card와 공통으로 수정하기
 export default function Top3Card({ collectionList }: { collectionList: CollectionType }) {
+  const { language } = useLanguage();
   const { list } = collectionList;
 
   // TODO: collection조회 API에서 representImageUrl 받아오기
@@ -46,7 +49,7 @@ export default function Top3Card({ collectionList }: { collectionList: Collectio
               <div className={styles.userImageWrapper}>
                 {list.ownerProfileImageUrl ? (
                   <Image
-                    alt="프로필 이미지"
+                    alt={collectionLocale[language].profileImageAlt}
                     width={30}
                     height={30}
                     src={list.ownerProfileImageUrl}

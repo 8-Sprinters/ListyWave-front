@@ -9,8 +9,11 @@ import { SearchUserType } from '@/lib/types/userProfileType';
 import SearchUserProfile from '@/app/search/_components/SearchUserProfile';
 import getSearchUserResult from '@/app/_api/search/getSearchUserResult';
 import SearchUserProfileSkeleton from '@/app/search/_components/SearchUserProfileSkeleton';
+import { searchLocale } from '@/app/search/locale';
+import { useLanguage } from '@/store/useLanguage';
 
 function SearchUserResult() {
+  const { language } = useLanguage();
   const queryClient = useQueryClient();
   const searchParams = useSearchParams();
   const keyword = searchParams?.get('keyword') ?? '';
@@ -40,7 +43,9 @@ function SearchUserResult() {
         searchUserData?.users.length > 0 && (
           <>
             <div className={styles.header}>
-              <div className={styles.countText}>사용자 {searchUserData?.totalCount}건</div>
+              <div
+                className={styles.countText}
+              >{`${searchLocale[language].userCountFirst} ${searchUserData?.totalCount} ${searchLocale[language].userCountLast}`}</div>
             </div>
             <div className={styles.userProfiles}>
               {searchUserData?.users.map((user) => <SearchUserProfile key={user.id} user={user} />)}
