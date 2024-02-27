@@ -4,6 +4,7 @@ import * as fonts from '@/styles/font.css';
 
 export const container = style({
   width: '100%',
+  paddingRight: '20px',
   position: 'relative',
 });
 

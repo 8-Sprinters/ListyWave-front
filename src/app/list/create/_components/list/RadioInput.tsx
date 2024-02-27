@@ -8,8 +8,8 @@ interface RadioInputProps {
     trueMessage: string;
     falseMessage: string;
   };
+  value: boolean;
   onClick: (value: boolean) => void;
-  defaultValue?: boolean;
 }
 
 /**
@@ -19,15 +19,14 @@ interface RadioInputProps {
  * @param props.messages - radio input을 선택했을때 아래 표시될 메시지들
  * @param props.onClick - radio input을 클릭했을때 실행시킬 함수
  */
-function RadioInput({ messages, onClick, defaultValue }: RadioInputProps) {
+
+function RadioInput({ messages, value, onClick }: RadioInputProps) {
+  const [check, setCheck] = useState<boolean>(value);
   const { language } = useLanguage();
-  const [value, setValue] = useState(defaultValue);
 
   useEffect(() => {
-    if (defaultValue) {
-      setValue(defaultValue);
-    }
-  }, [defaultValue]);
+    setCheck(value);
+  }, [value]);
 
   return (
     <>
@@ -36,11 +35,11 @@ function RadioInput({ messages, onClick, defaultValue }: RadioInputProps) {
           <input
             type="radio"
             className={styles.radioInput}
-            checked={value}
+            checked={check}
             readOnly
             onClick={() => {
               onClick(true);
-              setValue(true);
+              setCheck(true);
             }}
           />
           {listLocale[language].public}
@@ -50,17 +49,17 @@ function RadioInput({ messages, onClick, defaultValue }: RadioInputProps) {
           <input
             type="radio"
             className={styles.radioInput}
-            checked={!value}
+            checked={!check}
             readOnly
             onClick={() => {
               onClick(false);
-              setValue(false);
+              setCheck(false);
             }}
           />
           {listLocale[language].private}
         </label>
       </div>
-      <div className={styles.message}>{value ? messages.trueMessage : messages.falseMessage}</div>
+      <div className={styles.message}>{check ? messages.trueMessage : messages.falseMessage}</div>
     </>
   );
 }
