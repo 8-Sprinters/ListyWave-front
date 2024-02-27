@@ -43,7 +43,6 @@ interface CreateListProps {
  */
 function CreateList({ onNextClick, type }: CreateListProps) {
   const { language } = useLanguage();
-  const [categories, setCategories] = useState<CategoryType[]>([]);
   const { user: me } = useUser();
 
   const {
@@ -65,24 +64,21 @@ function CreateList({ onNextClick, type }: CreateListProps) {
     queryFn: () => getFollowingList(me.id),
   });
 
-  useEffect(() => {
-    const fetchCategories = async () => {
-      try {
-        const data = await getCategories();
-        const filteredCategories = data.filter((category: CategoryType) => category.codeValue !== '0');
-        setCategories(filteredCategories);
-      } catch (error) {}
-    };
-    fetchCategories();
+  const { data: categories } = useQuery<CategoryType[]>({
+    queryKey: [QUERY_KEYS.getCategories],
+    queryFn: getCategories,
+  });
 
+  useEffect(() => {
     const handleQueryParams = () => {
       if (isTemplateCreation) {
         setValue('title', searchParams?.get('title'));
-        setValue('category', searchParams?.get('category'));
+        const c = categories?.find((c) => c.korNameValue === searchParams?.get('category'))?.nameValue;
+        setValue('category', c);
       }
     };
     handleQueryParams();
-  }, []);
+  }, [categories]);
 
   const isValid =
     title &&
@@ -139,7 +135,7 @@ function CreateList({ onNextClick, type }: CreateListProps) {
         {/* 카테고리 */}
         <Section title={listLocale[language].category} isRequired={true}>
           <ButtonSelector
-            list={categories}
+            list={categories?.filter((category: CategoryType) => category.codeValue !== '0') || []}
             onClick={(item: CategoryType) => {
               setValue('category', item.nameValue);
             }}
