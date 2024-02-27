@@ -160,5 +160,5 @@ export const showMoreButton = style([
 ]);
 
 export const noData = style({
-  marginTop: '50px',
+  margin: '20px 0 70px',
 });
