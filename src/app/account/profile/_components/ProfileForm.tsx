@@ -26,9 +26,6 @@ import toasting from '@/lib/utils/toasting';
 import * as styles from './ProfileForm.css';
 import { useLanguage } from '@/store/useLanguage';
 
-const MockBackground = ['기본배경B', '기본배경C', '기본배경D', '기본배경E', '기본배경F', '기본배경G'];
-const MockProfile = ['B', 'C', 'D', 'E'];
-
 interface ProfileFormProps {
   userNickname: string;
   handleProfilePreviewChange: (arg: File | string) => void;
@@ -225,11 +222,6 @@ export default function ProfileForm({
                 }}
               />
             ))}
-            {MockBackground.map((image, index) => (
-              <button key={`defaultBackgroundImage${index}`} type="button" className={styles.backgroundOption}>
-                {image}
-              </button>
-            ))}
           </div>
         </div>
         <div className={styles.inputContainer}>
@@ -258,11 +250,6 @@ export default function ProfileForm({
                   handleDefaultImageClick('profile', image.imageUrl);
                 }}
               />
-            ))}
-            {MockProfile.map((image, index) => (
-              <button key={`defaultProfileImage${index}`} type="button" className={styles.profileOption}>
-                {image}
-              </button>
             ))}
           </div>
         </div>

@@ -79,6 +79,8 @@ export const backgroundOptionContainer = style({
   gridTemplateRows: '1fr 1fr',
   gridColumnGap: 8,
   gridRowGap: 10,
+
+  overflow: 'scroll',
 });
 
 export const backgroundOption = style([
@@ -97,6 +99,8 @@ export const profileOptionContainer = style({
   gap: 14,
 
   position: 'relative',
+
+  overflow: 'scroll',
 });
 
 export const profileOption = style([
