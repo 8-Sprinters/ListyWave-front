@@ -29,7 +29,7 @@ function ButtonSelector({ list, onClick, defaultValue }: ButtonSelectorProps) {
       {list.map((item) => (
         <button
           key={item.codeValue}
-          className={`${styles.button} ${item.nameValue.toLocaleLowerCase() === selectedButton.toLocaleLowerCase() ? styles.buttonActive : ''}`}
+          className={`${styles.button} ${item.nameValue.toLocaleLowerCase() === selectedButton?.toLocaleLowerCase() ? styles.buttonActive : ''}`}
           onClick={() => {
             onClick(item);
             setSelectedButton(item.nameValue);

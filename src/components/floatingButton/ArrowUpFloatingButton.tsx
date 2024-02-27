@@ -10,7 +10,7 @@ export default function ArrowUpFloatingButton() {
   const [isVisible, setIsVisible] = useState(false);
 
   const visibleButton = () => {
-    if (window.scrollY < 500) {
+    if (window.scrollY < 700) {
       setIsVisible(false);
     } else {
       setIsVisible(true);

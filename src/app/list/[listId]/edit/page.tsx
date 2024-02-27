@@ -14,12 +14,14 @@ import getCategories from '@/app/_api/category/getCategories';
 import { QUERY_KEYS } from '@/lib/constants/queryKeys';
 import { ItemImagesType, ListDetailType, ListEditType } from '@/lib/types/listType';
 import { CategoryType } from '@/lib/types/categoriesType';
+import { useUser } from '@/store/useUser';
 
 export type FormErrors = FieldErrors<ListEditType>;
 
 export default function EditPage() {
   const router = useRouter();
   const param = useParams<{ listId: string }>();
+  const { user } = useUser();
 
   const [step, setStep] = useState<'list' | 'item'>('list');
 
@@ -115,7 +117,7 @@ export default function EditPage() {
       methods.reset({
         category: categories?.find((c) => c.korNameValue === listDetailData.category)?.nameValue || 'culture',
         labels: listDetailData.labels.map((obj) => obj.name),
-        collaboratorIds: listDetailData.collaborators,
+        collaboratorIds: listDetailData.collaborators.filter((c) => c.id !== user.id).map((c) => c.id),
         title: listDetailData.title,
         description: listDetailData.description,
         isPublic: listDetailData.isPublic,

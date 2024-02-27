@@ -1,9 +1,9 @@
 'use client';
+import Image from 'next/image';
 import * as styles from './Section2.css';
 import MotionWrapper from './MotionWrapper';
 
 import WaveImage from '/public/images/wave_image.svg';
-import TapeImage from '/public/images/tape_image.svg';
 
 function Section2() {
   return (
@@ -11,10 +11,16 @@ function Section2() {
       <MotionWrapper variantsType="vertical">
         <div className={styles.wrapper}>
           <div className={styles.imageWrapper}>
-            <WaveImage />
+            <WaveImage width={430} height={510} />
           </div>
           <div className={styles.tapeImageWrapper}>
-            <TapeImage />
+            <Image
+              src={'/images/tape_image.png'}
+              alt="테이프 이미지"
+              width={414}
+              height={158}
+              style={{ objectFit: 'contain' }}
+            />
           </div>
           <div className={styles.titleWrapper}>
             <MotionWrapper variantsType="vertical" delay={0.3}>

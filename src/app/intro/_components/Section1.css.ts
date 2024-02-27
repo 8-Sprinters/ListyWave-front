@@ -42,7 +42,12 @@ export const textWrapper = style({
   transform: 'scaleX(1.07)',
 });
 
-export const text = style({});
+export const imageWrapper = style({
+  width: '100%',
+  height: 'auto',
+
+  position: 'absolute',
+});
 
 export const titleWrapper = style({
   width: '100%',

@@ -5,9 +5,9 @@ import * as fonts from '@/styles/font.css';
 export const customBackgroundImage = createVar();
 
 const moveRight = keyframes({
-  '0%': { transform: 'translateX(-100%)' },
+  '0%': { transform: 'translateX(-135%)' },
   '50%': { transform: 'translateX(0%)' },
-  '100%': { transform: 'translateX(-100%)' },
+  '100%': { transform: 'translateX(-135%)' },
 });
 
 const moveUpDown = keyframes({

@@ -8,13 +8,14 @@ import { QUERY_KEYS } from '@/lib/constants/queryKeys';
 import { SearchUserType } from '@/lib/types/userProfileType';
 import SearchUserProfile from '@/app/search/_components/SearchUserProfile';
 import getSearchUserResult from '@/app/_api/search/getSearchUserResult';
+import SearchUserProfileSkeleton from '@/app/search/_components/SearchUserProfileSkeleton';
 
 function SearchUserResult() {
   const queryClient = useQueryClient();
   const searchParams = useSearchParams();
   const keyword = searchParams?.get('keyword') ?? '';
 
-  const { data: searchUserData, isLoading } = useQuery<SearchUserType>({
+  const { data: searchUserData, isFetching } = useQuery<SearchUserType>({
     queryKey: [QUERY_KEYS.searchUserResult],
     queryFn: () => getSearchUserResult({ keyword }),
   });
@@ -30,15 +31,22 @@ function SearchUserResult() {
 
   return (
     <div>
-      {searchUserData?.users && searchUserData?.users.length > 0 && (
-        <>
-          <div className={styles.header}>
-            <div className={styles.countText}>사용자 {searchUserData?.totalCount}건</div>
-          </div>
-          <div className={styles.userProfiles}>
-            {searchUserData?.users.map((user) => <SearchUserProfile key={user.id} user={user} />)}
-          </div>
-        </>
+      {isFetching ? (
+        <div className={styles.userProfiles}>
+          <SearchUserProfileSkeleton />
+        </div>
+      ) : (
+        searchUserData?.users &&
+        searchUserData?.users.length > 0 && (
+          <>
+            <div className={styles.header}>
+              <div className={styles.countText}>사용자 {searchUserData?.totalCount}건</div>
+            </div>
+            <div className={styles.userProfiles}>
+              {searchUserData?.users.map((user) => <SearchUserProfile key={user.id} user={user} />)}
+            </div>
+          </>
+        )
       )}
     </div>
   );

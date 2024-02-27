@@ -29,7 +29,7 @@ function kakaotalkShare({
   } else {
     allWriter = userNickname;
   }
-  console.log(allWriter);
+
   window.Kakao.Share.sendCustom({
     templateId: 103935,
     templateArgs: {

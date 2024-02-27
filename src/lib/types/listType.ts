@@ -25,7 +25,7 @@ export interface ListCreateType {
 export interface ListEditType {
   category: string;
   labels: string[];
-  collaboratorIds: UserProfileType[];
+  collaboratorIds: number[];
   title: string;
   description: string;
   isPublic: boolean;
