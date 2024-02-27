@@ -67,7 +67,7 @@ export default function CollectionPage() {
       <div className={styles.categoryFolders}>
         {data &&
           data.map((category) => (
-            <div className={styles.categoryContainer}>
+            <div key={category.codeValue} className={styles.categoryContainer}>
               <div
                 className={styles.categoryFolder}
                 onClick={() => {
