@@ -19,3 +19,17 @@ export const text = style([
     color: vars.color.black,
   },
 ]);
+
+export const button = style([
+  fonts.titleRegular,
+  {
+    width: '200px',
+    height: '50px',
+    marginTop: '80px',
+
+    color: vars.color.white,
+    backgroundColor: vars.color.blue,
+
+    borderRadius: '50px',
+  },
+]);
