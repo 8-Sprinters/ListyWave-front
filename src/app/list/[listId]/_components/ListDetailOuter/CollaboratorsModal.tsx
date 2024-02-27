@@ -4,6 +4,8 @@ import * as styles from './CollaboratorsModal.css';
 import { UserProfileType } from '@/lib/types/userProfileType';
 import CancelButton from '/public/icons/cancel_button.svg';
 import { vars } from '@/styles/theme.css';
+import { listLocale } from '@/app/list/[listId]/locale';
+import { useLanguage } from '@/store/useLanguage';
 
 interface CollaboratorsModalProps {
   collaborators?: UserProfileType[] | null;
@@ -11,12 +13,14 @@ interface CollaboratorsModalProps {
 }
 
 function CollaboratorsModal({ collaborators, handleSetOff }: CollaboratorsModalProps) {
+  const { language } = useLanguage();
+
   return (
     <div className={styles.wrapper}>
       <button className={styles.cancelButton} onClick={handleSetOff}>
         <CancelButton width={24} height={24} fill={vars.color.gray7} />
       </button>
-      <span className={styles.collaboratorTitle}>콜라보레이터</span>
+      <span className={styles.collaboratorTitle}>{listLocale[language].collaborator}</span>
       <ul className={styles.listWrapper}>
         {collaborators?.map((item: UserProfileType) => {
           return (
@@ -26,7 +30,7 @@ function CollaboratorsModal({ collaborators, handleSetOff }: CollaboratorsModalP
                   <Image
                     src={item.profileImageUrl}
                     className={styles.profileImage}
-                    alt="사용자 프로필 이미지"
+                    alt={listLocale[language].profileImageAlt}
                     fill
                     style={{
                       objectFit: 'cover',

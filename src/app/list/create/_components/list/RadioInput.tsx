@@ -1,5 +1,7 @@
 import { useEffect, useState } from 'react';
 import * as styles from './RadioInput.css';
+import { useLanguage } from '@/store/useLanguage';
+import { listLocale } from '@/app/list/create/locale';
 
 interface RadioInputProps {
   messages: {
@@ -18,6 +20,7 @@ interface RadioInputProps {
  * @param props.onClick - radio input을 클릭했을때 실행시킬 함수
  */
 function RadioInput({ messages, onClick, defaultValue }: RadioInputProps) {
+  const { language } = useLanguage();
   const [value, setValue] = useState(defaultValue);
 
   useEffect(() => {
@@ -40,7 +43,7 @@ function RadioInput({ messages, onClick, defaultValue }: RadioInputProps) {
               setValue(true);
             }}
           />
-          공개
+          {listLocale[language].public}
         </label>
 
         <label className={styles.label}>
@@ -54,7 +57,7 @@ function RadioInput({ messages, onClick, defaultValue }: RadioInputProps) {
               setValue(false);
             }}
           />
-          비공개
+          {listLocale[language].private}
         </label>
       </div>
       <div className={styles.message}>{value ? messages.trueMessage : messages.falseMessage}</div>

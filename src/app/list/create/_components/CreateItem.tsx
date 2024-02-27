@@ -4,6 +4,8 @@ import BlueButton from '@/components/BlueButton/BlueButton';
 import Header from '@/components/Header/Header';
 import Items from './item/Items';
 import * as styles from './CreateItem.css';
+import { useLanguage } from '@/store/useLanguage';
+import { itemLocale } from '@/app/list/create/locale';
 
 interface CreateItemProps {
   onBackClick: () => void;
@@ -13,6 +15,7 @@ interface CreateItemProps {
 }
 
 export default function CreateItem({ onBackClick, onSubmitClick, isSubmitting, type }: CreateItemProps) {
+  const { language } = useLanguage();
   const {
     formState: { isValid },
   } = useFormContext();
@@ -20,22 +23,22 @@ export default function CreateItem({ onBackClick, onSubmitClick, isSubmitting, t
   return (
     <div>
       <Header
-        title={type === 'create' ? '리스트 생성' : '리스트 수정'}
+        title={type === 'create' ? itemLocale[language].createList : itemLocale[language].editList}
         left="back"
         leftClick={onBackClick}
         right={
           <BlueButton onClick={onSubmitClick} disabled={!isValid || isSubmitting}>
-            완료
+            {itemLocale[language].complete}
           </BlueButton>
         }
       />
       <div className={styles.article}>
         <h3 className={styles.label}>
-          아이템 추가 <span className={styles.required}>*</span>
+          {itemLocale[language].addItem} <span className={styles.required}>*</span>
         </h3>
         <p className={styles.description}>
-          최소 3개, 최대 10개까지 아이템을 추가할 수 있어요. <br />
-          아이템의 순서대로 순위가 정해져요.
+          {itemLocale[language].itemCreateMessage1} <br />
+          {itemLocale[language].itemCreateMessage2}
         </p>
         <Items type={type} />
       </div>

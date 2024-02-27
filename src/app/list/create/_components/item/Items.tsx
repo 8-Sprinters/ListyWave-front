@@ -20,6 +20,7 @@ import LinkPreview from './LinkPreview';
 import ImagePreview from './ImagePreview';
 import AddItemButton from './AddItemButton';
 import * as styles from './Items.css';
+import { useLanguage } from '@/store/useLanguage';
 
 // http:// 없을경우 추가
 const ensureHttp = (link: string) => {
@@ -35,6 +36,7 @@ interface ItemsProps {
 }
 
 export default function Items({ type, setItemChanged }: ItemsProps) {
+  const { language } = useLanguage();
   const [currentLink, setCurrentLink] = useState<string>('');
   const {
     register,
@@ -89,7 +91,7 @@ export default function Items({ type, setItemChanged }: ItemsProps) {
     if (e.target.files) {
       const targetFile = e.target.files[0];
       if (targetFile?.size > MAX_IMAGE_INPUT_SIZE_MB) {
-        toasting({ type: 'error', txt: toastMessage.ko.imageSizeError });
+        toasting({ type: 'error', txt: toastMessage[language].imageSizeError });
       } else {
         register.onChange(e);
       }
@@ -145,7 +147,7 @@ export default function Items({ type, setItemChanged }: ItemsProps) {
                         titleInput={
                           <input
                             className={titleError ? styles.errorTitle : styles.title}
-                            placeholder={itemPlaceholder.title}
+                            placeholder={itemPlaceholder[language].title}
                             autoComplete="off"
                             maxLength={101}
                             {...register(`items.${index}.title`, itemTitleRules)}
@@ -158,7 +160,7 @@ export default function Items({ type, setItemChanged }: ItemsProps) {
                         commentTextArea={
                           <textarea
                             className={styles.comment}
-                            placeholder={itemPlaceholder.comment}
+                            placeholder={itemPlaceholder[language].comment}
                             rows={3}
                             maxLength={101}
                             {...register(`items.${index}.comment`, itemCommentRules)}
@@ -186,7 +188,7 @@ export default function Items({ type, setItemChanged }: ItemsProps) {
                               <input
                                 className={styles.linkInput}
                                 type="url"
-                                placeholder={itemPlaceholder.link}
+                                placeholder={itemPlaceholder[language].link}
                                 autoComplete="off"
                                 {...register(`items.${index}.link`, itemLinkRules)}
                               />

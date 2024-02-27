@@ -15,6 +15,8 @@ import { UserProfileType } from '@/lib/types/userProfileType';
 import { ListDetailType } from '@/lib/types/listType';
 
 import * as styles from './MemberSelector.css';
+import { useLanguage } from '@/store/useLanguage';
+import { listLocale } from '@/app/list/create/locale';
 
 interface MemberSelectorProps {
   placeholder: string;
@@ -42,6 +44,7 @@ interface MemberSelectorProps {
  * @param onClickDelete - 사용자를 선택 취소하는 함수
  */
 function MemberSelector({ placeholder, followingList, onClickAdd, onClickDelete, rules }: MemberSelectorProps) {
+  const { language } = useLanguage();
   const [input, setInput] = useState('');
   const [selectedList, setSelectedList] = useState<UserProfileType[]>([]);
   const [isDropDownOpen, setIsDropDownOpen] = useState(false);
@@ -112,7 +115,7 @@ function MemberSelector({ placeholder, followingList, onClickAdd, onClickDelete,
               <>
                 {searchResult?.users.filter((user) =>
                   user.nickname.toLocaleLowerCase().includes(input.toLocaleLowerCase())
-                ).length === 0 && <div className={styles.noResultMessage}>검색결과가 없어요.</div>}
+                ).length === 0 && <div className={styles.noResultMessage}>{listLocale[language].noData}</div>}
               </>
             ) : (
               <>
@@ -144,7 +147,7 @@ function MemberSelector({ placeholder, followingList, onClickAdd, onClickDelete,
             <>
               {searchResult?.users.filter((user) =>
                 user.nickname.toLocaleLowerCase().includes(input.toLocaleLowerCase())
-              ).length === 0 && <div className={styles.noResultMessage}>검색결과가 없어요.</div>}
+              ).length === 0 && <div className={styles.noResultMessage}>{listLocale[language].noData}</div>}
             </>
           ) : (
             <>

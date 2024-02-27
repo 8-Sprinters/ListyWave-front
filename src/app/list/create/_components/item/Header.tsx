@@ -1,5 +1,7 @@
 import BackIcon from '/public/icons/back.svg';
 import * as styles from './Header.css';
+import { useLanguage } from '@/store/useLanguage';
+import { itemLocale } from '@/app/list/create/locale';
 
 interface HeaderProps {
   onBackClick: () => void;
@@ -8,18 +10,19 @@ interface HeaderProps {
 }
 
 function Header({ onBackClick, isSubmitActive, onSubmitClick }: HeaderProps) {
+  const { language } = useLanguage();
   return (
     <div className={styles.header}>
       <button onClick={onBackClick}>
-        <BackIcon width={'8'} height={'14'} alt="뒤로가기 버튼" />
+        <BackIcon width={'8'} height={'14'} alt={itemLocale[language].backIconAlt} />
       </button>
-      <h1 className={styles.headerTitle}>리스트 생성</h1>
+      <h1 className={styles.headerTitle}>{itemLocale[language].createList}</h1>
       <button
         className={isSubmitActive ? styles.headerNextButton.active : styles.headerNextButton.inactive}
         disabled={!isSubmitActive}
         onClick={onSubmitClick}
       >
-        완료
+        {itemLocale[language].complete}
       </button>
     </div>
   );

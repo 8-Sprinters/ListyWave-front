@@ -1,5 +1,3 @@
-import { useParams, useRouter } from 'next/navigation';
-
 import { ItemType } from '@/lib/types/listType';
 import { UserProfileType } from '@/lib/types/userProfileType';
 import kakaotalkShare from '@/components/KakaotalkShare/kakaotalkShare';
@@ -15,6 +13,7 @@ interface OptionDataProps {
   items: ItemType[];
   collaborators: UserProfileType[];
   ownerNickname: string;
+  isPublic: boolean;
 }
 
 interface SheetTypeProps {
@@ -45,7 +44,11 @@ const getBottomSheetOptionList = ({ type, data, closeBottomSheet, listUrl, goToC
           closeBottomSheet();
         },
       },
-      {
+    ];
+
+    // 비공개 게시물은 카카오톡 공유 불가능
+    if (data.isPublic) {
+      optionList.push({
         key: 'kakaoShare',
         title: '리스트 카카오톡으로 공유하기',
         onClick: () => {
@@ -59,8 +62,9 @@ const getBottomSheetOptionList = ({ type, data, closeBottomSheet, listUrl, goToC
           });
           closeBottomSheet();
         },
-      },
-    ];
+      });
+    }
+
     return optionList;
   }
 

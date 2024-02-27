@@ -34,6 +34,7 @@ interface FooterProps {
   isCollected: boolean;
   viewCount: number;
   collectCount: number;
+  isPublic: boolean;
 }
 
 declare global {

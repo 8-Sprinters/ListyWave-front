@@ -20,8 +20,10 @@ import ProfileForm from './_components/ProfileForm';
 import * as styles from './page.css';
 import ImagePreview from './_components/ImagePreview';
 import ProfileSkeleton from './_components/ProfileSkeleton';
+import { useLanguage } from '@/store/useLanguage';
 
 export default function ProfilePage() {
+  const { language } = useLanguage();
   const router = useRouter();
   //미리보기
   const [profilePreviewUrl, setProfilePreviewUrl] = useState('');
@@ -79,13 +81,13 @@ export default function ProfilePage() {
   const { mutate: updateProfileMutate, isPending } = useMutation({
     mutationFn: updateProfile,
     onSuccess: () => {
-      toasting({ type: 'success', txt: toastMessage.ko.updateProfileSuccess });
+      toasting({ type: 'success', txt: toastMessage[language].updateProfileSuccess });
       queryClient.invalidateQueries({
         queryKey: [QUERY_KEYS.userOne, user.id],
       });
     },
     onError: () => {
-      toasting({ type: 'error', txt: toastMessage.ko.updateProfileError });
+      toasting({ type: 'error', txt: toastMessage[language].updateProfileError });
     },
   });
 

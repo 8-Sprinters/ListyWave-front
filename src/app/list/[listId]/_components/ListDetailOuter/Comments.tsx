@@ -23,8 +23,12 @@ import LoginModal from '@/components/login/LoginModal';
 import useBooleanOutput from '@/hooks/useBooleanOutput';
 
 import * as styles from './Comments.css';
+import { useLanguage } from '@/store/useLanguage';
+import { commentLocale } from '@/app/list/[listId]/locale';
 
 function Comments() {
+  const { language } = useLanguage();
+
   const [activeNickname, setActiveNickname] = useState<string | null | undefined>(null);
   const [comment, setComment] = useState<string>('');
   const params = useParams<{ listId: string }>();
@@ -234,7 +238,10 @@ function Comments() {
           isEditing={isEditing}
           handleCancel={handleCancelEdit}
         />
-        <div id="commentRef" className={styles.totalCount}>{`${comments?.totalCount}개의 댓글`}</div>
+        <div
+          id="commentRef"
+          className={styles.totalCount}
+        >{`${comments?.totalCount} ${commentLocale[language].commentCount}`}</div>
         {comments?.commentsList?.map((item: CommentType) => {
           return (
             <div key={item.id} className={styles.commentWrapper}>

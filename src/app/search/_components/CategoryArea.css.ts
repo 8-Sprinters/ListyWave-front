@@ -1,4 +1,4 @@
-import { style } from '@vanilla-extract/css';
+import { keyframes, style } from '@vanilla-extract/css';
 import { vars } from '@/styles/theme.css';
 
 export const categoryWrapper = style({
@@ -24,17 +24,38 @@ export const category = style({
   cursor: 'pointer',
 });
 
+export const skeletonCategory = style([
+  category,
+  {
+    cursor: 'default',
+  },
+]);
+
 export const categoryImage = style({
   width: '6rem',
   height: '6rem',
 
   border: `1px solid ${vars.color.gray5}`,
   borderRadius: '8px',
+
+  ':hover': { filter: 'opacity(50%)' },
 });
 
 export const selectedCategoryImage = style([categoryImage, { filter: 'opacity(50%)' }]);
 
 export const categoryText = style({});
+
+const slide = keyframes({
+  '0%': {
+    transform: 'translateY(10px)',
+  },
+  '50%': {
+    transform: 'translateY(-10px)',
+  },
+  '100%': {
+    transform: 'translateY(0)',
+  },
+});
 
 export const selectedIconWrapper = style({
   width: '2.5rem',
@@ -47,6 +68,11 @@ export const selectedIconWrapper = style({
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'center',
+
+  backgroundColor: 'rgba(0,0,0, 0.5)',
+  borderRadius: '20px',
+
+  animation: `${slide} 0.2s ease-in-out`,
 });
 
 export const selectedIcon = style({

@@ -13,6 +13,8 @@ import CollectedIcon from '/public/icons/collected.svg';
 import Modal from '@/components/Modal/Modal';
 import LoginModal from '@/components/login/LoginModal';
 import useBooleanOutput from '@/hooks/useBooleanOutput';
+import { useLanguage } from '@/store/useLanguage';
+import toastMessage from '@/lib/constants/toastMessage';
 
 interface CollectProps {
   ownerId: number;
@@ -22,6 +24,7 @@ interface CollectProps {
 }
 
 const CollectButton = ({ data }: { data: CollectProps }) => {
+  const { language } = useLanguage();
   const { isOn, handleSetOff, handleSetOn } = useBooleanOutput();
 
   const queryClient = useQueryClient();
@@ -37,7 +40,7 @@ const CollectButton = ({ data }: { data: CollectProps }) => {
     },
     onError: (error: AxiosError) => {
       if (error.response?.status === 401) {
-        toasting({ type: 'warning', txt: '콜렉트 실패' });
+        toasting({ type: 'warning', txt: toastMessage[language].failedCollect });
       }
     },
   });

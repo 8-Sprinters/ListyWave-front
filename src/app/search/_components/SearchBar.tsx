@@ -18,7 +18,8 @@ function SearchBar() {
 
   const handleEnterKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter') {
-      router.push(`/search?keyword=${keyword}`);
+      // keyword가 없는 경우, 초기 category값을 '전체' 로 설정
+      router.push(`/search?keyword=${keyword}&category=entire`);
     }
   };
 

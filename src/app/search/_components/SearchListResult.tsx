@@ -114,7 +114,6 @@ function SearchListResult() {
             {result?.resultList?.map((list: SearchListType) => <Top3Card key={list.id} list={list} />)}
             {isFetchingNextPage && result?.resultList?.map((_, index) => <Top3CardSkeleton key={index} />)}
           </div>
-          {hasNextPage && <div ref={ref}></div>}
         </div>
       </div>
     );
@@ -123,10 +122,12 @@ function SearchListResult() {
   return (
     <>
       {!searchListData && isFetching ? ( // 최초 검색결과 받기 전
-        <div className={styles.cards}>
-          {Array.from({ length: 6 }).map((_, index) => (
-            <Top3CardSkeleton key={index} />
-          ))}
+        <div className={styles.cardsWrapper}>
+          <div className={styles.cards}>
+            {Array.from({ length: 6 }).map((_, index) => (
+              <Top3CardSkeleton key={index} />
+            ))}
+          </div>
         </div>
       ) : result.totalCount > 0 ? ( // 데이터가 있는 경우
         <Result />
@@ -134,6 +135,7 @@ function SearchListResult() {
         // 데이터가 없는 경우
         <NoData />
       )}
+      {hasNextPage && <div ref={ref}></div>}
     </>
   );
 }
