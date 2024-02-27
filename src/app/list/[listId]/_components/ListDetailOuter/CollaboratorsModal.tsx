@@ -24,8 +24,8 @@ function CollaboratorsModal({ collaborators, handleSetOff }: CollaboratorsModalP
       <ul className={styles.listWrapper}>
         {collaborators?.map((item: UserProfileType) => {
           return (
-            <li className={styles.itemWrapper} key={item.id}>
-              <Link href={`/user/${item.id}/mylist`}>
+            <li key={item.id}>
+              <Link href={`/user/${item.id}/mylist`} className={styles.itemWrapper}>
                 <div className={styles.profileImageParent}>
                   <Image
                     src={item.profileImageUrl}
@@ -37,8 +37,8 @@ function CollaboratorsModal({ collaborators, handleSetOff }: CollaboratorsModalP
                     }}
                   />
                 </div>
+                <span className={styles.nickname}>{item.nickname}</span>
               </Link>
-              <span className={styles.nickname}>{item.nickname}</span>
             </li>
           );
         })}
