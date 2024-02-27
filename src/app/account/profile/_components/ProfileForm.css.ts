@@ -80,7 +80,7 @@ export const backgroundOptionContainer = style({
   gridColumnGap: 8,
   gridRowGap: 10,
 
-  overflow: 'hidden',
+  overflow: 'scroll',
 });
 
 export const backgroundOption = style([
@@ -100,7 +100,7 @@ export const profileOptionContainer = style({
 
   position: 'relative',
 
-  overflow: 'hidden',
+  overflow: 'scroll',
 });
 
 export const profileOption = style([
