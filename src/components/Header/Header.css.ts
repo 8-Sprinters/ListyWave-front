@@ -15,11 +15,29 @@ export const header = style({
   display: 'flex',
   flexDirection: 'row',
   alignItems: 'center',
-  justifyContent: 'space-between',
 
   backgroundColor: '#fff',
 
   borderBottom: '1px solid rgba(0, 0, 0, 0.10)',
 });
 
-export const headerTitle = style([fonts.titleMedium]);
+export const flexChild = style({
+  flex: '1',
+});
+
+export const headerTitle = style([
+  fonts.titleMedium,
+  {
+    textAlign: 'center',
+  },
+]);
+
+export const leftChild = style({
+  display: 'flex',
+  justifyContent: 'left',
+});
+
+export const rightChild = style({
+  display: 'flex',
+  justifyContent: 'right',
+});
