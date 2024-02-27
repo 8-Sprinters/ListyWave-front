@@ -2,6 +2,7 @@
 import Image from 'next/image';
 import { useQuery } from '@tanstack/react-query';
 import { useParams, useRouter } from 'next/navigation';
+import { AxiosError } from 'axios';
 
 import Collaborators from '@/app/list/[listId]/_components/ListDetailOuter/Collaborators';
 import getListDetail from '@/app/_api/list/getListDetail';
@@ -23,6 +24,7 @@ import CollaboratorsModal from './CollaboratorsModal';
 import NoDataComponent from '@/components/NoData/NoDataComponent';
 import { useLanguage } from '@/store/useLanguage';
 import { modalLocale, listLocale } from '@/app/list/[listId]/locale';
+import * as modalStyles from '@/components/Modal/ModalButton.css';
 
 function ListInformation() {
   const { language } = useLanguage();
@@ -35,7 +37,11 @@ function ListInformation() {
   const { user } = useUser();
   const userId = user?.id;
 
-  const { data: list, error } = useQuery<ListDetailType>({
+  const {
+    data: list,
+    error,
+    isError,
+  } = useQuery<ListDetailType>({
     queryKey: [QUERY_KEYS.getListDetail],
     queryFn: () => getListDetail(Number(params?.listId)),
     enabled: !!params?.listId,
@@ -50,17 +56,15 @@ function ListInformation() {
   const isCollaborator: boolean | undefined =
     list?.collaborators.some((item: UserProfileType) => item?.id === userId) && userId !== list.ownerId;
 
-  const handleConfirmButtonClick = () => {
-    router.push('/');
-  };
-
-  if (error && error?.message.includes('404')) {
+  if (isError && error instanceof AxiosError) {
     return (
-      <Modal handleModalClose={handleSetOff}>
+      <Modal size="basic" handleModalClose={onClickMoveToPage('/')}>
         <Modal.Title>{modalLocale[language].privateMessage}</Modal.Title>
-        <Modal.Button onCancel={handleSetOff} onClick={handleConfirmButtonClick}>
-          {modalLocale[language].confirm}
-        </Modal.Button>
+        <div className={modalStyles.buttonContainer}>
+          <button type="button" className={modalStyles.button.primary} onClick={onClickMoveToPage('/')}>
+            {modalLocale[language].confirm}
+          </button>
+        </div>
       </Modal>
     );
   }
