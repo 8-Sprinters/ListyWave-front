@@ -194,10 +194,10 @@ function CreateList({ onNextClick, type }: CreateListProps) {
               trueMessage: listLocale[language].publicMessage,
               falseMessage: listLocale[language].privateMessage,
             }}
+            value={getValues('isPublic')}
             onClick={(b: boolean) => {
               setValue('isPublic', b);
             }}
-            defaultValue={getValues('isPublic')}
           />
         </Section>
       </div>
