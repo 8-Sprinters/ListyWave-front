@@ -17,6 +17,7 @@ import { ListDetailType } from '@/lib/types/listType';
 import * as styles from './MemberSelector.css';
 import { useLanguage } from '@/store/useLanguage';
 import { listLocale } from '@/app/list/create/locale';
+import { useUser } from '@/store/useUser';
 
 interface MemberSelectorProps {
   placeholder: string;
@@ -45,6 +46,7 @@ interface MemberSelectorProps {
  */
 function MemberSelector({ placeholder, followingList, onClickAdd, onClickDelete, rules }: MemberSelectorProps) {
   const { language } = useLanguage();
+  const { user } = useUser();
   const [input, setInput] = useState('');
   const [selectedList, setSelectedList] = useState<UserProfileType[]>([]);
   const [isDropDownOpen, setIsDropDownOpen] = useState(false);
@@ -87,7 +89,7 @@ function MemberSelector({ placeholder, followingList, onClickAdd, onClickDelete,
   }, []);
 
   useEffect(() => {
-    if (listDataBeforeEdit) setSelectedList(listDataBeforeEdit.collaborators);
+    if (listDataBeforeEdit) setSelectedList(listDataBeforeEdit.collaborators.filter((c) => c.id !== user.id));
   }, [listDataBeforeEdit]);
 
   return (
@@ -128,7 +130,6 @@ function MemberSelector({ placeholder, followingList, onClickAdd, onClickDelete,
                         return;
                       }
                       if (!selectedList.find((selectedUser: UserProfileType) => selectedUser.id === user.id)) {
-                        console.log(user);
                         setSelectedList([...selectedList, user]);
                         onClickAdd(user.id);
                       }
