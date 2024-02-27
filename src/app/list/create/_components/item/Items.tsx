@@ -22,6 +22,11 @@ import ImagePreview from './ImagePreview';
 import AddItemButton from './AddItemButton';
 import * as styles from './Items.css';
 
+const urlToDomain = (link: string) => {
+  const domain = new URL(link).hostname.replace('www.', '');
+  return domain;
+};
+
 interface ItemsProps {
   type: 'create' | 'edit';
 }
@@ -159,7 +164,7 @@ export default function Items({ type }: ItemsProps) {
                         linkPreview={
                           watchItems[index]?.link && (
                             <LinkPreview
-                              url={watchItems[index].link}
+                              url={urlToDomain(watchItems[index].link)}
                               handleClearButtonClick={() => {
                                 setValue(`items.${index}.link`, '');
                               }}
