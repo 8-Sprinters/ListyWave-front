@@ -7,6 +7,8 @@ import Label from '@/components/Label/Label';
 import { vars } from '@/styles/theme.css';
 import ImageUploader from './ImageUploader';
 import * as styles from './ItemLayout.css';
+import { useLanguage } from '@/store/useLanguage';
+import { itemLocale } from '@/app/list/create/locale';
 
 const MIN_ITEM_COUNT = 3;
 
@@ -37,15 +39,18 @@ export default function ItemLayout({
   imageInput,
   imagePreview,
 }: ItemLayoutProps) {
+  const { language } = useLanguage();
   return (
     <div>
       {titleErrorMessage && <p className={styles.titleError}> {titleErrorMessage}</p>}
       <Accordion defaultExpanded={true}>
         <AccordionSummary>
           <div className={styles.itemHeader}>
-            <DndIcon width="18" height="18" alt="드래그앤드롭" className={styles.headerIcon} />
+            <DndIcon width="18" height="18" alt={itemLocale[language].dragAndDrop} className={styles.headerIcon} />
             <div className={styles.rankAndTitle}>
-              <Label colorType={index === 0 ? 'blue' : 'skyblue'}>{`${index + 1}위`}</Label>
+              <Label colorType={index === 0 ? 'blue' : 'skyblue'}>
+                {language === 'ko' ? `${index + 1}${itemLocale.ko.rank}` : `${itemLocale.en.rank}${index + 1}`}
+              </Label>
               {titleInput}
             </div>
           </div>
@@ -61,7 +66,7 @@ export default function ItemLayout({
               </div>
               {itemLength > MIN_ITEM_COUNT && (
                 <button onClick={handleDeleteItem}>
-                  <DeleteIcon fill={vars.color.gray9} alt="아이템 삭제" />
+                  <DeleteIcon fill={vars.color.gray9} alt={itemLocale[language].deleteItem} />
                 </button>
               )}
             </div>

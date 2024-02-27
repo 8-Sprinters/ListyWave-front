@@ -27,6 +27,7 @@ import { listDescriptionRules, listLabelRules, listTitleRules } from '@/lib/cons
 
 import * as styles from './CreateList.css';
 import { useLanguage } from '@/store/useLanguage';
+import { listLocale } from '@/app/list/create/locale';
 
 interface CreateListProps {
   onNextClick: () => void;
@@ -96,7 +97,7 @@ function CreateList({ onNextClick, type }: CreateListProps) {
     <div>
       {/* 헤더 */}
       <Header
-        title={type === 'create' ? '리스트 생성' : '리스트 수정'}
+        title={type === 'create' ? listLocale[language].createList : listLocale[language].editList}
         left="close"
         leftClick={() => {
           router.back();
@@ -107,14 +108,14 @@ function CreateList({ onNextClick, type }: CreateListProps) {
             disabled={!isValid}
             onClick={onNextClick}
           >
-            다음
+            {listLocale[language].next}
           </button>
         }
       />
 
       <div className={styles.body}>
         {/* 리스트 제목 */}
-        <Section title="타이틀" isRequired={true}>
+        <Section title={listLocale[language].title} isRequired={true}>
           <SimpleInput
             type="short"
             name="title"
@@ -125,7 +126,7 @@ function CreateList({ onNextClick, type }: CreateListProps) {
         </Section>
 
         {/* 리스트 소개 */}
-        <Section title="소개">
+        <Section title={listLocale[language].description}>
           <SimpleInput
             type="long"
             name="description"
@@ -136,7 +137,7 @@ function CreateList({ onNextClick, type }: CreateListProps) {
         </Section>
 
         {/* 카테고리 */}
-        <Section title="카테고리" isRequired={true}>
+        <Section title={listLocale[language].category} isRequired={true}>
           <ButtonSelector
             list={categories}
             onClick={(item: CategoryType) => {
@@ -147,12 +148,12 @@ function CreateList({ onNextClick, type }: CreateListProps) {
         </Section>
 
         {/* 라벨 */}
-        <Section title="라벨">
+        <Section title={listLocale[language].label}>
           <LabelInput name="labels" placeholder={listPlaceholder[language].label} rules={listLabelRules} />
         </Section>
 
         {/* 콜라보레이터 */}
-        <Section title="콜라보레이터 추가">
+        <Section title={listLocale[language].addCollaborator}>
           <MemberSelector
             placeholder={listPlaceholder[language].collaborator}
             followingList={followingList?.followings || []}
@@ -168,14 +169,14 @@ function CreateList({ onNextClick, type }: CreateListProps) {
             rules={{
               maxNum: {
                 value: 20,
-                errorMessage: `콜라보레이터는 최대 20명까지 지정할 수 있어요.`,
+                errorMessage: listLocale[language].addCollaboratorError,
               },
             }}
           />
         </Section>
 
         {/* 배경 색상 */}
-        <Section title="배경 색상" isRequired={true}>
+        <Section title={listLocale[language].backgroundcolor} isRequired={true}>
           <ColorSelector
             defaultColor={getValues('backgroundColor')}
             colors={Object.values(BACKGROUND_COLOR)}
@@ -186,11 +187,11 @@ function CreateList({ onNextClick, type }: CreateListProps) {
         </Section>
 
         {/* 공개 설정 */}
-        <Section title="공개 설정" isRequired={true}>
+        <Section title={listLocale[language].publicSetting} isRequired={true}>
           <RadioInput
             messages={{
-              trueMessage: '모든 사람이 이 리스트를 볼 수 있어요.',
-              falseMessage: '이 리스트는 나만 볼 수 있어요.',
+              trueMessage: listLocale[language].publicMessage,
+              falseMessage: listLocale[language].privateMessage,
             }}
             onClick={(b: boolean) => {
               setValue('isPublic', b);
