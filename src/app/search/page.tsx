@@ -11,6 +11,7 @@ import BackButton from '/public/icons/back.svg';
 import PlusButton from '@/components/floatingButton/PlusOptionFloatingButton';
 import ArrowUpButton from '@/components/floatingButton/ArrowUpFloatingButton';
 import FloatingContainer from '@/components/floatingButton/FloatingContainer';
+import makeSearchUrl from '@/app/search/util/makeSearchUrl';
 
 function Header() {
   return (
@@ -26,47 +27,33 @@ export default function Search() {
 
   const [keyword, setKeyword] = useState('');
   const [category, setCategory] = useState('');
+  const [sort, setSort] = useState('');
 
   useEffect(() => {
     // 페이지 첫 로드시 검색어와 카테고리 설정
     setKeyword(searchParams?.get('keyword') ?? '');
     setCategory(searchParams?.get('category') ?? 'entire');
-  }, []);
+    setSort(searchParams?.get('sort') ?? 'new');
+  }, [searchParams]);
 
   const handleKeywordChange = (e: ChangeEvent<HTMLInputElement>) => {
     setKeyword(e.target.value);
   };
 
-  const makeNewUrl = ({ keyword, category }: { keyword: string; category: string }) => {
-    const searchUrl = '/search?';
-    const searchParams = [];
-
-    if (keyword) {
-      searchParams.push(`keyword=${keyword}`);
-    }
-
-    if (category) {
-      searchParams.push(`category=${category}`);
-    } else {
-      searchParams.push('category=entire');
-    }
-    return searchUrl + searchParams.join('&');
-  };
-
   const handleKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter') {
-      router.push(makeNewUrl({ keyword, category }));
+      router.push(makeSearchUrl({ keyword, category, sort }));
     }
   };
 
   const handeSearchClick = () => {
-    router.push(makeNewUrl({ keyword, category }));
+    router.push(makeSearchUrl({ keyword, category, sort }));
   };
 
   const handelCategoryClick = (e: MouseEvent<HTMLDivElement>) => {
     const newCategory = e.currentTarget.dataset.value ?? '';
     setCategory(newCategory);
-    router.push(makeNewUrl({ keyword, category: newCategory }));
+    router.push(makeSearchUrl({ keyword, category: newCategory, sort }));
   };
 
   const handleBackClick = () => {

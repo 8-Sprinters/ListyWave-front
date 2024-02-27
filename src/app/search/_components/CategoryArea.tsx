@@ -15,7 +15,6 @@ import { useLanguage } from '@/store/useLanguage';
 
 function CategoryArea({ onClick }: { onClick: MouseEventHandler }) {
   const { language } = useLanguage();
-  console.log('language:', language);
 
   const searchParams = useSearchParams();
   const categoryValue = searchParams?.get('category');

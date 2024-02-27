@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from 'react';
 import { useInfiniteQuery, useQueryClient } from '@tanstack/react-query';
-import { useSearchParams } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 
 import * as styles from '@/app/search/_components/SearchListResult.css';
 
@@ -16,6 +16,7 @@ import Top3CardSkeleton from '@/app/search/_components/Top3CardSkeleton';
 import SelectComponent from '@/components/SelectComponent/SelectComponent';
 import getSearchListResult from '@/app/_api/search/getSearchListResult';
 import NoData from '@/app/search/_components/NoData';
+import makeSearhUrl from '@/app/search/util/makeSearchUrl';
 
 interface OptionsProps {
   value: string;
@@ -47,6 +48,7 @@ function SortDropdown({ handleChangeSortType, defaultSort, hasKeyword }: SortAre
 
 function SearchListResult() {
   const queryClient = useQueryClient();
+  const router = useRouter();
   const searchParams = useSearchParams();
   const keyword = searchParams?.get('keyword') ?? '';
   const category = searchParams?.get('category') ?? '';
@@ -56,6 +58,8 @@ function SearchListResult() {
   const handleChangeSortType = (target: OptionsProps) => {
     const value: string = target.value;
     setSort(value);
+    // Url 변경하기
+    router.push(makeSearhUrl({ keyword, category, sort: value }));
   };
 
   // 리스트 검색결과
