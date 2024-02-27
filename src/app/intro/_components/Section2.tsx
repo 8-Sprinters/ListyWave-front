@@ -1,6 +1,5 @@
 'use client';
 import Image from 'next/image';
-import { assignInlineVars } from '@vanilla-extract/dynamic';
 import * as styles from './Section2.css';
 import MotionWrapper from './MotionWrapper';
 
@@ -12,11 +11,16 @@ function Section2() {
       <MotionWrapper variantsType="vertical">
         <div className={styles.wrapper}>
           <div className={styles.imageWrapper}>
-            <WaveImage />
+            <WaveImage width={430} height={510} />
           </div>
           <div className={styles.tapeImageWrapper}>
-            <div className={styles.tapeImageParent}></div>
-            <Image src={'/images/tape_image.png'} alt="테이프 이미지" fill style={{ objectFit: 'contain' }} />
+            <Image
+              src={'/images/tape_image.png'}
+              alt="테이프 이미지"
+              width={414}
+              height={158}
+              style={{ objectFit: 'contain' }}
+            />
           </div>
           <div className={styles.titleWrapper}>
             <MotionWrapper variantsType="vertical" delay={0.3}>

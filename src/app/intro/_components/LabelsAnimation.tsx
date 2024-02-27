@@ -55,7 +55,7 @@ export default LabelsAnimation;
 function ArrowLeft() {
   return (
     <Label colorType="whiteLeft">
-      <ArrowLeftIcon />
+      <ArrowLeftIcon width={135} height={16} />
     </Label>
   );
 }
@@ -63,7 +63,7 @@ function ArrowLeft() {
 function ArrowRight() {
   return (
     <Label colorType="whiteRight">
-      <ArrowRightIcon />
+      <ArrowRightIcon idth={135} height={16} />
     </Label>
   );
 }
