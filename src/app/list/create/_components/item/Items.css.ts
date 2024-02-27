@@ -74,21 +74,6 @@ export const comment = style([
   },
 ]);
 
-export const linkModalChildren = style({
-  width: '100%',
-});
-
-export const linkInput = style([
-  fonts.bodyLarge,
-  {
-    width: '100%',
-    padding: '8px',
-
-    border: `solid 1px ${vars.color.gray7}`,
-    borderRadius: '4px',
-  },
-]);
-
 export const imageInput = style({
   display: 'none',
 });
