@@ -63,7 +63,7 @@ export interface LabelType {
 
 // 리스트 전체 조회 타입
 export interface AllListType {
-  cursorId: number;
+  cursorUpdatedDate: string;
   hasNext: boolean;
   feedLists: ListType[];
 }

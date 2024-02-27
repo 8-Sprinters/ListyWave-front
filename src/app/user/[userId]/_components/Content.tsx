@@ -44,11 +44,11 @@ export default function Content({ userId, type }: ContentProps) {
     isLoading,
   } = useInfiniteQuery<AllListType>({
     queryKey: [QUERY_KEYS.getAllList, userId, type, selectedCategory],
-    queryFn: ({ pageParam: cursorId }) => {
-      return getAllList(userId, type, selectedCategory, cursorId as number);
+    queryFn: ({ pageParam: cursorUpdatedDate }) => {
+      return getAllList(userId, type, selectedCategory, cursorUpdatedDate as string);
     },
     initialPageParam: null,
-    getNextPageParam: (lastPage) => (lastPage.hasNext ? lastPage.cursorId : null),
+    getNextPageParam: (lastPage) => (lastPage.hasNext ? lastPage.cursorUpdatedDate : null),
   });
 
   const lists = useMemo(() => {
