@@ -19,12 +19,15 @@ import useBooleanOutput from '@/hooks/useBooleanOutput';
 import { UserProfileType } from '@/lib/types/userProfileType';
 import { LabelType, ListDetailType } from '@/lib/types/listType';
 import ListDetailInner from '@/app/list/[listId]/_components/ListDetailInner';
-import * as styles from './ListInformation.css';
 import CollaboratorsModal from './CollaboratorsModal';
 import NoDataComponent from '@/components/NoData/NoDataComponent';
 import { useLanguage } from '@/store/useLanguage';
 import { modalLocale, listLocale } from '@/app/list/[listId]/locale';
+
+import * as styles from './ListInformation.css';
 import * as modalStyles from '@/components/Modal/ModalButton.css';
+import LockIcon from '/public/icons/lock.svg';
+import { vars } from '@/styles/theme.css';
 
 function ListInformation() {
   const { language } = useLanguage();
@@ -133,7 +136,7 @@ function ListInformation() {
                 <div className={styles.listOwnerNickname}>{list?.ownerNickname}</div>
                 <div className={styles.infoDetailWrapper}>
                   <span>{timeDiff(String(list?.createdDate))}</span>
-                  <span>{list?.isPublic ? listLocale[language].public : listLocale[language].private}</span>
+                  {list?.isPublic === false && <LockIcon width={12} height={12} fill={vars.color.gray5} />}
                 </div>
               </div>
             </div>
