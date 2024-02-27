@@ -78,6 +78,8 @@ export const userImageWrapper = style({
   borderRadius: '50px',
 
   flexShrink: 0,
+
+  overflow: 'hidden',
 });
 
 export const userImage = style({
