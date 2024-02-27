@@ -49,13 +49,13 @@ export const notification = style({
   },
 });
 
-export const baseMessage = style([
-  fonts.bodyRegular,
-  {
-    display: 'inline',
-    flexGrow: 1,
-  },
-]);
+export const baseMessage = style({
+  display: 'inline',
+  fontSize: '1.4rem',
+  fontWeight: '500',
+  lineHeight: '2.0rem',
+  letterSpacing: '0.02rem',
+});
 
 export const message = styleVariants({
   new: [baseMessage, { color: vars.color.black }],
@@ -63,15 +63,20 @@ export const message = styleVariants({
 });
 
 export const date = style([
-  fonts.bodyMedium,
+  fonts.bodySmall,
   {
-    marginLeft: '4px',
+    marginLeft: '0.4rem',
     display: 'inline-block',
     color: vars.color.gray7,
   },
 ]);
 
-export const nickname = style([fonts.bodyRegular, { fontWeight: 700 }]);
+export const nickname = style({
+  fontSize: '1.4rem',
+  fontWeight: '600',
+  lineHeight: '2.0rem',
+  letterSpacing: '0.02rem',
+});
 
 export const separator = style({
   width: '100%',

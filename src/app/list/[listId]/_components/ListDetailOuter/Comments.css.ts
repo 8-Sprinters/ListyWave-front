@@ -9,7 +9,7 @@ export const wrapper = style({
 });
 
 export const formWrapperOuter = style({
-  padding: '15px 10px',
+  padding: '10px 10px',
   margin: 'auto',
 
   width: '100%',
@@ -24,7 +24,6 @@ export const formWrapperOuter = style({
   alignItems: 'flex-end',
   gap: '4px',
 
-  border: `1px solid ${vars.color.gray5}`,
   background: vars.color.white,
   zIndex: 1,
 });
@@ -40,6 +39,7 @@ export const formWrapperInner = style({
 
   borderRadius: '50px',
   border: `1px solid ${vars.color.gray5}`,
+  backgroundColor: vars.color.gray3,
 });
 
 export const activeFormWrapper = style({
@@ -57,11 +57,12 @@ export const formInput = style({
 
   flex: '1 0 0',
 
-  fontSize: '1.2rem',
+  fontSize: '1.6rem',
   wordBreak: 'break-all',
   wordWrap: 'break-word',
   whiteSpace: 'pre-wrap',
   resize: 'none',
+  backgroundColor: vars.color.gray3,
 });
 
 export const replyNickname = style({
@@ -75,7 +76,7 @@ export const replyNickname = style({
 });
 
 export const formButton = style({
-  marginLeft: '45px',
+  marginLeft: '16px',
 
   background: 'none',
   fontSize: '1.2rem',
@@ -106,6 +107,7 @@ export const commentWrapper = style({
 });
 
 export const activeReplyWrapper = style({
+  padding: '5px 0px',
   display: 'flex',
   justifyContent: 'space-between',
 });

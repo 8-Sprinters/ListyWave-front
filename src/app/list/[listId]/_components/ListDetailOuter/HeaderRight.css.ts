@@ -11,5 +11,5 @@ export const buttonResetStyle = style({
 export const headerRightWrapper = style({
   display: 'flex',
   alignItems: 'center',
-  gap: '12px',
+  gap: '15px',
 });

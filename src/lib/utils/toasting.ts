@@ -8,7 +8,7 @@ interface ToastingProps {
 
 function toasting({ type = 'default', txt = '' }: ToastingProps) {
   const toastOption: ToastOptions = {
-    position: 'bottom-center',
+    position: 'top-center',
     autoClose: 2000,
     hideProgressBar: true,
     closeOnClick: true,

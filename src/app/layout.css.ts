@@ -13,9 +13,4 @@ export const body = style({
   backgroundColor: vars.color.white,
 });
 
-export const toastContainer = style([
-  fonts.labelMedium,
-  {
-    marginBottom: 50,
-  },
-]);
+export const toastContainer = style([fonts.labelMedium]);

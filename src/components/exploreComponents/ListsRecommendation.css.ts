@@ -1,8 +1,6 @@
-import { style, createVar } from '@vanilla-extract/css';
+import { style, createVar, keyframes } from '@vanilla-extract/css';
 import { vars } from '@/styles/theme.css';
 import { headlineSmall, bodyMedium, bodySmall, labelSmall } from '@/styles/font.css';
-
-/**@todo 바뀐 피그마 디자인에 따라 수정 */
 
 export const listBackground = createVar();
 
@@ -13,16 +11,32 @@ export const wrapperOuter = style({
   flexDirection: 'column',
 });
 
+export const titleWrapper = style({
+  marginBottom: '26px',
+
+  display: 'flex',
+  alignItems: 'baseline',
+  gap: '5px',
+});
+
 export const sectionTitle = style([
   headlineSmall,
   {
-    marginBottom: '26px',
-
     fontWeight: 600,
   },
 ]);
 
+const listWrapperHoverAnimation = keyframes({
+  '0%': {
+    transform: 'scale(1)',
+  },
+  '100%': {
+    transform: 'scale(1.01)',
+  },
+});
+
 export const listWrapper = style({
+  width: '100%',
   marginBottom: '35px',
   padding: '44px 24px 14px',
 
@@ -32,21 +46,11 @@ export const listWrapper = style({
   flexDirection: 'column',
   borderRadius: '24px',
   backgroundColor: listBackground,
-});
 
-export const listSkeletonWrapper = style({
-  width: '370px',
-  height: '490px',
-  padding: '44px 24px 14px',
-  marginBottom: '24px',
-
-  position: 'relative',
-
-  display: 'flex',
-  flexDirection: 'column',
-  borderRadius: '24px',
-  gap: '24px',
-  backgroundColor: vars.color.gray3,
+  ':hover': {
+    animation: `${listWrapperHoverAnimation} 0.1s forwards`,
+    boxShadow: 'rgba(0, 0, 0, 0.04) 0px 3px 5px',
+  },
 });
 
 export const labelsWrapper = style({
@@ -127,7 +131,7 @@ export const noImage = style([
 
 export const simpleListWrapper = style({
   height: 'auto',
-  padding: '8px 16px 9px',
+  padding: '20px 16px',
   marginBottom: '16px',
 
   display: 'flex',

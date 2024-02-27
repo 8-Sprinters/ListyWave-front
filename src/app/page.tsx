@@ -1,6 +1,6 @@
 'use client';
 
-import { useSearchParams } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { useEffect, Suspense } from 'react';
 
 import ListRecommendation from '@/components/exploreComponents/ListsRecommendation';
@@ -23,19 +23,19 @@ import toastMessage from '@/lib/constants/toastMessage';
 
 function LandingPage() {
   // TODO 소현 - 나중에 getStaticPaths, getStaticProps로 쿼리 가져오기 (리팩토링)
+  const router = useRouter();
   const searchParams = useSearchParams();
   const isLoginRequired = searchParams ? searchParams.get('loginRequired') : '';
   const { isOn, handleSetOn, handleSetOff } = useBooleanOutput();
-
-  console.log(isLoginRequired);
 
   // TODO 소현 - hoc or hof로 분리하기
   useEffect(() => {
     if (!!isLoginRequired) {
       toasting({ type: 'error', txt: toastMessage.ko.requiredLogin });
       handleSetOn();
+      router.replace('/', { scroll: false }); // 쿼리스트링 초가화
     }
-  }, [isLoginRequired, handleSetOn]);
+  }, [isLoginRequired, handleSetOn, router]);
 
   return (
     <>

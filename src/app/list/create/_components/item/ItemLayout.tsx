@@ -15,13 +15,13 @@ interface ItemLayoutProps {
   handleDeleteItem: () => void;
   itemLength: number;
   titleInput: ReactNode;
+  titleErrorMessage?: string;
   commentTextArea: ReactNode;
   commentLength: ReactNode;
   linkModal: ReactNode;
   linkPreview: ReactNode;
   imageInput: ReactNode;
   imagePreview: ReactNode;
-  handleImageAdd?: () => void;
 }
 
 export default function ItemLayout({
@@ -29,49 +29,50 @@ export default function ItemLayout({
   handleDeleteItem,
   itemLength,
   titleInput,
+  titleErrorMessage,
   commentTextArea,
   commentLength,
   linkModal,
   linkPreview,
   imageInput,
   imagePreview,
-  handleImageAdd,
 }: ItemLayoutProps) {
   return (
-    <Accordion>
-      <AccordionSummary>
-        <div className={styles.itemHeader}>
-          <DndIcon width="18" height="18" alt="드래그앤드롭" className={styles.headerIcon} />
-          <div className={styles.rankAndTitle}>
-            <Label colorType={index === 0 ? 'blue' : 'skyblue'}>{`${index + 1}위`}</Label>
-            {titleInput}
-          </div>
-        </div>
-      </AccordionSummary>
-      <AccordionDetails className={styles.details}>
-        <div className={styles.moreInfo}>
-          {commentTextArea}
-          <div className={styles.countLength}>{commentLength}</div>
-          <div className={styles.toolbar}>
-            <div className={styles.fileButtons}>
-              {linkModal}
-              <ImageUploader index={index} handleImageAdd={handleImageAdd}>
-                {imageInput}
-              </ImageUploader>
+    <div>
+      {titleErrorMessage && <p className={styles.titleError}> {titleErrorMessage}</p>}
+      <Accordion defaultExpanded={true}>
+        <AccordionSummary>
+          <div className={styles.itemHeader}>
+            <DndIcon width="18" height="18" alt="드래그앤드롭" className={styles.headerIcon} />
+            <div className={styles.rankAndTitle}>
+              <Label colorType={index === 0 ? 'blue' : 'skyblue'}>{`${index + 1}위`}</Label>
+              {titleInput}
             </div>
-            {itemLength > MIN_ITEM_COUNT && (
-              <button onClick={handleDeleteItem}>
-                <DeleteIcon fill={vars.color.gray9} alt="아이템 삭제" />
-              </button>
-            )}
           </div>
+        </AccordionSummary>
+        <AccordionDetails className={styles.details}>
+          <div className={styles.moreInfo}>
+            {commentTextArea}
+            <div className={styles.countLength}>{commentLength}</div>
+            <div className={styles.toolbar}>
+              <div className={styles.fileButtons}>
+                {linkModal}
+                <ImageUploader index={index}>{imageInput}</ImageUploader>
+              </div>
+              {itemLength > MIN_ITEM_COUNT && (
+                <button onClick={handleDeleteItem}>
+                  <DeleteIcon fill={vars.color.gray9} alt="아이템 삭제" />
+                </button>
+              )}
+            </div>
 
-          <div className={styles.previewContainer}>
-            {linkPreview}
-            {imagePreview}
+            <div className={styles.previewContainer}>
+              {linkPreview}
+              {imagePreview}
+            </div>
           </div>
-        </div>
-      </AccordionDetails>
-    </Accordion>
+        </AccordionDetails>
+      </Accordion>
+    </div>
   );
 }

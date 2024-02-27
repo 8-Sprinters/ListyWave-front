@@ -1,6 +1,5 @@
 import { style } from '@vanilla-extract/css';
 import { vars } from '@/styles/theme.css';
-import { caption1 } from '@/styles/font.css';
 
 /**@todo 공용폰트 스타일 적용 */
 
@@ -15,6 +14,7 @@ export const commentOuterWrapper = style({
 });
 
 export const profileImageParent = style({
+  minWidth: '30px',
   width: '30px',
   height: '30px',
   position: 'relative',
@@ -25,8 +25,6 @@ export const profileImageParent = style({
 });
 
 export const profileImage = style({
-  flex: '0 0 1',
-
   borderRadius: '16px',
   backgroundColor: vars.color.gray7,
 });
@@ -34,7 +32,7 @@ export const profileImage = style({
 export const commentWrapper = style({
   display: 'flex',
   gap: '8.85px',
-  alignItems: 'center',
+  alignItems: 'flex-start',
 });
 
 export const commentContainer = style({
@@ -50,13 +48,11 @@ export const commentInformationWrapper = style({
   gap: '8px',
 });
 
-export const commentWriter = style([
-  caption1,
-  {
-    fontWeight: 600,
-    lineHeight: 'normal',
-  },
-]);
+export const commentWriter = style({
+  fontSize: '1.2rem',
+  fontWeight: 600,
+  lineHeight: 'normal',
+});
 
 export const commentCreatedTime = style({
   fontSize: '1rem',
@@ -64,26 +60,26 @@ export const commentCreatedTime = style({
   color: vars.color.gray9,
 });
 
-export const commentContent = style([
-  caption1,
-  {
-    fontWeight: 500,
-    lineHeight: 'normal',
-  },
-]);
+export const commentContent = style({
+  fontSize: '1.2rem',
+  fontWeight: 500,
+  lineHeight: 'normal',
+  letterSpacing: '-0.36px',
+});
 
-export const deletedComment = style([
-  commentContent,
-  {
-    fontWeight: 400,
-    color: vars.color.gray9,
-  },
-]);
+export const deletedComment = style({
+  fontSize: '1.2rem',
+  fontWeight: 400,
+  color: vars.color.gray9,
+  lineHeight: 'normal',
+  letterSpacing: '-0.36px',
+});
 
 export const actionButtonWrapper = style({
   display: 'flex',
   gap: '8px',
-  alignItems: 'center',
+  alignItems: 'flex-start',
+  marginTop: '20px',
 });
 
 export const editButton = style({

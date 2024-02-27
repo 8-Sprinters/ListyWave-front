@@ -18,42 +18,54 @@ export const customBackgroundImage = createVar();
 export const sectionTitle = style([
   headlineSmall,
   {
-    marginBottom: '26px',
-
     fontWeight: 600,
   },
 ]);
 
+export const titleWrapper = style({
+  marginBottom: '26px',
+  padding: '0 16px',
+
+  display: 'flex',
+  alignItems: 'baseline',
+  gap: '5px',
+});
+
 export const wrapper = style({
   marginTop: '50px',
-  padding: '0 16px',
 });
 
 export const listWrapper = style({
   marginBottom: '30px',
-  height: '229px',
+  height: '220px',
 
-  overflowX: 'scroll',
+  display: 'flex',
+  alignItems: 'center',
 
   '::-webkit-scrollbar': {
     display: 'none',
   },
 });
 
+export const test = style({
+  height: 'auto',
+});
+
 export const listItem = style({
   cursor: 'pointer',
 });
 
-export const slide = style({
-  display: 'flex',
-  alignItems: 'center',
-  gap: '12px',
+export const testItem = style({
+  width: '100%',
+  height: '100%',
 });
 
+export const slide = style({});
+
 export const itemWrapper = style({
-  height: '229px',
+  height: '200px',
+  padding: '0 40px',
   width: customWidth,
-  padding: '30px',
   borderRadius: customBorderRadius,
 
   position: 'relative',
@@ -65,6 +77,13 @@ export const itemWrapper = style({
   background: customBackgroundColor,
   border: customItemBorder,
   cursor: 'pointer',
+
+  transition: 'transform 0.3s ease', // 애니메이션 효과를 부여할 속성 및 시간을 지정합니다.
+
+  ':hover': {
+    transform: 'scale(1.01)', // hover 시 scale을 1.02로 변경합니다.
+    boxShadow: 'rgba(99, 99, 99, 0.2) 0px 2px 8px 0px',
+  },
 });
 
 export const itemWrapperWithImage = style([

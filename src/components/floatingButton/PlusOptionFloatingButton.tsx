@@ -32,7 +32,6 @@ function FloatingMenu() {
     // TODO 토큰 유효성 검증 관련 인가 처리 로직 추가
     // 지금은 토큰이 있는 지 확인 후 이동만 간단하게 처리시켜 둠(추후 수정 예정)
     if (!user.id) {
-      toasting({ type: 'warning', txt: toastMessage.ko.requiredLogin });
       handleSetOn();
       return;
     }

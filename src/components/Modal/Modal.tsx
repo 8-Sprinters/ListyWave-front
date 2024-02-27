@@ -7,7 +7,7 @@ import ModalSingleButton from './ModalSingleButton';
 import * as styles from './Modal.css';
 
 interface ModalMainProps {
-  size?: 'basic' | 'large';
+  size?: 'basic' | 'large' | 'small';
   children?: ReactNode;
   handleModalClose: () => void;
 }

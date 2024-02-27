@@ -81,6 +81,15 @@ function CreateList({ onNextClick, type }: CreateListProps) {
     handleQueryParams();
   }, []);
 
+  const isValid =
+    title &&
+    category &&
+    !errors.title &&
+    !errors.category &&
+    !errors.labels &&
+    !errors.collaboratorIds &&
+    !errors.description;
+
   return (
     <div>
       {/* 헤더 */}
@@ -92,10 +101,8 @@ function CreateList({ onNextClick, type }: CreateListProps) {
         }}
         right={
           <button
-            className={title && category ? styles.headerNextButtonActive : styles.headerNextButton}
-            disabled={
-              !!errors.title || !!errors.category || !!errors.labels || !!errors.collaboratorIds || !!errors.description
-            }
+            className={isValid ? styles.headerNextButtonActive : styles.headerNextButton}
+            disabled={!isValid}
             onClick={onNextClick}
           >
             다음

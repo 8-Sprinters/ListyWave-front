@@ -91,6 +91,11 @@ export default function Content({ userId, type }: ContentProps) {
         </Link>
       </div>
       <Categories handleFetchListsOnCategory={handleFetchListsOnCategory} selectedCategory={selectedCategory} />
+      {!isLoading && !lists.length && (
+        <div className={styles.nodataContainer}>
+          <NoDataComponent message="해당 카테고리에 아직 리스트가 없어요" />
+        </div>
+      )}
       <div className={styles.cards}>
         {isLoading ? (
           <MasonryGridSkeleton />

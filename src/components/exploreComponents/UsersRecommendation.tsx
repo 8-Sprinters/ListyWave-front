@@ -11,6 +11,7 @@ import FollowButton from './FollowButton';
 import { UserProfileType } from '@/lib/types/userProfileType';
 
 import * as styles from './UsersRecommendation.css';
+import waveEmoji from '/public/images/wave.png';
 
 function UsersRecommendation() {
   //zustand로 관리하는 user정보 불러오기
@@ -40,20 +41,21 @@ function UsersRecommendation() {
 
   return (
     <section>
-      {myId && (
+      {myId && usersList?.length !== 0 && (
         <div className={styles.wrapper}>
-          <h2 className={styles.sectionTitle}>HI, LISTER👋</h2>
-          {usersList?.length !== 0 && (
-            <ul className={styles.recommendUsersListWrapper} ref={wrapperRef}>
-              {usersList?.map((item: UserProfileType) => {
-                return (
-                  <li key={item.id}>
-                    <UserRecommendListItem data={item} handleScrollToRight={handleScrollToRight} userId={userMe?.id} />
-                  </li>
-                );
-              })}
-            </ul>
-          )}
+          <div className={styles.titleWrapper}>
+            <h2 className={styles.sectionTitle}>HI, LISTER</h2>
+            <Image src={waveEmoji} alt="인사하는 손 모양 이모지" width="22" />
+          </div>
+          <ul className={styles.recommendUsersListWrapper} ref={wrapperRef}>
+            {usersList?.map((item: UserProfileType) => {
+              return (
+                <li key={item.id}>
+                  <UserRecommendListItem data={item} handleScrollToRight={handleScrollToRight} userId={userMe?.id} />
+                </li>
+              );
+            })}
+          </ul>
         </div>
       )}
     </section>

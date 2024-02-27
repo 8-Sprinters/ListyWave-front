@@ -1,109 +1,166 @@
 'use client';
 import Image from 'next/image';
 import Link from 'next/link';
-import { useEffect, useRef } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { assignInlineVars } from '@vanilla-extract/dynamic';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import 'swiper/css';
+import { Autoplay, EffectCoverflow } from 'swiper/modules';
 
 import getTrendingLists from '@/app/_api/explore/getTrendingLists';
 import { QUERY_KEYS } from '@/lib/constants/queryKeys';
 import { TrendingListType } from '@/lib/types/exploreType';
-import { CUSTOM_WRAPPER, CUSTOM_PADDING, CUSTOM_BORDER_RADIUS } from '@/lib/constants/trendingListCustomStyle';
 
 import * as styles from './TrendingLists.css';
 import { vars } from '@/styles/theme.css';
+import { TrendingListsSkeleton } from './Skeleton';
+import oceanEmoji from '/public/images/ocean.png';
 
 /**@todo 트렌딩 리스트 바뀐 디자인에 맞게 새로 갈아엎을 예정 */
 
+const swiperSliderStyle = [
+  {
+    width: '258px',
+    borderRadius: '40px',
+  },
+  {
+    width: '190px',
+    borderRadius: '180px',
+  },
+  {
+    width: '258px',
+    borderRadius: '40px',
+  },
+  {
+    width: '172px',
+    borderRadius: '20px',
+  },
+];
+const STYLE_INDEX = (num: number) => num % 4;
+
 function TrendingList() {
-  const { data: trendingLists } = useQuery({
+  const { data: trendingLists, isFetching } = useQuery({
     queryKey: [QUERY_KEYS.getTrendingLists],
     queryFn: () => getTrendingLists(),
   });
 
-  let addedList: TrendingListType[] = [];
+  const swiperStyle = {
+    width: '100vw',
+    height: '100%',
+    padding: '10px 0',
+  };
 
-  if (trendingLists && trendingLists.length > 0) {
-    addedList.push(trendingLists[trendingLists.length - 1]); // trendingLists의 마지막 요소를 addedList의 첫 번째로 추가
-    addedList = [...addedList, ...(trendingLists || [])]; // trendingLists를 추가
-    addedList.push(trendingLists[0]); // trendingLists의 첫 번째 요소를 addedList의 마지막으로 추가
+  if (isFetching) {
+    return <TrendingListsSkeleton />;
   }
-
-  const STYLE_INDEX = (num: number) => num % 12;
-
-  const ref = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const element = ref.current;
-
-    if (element) {
-      let scrollAmount = 0;
-      const slideTimer = setInterval(() => {
-        element.scrollLeft += 10;
-        scrollAmount += 10;
-        // console.log(scroll);
-        if (scrollAmount >= 2325) {
-          element.scrollLeft = 0;
-          scrollAmount = 0;
-        }
-      }, 100);
-      return () => {
-        clearInterval(slideTimer);
-      };
-    }
-  }, []);
 
   return (
     <div className={styles.wrapper}>
-      <h2 className={styles.sectionTitle}>TRENDING🌊</h2>
-      <div className={styles.listWrapper} ref={ref}>
-        <ul className={styles.slide}>
-          {addedList?.map((item: TrendingListType, index) => {
-            return (
-              <li key={index.toString()}>
-                <Link href={`/list/${item.id}`}>
-                  {item.itemImageUrl ? (
-                    <div
-                      className={styles.itemWrapperWithImage}
-                      style={assignInlineVars({
-                        [styles.customBackgroundImage]: `url(${item.itemImageUrl})`,
-                        [styles.customWidth]: CUSTOM_WRAPPER[STYLE_INDEX(index)],
-                        [styles.customPadding]: CUSTOM_PADDING[STYLE_INDEX(index)],
-                        [styles.customBorderRadius]: CUSTOM_BORDER_RADIUS[STYLE_INDEX(index)],
-                      })}
-                    >
-                      {/* <Image src={item.itemImageUrl} alt="트렌딩 리스트 배경" fill /> */}
-                      <TrendingListInformation item={item} />
-                    </div>
-                  ) : (
-                    <div
-                      className={styles.itemWrapper}
-                      style={assignInlineVars({
-                        [styles.customWidth]: CUSTOM_WRAPPER[STYLE_INDEX(index)],
-                        [styles.customPadding]: CUSTOM_PADDING[STYLE_INDEX(index)],
-                        [styles.customBorderRadius]: CUSTOM_BORDER_RADIUS[STYLE_INDEX(index)],
-                        [styles.customBackgroundColor]: item.backgroundColor,
-                        [styles.customItemBorder]:
-                          item.backgroundColor === '#FFFFFF' ? `1px solid ${vars.color.gray5}` : 'none',
-                      })}
-                    >
-                      <TrendingListInformation item={item} />
-                    </div>
-                  )}
-                </Link>
-              </li>
-            );
-          })}
-        </ul>
+      <div className={styles.titleWrapper}>
+        <h2 className={styles.sectionTitle}>TRENDING</h2>
+        <Image src={oceanEmoji} alt="바다의 파도 이모지" width="22" />
+      </div>
+      <div className={styles.listWrapper}>
+        <div className={styles.slide}>
+          {trendingLists && (
+            <Swiper
+              slidesPerView={'auto'}
+              grabCursor={true}
+              centeredSlides={true}
+              spaceBetween={10}
+              autoplay={{
+                delay: 3000,
+                disableOnInteraction: false,
+              }}
+              // slidesPerView={4}
+              loop={true}
+              modules={[Autoplay, EffectCoverflow]}
+              className="mySwiper"
+              style={swiperStyle}
+            >
+              <SwiperSlide className={styles.test} style={swiperSliderStyle[0]}>
+                <TrendingListItem item={trendingLists[0]} index={0} />
+              </SwiperSlide>
+              <SwiperSlide className={styles.test} style={swiperSliderStyle[1]}>
+                <TrendingListItem item={trendingLists[1]} index={1} />
+              </SwiperSlide>
+              <SwiperSlide className={styles.test} style={swiperSliderStyle[2]}>
+                <TrendingListItem item={trendingLists[2]} index={2} />
+              </SwiperSlide>
+              <SwiperSlide className={styles.test} style={swiperSliderStyle[3]}>
+                <TrendingListItem item={trendingLists[3]} index={3} />
+              </SwiperSlide>
+              <SwiperSlide className={styles.test} style={swiperSliderStyle[0]}>
+                <TrendingListItem item={trendingLists[4]} index={4} />
+              </SwiperSlide>
+              <SwiperSlide className={styles.test} style={swiperSliderStyle[1]}>
+                <TrendingListItem item={trendingLists[5]} index={5} />
+              </SwiperSlide>
+              <SwiperSlide className={styles.test} style={swiperSliderStyle[2]}>
+                <TrendingListItem item={trendingLists[6]} index={6} />
+              </SwiperSlide>
+              <SwiperSlide className={styles.test} style={swiperSliderStyle[3]}>
+                <TrendingListItem item={trendingLists[7]} index={7} />
+              </SwiperSlide>
+              <SwiperSlide className={styles.test} style={swiperSliderStyle[0]}>
+                <TrendingListItem item={trendingLists[8]} index={8} />
+              </SwiperSlide>
+              <SwiperSlide className={styles.test} style={swiperSliderStyle[1]}>
+                <TrendingListItem item={trendingLists[9]} index={9} />
+              </SwiperSlide>
+            </Swiper>
+          )}
+        </div>
       </div>
     </div>
+  );
+}
+
+interface TrendingListItemProps {
+  item?: TrendingListType;
+  index: number;
+}
+
+function TrendingListItem({ item, index }: TrendingListItemProps) {
+  return (
+    <Link href={`/list/${item?.id}`}>
+      <div
+        className={styles.testItem}
+        style={assignInlineVars({
+          [styles.customItemBorder]: '20px',
+        })}
+      >
+        {item?.itemImageUrl ? (
+          <div
+            className={styles.itemWrapperWithImage}
+            style={assignInlineVars({
+              [styles.customBackgroundImage]: `url(${item.itemImageUrl})`,
+              [styles.customBorderRadius]: swiperSliderStyle[STYLE_INDEX(index)]['borderRadius'],
+            })}
+          >
+            <TrendingListInformation item={item} />
+          </div>
+        ) : (
+          <div
+            className={styles.itemWrapper}
+            style={assignInlineVars({
+              [styles.customBackgroundColor]: item?.backgroundColor,
+              [styles.customBorderRadius]: swiperSliderStyle[STYLE_INDEX(index)]['borderRadius'],
+              [styles.customItemBorder]: item?.backgroundColor === '#FFFFFF' ? `1px solid ${vars.color.gray7}` : '',
+            })}
+          >
+            <TrendingListInformation item={item} />
+          </div>
+        )}
+      </div>
+    </Link>
   );
 }
 
 export default TrendingList;
 
 interface TrendingListInformationType {
-  item: TrendingListType;
+  item?: TrendingListType;
 }
 
 function TrendingListInformation({ item }: TrendingListInformationType) {
@@ -111,9 +168,9 @@ function TrendingListInformation({ item }: TrendingListInformationType) {
     <div className={styles.itemInformationWrapper}>
       <div
         className={styles.itemTitle}
-        style={assignInlineVars({ [styles.customFontColor]: item.itemImageUrl ? vars.color.white : vars.color.black })}
+        style={assignInlineVars({ [styles.customFontColor]: item?.itemImageUrl ? vars.color.white : vars.color.black })}
       >
-        {item.title}
+        {item?.title}
       </div>
       <div className={styles.ownerProfileWrapper}>
         <div className={styles.profileImageWrapper}>
@@ -127,14 +184,14 @@ function TrendingListInformation({ item }: TrendingListInformationType) {
               className={styles.profileImage}
             />
           ) : (
-            <div className={styles.profileImage}></div>
+            <></>
           )}
         </div>
         <span
           className={styles.ownerNickname}
-          style={assignInlineVars({ [styles.customFontColor]: item.itemImageUrl ? '#fff' : '#000' })}
+          style={assignInlineVars({ [styles.customFontColor]: item?.itemImageUrl ? '#fff' : '#000' })}
         >
-          {item.ownerNickname}
+          {item?.ownerNickname}
         </span>
       </div>
     </div>

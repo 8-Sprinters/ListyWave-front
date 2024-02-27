@@ -67,6 +67,11 @@ export const cards = style({
   textAlign: 'center',
 });
 
+export const nodataContainer = style({
+  minHeight: '250px',
+});
+
 export const target = style({
-  height: '1px',
+  width: '100%',
+  height: '2px',
 });
