@@ -27,7 +27,7 @@ const useToasting = ({ type = 'default', txt = '' }: ToastingProps) => {
       if (type !== ('success' || 'error' || 'warning')) {
         toast(txt, toastOption);
       } else {
-        (toast[type] as Function)(txt, toastOption);
+        toast[type](txt, toastOption);
       }
     } else {
       setIsInitialized(true);
