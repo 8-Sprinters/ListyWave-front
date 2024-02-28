@@ -95,7 +95,6 @@ export default function ProfilePage() {
   const handleFormSubmit = () => {
     updateProfileMutate({ userId: user.id as number, data: methods.getValues() });
   };
-
   return (
     <>
       <FormProvider {...methods}>
@@ -109,7 +108,12 @@ export default function ProfilePage() {
             right={
               <BlueButton
                 type="submit"
-                disabled={!methods.formState.isDirty || !methods.formState.isValid || isPending}
+                disabled={
+                  !methods.formState.isDirty ||
+                  !!methods.formState.errors.nickname ||
+                  !!methods.formState.errors.description ||
+                  isPending
+                }
               >
                 {accountLocale[language].save}
               </BlueButton>
