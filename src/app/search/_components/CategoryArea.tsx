@@ -40,7 +40,9 @@ function CategoryArea({ onClick }: { onClick: MouseEventHandler }) {
                 width="60"
                 height="60"
               />
-              <div className={styles.categoryText}>{category.korNameValue}</div>
+              <div className={styles.categoryText}>
+                {language === 'ko' ? category.korNameValue : category.nameValue}
+              </div>
               {categoryValue === category.nameValue && (
                 <div className={styles.selectedIconWrapper}>
                   <CheckIcon className={styles.selectedIcon} />
