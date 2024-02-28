@@ -13,7 +13,7 @@ export const collectionLocale = {
   },
 };
 
-export const categoriesLocale = {
+export const categoriesLocale: Record<string, { [key: string]: string }> = {
   ko: {
     entire: '전체',
     culture: '문화',
@@ -25,6 +25,7 @@ export const categoriesLocale = {
     animal_plant: '동식물',
     etc: '기타',
     food: '음식',
+    folder: '폴더',
   },
   en: {
     entire: 'Entire',
