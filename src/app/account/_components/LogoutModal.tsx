@@ -12,6 +12,7 @@ import { useUser } from '@/store/useUser';
 
 import Modal from '@/components/Modal/Modal';
 import { useLanguage } from '@/store/useLanguage';
+import { accountLocale } from '@/app/account/locale';
 
 interface LogOutModalProps {
   handleSetOff: () => void;
@@ -50,9 +51,9 @@ export default function LogoutModal({ handleSetOff }: LogOutModalProps) {
 
   return (
     <Modal handleModalClose={handleSetOff}>
-      <Modal.Title>로그아웃 하시나요?</Modal.Title>
+      <Modal.Title>{accountLocale[language].logoutMessage}</Modal.Title>
       <Modal.Button onCancel={handleSetOff} onClick={handleLogout}>
-        확인
+        {accountLocale[language].confirm}
       </Modal.Button>
     </Modal>
   );
