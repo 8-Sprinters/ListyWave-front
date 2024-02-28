@@ -160,8 +160,8 @@ export const simpleImageWrapper = style({
 });
 
 export const detailImageWrapper = style({
-  width: '100%',
-  height: '35rem',
+  // width: '100%',
+  height: 'fit-content',
 
   position: 'relative',
 
@@ -185,7 +185,7 @@ export const simpleImage = style({
 export const detailImage = style({
   width: '100%',
   maxHeight: '35rem',
-  height: 'auto',
+  height: 'fit-content',
 
   border: `1px solid ${vars.color.gray5}`,
   borderRadius: '10px',
