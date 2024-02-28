@@ -26,7 +26,8 @@ export default function Profile({ userId }: { userId: number }) {
   const [hasError, setHasError] = useState(false);
   const { onClickMoveToPage } = useMoveToPage();
 
-  const fallbackProfileImageSrc = 'https://image.utoimage.com/preview/cp872722/2022/12/202212008462_500.jpg';
+  const fallbackProfileImageSrc = '/images/fallback_profileImage.webp';
+  const fallbackBackgroundImageSrc = '/images/fallback_backgroundImage.webp';
 
   const { data, isFetching, error, isError } = useQuery<UserType>({
     queryKey: [QUERY_KEYS.userOne, userId],
@@ -49,13 +50,7 @@ export default function Profile({ userId }: { userId: number }) {
   }
 
   const handleImageError = () => {
-    /** 
-     TODO
-    - [ ] onError일때 적용할 이미지 보여주기(프로필, 배경)
-     * 이미지가 있으나 에러일 경우 기본 이미지 중 하나를 보여주는 코드 작성 예정
-     * 아직 서버에 저장된 기본이미지가 없기 때문에 지금은 다른 url 넣어두고, 추후 수정 예정
-     */
-
+    // TODO onError일때 적용할 이미지 공통 로직 만들기
     setHasError(true);
   };
 
@@ -63,7 +58,7 @@ export default function Profile({ userId }: { userId: number }) {
     <div
       className={styles.container}
       style={assignInlineVars({
-        [styles.imageUrl]: `url(${data?.backgroundImageUrl})`,
+        [styles.imageUrl]: `url(${data ? data?.backgroundImageUrl : fallbackBackgroundImageSrc})`,
       })}
     >
       <div className={styles.header}>
