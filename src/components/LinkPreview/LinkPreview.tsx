@@ -3,8 +3,7 @@ import * as styles from '@/components/LinkPreview/LinkPreview.css';
 import { commonLocale } from '@/components/locale';
 import { useLanguage } from '@/store/useLanguage';
 
-async function fetchLinkPreviewData(url: string) {
-  const { language } = useLanguage();
+async function fetchLinkPreviewData(url: string, language: string) {
   try {
     // TODO: axios.get 사용시 에러발생 원인 파악
     const response = await fetch(`/api/getOgDataProxy?url=${encodeURIComponent(url)}`);
@@ -27,7 +26,7 @@ const LinkPreview = (linkUrl: string) => {
   const { language } = useLanguage();
   const { data, isSuccess, isFetching } = useQuery({
     queryKey: ['linkPreview' + linkUrl],
-    queryFn: () => fetchLinkPreviewData(linkUrl),
+    queryFn: () => fetchLinkPreviewData(linkUrl, language),
   });
 
   if (isFetching) {

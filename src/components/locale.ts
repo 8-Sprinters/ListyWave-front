@@ -1,4 +1,4 @@
-export const commonLocale = {
+export const commonLocale: Record<string, { [key: string]: string }> = {
   ko: {
     follow: '팔로우',
     following: '팔로잉',
