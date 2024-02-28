@@ -28,7 +28,7 @@ export default function LanguageDropdown() {
               handleSelectLanguage('ko');
             }}
           >
-            accountLocale[language].korean
+            {accountLocale[language].korean}
           </div>
           <div
             className={`${styles.listDiv} ${language === 'en' && styles.selected}`}

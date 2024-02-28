@@ -35,7 +35,6 @@ export default function AccountPage() {
           router.back();
         }}
         title={accountLocale[language].myPage}
-        right={<div />} //TODO: 공용HEADER 수정후 DIV없애기
       />
       <section className={styles.container}>
         <div className={styles.buttonDiv} onClick={onClickMoveToPage('account/profile')} role="button">
@@ -62,7 +61,12 @@ export default function AccountPage() {
             {accountLocale[language].contact}
           </div>
         </div>
-        <div className={styles.buttonDiv}>
+        <div
+          className={styles.buttonDiv}
+          onClick={() => {
+            handleDivLinkClick('https://tally.so/r/w51Dpv');
+          }}
+        >
           <div className={styles.titleDiv}>
             <MessageIcon width={24} height={24} alt={accountLocale[language].sendFeedback} />
             {accountLocale[language].sendFeedback}
