@@ -4,7 +4,7 @@ import * as fonts from '@/styles/font.css';
 export const title = style([
   fonts.headlineSmall,
   {
-    margin: '16px 18px',
+    padding: '24px 16px',
   },
 ]);
 
