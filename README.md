@@ -151,7 +151,10 @@ $ yarn dev
 
 <div align="center">
   <h2>✨ 온보딩 페이지</h2>
-  <img width="1469" alt="온보딩 페이지" src="https://github.com/8-Sprinters/ListyWave-front/assets/124856726/5d5c8af0-475c-42cb-bb99-e824f900601c">
+  <div>
+    <img width="430" height='932' alt="온보딩 페이지" src="https://github.com/8-Sprinters/ListyWave-front/assets/124856726/b77a6ead-9e20-4d37-9522-804b3c04c519">
+    <img width="430" height='932' alt="온보딩 페이지" src="https://github.com/8-Sprinters/ListyWave-front/assets/124856726/5822e4b0-8bd8-4d7c-aecd-6de4ace4fed1">
+  </div>
 </div>
 
 <br/>
