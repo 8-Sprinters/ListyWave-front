@@ -45,8 +45,6 @@ function ListRecommendation() {
     }
   });
 
-  console.log(result);
-
   //리스트 변수화
   const recommendLists = useMemo(() => {
     const list = result ? result.pages.flatMap(({ lists }) => lists) : [];

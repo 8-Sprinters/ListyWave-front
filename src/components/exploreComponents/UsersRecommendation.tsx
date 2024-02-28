@@ -13,6 +13,7 @@ import { UserProfileType } from '@/lib/types/userProfileType';
 import FallbackProfile from '/public/icons/fallback_profile.svg';
 import * as styles from './UsersRecommendation.css';
 import waveEmoji from '/public/images/wave.png';
+import { UserListsSkeleton } from './Skeleton';
 
 function UsersRecommendation() {
   //zustand로 관리하는 user정보 불러오기
@@ -38,6 +39,14 @@ function UsersRecommendation() {
 
   if (!userMe) {
     return null;
+  }
+
+  if (!usersList) {
+    return (
+      <section className={styles.wrapper}>
+        <UserListsSkeleton />
+      </section>
+    );
   }
 
   return (

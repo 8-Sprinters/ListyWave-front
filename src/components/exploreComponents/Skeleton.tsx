@@ -22,6 +22,16 @@ export const TrendingListsSkeleton = () => {
   );
 };
 
+export const UserListsSkeleton = () => {
+  return (
+    <div className={styles.trendingListSkeletonWrapper}>
+      <Skeleton variant="rounded" width={160} height={229} animation="wave" />
+      <Skeleton variant="rounded" width={160} height={229} animation="wave" />
+      <Skeleton variant="rounded" width={160} height={229} animation="wave" />
+    </div>
+  );
+};
+
 export const ListsSkeleton = () => {
   const NUMBER_OF_SKELETON_ITEM = 3;
 
