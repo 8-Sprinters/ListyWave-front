@@ -4,6 +4,11 @@ import * as styles from './Preview.css';
 import { useLanguage } from '@/store/useLanguage';
 import { itemLocale } from '@/app/list/create/locale';
 
+const urlToDomain = (link: string) => {
+  const domain = new URL(link).hostname.replace('www.', '');
+  return domain;
+};
+
 type LinkPreviewProps = {
   handleClearButtonClick: () => void;
   url: string;
@@ -26,7 +31,7 @@ export default function LinkPreview({ handleClearButtonClick, url }: LinkPreview
       role="button"
     >
       <LinkIcon fill="#61646B" />
-      <p className={styles.domainText}>{url}</p>
+      <p className={styles.domainText}>{urlToDomain(url)}</p>
       <button className={styles.clearButton} onClick={handleClearClick}>
         <ClearBlackIcon alt={itemLocale[language].deleteLinkAlt} />
       </button>
