@@ -1,4 +1,4 @@
-import { ChangeEvent, useState } from 'react';
+import { ChangeEvent } from 'react';
 
 import { useUser } from '@/store/useUser';
 import { useIsEditing } from '@/store/useComment';
@@ -18,6 +18,7 @@ interface CommentFormProps {
   handleChange: (e: ChangeEvent<HTMLInputElement>) => void;
   imageSrc?: string;
   isEditing?: boolean;
+  isPending: boolean;
   handleCancel: () => void;
 }
 
@@ -25,6 +26,7 @@ function CommentForm({
   comment,
   handleChange,
   activeNickname,
+  isPending,
   handleSubmit,
   handleUpdate,
   handleCancel,
@@ -34,6 +36,8 @@ function CommentForm({
 
   const { user } = useUser();
   const userId = user.id;
+
+  console.log(isPending);
 
   return (
     <div className={styles.formWrapperOuter}>
@@ -79,7 +83,7 @@ function CommentForm({
             }
           />
           {comment && (
-            <button type="submit" className={styles.formButton}>
+            <button type="submit" disabled={isPending} className={styles.formButton}>
               <Airplane width={20} height={20} fill={vars.color.blue} />
             </button>
           )}
