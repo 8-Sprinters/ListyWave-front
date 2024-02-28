@@ -13,8 +13,20 @@ import Top3CardSkeleton from '@/app/collection/[category]/_components/Top3CardSk
 import NoData from '@/app/collection/[category]/_components/NoData';
 import { CollectionType } from '@/lib/types/listType';
 import Top3Card from '@/app/collection/[category]/_components/Top3Card';
-import { collectionLocale } from '@/app/collection/locale';
+import { categoriesLocale } from '@/app/collection/locale';
 import { useLanguage } from '@/store/useLanguage';
+
+type categoryNameType =
+  | 'entire'
+  | 'culture'
+  | 'life'
+  | 'place'
+  | 'music'
+  | 'movie_drama'
+  | 'book'
+  | 'animal_plant'
+  | 'etc'
+  | 'food';
 
 function CollectionByCategory() {
   const { language } = useLanguage();
@@ -80,7 +92,7 @@ function CollectionByCategory() {
   return (
     <>
       <Header
-        title={collectionLocale[language].collection}
+        title={categoriesLocale[language][category as categoryNameType]}
         left="back"
         leftClick={() => {
           router.back();
