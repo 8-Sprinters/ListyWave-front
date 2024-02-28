@@ -131,7 +131,7 @@ export default function CreateListStep({ userId, nickname }: CreateListStepProps
               ) : (
                 <>
                   <span>Let&apos;s make</span>
-                  <span>{`&quot;${nickname}&quot;`}'s own list</span>
+                  <span>{`&quot;${nickname}&quot;`}&apos;s own list</span>
                 </>
               )}
             </p>
