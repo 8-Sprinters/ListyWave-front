@@ -107,7 +107,10 @@ export default function ProfilePage() {
               router.back();
             }}
             right={
-              <BlueButton type="submit" disabled={!methods.formState.isDirty || isPending}>
+              <BlueButton
+                type="submit"
+                disabled={!methods.formState.isDirty || !methods.formState.isValid || isPending}
+              >
                 {accountLocale[language].save}
               </BlueButton>
             }
