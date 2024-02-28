@@ -73,7 +73,6 @@ function TrendingList() {
                 delay: 1500,
                 disableOnInteraction: false,
               }}
-              // slidesPerView={4}
               loop={true}
               modules={[Autoplay, EffectCoverflow]}
               className="mySwiper"
