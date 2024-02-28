@@ -2,6 +2,7 @@ import Image from 'next/image';
 import * as styles from './Collaborators.css';
 import PlusIcon from '/public/icons/collaborators_plus.svg';
 import { UserProfileType } from '@/lib/types/userProfileType';
+import FallbackProfile from '/public/icons/fallback_profile.svg';
 import { useLanguage } from '@/store/useLanguage';
 import { listLocale } from '@/app/list/[listId]/locale';
 
@@ -30,15 +31,19 @@ function Collaborators({ collaborators }: CollaboratorsProps) {
             {collaboratorsList?.map((item: UserProfileType) => {
               return (
                 <div key={item.id} className={styles.profileImageParent}>
-                  <Image
-                    className={styles.profileImage}
-                    src={item.profileImageUrl}
-                    alt={listLocale[language].profileImageAlt}
-                    fill
-                    style={{
-                      objectFit: 'cover',
-                    }}
-                  />
+                  {item.profileImageUrl ? (
+                    <Image
+                      className={styles.profileImage}
+                      src={item.profileImageUrl}
+                      alt={listLocale[language].profileImageAlt}
+                      fill
+                      style={{
+                        objectFit: 'cover',
+                      }}
+                    />
+                  ) : (
+                    <FallbackProfile width={35} height={35} alt="존재하지 않는 사용자 프로필 이미지" />
+                  )}
                 </div>
               );
             })}
