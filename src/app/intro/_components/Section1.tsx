@@ -27,7 +27,7 @@ function Section1() {
           ease: [0, 0.3, 0.6, 1],
         }}
       >
-        <Image src={'/images/surf_wave.webp'} alt="서핑 이미지" width={350} height={470} />
+        <Image src={'/images/wave_surf.svg'} alt="서핑 이미지" width={371} height={376} />
         <div className={styles.titleWrapper}>
           <div className={styles.textWrapper}>
             <MotionWrapper delay={0.2} variantsType="horizontal">

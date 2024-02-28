@@ -19,7 +19,7 @@ export const logoWrapper = style({
 
 export const contentsWrapper = style({
   position: 'relative',
-  marginTop: '83px',
+  marginTop: '120px',
 
   display: 'flex',
   justifyContent: 'center',
