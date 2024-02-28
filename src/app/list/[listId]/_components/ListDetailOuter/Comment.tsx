@@ -16,7 +16,7 @@ import { commentLocale } from '@/app/list/[listId]/locale';
 
 import * as styles from './Comment.css';
 import { vars } from '@/styles/theme.css';
-import FallbackProfile from '/public/icons/fallback_profile.svg';
+import fallbackProfile from '/public/images/fallback_profileImage.webp';
 import EditPen from '/public/icons/edit_pen.svg';
 import { useLanguage } from '@/store/useLanguage';
 
@@ -93,23 +93,36 @@ function Comment({
                     style={{
                       objectFit: 'cover',
                     }}
+                    sizes="100vw 100vh"
                   />
                 ) : (
-                  <FallbackProfile width={30} height={30} alt="존재하지 않는 사용자 프로필 이미지" />
+                  <Image
+                    alt={commentLocale[language].profileImageAlt}
+                    src={fallbackProfile}
+                    className={styles.profileImage}
+                    fill
+                    style={{
+                      objectFit: 'cover',
+                    }}
+                    sizes="100vw 100vh"
+                  />
                 )}
-                <Image
-                  alt={commentLocale[language].profileImageAlt}
-                  src={comment.userProfileImageUrl}
-                  className={styles.profileImage}
-                  fill
-                  style={{
-                    objectFit: 'cover',
-                  }}
-                />
               </div>
             </Link>
           )}
-          {comment?.isDeleted && <FallbackProfile width={30} height={30} alt="존재하지 않는 사용자 프로필 이미지" />}
+          {comment?.isDeleted && (
+            <div className={styles.profileImageParent}>
+              <Image
+                alt={commentLocale[language].profileImageAlt}
+                src={fallbackProfile}
+                className={styles.profileImage}
+                fill
+                style={{
+                  objectFit: 'cover',
+                }}
+              />
+            </div>
+          )}
           <div className={styles.commentContainer}>
             <div className={styles.commentInformationWrapper}>
               <Link href={`/user/${comment?.userId}/mylist`}>

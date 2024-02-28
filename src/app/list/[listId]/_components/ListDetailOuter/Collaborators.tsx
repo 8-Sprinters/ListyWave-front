@@ -2,7 +2,7 @@ import Image from 'next/image';
 import * as styles from './Collaborators.css';
 import PlusIcon from '/public/icons/collaborators_plus.svg';
 import { UserProfileType } from '@/lib/types/userProfileType';
-import FallbackProfile from '/public/icons/fallback_profile.svg';
+import fallbackProfile from '/public/images/fallback_profileImage.webp';
 import { useLanguage } from '@/store/useLanguage';
 import { listLocale } from '@/app/list/[listId]/locale';
 
@@ -37,12 +37,22 @@ function Collaborators({ collaborators }: CollaboratorsProps) {
                       src={item.profileImageUrl}
                       alt={listLocale[language].profileImageAlt}
                       fill
+                      sizes="100vw 100vh"
                       style={{
                         objectFit: 'cover',
                       }}
                     />
                   ) : (
-                    <FallbackProfile width={35} height={35} alt="존재하지 않는 사용자 프로필 이미지" />
+                    <Image
+                      className={styles.profileImage}
+                      src={fallbackProfile}
+                      alt={listLocale[language].profileImageAlt}
+                      fill
+                      style={{
+                        objectFit: 'cover',
+                      }}
+                      sizes="100vw 100vh"
+                    />
                   )}
                 </div>
               );

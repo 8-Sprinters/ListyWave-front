@@ -10,7 +10,7 @@ import { useUser } from '@/store/useUser';
 import FollowButton from './FollowButton';
 import { UserProfileType } from '@/lib/types/userProfileType';
 
-import FallbackProfile from '/public/icons/fallback_profile.svg';
+import fallbackProfile from '/public/images/fallback_profileImage.webp';
 import * as styles from './UsersRecommendation.css';
 import waveEmoji from '/public/images/wave.png';
 import { UserListsSkeleton } from './Skeleton';
@@ -110,7 +110,16 @@ function UserRecommendListItem({ data, handleScrollToRight, userId }: UserRecomm
                 }}
               />
             ) : (
-              <FallbackProfile width={110} height={110} alt="존재하지 않는 사용자 프로필 이미지" />
+              <Image
+                src={fallbackProfile}
+                alt="추천 사용자 프로필 이미지"
+                fill
+                sizes="100vw 100vh"
+                className={styles.recommendUserProfileImage}
+                style={{
+                  objectFit: 'cover',
+                }}
+              />
             )}
           </div>
         </Link>

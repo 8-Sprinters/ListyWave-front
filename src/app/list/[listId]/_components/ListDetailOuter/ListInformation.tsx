@@ -21,7 +21,7 @@ import { LabelType, ListDetailType } from '@/lib/types/listType';
 import ListDetailInner from '@/app/list/[listId]/_components/ListDetailInner';
 import CollaboratorsModal from './CollaboratorsModal';
 import NoDataComponent from '@/components/NoData/NoDataComponent';
-import FallbackProfile from '/public/icons/fallback_profile.svg';
+import fallbackProfile from '/public/images/fallback_profileImage.webp';
 import { useLanguage } from '@/store/useLanguage';
 import { modalLocale, listLocale } from '@/app/list/[listId]/locale';
 
@@ -132,9 +132,19 @@ function ListInformation() {
                     style={{
                       objectFit: 'cover',
                     }}
+                    sizes="100vw 100vh"
                   />
                 ) : (
-                  <FallbackProfile width={36} height={36} alt="존재하지 않는 사용자 프로필 이미지" />
+                  <Image
+                    src={fallbackProfile}
+                    alt={listLocale[language].profileImageAlt}
+                    className={styles.profileImage}
+                    fill
+                    style={{
+                      objectFit: 'cover',
+                    }}
+                    sizes="100vw 100vh"
+                  />
                 )}
               </div>
               <div className={styles.informationWrapper}>
