@@ -16,7 +16,7 @@ import { vars } from '@/styles/theme.css';
 import Line from '/public/icons/horizontal_line.svg';
 import EditPen from '/public/icons/edit_pen.svg';
 import { useLanguage } from '@/store/useLanguage';
-import FallbackProfile from '/public/icons/fallback_profile.svg';
+import fallbackProfile from '/public/images/fallback_profileImage.webp';
 
 interface RepliesProps {
   replies?: ReplyType[] | null;
@@ -111,7 +111,16 @@ function Reply({ reply, listId, currentUserInfo, handleEdit, commentId }: ReplyP
             }}
           />
         ) : (
-          <FallbackProfile width={20} height={20} alt="존재하지 않는 사용자 프로필 이미지" />
+          <Image
+            src={fallbackProfile}
+            className={styles.profileImage}
+            width={20}
+            height={20}
+            alt={replyLocale[language].profileImageAlt}
+            style={{
+              objectFit: 'cover',
+            }}
+          />
         )}
         <div className={styles.replyContainer}>
           <div className={styles.replyInformationWrapper}>

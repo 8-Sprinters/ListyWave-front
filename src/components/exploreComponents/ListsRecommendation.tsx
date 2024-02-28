@@ -17,7 +17,7 @@ import NoDataComponent from '@/components/NoData/NoDataComponent';
 import { exploreBackgroundColors } from '@/lib/constants/exploreListBackgroundColor';
 import { ListRecommendationSkeleton, ListsSkeleton } from './Skeleton';
 import sparkleEmoji from '/public/images/sparkle.png';
-import FallbackProfile from '/public/icons/fallback_profile.svg';
+import fallbackProfile from '/public/images/fallback_profileImage.webp';
 
 import ChevronDown from '/public/icons/chevron_down.svg';
 
@@ -105,9 +105,19 @@ function ListRecommendation() {
                               style={{
                                 objectFit: 'cover',
                               }}
+                              sizes="100vw 100vh"
                             />
                           ) : (
-                            <FallbackProfile width={30} height={30} alt="존재하지 않는 사용자 프로필 이미지" />
+                            <Image
+                              src={fallbackProfile}
+                              alt="리스트 생성자 이미지"
+                              fill
+                              className={styles.ownerProfileImage}
+                              style={{
+                                objectFit: 'cover',
+                              }}
+                              sizes="100vw 100vh"
+                            />
                           )}
                         </Link>
                       </div>
