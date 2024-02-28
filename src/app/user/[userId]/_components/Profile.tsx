@@ -21,8 +21,11 @@ import { UserType } from '@/lib/types/userProfileType';
 import numberFormatter from '@/lib/utils/numberFormatter';
 
 import Modal from '@/components/Modal/Modal';
+import { userLocale } from '@/app/user/locale';
+import { useLanguage } from '@/store/useLanguage';
 
 export default function Profile({ userId }: { userId: number }) {
+  const { language } = useLanguage();
   const [hasError, setHasError] = useState(false);
   const { onClickMoveToPage } = useMoveToPage();
 
@@ -42,7 +45,7 @@ export default function Profile({ userId }: { userId: number }) {
         <Modal.Title>{error.response?.data.detail}</Modal.Title>
         <div className={modalStyles.buttonContainer}>
           <button type="button" className={modalStyles.button.primary} onClick={onClickMoveToPage('/')}>
-            확인
+            {userLocale[language].confirm}
           </button>
         </div>
       </Modal>
@@ -63,7 +66,11 @@ export default function Profile({ userId }: { userId: number }) {
     >
       <div className={styles.header}>
         {data?.isOwner && (
-          <SettingIcon alt="마이페이지로 이동하기" className={styles.icon} onClick={onClickMoveToPage('/account')} />
+          <SettingIcon
+            alt={userLocale[language].goToMypage}
+            className={styles.icon}
+            onClick={onClickMoveToPage('/account')}
+          />
         )}
       </div>
       <div className={styles.profileContainer}>
@@ -77,7 +84,7 @@ export default function Profile({ userId }: { userId: number }) {
                   <Image
                     className={styles.profileImage}
                     src={`${hasError ? fallbackProfileImageSrc : data?.profileImageUrl}`}
-                    alt="프로필 이미지"
+                    alt={userLocale[language].profileImageAlt}
                     width={50}
                     height={50}
                     priority
@@ -98,13 +105,13 @@ export default function Profile({ userId }: { userId: number }) {
                     <span className={styles.count}>
                       {data?.followingCount !== undefined && numberFormatter(data.followingCount, 'ko')}
                     </span>
-                    <span className={styles.captionText}>팔로잉</span>
+                    <span className={styles.captionText}>{userLocale[language].following}</span>
                   </div>
                   <div className={styles.text} onClick={onClickMoveToPage(`/user/${userId}/followers`)}>
                     <span className={styles.count}>
                       {data?.followerCount !== undefined && numberFormatter(data.followerCount, 'ko')}
                     </span>
-                    <span className={styles.captionText}>팔로워</span>
+                    <span className={styles.captionText}>{userLocale[language].follow}</span>
                   </div>
                 </div>
               </div>

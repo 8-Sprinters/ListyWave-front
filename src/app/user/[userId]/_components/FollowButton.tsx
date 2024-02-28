@@ -18,6 +18,7 @@ import useBooleanOutput from '@/hooks/useBooleanOutput';
 import Modal from '@/components/Modal/Modal';
 import LoginModal from '@/components/login/LoginModal';
 import { useLanguage } from '@/store/useLanguage';
+import { userLocale } from '@/app/user/locale';
 
 interface FollowButtonProps {
   userId: number;
@@ -85,7 +86,7 @@ export default function FollowButton({ isFollowed, userId }: FollowButtonProps) 
         className={`${isFollowed ? styles.variant.gray : styles.variant.primary}`}
         onClick={handleFollowUser(isFollowed)}
       >
-        {isFollowed ? '팔로우 취소' : '팔로우'}
+        {isFollowed ? userLocale[language].cancelFollow : userLocale[language].follow}
       </button>
       {isOn && (
         <Modal handleModalClose={handleSetOff} size="large">
