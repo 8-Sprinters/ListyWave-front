@@ -7,12 +7,15 @@ import getCategories from '@/app/_api/category/getCategories';
 
 import { QUERY_KEYS } from '@/lib/constants/queryKeys';
 import { CategoryType } from '@/lib/types/categoriesType';
+import { startListyLocale } from '@/app/start-listy/locale';
+import { useLanguage } from '@/store/useLanguage';
 
 interface CategoryProps {
   handleChangeCategory: (category: Omit<CategoryType, 'codeValue'>) => void;
 }
 
 export default function ChoiceCategory({ handleChangeCategory }: CategoryProps) {
+  const { language } = useLanguage();
   const { setValue, getValues } = useFormContext();
 
   const { data } = useQuery<CategoryType[]>({
@@ -37,7 +40,7 @@ export default function ChoiceCategory({ handleChangeCategory }: CategoryProps) 
       });
       setValue('category', category.nameValue);
     } else {
-      console.log('선택한 카테고리를 찾을 수 없어요.');
+      console.log(startListyLocale[language].notFountCategory);
       handleChangeCategory({
         nameValue: '',
         korNameValue: '',
@@ -47,7 +50,7 @@ export default function ChoiceCategory({ handleChangeCategory }: CategoryProps) 
 
   return (
     <>
-      <label className={styles.title}>무엇에 대한 리스트인가요?</label>
+      <label className={styles.title}>{startListyLocale[language].whatAbout}</label>
       <div onClick={onClickChangeCategory} className={styles.container}>
         {categories.map((category) => (
           <button

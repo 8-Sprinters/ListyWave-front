@@ -7,12 +7,14 @@ import * as stylesList from './ListPreview.css';
 import { itemTitleRules } from '@/lib/constants/formInputValidationRules';
 import { CategoryType } from '@/lib/types/categoriesType';
 import { ListCreateType } from '@/lib/types/listType';
+import { useLanguage } from '@/store/useLanguage';
 
 interface ItemsStepProps {
   selectedCategory: Omit<CategoryType, 'codeValue'>;
 }
 
 export default function RegisterItems({ selectedCategory }: ItemsStepProps) {
+  const { language } = useLanguage();
   const {
     register,
     getValues,
@@ -22,7 +24,9 @@ export default function RegisterItems({ selectedCategory }: ItemsStepProps) {
   return (
     <>
       <label className={styles.title}>
-        리스트에 넣을 1, 2, 3위 <br /> 아이템을 적어주세요.
+        {language === 'ko' ? '리스트에 넣을 1, 2, 3위' : 'Please write down the 1st, 2nd, and 3rd'}
+        <br />
+        {language === 'ko' ? '아이템을 적어주세요.' : 'items to be included in the list'}
       </label>
       <div className={stylesList.container}>
         <button className={stylesCategory.variants[`${selectedCategory.nameValue}Button`]}>

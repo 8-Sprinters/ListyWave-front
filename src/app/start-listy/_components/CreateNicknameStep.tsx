@@ -7,6 +7,8 @@ import { nicknameDuplicateRules, nicknameRules } from '@/lib/constants/formInput
 import { UserProfileEditType, UserType } from '@/lib/types/userProfileType';
 import checkNicknameDuplication from '@/app/_api/user/checkNicknameDuplication';
 import axiosInstance from '@/lib/axios/axiosInstance';
+import { startListyLocale } from '@/app/start-listy/locale';
+import { useLanguage } from '@/store/useLanguage';
 
 interface CreateNicnameStepProps {
   userId: number;
@@ -15,6 +17,7 @@ interface CreateNicnameStepProps {
 }
 
 export default function CreateNicknameStep({ userId, handleNextStep, refetch }: CreateNicnameStepProps) {
+  const { language } = useLanguage();
   const {
     register,
     handleSubmit,
@@ -26,7 +29,7 @@ export default function CreateNicknameStep({ userId, handleNextStep, refetch }: 
 
   const onSubmit = async (data: UserProfileEditType) => {
     if (!userId) {
-      alert('로그인이 필요해요.');
+      alert(startListyLocale[language].needLoginMessage);
       return;
     }
 
@@ -58,13 +61,13 @@ export default function CreateNicknameStep({ userId, handleNextStep, refetch }: 
         <p className={styles.stepText}>step1</p>
       </div>
       <div className={styles.container}>
-        <label className={styles.title}>닉네임을 만들어주세요.</label>
+        <label className={styles.title}>{startListyLocale[language].createNicknameMessage}</label>
         <div className={styles.inputWrapper}>
           <input {...register('nickname', nicknameRules)} autoComplete="off" autoFocus className={styles.input} />
           <p className={styles.errorMessage}>{errors.nickname?.message}</p>
         </div>
         <button type="submit" disabled={!isValid} className={isValid ? styles.variant.active : styles.variant.default}>
-          <span>다음으로</span>
+          <span>{startListyLocale[language].next}</span>
         </button>
       </div>
     </form>
