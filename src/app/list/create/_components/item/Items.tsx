@@ -10,7 +10,7 @@ import { ListDetailType } from '@/lib/types/listType';
 import { itemPlaceholder } from '@/lib/constants/placeholder';
 import toasting from '@/lib/utils/toasting';
 import toastMessage from '@/lib/constants/toastMessage';
-import { itemTitleRules, itemCommentRules, itemLinkRules } from '@/lib/constants/formInputValidationRules';
+import { itemTitleRules, itemCommentRules } from '@/lib/constants/formInputValidationRules';
 import { StrictModeDroppable } from '@/components/StrictModeDroppable';
 import { FormErrors } from '@/app/list/create/page';
 import { getListDetail } from '@/app/_api/list/getLists';

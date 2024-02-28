@@ -1,5 +1,6 @@
-import { ReactNode } from 'react';
+import { ReactNode, SyntheticEvent, useState } from 'react';
 import { Accordion, AccordionDetails, AccordionSummary } from '@mui/material';
+import ExpandMoreIcon from '/public/icons/chevron_down_sm.svg';
 
 import DndIcon from '/public/icons/dnd.svg';
 import DeleteIcon from '/public/icons/trash_bin.svg';
@@ -39,12 +40,18 @@ export default function ItemLayout({
   imageInput,
   imagePreview,
 }: ItemLayoutProps) {
+  const [expanded, setExpanded] = useState(false);
   const { language } = useLanguage();
+
+  const handleOnChange = () => {
+    setExpanded(!expanded);
+  };
+
   return (
     <div>
       {titleErrorMessage && <p className={styles.titleError}> {titleErrorMessage}</p>}
-      <Accordion defaultExpanded={true}>
-        <AccordionSummary>
+      <Accordion expanded={expanded}>
+        <AccordionSummary expandIcon={<ExpandMoreIcon onClick={handleOnChange} />}>
           <div className={styles.itemHeader}>
             <DndIcon width="18" height="18" alt={itemLocale[language].dragAndDrop} className={styles.headerIcon} />
             <div className={styles.rankAndTitle}>
