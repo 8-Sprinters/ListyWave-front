@@ -25,6 +25,7 @@ import toasting from '@/lib/utils/toasting';
 
 import * as styles from './ProfileForm.css';
 import { useLanguage } from '@/store/useLanguage';
+import { accountLocale } from '@/app/account/locale';
 
 interface ProfileFormProps {
   userNickname: string;
@@ -148,7 +149,7 @@ export default function ProfileForm({
         {/* 닉네임 */}
         <div>
           <div className={styles.inputContainer}>
-            <label className={styles.label}>닉네임</label>
+            <label className={styles.label}>{accountLocale[language].nickname}</label>
             <input
               className={styles.inputText}
               placeholder={profilePlaceholder[language].nickname}
@@ -162,15 +163,15 @@ export default function ProfileForm({
           </div>
           {errors.nickname ? (
             <div className={styles.validationMessage}>
-              <ErrorIcon alt="닉네임 중복 검사 결과 실패" />
+              <ErrorIcon alt={accountLocale[language].nicknameDuplicateFail} />
               <span className={styles.errorText}>{errors?.nickname?.message}</span>
             </div>
           ) : (
             getValues('nickname') !== userNickname &&
             isNicknameValidated && (
               <div className={styles.validationMessage}>
-                <CheckIcon alt="닉네임 중복 검사 결과 성공" />
-                <span className={styles.successText}>사용 가능한 닉네임이에요.</span>
+                <CheckIcon alt={accountLocale[language].nicknameDuplicateSuccess} />
+                <span className={styles.successText}>{accountLocale[language].nicknameDuplicateSuccessMessage}</span>
               </div>
             )
           )}
@@ -178,7 +179,7 @@ export default function ProfileForm({
 
         <div>
           <div className={styles.inputContainer}>
-            <label className={styles.label}>소개</label>
+            <label className={styles.label}>{accountLocale[language].introduce}</label>
             <textarea
               className={styles.textarea}
               placeholder={profilePlaceholder[language].description}
@@ -189,14 +190,14 @@ export default function ProfileForm({
           </div>
           {errors.description && (
             <div className={styles.validationMessage}>
-              <ErrorIcon alt="소개 에러" />
+              <ErrorIcon alt={accountLocale[language].introduceError} />
               <span className={styles.errorText}>{errors?.description?.message}</span>
             </div>
           )}
         </div>
 
         <div className={styles.inputContainer}>
-          <p className={styles.label}>배경이미지</p>
+          <p className={styles.label}>{accountLocale[language].backgroundImage}</p>
           <div className={styles.backgroundOptionContainer}>
             <label className={styles.backgroundOption} htmlFor="backgroundImage">
               <Camera />
@@ -225,7 +226,7 @@ export default function ProfileForm({
           </div>
         </div>
         <div className={styles.inputContainer}>
-          <p className={styles.label}>프로필이미지</p>
+          <p className={styles.label}>{accountLocale[language].profileImageAlt}</p>
           <div className={styles.profileOptionContainer}>
             <label className={styles.profileOption} htmlFor="profileImage">
               <Camera />

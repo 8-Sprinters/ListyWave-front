@@ -21,6 +21,7 @@ import * as styles from './page.css';
 import ImagePreview from './_components/ImagePreview';
 import ProfileSkeleton from './_components/ProfileSkeleton';
 import { useLanguage } from '@/store/useLanguage';
+import { accountLocale } from '@/app/account/locale';
 
 export default function ProfilePage() {
   const { language } = useLanguage();
@@ -100,14 +101,14 @@ export default function ProfilePage() {
       <FormProvider {...methods}>
         <form className={styles.page} onSubmit={methods.handleSubmit(handleFormSubmit)}>
           <Header
-            title="프로필 설정"
+            title={accountLocale[language].profileSetting}
             left="back"
             leftClick={() => {
               router.back();
             }}
             right={
               <BlueButton type="submit" disabled={!methods.formState.isDirty || isPending}>
-                저장
+                {accountLocale[language].save}
               </BlueButton>
             }
           />

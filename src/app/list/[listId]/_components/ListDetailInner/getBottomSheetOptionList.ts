@@ -70,14 +70,15 @@ const getBottomSheetOptionList = ({ type, data, closeBottomSheet, listUrl, goToC
 
   if (type === 'etc') {
     const optionList = [
-      {
-        key: 'saveToImg',
-        title: '리스트 이미지로 저장하기',
-        onClick: () => {
-          closeBottomSheet();
-          saveImageFromHtml({ filename: `${data.category}_${data.listId}`, element: imageSaveTest() });
-        },
-      },
+      // 이미지저장시 이슈가 있어 잠시 주석합니다.
+      // {
+      //   key: 'saveToImg',
+      //   title: '리스트 이미지로 저장하기',
+      //   onClick: () => {
+      //     closeBottomSheet();
+      //     saveImageFromHtml({ filename: `${data.category}_${data.listId}`, element: imageSaveTest() });
+      //   },
+      // },
       {
         key: 'copyAndCreateList',
         title: '이 타이틀로 리스트 생성하기',

@@ -14,8 +14,11 @@ import WithdrawIcon from '/public/icons/withdraw_x.svg';
 import LogoutModal from './_components/LogoutModal';
 import LanguageDropdown from './_components/LanguageDropdown';
 import * as styles from './page.css';
+import { accountLocale } from '@/app/account/locale';
+import { useLanguage } from '@/store/useLanguage';
 
 export default function AccountPage() {
+  const { language } = useLanguage();
   const { onClickMoveToPage } = useMoveToPage();
   const router = useRouter();
   const { isOn, handleSetOn, handleSetOff } = useBooleanOutput();
@@ -31,20 +34,20 @@ export default function AccountPage() {
         leftClick={() => {
           router.back();
         }}
-        title="마이페이지"
+        title={accountLocale[language].myPage}
         right={<div />} //TODO: 공용HEADER 수정후 DIV없애기
       />
       <section className={styles.container}>
         <div className={styles.buttonDiv} onClick={onClickMoveToPage('account/profile')} role="button">
           <div className={styles.titleDiv}>
-            <UserIcon width={24} height={24} alt="프로필 설정" />
-            프로필설정
+            <UserIcon width={24} height={24} alt={accountLocale[language].profileSetting} />
+            {accountLocale[language].profileSetting}
           </div>
         </div>
         <div className={styles.baseDiv}>
           <div className={styles.titleDiv}>
-            <GlobeIcon width={24} height={24} alt="언어변경" />
-            언어
+            <GlobeIcon width={24} height={24} alt={accountLocale[language].changeLanguage} />
+            {accountLocale[language].language}
           </div>
           <LanguageDropdown />
         </div>
@@ -55,27 +58,27 @@ export default function AccountPage() {
           }}
         >
           <div className={styles.titleDiv}>
-            <HelpIcon width={24} height={24} alt="문의하기" />
-            문의하기
+            <HelpIcon width={24} height={24} alt={accountLocale[language].contact} />
+            {accountLocale[language].contact}
           </div>
         </div>
         <div className={styles.buttonDiv}>
           <div className={styles.titleDiv}>
-            <MessageIcon width={24} height={24} alt="의견 보내기" />
-            의견 보내기
+            <MessageIcon width={24} height={24} alt={accountLocale[language].sendFeedback} />
+            {accountLocale[language].sendFeedback}
           </div>
         </div>
         <div className={styles.buttonDiv} onClick={handleSetOn} role="button">
           <div className={styles.titleDiv}>
-            <LogoutIcon width={24} height={24} alt="로그아웃" />
-            로그아웃
+            <LogoutIcon width={24} height={24} alt={accountLocale[language].logout} />
+            {accountLocale[language].logout}
           </div>
         </div>
         {isOn && <LogoutModal handleSetOff={handleSetOff} />}
         <div className={styles.buttonDiv} onClick={onClickMoveToPage('account/withdraw')} role="button">
           <div className={styles.titleDiv}>
-            <WithdrawIcon width={24} height={24} alt="탈퇴" />
-            회원탈퇴
+            <WithdrawIcon width={24} height={24} alt={accountLocale[language].withdrawal} />
+            {accountLocale[language].withdrawal}
           </div>
         </div>
       </section>
