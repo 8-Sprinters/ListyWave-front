@@ -21,7 +21,7 @@ function UsersRecommendation() {
   const myId = userMe.id;
 
   const wrapperRef = useRef<HTMLUListElement>(null);
-  const { data: usersList } = useQuery<UserProfileType[]>({
+  const { data: usersList, isFetching } = useQuery<UserProfileType[]>({
     queryKey: [QUERY_KEYS.getRecommendedUsers],
     queryFn: () => getRecommendedUsers(),
     enabled: userMe && !!myId,
@@ -41,32 +41,34 @@ function UsersRecommendation() {
     return null;
   }
 
-  if (!usersList) {
-    return (
-      <section className={styles.wrapper}>
-        <UserListsSkeleton />
-      </section>
-    );
-  }
-
   return (
     <section>
-      {myId && usersList?.length !== 0 && (
-        <div className={styles.wrapper}>
-          <div className={styles.titleWrapper}>
-            <h2 className={styles.sectionTitle}>HI, LISTER</h2>
-            <Image src={waveEmoji} alt="인사하는 손 모양 이모지" width="22" />
-          </div>
-          <ul className={styles.recommendUsersListWrapper} ref={wrapperRef}>
-            {usersList?.map((item: UserProfileType) => {
-              return (
-                <li key={item.id}>
-                  <UserRecommendListItem data={item} handleScrollToRight={handleScrollToRight} userId={userMe?.id} />
-                </li>
-              );
-            })}
-          </ul>
-        </div>
+      {isFetching ? (
+        <UserListsSkeleton />
+      ) : (
+        <>
+          {myId && usersList?.length !== 0 && (
+            <div className={styles.wrapper}>
+              <div className={styles.titleWrapper}>
+                <h2 className={styles.sectionTitle}>HI, LISTER</h2>
+                <Image src={waveEmoji} alt="인사하는 손 모양 이모지" width="22" />
+              </div>
+              <ul className={styles.recommendUsersListWrapper} ref={wrapperRef}>
+                {usersList?.map((item: UserProfileType) => {
+                  return (
+                    <li key={item.id}>
+                      <UserRecommendListItem
+                        data={item}
+                        handleScrollToRight={handleScrollToRight}
+                        userId={userMe?.id}
+                      />
+                    </li>
+                  );
+                })}
+              </ul>
+            </div>
+          )}
+        </>
       )}
     </section>
   );
