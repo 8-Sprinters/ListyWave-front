@@ -3,8 +3,11 @@ import ListWave from './ListWave';
 import MotionWrapper from './MotionWrapper';
 import SearchBar from './SearchBar';
 import * as styles from './Section6.css';
+import { introLocale } from '@/app/intro/locale';
+import { useLanguage } from '@/store/useLanguage';
 
 function Section6() {
+  const { language } = useLanguage();
   return (
     <section className={styles.background}>
       <div className={styles.wrapper}>
@@ -12,14 +15,14 @@ function Section6() {
           <div className={styles.contentsWrapper}>
             <MotionWrapper variantsType="reverseHorizontal" delay={0.8}>
               <div className={styles.titleWrapper}>
-                <h3>취향으로 파도타기</h3>
+                <h3>{introLocale[language].section.message21}</h3>
               </div>
             </MotionWrapper>
             <MotionWrapper variantsType="reverseHorizontal" delay={1.1}>
               <div className={styles.subTitleWrapper}>
-                <span>나랑 좋아하는 게 비슷한</span>
-                <span>취향 메이트를 발견할 수 있어요.</span>
-                <span>취향 저격 리스트는 한 곳에 모아 봐요.</span>
+                <span>{introLocale[language].section.message18}</span>
+                <span>{introLocale[language].section.message19}</span>
+                <span>{introLocale[language].section.message20}</span>
               </div>
               <div className={styles.imageWrapper}></div>
             </MotionWrapper>

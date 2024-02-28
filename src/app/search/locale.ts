@@ -1,4 +1,4 @@
-export const searchLocale = {
+export const searchLocale: Record<string, { [key: string]: string }> = {
   ko: {
     rightScrollMessage: '오른쪽으로 스크롤해보세요',
     noList: '일치하는 리스트가 없어요',
@@ -9,6 +9,10 @@ export const searchLocale = {
     userCountLast: '건',
     profileImageAlt: '프로필 이미지',
     backButtonAlt: '뒤로 가기 버튼',
+    new: '최신순',
+    old: '오래된순',
+    related: '관련도순',
+    collect: '콜렉트순',
   },
   en: {
     rightScrollMessage: 'Scroll to the right',
@@ -20,5 +24,9 @@ export const searchLocale = {
     userCountLast: 'Users',
     profileImageAlt: 'Profile image',
     backButtonAlt: 'Back Button',
+    new: 'Latest',
+    old: 'Oldest',
+    related: 'Related',
+    collect: 'Collect',
   },
 };

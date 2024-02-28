@@ -152,4 +152,5 @@ export interface CollectionListType {
   ownerProfileImageUrl: string;
   updatedDate: Date;
   listItems: ListItemType[];
+  representativeImageUrl: string;
 }

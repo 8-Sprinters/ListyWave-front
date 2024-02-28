@@ -1,17 +1,20 @@
 import Link from 'next/link';
 import * as styles from './page.css';
+import { withdrawnAccountLocale } from '@/app/withdrawn-account/locale';
+import { useLanguage } from '@/store/useLanguage';
 
 export default function WithdrawnAccountPage() {
+  const { language } = useLanguage();
   return (
     <div className={styles.wrapper}>
-      <div>탈퇴한 회원이에요.</div>
-      <div>탈퇴 후 30일 내에는 재가입할 수 없어요.</div>
+      <div>{withdrawnAccountLocale[language].message1}</div>
+      <div>{withdrawnAccountLocale[language].message2}</div>
       <br />
       <Link className={styles.link} href="/">
-        홈으로 돌아가기
+        {withdrawnAccountLocale[language].goToHome}
       </Link>
       <Link className={styles.subLink} href="https://open.kakao.com/o/saz6DObg" target="_blank">
-        문의하기
+        {withdrawnAccountLocale[language].contact}
       </Link>
     </div>
   );

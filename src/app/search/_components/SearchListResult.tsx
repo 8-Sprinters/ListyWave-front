@@ -6,10 +6,7 @@ import * as styles from '@/app/search/_components/SearchListResult.css';
 
 import { SearchListType } from '@/lib/types/listType';
 import { QUERY_KEYS } from '@/lib/constants/queryKeys';
-import {
-  DROPDOWN_OPTIONS_WITH_KEYWORD,
-  DROPDOWN_OPTIONS_WITHOUT_KEYWORD,
-} from '@/app/search/constants/dropdownOptions';
+import { getDropdownOptions } from '@/app/search/util/getDropdownOptions';
 import useIntersectionObserver from '@/hooks/useIntersectionObserver';
 import Top3Card from '@/app/search/_components/Top3Card';
 import Top3CardSkeleton from '@/app/search/_components/Top3CardSkeleton';
@@ -32,14 +29,16 @@ interface SortAreaProps {
 }
 
 function SortDropdown({ handleChangeSortType, defaultSort, hasKeyword }: SortAreaProps) {
-  const defaultValue: OptionsProps =
-    DROPDOWN_OPTIONS_WITH_KEYWORD.find((option) => option.value === defaultSort) ?? DROPDOWN_OPTIONS_WITH_KEYWORD[0];
+  const { language } = useLanguage();
+  const dropdownOption = getDropdownOptions(hasKeyword, language);
+
+  const defaultValue: OptionsProps = dropdownOption.find((option) => option.value === defaultSort) ?? dropdownOption[0];
 
   return (
     <div className={styles.sort}>
       <SelectComponent
         name="listType"
-        options={hasKeyword ? DROPDOWN_OPTIONS_WITH_KEYWORD : DROPDOWN_OPTIONS_WITHOUT_KEYWORD}
+        options={dropdownOption}
         defaultValue={defaultValue}
         isSearchable={false}
         onChange={handleChangeSortType}
@@ -49,6 +48,7 @@ function SortDropdown({ handleChangeSortType, defaultSort, hasKeyword }: SortAre
 }
 
 function SearchListResult() {
+  const { language } = useLanguage();
   const queryClient = useQueryClient();
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -105,7 +105,11 @@ function SearchListResult() {
   }, [queryClient, sort, keyword, category]);
 
   useEffect(() => {
-    if (!keyword) handleChangeSortType(DROPDOWN_OPTIONS_WITH_KEYWORD[0]);
+    if (!keyword)
+      handleChangeSortType({
+        value: 'new',
+        label: searchLocale[language].new,
+      });
   }, [keyword]);
 
   const Result = () => {

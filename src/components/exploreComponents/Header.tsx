@@ -17,8 +17,11 @@ import NotificationOn from '/public/icons/notification_on.svg';
 import Modal from '@/components/Modal/Modal';
 import LoginModal from '@/components/login/LoginModal';
 import useBooleanOutput from '@/hooks/useBooleanOutput';
+import { commonLocale } from '@/components/locale';
+import { useLanguage } from '@/store/useLanguage';
 
 function Header() {
+  const { language } = useLanguage();
   //zustand로 관리하는 user정보 불러오기
   const { user } = useUser();
   const userId = user.id;
@@ -52,7 +55,7 @@ function Header() {
       )}
       <div className={styles.userInfoOuterWrapper}>
         <Link href={'/intro'} className={styles.logoWrapper}>
-          <Logo alt="로고 이미지" />
+          <Logo alt={commonLocale[language].logoImage} />
         </Link>
         <div className={styles.userInfoWrapper}>
           {userId ? (
@@ -61,7 +64,7 @@ function Header() {
                 {userMe?.profileImageUrl ? (
                   <Image
                     src={userMe.profileImageUrl}
-                    alt="사용자 프로필 이미지"
+                    alt={commonLocale[language].userProfileImage}
                     width={26}
                     height={26}
                     className={styles.userProfile}
@@ -69,7 +72,7 @@ function Header() {
                 ) : (
                   <Image
                     src={fallbackProfile}
-                    alt="사용자 프로필 이미지"
+                    alt={commonLocale[language].userProfileImage}
                     width={26}
                     height={26}
                     className={styles.userProfile}
@@ -77,12 +80,16 @@ function Header() {
                 )}
               </Link>
               <Link href={'/notification'}>
-                {isNotificationAllChecked ? <BellIcon alt="알림 페이지 이동 버튼" /> : <NotificationOn />}
+                {isNotificationAllChecked ? (
+                  <BellIcon alt={commonLocale[language].goToNotification} />
+                ) : (
+                  <NotificationOn />
+                )}
               </Link>
             </>
           ) : (
             <h5 className={styles.loginButton} onClick={handleSetOn}>
-              로그인/회원가입
+              {commonLocale[language].signInAndUp}
             </h5>
           )}
         </div>

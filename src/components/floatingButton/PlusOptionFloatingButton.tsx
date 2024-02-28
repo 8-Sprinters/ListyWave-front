@@ -16,8 +16,11 @@ import copyUrl from '@/lib/utils/copyUrl';
 
 import LoginModal from '@/components/login/LoginModal';
 import Modal from '@/components/Modal/Modal';
+import { commonLocale } from '@/components/locale';
+import { useLanguage } from '@/store/useLanguage';
 
 function FloatingMenu() {
+  const { language } = useLanguage();
   const router = useRouter();
   const path = usePathname();
   const { user } = useUser();
@@ -42,10 +45,10 @@ function FloatingMenu() {
     <>
       <div className={styles.menuButtons}>
         <div className={styles.basicButton} onClick={handleSharePage}>
-          <ShareAltIcon alt="링크 공유하기 버튼" className={styles.icon} />
+          <ShareAltIcon alt={commonLocale[language].shareToLinkButton} className={styles.icon} />
         </div>
         <div className={styles.basicButton} onClick={handleMoveToPage}>
-          <WriteIcon alt="리스트 작성하기 버튼" className={styles.icon} />
+          <WriteIcon alt={commonLocale[language].createListButton} className={styles.icon} />
         </div>
       </div>
       {isOn && (
@@ -58,13 +61,14 @@ function FloatingMenu() {
 }
 
 export default function PlusOptionFloatingButton() {
+  const { language } = useLanguage();
   const { isOn, toggle } = useBooleanOutput();
 
   return (
     <>
       {isOn && <FloatingMenu />}
       <div className={isOn ? styles.variant.active : styles.basicButton} onClick={() => toggle()}>
-        <PlusIcon alt="옵션 보기 버튼" className={styles.icon} />
+        <PlusIcon alt={commonLocale[language].viewOptionButton} className={styles.icon} />
       </div>
     </>
   );

@@ -3,8 +3,11 @@
 import Image from 'next/image';
 import { assignInlineVars } from '@vanilla-extract/dynamic';
 import * as styles from './ListWave.css';
+import { introLocale } from '@/app/intro/locale';
+import { useLanguage } from '@/store/useLanguage';
 
 function ListWave() {
+  const { language } = useLanguage();
   return (
     <div className={styles.wrapper}>
       <div className={styles.listsContainer}>
@@ -15,12 +18,17 @@ function ListWave() {
           })}
         >
           <div className={styles.informationWrapper}>
-            <span>1.문화교류</span>
-            <span>2.체험</span>
-            <span>3.교환학생</span>
+            <span>{introLocale[language].exampleItem.line1.title1}</span>
+            <span>{introLocale[language].exampleItem.line1.title2}</span>
+            <span>{introLocale[language].exampleItem.line1.title3}</span>
           </div>
           <div className={styles.iconWrapper}>
-            <Image src={'/images/category_culture.png'} alt="문화 카테고리 아이콘" width={60} height={60} />
+            <Image
+              src={'/images/category_culture.png'}
+              alt={introLocale[language].exampleItem.line1.alt}
+              width={60}
+              height={60}
+            />
           </div>
         </div>
         <div
@@ -30,12 +38,17 @@ function ListWave() {
           })}
         >
           <div className={styles.informationWrapper}>
-            <span>1.규칙적인 생활</span>
-            <span>2.건강한 식단</span>
-            <span>3.운동</span>
+            <span>{introLocale[language].exampleItem.line2.title1}</span>
+            <span>{introLocale[language].exampleItem.line2.title2}</span>
+            <span>{introLocale[language].exampleItem.line2.title3}</span>
           </div>
           <div className={styles.iconWrapper}>
-            <Image src={'/images/category_life.png'} alt="일상생활 카테고리 아이콘" width={60} height={60} />
+            <Image
+              src={'/images/category_life.png'}
+              alt={introLocale[language].exampleItem.line2.alt}
+              width={60}
+              height={60}
+            />
           </div>
         </div>
         <div
@@ -45,12 +58,17 @@ function ListWave() {
           })}
         >
           <div className={styles.informationWrapper}>
-            <span>1.성심당</span>
-            <span>2.연희동 베이커리</span>
-            <span>3.진진빵집</span>
+            <span>{introLocale[language].exampleItem.line3.title1}</span>
+            <span>{introLocale[language].exampleItem.line3.title2}</span>
+            <span>{introLocale[language].exampleItem.line3.title3}</span>
           </div>
           <div className={styles.iconWrapper}>
-            <Image src={'/images/category_place.png'} alt="장소 카테고리 아이콘" width={60} height={60} />
+            <Image
+              src={'/images/category_place.png'}
+              alt={introLocale[language].exampleItem.line3.alt}
+              width={60}
+              height={60}
+            />
           </div>
         </div>
         <div
@@ -60,12 +78,17 @@ function ListWave() {
           })}
         >
           <div className={styles.informationWrapper}>
-            <span>1.우연히 봄</span>
-            <span>2.벚꽃엔딩</span>
-            <span>3.봄사랑벚꽃말고</span>
+            <span>{introLocale[language].exampleItem.line4.title1}</span>
+            <span>{introLocale[language].exampleItem.line4.title2}</span>
+            <span>{introLocale[language].exampleItem.line4.title3}</span>
           </div>
           <div className={styles.iconWrapper}>
-            <Image src={'/images/category_music.png'} alt="음악 카테고리 아이콘" width={60} height={60} />
+            <Image
+              src={'/images/category_music.png'}
+              alt={introLocale[language].exampleItem.line4.alt}
+              width={60}
+              height={60}
+            />
           </div>
         </div>
         <div
@@ -75,12 +98,17 @@ function ListWave() {
           })}
         >
           <div className={styles.informationWrapper}>
-            <span>1.부산행</span>
-            <span>2.분신사바</span>
-            <span>3.컨저링</span>
+            <span>{introLocale[language].exampleItem.line5.title1}</span>
+            <span>{introLocale[language].exampleItem.line5.title2}</span>
+            <span>{introLocale[language].exampleItem.line5.title3}</span>
           </div>
           <div className={styles.iconWrapper}>
-            <Image src={'/images/category_play.png'} alt="영화/드라마 카테고리 아이콘" width={60} height={60} />
+            <Image
+              src={'/images/category_play.png'}
+              alt={introLocale[language].exampleItem.line5.alt}
+              width={60}
+              height={60}
+            />
           </div>
         </div>
         <div
@@ -90,12 +118,17 @@ function ListWave() {
           })}
         >
           <div className={styles.informationWrapper}>
-            <span>1.데미안</span>
-            <span>2.동물 농장</span>
-            <span>3.삼국지</span>
+            <span>{introLocale[language].exampleItem.line6.title1}</span>
+            <span>{introLocale[language].exampleItem.line6.title2}</span>
+            <span>{introLocale[language].exampleItem.line6.title3}</span>
           </div>
           <div className={styles.iconWrapper}>
-            <Image src={'/images/category_book.png'} alt="도서 카테고리 아이콘" width={60} height={60} />
+            <Image
+              src={'/images/category_book.png'}
+              alt={introLocale[language].exampleItem.line6.alt}
+              width={60}
+              height={60}
+            />
           </div>
         </div>
         <div
@@ -105,12 +138,17 @@ function ListWave() {
           })}
         >
           <div className={styles.informationWrapper}>
-            <span>1.리트리버</span>
-            <span>2.비글</span>
-            <span>3.푸들</span>
+            <span>{introLocale[language].exampleItem.line7.title1}</span>
+            <span>{introLocale[language].exampleItem.line7.title2}</span>
+            <span>{introLocale[language].exampleItem.line7.title3}</span>
           </div>
           <div className={styles.iconWrapper}>
-            <Image src={'/images/category_plant.png'} alt="동/식물 카테고리 아이콘" width={60} height={60} />
+            <Image
+              src={'/images/category_plant.png'}
+              alt={introLocale[language].exampleItem.line7.alt}
+              width={60}
+              height={60}
+            />
           </div>
         </div>
       </div>

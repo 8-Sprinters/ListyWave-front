@@ -1,11 +1,14 @@
 import { useState, useEffect } from 'react';
 import * as styles from '@/components/VideoEmbed/VideoEmbed.css';
+import { commonLocale } from '@/components/locale';
+import { useLanguage } from '@/store/useLanguage';
 
 interface VideoEmbedProps {
   videoUrl: string;
 }
 
 function VideoEmbed({ videoUrl }: VideoEmbedProps) {
+  const { language } = useLanguage();
   const [embedCode, setEmbedCode] = useState<string | null>(null);
 
   useEffect(() => {
@@ -14,7 +17,7 @@ function VideoEmbed({ videoUrl }: VideoEmbedProps) {
     } else if (isVimeoLink(videoUrl)) {
       embedVimeoVideo(videoUrl);
     } else {
-      console.log('지원하지 않는 플랫폼입니다.');
+      console.log(commonLocale[language].notSupportedPlatform);
     }
   }, [videoUrl]);
 
@@ -33,7 +36,7 @@ function VideoEmbed({ videoUrl }: VideoEmbedProps) {
         `<iframe width="100%" height="150px" src="https://www.youtube.com/embed/${videoId}" frameborder="0" allowfullscreen></iframe>`
       );
     } else {
-      console.log('유효하지 않은 url입니다.');
+      console.log(commonLocale[language].invalidUrl);
     }
   };
 
@@ -44,7 +47,7 @@ function VideoEmbed({ videoUrl }: VideoEmbedProps) {
         `<iframe width="100%" height="150px" src="https://player.vimeo.com/video/${videoId}" frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>`
       );
     } else {
-      console.log('유효하지 않은 url입니다.');
+      console.log(commonLocale[language].invalidUrl);
     }
   };
 

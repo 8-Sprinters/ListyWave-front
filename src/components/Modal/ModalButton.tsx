@@ -1,5 +1,7 @@
 import { MouseEventHandler, ReactNode } from 'react';
 import * as styles from './ModalButton.css';
+import { commonLocale } from '@/components/locale';
+import { useLanguage } from '@/store/useLanguage';
 
 interface ModalButtonProps {
   children: ReactNode;
@@ -9,10 +11,11 @@ interface ModalButtonProps {
 }
 
 export default function ModalButton({ children, isDisabled = false, onCancel, onClick }: ModalButtonProps) {
+  const { language } = useLanguage();
   return (
     <div className={styles.buttonContainer}>
       <button type="button" className={styles.button.secondary} onClick={onCancel}>
-        취소
+        {commonLocale[language].cancel}
       </button>
       <button
         type="button"

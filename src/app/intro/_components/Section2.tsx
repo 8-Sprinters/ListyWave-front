@@ -4,8 +4,11 @@ import * as styles from './Section2.css';
 import MotionWrapper from './MotionWrapper';
 
 import WaveImage from '/public/images/wave_image.svg';
+import { introLocale } from '@/app/intro/locale';
+import { useLanguage } from '@/store/useLanguage';
 
 function Section2() {
+  const { language } = useLanguage();
   return (
     <section className={styles.background}>
       <MotionWrapper variantsType="vertical">
@@ -16,7 +19,7 @@ function Section2() {
           <div className={styles.tapeImageWrapper}>
             <Image
               src={'/images/new_list.png'}
-              alt="테이프 이미지"
+              alt={introLocale[language].section.tapeImage}
               width={414}
               height={158}
               style={{ objectFit: 'contain' }}
@@ -25,8 +28,8 @@ function Section2() {
           <div className={styles.titleWrapper}>
             <MotionWrapper variantsType="vertical" delay={0.3}>
               <div className={styles.description}>
-                <p>파도처럼 흐르는</p>
-                <p>나의 취향 기록</p>
+                <p>{introLocale[language].section.message1}</p>
+                <p>{introLocale[language].section.message2}</p>
               </div>
             </MotionWrapper>
             <MotionWrapper variantsType="vertical" delay={0.6}>

@@ -16,9 +16,6 @@ export default function Top3Card({ collectionList }: { collectionList: Collectio
   const { language } = useLanguage();
   const { list } = collectionList;
 
-  // TODO: collection조회 API에서 representImageUrl 받아오기
-  const representImageUrl = list.listItems.find((item) => item.imageUrl !== '')?.imageUrl || null;
-
   const router = useRouter();
   const handleCardClick = () => {
     router.push(`/list/${list.id}`);
@@ -30,7 +27,7 @@ export default function Top3Card({ collectionList }: { collectionList: Collectio
         className={styles.container}
         style={assignInlineVars({
           [styles.listColor]: `${list.backgroundColor}`,
-          [styles.listBackgroundImage]: `url(${representImageUrl})`,
+          [styles.listBackgroundImage]: `url(${list.representativeImageUrl})`,
         })}
         onClick={handleCardClick}
       >
