@@ -1,3 +1,5 @@
+'use client';
+
 import LogoCircle from '/public/icons/logo_circle.svg';
 import * as styles from './WithdrawalNotice.css';
 import { accountLocale } from '@/app/account/locale';
