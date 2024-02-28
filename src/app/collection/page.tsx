@@ -18,6 +18,7 @@ import MovieDramaFolder from '/public/icons/folder_movie_drama.svg';
 import AnimalPlantFolder from '/public/icons/folder_animal_plant.svg';
 import EtcFolder from '/public/icons/folder_etc.svg';
 import BookFolder from '/public/icons/folder_book.svg';
+import FoodFolder from '/public/icons/folder_food.svg';
 
 import getCollectionCategories from '../_api/collect/getCollectionCategories';
 
@@ -44,7 +45,7 @@ const codeToFolderIcon = (code: string) => {
     case '8':
       return <EtcFolder fill alt="기타 카테고리" />;
     case '9':
-      return <EntireFolder fill alt="음식 카테고리" />; //TODO: 폴더 이미지 바꾸기
+      return <FoodFolder fill alt="음식 카테고리" />;
   }
 };
 
