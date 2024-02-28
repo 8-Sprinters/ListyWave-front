@@ -17,6 +17,7 @@ import NoDataComponent from '@/components/NoData/NoDataComponent';
 import { exploreBackgroundColors } from '@/lib/constants/exploreListBackgroundColor';
 import { ListRecommendationSkeleton, ListsSkeleton } from './Skeleton';
 import sparkleEmoji from '/public/images/sparkle.png';
+import fallbackProfile from '/public/images/fallback_profileImage.webp';
 
 import ChevronDown from '/public/icons/chevron_down.svg';
 
@@ -43,8 +44,6 @@ function ListRecommendation() {
       fetchNextPage();
     }
   });
-
-  console.log(result);
 
   //리스트 변수화
   const recommendLists = useMemo(() => {
@@ -106,9 +105,19 @@ function ListRecommendation() {
                               style={{
                                 objectFit: 'cover',
                               }}
+                              sizes="100vw 100vh"
                             />
                           ) : (
-                            <div className={styles.noImage}></div>
+                            <Image
+                              src={fallbackProfile}
+                              alt="리스트 생성자 이미지"
+                              fill
+                              className={styles.ownerProfileImage}
+                              style={{
+                                objectFit: 'cover',
+                              }}
+                              sizes="100vw 100vh"
+                            />
                           )}
                         </Link>
                       </div>

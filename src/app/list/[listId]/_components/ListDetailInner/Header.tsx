@@ -29,7 +29,7 @@ function Header({ handleChangeListType }: HeaderProps) {
   return (
     <div className={styles.container}>
       <SelectComponent
-        defaultValue={dropdownOptions[0]}
+        defaultValue={dropdownOptions[1]}
         name="listType"
         options={dropdownOptions}
         isSearchable={false}

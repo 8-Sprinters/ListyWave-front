@@ -21,6 +21,7 @@ import { LabelType, ListDetailType } from '@/lib/types/listType';
 import ListDetailInner from '@/app/list/[listId]/_components/ListDetailInner';
 import CollaboratorsModal from './CollaboratorsModal';
 import NoDataComponent from '@/components/NoData/NoDataComponent';
+import fallbackProfile from '/public/images/fallback_profileImage.webp';
 import { useLanguage } from '@/store/useLanguage';
 import { modalLocale, listLocale } from '@/app/list/[listId]/locale';
 
@@ -122,15 +123,29 @@ function ListInformation() {
           <div className={styles.bottomWrapper}>
             <div className={styles.bottomLeftWrapper}>
               <div className={styles.profileImageParent} onClick={onClickMoveToPage(`/user/${list.ownerId}/mylist`)}>
-                <Image
-                  src={list?.ownerProfileImageUrl}
-                  alt={listLocale[language].profileImageAlt}
-                  className={styles.profileImage}
-                  fill
-                  style={{
-                    objectFit: 'cover',
-                  }}
-                />
+                {list?.ownerProfileImageUrl !== '' ? (
+                  <Image
+                    src={list?.ownerProfileImageUrl}
+                    alt={listLocale[language].profileImageAlt}
+                    className={styles.profileImage}
+                    fill
+                    style={{
+                      objectFit: 'cover',
+                    }}
+                    sizes="100vw 100vh"
+                  />
+                ) : (
+                  <Image
+                    src={fallbackProfile}
+                    alt={listLocale[language].profileImageAlt}
+                    className={styles.profileImage}
+                    fill
+                    style={{
+                      objectFit: 'cover',
+                    }}
+                    sizes="100vw 100vh"
+                  />
+                )}
               </div>
               <div className={styles.informationWrapper}>
                 <div className={styles.listOwnerNickname}>{list?.ownerNickname}</div>

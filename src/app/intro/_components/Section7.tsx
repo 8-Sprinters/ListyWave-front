@@ -29,7 +29,7 @@ function Section7() {
               </div>
             </div>
             <div className={styles.imageWrapper}>
-              <MotionWrapper delay={1} variantsType="popUp">
+              <MotionWrapper delay={0.6} variantsType="popUp">
                 <div className={styles.linkWrapper}>listywave.com/user/1</div>
               </MotionWrapper>
               <Image src={'/images/section7_phone.png'} alt="핸드폰 이미지" width={255} height={518} />

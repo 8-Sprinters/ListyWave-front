@@ -16,6 +16,7 @@ import { vars } from '@/styles/theme.css';
 import Line from '/public/icons/horizontal_line.svg';
 import EditPen from '/public/icons/edit_pen.svg';
 import { useLanguage } from '@/store/useLanguage';
+import fallbackProfile from '/public/images/fallback_profileImage.webp';
 
 interface RepliesProps {
   replies?: ReplyType[] | null;
@@ -98,16 +99,29 @@ function Reply({ reply, listId, currentUserInfo, handleEdit, commentId }: ReplyP
   return (
     <>
       <div className={styles.replyWrapper}>
-        <Image
-          src={reply.userProfileImageUrl}
-          className={styles.profileImage}
-          width={20}
-          height={20}
-          alt={replyLocale[language].profileImageAlt}
-          style={{
-            objectFit: 'cover',
-          }}
-        />
+        {reply.userProfileImageUrl ? (
+          <Image
+            src={reply.userProfileImageUrl}
+            className={styles.profileImage}
+            width={20}
+            height={20}
+            alt={replyLocale[language].profileImageAlt}
+            style={{
+              objectFit: 'cover',
+            }}
+          />
+        ) : (
+          <Image
+            src={fallbackProfile}
+            className={styles.profileImage}
+            width={20}
+            height={20}
+            alt={replyLocale[language].profileImageAlt}
+            style={{
+              objectFit: 'cover',
+            }}
+          />
+        )}
         <div className={styles.replyContainer}>
           <div className={styles.replyInformationWrapper}>
             <span className={styles.replyWriter}>{reply.userNickname}</span>

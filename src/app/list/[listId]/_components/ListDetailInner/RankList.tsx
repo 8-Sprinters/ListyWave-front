@@ -95,7 +95,7 @@ function DetailList({ listData }: RankListProps) {
 
         {item.imageUrl && (
           <div className={styles.detailImageWrapper}>
-            <Image className={styles.detailImage} src={item.imageUrl} alt={item.title} fill={true} />
+            <img className={styles.detailImage} src={item.imageUrl} alt={item.title} />
           </div>
         )}
 

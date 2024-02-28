@@ -3,6 +3,7 @@ import Link from 'next/link';
 import * as styles from './CollaboratorsModal.css';
 import { UserProfileType } from '@/lib/types/userProfileType';
 import CancelButton from '/public/icons/cancel_button.svg';
+import fallbackProfile from '/public/images/fallback_profileImage.webp';
 import { vars } from '@/styles/theme.css';
 import { listLocale } from '@/app/list/[listId]/locale';
 import { useLanguage } from '@/store/useLanguage';
@@ -27,15 +28,29 @@ function CollaboratorsModal({ collaborators, handleSetOff }: CollaboratorsModalP
             <li key={item.id}>
               <Link href={`/user/${item.id}/mylist`} className={styles.itemWrapper}>
                 <div className={styles.profileImageParent}>
-                  <Image
-                    src={item.profileImageUrl}
-                    className={styles.profileImage}
-                    alt={listLocale[language].profileImageAlt}
-                    fill
-                    style={{
-                      objectFit: 'cover',
-                    }}
-                  />
+                  {item.profileImageUrl ? (
+                    <Image
+                      src={item.profileImageUrl}
+                      className={styles.profileImage}
+                      alt={listLocale[language].profileImageAlt}
+                      fill
+                      style={{
+                        objectFit: 'cover',
+                      }}
+                      sizes="100vw 100vh"
+                    />
+                  ) : (
+                    <Image
+                      src={fallbackProfile}
+                      className={styles.profileImage}
+                      alt={listLocale[language].profileImageAlt}
+                      fill
+                      style={{
+                        objectFit: 'cover',
+                      }}
+                      sizes="100vw 100vh"
+                    />
+                  )}
                 </div>
                 <span className={styles.nickname}>{item.nickname}</span>
               </Link>

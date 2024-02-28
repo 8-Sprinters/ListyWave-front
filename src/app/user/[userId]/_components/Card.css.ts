@@ -66,8 +66,6 @@ export const list = style({
 });
 
 export const lockIcon = style({
-  padding: '0 1rem',
-
   display: 'flex',
   justifyContent: 'flex-end',
   alignItems: 'center',

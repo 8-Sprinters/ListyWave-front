@@ -10,8 +10,10 @@ import { useUser } from '@/store/useUser';
 import FollowButton from './FollowButton';
 import { UserProfileType } from '@/lib/types/userProfileType';
 
+import fallbackProfile from '/public/images/fallback_profileImage.webp';
 import * as styles from './UsersRecommendation.css';
 import waveEmoji from '/public/images/wave.png';
+import { UserListsSkeleton } from './Skeleton';
 
 function UsersRecommendation() {
   //zustand로 관리하는 user정보 불러오기
@@ -19,7 +21,7 @@ function UsersRecommendation() {
   const myId = userMe.id;
 
   const wrapperRef = useRef<HTMLUListElement>(null);
-  const { data: usersList } = useQuery<UserProfileType[]>({
+  const { data: usersList, isFetching } = useQuery<UserProfileType[]>({
     queryKey: [QUERY_KEYS.getRecommendedUsers],
     queryFn: () => getRecommendedUsers(),
     enabled: userMe && !!myId,
@@ -41,22 +43,32 @@ function UsersRecommendation() {
 
   return (
     <section>
-      {myId && usersList?.length !== 0 && (
-        <div className={styles.wrapper}>
-          <div className={styles.titleWrapper}>
-            <h2 className={styles.sectionTitle}>HI, LISTER</h2>
-            <Image src={waveEmoji} alt="인사하는 손 모양 이모지" width="22" />
-          </div>
-          <ul className={styles.recommendUsersListWrapper} ref={wrapperRef}>
-            {usersList?.map((item: UserProfileType) => {
-              return (
-                <li key={item.id}>
-                  <UserRecommendListItem data={item} handleScrollToRight={handleScrollToRight} userId={userMe?.id} />
-                </li>
-              );
-            })}
-          </ul>
-        </div>
+      {isFetching ? (
+        <UserListsSkeleton />
+      ) : (
+        <>
+          {myId && usersList?.length !== 0 && (
+            <div className={styles.wrapper}>
+              <div className={styles.titleWrapper}>
+                <h2 className={styles.sectionTitle}>HI, LISTER</h2>
+                <Image src={waveEmoji} alt="인사하는 손 모양 이모지" width="22" />
+              </div>
+              <ul className={styles.recommendUsersListWrapper} ref={wrapperRef}>
+                {usersList?.map((item: UserProfileType) => {
+                  return (
+                    <li key={item.id}>
+                      <UserRecommendListItem
+                        data={item}
+                        handleScrollToRight={handleScrollToRight}
+                        userId={userMe?.id}
+                      />
+                    </li>
+                  );
+                })}
+              </ul>
+            </div>
+          )}
+        </>
       )}
     </section>
   );
@@ -100,7 +112,16 @@ function UserRecommendListItem({ data, handleScrollToRight, userId }: UserRecomm
                 }}
               />
             ) : (
-              <div className={styles.noImage}></div>
+              <Image
+                src={fallbackProfile}
+                alt="추천 사용자 프로필 이미지"
+                fill
+                sizes="100vw 100vh"
+                className={styles.recommendUserProfileImage}
+                style={{
+                  objectFit: 'cover',
+                }}
+              />
             )}
           </div>
         </Link>

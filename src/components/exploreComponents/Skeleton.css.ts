@@ -24,7 +24,20 @@ export const listWrapper = style({
 
 export const trendingListSkeletonWrapper = style({
   height: '229px',
-  // width: 'auto',
+  padding: '0 16px',
+  marginBottom: '24px',
+  marginTop: '30px',
+
+  display: 'flex',
+  gap: '12px',
+  overflow: 'scroll',
+  '::-webkit-scrollbar': {
+    display: 'none',
+  },
+});
+
+export const UserListsSkeletonWrapper = style({
+  height: '210px',
   padding: '0 16px',
   marginBottom: '24px',
   marginTop: '30px',

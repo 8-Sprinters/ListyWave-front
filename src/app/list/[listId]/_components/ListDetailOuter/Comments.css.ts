@@ -5,7 +5,7 @@ import { vars } from '@/styles/theme.css';
 
 export const wrapper = style({
   height: 'auto',
-  padding: '0 27.5px 80px',
+  padding: '0 27.5px 94px',
 });
 
 export const formWrapperOuter = style({
