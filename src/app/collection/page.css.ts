@@ -1,43 +1,66 @@
-import { style } from '@vanilla-extract/css';
-import { vars } from '@/styles/theme.css';
+import { style, keyframes } from '@vanilla-extract/css';
+import * as fonts from '@/styles/font.css';
 
-export const container = style({
-  display: 'flex',
-  flexDirection: 'column',
-  alignItems: 'center',
-  justifyContent: 'center',
-});
+export const title = style([
+  fonts.headlineSmall,
+  {
+    padding: '24px 16px',
+  },
+]);
 
 export const categoryFolders = style({
-  padding: '3rem',
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'flex-start',
-  flexWrap: 'wrap',
-  gap: '2rem',
+  margin: '18px 16px',
+  display: 'grid',
+  gridTemplateColumns: '1fr 1fr',
+  gridTemplateRows: 'repeat(5, 1fr)',
+  gridColumnGap: 15,
+  gridRowGap: 25,
 });
 
-export const category = style({
-  width: '10rem',
-  height: '10rem',
-  padding: '3rem 1.8rem',
+export const categoryContainer = style({
+  height: '100%',
+});
 
-  display: 'flex',
-  flexDirection: 'column',
-  justifyContent: 'center',
-  flexShrink: 0,
-
-  border: `1px solid ${vars.color.gray5}`,
-  borderRadius: '24px',
+export const categoryFolder = style({
+  width: 160,
+  height: 120,
+  margin: 'auto',
+  position: 'relative',
 
   cursor: 'pointer',
+});
 
-  ':hover': {
-    boxShadow: 'rgba(0, 0, 0, 0.3) 3px 3px 2px;',
-    borderWidth: '2px',
+export const folderIcon = style({
+  width: 160,
+  height: 120,
+});
+
+const folderHoverAnimation = keyframes({
+  '0%': {
+    transform: 'scale(1)',
+  },
+  '100%': {
+    transform: 'scale(1.2)',
   },
 });
 
-export const categoryText = style({
-  textAlign: 'center',
+export const categoryIcon = style({
+  position: 'absolute',
+  bottom: 22,
+  left: '50%',
+  marginLeft: -25,
+
+  selectors: {
+    [`${categoryFolder}:hover &`]: {
+      animation: `${folderHoverAnimation} 0.1s forwards`,
+    },
+  },
 });
+
+export const categoryLabel = style([
+  fonts.titleSmall,
+  {
+    marginTop: '1.4rem',
+    textAlign: 'center',
+  },
+]);

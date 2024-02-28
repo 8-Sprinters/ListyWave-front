@@ -2,6 +2,7 @@
 import Image from 'next/image';
 import { useQuery } from '@tanstack/react-query';
 import { useParams, useRouter } from 'next/navigation';
+import { AxiosError } from 'axios';
 
 import Collaborators from '@/app/list/[listId]/_components/ListDetailOuter/Collaborators';
 import getListDetail from '@/app/_api/list/getListDetail';
@@ -18,11 +19,18 @@ import useBooleanOutput from '@/hooks/useBooleanOutput';
 import { UserProfileType } from '@/lib/types/userProfileType';
 import { LabelType, ListDetailType } from '@/lib/types/listType';
 import ListDetailInner from '@/app/list/[listId]/_components/ListDetailInner';
-import * as styles from './ListInformation.css';
 import CollaboratorsModal from './CollaboratorsModal';
 import NoDataComponent from '@/components/NoData/NoDataComponent';
+import { useLanguage } from '@/store/useLanguage';
+import { modalLocale, listLocale } from '@/app/list/[listId]/locale';
+
+import * as styles from './ListInformation.css';
+import * as modalStyles from '@/components/Modal/ModalButton.css';
+import LockIcon from '/public/icons/lock.svg';
+import { vars } from '@/styles/theme.css';
 
 function ListInformation() {
+  const { language } = useLanguage();
   const params = useParams<{ listId: string }>();
   const router = useRouter();
   const { onClickMoveToPage } = useMoveToPage();
@@ -32,7 +40,11 @@ function ListInformation() {
   const { user } = useUser();
   const userId = user?.id;
 
-  const { data: list, error } = useQuery<ListDetailType>({
+  const {
+    data: list,
+    error,
+    isError,
+  } = useQuery<ListDetailType>({
     queryKey: [QUERY_KEYS.getListDetail],
     queryFn: () => getListDetail(Number(params?.listId)),
     enabled: !!params?.listId,
@@ -47,17 +59,15 @@ function ListInformation() {
   const isCollaborator: boolean | undefined =
     list?.collaborators.some((item: UserProfileType) => item?.id === userId) && userId !== list.ownerId;
 
-  const handleConfirmButtonClick = () => {
-    router.push('/');
-  };
-
-  if (error && error?.message.includes('404')) {
+  if (isError && error instanceof AxiosError) {
     return (
-      <Modal handleModalClose={handleSetOff}>
-        <Modal.Title>이 리스트는 삭제 또는 비공개 처리 되었어요.</Modal.Title>
-        <Modal.Button onCancel={handleSetOff} onClick={handleConfirmButtonClick}>
-          확인
-        </Modal.Button>
+      <Modal size="basic" handleModalClose={onClickMoveToPage('/')}>
+        <Modal.Title>{modalLocale[language].privateMessage}</Modal.Title>
+        <div className={modalStyles.buttonContainer}>
+          <button type="button" className={modalStyles.button.primary} onClick={onClickMoveToPage('/')}>
+            {modalLocale[language].confirm}
+          </button>
+        </div>
       </Modal>
     );
   }
@@ -74,7 +84,7 @@ function ListInformation() {
         </Modal>
       )}
       <Header
-        title="리스트"
+        title={listLocale[language].list}
         left="back"
         right={
           <HeaderRight
@@ -88,7 +98,7 @@ function ListInformation() {
       />
       {list?.isPublic === false && !isOwner && !isCollaborator ? (
         <div className={styles.noDataWrapper}>
-          <NoDataComponent message="비공개 처리된 게시물이에요." />
+          <NoDataComponent message={listLocale[language].privateMessage} />
         </div>
       ) : (
         <>
@@ -114,7 +124,7 @@ function ListInformation() {
               <div className={styles.profileImageParent} onClick={onClickMoveToPage(`/user/${list.ownerId}/mylist`)}>
                 <Image
                   src={list?.ownerProfileImageUrl}
-                  alt="사용자 프로필 이미지"
+                  alt={listLocale[language].profileImageAlt}
                   className={styles.profileImage}
                   fill
                   style={{
@@ -126,7 +136,7 @@ function ListInformation() {
                 <div className={styles.listOwnerNickname}>{list?.ownerNickname}</div>
                 <div className={styles.infoDetailWrapper}>
                   <span>{timeDiff(String(list?.createdDate))}</span>
-                  <span>{list?.isPublic ? '공개' : '비공개'}</span>
+                  {list?.isPublic === false && <LockIcon width={12} height={12} fill={vars.color.gray5} />}
                 </div>
               </div>
             </div>

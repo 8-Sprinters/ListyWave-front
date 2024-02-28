@@ -1,4 +1,5 @@
 import Select from 'react-select';
+import { vars } from '@/styles/theme.css';
 
 interface OptionsProps {
   value: string;
@@ -24,25 +25,29 @@ const selectStyles = {
     cursor: 'pointer',
     '&:hover': {
       borderColor: 'none',
-      backgroundColor: '#EBF4FF',
+      backgroundColor: vars.color.lightblue,
     },
   }),
   singleValue: (provided: object) => ({
     ...provided,
     fontSize: '1.3rem',
   }),
-  option: (provided: object, { isFocused, isSelected }: { isFocused: boolean; isSelected: boolean }) => ({
+  option: (provided: object, { isSelected }: { isSelected: boolean }) => ({
     ...provided,
-    backgroundColor: isSelected || isFocused ? '#EBF4FF' : 'white',
-    color: 'black',
+    backgroundColor: isSelected ? vars.color.lightblue : vars.color.white,
+    color: vars.color.black,
     fontSize: '1.3rem',
+    '&:hover': {
+      backgroundColor: vars.color.lightblue,
+    },
   }),
   menu: (provided: object) => ({
     ...provided,
     maxWidth: '320px',
     boxShadow: '0px 2px 12px 0px rgba(0, 0, 0, 0.08)',
     borderRadius: '8px',
-    border: `1px solid gray`,
+    border: `1px solid ${vars.color.gray7}`,
+    overflow: 'hidden',
   }),
 };
 

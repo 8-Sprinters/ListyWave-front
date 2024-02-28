@@ -10,6 +10,8 @@ export const wrapper = style({
 export const noDataWrapper = style({
   width: '100%',
   height: '80vh',
+  marginBottom: '40px',
+
   display: 'flex',
   justifyContent: 'center',
   alignItems: 'center',

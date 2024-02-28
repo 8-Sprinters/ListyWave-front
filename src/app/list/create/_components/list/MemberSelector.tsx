@@ -11,14 +11,19 @@ import getListDetail from '@/app/_api/list/getListDetail';
 import getUsersByNicknameSearch from '@/app/_api/user/getUsersByNicknameSearch';
 import { QUERY_KEYS } from '@/lib/constants/queryKeys';
 import { UserSearchType } from '@/lib/types/user';
-import { UserProfileType } from '@/lib/types/userProfileType';
+import { UserProfileType, UserType } from '@/lib/types/userProfileType';
 import { ListDetailType } from '@/lib/types/listType';
 
 import * as styles from './MemberSelector.css';
+import { useLanguage } from '@/store/useLanguage';
+import { listLocale } from '@/app/list/create/locale';
+import { useUser } from '@/store/useUser';
+import getUserOne from '@/app/_api/user/getUserOne';
 
 interface MemberSelectorProps {
   placeholder: string;
   followingList: UserProfileType[];
+  selectedIds: number[];
   onClickAdd: (userId: number) => void;
   onClickDelete: (userId: number) => void;
   rules?: {
@@ -41,9 +46,18 @@ interface MemberSelectorProps {
  * @param onClickAdd - 선택한 멤버를 추가하는 함수
  * @param onClickDelete - 사용자를 선택 취소하는 함수
  */
-function MemberSelector({ placeholder, followingList, onClickAdd, onClickDelete, rules }: MemberSelectorProps) {
+function MemberSelector({
+  placeholder,
+  followingList,
+  selectedIds,
+  onClickAdd,
+  onClickDelete,
+  rules,
+}: MemberSelectorProps) {
+  const { language } = useLanguage();
+  const { user } = useUser();
   const [input, setInput] = useState('');
-  const [selectedList, setSelectedList] = useState<UserProfileType[]>([]);
+  // const [selectedList, setSelectedList] = useState<UserProfileType[]>([]);
   const [isDropDownOpen, setIsDropDownOpen] = useState(false);
 
   const inputRef = useRef<HTMLInputElement>(null);
@@ -83,10 +97,6 @@ function MemberSelector({ placeholder, followingList, onClickAdd, onClickDelete,
     };
   }, []);
 
-  useEffect(() => {
-    if (listDataBeforeEdit) setSelectedList(listDataBeforeEdit.collaborators);
-  }, [listDataBeforeEdit]);
-
   return (
     <div className={styles.container}>
       {/* 멤버 검색 인풋박스 */}
@@ -112,7 +122,7 @@ function MemberSelector({ placeholder, followingList, onClickAdd, onClickDelete,
               <>
                 {searchResult?.users.filter((user) =>
                   user.nickname.toLocaleLowerCase().includes(input.toLocaleLowerCase())
-                ).length === 0 && <div className={styles.noResultMessage}>검색결과가 없어요.</div>}
+                ).length === 0 && <div className={styles.noResultMessage}>{listLocale[language].noData}</div>}
               </>
             ) : (
               <>
@@ -121,21 +131,17 @@ function MemberSelector({ placeholder, followingList, onClickAdd, onClickDelete,
                     key={user.id}
                     className={styles.profileContainer}
                     onClick={() => {
-                      if (rules?.maxNum && selectedList.length >= rules.maxNum.value) {
+                      if (rules?.maxNum && selectedIds.length >= rules.maxNum.value) {
                         return;
                       }
-                      if (!selectedList.find((selectedUser: UserProfileType) => selectedUser.id === user.id)) {
-                        console.log(user);
-                        setSelectedList([...selectedList, user]);
+                      if (!selectedIds.find((id: number) => id === user.id)) {
                         onClickAdd(user.id);
                       }
                     }}
                   >
                     <UserProfileImage src={user.profileImageUrl} size={30} />
                     {user.nickname}
-                    {selectedList.find((collaboUser: UserProfileType) => collaboUser.id === user.id) && (
-                      <span className={styles.checkedIcon}>✓</span>
-                    )}
+                    {selectedIds.find((id: number) => id === user.id) && <span className={styles.checkedIcon}>✓</span>}
                   </div>
                 ))}
               </>
@@ -144,7 +150,7 @@ function MemberSelector({ placeholder, followingList, onClickAdd, onClickDelete,
             <>
               {searchResult?.users.filter((user) =>
                 user.nickname.toLocaleLowerCase().includes(input.toLocaleLowerCase())
-              ).length === 0 && <div className={styles.noResultMessage}>검색결과가 없어요.</div>}
+              ).length === 0 && <div className={styles.noResultMessage}>{listLocale[language].noData}</div>}
             </>
           ) : (
             <>
@@ -153,47 +159,64 @@ function MemberSelector({ placeholder, followingList, onClickAdd, onClickDelete,
                   key={user.id}
                   className={styles.profileContainer}
                   onClick={() => {
-                    if (rules?.maxNum && selectedList.length >= rules.maxNum.value) {
+                    if (rules?.maxNum && selectedIds.length >= rules.maxNum.value) {
                       return;
                     }
-                    if (!selectedList.find((selectedUser: UserProfileType) => selectedUser.id === user.id)) {
-                      setSelectedList([...selectedList, user]);
+                    if (!selectedIds.find((id: number) => id === user.id)) {
                       onClickAdd(user.id);
                     }
                   }}
                 >
                   <UserProfileImage src={user.profileImageUrl} size={30} />
                   {user.nickname}
-                  {selectedList.find((collaboUser: UserProfileType) => collaboUser.id === user.id) && (
-                    <span className={styles.checkedIcon}>✓</span>
-                  )}
+                  {selectedIds.find((id: number) => id === user.id) && <span className={styles.checkedIcon}>✓</span>}
                 </div>
               ))}
             </>
           )}
         </div>
       )}
-      {rules?.maxNum && selectedList.length >= rules.maxNum.value && (
+      {rules?.maxNum && selectedIds.length >= rules.maxNum.value && (
         <div className={styles.error}>{rules?.maxNum?.errorMessage}</div>
       )}
 
       {/* 선택한 멤버 리스트 */}
       <div ref={listRef} className={styles.list}>
-        {selectedList.map((selectedUser) => (
-          <div key={selectedUser.id} className={styles.item}>
-            <div className={styles.profileContainer}>
-              <UserProfileImage src={selectedUser.profileImageUrl} size={30} />
-              {selectedUser.nickname}
-            </div>
-            <EraseButton
-              onClick={() => {
-                setSelectedList(selectedList.filter((user) => user.id !== selectedUser.id));
-                onClickDelete(selectedUser.id);
-              }}
-            />
-          </div>
+        {selectedIds.map((id) => (
+          <SelectedProfile key={id} id={id} onClickDelete={onClickDelete} />
         ))}
       </div>
+    </div>
+  );
+}
+
+interface SelectedProfileProps {
+  id: number;
+  onClickDelete: (userId: number) => void;
+}
+
+function SelectedProfile({ id, onClickDelete }: SelectedProfileProps) {
+  const { data: userData } = useQuery<UserType>({
+    queryKey: [QUERY_KEYS.userOne, id],
+    queryFn: () => getUserOne(id),
+    enabled: !!id,
+  });
+
+  useEffect(() => {
+    //
+  }, [userData]);
+
+  return (
+    <div key={id} className={styles.item}>
+      <div className={styles.profileContainer}>
+        <UserProfileImage src={userData?.profileImageUrl || ''} size={30} />
+        {userData?.nickname}
+      </div>
+      <EraseButton
+        onClick={() => {
+          onClickDelete(id);
+        }}
+      />
     </div>
   );
 }

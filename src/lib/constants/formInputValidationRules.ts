@@ -1,5 +1,3 @@
-import { urlReg } from './regExpressions';
-
 //item
 export const itemTitleRules = {
   required: '아이템을 입력해주세요.',
@@ -15,7 +13,7 @@ export const itemCommentRules = {
 
 export const itemLinkRules = {
   pattern: {
-    value: urlReg,
+    value: /^(https?:\/\/)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=가-힣]*)$/,
     message: '올바른 URL 형식이 아니에요.',
   },
 };

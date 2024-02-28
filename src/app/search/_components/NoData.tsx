@@ -2,8 +2,11 @@ import { useRouter } from 'next/navigation';
 
 import * as styles from '@/app/search/_components/NoData.css';
 import NoListImage from '/public/images/no_data_image.svg';
+import { searchLocale } from '@/app/search/locale';
+import { useLanguage } from '@/store/useLanguage';
 
 function NoData() {
+  const { language } = useLanguage();
   const router = useRouter();
 
   const handleBackClick = () => {
@@ -13,9 +16,9 @@ function NoData() {
   return (
     <div className={styles.container}>
       <NoListImage width={158} height={158} />
-      <div className={styles.messageText}>일치하는 리스트가 없어요</div>
+      <div className={styles.messageText}>{searchLocale[language].noList}</div>
       <div className={styles.actionText} onClick={handleBackClick}>
-        다른 리스트 보러가기
+        {searchLocale[language].goToExplore}
       </div>
     </div>
   );

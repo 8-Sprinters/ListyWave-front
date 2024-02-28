@@ -44,7 +44,7 @@ function Section1() {
             </MotionWrapper>
           </div>
           <div className={styles.telescopeWrapper}>
-            <Telescope width={70} alt="망원경 아이콘" />
+            <Telescope width={70} height={86} alt="망원경 아이콘" />
           </div>
         </div>
       </motion.div>

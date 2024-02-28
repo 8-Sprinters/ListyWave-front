@@ -31,11 +31,11 @@ function ListRecommendation() {
     isFetching,
   } = useInfiniteQuery({
     queryKey: [QUERY_KEYS.getRecommendedLists],
-    queryFn: ({ pageParam: cursorId }) => {
-      return getRecommendedLists({ cursorId: cursorId });
+    queryFn: ({ pageParam: cursorUpdatedDate }) => {
+      return getRecommendedLists({ cursorUpdatedDate: cursorUpdatedDate });
     },
     initialPageParam: null,
-    getNextPageParam: (lastPage) => (lastPage.hasNext ? lastPage.cursorId : null),
+    getNextPageParam: (lastPage) => (lastPage.hasNext ? lastPage.cursorUpdatedDate : null),
   });
 
   const ref = useIntersectionObserver(() => {

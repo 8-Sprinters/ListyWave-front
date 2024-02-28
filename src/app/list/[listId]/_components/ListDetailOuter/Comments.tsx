@@ -23,18 +23,22 @@ import LoginModal from '@/components/login/LoginModal';
 import useBooleanOutput from '@/hooks/useBooleanOutput';
 
 import * as styles from './Comments.css';
+import { useLanguage } from '@/store/useLanguage';
+import { commentLocale } from '@/app/list/[listId]/locale';
 
 function Comments() {
+  const { language } = useLanguage();
+
   const [activeNickname, setActiveNickname] = useState<string | null | undefined>(null);
   const [comment, setComment] = useState<string>('');
   const params = useParams<{ listId: string }>();
-  // const [isEditing, setIsEditing] = useState(false);
+  const [isPending, setIsPending] = useState(false);
   const queryClient = useQueryClient();
   const { addCommentId } = useCommentIdStore();
-  const { isOn, handleSetOff, handleSetOn } = useBooleanOutput();
+  const { isOn, handleSetOff } = useBooleanOutput();
   const { replyId, deleteReplyId } = useReplyId();
   const { commentId, setCommentId, deleteCommentId } = useCommentId();
-  const { setIsEditing, setIsNotEditing, setToggleEditing, isEditing } = useIsEditing();
+  const { setIsEditing, setIsNotEditing, isEditing } = useIsEditing();
 
   //zustand로 관리하는 user정보 불러오기
   const { user } = useUser();
@@ -114,17 +118,24 @@ function Comments() {
   //댓글 생성 리액트 쿼리 함수
   const createCommentMutation = useMutation({
     mutationFn: () => createComment({ listId: Number(params?.listId), comment: comment }),
+    onMutate: () => {
+      setIsPending(true);
+    },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: [QUERY_KEYS.getComments] });
     },
     onSettled: () => {
       setComment('');
+      setIsPending(false);
     },
   });
 
   //답글 생성 리액트 쿼리 함수
   const createReplyMutation = useMutation({
     mutationFn: () => createReply({ listId: Number(params?.listId), commentId: commentId, data: comment }),
+    onMutate: () => {
+      setIsPending(true);
+    },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: [QUERY_KEYS.getComments] });
       addCommentId(commentId as number);
@@ -133,12 +144,16 @@ function Comments() {
       setComment('');
       deleteCommentId();
       setActiveNickname(null);
+      setIsPending(false);
     },
   });
 
   //댓글 수정 리액트 쿼리 함수
   const editCommentMutation = useMutation({
     mutationFn: () => editComment(Number(params?.listId) as number, commentId as number, comment),
+    onMutate: () => {
+      setIsPending(true);
+    },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: [QUERY_KEYS.getComments] });
     },
@@ -146,12 +161,16 @@ function Comments() {
       setComment('');
       deleteCommentId();
       setIsNotEditing();
+      setIsPending(false);
     },
   });
 
   //답글 수정 리액트 쿼리 함수
   const editReplyMutation = useMutation({
     mutationFn: () => editReply(Number(params?.listId) as number, commentId as number, replyId as number, comment),
+    onMutate: () => {
+      setIsPending(true);
+    },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: [QUERY_KEYS.getComments] });
       addCommentId(commentId as number);
@@ -161,32 +180,32 @@ function Comments() {
       deleteCommentId();
       deleteReplyId();
       setIsNotEditing();
+      setIsPending(false);
     },
   });
 
   //댓글/답글 폼 submit 함수
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (!comment) {
+    if (!comment.trim()) {
       return null;
     }
-    if (!userId) {
-      handleSetOn();
-      return;
-    }
-    if (commentId && activeNickname) {
-      createReplyMutation.mutate();
-      return;
-    }
-    if (isEditing) {
-      if (replyId) {
-        editReplyMutation.mutate();
+    if (comment.trim()) {
+      if (commentId && activeNickname) {
+        createReplyMutation.mutate();
         return;
       }
-      editCommentMutation.mutate();
+      if (isEditing) {
+        if (replyId) {
+          editReplyMutation.mutate();
+          return;
+        }
+        editCommentMutation.mutate();
+        return;
+      }
+      createCommentMutation.mutate();
       return;
     }
-    createCommentMutation.mutate();
   };
 
   //무한 스크롤시 필요한 쿼리 리셋함수
@@ -233,8 +252,12 @@ function Comments() {
           imageSrc={userInformation?.profileImageUrl}
           isEditing={isEditing}
           handleCancel={handleCancelEdit}
+          isPending={isPending}
         />
-        <div id="commentRef" className={styles.totalCount}>{`${comments?.totalCount}개의 댓글`}</div>
+        <div
+          id="commentRef"
+          className={styles.totalCount}
+        >{`${comments?.totalCount} ${commentLocale[language].commentCount}`}</div>
         {comments?.commentsList?.map((item: CommentType) => {
           return (
             <div key={item.id} className={styles.commentWrapper}>

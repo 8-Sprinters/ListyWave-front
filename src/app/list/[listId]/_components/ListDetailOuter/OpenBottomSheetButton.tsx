@@ -10,6 +10,9 @@ import { QUERY_KEYS } from '@/lib/constants/queryKeys';
 import deleteList from '@/app/_api/list/deleteList';
 import KebabButton from '/public/icons/vertical_kebab_button.svg';
 import * as styles from './ModalButtonStyle.css';
+import { useLanguage } from '@/store/useLanguage';
+import { modalLocale, listLocale } from '@/app/list/[listId]/locale';
+import modal from '@/components/Modal/Modal';
 
 interface OpenBottomSheetButtonProps {
   listId?: string;
@@ -17,6 +20,7 @@ interface OpenBottomSheetButtonProps {
 }
 
 export default function OpenBottomSheetButton({ listId, isCollaborator }: OpenBottomSheetButtonProps) {
+  const { language } = useLanguage();
   const router = useRouter();
   const { isOn, handleSetOff, handleSetOn } = useBooleanOutput(); //바텀시트 열림,닫힘 상태 관리
   const { isOn: isModalOn, handleSetOff: handleSetModalOff, handleSetOn: handleSetModalOn } = useBooleanOutput(); //모달 상태 관리
@@ -26,14 +30,14 @@ export default function OpenBottomSheetButton({ listId, isCollaborator }: OpenBo
   const bottomSheetOptionList = [
     {
       key: 'editList',
-      title: '리스트 수정하기',
+      title: listLocale[language].editList,
       onClick: () => {
         handleEditClick();
       },
     },
     {
       key: 'deleteList',
-      title: '리스트 삭제하기',
+      title: listLocale[language].deleteList,
       onClick: () => {
         handleSetModalOn();
       },
@@ -65,14 +69,14 @@ export default function OpenBottomSheetButton({ listId, isCollaborator }: OpenBo
     <>
       {/* {바텀시트로 넘겨주는 옵션에 모달 로직을 걸어주기 위함} */}
       <button className={styles.resetButtonStyle} onClick={handleSetOn}>
-        <KebabButton className={styles.buttonCursor} alt="케밥 버튼" />
+        <KebabButton className={styles.buttonCursor} alt={listLocale[language].kebabButtonAlt} />
       </button>
 
       {isModalOn && (
         <Modal handleModalClose={handleSetModalOff}>
-          <Modal.Title>정말 리스트를 삭제하시나요?</Modal.Title>
+          <Modal.Title>{modalLocale[language].deleteListMessage}</Modal.Title>
           <Modal.Button onCancel={handleSetModalOff} onClick={handleDeleteClick}>
-            확인
+            {modalLocale[language].confirm}
           </Modal.Button>
         </Modal>
       )}

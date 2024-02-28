@@ -1,4 +1,4 @@
-import { ChangeEvent, useState } from 'react';
+import { ChangeEvent } from 'react';
 
 import { useUser } from '@/store/useUser';
 import { useIsEditing } from '@/store/useComment';
@@ -6,6 +6,9 @@ import * as styles from './Comments.css';
 import CancelButton from '/public/icons/cancel_button.svg';
 import { vars } from '@/styles/theme.css';
 import Airplane from '/public/icons/airplane_send.svg';
+import { useLanguage } from '@/store/useLanguage';
+import { commentPlaceholder } from '@/lib/constants/placeholder';
+import { commentLocale } from '@/app/list/[listId]/locale';
 
 interface CommentFormProps {
   comment?: string;
@@ -15,6 +18,7 @@ interface CommentFormProps {
   handleChange: (e: ChangeEvent<HTMLInputElement>) => void;
   imageSrc?: string;
   isEditing?: boolean;
+  isPending: boolean;
   handleCancel: () => void;
 }
 
@@ -22,24 +26,32 @@ function CommentForm({
   comment,
   handleChange,
   activeNickname,
+  isPending,
   handleSubmit,
   handleUpdate,
   handleCancel,
 }: CommentFormProps) {
+  const { language } = useLanguage();
   const { isEditing } = useIsEditing();
 
   const { user } = useUser();
   const userId = user.id;
+
+  console.log(isPending);
 
   return (
     <div className={styles.formWrapperOuter}>
       <div className={`${styles.formWrapperInner} ${!!activeNickname || isEditing ? styles.activeFormWrapper : ''}`}>
         {activeNickname && (
           <div className={styles.activeReplyWrapper}>
-            <span className={styles.replyNickname}>{`@${activeNickname}님에게 남긴 답글`}</span>
+            <span className={styles.replyNickname}>
+              {language === 'ko'
+                ? `@${activeNickname} ${commentLocale.ko.replyNickname}`
+                : `${commentLocale.en.replyNickname} @${activeNickname}`}
+            </span>
             <CancelButton
               className={styles.clearButton}
-              alt="지우기 버튼"
+              alt={commentLocale[language].cancelButtonAlt}
               onClick={handleUpdate}
               width={18}
               height={18}
@@ -49,10 +61,10 @@ function CommentForm({
         )}
         {isEditing && (
           <div className={styles.activeReplyWrapper}>
-            <span className={styles.replyNickname}>{`댓글/답글 수정 중`}</span>
+            <span className={styles.replyNickname}>{commentLocale[language].editing}</span>
             <CancelButton
               className={styles.clearButton}
-              alt="지우기 버튼"
+              alt={commentLocale[language].cancelButtonAlt}
               onClick={handleCancel}
               width={18}
               height={18}
@@ -65,10 +77,13 @@ function CommentForm({
             className={styles.formInput}
             value={comment}
             onChange={handleChange}
-            placeholder={userId === 0 ? '로그인 후 댓글을 작성할 수 있습니다.' : '댓글을 입력해주세요'}
+            disabled={!userId}
+            placeholder={
+              userId === null ? commentPlaceholder[language].requiredLogin : commentPlaceholder[language].comment
+            }
           />
           {comment && (
-            <button type="submit" className={styles.formButton}>
+            <button type="submit" disabled={isPending} className={styles.formButton}>
               <Airplane width={20} height={20} fill={vars.color.blue} />
             </button>
           )}

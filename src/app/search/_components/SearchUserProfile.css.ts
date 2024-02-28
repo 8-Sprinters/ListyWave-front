@@ -16,28 +16,27 @@ export const container = style({
   },
 });
 
-export const profileImageWrapper = style({
-  width: '4rem',
-  height: '4rem',
+export const skeletonContainer = style([
+  container,
+  {
+    cursor: 'default',
+    ':hover': {
+      transform: 'none',
+      transition: 'none',
+    },
+  },
+]);
 
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'center',
+export const profileImageWrapper = style({
+  width: '4.2rem',
+  height: '4.2rem',
 
   border: `1px solid ${vars.color.gray5}`,
   borderRadius: '50px',
 
-  overflow: 'hidden',
-});
-
-export const userImage = style({
-  width: '4rem',
-  height: '4rem',
-
-  flex: '0 0 1',
-  flexShrink: 0,
-
-  backgroundColor: vars.color.gray7,
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center',
 });
 
 export const nicknameText = style({

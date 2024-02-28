@@ -11,7 +11,7 @@ export default function ImageUploader({ index, children }: ImageUploaderProps) {
   return (
     <>
       <label className={styles.label} htmlFor={`${index}-image`}>
-        <ImageIcon />
+        <ImageIcon alt="이미지 업로드 아이콘" />
       </label>
       {children}
     </>

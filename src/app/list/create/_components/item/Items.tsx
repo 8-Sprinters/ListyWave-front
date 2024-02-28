@@ -1,15 +1,16 @@
-import { ChangeEvent, useState } from 'react';
+import { ChangeEvent } from 'react';
 import { UseFormRegisterReturn, useFieldArray, useFormContext, useWatch } from 'react-hook-form';
 import { DragDropContext, Draggable, DropResult } from 'react-beautiful-dnd';
 import { useParams } from 'next/navigation';
 import { useQuery } from '@tanstack/react-query';
 
+import { useLanguage } from '@/store/useLanguage';
 import { QUERY_KEYS } from '@/lib/constants/queryKeys';
 import { ListDetailType } from '@/lib/types/listType';
 import { itemPlaceholder } from '@/lib/constants/placeholder';
 import toasting from '@/lib/utils/toasting';
 import toastMessage from '@/lib/constants/toastMessage';
-import { itemTitleRules, itemCommentRules, itemLinkRules } from '@/lib/constants/formInputValidationRules';
+import { itemTitleRules, itemCommentRules } from '@/lib/constants/formInputValidationRules';
 import { StrictModeDroppable } from '@/components/StrictModeDroppable';
 import { FormErrors } from '@/app/list/create/page';
 import { getListDetail } from '@/app/_api/list/getLists';
@@ -21,21 +22,12 @@ import ImagePreview from './ImagePreview';
 import AddItemButton from './AddItemButton';
 import * as styles from './Items.css';
 
-// http:// 없을경우 추가
-const ensureHttp = (link: string) => {
-  if (!link.startsWith('http://' || 'https://')) {
-    return 'http://' + link;
-  }
-  return link;
-};
-
 interface ItemsProps {
   type: 'create' | 'edit';
-  setItemChanged?: () => void;
 }
 
-export default function Items({ type, setItemChanged }: ItemsProps) {
-  const [currentLink, setCurrentLink] = useState<string>('');
+export default function Items({ type }: ItemsProps) {
+  const { language } = useLanguage();
   const {
     register,
     control,
@@ -56,21 +48,6 @@ export default function Items({ type, setItemChanged }: ItemsProps) {
 
   const watchItems = useWatch({ control, name: 'items' });
 
-  //--- LinkModal 핸들러
-  const handleLinkModalOpen = (index: number) => {
-    setCurrentLink(getValues().items[index]?.link);
-  };
-
-  const handleLinkModalCancel = (index: number) => {
-    setValue(`items.${index}.link`, currentLink);
-  };
-
-  const handleLinkModalConfirm = (index: number) => {
-    if (watchItems[index]?.link) {
-      setValue(`items.${index}.link`, ensureHttp(watchItems[index]?.link));
-    }
-  };
-
   //--- 드래그 되었을 때 실행되는 이벤트
   const handleOnDragEnd = ({ source, destination }: DropResult) => {
     if (destination && source.index !== destination.index) {
@@ -89,7 +66,7 @@ export default function Items({ type, setItemChanged }: ItemsProps) {
     if (e.target.files) {
       const targetFile = e.target.files[0];
       if (targetFile?.size > MAX_IMAGE_INPUT_SIZE_MB) {
-        toasting({ type: 'error', txt: toastMessage.ko.imageSizeError });
+        toasting({ type: 'error', txt: toastMessage[language].imageSizeError });
       } else {
         register.onChange(e);
       }
@@ -117,11 +94,8 @@ export default function Items({ type, setItemChanged }: ItemsProps) {
             {items.map((item, index) => {
               const error = (field: 'title' | 'comment' | 'link' | 'imageUrl') =>
                 (errors as FormErrors)?.items?.[index]?.[field];
-
               const titleError = error('title');
               const commentError = error('comment');
-              const linkError = error('link');
-
               const imageRegister = register(`items.${index}.imageUrl`);
               return (
                 <Draggable key={item.id} draggableId={item.id} index={index}>
@@ -145,7 +119,7 @@ export default function Items({ type, setItemChanged }: ItemsProps) {
                         titleInput={
                           <input
                             className={titleError ? styles.errorTitle : styles.title}
-                            placeholder={itemPlaceholder.title}
+                            placeholder={itemPlaceholder[language].title}
                             autoComplete="off"
                             maxLength={101}
                             {...register(`items.${index}.title`, itemTitleRules)}
@@ -158,7 +132,7 @@ export default function Items({ type, setItemChanged }: ItemsProps) {
                         commentTextArea={
                           <textarea
                             className={styles.comment}
-                            placeholder={itemPlaceholder.comment}
+                            placeholder={itemPlaceholder[language].comment}
                             rows={3}
                             maxLength={101}
                             {...register(`items.${index}.comment`, itemCommentRules)}
@@ -169,33 +143,7 @@ export default function Items({ type, setItemChanged }: ItemsProps) {
                             {watchItems[index]?.comment?.length ?? 0}/100
                           </p>
                         }
-                        linkModal={
-                          <LinkModal
-                            onCancelButtonClick={() => {
-                              handleLinkModalCancel(index);
-                            }}
-                            onTriggerButtonClick={() => {
-                              handleLinkModalOpen(index);
-                            }}
-                            onConfirmButtonClick={() => {
-                              handleLinkModalConfirm(index);
-                            }}
-                            isLinkValid={!linkError && watchItems[index]?.link?.length !== 0}
-                          >
-                            <div className={styles.linkModalChildren}>
-                              <input
-                                className={styles.linkInput}
-                                type="url"
-                                placeholder={itemPlaceholder.link}
-                                autoComplete="off"
-                                {...register(`items.${index}.link`, itemLinkRules)}
-                              />
-                              {watchItems[index]?.link?.length !== 0 && linkError && (
-                                <p className={styles.error}>{linkError.message}</p>
-                              )}
-                            </div>
-                          </LinkModal>
-                        }
+                        linkModal={<LinkModal index={index} />}
                         imageInput={
                           <input
                             className={styles.imageInput}

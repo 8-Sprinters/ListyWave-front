@@ -18,6 +18,7 @@ export const userProfiles = style({
 
   display: 'flex',
   gap: '1rem',
+  alignItems: 'flex-start',
 
   overflow: 'auto',
 

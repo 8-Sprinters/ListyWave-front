@@ -21,7 +21,7 @@ interface ListDetailInnerProps {
 
 function ListDetailInner({ data, listId }: ListDetailInnerProps) {
   const listData = data?.items;
-  const [listType, setListType] = useState('simple');
+  const [listType, setListType] = useState('detail');
 
   const handleChangeListType = (target: OptionsProps) => {
     const value: string = target.value;
@@ -40,6 +40,7 @@ function ListDetailInner({ data, listId }: ListDetailInnerProps) {
     collectCount: data?.collectCount,
     viewCount: data?.viewCount,
     isCollected: data?.isCollected,
+    isPublic: data?.isPublic,
   };
 
   return (

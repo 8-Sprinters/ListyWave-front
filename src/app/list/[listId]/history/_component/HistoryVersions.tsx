@@ -18,6 +18,8 @@ import { QUERY_KEYS } from '@/lib/constants/queryKeys';
 import * as styles from './HistoryVersions.css';
 import deleteHistory from '@/app/_api/history/deleteHistory';
 import NoDataComponent from '@/components/NoData/NoDataComponent';
+import { useLanguage } from '@/store/useLanguage';
+import { modalLocale, listLocale } from '@/app/list/[listId]/locale';
 
 interface VersionHistoryProps {
   histories: HistoryType[];
@@ -26,6 +28,7 @@ interface VersionHistoryProps {
 }
 
 function HistoryVersions({ histories, listId, listOwnerId }: VersionHistoryProps) {
+  const { language } = useLanguage();
   const [selectedHistory, setSelectedHistory] = useState<HistoryType>(histories[histories.length - 1] || {});
   const { user } = useUser();
   const queryClient = useQueryClient();
@@ -62,14 +65,14 @@ function HistoryVersions({ histories, listId, listOwnerId }: VersionHistoryProps
   const historyControlBottomsheetOption = [
     {
       key: 'setHistoryPrivate',
-      title: '히스토리 비공개하기',
+      title: listLocale[language].hideHistory,
       onClick: () => {
         handleTogglePublic();
       },
     },
     {
       key: 'deleteHistory',
-      title: '히스토리 삭제하기',
+      title: listLocale[language].deleteHistory,
       onClick: () => {
         openModal();
       },
@@ -104,11 +107,11 @@ function HistoryVersions({ histories, listId, listOwnerId }: VersionHistoryProps
           <>
             <button className={styles.dateDropdown} onClick={openHistorySelection}>
               {timeDiff(String(selectedHistory.createdDate))}
-              <ArrowDown alt="날짜 드롭다운" />
+              <ArrowDown alt={listLocale[language].arrowDownAlt} />
             </button>
             {user.id === listOwnerId ? (
               <button className={styles.kebabButton} onClick={openControl}>
-                <Kebab className={styles.kebabIcon} alt="더보기 버튼" />
+                <Kebab className={styles.kebabIcon} alt={listLocale[language].moreButtonAlt} />
               </button>
             ) : null}
           </>
@@ -116,7 +119,7 @@ function HistoryVersions({ histories, listId, listOwnerId }: VersionHistoryProps
 
         {histories.length === 0 ? (
           <div className={styles.noDataImage}>
-            <NoDataComponent message="히스토리가 없어요" />
+            <NoDataComponent message={listLocale[language].noHistory} />
           </div>
         ) : (
           <>
@@ -127,11 +130,13 @@ function HistoryVersions({ histories, listId, listOwnerId }: VersionHistoryProps
                   {timeDiff(String(selectedHistory?.createdDate))}
                 </div>
                 <div className={styles.itemsContainer}>
-                  {selectedHistory?.items.map((item) => <Item key={item.id} rank={item.rank} title={item.title} />)}
+                  {selectedHistory?.items
+                    .sort((a, b) => a.rank - b.rank)
+                    .map((item) => <Item key={item.id} rank={item.rank} title={item.title} />)}
                 </div>
               </>
             ) : (
-              <div>비공개 히스토리에요.</div>
+              <div>{listLocale[language].privateHistory}</div>
             )}
           </>
         )}
@@ -151,9 +156,9 @@ function HistoryVersions({ histories, listId, listOwnerId }: VersionHistoryProps
 
       {isModalOn && (
         <Modal handleModalClose={closeModal}>
-          <Modal.Title>정말 이 히스토리를 삭제하시나요?</Modal.Title>
+          <Modal.Title>{modalLocale[language].deleteHistory}</Modal.Title>
           <Modal.Button onCancel={closeModal} onClick={handleDeleteHistory}>
-            확인
+            {modalLocale[language].confirm}
           </Modal.Button>
         </Modal>
       )}
@@ -166,9 +171,14 @@ interface ItemProp {
   title: string;
 }
 function Item({ rank, title }: ItemProp) {
+  const { language } = useLanguage();
   return (
     <div className={styles.itemContainer}>
-      {rank === 1 ? <Crown className={styles.crown} alt="1위 아이템" /> : <div className={styles.itemRank}>{rank}</div>}
+      {rank === 1 ? (
+        <Crown className={styles.crown} alt={listLocale[language].crown} />
+      ) : (
+        <div className={styles.itemRank}>{rank}</div>
+      )}
       <div className={styles.itemTitle}>{title}</div>
     </div>
   );

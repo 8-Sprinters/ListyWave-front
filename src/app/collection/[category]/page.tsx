@@ -11,10 +11,25 @@ import useIntersectionObserver from '@/hooks/useIntersectionObserver';
 import getCollection from '@/app/_api/collect/getCollection';
 import Top3CardSkeleton from '@/app/collection/[category]/_components/Top3CardSkeleton';
 import NoData from '@/app/collection/[category]/_components/NoData';
-import { CollectionType, SearchListType } from '@/lib/types/listType';
+import { CollectionType } from '@/lib/types/listType';
 import Top3Card from '@/app/collection/[category]/_components/Top3Card';
+import { categoriesLocale } from '@/app/collection/locale';
+import { useLanguage } from '@/store/useLanguage';
+
+type categoryNameType =
+  | 'entire'
+  | 'culture'
+  | 'life'
+  | 'place'
+  | 'music'
+  | 'movie_drama'
+  | 'book'
+  | 'animal_plant'
+  | 'etc'
+  | 'food';
 
 function CollectionByCategory() {
+  const { language } = useLanguage();
   const queryClient = useQueryClient();
   const router = useRouter();
   const params = useParams<{ category: string }>();
@@ -42,8 +57,6 @@ function CollectionByCategory() {
     return { resultList };
   }, [collectionData]);
 
-  console.log('result', result);
-
   // 옵저버
   const ref = useIntersectionObserver(() => {
     if (hasNextPage) {
@@ -62,7 +75,6 @@ function CollectionByCategory() {
   }, [queryClient, category]);
 
   const Result = () => {
-    console.log('resultList', result?.resultList);
     return (
       <div className={styles.container}>
         <div className={styles.cardsWrapper}>
@@ -72,7 +84,6 @@ function CollectionByCategory() {
             ))}
             {isFetchingNextPage && result?.resultList?.map((_, index) => <Top3CardSkeleton key={index} />)}
           </div>
-          {hasNextPage && <div ref={ref}></div>}
         </div>
       </div>
     );
@@ -81,27 +92,29 @@ function CollectionByCategory() {
   return (
     <>
       <Header
-        title="콜렉션"
+        title={categoriesLocale[language][category as categoryNameType]}
         left="back"
         leftClick={() => {
           router.back();
         }}
         right={<div></div>}
       />
-      <div>
+      <>
         {!collectionData && isFetching ? ( // 최초 검색결과 받기 전
-          <div className={styles.cards}>
-            {Array.from({ length: 6 }).map((_, index) => (
-              <Top3CardSkeleton key={index} />
-            ))}
+          <div className={styles.cardsWrapper}>
+            <div className={styles.cards}>
+              {Array.from({ length: 6 }).map((_, index) => (
+                <Top3CardSkeleton key={index} />
+              ))}
+            </div>
           </div>
         ) : result.resultList?.length > 0 ? ( // 데이터가 있는 경우
           <Result />
         ) : (
-          // 데이터가 없는 경우
           <NoData />
         )}
-      </div>
+        {hasNextPage && <div ref={ref}></div>}
+      </>
     </>
   );
 }
