@@ -118,21 +118,18 @@ const slideOutRight = keyframes({
 });
 
 export const scrollMessage = style({
-  padding: '10px 20px',
-
   position: 'absolute',
-  top: '10px',
-  right: '0',
+  top: '25%',
+  right: '-10px',
 
   color: vars.color.white,
 
-  backgroundColor: 'rgba(51, 51, 51, 0.8)',
   borderRadius: '5px',
   animationName: `${slideInRight}, ${moveLeftRight}, ${slideOutRight}`,
-  animationDuration: '3s, 6s, 1s',
+  animationDuration: '3s, 4s, 1s',
   animationTimingFunction: 'ease-in-out, linear, ease-in-out',
   animationFillMode: 'forwards',
-  animationDelay: '0s, 0s, 6s',
+  animationDelay: '0s, 0s, 4s',
 });
 
 export const selectedIcon = style({
