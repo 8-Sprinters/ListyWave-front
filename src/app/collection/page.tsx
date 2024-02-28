@@ -8,6 +8,7 @@ import { CategoryType } from '@/lib/types/categoriesType';
 import { QUERY_KEYS } from '@/lib/constants/queryKeys';
 import { collectionLocale } from '@/app/collection/locale';
 import { useLanguage } from '@/store/useLanguage';
+import { categoriesLocale } from '@/app/collection/locale';
 
 import EntireFolder from '/public/icons/folder_entire.svg';
 import CultureFolder from '/public/icons/folder_culture.svg';
@@ -24,28 +25,28 @@ import getCollectionCategories from '../_api/collect/getCollectionCategories';
 
 import * as styles from './page.css';
 
-const codeToFolderIcon = (code: string) => {
+const codeToFolderIcon = (code: string, language: string) => {
   switch (code) {
     case '0':
-      return <EntireFolder fill alt="전체 카테고리" />;
+      return <EntireFolder fill alt={categoriesLocale[language].entire} />;
     case '1':
-      return <CultureFolder fill alt="문화 카테고리" />;
+      return <CultureFolder fill alt={categoriesLocale[language].culture} />;
     case '2':
-      return <LifeFolder fill alt="일상생활 카테고리" />;
+      return <LifeFolder fill alt={categoriesLocale[language].life} />;
     case '3':
-      return <PlaceFolder fill alt="장소 카테고리" />;
+      return <PlaceFolder fill alt={categoriesLocale[language].place} />;
     case '4':
-      return <MusicFolder fill alt="음악 카테고리" />;
+      return <MusicFolder fill alt={categoriesLocale[language].music} />;
     case '5':
-      return <MovieDramaFolder fill alt="영화/드라마 카테고리" />;
+      return <MovieDramaFolder fill alt={categoriesLocale[language].movie_drama} />;
     case '6':
-      return <BookFolder fill alt="도서 카테고리" />;
+      return <BookFolder fill alt={categoriesLocale[language].book} />;
     case '7':
-      return <AnimalPlantFolder fill alt="동식물 카테고리" />;
+      return <AnimalPlantFolder fill alt={categoriesLocale[language].animal_plant} />;
     case '8':
-      return <EtcFolder fill alt="기타 카테고리" />;
+      return <EtcFolder fill alt={categoriesLocale[language].etc} />;
     case '9':
-      return <FoodFolder fill alt="음식 카테고리" />;
+      return <FoodFolder fill alt={categoriesLocale[language].food} />;
   }
 };
 
@@ -80,11 +81,11 @@ export default function CollectionPage() {
                   src={category?.categoryImageUrl ?? ''}
                   width={50}
                   height={50}
-                  alt={`${category.korNameValue} 폴더`}
+                  alt={`${category.korNameValue} ${categoriesLocale[language].folder}`}
                 />
-                <div className={styles.folderIcon}>{codeToFolderIcon(category.codeValue)}</div>
+                <div className={styles.folderIcon}>{codeToFolderIcon(category.codeValue, language)}</div>
               </div>
-              <p className={styles.categoryLabel}>{category.korNameValue}</p>
+              <p className={styles.categoryLabel}>{language === 'ko' ? category.korNameValue : category.nameValue}</p>
             </div>
           ))}
       </div>
