@@ -1,5 +1,5 @@
 import { style, styleVariants, ComplexStyleRule } from '@vanilla-extract/css';
-import { headlineSmall, titleMedium } from '@/styles/font.css';
+import { titleLarge, titleMedium } from '@/styles/font.css';
 import { vars } from '@/styles/theme.css';
 
 export const container = style({
@@ -10,12 +10,13 @@ export const container = style({
     "culture life life"
     "movie movie music"
     "place book book"
-    "animal animal etc"
+    "animal animal animal"
+    "food food etc"
   `,
   gap: '1rem',
 });
 
-export const title = style([headlineSmall]); // titleLarge랑 고민
+export const title = style([titleLarge]);
 
 const category = style([
   titleMedium,
@@ -91,6 +92,13 @@ export const variants = styleVariants<ColorVariantsType>({
     {
       gridArea: 'animal',
       backgroundColor: vars.color.skyblue,
+    },
+  ],
+  foodButton: [
+    category,
+    {
+      gridArea: 'food',
+      backgroundColor: '#D0FF89', // green
     },
   ],
   etcButton: [

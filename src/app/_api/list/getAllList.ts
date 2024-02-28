@@ -5,7 +5,7 @@ const getAllList = async (userId: number, type: string, category: string, cursor
   const params = new URLSearchParams({
     type,
     category,
-    size: '5',
+    size: '10',
   });
 
   if (cursorUpdatedDate) {

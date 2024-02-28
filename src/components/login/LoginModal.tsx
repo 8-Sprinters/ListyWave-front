@@ -1,17 +1,11 @@
 'use client';
 
-/**
- TODO
- - [ ] 로그인 만료 확인, refreshToken(추후)
- - [x] 로그인 페이지 UI (모달)
- */
-
 import Link from 'next/link';
 import Image from 'next/image';
 
 import * as styles from './LoginModal.css';
 
-import KakaoLoginIcon from '/public/icons/kakao_login_medium_narrow.svg';
+import KakaoLoginIcon from '/public/icons/kakao_login_narrow.svg';
 
 // 다른 소셜 로그인 도입을 위해 주석처리 해둠
 // import NaverLoginIcon from '/public/icons/naver_login.svg';
