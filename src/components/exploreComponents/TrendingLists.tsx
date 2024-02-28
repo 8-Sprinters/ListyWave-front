@@ -15,6 +15,7 @@ import * as styles from './TrendingLists.css';
 import { vars } from '@/styles/theme.css';
 import { TrendingListsSkeleton } from './Skeleton';
 import oceanEmoji from '/public/images/ocean.png';
+import FallbackProfile from '/public/icons/fallback_profile.svg';
 
 /**@todo 트렌딩 리스트 바뀐 디자인에 맞게 새로 갈아엎을 예정 */
 
@@ -72,7 +73,6 @@ function TrendingList() {
                 delay: 1500,
                 disableOnInteraction: false,
               }}
-              // slidesPerView={4}
               loop={true}
               modules={[Autoplay, EffectCoverflow]}
               className="mySwiper"
@@ -184,7 +184,7 @@ function TrendingListInformation({ item }: TrendingListInformationType) {
               className={styles.profileImage}
             />
           ) : (
-            <></>
+            <FallbackProfile width={32} height={32} alt="존재하지 않는 사용자 프로필 이미지" />
           )}
         </div>
         <span

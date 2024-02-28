@@ -37,8 +37,6 @@ function CommentForm({
   const { user } = useUser();
   const userId = user.id;
 
-  console.log(isPending);
-
   return (
     <div className={styles.formWrapperOuter}>
       <div className={`${styles.formWrapperInner} ${!!activeNickname || isEditing ? styles.activeFormWrapper : ''}`}>

@@ -9,6 +9,8 @@ export const buttonResetStyle = style({
 });
 
 export const headerRightWrapper = style({
+  marginRight: '3px',
+
   display: 'flex',
   alignItems: 'center',
   gap: '15px',

@@ -136,7 +136,7 @@ export const itemTitle = style([
     display: '-webkit-box',
     WebkitLineClamp: 3,
     WebkitBoxOrient: 'vertical',
-    wordBreak: 'break-word',
+    wordBreak: 'keep-all',
   },
 ]);
 

@@ -23,7 +23,7 @@ function Section3() {
               <span>지극히 개인적인 취향으로 순위를 매겨요.</span>
             </div>
             <div className={styles.imageWrapper}>
-              <Image src={'/images/section3_hero.png'} alt="리스트 생성하기 요소" width={300} height={314} />
+              <Image src={'/images/list_section3.png'} alt="리스트 생성하기 요소" width={300} height={314} />
               <div className={styles.blurBox}></div>
             </div>
           </div>

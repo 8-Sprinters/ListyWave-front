@@ -35,8 +35,8 @@ export const button = style({
   display: 'flex',
   justifyContent: 'center',
 
-  fontSize: '2rem',
-  fontWeight: 700,
+  fontSize: '1.8rem',
+  fontWeight: 600,
   color: vars.color.white,
   borderRadius: '50px',
 });

@@ -55,7 +55,7 @@ function Footer({ data }: { data: FooterProps }) {
     if (!window.Kakao.isInitialized()) {
       window.Kakao.init(process.env.NEXT_PUBLIC_KAKAO_API_KEY);
     }
-    console.log('kakaoShareStatus:', window.Kakao.isInitialized());
+    // console.log('kakaoShareStatus:', window.Kakao.isInitialized());
   }
 
   const goToCreateList = () => {

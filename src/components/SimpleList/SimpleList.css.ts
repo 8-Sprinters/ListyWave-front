@@ -1,6 +1,6 @@
 import { style } from '@vanilla-extract/css';
 import { vars } from '@/styles/theme.css';
-import { titleMedium, bodyLarge } from '@/styles/font.css';
+import { titleMedium, bodyRegular } from '@/styles/font.css';
 
 export const simpleItemWrapper = style({
   width: '100%',
@@ -12,6 +12,8 @@ export const simpleItemWrapper = style({
 });
 
 export const rankAndTitle = style({
+  minHeight: '50px',
+
   display: 'flex',
   flexDirection: 'row',
   alignItems: 'center',
@@ -38,7 +40,7 @@ export const rankText = style([
 ]);
 
 export const titleText = style([
-  bodyLarge,
+  bodyRegular,
   {
     color: vars.color.black,
     wordBreak: 'break-all',

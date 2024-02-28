@@ -12,7 +12,7 @@ import { UserType } from '@/lib/types/userProfileType';
 import * as styles from './Header.css';
 import Logo from '/public/icons/logo.svg';
 import BellIcon from '/public/icons/bell.svg';
-import NoneProfileImage from '/public/icons/avatar.svg';
+import FallbackProfile from '/public/icons/fallback_profile.svg';
 import NotificationOn from '/public/icons/notification_on.svg';
 import Modal from '@/components/Modal/Modal';
 import LoginModal from '@/components/login/LoginModal';
@@ -67,7 +67,7 @@ function Header() {
                     className={styles.userProfile}
                   />
                 ) : (
-                  <NoneProfileImage width={26} height={26} alt="존재하지 않는 사용자 프로필 이미지" />
+                  <FallbackProfile width={26} height={26} alt="존재하지 않는 사용자 프로필 이미지" />
                 )}
               </Link>
               <Link href={'/notification'}>

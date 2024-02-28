@@ -16,6 +16,7 @@ import { vars } from '@/styles/theme.css';
 import Line from '/public/icons/horizontal_line.svg';
 import EditPen from '/public/icons/edit_pen.svg';
 import { useLanguage } from '@/store/useLanguage';
+import FallbackProfile from '/public/icons/fallback_profile.svg';
 
 interface RepliesProps {
   replies?: ReplyType[] | null;
@@ -98,16 +99,20 @@ function Reply({ reply, listId, currentUserInfo, handleEdit, commentId }: ReplyP
   return (
     <>
       <div className={styles.replyWrapper}>
-        <Image
-          src={reply.userProfileImageUrl}
-          className={styles.profileImage}
-          width={20}
-          height={20}
-          alt={replyLocale[language].profileImageAlt}
-          style={{
-            objectFit: 'cover',
-          }}
-        />
+        {reply.userProfileImageUrl ? (
+          <Image
+            src={reply.userProfileImageUrl}
+            className={styles.profileImage}
+            width={20}
+            height={20}
+            alt={replyLocale[language].profileImageAlt}
+            style={{
+              objectFit: 'cover',
+            }}
+          />
+        ) : (
+          <FallbackProfile width={20} height={20} alt="존재하지 않는 사용자 프로필 이미지" />
+        )}
         <div className={styles.replyContainer}>
           <div className={styles.replyInformationWrapper}>
             <span className={styles.replyWriter}>{reply.userNickname}</span>

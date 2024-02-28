@@ -15,7 +15,7 @@ function Section2() {
           </div>
           <div className={styles.tapeImageWrapper}>
             <Image
-              src={'/images/tape_image.png'}
+              src={'/images/new_list.png'}
               alt="테이프 이미지"
               width={414}
               height={158}

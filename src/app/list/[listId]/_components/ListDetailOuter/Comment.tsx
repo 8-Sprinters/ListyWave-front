@@ -16,7 +16,7 @@ import { commentLocale } from '@/app/list/[listId]/locale';
 
 import * as styles from './Comment.css';
 import { vars } from '@/styles/theme.css';
-import DefaultProfile from '/public/icons/default_profile_temporary.svg';
+import FallbackProfile from '/public/icons/fallback_profile.svg';
 import EditPen from '/public/icons/edit_pen.svg';
 import { useLanguage } from '@/store/useLanguage';
 
@@ -41,6 +41,7 @@ function Comment({
   listId,
   commentId,
   currentUserInfo,
+
   handleEdit,
 }: CommentProps) {
   const { language } = useLanguage();
@@ -83,6 +84,19 @@ function Comment({
           {comment && !comment.isDeleted && (
             <Link href={`/user/${comment?.userId}/mylist`}>
               <div className={styles.profileImageParent}>
+                {comment.userProfileImageUrl ? (
+                  <Image
+                    alt={commentLocale[language].profileImageAlt}
+                    src={comment.userProfileImageUrl}
+                    className={styles.profileImage}
+                    fill
+                    style={{
+                      objectFit: 'cover',
+                    }}
+                  />
+                ) : (
+                  <FallbackProfile width={30} height={30} alt="존재하지 않는 사용자 프로필 이미지" />
+                )}
                 <Image
                   alt={commentLocale[language].profileImageAlt}
                   src={comment.userProfileImageUrl}
@@ -95,7 +109,7 @@ function Comment({
               </div>
             </Link>
           )}
-          {comment?.isDeleted && <DefaultProfile width={30} height={30} />}
+          {comment?.isDeleted && <FallbackProfile width={30} height={30} alt="존재하지 않는 사용자 프로필 이미지" />}
           <div className={styles.commentContainer}>
             <div className={styles.commentInformationWrapper}>
               <Link href={`/user/${comment?.userId}/mylist`}>
