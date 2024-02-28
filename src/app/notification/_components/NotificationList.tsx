@@ -16,6 +16,8 @@ import NoDataComponent from '@/components/NoData/NoDataComponent';
 import ProfileImage from './ProfileImage';
 import * as styles from './NotificationList.css';
 import NotificationListSkeleton from './NotificationListSkeleton';
+import { notificationLocale } from '@/app/notification/locale';
+import { useLanguage } from '@/store/useLanguage';
 
 /**
  * 알림 데이터의 type에 따라 알림 메시지를 만들어주는 함수입니다.
@@ -54,6 +56,7 @@ const dataToPath = (data: NotificationType) => {
 };
 
 export default function NotificationList() {
+  const { language } = useLanguage();
   const router = useRouter();
   const { data, isLoading } = useQuery<NotificationsType>({
     queryKey: [QUERY_KEYS.notifications],
@@ -88,11 +91,13 @@ export default function NotificationList() {
     <main className={styles.main}>
       {data?.alarmList?.length === 0 ? (
         <div className={styles.noData}>
-          <NoDataComponent message="최근 30일 내 새로운 알림이 없어요." />
+          <NoDataComponent message={notificationLocale[language].notificationMessage} />
         </div>
       ) : (
         <>
-          <h3 className={styles.label}>{isLoading ? <Skeleton animation="wave" width={55} /> : '최근 7일'}</h3>
+          <h3 className={styles.label}>
+            {isLoading ? <Skeleton animation="wave" width={55} /> : notificationLocale[language].notificationRecent}
+          </h3>
           <ul className={styles.list}>
             {isLoading ? (
               <NotificationListSkeleton />
