@@ -12,6 +12,7 @@ import toastMessage from '@/lib/constants/toastMessage';
 import { useUser } from '@/store/useUser';
 import * as styles from './AgreementConfirmation.css';
 import { useLanguage } from '@/store/useLanguage';
+import { accountLocale } from '@/app/account/locale';
 
 interface WithdrawalButtonProps {
   isDisabled: boolean;
@@ -44,18 +45,18 @@ export default function WithdrawalButton({ isDisabled }: WithdrawalButtonProps) 
   return (
     <>
       <button className={styles.confirmButton} disabled={isDisabled} onClick={handleSetOn}>
-        탈퇴하기
+        {accountLocale[language].withdraw}
       </button>
       {isOn && (
         <Modal handleModalClose={handleSetOff}>
-          <Modal.Title>확인 버튼 클릭 시 즉시 탈퇴 처리됩니다.</Modal.Title>
+          <Modal.Title>{accountLocale[language].withdrawModalMessage}</Modal.Title>
           <Modal.Button
             onCancel={handleSetOff}
             onClick={() => {
               withdrawMutate();
             }}
           >
-            확인
+            {accountLocale[language].confirm}
           </Modal.Button>
         </Modal>
       )}
