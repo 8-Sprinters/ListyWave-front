@@ -28,7 +28,7 @@ function FloatingMenu() {
 
   const handleSharePage = () => {
     // TODO 카카오 공유하기 기능으로 변경하기
-    copyUrl(`https://listywave.vercel.app${path}`);
+    copyUrl(`https://listywave.com${path}`, language);
   };
 
   const handleMoveToPage = () => {

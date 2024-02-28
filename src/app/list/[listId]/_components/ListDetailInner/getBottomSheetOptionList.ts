@@ -4,6 +4,7 @@ import kakaotalkShare from '@/components/KakaotalkShare/kakaotalkShare';
 import copyUrl from '@/lib/utils/copyUrl';
 import saveImageFromHtml from '@/lib/utils/saveImageFromHtml';
 import toasting from '@/lib/utils/toasting';
+import { listLocale } from '@/app/list/[listId]/locale';
 
 interface OptionDataProps {
   category: string;
@@ -22,9 +23,17 @@ interface SheetTypeProps {
   goToCreateList: () => void;
   listUrl: string;
   data: OptionDataProps;
+  language: string;
 }
 
-const getBottomSheetOptionList = ({ type, data, closeBottomSheet, listUrl, goToCreateList }: SheetTypeProps) => {
+const getBottomSheetOptionList = ({
+  type,
+  data,
+  closeBottomSheet,
+  listUrl,
+  goToCreateList,
+  language,
+}: SheetTypeProps) => {
   // TODO: 테스트용 > 이미지저장 로직 수정예정입니다.
   function imageSaveTest() {
     const listContent = document.querySelector('#rankList');
@@ -38,9 +47,9 @@ const getBottomSheetOptionList = ({ type, data, closeBottomSheet, listUrl, goToC
     const optionList = [
       {
         key: 'copyLink',
-        title: '리스트 링크 복사하기',
+        title: listLocale[language].copyListLink,
         onClick: () => {
-          copyUrl(listUrl);
+          copyUrl(listUrl, language);
           closeBottomSheet();
         },
       },
@@ -50,7 +59,7 @@ const getBottomSheetOptionList = ({ type, data, closeBottomSheet, listUrl, goToC
     if (data.isPublic) {
       optionList.push({
         key: 'kakaoShare',
-        title: '리스트 카카오톡으로 공유하기',
+        title: listLocale[language].shareListToKakaotalk,
         onClick: () => {
           kakaotalkShare({
             title: data.title,
@@ -73,7 +82,7 @@ const getBottomSheetOptionList = ({ type, data, closeBottomSheet, listUrl, goToC
       // 이미지저장시 이슈가 있어 잠시 주석합니다.
       // {
       //   key: 'saveToImg',
-      //   title: '리스트 이미지로 저장하기',
+      //   title: listLocale[language].saveListToImage,
       //   onClick: () => {
       //     closeBottomSheet();
       //     saveImageFromHtml({ filename: `${data.category}_${data.listId}`, element: imageSaveTest() });
@@ -81,9 +90,9 @@ const getBottomSheetOptionList = ({ type, data, closeBottomSheet, listUrl, goToC
       // },
       {
         key: 'copyAndCreateList',
-        title: '이 타이틀로 리스트 생성하기',
+        title: listLocale[language].createListToThisTitle,
         onClick: () => {
-          toasting({ type: 'default', txt: '리스트 작성 페이지로 이동합니다.' });
+          toasting({ type: 'default', txt: listLocale[language].moveToCreateListPageMessage });
           goToCreateList();
         },
       },
