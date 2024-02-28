@@ -10,7 +10,7 @@ export const container = style({
     "culture life life"
     "movie movie music"
     "place book book"
-    "animal animal etc"
+    "animal animal animal"
     "food food etc"
   `,
   gap: '1rem',
