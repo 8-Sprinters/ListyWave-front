@@ -1,3 +1,5 @@
+import { useForm, useWatch, useFormContext } from 'react-hook-form';
+
 import LinkIcon from '/public/icons/link.svg';
 
 import Modal from '@/components/Modal/Modal';
@@ -6,7 +8,6 @@ import { vars } from '@/styles/theme.css';
 import { useLanguage } from '@/store/useLanguage';
 import { itemLocale } from '@/app/list/create/locale';
 import { itemPlaceholder } from '@/lib/constants/placeholder';
-import { useForm, useWatch, useFormContext } from 'react-hook-form';
 import { itemLinkRules } from '@/lib/constants/formInputValidationRules';
 
 import * as styles from './LinkModal.css';
@@ -43,7 +44,6 @@ export default function LinkModal({ index }: LinkModalProps) {
   const { language } = useLanguage();
   const { isOn, handleSetOff, handleSetOn } = useBooleanOutput();
   const watchLink = useWatch({ control, name: 'newLink' });
-
   //버튼 클릭 이벤트
   const handleOpenClick = () => {
     setCurrentLink('newLink', getValues().items[index]?.link, { shouldValidate: true });
@@ -71,7 +71,7 @@ export default function LinkModal({ index }: LinkModalProps) {
               type="url"
               placeholder={itemPlaceholder[language].link}
               autoComplete="off"
-              {...register(`newLink`, itemLinkRules)}
+              {...register('newLink', itemLinkRules)}
             />
             {watchLink.length !== 0 && linkError && <p className={styles.error}>{linkError.newLink?.message}</p>}
           </div>
