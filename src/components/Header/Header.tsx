@@ -5,6 +5,8 @@ import CloseButton from '/public/icons/close_button.svg';
 import BackIcon from '/public/icons/back.svg';
 
 import * as styles from './Header.css';
+import { commonLocale } from '@/components/locale';
+import { useLanguage } from '@/store/useLanguage';
 
 interface HeaderProps {
   title: string;
@@ -14,11 +16,12 @@ interface HeaderProps {
 }
 
 function Header({ title, left, leftClick, right }: HeaderProps) {
+  const { language } = useLanguage();
   return (
     <div className={styles.header}>
       <button className={`${styles.flexChild} ${styles.leftChild}`} type="button" onClick={leftClick}>
-        {left === 'close' && <CloseButton width={'24'} height={'24'} alt="닫기버튼" />}
-        {left === 'back' && <BackIcon width={'8'} height={'14'} alt="뒤로가기 버튼" />}
+        {left === 'close' && <CloseButton width={'24'} height={'24'} alt={commonLocale[language].closeButton} />}
+        {left === 'back' && <BackIcon width={'8'} height={'14'} alt={commonLocale[language].goBack} />}
         {left === null && <></>}
       </button>
 

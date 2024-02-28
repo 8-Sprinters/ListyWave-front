@@ -20,6 +20,8 @@ import { AllListType } from '@/lib/types/listType';
 import useIntersectionObserver from '@/hooks/useIntersectionObserver';
 import MasonryGridSkeleton from './MasonryGridSkeleton';
 import NoDataComponent from '@/components/NoData/NoDataComponent';
+import { userLocale } from '@/app/user/locale';
+import { useLanguage } from '@/store/useLanguage';
 
 interface ContentProps {
   userId: number;
@@ -29,6 +31,7 @@ interface ContentProps {
 const DEFAULT_CATEGORY = 'entire';
 
 export default function Content({ userId, type }: ContentProps) {
+  const { language } = useLanguage();
   const queryClient = useQueryClient();
   const [selectedCategory, setSelectedCategory] = useState(DEFAULT_CATEGORY);
 
@@ -82,18 +85,18 @@ export default function Content({ userId, type }: ContentProps) {
     <div className={styles.container}>
       <div className={styles.options}>
         <Link href={`/user/${userData?.id}/mylist`} className={styles.link}>
-          <span className={styles.button}>마이 리스트</span>
+          <span className={styles.button}>{userLocale[language].myList}</span>
           <div className={type === 'my' ? styles.currentLine : styles.line}></div>
         </Link>
         <Link href={`/user/${userData?.id}/collabolist`} className={styles.link}>
-          <button className={styles.button}>콜라보 리스트</button>
+          <button className={styles.button}>{userLocale[language].collaboList}</button>
           <div className={type === 'collabo' ? styles.currentLine : styles.line}></div>
         </Link>
       </div>
       <Categories handleFetchListsOnCategory={handleFetchListsOnCategory} selectedCategory={selectedCategory} />
       {!isLoading && !lists.length && (
         <div className={styles.nodataContainer}>
-          <NoDataComponent message="해당 카테고리에 아직 리스트가 없어요" />
+          <NoDataComponent message={userLocale[language].noListMessage} />
         </div>
       )}
       <div className={styles.cards}>

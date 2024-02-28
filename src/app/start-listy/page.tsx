@@ -20,11 +20,14 @@ import { QUERY_KEYS } from '@/lib/constants/queryKeys';
 
 import CreateListStep from './_components/CreateListStep';
 import CreateNicknameStep from './_components/CreateNicknameStep';
+import { startListyLocale } from '@/app/start-listy/locale';
+import { useLanguage } from '@/store/useLanguage';
 
 // import Modal from '@/components/Modal/Modal';
 // import useBooleanOutput from '@/hooks/useBooleanOutput';
 
 export default function StartListyPage() {
+  const { language } = useLanguage();
   const { user } = useUser();
   const [stepIndex, setStepIndex] = useState(0);
   // const { isOn, handleSetOn, handleSetOff } = useBooleanOutput();
@@ -52,7 +55,7 @@ export default function StartListyPage() {
      * 닉네임 변경 상태 저장해서 체크하기
      */
 
-    alert('온보딩 종료할까요?');
+    alert(startListyLocale[language].endOnboardingMessage);
     // 다른 페이지로 이동
   };
 
@@ -65,7 +68,7 @@ export default function StartListyPage() {
   }, []);
 
   if (isFetching) {
-    return <div>로딩중</div>;
+    return <div>{startListyLocale[language].loading}</div>;
   }
 
   return (

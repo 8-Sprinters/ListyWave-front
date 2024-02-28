@@ -3,8 +3,11 @@ import Image from 'next/image';
 
 import MotionWrapper from './MotionWrapper';
 import * as styles from './Section3.css';
+import { introLocale } from '@/app/intro/locale';
+import { useLanguage } from '@/store/useLanguage';
 
 function Section3() {
+  const { language } = useLanguage();
   return (
     <section className={styles.background}>
       <div className={styles.wrapper}>
@@ -15,15 +18,20 @@ function Section3() {
         <MotionWrapper variantsType="vertical">
           <div className={styles.contentsWrapper}>
             <div className={styles.titleWrapper}>
-              <h3>마음 속 순위로</h3>
-              <h3>기록하는 나</h3>
+              <h3>{introLocale[language].section.message3}</h3>
+              <h3>{introLocale[language].section.message4}</h3>
             </div>
             <div className={styles.subTitleWrapper}>
-              <span>트렌드는 잠시 잊고,</span>
-              <span>지극히 개인적인 취향으로 순위를 매겨요.</span>
+              <span>{introLocale[language].section.message5}</span>
+              <span>{introLocale[language].section.message6}</span>
             </div>
             <div className={styles.imageWrapper}>
-              <Image src={'/images/list_section3.png'} alt="리스트 생성하기 요소" width={300} height={314} />
+              <Image
+                src={'/images/list_section3.png'}
+                alt={introLocale[language].section.createListImage}
+                width={300}
+                height={314}
+              />
               <div className={styles.blurBox}></div>
             </div>
           </div>

@@ -36,7 +36,7 @@ export const replyLocale = {
   },
 };
 
-export const listLocale = {
+export const listLocale: Record<string, { [key: string]: string }> = {
   ko: {
     privateMessage: '비공개 처리된 게시물이에요.',
     list: '리스트',
@@ -62,6 +62,11 @@ export const listLocale = {
     moreButtonAlt: '더보기 버튼',
     privateHistory: '비공개 히스토리에요.',
     crown: '1위 아이템',
+    copyListLink: '리스트 링크 복사하기',
+    shareListToKakaotalk: '리스트 카카오톡으로 공유하기',
+    saveListToImage: '리스트 이미지로 저장하기',
+    createListToThisTitle: '이 타이틀로 리스트 생성하기',
+    moveToCreateListPageMessage: '리스트 작성 페이지로 이동합니다.',
   },
   en: {
     privateMessage: "It's a closed post.",
@@ -88,6 +93,11 @@ export const listLocale = {
     moreButtonAlt: 'More button',
     privateHistory: "It's a private history.",
     crown: '1st place item',
+    copyListLink: 'Copy link from list',
+    shareListToKakaotalk: 'Share the list with KakaoTalk',
+    saveListToImage: 'Saving the list as an image',
+    createListToThisTitle: 'Create a list with this title',
+    moveToCreateListPageMessage: 'Go to the list creation page.',
   },
 };
 

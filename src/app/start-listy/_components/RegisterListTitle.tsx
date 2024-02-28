@@ -6,20 +6,24 @@ import * as stylesList from './ListPreview.css';
 
 import { CategoryType } from '@/lib/types/categoriesType';
 import { ListCreateType } from '@/lib/types/listType';
+import { startListyLocale } from '@/app/start-listy/locale';
+import { useLanguage } from '@/store/useLanguage';
 
 interface ListTitleStepProps {
   selectedCategory: Omit<CategoryType, 'codeValue'>;
 }
 
-const onBoardlistTitleRules = {
-  required: '제목을 입력해주세요',
-  maxLength: {
-    value: 30,
-    message: '리스트 제목은 최대 30자까지 입력할 수 있어요.',
-  },
-};
-
 export default function RegisterListTitle({ selectedCategory }: ListTitleStepProps) {
+  const { language } = useLanguage();
+
+  const onBoardlistTitleRules = {
+    required: startListyLocale[language].enterTitle,
+    maxLength: {
+      value: 30,
+      message: startListyLocale[language].maxTitleMessage,
+    },
+  };
+
   const {
     register,
     watch,
@@ -30,7 +34,7 @@ export default function RegisterListTitle({ selectedCategory }: ListTitleStepPro
 
   return (
     <>
-      <label className={styles.title}>리스트의 제목을 지어주세요.</label>
+      <label className={styles.title}>{startListyLocale[language].makeListTitle}</label>
       <div className={styles.inputWrapper}>
         <input {...register('title', onBoardlistTitleRules)} autoComplete="off" autoFocus className={styles.input} />
         <p className={styles.errorMessage}>{errors.title?.message}</p>

@@ -16,6 +16,8 @@ import { vars } from '@/styles/theme.css';
 import { TrendingListsSkeleton } from './Skeleton';
 import oceanEmoji from '/public/images/ocean.png';
 import fallbackProfile from '/public/images/fallback_profileImage.webp';
+import { commonLocale } from '@/components/locale';
+import { useLanguage } from '@/store/useLanguage';
 
 /**@todo 트렌딩 리스트 바뀐 디자인에 맞게 새로 갈아엎을 예정 */
 
@@ -40,6 +42,7 @@ const swiperSliderStyle = [
 const STYLE_INDEX = (num: number) => num % 4;
 
 function TrendingList() {
+  const { language } = useLanguage();
   const { data: trendingLists, isFetching } = useQuery({
     queryKey: [QUERY_KEYS.getTrendingLists],
     queryFn: () => getTrendingLists(),
@@ -59,7 +62,7 @@ function TrendingList() {
     <div className={styles.wrapper}>
       <div className={styles.titleWrapper}>
         <h2 className={styles.sectionTitle}>TRENDING</h2>
-        <Image src={oceanEmoji} alt="바다의 파도 이모지" width="22" />
+        <Image src={oceanEmoji} alt={commonLocale[language].oceanEmofi} width="22" />
       </div>
       <div className={styles.listWrapper}>
         <div className={styles.slide}>
@@ -164,6 +167,7 @@ interface TrendingListInformationType {
 }
 
 function TrendingListInformation({ item }: TrendingListInformationType) {
+  const { language } = useLanguage();
   return (
     <div className={styles.itemInformationWrapper}>
       <div
@@ -178,7 +182,7 @@ function TrendingListInformation({ item }: TrendingListInformationType) {
           {item?.ownerProfileImageUrl ? (
             <Image
               src={item?.ownerProfileImageUrl}
-              alt="사용자 이미지"
+              alt={commonLocale[language].userProfileImage}
               fill
               style={{ objectFit: 'cover' }}
               className={styles.profileImage}
@@ -187,7 +191,7 @@ function TrendingListInformation({ item }: TrendingListInformationType) {
           ) : (
             <Image
               src={fallbackProfile}
-              alt="사용자 이미지"
+              alt={commonLocale[language].userProfileImage}
               fill
               style={{ objectFit: 'cover' }}
               className={styles.profileImage}

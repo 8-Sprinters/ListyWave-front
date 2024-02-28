@@ -20,8 +20,11 @@ import sparkleEmoji from '/public/images/sparkle.png';
 import fallbackProfile from '/public/images/fallback_profileImage.webp';
 
 import ChevronDown from '/public/icons/chevron_down.svg';
+import { commonLocale } from '@/components/locale';
+import { useLanguage } from '@/store/useLanguage';
 
 function ListRecommendation() {
+  const { language } = useLanguage();
   const COLOR_INDEX = (num: number) => num % 5;
 
   //리스트 무한스크롤 리액트 쿼리 함수
@@ -63,7 +66,7 @@ function ListRecommendation() {
     <section className={styles.wrapperOuter}>
       <div className={styles.titleWrapper}>
         <div className={styles.sectionTitle}>NEW</div>
-        <Image src={sparkleEmoji} alt="빛나는 반짝 이모지" width="22" />
+        <Image src={sparkleEmoji} alt={commonLocale[language].sparkleEmofi} width="22" />
       </div>
       <ul>
         {recommendLists?.length !== 0 ? (
@@ -99,7 +102,7 @@ function ListRecommendation() {
                           {item?.ownerProfileImage ? (
                             <Image
                               src={item.ownerProfileImage}
-                              alt="리스트 생성자 이미지"
+                              alt={commonLocale[language].listOwnerImage}
                               fill
                               className={styles.ownerProfileImage}
                               style={{
@@ -110,7 +113,7 @@ function ListRecommendation() {
                           ) : (
                             <Image
                               src={fallbackProfile}
-                              alt="리스트 생성자 이미지"
+                              alt={commonLocale[language].listOwnerImage}
                               fill
                               className={styles.ownerProfileImage}
                               style={{
@@ -129,7 +132,7 @@ function ListRecommendation() {
                     <Link href={`/list/${item.id}`}>
                       <div className={styles.showMoreButtonWrapper}>
                         <ChevronDown width={18} height={18} />
-                        <span className={styles.showMoreButton}>더보기</span>
+                        <span className={styles.showMoreButton}>{commonLocale[language].more}</span>
                       </div>
                     </Link>
                   </li>
@@ -139,7 +142,7 @@ function ListRecommendation() {
           })
         ) : (
           <div className={styles.noData}>
-            <NoDataComponent message="팔로잉 중인 사용자의 최신 리스트가 없어요" />
+            <NoDataComponent message={commonLocale[language].noFollowingsNewList} />
           </div>
         )}
         <div ref={ref}></div>

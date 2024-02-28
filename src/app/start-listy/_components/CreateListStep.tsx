@@ -16,6 +16,7 @@ import RegisterListTitle from './RegisterListTitle';
 import RegisterItems from './RegisterItems';
 import { BACKGROUND_COLOR } from '@/styles/Color';
 import { useLanguage } from '@/store/useLanguage';
+import { startListyLocale } from '@/app/start-listy/locale';
 
 interface CreateListStepProps {
   userId: number;
@@ -122,8 +123,17 @@ export default function CreateListStep({ userId, nickname }: CreateListStepProps
               <p className={styles.stepText}>step2</p>
             </div>
             <p className={styles.subTitle}>
-              <span>{`"${nickname}"`}님만의</span>
-              <span>리스트를 만들어 보아요.</span>
+              {language === 'ko' ? (
+                <>
+                  <span>{`"${nickname}"`}님만의</span>
+                  <span>리스트를 만들어 보아요.</span>
+                </>
+              ) : (
+                <>
+                  <span>Let&apos;s make</span>
+                  <span>{`&quot;${nickname}&quot;`}&apos;s own list</span>
+                </>
+              )}
             </p>
             <div className={styles.container}>
               <ChoiceCategory handleChangeCategory={handleChangeCategory} />
@@ -133,7 +143,7 @@ export default function CreateListStep({ userId, nickname }: CreateListStepProps
                 className={selectedCategory.nameValue ? styles.variant.active : styles.variant.default}
                 disabled={!selectedCategory.nameValue}
               >
-                다음으로
+                {startListyLocale[language].next}
               </button>
             </div>
           </>
@@ -142,7 +152,7 @@ export default function CreateListStep({ userId, nickname }: CreateListStepProps
           <>
             <div className={styles.header}>
               <button className={styles.headerButton} onClick={handleMoveToStep('prev')}>
-                <BackIcon alt="뒤로가기 버튼" width={7.7} height={13.4} />
+                <BackIcon alt={startListyLocale[language].backButtonAlt} width={7.7} height={13.4} />
               </button>
             </div>
             <div className={styles.step}>
@@ -162,7 +172,7 @@ export default function CreateListStep({ userId, nickname }: CreateListStepProps
                 className={!getValues('title') || errors.title ? styles.variant.default : styles.variant.active}
                 disabled={!getValues('title') || !!errors.title}
               >
-                다음으로
+                {startListyLocale[language].next}
               </button>
             </div>
           </>
@@ -171,7 +181,7 @@ export default function CreateListStep({ userId, nickname }: CreateListStepProps
           <>
             <div className={styles.header}>
               <button className={styles.headerButton} onClick={handleMoveToStep('prev')}>
-                <BackIcon alt="뒤로가기 버튼" width={7.7} height={13.4} />
+                <BackIcon alt={startListyLocale[language].backButtonAlt} width={7.7} height={13.4} />
               </button>
             </div>
             <div className={styles.step}>
@@ -189,7 +199,7 @@ export default function CreateListStep({ userId, nickname }: CreateListStepProps
                 className={isValid ? styles.variant.active : styles.variant.default}
                 disabled={!isValid}
               >
-                완료
+                {startListyLocale[language].complete}
               </button>
             </div>
           </>

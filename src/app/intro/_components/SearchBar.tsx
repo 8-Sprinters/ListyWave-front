@@ -5,8 +5,11 @@ import 'swiper/css';
 import * as styles from './SearchBar.css';
 
 import SearchIcon from '/public/icons/search.svg';
+import { introLocale } from '@/app/intro/locale';
+import { useLanguage } from '@/store/useLanguage';
 
 function SearchBar() {
+  const { language } = useLanguage();
   const swiperStyle = {
     width: '100%',
   };
@@ -28,34 +31,34 @@ function SearchBar() {
         style={swiperStyle}
       >
         <SwiperSlide>
-          <Text>키우기 쉬운 식물 모았어요</Text>
+          <Text>{introLocale[language].exampleTitles.search.title1}</Text>
         </SwiperSlide>
         <SwiperSlide>
-          <Text>부산사람의 돼지국밥 맛집 5곳</Text>
+          <Text>{introLocale[language].exampleTitles.search.title2}</Text>
         </SwiperSlide>
         <SwiperSlide>
-          <Text>가장 슬프게 본 영화 TOP3</Text>
+          <Text>{introLocale[language].exampleTitles.search.title3}</Text>
         </SwiperSlide>
         <SwiperSlide>
-          <Text>코인노래방에서 자주 부르는 노래 top10 🎵</Text>
+          <Text>{introLocale[language].exampleTitles.search.title4}</Text>
         </SwiperSlide>
         <SwiperSlide>
-          <Text>인생 넷플릭스 영화 TOP5</Text>
+          <Text>{introLocale[language].exampleTitles.search.title5}</Text>
         </SwiperSlide>
         <SwiperSlide>
-          <Text>대전 칼국수 맛집 top10</Text>
+          <Text>{introLocale[language].exampleTitles.search.title6}</Text>
         </SwiperSlide>
         <SwiperSlide>
-          <Text>반전결말 왓챠 플레이 미드 TOP3</Text>
+          <Text>{introLocale[language].exampleTitles.search.title7}</Text>
         </SwiperSlide>
         <SwiperSlide>
-          <Text>서울 김치가 맛있는 국밥집 top10</Text>
+          <Text>{introLocale[language].exampleTitles.search.title8}</Text>
         </SwiperSlide>
         <SwiperSlide>
-          <Text>내가 이자카야에서 제일 자주 먹는 안주 TOP 3</Text>
+          <Text>{introLocale[language].exampleTitles.search.title9}</Text>
         </SwiperSlide>
         <SwiperSlide>
-          <Text>내 플리의 최다 재생곡 TOP 10</Text>
+          <Text>{introLocale[language].exampleTitles.search.title10}</Text>
         </SwiperSlide>
       </Swiper>
       <SearchIcon />

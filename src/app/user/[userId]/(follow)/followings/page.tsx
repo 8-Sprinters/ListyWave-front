@@ -10,8 +10,11 @@ import { FollowingListType } from '@/lib/types/followType';
 import { QUERY_KEYS } from '@/lib/constants/queryKeys';
 
 import * as styles from '../follow.css';
+import { userLocale } from '@/app/user/locale';
+import { useLanguage } from '@/store/useLanguage';
 
 function FollowingPage() {
+  const { language } = useLanguage();
   const param = useParams<{ userId: string }>();
 
   const { data: followingList } = useQuery<FollowingListType>({
@@ -21,9 +24,11 @@ function FollowingPage() {
 
   return (
     <div>
-      <Header title="팔로잉" />
+      <Header title={userLocale[language].following} />
       {followingList?.followings.length !== 0 && (
-        <div className={styles.totalMessage}>총 {followingList?.followings.length}명</div>
+        <div
+          className={styles.totalMessage}
+        >{`${userLocale[language].total} ${followingList?.followings.length}${userLocale[language].people}`}</div>
       )}
       <UserList type="following" list={followingList?.followings || []} />
     </div>

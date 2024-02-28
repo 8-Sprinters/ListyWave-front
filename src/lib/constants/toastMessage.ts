@@ -1,6 +1,6 @@
 export const MAX_FOLLOWING = 1000;
 
-const toastMessage = {
+const toastMessage: Record<string, { [key: string]: string }> = {
   ko: {
     requiredLogin: '로그인이 필요해요.',
     userStatusLoggedOut: '로그아웃 된 사용자에요. 다시 로그인 해주세요.',

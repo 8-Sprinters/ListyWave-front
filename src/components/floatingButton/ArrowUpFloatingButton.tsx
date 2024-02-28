@@ -5,8 +5,11 @@ import { useState } from 'react';
 import * as styles from './FloatingContainer.css';
 import ArrowUpIcon from '/public/icons/arrow_up.svg';
 import useThrottle from '@/hooks/useThrottle';
+import { commonLocale } from '@/components/locale';
+import { useLanguage } from '@/store/useLanguage';
 
 export default function ArrowUpFloatingButton() {
+  const { language } = useLanguage();
   const [isVisible, setIsVisible] = useState(false);
 
   const visibleButton = () => {
@@ -32,7 +35,7 @@ export default function ArrowUpFloatingButton() {
     <>
       {isVisible && (
         <div className={styles.variant.arrowUp} onClick={handleScrollToTop}>
-          <ArrowUpIcon alt="상단으로 이동하기 버튼" className={styles.icon} />
+          <ArrowUpIcon alt={commonLocale[language].arrowUpButton} className={styles.icon} />
         </div>
       )}
     </>

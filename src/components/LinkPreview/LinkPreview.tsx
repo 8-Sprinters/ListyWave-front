@@ -1,7 +1,9 @@
 import { useQuery } from '@tanstack/react-query';
 import * as styles from '@/components/LinkPreview/LinkPreview.css';
+import { commonLocale } from '@/components/locale';
+import { useLanguage } from '@/store/useLanguage';
 
-async function fetchLinkPreviewData(url: string) {
+async function fetchLinkPreviewData(url: string, language: string) {
   try {
     // TODO: axios.get 사용시 에러발생 원인 파악
     const response = await fetch(`/api/getOgDataProxy?url=${encodeURIComponent(url)}`);
@@ -15,19 +17,20 @@ async function fetchLinkPreviewData(url: string) {
       url: data.url,
     };
   } catch (error) {
-    console.error('url정보를 가져오는데 실패했습니다.', error);
+    console.error(commonLocale[language].failToUrlInformation, error);
     return {};
   }
 }
 
 const LinkPreview = (linkUrl: string) => {
+  const { language } = useLanguage();
   const { data, isSuccess, isFetching } = useQuery({
     queryKey: ['linkPreview' + linkUrl],
-    queryFn: () => fetchLinkPreviewData(linkUrl),
+    queryFn: () => fetchLinkPreviewData(linkUrl, language),
   });
 
   if (isFetching) {
-    return <div>로딩중입니다.</div>;
+    return <div>{commonLocale[language].loading}</div>;
   }
 
   if (isSuccess && data) {
@@ -38,8 +41,8 @@ const LinkPreview = (linkUrl: string) => {
         <div className={styles.wrapper}>
           {data.image && <img src={image} alt={title} className={styles.image} />}
           <div className={styles.contentWrapper}>
-            <h2 className={styles.title}>{title || '제목이 없습니다.'}</h2>
-            <p className={styles.description}>{description || '설명이 없습니다.'}</p>
+            <h2 className={styles.title}>{title || commonLocale[language].noTitle}</h2>
+            <p className={styles.description}>{description || commonLocale[language].noDescription}</p>
             <p className={styles.url}>{url}</p>
           </div>
         </div>
@@ -47,7 +50,7 @@ const LinkPreview = (linkUrl: string) => {
     );
   }
 
-  return <div>미리보기를 가져오는데 실패했습니다.</div>;
+  return <div>{commonLocale[language].failToBringPreview}</div>;
 };
 
 export default LinkPreview;
