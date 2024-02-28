@@ -1,11 +1,5 @@
 'use client';
 
-/**
- TODO
- - [ ] 로그인 만료 확인, refreshToken(추후)
- - [x] 로그인 페이지 UI (모달)
- */
-
 import Link from 'next/link';
 import Image from 'next/image';
 
