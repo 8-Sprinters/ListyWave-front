@@ -41,6 +41,7 @@ function Comment({
   listId,
   commentId,
   currentUserInfo,
+
   handleEdit,
 }: CommentProps) {
   const { language } = useLanguage();

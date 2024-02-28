@@ -1,6 +1,6 @@
 'use client';
 import { useParams } from 'next/navigation';
-import { ChangeEvent, useEffect, useMemo, useState } from 'react';
+import { ChangeEvent, useEffect, useMemo, useState, useRef } from 'react';
 import { useMutation, useQueryClient, useInfiniteQuery, useQuery } from '@tanstack/react-query';
 
 import Comment from './Comment';
@@ -39,6 +39,8 @@ function Comments() {
   const { replyId, deleteReplyId } = useReplyId();
   const { commentId, setCommentId, deleteCommentId } = useCommentId();
   const { setIsEditing, setIsNotEditing, isEditing } = useIsEditing();
+  const bottomRef = useRef<HTMLDivElement>(null);
+  const replyBottomRef = useRef<HTMLDivElement>(null);
 
   //zustand로 관리하는 user정보 불러오기
   const { user } = useUser();
@@ -79,6 +81,12 @@ function Comments() {
       fetchNextPage();
     }
   });
+
+  const scrollToRef = () => {
+    if (bottomRef.current) {
+      bottomRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  };
 
   //작성중이던 답글의 원댓글에 관련된 정보를 리셋하는 함수
   const handleReplyInformationDelete = () => {
@@ -123,6 +131,7 @@ function Comments() {
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: [QUERY_KEYS.getComments] });
+      scrollToRef();
     },
     onSettled: () => {
       setComment('');
@@ -172,8 +181,9 @@ function Comments() {
       setIsPending(true);
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: [QUERY_KEYS.getComments] });
+      queryClient.invalidateQueries({ queryKey: [QUERY_KEYS.getComments, commentId] });
       addCommentId(commentId as number);
+      scrollToRef();
     },
     onSettled: () => {
       setComment('');
@@ -275,6 +285,7 @@ function Comments() {
                   handleEdit={handleEditComment}
                 />
               )}
+              <div ref={bottomRef}></div>
             </div>
           );
         })}

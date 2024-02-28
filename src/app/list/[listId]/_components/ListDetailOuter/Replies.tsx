@@ -1,5 +1,6 @@
 'use client';
 import Image from 'next/image';
+import { useRef } from 'react';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 
 import DeleteModalButton from '@/app/list/[listId]/_components/ListDetailOuter/DeleteModalButton';
