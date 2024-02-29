@@ -13,12 +13,12 @@ function Section6() {
       <div className={styles.wrapper}>
         <MotionWrapper variantsType="vertical" delay={0.3}>
           <div className={styles.contentsWrapper}>
-            <MotionWrapper variantsType="reverseHorizontal" delay={0.8}>
+            <MotionWrapper variantsType="reverseHorizontal" delay={0.5}>
               <div className={styles.titleWrapper}>
                 <h3>{introLocale[language].section.message21}</h3>
               </div>
             </MotionWrapper>
-            <MotionWrapper variantsType="reverseHorizontal" delay={1.1}>
+            <MotionWrapper variantsType="reverseHorizontal" delay={0.7}>
               <div className={styles.subTitleWrapper}>
                 <span>{introLocale[language].section.message18}</span>
                 <span>{introLocale[language].section.message19}</span>
