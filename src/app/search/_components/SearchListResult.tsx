@@ -110,7 +110,7 @@ function SearchListResult() {
         value: 'new',
         label: searchLocale[language].new,
       });
-  }, [keyword]);
+  }, []);
 
   const Result = () => {
     const { language } = useLanguage();
