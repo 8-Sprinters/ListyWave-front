@@ -17,7 +17,7 @@ function Section5() {
             <MotionWrapper variantsType="horizontal" delay={0.4}>
               <div className={styles.sectionNameWrapper}>
                 <EyeEmoji alt={introLocale[language].section.eyeIcon} />
-                <span>alt={introLocale[language].section.message17}</span>
+                <span>{introLocale[language].section.message17}</span>
               </div>
             </MotionWrapper>
             <MotionWrapper variantsType="horizontal" delay={0.6}>
