@@ -104,13 +104,13 @@ function SearchListResult() {
     };
   }, [queryClient, sort, keyword, category]);
 
-  useEffect(() => {
-    if (!keyword)
-      handleChangeSortType({
-        value: 'new',
-        label: searchLocale[language].new,
-      });
-  }, []);
+  // useEffect(() => {
+  //   if (!keyword)
+  //     handleChangeSortType({
+  //       value: 'new',
+  //       label: searchLocale[language].new,
+  //     });
+  // }, []);
 
   const Result = () => {
     const { language } = useLanguage();
