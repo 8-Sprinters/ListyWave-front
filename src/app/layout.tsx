@@ -49,6 +49,8 @@ export default function Layout({ children }: { children: ReactNode }) {
     <html lang="ko">
       <head>
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css" />
+        <link rel="shortcut icon" href="https://image.listywave.com/favicon/favicon.png" />
+        <link rel="apple-touch-icon" href="https://image.listywave.com/favicon/favicon.png" />
       </head>
       <body className={styles.body}>
         <CommonProvider>
