@@ -23,12 +23,12 @@ export default function Search() {
   const [category, setCategory] = useState('');
   const [sort, setSort] = useState('');
 
-  useEffect(() => {
-    // 페이지 첫 로드시 검색어와 카테고리 설정
-    setKeyword(searchParams?.get('keyword') ?? '');
-    setCategory(searchParams?.get('category') ?? 'entire');
-    setSort(searchParams?.get('sort') ?? 'new');
-  }, [searchParams]);
+  // useEffect(() => {
+  //   // 페이지 첫 로드시 검색어와 카테고리 설정
+  //   setKeyword(searchParams?.get('keyword') ?? '');
+  //   setCategory(searchParams?.get('category') ?? 'entire');
+  //   setSort(searchParams?.get('sort') ?? 'new');
+  // }, [searchParams]);
 
   const handleKeywordChange = (e: ChangeEvent<HTMLInputElement>) => {
     setKeyword(e.target.value);
