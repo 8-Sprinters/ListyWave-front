@@ -150,7 +150,7 @@ function ListInformation() {
               <div className={styles.informationWrapper}>
                 <div className={styles.listOwnerNickname}>{list?.ownerNickname}</div>
                 <div className={styles.infoDetailWrapper}>
-                  <span>{timeDiff(String(list?.createdDate))}</span>
+                  <span>{timeDiff(String(list?.lastUpdatedDate))}</span>
                   {list?.isPublic === false && <LockIcon width={12} height={12} fill={vars.color.gray5} />}
                 </div>
               </div>
