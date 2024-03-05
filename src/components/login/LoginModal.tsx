@@ -20,8 +20,6 @@ const oauthType = {
   kakao: 'kakao',
 };
 
-const baseUrl = 'https://dev.api.listywave.com'; // TODO 이 부분은 나중에 .env.local로 수정
-
 export default function LoginModal() {
   const { language } = useLanguage();
   return (
@@ -49,7 +47,7 @@ export default function LoginModal() {
         <Link href={`${baseUrl}/auth/${oauthType.google}`}>
           <GoogleLoginIcon />
         </Link> */}
-        <Link href={`${baseUrl}/auth/${oauthType.kakao}`}>
+        <Link href={`${process.env.NEXT_PUBLIC_SERVER_DOMAIN}/auth/${oauthType.kakao}`}>
           <KakaoLoginIcon />
         </Link>
       </div>
