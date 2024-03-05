@@ -1,0 +1,41 @@
+export const userLocale = {
+  ko: {
+    delete: '삭제',
+    empty: {
+      follower: '아직은 팔로워가 없어요',
+      following: '아직 팔로우한 사람이 없어요',
+    },
+    follower: '팔로워',
+    following: '팔로잉',
+    total: '총',
+    people: '명',
+    myList: '마이 리스트',
+    collaboList: '콜라보 리스트',
+    noListMessage: '해당 카테고리에 아직 리스트가 없어요',
+    cancelFollow: '팔로우 취소',
+    follow: '팔로우',
+
+    confirm: '확인',
+    goToMypage: '마이페이지로 이동하기',
+    profileImageAlt: '프로필 이미지',
+  },
+  en: {
+    delete: 'Delete',
+    empty: {
+      follower: 'No followers yet',
+      following: 'No following yet',
+    },
+    follower: 'Follower',
+    following: 'Following',
+    total: 'Total',
+    people: 'people',
+    myList: 'My List',
+    collaboList: 'Collaboration List',
+    noListMessage: 'There are no lists in this category yet',
+    cancelFollow: 'UnFollow',
+    follow: 'Follow',
+    confirm: 'confirm',
+    goToMypage: 'Go to My Page',
+    profileImageAlt: 'Profile Image',
+  },
+};
