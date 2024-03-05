@@ -6,7 +6,7 @@ import { useUser } from '@/store/useUser';
 import toastMessage from '../constants/toastMessage';
 
 const axiosInstance = axios.create({
-  baseURL: 'https://dev.api.listywave.com',
+  baseURL: process.env.NEXT_PUBLIC_SERVER_DOMAIN,
   // withCredentials: true, // refreshToken을 고려해서 true로 설정
 });
 
@@ -63,7 +63,7 @@ axiosInstance.interceptors.response.use(
         try {
           // instance 대신 axios 요청
           // refreshtToken으로 accessToken 재발급 요청
-          const { data } = await axios.get('https://dev.api.listywave.com/auth/token', {
+          const { data } = await axios.get(`${process.env.NEXT_PUBLIC_SERVER_DOMAIN}/auth/token`, {
             headers: {
               Authorization: `Bearer ${refreshToken}`,
             },
