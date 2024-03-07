@@ -26,7 +26,7 @@ import { useLanguage } from '@/store/useLanguage';
 
 export default function Profile({ userId }: { userId: number }) {
   const { language } = useLanguage();
-  const [hasError, setHasError] = useState(false);
+  const [hasImageError, setHasImageError] = useState(false);
   const { onClickMoveToPage } = useMoveToPage();
 
   const fallbackProfileImageSrc = '/images/fallback_profileImage.webp';
@@ -49,8 +49,7 @@ export default function Profile({ userId }: { userId: number }) {
   }
 
   const handleImageError = () => {
-    // TODO onError일때 적용할 이미지 공통 로직 만들기
-    setHasError(true);
+    setHasImageError(true);
   };
 
   return (
@@ -79,7 +78,7 @@ export default function Profile({ userId }: { userId: number }) {
                 {data?.profileImageUrl ? (
                   <Image
                     className={styles.profileImage}
-                    src={`${hasError ? fallbackProfileImageSrc : data?.profileImageUrl}`}
+                    src={hasImageError ? fallbackProfileImageSrc : data?.profileImageUrl}
                     alt={userLocale[language].profileImageAlt}
                     width={50}
                     height={50}
