@@ -107,7 +107,7 @@ export default function Profile({ userId }: { userId: number }) {
                     <span className={styles.count}>
                       {data?.followerCount !== undefined && numberFormatter(data.followerCount, 'ko')}
                     </span>
-                    <span className={styles.captionText}>{userLocale[language].follow}</span>
+                    <span className={styles.captionText}>{userLocale[language].follower}</span>
                   </Link>
                 </div>
               </div>
