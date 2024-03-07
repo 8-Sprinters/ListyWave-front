@@ -1,10 +1,5 @@
 'use client';
 
-/**
- TODO
- - [ ] 클릭했을때 로직 (상위요소에 핸들러 고민) (리팩토링)
- */
-
 import { useQuery } from '@tanstack/react-query';
 import { Skeleton } from '@mui/material';
 
