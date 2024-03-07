@@ -7,13 +7,6 @@ export const gridContainer = style({
   columnGap: '1.2rem',
 });
 
-export const categoryContainer = style({
-  display: 'flex',
-  justifyContent: 'center',
-  alignItems: 'center',
-  gap: '1.5rem',
-});
-
 export const profileContainer = style({
   paddingBottom: '3rem',
   display: 'flex',
