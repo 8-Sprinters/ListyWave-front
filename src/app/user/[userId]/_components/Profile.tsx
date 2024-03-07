@@ -5,13 +5,13 @@ import { useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { assignInlineVars } from '@vanilla-extract/dynamic';
 import { AxiosError } from 'axios';
+import { Skeleton } from '@mui/material';
 
 import * as styles from './Profile.css';
 import * as modalStyles from '@/components/Modal/ModalButton.css';
 
 import FollowButton from './FollowButton';
 import SettingIcon from '/public/icons/setting.svg';
-import ProfileSkeleton from './ProfileSkeleton';
 
 import useMoveToPage from '@/hooks/useMoveToPage';
 import getUserOne from '@/app/_api/user/getUserOne';
@@ -32,7 +32,7 @@ export default function Profile({ userId }: { userId: number }) {
   const fallbackProfileImageSrc = '/images/fallback_profileImage.webp';
   const fallbackBackgroundImageSrc = '/images/fallback_backgroundImage.webp';
 
-  const { data, isFetching, error, isError } = useQuery<UserType>({
+  const { data, error, isError, isLoading } = useQuery<UserType>({
     queryKey: [QUERY_KEYS.userOne, userId],
     queryFn: () => getUserOne(userId),
     retry: 1,
@@ -74,8 +74,14 @@ export default function Profile({ userId }: { userId: number }) {
         )}
       </div>
       <div className={styles.profileContainer}>
-        {isFetching ? (
-          <ProfileSkeleton />
+        {isLoading ? (
+          <div className={styles.skeletonProfileContainer}>
+            <Skeleton variant="circular" width={50} height={50} />
+            <div className={styles.skeletonTextContainer}>
+              <Skeleton variant="text" width={200} sx={{ fontSize: '2rem' }} />
+              <Skeleton variant="text" width={150} sx={{ fontSize: '2rem' }} />
+            </div>
+          </div>
         ) : (
           <>
             <div className={styles.profile}>
