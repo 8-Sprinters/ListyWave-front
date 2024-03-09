@@ -48,7 +48,7 @@ export default function OpenBottomSheetButton({ listId, isCollaborator }: OpenBo
   const deleteCommentMutation = useMutation({
     mutationFn: () => deleteList(listId),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: [QUERY_KEYS.getAllList, user.id] });
+      queryClient.invalidateQueries({ queryKey: [QUERY_KEYS.getAllList, user.id + ''] });
     },
   });
 
