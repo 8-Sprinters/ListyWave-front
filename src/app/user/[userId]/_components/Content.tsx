@@ -1,8 +1,8 @@
 'use client';
 
 import Link from 'next/link';
-import { useEffect, useMemo, useState } from 'react';
-import { useInfiniteQuery, useQuery, useQueryClient } from '@tanstack/react-query';
+import { useMemo, useState } from 'react';
+import { useInfiniteQuery, useQuery } from '@tanstack/react-query';
 import { MasonryGrid } from '@egjs/react-grid';
 import { Skeleton } from '@mui/material';
 
@@ -32,7 +32,6 @@ const DEFAULT_CATEGORY = 'entire';
 
 export default function Content({ userId, type }: ContentProps) {
   const { language } = useLanguage();
-  const queryClient = useQueryClient();
   const [selectedCategory, setSelectedCategory] = useState(DEFAULT_CATEGORY);
 
   const { data: userData } = useQuery<UserType>({
@@ -52,6 +51,7 @@ export default function Content({ userId, type }: ContentProps) {
     },
     initialPageParam: null,
     getNextPageParam: (lastPage) => (lastPage.hasNext ? lastPage.cursorUpdatedDate : null),
+    staleTime: 1000 * 60 * 5, // 5분 설정
   });
 
   const lists = useMemo(() => {
@@ -71,15 +71,6 @@ export default function Content({ userId, type }: ContentProps) {
   const handleFetchListsOnCategory = (category: string) => {
     setSelectedCategory(category);
   };
-
-  useEffect(() => {
-    return () => {
-      queryClient.removeQueries({
-        queryKey: [QUERY_KEYS.getAllList, userId, type, selectedCategory],
-        exact: true,
-      });
-    };
-  }, [queryClient, selectedCategory, type, userId]);
 
   return (
     <div className={styles.container}>
