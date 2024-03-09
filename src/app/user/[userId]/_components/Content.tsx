@@ -4,11 +4,13 @@ import Link from 'next/link';
 import { useEffect, useMemo, useState } from 'react';
 import { useInfiniteQuery, useQuery, useQueryClient } from '@tanstack/react-query';
 import { MasonryGrid } from '@egjs/react-grid';
+import { Skeleton } from '@mui/material';
 
 import * as styles from './Content.css';
 
 import Card from './Card';
 import Categories from './Categories';
+import NoDataComponent from '@/components/NoData/NoDataComponent';
 
 import getUserOne from '@/app/_api/user/getUserOne';
 import getAllList from '@/app/_api/list/getAllList';
@@ -18,8 +20,6 @@ import { UserType } from '@/lib/types/userProfileType';
 import { AllListType } from '@/lib/types/listType';
 
 import useIntersectionObserver from '@/hooks/useIntersectionObserver';
-import MasonryGridSkeleton from './MasonryGridSkeleton';
-import NoDataComponent from '@/components/NoData/NoDataComponent';
 import { userLocale } from '@/app/user/locale';
 import { useLanguage } from '@/store/useLanguage';
 
@@ -101,7 +101,11 @@ export default function Content({ userId, type }: ContentProps) {
       )}
       <div className={styles.cards}>
         {isLoading ? (
-          <MasonryGridSkeleton />
+          <div className={styles.gridSkeletonContainer}>
+            {new Array(4).fill(0).map((_, index) => (
+              <Skeleton key={index} variant="rounded" height={200} animation="wave" />
+            ))}
+          </div>
         ) : (
           <MasonryGrid className="container" gap={16} defaultDirection={'end'} align={'start'} column={2}>
             {lists.map((list) => (
