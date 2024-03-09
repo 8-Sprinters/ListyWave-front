@@ -13,9 +13,10 @@ interface CategoriesProps {
 }
 
 export default function Categories({ handleFetchListsOnCategory, selectedCategory }: CategoriesProps) {
-  const { data, isFetching } = useQuery<CategoryType[]>({
+  const { data, isLoading } = useQuery<CategoryType[]>({
     queryKey: [QUERY_KEYS.getCategories],
     queryFn: getCategories,
+    staleTime: Infinity, // 카테고리는 자주 변하는 데이터가 아니므로
   });
 
   const handleChangeCategory = (category: string) => () => {
@@ -24,7 +25,7 @@ export default function Categories({ handleFetchListsOnCategory, selectedCategor
 
   return (
     <div className={styles.container}>
-      {isFetching ? (
+      {isLoading ? (
         <div className={styles.skeletonContainer}>
           {new Array(4).fill(0).map((_, index) => (
             <Skeleton key={index} variant="rounded" width={100} height={35} animation="wave" />
