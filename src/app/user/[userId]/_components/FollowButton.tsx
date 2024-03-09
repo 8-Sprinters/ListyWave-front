@@ -1,5 +1,3 @@
-'use client';
-
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { AxiosError } from 'axios';
 
@@ -26,9 +24,8 @@ interface FollowButtonProps {
 }
 
 export default function FollowButton({ isFollowed, userId }: FollowButtonProps) {
-  const { language } = useLanguage();
-
   const queryClient = useQueryClient();
+  const { language } = useLanguage();
   const { user: userMe } = useUser();
   const { isOn, handleSetOff, handleSetOn } = useBooleanOutput();
 
@@ -85,6 +82,7 @@ export default function FollowButton({ isFollowed, userId }: FollowButtonProps) 
       <button
         className={`${isFollowed ? styles.variant.gray : styles.variant.primary}`}
         onClick={handleFollowUser(isFollowed)}
+        disabled={followUser.isPending || deleteFollowingUser.isPending}
       >
         {isFollowed ? userLocale[language].cancelFollow : userLocale[language].follow}
       </button>
