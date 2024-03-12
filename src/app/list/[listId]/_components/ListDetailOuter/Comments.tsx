@@ -181,7 +181,7 @@ function Comments() {
       setIsPending(true);
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: [QUERY_KEYS.getComments, commentId] });
+      queryClient.invalidateQueries({ queryKey: [QUERY_KEYS.getComments] });
       addCommentId(commentId as number);
       scrollToRef();
     },
