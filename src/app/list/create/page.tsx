@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { FieldErrors, FormProvider, useForm } from 'react-hook-form';
-import { useMutation } from '@tanstack/react-query';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useRouter } from 'next/navigation';
 
 import CreateItem from '@/app/list/create/_components/CreateItem';
@@ -10,14 +10,18 @@ import CreateList from '@/app/list/create/_components/CreateList';
 import { ItemImagesType, ListCreateType } from '@/lib/types/listType';
 import toasting from '@/lib/utils/toasting';
 import toastMessage from '@/lib/constants/toastMessage';
+import { QUERY_KEYS } from '@/lib/constants/queryKeys';
 import createList from '@/app/_api/list/createList';
 import uploadItemImages from '@/app/_api/list/uploadItemImages';
 import { useLanguage } from '@/store/useLanguage';
+import { useUser } from '@/store/useUser';
 
 export type FormErrors = FieldErrors<ListCreateType>;
 
 export default function CreatePage() {
   const { language } = useLanguage();
+  const { user: userMeData } = useUser();
+  const queryClient = useQueryClient();
   const [step, setStep] = useState<'list' | 'item'>('list');
   const router = useRouter();
 
@@ -124,6 +128,13 @@ export default function CreatePage() {
           imageFileList: formatData().imageFileList,
         });
       }
+      queryClient.invalidateQueries({
+        queryKey: [
+          QUERY_KEYS.getAllList,
+          userMeData.id + '',
+          formatData().listData.collaboratorIds.length === 0 ? 'my' : 'collabo',
+        ],
+      });
       router.replace(`/list/${data.listId}`);
     },
     onError: () => {

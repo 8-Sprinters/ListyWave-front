@@ -9,22 +9,21 @@ import ShareAltIcon from '/public/icons/share_alt.svg';
 import WriteIcon from '/public/icons/write.svg';
 
 import useBooleanOutput from '@/hooks/useBooleanOutput';
-import toasting from '@/lib/utils/toasting';
-import toastMessage from '@/lib/constants/toastMessage';
 import { useUser } from '@/store/useUser';
+import { useLanguage } from '@/store/useLanguage';
 import copyUrl from '@/lib/utils/copyUrl';
 
 import LoginModal from '@/components/login/LoginModal';
 import Modal from '@/components/Modal/Modal';
 import { commonLocale } from '@/components/locale';
-import { useLanguage } from '@/store/useLanguage';
 
 function FloatingMenu() {
-  const { language } = useLanguage();
   const router = useRouter();
   const path = usePathname();
+
   const { user } = useUser();
   const { isOn, handleSetOn, handleSetOff } = useBooleanOutput();
+  const { language } = useLanguage();
 
   const handleSharePage = () => {
     // TODO 카카오 공유하기 기능으로 변경하기

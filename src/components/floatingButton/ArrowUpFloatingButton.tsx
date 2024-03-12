@@ -4,13 +4,15 @@ import { useState } from 'react';
 
 import * as styles from './FloatingContainer.css';
 import ArrowUpIcon from '/public/icons/arrow_up.svg';
+
 import useThrottle from '@/hooks/useThrottle';
-import { commonLocale } from '@/components/locale';
 import { useLanguage } from '@/store/useLanguage';
 
+import { commonLocale } from '@/components/locale';
+
 export default function ArrowUpFloatingButton() {
-  const { language } = useLanguage();
   const [isVisible, setIsVisible] = useState(false);
+  const { language } = useLanguage();
 
   const visibleButton = () => {
     if (window.scrollY < 700) {
