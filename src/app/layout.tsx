@@ -3,6 +3,7 @@ import type { Metadata, Viewport } from 'next';
 import { ToastContainer } from 'react-toastify';
 import { GoogleAnalytics } from '@next/third-parties/google';
 import * as gtag from '@/lib/utils/gtag';
+import { GtmScript, GtmNoScript } from '@/lib/utils/gtag';
 
 import BottomNav from '@/components/BottomNav/BottomNav';
 
@@ -48,6 +49,7 @@ export default function Layout({ children }: { children: ReactNode }) {
   return (
     <html lang="ko">
       <head>
+        <GtmScript />
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css" />
         <link rel="shortcut icon" href="https://image.listywave.com/favicon/favicon.png" />
         <link rel="apple-touch-icon" href="https://image.listywave.com/favicon/favicon.png" />
@@ -63,6 +65,7 @@ export default function Layout({ children }: { children: ReactNode }) {
         </CommonProvider>
         <GoogleAnalytics gaId={`${gtag.GA_TRACKING_ID}`} />
       </body>
+      <GtmNoScript />
     </html>
   );
 }
