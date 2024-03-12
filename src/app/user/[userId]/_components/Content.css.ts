@@ -67,6 +67,13 @@ export const cards = style({
   textAlign: 'center',
 });
 
+export const gridSkeletonContainer = style({
+  display: 'grid',
+  gridTemplateColumns: 'repeat(2, 1fr)',
+  rowGap: '1.6rem',
+  columnGap: '1.2rem',
+});
+
 export const nodataContainer = style({
   minHeight: '250px',
 });

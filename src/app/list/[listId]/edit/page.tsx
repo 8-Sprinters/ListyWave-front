@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { FieldErrors, FormProvider, useForm } from 'react-hook-form';
-import { useMutation, useQuery } from '@tanstack/react-query';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { useRouter, useParams } from 'next/navigation';
 
 import CreateItem from '@/app/list/create/_components/CreateItem';
@@ -20,6 +20,7 @@ export type FormErrors = FieldErrors<ListEditType>;
 
 export default function EditPage() {
   const router = useRouter();
+  const queryClient = useQueryClient();
   const param = useParams<{ listId: string }>();
   const { user } = useUser();
 
@@ -144,6 +145,9 @@ export default function EditPage() {
   } = useMutation({
     mutationFn: updateList,
     onSettled: () => {
+      queryClient.invalidateQueries({
+        queryKey: [QUERY_KEYS.getAllList, user.id + ''],
+      });
       router.replace(`/list/${param?.listId}`);
     },
   });

@@ -48,6 +48,18 @@ export const profileContainer = style({
   },
 });
 
+export const skeletonProfileContainer = style({
+  paddingBottom: '3rem',
+  display: 'flex',
+  alignItems: 'center',
+  gap: '1.2rem',
+});
+
+export const skeletonTextContainer = style({
+  display: 'flex',
+  flexDirection: 'column',
+});
+
 export const icon = style({
   cursor: 'pointer',
 });
