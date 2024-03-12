@@ -55,6 +55,7 @@ export default function Layout({ children }: { children: ReactNode }) {
         <link rel="apple-touch-icon" href="https://image.listywave.com/favicon/favicon.png" />
       </head>
       <body className={styles.body}>
+        <GtmNoScript />
         <CommonProvider>
           <div id="modal-root" />
           <div>
@@ -65,7 +66,6 @@ export default function Layout({ children }: { children: ReactNode }) {
         </CommonProvider>
         <GoogleAnalytics gaId={`${gtag.GA_TRACKING_ID}`} />
       </body>
-      <GtmNoScript />
     </html>
   );
 }
