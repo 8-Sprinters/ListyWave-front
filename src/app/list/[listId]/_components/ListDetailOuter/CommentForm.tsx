@@ -1,7 +1,7 @@
 import { ChangeEvent } from 'react';
 
 import { useUser } from '@/store/useUser';
-import { useIsEditing } from '@/store/useComment';
+import { useIsEditing, useCommentStatus } from '@/store/useComment';
 import * as styles from './Comments.css';
 import CancelButton from '/public/icons/cancel_button.svg';
 import { vars } from '@/styles/theme.css';
@@ -31,6 +31,7 @@ function CommentForm({
   handleUpdate,
   handleCancel,
 }: CommentFormProps) {
+  const { status } = useCommentStatus();
   const { language } = useLanguage();
   const { isEditing } = useIsEditing();
 
@@ -40,7 +41,7 @@ function CommentForm({
   return (
     <div className={styles.formWrapperOuter}>
       <div className={`${styles.formWrapperInner} ${!!activeNickname || isEditing ? styles.activeFormWrapper : ''}`}>
-        {activeNickname && (
+        {status === 'createReply' && activeNickname && (
           <div className={styles.activeReplyWrapper}>
             <span className={styles.replyNickname}>
               {language === 'ko'
@@ -57,7 +58,7 @@ function CommentForm({
             />
           </div>
         )}
-        {isEditing && (
+        {status === 'edit' && isEditing && (
           <div className={styles.activeReplyWrapper}>
             <span className={styles.replyNickname}>{commentLocale[language].editing}</span>
             <CancelButton

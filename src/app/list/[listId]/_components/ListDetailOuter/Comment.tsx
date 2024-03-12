@@ -11,7 +11,7 @@ import timeDiff from '@/lib/utils/time-diff';
 import { QUERY_KEYS } from '@/lib/constants/queryKeys';
 import { CommentType } from '@/lib/types/commentType';
 import { UserType } from '@/lib/types/userProfileType';
-import { useCommentId } from '@/store/useComment';
+import { useCommentId, useCommentStatus } from '@/store/useComment';
 import { commentLocale } from '@/app/list/[listId]/locale';
 
 import * as styles from './Comment.css';
@@ -25,9 +25,10 @@ import { useLanguage } from '@/store/useLanguage';
  */
 interface CommentProps {
   comment?: CommentType;
-  onUpdate: (userName?: string) => void;
+  setActiveNickname: (userName?: string) => void;
   activeNickname?: string | null;
   handleSetCommentId: (id: number | undefined) => void;
+  handleSetComment: (comment: string) => void;
   listId?: number;
   commentId?: number;
   currentUserInfo?: UserType;
@@ -36,17 +37,18 @@ interface CommentProps {
 
 function Comment({
   comment,
-  onUpdate,
+  setActiveNickname: onUpdate,
   handleSetCommentId,
+  handleSetComment,
   listId,
   commentId,
   currentUserInfo,
-
   handleEdit,
 }: CommentProps) {
   const { language } = useLanguage();
   const queryClient = useQueryClient();
   const { setCommentId } = useCommentId();
+  const { setStatusCreateReply, setStatusEdit } = useCommentStatus();
 
   //현재 작성중인 답글의 원댓글 정보를 업데이트 하는 로직
   const handleActiveNicknameAndIdUpdate = () => {
@@ -55,11 +57,15 @@ function Comment({
     if (!currentUserName && !currentCommentId) {
       return null;
     }
+    handleSetComment('');
+    setStatusCreateReply();
     onUpdate(currentUserName);
     handleSetCommentId(currentCommentId);
   };
 
+  //수정하기 버튼을 누르면 실행되는 함수
   const handleEditButtonClick = (comment: string) => {
+    setStatusEdit();
     handleEdit(comment);
     setCommentId(commentId as number);
   };
