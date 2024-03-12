@@ -15,6 +15,13 @@ export const container = style({
   },
 });
 
+export const skeletonContainer = style({
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center',
+  gap: '1.5rem',
+});
+
 export const button = style({
   padding: '0.8rem 1.2rem',
 
