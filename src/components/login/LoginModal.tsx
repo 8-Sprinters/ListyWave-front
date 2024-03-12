@@ -47,7 +47,7 @@ export default function LoginModal() {
         <Link href={`${baseUrl}/auth/${oauthType.google}`}>
           <GoogleLoginIcon />
         </Link> */}
-        <Link href={`${process.env.NEXT_PUBLIC_SERVER_DOMAIN}/auth/${oauthType.kakao}`}>
+        <Link id="btn_login" href={`${process.env.NEXT_PUBLIC_SERVER_DOMAIN}/auth/${oauthType.kakao}`}>
           <KakaoLoginIcon />
         </Link>
       </div>
