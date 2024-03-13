@@ -203,7 +203,7 @@ function Comments() {
   });
 
   //댓글/답글 폼 submit 함수
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement> | React.KeyboardEvent<HTMLTextAreaElement>) => {
     e.preventDefault();
     if (!comment.trim()) {
       return null;

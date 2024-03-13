@@ -54,7 +54,7 @@ export const formContainer = style({
 export const formInput = style({
   width: '100%',
   height: '20px',
-  maxHeight: '80px',
+  maxHeight: '60px',
 
   flex: '1 0 0',
 
