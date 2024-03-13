@@ -52,17 +52,25 @@ export const formContainer = style({
 });
 
 export const formInput = style({
-  width: 'inherit',
-  height: 'auto',
+  width: '100%',
+  height: '20px',
+  maxHeight: '80px',
 
   flex: '1 0 0',
 
+  display: 'block',
+  overflow: 'hidden',
+  resize: 'none',
+  outline: 'none',
+  border: 'none',
   fontSize: '1.6rem',
   wordBreak: 'break-all',
   wordWrap: 'break-word',
   whiteSpace: 'pre-wrap',
-  resize: 'none',
   backgroundColor: vars.color.gray3,
+  '::-webkit-scrollbar': {
+    display: 'none',
+  },
 });
 
 export const replyNickname = style({

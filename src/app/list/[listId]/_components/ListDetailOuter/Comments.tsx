@@ -108,7 +108,7 @@ function Comments() {
   };
 
   //댓글 폼 사용(추후 리액트 훅폼으로 수정해 볼 예정)
-  const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
+  const handleInputChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
     setComment(e.target.value);
   };
 
