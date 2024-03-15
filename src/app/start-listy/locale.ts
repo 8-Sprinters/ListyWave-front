@@ -10,7 +10,7 @@ export const startListyLocale = {
     enterTitle: '제목을 입력해주세요.',
     maxTitleMessage: '리스트 제목은 최대 30자까지 입력할 수 있어요.',
     makeListTitle: '리스트의 제목을 지어주세요.',
-    endOnboardingMessage: '온보딩 종료할까요?',
+    endOnboardingMessage: '온보딩을 종료할까요?',
     loading: '로딩중',
   },
   en: {

@@ -36,7 +36,13 @@ export default function RegisterListTitle({ selectedCategory }: ListTitleStepPro
     <>
       <label className={styles.title}>{startListyLocale[language].makeListTitle}</label>
       <div className={styles.inputWrapper}>
-        <input {...register('title', onBoardlistTitleRules)} autoComplete="off" autoFocus className={styles.input} />
+        <input
+          {...register('title', onBoardlistTitleRules)}
+          autoComplete="off"
+          autoFocus
+          maxLength={31}
+          className={styles.input}
+        />
         <p className={styles.errorMessage}>{errors.title?.message}</p>
       </div>
       <div className={stylesList.container}>

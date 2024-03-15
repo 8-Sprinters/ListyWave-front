@@ -112,15 +112,22 @@ export const subTitle = style([
 
 export const inputWrapper = style({
   padding: '1.5rem 0 1rem 0',
+  width: '80%',
 });
 
 // input, errormessage
 export const input = style([
   bodyLarge,
   {
+    paddingBottom: '0.5rem',
     width: '100%',
     textAlign: 'center',
+    borderBottom: `1px solid ${vars.color.blueGray}`,
     caretColor: vars.color.blue,
+
+    ':focus': {
+      borderBottom: `1px solid ${vars.color.blue}`,
+    },
   },
 ]);
 
