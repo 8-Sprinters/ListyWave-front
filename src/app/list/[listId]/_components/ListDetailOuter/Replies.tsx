@@ -4,7 +4,7 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 
 import DeleteModalButton from '@/app/list/[listId]/_components/ListDetailOuter/DeleteModalButton';
 import deleteReply from '@/app/_api/comment/deleteReply';
-import { useCommentIdStore, useReplyId, useCommentId } from '@/store/useComment';
+import { useCommentIdStore, useReplyId, useCommentId, useCommentStatus } from '@/store/useComment';
 import { QUERY_KEYS } from '@/lib/constants/queryKeys';
 import timeDiff from '@/lib/utils/time-diff';
 import { ReplyType } from '@/lib/types/commentType';
@@ -78,6 +78,7 @@ interface ReplyProps {
 function Reply({ reply, listId, currentUserInfo, handleEdit, commentId }: ReplyProps) {
   const { language } = useLanguage();
   const queryClient = useQueryClient();
+  const { setStatusEdit } = useCommentStatus();
   const { setCommentId } = useCommentId();
   const { setReplyId } = useReplyId();
   const deleteReplyMutation = useMutation({
@@ -88,6 +89,7 @@ function Reply({ reply, listId, currentUserInfo, handleEdit, commentId }: ReplyP
   });
 
   const handleEditButtonClick = (content: string) => {
+    setStatusEdit();
     handleEdit(content);
     setCommentId(commentId as number);
     setReplyId(reply?.id);
