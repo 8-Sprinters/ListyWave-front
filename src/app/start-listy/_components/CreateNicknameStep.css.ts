@@ -17,7 +17,9 @@ export const background = style({
 
 // header
 export const header = style({
-  width: '100%',
+  width: '95%',
+  display: 'flex',
+  justifyContent: 'space-between',
 });
 
 export const headerButton = style({
@@ -41,6 +43,17 @@ export const stepText = style([
     color: vars.color.gray9,
   },
 ]);
+
+export const stepContainer = style({
+  width: '95%',
+  display: 'flex',
+  justifyContent: 'flex-end',
+});
+
+export const skipButton = style({
+  padding: '0.5rem 0 0.5rem 1.6rem',
+  color: vars.color.gray9,
+});
 
 // bar container
 export const barContainer = style({

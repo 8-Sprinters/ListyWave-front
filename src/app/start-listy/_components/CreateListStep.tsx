@@ -14,6 +14,8 @@ import toasting from '@/lib/utils/toasting';
 import ChoiceCategory from './ChoiceCategory';
 import RegisterListTitle from './RegisterListTitle';
 import RegisterItems from './RegisterItems';
+import SkipOnboardingButton from './SkipButton';
+
 import { BACKGROUND_COLOR } from '@/styles/Color';
 import { useLanguage } from '@/store/useLanguage';
 import { startListyLocale } from '@/app/start-listy/locale';
@@ -118,6 +120,9 @@ export default function CreateListStep({ userId, nickname }: CreateListStepProps
       <div className={styles.background}>
         {stepIndex === 0 && (
           <>
+            <div className={styles.stepContainer}>
+              <SkipOnboardingButton userId={userId} />
+            </div>
             <div className={styles.step}>
               <div className={styles.barContainer}>
                 <span className={styles.bar.default}></span>
@@ -157,6 +162,7 @@ export default function CreateListStep({ userId, nickname }: CreateListStepProps
               <button className={styles.headerButton} onClick={handleMoveToStep('prev')}>
                 <BackIcon alt={startListyLocale[language].backButtonAlt} width={7.7} height={13.4} />
               </button>
+              <SkipOnboardingButton userId={userId} />
             </div>
             <div className={styles.step}>
               <div className={styles.barContainer}>
@@ -186,6 +192,7 @@ export default function CreateListStep({ userId, nickname }: CreateListStepProps
               <button className={styles.headerButton} onClick={handleMoveToStep('prev')}>
                 <BackIcon alt={startListyLocale[language].backButtonAlt} width={7.7} height={13.4} />
               </button>
+              <SkipOnboardingButton userId={userId} />
             </div>
             <div className={styles.step}>
               <div className={styles.barContainer}>
