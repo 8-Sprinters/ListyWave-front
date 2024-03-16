@@ -93,6 +93,9 @@ export default function CreateListStep({ userId, nickname }: CreateListStepProps
     });
   };
 
+  // 마지막 단계에서 form 유효성 검사
+  const isValidForm = isValid && getValues('items').every((el) => el.title);
+
   const onSubmit = async (data: ListCreateType) => {
     if (!isValid) return;
 
@@ -187,7 +190,7 @@ export default function CreateListStep({ userId, nickname }: CreateListStepProps
             <div className={styles.step}>
               <div className={styles.barContainer}>
                 <span className={styles.bar.default}></span>
-                <span className={isValid ? styles.statusBar.full : styles.statusBar.sixty}></span>
+                <span className={isValidForm ? styles.statusBar.full : styles.statusBar.sixty}></span>
               </div>
               <p className={styles.stepText}>step2</p>
             </div>
@@ -196,8 +199,8 @@ export default function CreateListStep({ userId, nickname }: CreateListStepProps
               <button
                 type="button"
                 onClick={handleSubmit(onSubmit)}
-                className={isValid ? styles.variant.active : styles.variant.default}
-                disabled={!isValid}
+                className={isValidForm ? styles.variant.active : styles.variant.default}
+                disabled={!isValidForm}
               >
                 {startListyLocale[language].complete}
               </button>
