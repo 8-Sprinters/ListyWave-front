@@ -33,7 +33,7 @@ function Section3() {
                 width={300}
                 height={314}
               /> */}
-              <div className={styles.blurBox}></div>
+              {/* <div className={styles.blurBox}></div> */}
             </div>
           </div>
         </MotionWrapper>

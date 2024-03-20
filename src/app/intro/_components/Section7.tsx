@@ -36,7 +36,7 @@ function Section7() {
                 <div className={styles.linkWrapper}>listywave.com/user/1</div>
               </MotionWrapper>
               <Image
-                src={'/images/section7_phone.png'}
+                src={'/images/section7_phone2.png'}
                 alt={introLocale[language].section.cellphoneImage}
                 width={255}
                 height={518}

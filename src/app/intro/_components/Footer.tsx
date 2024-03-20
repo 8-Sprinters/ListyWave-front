@@ -40,6 +40,7 @@ function Footer() {
           </div>
           <div className={styles.policyWrapper}>
             <p>{introLocale[language].privacy}</p>
+            <p>에잇(Eight)</p>
             <p>listywave8@gmail.com</p>
             <p>Copyright ©Listywave - All rights reserved</p>
           </div>
