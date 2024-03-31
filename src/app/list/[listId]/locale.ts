@@ -39,6 +39,7 @@ export const replyLocale = {
 export const listLocale: Record<string, { [key: string]: string }> = {
   ko: {
     privateMessage: '비공개 처리된 게시물이에요.',
+    loginRequired: '로그인이 필요합니다.',
     list: '리스트',
     public: '공개',
     private: '비공개',
@@ -70,6 +71,7 @@ export const listLocale: Record<string, { [key: string]: string }> = {
   },
   en: {
     privateMessage: "It's a closed post.",
+    loginRequired: 'Login is required.',
     list: 'List',
     public: 'Public',
     private: 'Private',
