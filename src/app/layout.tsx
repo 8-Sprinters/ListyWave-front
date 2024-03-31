@@ -52,6 +52,7 @@ export default function Layout({ children }: { children: ReactNode }) {
         <link rel="manifest" href="/manifest.json" />
         <link rel="shortcut icon" href="https://image.listywave.com/favicon/favicon.png" />
         <link rel="apple-touch-icon" href="https://image.listywave.com/favicon/favicon.png" />
+        <meta name="theme-color" content="#ffffff" />
       </head>
       <body className={styles.body}>
         <CommonProvider>
