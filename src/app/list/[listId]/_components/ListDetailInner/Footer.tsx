@@ -126,7 +126,7 @@ function Footer({ data }: { data: FooterProps }) {
       )}
       {isOn && (
         <Modal handleModalClose={handleSetOff} size="large">
-          <LoginModal />
+          <LoginModal id="duplicateListLoginBtn" />
         </Modal>
       )}
       <div className={styles.container}>
