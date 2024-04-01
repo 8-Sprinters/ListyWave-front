@@ -98,7 +98,7 @@ function FollowButton({ isFollowing, onClick, userId, targetId }: FollowButtonPr
       </button>
       {isOn && (
         <Modal handleModalClose={handleSetOff} size="large">
-          <LoginModal />
+          <LoginModal id="exploreFollowLoginBtn" />
         </Modal>
       )}
     </>
