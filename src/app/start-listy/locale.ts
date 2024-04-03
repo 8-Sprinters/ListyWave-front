@@ -11,7 +11,6 @@ export const startListyLocale = {
     maxTitleMessage: '리스트 제목은 최대 30자까지 입력할 수 있어요.',
     makeListTitle: '리스트의 제목을 지어주세요.',
     endOnboardingMessage: '온보딩을 종료할까요?',
-    loading: '로딩중',
   },
   en: {
     notFountCategory: 'The category you selected cannot be found.',
@@ -25,6 +24,5 @@ export const startListyLocale = {
     maxTitleMessage: 'The list title can be up to 30 characters long.',
     makeListTitle: 'Please give the list a title.',
     endOnboardingMessage: 'Should we end onboarding?',
-    loading: 'Loading',
   },
 };

@@ -32,11 +32,7 @@ export default function StartListyPage() {
   const [stepIndex, setStepIndex] = useState(0);
   // const { isOn, handleSetOn, handleSetOff } = useBooleanOutput();
 
-  const {
-    data: userData,
-    isFetching,
-    refetch,
-  } = useQuery<UserType>({
+  const { data: userData, refetch } = useQuery<UserType>({
     queryKey: [QUERY_KEYS.userOne, user.id],
     queryFn: () => getUserOne(user.id as number),
     enabled: !!user.id,
@@ -66,10 +62,6 @@ export default function StartListyPage() {
       window.removeEventListener('popstate', handleBackControl);
     };
   }, []);
-
-  if (isFetching) {
-    return <div>{startListyLocale[language].loading}</div>;
-  }
 
   return (
     <>
