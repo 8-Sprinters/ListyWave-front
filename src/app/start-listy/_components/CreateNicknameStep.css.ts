@@ -98,7 +98,7 @@ export const container = style({
   display: 'flex',
   flexDirection: 'column',
   alignItems: 'center',
-  gap: '1rem',
+  gap: '1.5rem',
 
   backgroundColor: vars.color.white,
   borderRadius: '3rem',
@@ -124,7 +124,7 @@ export const subTitle = style([
 ]);
 
 export const inputWrapper = style({
-  padding: '1.5rem 0 1rem 0',
+  padding: '1rem 0 1rem 0',
   width: '80%',
 });
 
