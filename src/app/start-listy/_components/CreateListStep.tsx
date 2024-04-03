@@ -15,6 +15,7 @@ import ChoiceCategory from './ChoiceCategory';
 import RegisterListTitle from './RegisterListTitle';
 import RegisterItems from './RegisterItems';
 import SkipOnboardingButton from './SkipButton';
+import Spinners from '@/components/loading/Spinners';
 
 import { BACKGROUND_COLOR } from '@/styles/Color';
 import { useLanguage } from '@/store/useLanguage';
@@ -33,6 +34,7 @@ export default function CreateListStep({ userId, nickname }: CreateListStepProps
     nameValue: '',
     korNameValue: '',
   });
+  const [isLoading, setIsLoading] = useState(false);
 
   // 리스트 생성 배경색상 렌덤하게 적용
   const listColors = Object.values(BACKGROUND_COLOR);
@@ -46,7 +48,7 @@ export default function CreateListStep({ userId, nickname }: CreateListStepProps
       collaboratorIds: [],
       title: '',
       description: '',
-      isPublic: true,
+      isPublic: false,
       backgroundColor: listColors[randomIndex],
       items: [
         {
@@ -100,17 +102,22 @@ export default function CreateListStep({ userId, nickname }: CreateListStepProps
 
   const onSubmit = async (data: ListCreateType) => {
     if (!isValid) return;
+    setIsLoading(true);
 
     try {
       const result = await createList(data);
 
-      if (result.listId) {
-        router.push(`user/${userId}/mylist`);
-      }
+      setTimeout(() => {
+        if (result.listId) {
+          router.push(`user/${userId}/mylist`);
+          setIsLoading(false);
+        }
+      }, 1000);
     } catch (error) {
       if (error instanceof Error) {
         console.error(error.message);
         toasting({ type: 'error', txt: toastMessage[language].createListError });
+        setIsLoading(false);
       }
     }
   };
@@ -188,6 +195,7 @@ export default function CreateListStep({ userId, nickname }: CreateListStepProps
         )}
         {stepIndex === 2 && (
           <>
+            {isLoading && <Spinners />}
             <div className={styles.header}>
               <button className={styles.headerButton} onClick={handleMoveToStep('prev')}>
                 <BackIcon alt={startListyLocale[language].backButtonAlt} width={7.7} height={13.4} />
@@ -207,7 +215,7 @@ export default function CreateListStep({ userId, nickname }: CreateListStepProps
                 type="button"
                 onClick={handleSubmit(onSubmit)}
                 className={isValidForm ? styles.variant.active : styles.variant.default}
-                disabled={!isValidForm}
+                disabled={!isValidForm || isLoading}
               >
                 {startListyLocale[language].complete}
               </button>
