@@ -22,11 +22,10 @@ import { useLanguage } from '@/store/useLanguage';
 import { startListyLocale } from '@/app/start-listy/locale';
 
 interface CreateListStepProps {
-  userId: number;
   nickname: string;
 }
 
-export default function CreateListStep({ userId, nickname }: CreateListStepProps) {
+export default function CreateListStep({ nickname }: CreateListStepProps) {
   const { language } = useLanguage();
   const router = useRouter();
   const [stepIndex, setStepIndex] = useState(0);
@@ -109,7 +108,7 @@ export default function CreateListStep({ userId, nickname }: CreateListStepProps
 
       setTimeout(() => {
         if (result.listId) {
-          router.push(`user/${userId}/mylist`);
+          router.push('intro');
           setIsLoading(false);
         }
       }, 1000);
@@ -128,7 +127,7 @@ export default function CreateListStep({ userId, nickname }: CreateListStepProps
         {stepIndex === 0 && (
           <>
             <div className={styles.stepContainer}>
-              <SkipOnboardingButton userId={userId} />
+              <SkipOnboardingButton />
             </div>
             <div className={styles.step}>
               <div className={styles.barContainer}>
@@ -169,7 +168,7 @@ export default function CreateListStep({ userId, nickname }: CreateListStepProps
               <button className={styles.headerButton} onClick={handleMoveToStep('prev')}>
                 <BackIcon alt={startListyLocale[language].backButtonAlt} width={7.7} height={13.4} />
               </button>
-              <SkipOnboardingButton userId={userId} />
+              <SkipOnboardingButton />
             </div>
             <div className={styles.step}>
               <div className={styles.barContainer}>
@@ -200,7 +199,7 @@ export default function CreateListStep({ userId, nickname }: CreateListStepProps
               <button className={styles.headerButton} onClick={handleMoveToStep('prev')}>
                 <BackIcon alt={startListyLocale[language].backButtonAlt} width={7.7} height={13.4} />
               </button>
-              <SkipOnboardingButton userId={userId} />
+              <SkipOnboardingButton />
             </div>
             <div className={styles.step}>
               <div className={styles.barContainer}>

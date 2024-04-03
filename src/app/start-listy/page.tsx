@@ -50,7 +50,7 @@ export default function StartListyPage() {
   };
 
   useEffect(() => {
-    history.pushState('onboard', '', '/'); // 브라우저 기본 동작으로 온보딩페이지에 접근하지 못하도록 설정
+    history.pushState('onboard', '', '/intro'); // 브라우저 기본 동작으로 온보딩페이지에 접근하지 못하도록 설정
     window.addEventListener('popstate', handleBackControl); // 온보딩 페이지에서 브라우저 이동 시, 수행할 로직
     return () => {
       window.removeEventListener('popstate', handleBackControl);
@@ -64,7 +64,7 @@ export default function StartListyPage() {
           {stepIndex === 0 && (
             <CreateNicknameStep userId={userData?.id} handleNextStep={handleNextStep} refetch={refetch} />
           )}
-          {stepIndex === 1 && <CreateListStep userId={userData?.id} nickname={userData.nickname} />}
+          {stepIndex === 1 && <CreateListStep nickname={userData.nickname} />}
         </div>
       )}
     </>
