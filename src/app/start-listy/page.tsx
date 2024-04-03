@@ -4,8 +4,6 @@
  TODO 
  - [ ] 온보딩을 했던 사용자라면 해당 페이지 노출 x, 접근 x
  - [ ] 온보딩 중간 종료된 사용자는 온보딩 페이지 재노출 o
- - [x] 온보딩 중 뒤로가기 방지
- - [x] 리스트 완성 후 뒤로가기 
  - [ ] 새로고침 시
  */
 
@@ -23,14 +21,10 @@ import CreateNicknameStep from './_components/CreateNicknameStep';
 import { startListyLocale } from '@/app/start-listy/locale';
 import { useLanguage } from '@/store/useLanguage';
 
-// import Modal from '@/components/Modal/Modal';
-// import useBooleanOutput from '@/hooks/useBooleanOutput';
-
 export default function StartListyPage() {
   const { language } = useLanguage();
   const { user } = useUser();
   const [stepIndex, setStepIndex] = useState(0);
-  // const { isOn, handleSetOn, handleSetOff } = useBooleanOutput();
 
   const { data: userData, refetch } = useQuery<UserType>({
     queryKey: [QUERY_KEYS.userOne, user.id],
@@ -73,15 +67,6 @@ export default function StartListyPage() {
           {stepIndex === 1 && <CreateListStep userId={userData?.id} nickname={userData.nickname} />}
         </div>
       )}
-      {/* alert창을 나중에 모달로 변경하기 위해 주석처리 해둠 */}
-      {/* {isOn && (
-        <Modal handleModalClose={handleSetOff}>
-          <Modal.Title>온보딩을 종료할까요?</Modal.Title>
-          <Modal.Button onCancel={handleSetOff} onClick={handleMoveToPage}>
-            확인
-          </Modal.Button>
-        </Modal>
-      )} */}
     </>
   );
 }
