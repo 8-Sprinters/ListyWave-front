@@ -2,6 +2,7 @@ import Image from 'next/image';
 import * as styles from './ImagePreview.css';
 import { accountLocale } from '@/app/account/locale';
 import { useLanguage } from '@/store/useLanguage';
+import Skeleton from '@/components/Skeleton/Skeleton';
 
 interface ImagePreviewProps {
   backgroundImageUrl: string;
@@ -16,7 +17,9 @@ export default function ImagePreview({ backgroundImageUrl, profileImageUrl }: Im
   const { language } = useLanguage();
   return (
     <div className={styles.backgroundImageContainer}>
-      {backgroundImageUrl && (
+      {!backgroundImageUrl ? (
+        <Skeleton />
+      ) : (
         <>
           <Image
             src={backgroundImageUrl}
