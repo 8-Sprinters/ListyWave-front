@@ -108,6 +108,7 @@ export const profileOption = style([
   {
     width: '100%',
     minWidth: 30,
+    maxWidth: 50,
 
     borderRadius: '50%',
 

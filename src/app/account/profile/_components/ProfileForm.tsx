@@ -26,6 +26,7 @@ import toasting from '@/lib/utils/toasting';
 import * as styles from './ProfileForm.css';
 import { useLanguage } from '@/store/useLanguage';
 import { accountLocale } from '@/app/account/locale';
+import ProfileSkeleton from './ProfileSkeleton';
 
 interface ProfileFormProps {
   userNickname: string;
@@ -145,116 +146,120 @@ export default function ProfileForm({
 
   return (
     <>
-      <div className={styles.form}>
-        {/* 닉네임 */}
-        <div>
-          <div className={styles.inputContainer}>
-            <label className={styles.label}>{accountLocale[language].nickname}</label>
-            <input
-              className={styles.inputText}
-              placeholder={profilePlaceholder[language].nickname}
-              maxLength={10}
-              autoComplete="off"
-              {...nicknameRegister}
-              onChange={(e) => {
-                handleNicknameChange(e);
-              }}
-            />
-          </div>
-          {errors.nickname ? (
-            <div className={styles.validationMessage}>
-              <ErrorIcon alt={accountLocale[language].nicknameDuplicateFail} />
-              <span className={styles.errorText}>{errors?.nickname?.message}</span>
+      {!defaultProfileImages ? (
+        <ProfileSkeleton />
+      ) : (
+        <div className={styles.form}>
+          {/* 닉네임 */}
+          <div>
+            <div className={styles.inputContainer}>
+              <label className={styles.label}>{accountLocale[language].nickname}</label>
+              <input
+                className={styles.inputText}
+                placeholder={profilePlaceholder[language].nickname}
+                maxLength={10}
+                autoComplete="off"
+                {...nicknameRegister}
+                onChange={(e) => {
+                  handleNicknameChange(e);
+                }}
+              />
             </div>
-          ) : (
-            getValues('nickname') !== userNickname &&
-            isNicknameValidated && (
+            {errors.nickname ? (
               <div className={styles.validationMessage}>
-                <CheckIcon alt={accountLocale[language].nicknameDuplicateSuccess} />
-                <span className={styles.successText}>{accountLocale[language].nicknameDuplicateSuccessMessage}</span>
+                <ErrorIcon alt={accountLocale[language].nicknameDuplicateFail} />
+                <span className={styles.errorText}>{errors?.nickname?.message}</span>
               </div>
-            )
-          )}
-        </div>
-
-        <div>
-          <div className={styles.inputContainer}>
-            <label className={styles.label}>{accountLocale[language].introduce}</label>
-            <textarea
-              className={styles.textarea}
-              placeholder={profilePlaceholder[language].description}
-              autoComplete="off"
-              {...register('description', profileDescriptionRules)}
-            />
-            <span className={styles.textLength}>{`${watchDescription?.length}/160`}</span>
+            ) : (
+              getValues('nickname') !== userNickname &&
+              isNicknameValidated && (
+                <div className={styles.validationMessage}>
+                  <CheckIcon alt={accountLocale[language].nicknameDuplicateSuccess} />
+                  <span className={styles.successText}>{accountLocale[language].nicknameDuplicateSuccessMessage}</span>
+                </div>
+              )
+            )}
           </div>
-          {errors.description && (
-            <div className={styles.validationMessage}>
-              <ErrorIcon alt={accountLocale[language].introduceError} />
-              <span className={styles.errorText}>{errors?.description?.message}</span>
+
+          <div>
+            <div className={styles.inputContainer}>
+              <label className={styles.label}>{accountLocale[language].introduce}</label>
+              <textarea
+                className={styles.textarea}
+                placeholder={profilePlaceholder[language].description}
+                autoComplete="off"
+                {...register('description', profileDescriptionRules)}
+              />
+              <span className={styles.textLength}>{`${watchDescription?.length}/160`}</span>
             </div>
-          )}
-        </div>
+            {errors.description && (
+              <div className={styles.validationMessage}>
+                <ErrorIcon alt={accountLocale[language].introduceError} />
+                <span className={styles.errorText}>{errors?.description?.message}</span>
+              </div>
+            )}
+          </div>
 
-        <div className={styles.inputContainer}>
-          <p className={styles.label}>{accountLocale[language].backgroundImage}</p>
-          <div className={styles.backgroundOptionContainer}>
-            <label className={styles.backgroundOption} htmlFor="backgroundImage">
-              <Camera />
-            </label>
-            <input
-              type="file"
-              id="backgroundImage"
-              className={styles.inputFile}
-              accept=".jpg, .jpeg, .png"
-              {...newBackgroundImageRegister}
-              onChange={(e) => handleBackgroundFileInput(e)}
-            />
-            {defaultBackgroundImages?.map((image) => (
-              <button
-                key={image.name}
-                type="button"
-                className={`${styles.backgroundOption} ${selectedBackground === image.imageUrl ? styles.selectedOption : ''}`}
-                style={assignInlineVars({
-                  [styles.imageUrl]: `url(${image?.imageUrl})`,
-                })}
-                onClick={() => {
-                  handleDefaultImageClick('background', image.imageUrl);
-                }}
+          <div className={styles.inputContainer}>
+            <p className={styles.label}>{accountLocale[language].backgroundImage}</p>
+            <div className={styles.backgroundOptionContainer}>
+              <label className={styles.backgroundOption} htmlFor="backgroundImage">
+                <Camera />
+              </label>
+              <input
+                type="file"
+                id="backgroundImage"
+                className={styles.inputFile}
+                accept=".jpg, .jpeg, .png"
+                {...newBackgroundImageRegister}
+                onChange={(e) => handleBackgroundFileInput(e)}
               />
-            ))}
+              {defaultBackgroundImages?.map((image) => (
+                <button
+                  key={image.name}
+                  type="button"
+                  className={`${styles.backgroundOption} ${selectedBackground === image.imageUrl ? styles.selectedOption : ''}`}
+                  style={assignInlineVars({
+                    [styles.imageUrl]: `url(${image?.imageUrl})`,
+                  })}
+                  onClick={() => {
+                    handleDefaultImageClick('background', image.imageUrl);
+                  }}
+                />
+              ))}
+            </div>
+          </div>
+          <div className={styles.inputContainer}>
+            <p className={styles.label}>{accountLocale[language].profileImageAlt}</p>
+            <div className={styles.profileOptionContainer}>
+              <label className={styles.profileOption} htmlFor="profileImage">
+                <Camera />
+              </label>
+              <input
+                type="file"
+                id="profileImage"
+                className={styles.inputFile}
+                accept=".jpg, .jpeg, .png"
+                {...newProfileImageRegister}
+                onChange={(e) => handleProfileFileInput(e)}
+              />
+              {defaultProfileImages?.map((image) => (
+                <button
+                  key={image.name}
+                  type="button"
+                  className={`${styles.profileOption} ${selectedProfile === image.imageUrl ? styles.selectedOption : ''}`}
+                  style={assignInlineVars({
+                    [styles.imageUrl]: `url(${image?.imageUrl})`,
+                  })}
+                  onClick={() => {
+                    handleDefaultImageClick('profile', image.imageUrl);
+                  }}
+                />
+              ))}
+            </div>
           </div>
         </div>
-        <div className={styles.inputContainer}>
-          <p className={styles.label}>{accountLocale[language].profileImageAlt}</p>
-          <div className={styles.profileOptionContainer}>
-            <label className={styles.profileOption} htmlFor="profileImage">
-              <Camera />
-            </label>
-            <input
-              type="file"
-              id="profileImage"
-              className={styles.inputFile}
-              accept=".jpg, .jpeg, .png"
-              {...newProfileImageRegister}
-              onChange={(e) => handleProfileFileInput(e)}
-            />
-            {defaultProfileImages?.map((image) => (
-              <button
-                key={image.name}
-                type="button"
-                className={`${styles.profileOption} ${selectedProfile === image.imageUrl ? styles.selectedOption : ''}`}
-                style={assignInlineVars({
-                  [styles.imageUrl]: `url(${image?.imageUrl})`,
-                })}
-                onClick={() => {
-                  handleDefaultImageClick('profile', image.imageUrl);
-                }}
-              />
-            ))}
-          </div>
-        </div>
-      </div>
+      )}
     </>
   );
 }

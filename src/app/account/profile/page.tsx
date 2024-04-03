@@ -119,18 +119,14 @@ export default function ProfilePage() {
               </BlueButton>
             }
           />
-          {!userData ? (
-            <ProfileSkeleton />
-          ) : (
-            <main className={styles.content}>
-              <ImagePreview profileImageUrl={profilePreviewUrl} backgroundImageUrl={backgroundPreviewUrl} />
-              <ProfileForm
-                userNickname={userData?.nickname ?? ''}
-                handleProfilePreviewChange={handleProfilePreviewChange}
-                handleBackgroundPreviewChange={handleBackgroundPreviewChange}
-              />
-            </main>
-          )}
+          <main className={styles.content}>
+            <ImagePreview profileImageUrl={profilePreviewUrl} backgroundImageUrl={backgroundPreviewUrl} />
+            <ProfileForm
+              userNickname={userData?.nickname ?? ''}
+              handleProfilePreviewChange={handleProfilePreviewChange}
+              handleBackgroundPreviewChange={handleBackgroundPreviewChange}
+            />
+          </main>
         </form>
       </FormProvider>
     </>
