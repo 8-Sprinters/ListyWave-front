@@ -49,29 +49,13 @@ export default function CreateListStep({ nickname }: CreateListStepProps) {
       description: '',
       isPublic: false,
       backgroundColor: listColors[randomIndex],
-      items: [
-        {
-          rank: 1,
-          title: '',
-          comment: '',
-          link: '',
-          imageUrl: '',
-        },
-        {
-          rank: 2,
-          title: '',
-          comment: '',
-          link: '',
-          imageUrl: '',
-        },
-        {
-          rank: 3,
-          title: '',
-          comment: '',
-          link: '',
-          imageUrl: '',
-        },
-      ],
+      items: Array.from({ length: 3 }, (_, index) => ({
+        rank: index + 1,
+        title: '',
+        comment: '',
+        link: '',
+        imageUrl: '',
+      })),
     },
   });
 
