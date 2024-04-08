@@ -20,7 +20,11 @@ const oauthType = {
   kakao: 'kakao',
 };
 
-export default function LoginModal() {
+interface LoginModalProps {
+  id: string;
+}
+
+export default function LoginModal({ id }: LoginModalProps) {
   const { language } = useLanguage();
   return (
     <section className={styles.container}>
@@ -47,7 +51,7 @@ export default function LoginModal() {
         <Link href={`${baseUrl}/auth/${oauthType.google}`}>
           <GoogleLoginIcon />
         </Link> */}
-        <Link href={`${process.env.NEXT_PUBLIC_SERVER_DOMAIN}/auth/${oauthType.kakao}`}>
+        <Link id={id} href={`${process.env.NEXT_PUBLIC_SERVER_DOMAIN}/auth/${oauthType.kakao}`}>
           <KakaoLoginIcon />
         </Link>
       </div>

@@ -249,7 +249,7 @@ function Comments() {
     <>
       {isOn && (
         <Modal handleModalClose={handleSetOff} size="large">
-          <LoginModal />
+          <LoginModal id="commentLoginBtn" />
         </Modal>
       )}
       <div className={styles.wrapper}>
