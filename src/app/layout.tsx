@@ -1,8 +1,7 @@
 import { ReactNode } from 'react';
 import type { Metadata, Viewport } from 'next';
 import { ToastContainer } from 'react-toastify';
-import { GoogleAnalytics } from '@next/third-parties/google';
-import * as gtag from '@/lib/utils/gtag';
+import { GtmScript, GtmNoScript } from '@/lib/utils/gtm';
 
 import BottomNav from '@/components/BottomNav/BottomNav';
 
@@ -48,6 +47,7 @@ export default function Layout({ children }: { children: ReactNode }) {
   return (
     <html lang="ko">
       <head>
+        <GtmScript />
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css" />
         <link rel="manifest" href="/manifest.json" />
         <link rel="shortcut icon" href="https://image.listywave.com/favicon/favicon.png" />
@@ -55,6 +55,7 @@ export default function Layout({ children }: { children: ReactNode }) {
         <meta name="theme-color" content="#ffffff" />
       </head>
       <body className={styles.body}>
+        <GtmNoScript />
         <CommonProvider>
           <div id="modal-root" />
           <div>
@@ -63,7 +64,6 @@ export default function Layout({ children }: { children: ReactNode }) {
           </div>
           <ToastContainer className={styles.toastContainer} />
         </CommonProvider>
-        <GoogleAnalytics gaId={`${gtag.GA_TRACKING_ID}`} />
       </body>
     </html>
   );
