@@ -82,7 +82,7 @@ export default function BottomNav() {
       </nav>
       {isOn && (
         <Modal handleModalClose={handleSetOff} size="large">
-          <LoginModal />
+          <LoginModal id="bottomNavLoginBtn" />
         </Modal>
       )}
     </>

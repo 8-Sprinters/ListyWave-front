@@ -50,7 +50,7 @@ function Header() {
     <nav className={styles.wrapper}>
       {isOn && (
         <Modal handleModalClose={handleSetOff} size="large">
-          <LoginModal />
+          <LoginModal id="headerLoginBtn" />
         </Modal>
       )}
       <div className={styles.userInfoOuterWrapper}>
