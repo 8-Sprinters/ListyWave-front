@@ -52,7 +52,7 @@ function FloatingMenu() {
       </div>
       {isOn && (
         <Modal handleModalClose={handleSetOff} size="large">
-          <LoginModal />
+          <LoginModal id="floatingLoginBtn" />
         </Modal>
       )}
     </>

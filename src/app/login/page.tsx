@@ -36,7 +36,7 @@ export default function LoginPage() {
       </section>
       {isOn && (
         <Modal handleModalClose={handleSetOff} size="large">
-          <LoginModal />
+          <LoginModal id="loginPageBtn" />
         </Modal>
       )}
     </>

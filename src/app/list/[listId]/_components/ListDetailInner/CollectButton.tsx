@@ -58,7 +58,7 @@ const CollectButton = ({ data }: { data: CollectProps }) => {
         </div>
         {isOn && (
           <Modal handleModalClose={handleSetOff} size="large">
-            <LoginModal />
+            <LoginModal id="collectLoginBtn" />
           </Modal>
         )}
       </>
