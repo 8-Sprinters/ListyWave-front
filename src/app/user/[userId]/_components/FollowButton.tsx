@@ -29,39 +29,32 @@ export default function FollowButton({ isFollowed, userId }: FollowButtonProps) 
   const { user: userMe } = useUser();
   const { isOn, handleSetOff, handleSetOn } = useBooleanOutput();
 
-  console.log(isFollowed); // 삭제 예정
-
   const { data: userMeData } = useQuery<UserType>({
     queryKey: [QUERY_KEYS.userOne, userMe.id],
     queryFn: () => getUserOne(userMe.id as number),
     enabled: !!userMe.id,
   });
 
-  const followUser = useMutation({
-    mutationKey: [QUERY_KEYS.follow, userId],
-    mutationFn: () => createFollowUser(userId),
+  const followUserMutation = useMutation({
+    mutationKey: [isFollowed ? QUERY_KEYS.deleteFollow : QUERY_KEYS.follow, userId],
+    mutationFn: isFollowed ? () => deleteFollowUser(userId) : () => createFollowUser(userId),
     onMutate: async () => {
       await queryClient.cancelQueries({ queryKey: [QUERY_KEYS.userOne, userId] });
       const previousFollower: UserType | undefined = queryClient.getQueryData([QUERY_KEYS.userOne, userId]);
-
-      console.log(previousFollower); // 삭제 예정
 
       if (!previousFollower?.followerCount) return;
 
       const nextData = {
         ...previousFollower,
         isFollowed: !isFollowed,
-        followerCount: previousFollower.followerCount + 1,
+        followerCount: isFollowed ? previousFollower.followerCount - 1 : previousFollower.followerCount + 1,
       };
-
-      console.log(nextData); // 삭제 예정
 
       queryClient.setQueryData([QUERY_KEYS.userOne, userId], nextData);
 
       return { previousFollower };
     },
     onError: (error: AxiosError, userId: number, context) => {
-      console.log(context); // 삭제 예정
       if (error.response?.status === 401) {
         handleSetOn();
       }
@@ -74,31 +67,14 @@ export default function FollowButton({ isFollowed, userId }: FollowButtonProps) 
     },
   });
 
-  const deleteFollowingUser = useMutation({
-    mutationKey: [QUERY_KEYS.deleteFollow, userId],
-    mutationFn: () => deleteFollowUser(userId),
-    onSuccess: () => {
-      queryClient.invalidateQueries({
-        queryKey: [QUERY_KEYS.userOne, userId],
-      });
-    },
-    onError: (error: AxiosError) => {
-      if (error.response?.status === 401) {
-        handleSetOn();
-      }
-    },
-  });
-
   const handleFollowUser = (isFollowed: boolean) => () => {
-    if (isFollowed) {
-      deleteFollowingUser.mutate();
-    } else {
+    if (!isFollowed) {
       if (userMeData && userMeData?.followingCount >= MAX_FOLLOWING) {
         toasting({ type: 'warning', txt: toastMessage[language].limitFollow });
         return;
       }
-      followUser.mutate(userId);
     }
+    followUserMutation.mutate(userId);
   };
 
   return (
@@ -106,7 +82,7 @@ export default function FollowButton({ isFollowed, userId }: FollowButtonProps) 
       <button
         className={`${isFollowed ? styles.variant.gray : styles.variant.primary}`}
         onClick={handleFollowUser(isFollowed)}
-        disabled={followUser.isPending || deleteFollowingUser.isPending}
+        disabled={followUserMutation.isPending}
       >
         {isFollowed ? userLocale[language].cancelFollow : userLocale[language].follow}
       </button>
