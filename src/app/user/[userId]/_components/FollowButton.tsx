@@ -42,7 +42,7 @@ export default function FollowButton({ isFollowed, userId }: FollowButtonProps) 
       await queryClient.cancelQueries({ queryKey: [QUERY_KEYS.userOne, userId] });
       const previousFollower: UserType | undefined = queryClient.getQueryData([QUERY_KEYS.userOne, userId]);
 
-      if (!previousFollower?.followerCount) return;
+      if (!previousFollower) return;
 
       const nextData = {
         ...previousFollower,
