@@ -46,7 +46,7 @@ function ListInformation() {
     error,
     isError,
   } = useQuery<ListDetailType>({
-    queryKey: [QUERY_KEYS.getListDetail],
+    queryKey: [QUERY_KEYS.getListDetail, params?.listId],
     queryFn: () => getListDetail(Number(params?.listId)),
     enabled: !!params?.listId,
     retry: 0,
