@@ -9,7 +9,6 @@ import getUserOne from '@/app/_api/user/getUserOne';
 
 import { QUERY_KEYS } from '@/lib/constants/queryKeys';
 import { UserType } from '@/lib/types/userProfileType';
-import { useUser } from '@/store/useUser';
 import toasting from '@/lib/utils/toasting';
 import toastMessage, { MAX_FOLLOWING } from '@/lib/constants/toastMessage';
 import * as styles from './UsersRecommendation.css';
@@ -30,63 +29,57 @@ interface FollowButtonProps {
 function FollowButton({ isFollowing, onClick, userId, targetId }: FollowButtonProps) {
   const { language } = useLanguage();
   const queryClient = useQueryClient();
-  const { user: userMe } = useUser();
   const { isOn, handleSetOff, handleSetOn } = useBooleanOutput();
 
   const { data: userMeData } = useQuery<UserType>({
     queryKey: [QUERY_KEYS.userOne, userId],
     queryFn: () => getUserOne(userId),
-    enabled: !!userMe.id,
+    enabled: !!userId,
     retry: 1,
   });
 
-  const followUser = useMutation({
-    mutationKey: [QUERY_KEYS.follow, userId],
-    mutationFn: () => createFollowUser(targetId),
-    onSuccess: () => {
-      queryClient.invalidateQueries({
-        queryKey: [QUERY_KEYS.userOne, userId],
-      });
-    },
-    onError: (error: AxiosError) => {
-      if (error.response?.status === 401) {
-        handleSetOn();
-      }
-    },
-  });
+  const followUserMutation = useMutation({
+    mutationKey: [isFollowing ? QUERY_KEYS.deleteFollow : QUERY_KEYS.follow, targetId],
+    mutationFn: isFollowing ? () => deleteFollowUser(targetId) : () => createFollowUser(targetId),
+    onMutate: async () => {
+      await queryClient.cancelQueries({ queryKey: [QUERY_KEYS.userOne, userId] });
+      const previousFollower: UserType | undefined = queryClient.getQueryData([QUERY_KEYS.userOne, userId]);
 
-  const deleteFollowingUser = useMutation({
-    mutationKey: [QUERY_KEYS.deleteFollow, userId],
-    mutationFn: () => deleteFollowUser(targetId),
-    onSuccess: () => {
-      queryClient.invalidateQueries({
-        queryKey: [QUERY_KEYS.userOne, userId],
-      });
+      if (!previousFollower) return;
+
+      const nextData = {
+        ...previousFollower,
+        isFollowed: !isFollowing,
+        followerCount: isFollowing ? previousFollower.followerCount - 1 : previousFollower.followerCount + 1,
+      };
+
+      queryClient.setQueryData([QUERY_KEYS.userOne, userId], nextData);
+
+      return { previousFollower };
     },
-    onError: (error: AxiosError) => {
+    onError: (error: AxiosError, userId: number, context) => {
       if (error.response?.status === 401) {
         handleSetOn();
       }
+      queryClient.setQueryData([QUERY_KEYS.userOne, userId], context?.previousFollower);
+    },
+    onSettled: () => {
+      queryClient.invalidateQueries({
+        queryKey: [QUERY_KEYS.userOne, userId],
+      });
     },
   });
 
   const handleFollowUser = (isFollowing: boolean) => () => {
-    if (isFollowing) {
-      deleteFollowingUser.mutate();
-      onClick();
-    } else {
+    if (!isFollowing) {
       if (userMeData && userMeData?.followingCount >= MAX_FOLLOWING) {
         toasting({ type: 'warning', txt: toastMessage[language].limitFollow });
         return;
       }
-      followUser.mutate();
-      onClick();
     }
+    followUserMutation.mutate(userId);
+    onClick();
   };
-
-  if (!userMe) {
-    return null;
-  }
 
   return (
     <>
