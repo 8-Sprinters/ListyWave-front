@@ -29,6 +29,8 @@ export default function FollowButton({ isFollowed, userId }: FollowButtonProps) 
   const { user: userMe } = useUser();
   const { isOn, handleSetOff, handleSetOn } = useBooleanOutput();
 
+  console.log(isFollowed); // 삭제 예정
+
   const { data: userMeData } = useQuery<UserType>({
     queryKey: [QUERY_KEYS.userOne, userMe.id],
     queryFn: () => getUserOne(userMe.id as number),
@@ -38,15 +40,37 @@ export default function FollowButton({ isFollowed, userId }: FollowButtonProps) 
   const followUser = useMutation({
     mutationKey: [QUERY_KEYS.follow, userId],
     mutationFn: () => createFollowUser(userId),
-    onSuccess: () => {
-      queryClient.invalidateQueries({
-        queryKey: [QUERY_KEYS.userOne, userId],
-      });
+    onMutate: async () => {
+      await queryClient.cancelQueries({ queryKey: [QUERY_KEYS.userOne, userId] });
+      const previousFollower: UserType | undefined = queryClient.getQueryData([QUERY_KEYS.userOne, userId]);
+
+      console.log(previousFollower); // 삭제 예정
+
+      if (!previousFollower?.followerCount) return;
+
+      const nextData = {
+        ...previousFollower,
+        isFollowed: !isFollowed,
+        followerCount: previousFollower.followerCount + 1,
+      };
+
+      console.log(nextData); // 삭제 예정
+
+      queryClient.setQueryData([QUERY_KEYS.userOne, userId], nextData);
+
+      return { previousFollower };
     },
-    onError: (error: AxiosError) => {
+    onError: (error: AxiosError, userId: number, context) => {
+      console.log(context); // 삭제 예정
       if (error.response?.status === 401) {
         handleSetOn();
       }
+      queryClient.setQueryData([QUERY_KEYS.userOne, userId], context?.previousFollower);
+    },
+    onSettled: () => {
+      queryClient.invalidateQueries({
+        queryKey: [QUERY_KEYS.userOne, userId],
+      });
     },
   });
 
@@ -73,7 +97,7 @@ export default function FollowButton({ isFollowed, userId }: FollowButtonProps) 
         toasting({ type: 'warning', txt: toastMessage[language].limitFollow });
         return;
       }
-      followUser.mutate();
+      followUser.mutate(userId);
     }
   };
 
