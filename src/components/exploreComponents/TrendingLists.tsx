@@ -174,7 +174,7 @@ function TrendingListInformation({ item }: TrendingListInformationType) {
         className={styles.itemTitle}
         style={assignInlineVars({ [styles.customFontColor]: item?.itemImageUrl ? vars.color.white : vars.color.black })}
       >
-        {item?.title}
+        <p className={styles.itemTitleContent}>{item?.title}</p>
       </div>
       <div className={styles.ownerProfileWrapper}>
         <div className={styles.profileImageWrapper}>
