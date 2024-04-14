@@ -5,17 +5,20 @@ import * as fonts from '@/styles/font.css';
 export const background = style({
   width: '100%',
   height: '752px',
-  padding: '71px 30px 77px',
+  padding: '71px 0 77px',
 
   backgroundColor: vars.color.white,
 });
 
 export const wrapper = style({
+  position: 'relative',
   display: 'flex',
   flexDirection: 'column',
 });
 
 export const recordWrapper = style({
+  position: 'relative',
+  padding: '0 30px',
   display: 'flex',
   alignItems: 'center',
   gap: '7px',
@@ -42,6 +45,8 @@ export const recText = style([fonts.labelLarge, {}]);
 
 export const contentsWrapper = style({
   margin: '55.5px 0 46px',
+
+  position: 'relative',
 
   display: 'flex',
   flexDirection: 'column',
@@ -75,15 +80,25 @@ export const subTitleWrapper = style([
 ]);
 
 export const imageWrapper = style({
+  width: '100%',
+  height: '400px',
   position: 'relative',
 });
 
+export const video = style({
+  width: '100%',
+  height: 'auto',
+
+  border: 'none',
+});
+
+// blurbox이 검은색으로 바뀌는 이상 현상이 있어서 잠시 주석화
 export const blurBox = style({
   width: '100%',
   height: '174px',
 
   position: 'absolute',
-  bottom: -40,
+  bottom: -20,
 
   background: 'linear-gradient(180deg, rgba(255, 255, 255, 0.00) -8.85%, #FFF 53.58%)',
 });
