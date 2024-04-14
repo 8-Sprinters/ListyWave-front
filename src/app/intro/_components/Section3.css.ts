@@ -92,13 +92,13 @@ export const video = style({
   border: 'none',
 });
 
-//blurbox이 검은색으로 바뀌는 이상 현상이 있어서 잠시 주석화
-// export const blurBox = style({
-//   width: '100%',
-//   height: '174px',
+// blurbox이 검은색으로 바뀌는 이상 현상이 있어서 잠시 주석화
+export const blurBox = style({
+  width: '100%',
+  height: '174px',
 
-//   position: 'absolute',
-//   bottom: -20,
+  position: 'absolute',
+  bottom: -20,
 
-//   background: 'linear-gradient(180deg, rgba(255, 255, 255, 0.00) -8.85%, #FFF 53.58%)',
-// });
+  background: 'linear-gradient(180deg, rgba(255, 255, 255, 0.00) -8.85%, #FFF 53.58%)',
+});
