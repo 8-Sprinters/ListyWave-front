@@ -16,7 +16,7 @@ import { QUERY_KEYS } from '@/lib/constants/queryKeys';
 import { CommentType } from '@/lib/types/commentType';
 import { UserType } from '@/lib/types/userProfileType';
 import { useUser } from '@/store/useUser';
-import { useReplyId, useCommentId, useCommentIdStore, useIsEditing } from '@/store/useComment';
+import { useReplyId, useCommentId, useCommentIdStore, useIsEditing, useCommentStatus } from '@/store/useComment';
 import Modal from '@/components/Modal/Modal';
 import CommentForm from './CommentForm';
 import LoginModal from '@/components/login/LoginModal';
@@ -39,8 +39,8 @@ function Comments() {
   const { replyId, deleteReplyId } = useReplyId();
   const { commentId, setCommentId, deleteCommentId } = useCommentId();
   const { setIsEditing, setIsNotEditing, isEditing } = useIsEditing();
+  const { status, resetStatus } = useCommentStatus();
   const bottomRef = useRef<HTMLDivElement>(null);
-  const replyBottomRef = useRef<HTMLDivElement>(null);
 
   //zustand로 관리하는 user정보 불러오기
   const { user } = useUser();
@@ -103,8 +103,12 @@ function Comments() {
     }
   };
 
+  const handleSetComment = (comment: string) => {
+    setComment(comment);
+  };
+
   //댓글 폼 사용(추후 리액트 훅폼으로 수정해 볼 예정)
-  const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
+  const handleInputChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
     setComment(e.target.value);
   };
 
@@ -121,6 +125,7 @@ function Comments() {
     setComment('');
     deleteCommentId();
     deleteReplyId();
+    resetStatus();
   };
 
   //댓글 생성 리액트 쿼리 함수
@@ -154,6 +159,7 @@ function Comments() {
       deleteCommentId();
       setActiveNickname(null);
       setIsPending(false);
+      resetStatus();
     },
   });
 
@@ -170,6 +176,7 @@ function Comments() {
       setComment('');
       deleteCommentId();
       setIsNotEditing();
+      resetStatus();
       setIsPending(false);
     },
   });
@@ -181,7 +188,7 @@ function Comments() {
       setIsPending(true);
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: [QUERY_KEYS.getComments, commentId] });
+      queryClient.invalidateQueries({ queryKey: [QUERY_KEYS.getComments] });
       addCommentId(commentId as number);
       scrollToRef();
     },
@@ -191,21 +198,22 @@ function Comments() {
       deleteReplyId();
       setIsNotEditing();
       setIsPending(false);
+      resetStatus();
     },
   });
 
   //댓글/답글 폼 submit 함수
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement> | React.KeyboardEvent<HTMLTextAreaElement>) => {
     e.preventDefault();
     if (!comment.trim()) {
       return null;
     }
     if (comment.trim()) {
-      if (commentId && activeNickname) {
+      if (status === 'createReply' && commentId && activeNickname) {
         createReplyMutation.mutate();
         return;
       }
-      if (isEditing) {
+      if (status === 'edit') {
         if (replyId) {
           editReplyMutation.mutate();
           return;
@@ -276,9 +284,10 @@ function Comments() {
               ) : (
                 <Comment
                   comment={item}
-                  onUpdate={setActiveNickname}
+                  setActiveNickname={setActiveNickname}
                   activeNickname={activeNickname}
                   handleSetCommentId={handleSetCommentId}
+                  handleSetComment={handleSetComment}
                   listId={Number(params?.listId)}
                   commentId={item.id}
                   currentUserInfo={userInformation}

@@ -65,6 +65,7 @@ export const commentContent = style({
   fontWeight: 500,
   lineHeight: 'normal',
   letterSpacing: '-0.36px',
+  wordBreak: 'break-word',
 });
 
 export const deletedComment = style({
