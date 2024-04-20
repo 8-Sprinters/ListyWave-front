@@ -3,6 +3,7 @@ import { useFormContext } from 'react-hook-form';
 import * as styles from './CreateNicknameStep.css';
 import * as stylesCategory from './CategoryButton.css';
 import * as stylesList from './ListPreview.css';
+import SearchBar from '@/app/intro/_components/SearchBar';
 
 import { CategoryType } from '@/lib/types/categoriesType';
 import { ListCreateType } from '@/lib/types/listType';
@@ -35,8 +36,15 @@ export default function RegisterListTitle({ selectedCategory }: ListTitleStepPro
   return (
     <>
       <label className={styles.title}>{startListyLocale[language].makeListTitle}</label>
+      <SearchBar />
       <div className={styles.inputWrapper}>
-        <input {...register('title', onBoardlistTitleRules)} autoComplete="off" autoFocus className={styles.input} />
+        <input
+          {...register('title', onBoardlistTitleRules)}
+          autoComplete="off"
+          autoFocus
+          maxLength={31}
+          className={styles.input}
+        />
         <p className={styles.errorMessage}>{errors.title?.message}</p>
       </div>
       <div className={stylesList.container}>

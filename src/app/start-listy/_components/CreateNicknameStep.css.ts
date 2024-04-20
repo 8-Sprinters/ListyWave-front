@@ -17,7 +17,9 @@ export const background = style({
 
 // header
 export const header = style({
-  width: '100%',
+  width: '95%',
+  display: 'flex',
+  justifyContent: 'space-between',
 });
 
 export const headerButton = style({
@@ -41,6 +43,17 @@ export const stepText = style([
     color: vars.color.gray9,
   },
 ]);
+
+export const stepContainer = style({
+  width: '95%',
+  display: 'flex',
+  justifyContent: 'flex-end',
+});
+
+export const skipButton = style({
+  padding: '0.5rem 0 0.5rem 1.6rem',
+  color: vars.color.gray9,
+});
 
 // bar container
 export const barContainer = style({
@@ -85,7 +98,7 @@ export const container = style({
   display: 'flex',
   flexDirection: 'column',
   alignItems: 'center',
-  gap: '1rem',
+  gap: '1.5rem',
 
   backgroundColor: vars.color.white,
   borderRadius: '3rem',
@@ -111,16 +124,23 @@ export const subTitle = style([
 ]);
 
 export const inputWrapper = style({
-  padding: '1.5rem 0 1rem 0',
+  padding: '1rem 0 1rem 0',
+  width: '80%',
 });
 
 // input, errormessage
 export const input = style([
   bodyLarge,
   {
+    paddingBottom: '0.5rem',
     width: '100%',
     textAlign: 'center',
+    borderBottom: `1px solid ${vars.color.blueGray}`,
     caretColor: vars.color.blue,
+
+    ':focus': {
+      borderBottom: `1px solid ${vars.color.blue}`,
+    },
   },
 ]);
 

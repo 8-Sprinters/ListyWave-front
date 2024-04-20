@@ -4,7 +4,7 @@ import { vars } from '@/styles/theme.css';
 
 export const container = style({
   width: '80%',
-  padding: '2rem 0 2rem 0',
+  padding: '1rem 0 1rem 0',
   display: 'grid',
   gridTemplateAreas: `
     "culture life life"
