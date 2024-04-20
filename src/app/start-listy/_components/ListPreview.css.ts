@@ -5,7 +5,7 @@ import { vars } from '@/styles/theme.css';
 export const container = style({
   width: '100%',
   padding: '2.9rem 2.1rem',
-  marginTop: '4rem',
+  marginTop: '1.5rem',
 
   display: 'flex',
   flexDirection: 'column',
@@ -23,6 +23,7 @@ export const title = style([
     minHeight: '24px',
     color: vars.color.gray9,
     textAlign: 'center',
+    wordBreak: 'break-all',
   },
 ]);
 

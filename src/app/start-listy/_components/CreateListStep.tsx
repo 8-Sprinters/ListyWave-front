@@ -14,16 +14,18 @@ import toasting from '@/lib/utils/toasting';
 import ChoiceCategory from './ChoiceCategory';
 import RegisterListTitle from './RegisterListTitle';
 import RegisterItems from './RegisterItems';
+import SkipOnboardingButton from './SkipButton';
+import Spinners from '@/components/loading/Spinners';
+
 import { BACKGROUND_COLOR } from '@/styles/Color';
 import { useLanguage } from '@/store/useLanguage';
 import { startListyLocale } from '@/app/start-listy/locale';
 
 interface CreateListStepProps {
-  userId: number;
   nickname: string;
 }
 
-export default function CreateListStep({ userId, nickname }: CreateListStepProps) {
+export default function CreateListStep({ nickname }: CreateListStepProps) {
   const { language } = useLanguage();
   const router = useRouter();
   const [stepIndex, setStepIndex] = useState(0);
@@ -31,6 +33,7 @@ export default function CreateListStep({ userId, nickname }: CreateListStepProps
     nameValue: '',
     korNameValue: '',
   });
+  const [isLoading, setIsLoading] = useState(false);
 
   // 리스트 생성 배경색상 렌덤하게 적용
   const listColors = Object.values(BACKGROUND_COLOR);
@@ -44,31 +47,15 @@ export default function CreateListStep({ userId, nickname }: CreateListStepProps
       collaboratorIds: [],
       title: '',
       description: '',
-      isPublic: true,
+      isPublic: false,
       backgroundColor: listColors[randomIndex],
-      items: [
-        {
-          rank: 1,
-          title: '',
-          comment: '',
-          link: '',
-          imageUrl: '',
-        },
-        {
-          rank: 2,
-          title: '',
-          comment: '',
-          link: '',
-          imageUrl: '',
-        },
-        {
-          rank: 3,
-          title: '',
-          comment: '',
-          link: '',
-          imageUrl: '',
-        },
-      ],
+      items: Array.from({ length: 3 }, (_, index) => ({
+        rank: index + 1,
+        title: '',
+        comment: '',
+        link: '',
+        imageUrl: '',
+      })),
     },
   });
 
@@ -93,19 +80,27 @@ export default function CreateListStep({ userId, nickname }: CreateListStepProps
     });
   };
 
+  // 마지막 단계에서 form 유효성 검사
+  const isValidForm = isValid && getValues('items').every((el) => el.title);
+
   const onSubmit = async (data: ListCreateType) => {
     if (!isValid) return;
+    setIsLoading(true);
 
     try {
       const result = await createList(data);
 
-      if (result.listId) {
-        router.push(`user/${userId}/mylist`);
-      }
+      setTimeout(() => {
+        if (result.listId) {
+          router.push('intro');
+          setIsLoading(false);
+        }
+      }, 1000);
     } catch (error) {
       if (error instanceof Error) {
         console.error(error.message);
         toasting({ type: 'error', txt: toastMessage[language].createListError });
+        setIsLoading(false);
       }
     }
   };
@@ -115,6 +110,9 @@ export default function CreateListStep({ userId, nickname }: CreateListStepProps
       <div className={styles.background}>
         {stepIndex === 0 && (
           <>
+            <div className={styles.stepContainer}>
+              <SkipOnboardingButton />
+            </div>
             <div className={styles.step}>
               <div className={styles.barContainer}>
                 <span className={styles.bar.default}></span>
@@ -154,6 +152,7 @@ export default function CreateListStep({ userId, nickname }: CreateListStepProps
               <button className={styles.headerButton} onClick={handleMoveToStep('prev')}>
                 <BackIcon alt={startListyLocale[language].backButtonAlt} width={7.7} height={13.4} />
               </button>
+              <SkipOnboardingButton />
             </div>
             <div className={styles.step}>
               <div className={styles.barContainer}>
@@ -179,15 +178,17 @@ export default function CreateListStep({ userId, nickname }: CreateListStepProps
         )}
         {stepIndex === 2 && (
           <>
+            {isLoading && <Spinners />}
             <div className={styles.header}>
               <button className={styles.headerButton} onClick={handleMoveToStep('prev')}>
                 <BackIcon alt={startListyLocale[language].backButtonAlt} width={7.7} height={13.4} />
               </button>
+              <SkipOnboardingButton />
             </div>
             <div className={styles.step}>
               <div className={styles.barContainer}>
                 <span className={styles.bar.default}></span>
-                <span className={isValid ? styles.statusBar.full : styles.statusBar.sixty}></span>
+                <span className={isValidForm ? styles.statusBar.full : styles.statusBar.sixty}></span>
               </div>
               <p className={styles.stepText}>step2</p>
             </div>
@@ -196,8 +197,8 @@ export default function CreateListStep({ userId, nickname }: CreateListStepProps
               <button
                 type="button"
                 onClick={handleSubmit(onSubmit)}
-                className={isValid ? styles.variant.active : styles.variant.default}
-                disabled={!isValid}
+                className={isValidForm ? styles.variant.active : styles.variant.default}
+                disabled={!isValidForm || isLoading}
               >
                 {startListyLocale[language].complete}
               </button>
