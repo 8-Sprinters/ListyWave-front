@@ -3,7 +3,6 @@ import { UserProfileType } from '@/lib/types/userProfileType';
 import kakaotalkShare from '@/components/KakaotalkShare/kakaotalkShare';
 import copyUrl from '@/lib/utils/copyUrl';
 import saveImageFromHtml from '@/lib/utils/saveImageFromHtml';
-import toasting from '@/lib/utils/toasting';
 import { listLocale } from '@/app/list/[listId]/locale';
 
 interface OptionDataProps {
@@ -92,7 +91,6 @@ const getBottomSheetOptionList = ({
         key: 'copyAndCreateList',
         title: listLocale[language].createListToThisTitle,
         onClick: () => {
-          toasting({ type: 'default', txt: listLocale[language].moveToCreateListPageMessage });
           goToCreateList();
         },
       },
