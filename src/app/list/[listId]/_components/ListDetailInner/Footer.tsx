@@ -2,20 +2,25 @@
 
 import { MouseEvent, useState } from 'react';
 import { usePathname, useRouter } from 'next/navigation';
+import Script from 'next/script';
 import * as styles from './Footer.css';
 
 import { useUser } from '@/store/useUser';
+import { useLanguage } from '@/store/useLanguage';
 import { ItemType } from '@/lib/types/listType';
 import { UserProfileType } from '@/lib/types/userProfileType';
+import toasting from '@/lib/utils/toasting';
 import BottomSheet from '@/components/BottomSheet/BottomSheet';
 import ModalPortal from '@/components/modal-portal';
+import { listLocale } from '@/app/list/[listId]/locale';
 import CollectButton from '@/app/list/[listId]/_components/ListDetailInner/CollectButton';
 import getBottomSheetOptionList from '@/app/list/[listId]/_components/ListDetailInner/getBottomSheetOptionList';
 import ShareIcon from '/public/icons/share.svg';
 import EtcIcon from '/public/icons/etc.svg';
 import EyeIcon from '/public/icons/eye.svg';
-import Script from 'next/script';
-import { useLanguage } from '@/store/useLanguage';
+import Modal from '@/components/Modal/Modal';
+import LoginModal from '@/components/login/LoginModal';
+import useBooleanOutput from '@/hooks/useBooleanOutput';
 
 interface BottomSheetOptionsProps {
   key: string;
@@ -49,6 +54,7 @@ function Footer({ data }: { data: FooterProps }) {
   const router = useRouter();
   const path = usePathname();
   const { user: loginUser } = useUser();
+  const { isOn, handleSetOff, handleSetOn } = useBooleanOutput();
   const [isSheetActive, setSheetActive] = useState<boolean>(false);
   const [sheetOptionList, setSheetOptionList] = useState<BottomSheetOptionsProps[]>([]);
   const listUrl = `https://listywave.com${path}`;
@@ -60,9 +66,20 @@ function Footer({ data }: { data: FooterProps }) {
     // console.log('kakaoShareStatus:', window.Kakao.isInitialized());
   }
 
-  const goToCreateList = () => {
-    router.push(`/list/create?title=${data.title}&category=${data.category}`);
-  };
+  let goToCreateList: () => void;
+
+  if (loginUser.id === null) {
+    goToCreateList = () => {
+      toasting({ type: 'default', txt: listLocale[language].loginRequired });
+      setSheetActive(false);
+      handleSetOn();
+    };
+  } else {
+    goToCreateList = () => {
+      toasting({ type: 'default', txt: listLocale[language].moveToCreateListPageMessage });
+      router.push(`/list/create?title=${data.title}&category=${data.category}`);
+    };
+  }
 
   const closeBottomSheet = () => {
     setSheetActive(false);
@@ -106,6 +123,11 @@ function Footer({ data }: { data: FooterProps }) {
         <ModalPortal>
           <BottomSheet onClose={handleOutsideClick} isActive={isSheetActive} optionList={sheetOptionList} />
         </ModalPortal>
+      )}
+      {isOn && (
+        <Modal handleModalClose={handleSetOff} size="large">
+          <LoginModal id="duplicateListLoginBtn" />
+        </Modal>
       )}
       <div className={styles.container}>
         <div className={styles.collectAndView}>
