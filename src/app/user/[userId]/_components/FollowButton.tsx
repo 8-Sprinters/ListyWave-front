@@ -88,7 +88,7 @@ export default function FollowButton({ isFollowed, userId }: FollowButtonProps) 
       </button>
       {isOn && (
         <Modal handleModalClose={handleSetOff} size="large">
-          <LoginModal />
+          <LoginModal id="followLoginBtn" />
         </Modal>
       )}
     </>

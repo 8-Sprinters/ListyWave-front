@@ -21,7 +21,7 @@ function Footer() {
     <>
       {isOn && (
         <Modal handleModalClose={handleSetOff} size="large">
-          <LoginModal />
+          <LoginModal id="introLoginBtn" />
         </Modal>
       )}
       <section className={styles.background}>
