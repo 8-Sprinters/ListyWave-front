@@ -15,6 +15,7 @@ import LoginModal from '@/components/login/LoginModal';
 import useBooleanOutput from '@/hooks/useBooleanOutput';
 import { useLanguage } from '@/store/useLanguage';
 import toastMessage from '@/lib/constants/toastMessage';
+import { ListDetailType } from '@/lib/types/listType';
 
 interface CollectProps {
   ownerId: number;
@@ -33,20 +34,39 @@ const CollectButton = ({ data }: { data: CollectProps }) => {
   const collect = useMutation({
     mutationKey: [QUERY_KEYS.collect, data.listId],
     mutationFn: () => collectList(data.listId),
-    onSuccess: () => {
-      queryClient.invalidateQueries({
-        queryKey: [QUERY_KEYS.getListDetail],
-      });
+    onMutate: async (listId: string) => {
+      await queryClient.cancelQueries({ queryKey: [QUERY_KEYS.getListDetail, listId] });
+      const previousListDetail: ListDetailType | undefined = queryClient.getQueryData([
+        QUERY_KEYS.getListDetail,
+        listId,
+      ]);
+
+      if (!previousListDetail) return;
+
+      const nextData = {
+        ...previousListDetail,
+        isCollected: !data.isCollected,
+        collectCount: data.isCollected ? previousListDetail?.collectCount - 1 : previousListDetail?.collectCount + 1,
+      };
+
+      queryClient.setQueryData([QUERY_KEYS.getListDetail, listId], nextData);
+      return { previousListDetail };
     },
-    onError: (error: AxiosError) => {
+    onError: (error: AxiosError, listId, context) => {
       if (error.response?.status === 401) {
         toasting({ type: 'warning', txt: toastMessage[language].failedCollect });
       }
+      queryClient.setQueryData([QUERY_KEYS.getListDetail, listId], context?.previousListDetail);
+    },
+    onSettled: () => {
+      queryClient.invalidateQueries({
+        queryKey: [QUERY_KEYS.getListDetail, data.listId + ''],
+      });
     },
   });
 
   const handleCollect = () => {
-    collect.mutate();
+    collect.mutate(data.listId + ''); // string으로 변경
   };
 
   // TODO: (로그인유저 !== 작성자) 인경우, viewCount, CollectCount를 아예 받아오면안된다.
@@ -76,11 +96,9 @@ const CollectButton = ({ data }: { data: CollectProps }) => {
   }
 
   return (
-    <>
-      <div className={styles.collectWrapper}>
-        {data.isCollected ? <CollectedIcon onClick={handleCollect} /> : <CollectIcon onClick={handleCollect} />}
-      </div>
-    </>
+    <div className={styles.collectWrapper} onClick={handleCollect}>
+      {data.isCollected ? <CollectedIcon /> : <CollectIcon />}
+    </div>
   );
 };
 
