@@ -24,8 +24,6 @@ import toasting from '@/lib/utils/toasting';
 import toastMessage from '@/lib/constants/toastMessage';
 import { useLanguage } from '@/store/useLanguage';
 
-// const PWAPrompt = React.lazy(() => import('react-ios-pwa-prompt'));
-
 const PWAPrompt = dynamic(() => import('react-ios-pwa-prompt'), {
   ssr: false,
 });
@@ -53,8 +51,8 @@ function LandingPage() {
         <Header />
         <Suspense fallback={<Loading />}>
           <PWAPrompt
-            copyTitle="리스티 앱 설치하기"
-            copyBody="앱으로 더 편하게 리스티의 모든 기능을 이용해보세요"
+            copyTitle="리스티웨이브 앱 설치하기"
+            copyBody="앱으로 더 편하게 리스티웨이브의 모든 기능을 이용해보세요"
             copyShareButtonLabel="1) 공유하기 아이콘"
             copyAddHomeButtonLabel="2) 홈화면에 추가"
             copyClosePrompt="닫기"
