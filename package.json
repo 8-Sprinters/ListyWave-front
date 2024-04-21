@@ -51,6 +51,7 @@
     "react-cookie": "^7.0.2",
     "react-dom": "^18",
     "react-hook-form": "^7.50.0",
+    "react-ios-pwa-prompt": "^1.8.4",
     "react-lottie": "^1.2.4",
     "react-scripts": "^5.0.1",
     "react-select": "^5.8.0",
