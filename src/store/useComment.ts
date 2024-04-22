@@ -47,3 +47,17 @@ export const useIsEditing = create<UseIsEditingType>((set) => ({
   setIsNotEditing: () => set({ isEditing: false }),
   setToggleEditing: (state) => set({ isEditing: !state }),
 }));
+
+interface useCommentStatusType {
+  status: null | 'edit' | 'createReply';
+  setStatusEdit: () => void;
+  setStatusCreateReply: () => void;
+  resetStatus: () => void;
+}
+
+export const useCommentStatus = create<useCommentStatusType>((set) => ({
+  status: null,
+  setStatusEdit: () => set({ status: 'edit' }),
+  setStatusCreateReply: () => set({ status: 'createReply' }),
+  resetStatus: () => set({ status: null }),
+}));

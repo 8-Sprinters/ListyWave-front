@@ -26,12 +26,7 @@ function Section3() {
               <span>{introLocale[language].section.message6}</span>
             </div>
             <div className={styles.imageWrapper}>
-              <Image
-                src={'/images/list_section3.png'}
-                alt={introLocale[language].section.createListImage}
-                width={300}
-                height={314}
-              />
+              <video src={'/videos/video_section3.mp4'} autoPlay loop muted className={styles.video} />
               <div className={styles.blurBox}></div>
             </div>
           </div>
