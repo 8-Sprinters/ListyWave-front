@@ -140,6 +140,10 @@ export const itemTitle = style([
   },
 ]);
 
+export const itemTitleContent = style({
+  display: 'inline',
+});
+
 export const profileImageWrapper = style({
   width: '32px',
   height: '32px',
