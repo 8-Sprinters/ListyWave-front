@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "typeRoots": ["./types ", "./node_modules/@types", "./node_modules/@types/@yaireo"],
+    "typeRoots": ["./types ", "./node_modules/@types", "src/lib/types/react-ios-pwa-prompt"],
     "declaration": true,
     "declarationDir": "./types",
     "target": "es5",
