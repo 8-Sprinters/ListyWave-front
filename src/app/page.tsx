@@ -1,7 +1,9 @@
 'use client';
 
+import React from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useEffect, Suspense } from 'react';
+import dynamic from 'next/dynamic';
 
 import ListRecommendation from '@/components/exploreComponents/ListsRecommendation';
 import TrendingList from '@/components/exploreComponents/TrendingLists';
@@ -21,6 +23,10 @@ import useBooleanOutput from '@/hooks/useBooleanOutput';
 import toasting from '@/lib/utils/toasting';
 import toastMessage from '@/lib/constants/toastMessage';
 import { useLanguage } from '@/store/useLanguage';
+
+const PWAPrompt = dynamic(() => import('react-ios-pwa-prompt'), {
+  ssr: false,
+});
 
 function LandingPage() {
   const { language } = useLanguage();
@@ -44,6 +50,15 @@ function LandingPage() {
       <div className={styles.wrapper}>
         <Header />
         <Suspense fallback={<Loading />}>
+          <PWAPrompt
+            copyTitle="리스티웨이브 앱 설치하기"
+            copyBody="앱으로 더 편하게 리스티웨이브의 모든 기능을 이용해보세요"
+            copyShareButtonLabel="1) 공유하기 아이콘"
+            copyAddHomeButtonLabel="2) 홈화면에 추가"
+            copyClosePrompt="닫기"
+            timesToShow={100}
+            permanentlyHideOnDismiss={false}
+          />
           <SearchBar />
           <TrendingList />
           <UsersRecommendation />

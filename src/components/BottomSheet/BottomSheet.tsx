@@ -24,8 +24,8 @@ function BottomSheet({ onClose, isActive, optionList }: BottomSheetProps) {
   });
 
   return (
-    <div className={styles.backGround} onClick={onClose}>
-      <div ref={ref} className={`${styles.wrapper} ${isActive ? `${styles.sheetActive}` : ''}`}>
+    <div className={styles.backGround} onClick={onClose} ref={ref}>
+      <div className={`${styles.wrapper} ${isActive ? `${styles.sheetActive}` : ''}`}>
         {optionList.map((option) => (
           <button
             key={option.key}
