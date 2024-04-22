@@ -1,13 +1,14 @@
-import { useState } from 'react';
+import { useCallback, useEffect, useRef } from 'react';
+
 import * as styles from './LanguageDropdown.css';
-import useBooleanOutput from '@/hooks/useBooleanOutput';
-import useOnClickOutside from '@/hooks/useOnClickOutside';
+
 import { useLanguage } from '@/store/useLanguage';
 import { accountLocale } from '@/app/account/locale';
+import useBooleanOutput from '@/hooks/useBooleanOutput';
 
 export default function LanguageDropdown() {
-  const { isOn, toggle, handleSetOff } = useBooleanOutput();
-  const { ref } = useOnClickOutside(handleSetOff);
+  const dropDownRef = useRef<HTMLDivElement>(null);
+  const { isOn, handleSetOff, toggle } = useBooleanOutput();
   const { language, setLanguage } = useLanguage();
 
   const handleSelectLanguage = (language: 'ko' | 'en') => {
@@ -15,8 +16,27 @@ export default function LanguageDropdown() {
     handleSetOff();
   };
 
+  const handleClickOutside = useCallback(
+    (e: Event) => {
+      if (dropDownRef.current !== null && !dropDownRef.current.contains(e.target as Node)) {
+        handleSetOff();
+      }
+    },
+    [handleSetOff]
+  );
+
+  useEffect(() => {
+    document.addEventListener('mousedown', handleClickOutside);
+    document.addEventListener('touchend', handleClickOutside);
+
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+      document.addEventListener('touchend', handleClickOutside);
+    };
+  }, [handleClickOutside]);
+
   return (
-    <div ref={ref} className={styles.container}>
+    <div className={styles.container} ref={dropDownRef}>
       <div className={styles.triggerDiv} onClick={toggle}>
         {language === 'ko' ? accountLocale[language].korean : accountLocale[language].english}
       </div>
