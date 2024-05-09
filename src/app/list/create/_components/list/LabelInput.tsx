@@ -35,7 +35,7 @@ function LabelInput({ name, placeholder, rules }: LabelInputProps) {
     if (e.nativeEvent.isComposing) {
       return;
     }
-    if (e.key === 'Enter') {
+    if (e.key === 'Enter' || e.key === ' ') {
       e.preventDefault();
       if (rules.maxLengthRule && labelInput.length >= rules.maxLengthRule.length) {
         setError(name, { message: rules.maxLengthRule.errorMessage });
