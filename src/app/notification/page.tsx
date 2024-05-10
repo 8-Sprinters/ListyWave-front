@@ -44,7 +44,7 @@ export default function NotificationPage() {
         right={
           <button
             disabled={!!isNotificationAllChecked}
-            className={isNotificationAllChecked ? styles.readAllButtonDisabled : styles.readAllButton}
+            className={styles.readAllButton}
             onClick={() => {
               checkAllNotificationMutate();
             }}
