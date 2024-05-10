@@ -6,7 +6,7 @@ import { useQuery } from '@tanstack/react-query';
 import { useUser } from '@/store/useUser';
 import getUserOne from '@/app/_api/user/getUserOne';
 import { QUERY_KEYS } from '@/lib/constants/queryKeys';
-import getNotificationAllChecked from '@/app/_api/explore/getNotificationAllChecked';
+import getNotificationAllChecked from '@/app/_api/notification/getNotificationAllChecked';
 import { UserType } from '@/lib/types/userProfileType';
 
 import * as styles from './Header.css';
