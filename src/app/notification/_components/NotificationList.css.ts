@@ -2,6 +2,21 @@ import { style, styleVariants } from '@vanilla-extract/css';
 import * as fonts from '@/styles/font.css';
 import { vars } from '@/styles/theme.css';
 
+export const readAllButton = style([
+  fonts.labelMedium,
+  {
+    color: vars.color.blue,
+  },
+]);
+
+export const readAllButtonDisabled = style([
+  fonts.labelMedium,
+  {
+    color: vars.color.gray7,
+    cursor: 'default',
+  },
+]);
+
 export const main = style({
   paddingBottom: 24,
 });

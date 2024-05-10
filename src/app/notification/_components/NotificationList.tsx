@@ -64,6 +64,7 @@ export default function NotificationList() {
   });
 
   const { mutate: checkNotificationMutate } = useMutation({
+    mutationKey: [QUERY_KEYS.notifications],
     mutationFn: checkNotification,
   });
 
@@ -96,7 +97,8 @@ export default function NotificationList() {
       ) : (
         <>
           <h3 className={styles.label}>
-            {isLoading ? <Skeleton animation="wave" width={55} /> : notificationLocale[language].notificationRecent}
+            {isLoading && <Skeleton animation="wave" width={55} />}
+            {!isLoading && firstOldNotificationsIndex !== 0 && notificationLocale[language].notificationRecent}
           </h3>
           <ul className={styles.list}>
             {isLoading ? (
