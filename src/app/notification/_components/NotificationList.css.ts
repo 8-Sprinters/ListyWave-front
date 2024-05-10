@@ -6,6 +6,13 @@ export const readAllButton = style([
   fonts.labelMedium,
   {
     color: vars.color.blue,
+
+    selectors: {
+      '&:disabled': {
+        color: vars.color.gray7,
+        cursor: 'default',
+      },
+    },
   },
 ]);
 
