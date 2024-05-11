@@ -7,28 +7,33 @@ import toastMessage from '../constants/toastMessage';
 
 const axiosInstance = axios.create({
   baseURL: process.env.NEXT_PUBLIC_SERVER_DOMAIN,
-  // withCredentials: true, // refreshToken을 고려해서 true로 설정
+  withCredentials: true,
 });
 
-axiosInstance.interceptors.request.use(
-  (config) => {
-    // zustande persist에 저장된 토큰 꺼내쓰기 버전 - 방법 1
-    // const accessToken = useUser.getState().user.accessToken;
+/**
+ * 로그인 후 Request 보낼 때, 토큰을 Authorization header로 보내는 코드
+ * Response body로 받은 토큰을 zustand persist(로컬 스토리지 저장) 또는 리액트 쿠키 라이브러리로 저장(쿠키에 저장)
+ * 최종 Set-cookie header로 토큰을 주고 받는 방법을 선택함에 따라 참고 목적으로 주석처리 해둔 코드
+ */
+// axiosInstance.interceptors.request.use(
+//   (config) => {
+//     zustande persist에 저장된 토큰 꺼내쓰기 버전 - 방법 1
+//     const accessToken = useUser.getState().user.accessToken;
 
-    // cookie에 저장된 토큰 꺼내쓰기 버전 - 방법 2
-    const accessToken = getCookie('accessToken');
+//     cookie에 저장된 토큰 꺼내쓰기 버전 - 방법 2
+//     const accessToken = getCookie('accessToken');
 
-    if (accessToken) {
-      config.headers.Authorization = `Bearer ${accessToken}`;
-    }
+//     if (accessToken) {
+//       config.headers.Authorization = `Bearer ${accessToken}`;
+//     }
 
-    return config;
-  },
-  (error) => {
-    console.log(error);
-    return Promise.reject(error);
-  }
-);
+//     return config;
+//   },
+//   (error) => {
+//     console.log(error);
+//     return Promise.reject(error);
+//   }
+// );
 
 let isRefreshing = false;
 
@@ -47,14 +52,7 @@ axiosInstance.interceptors.response.use(
         useUser.getState().logoutUser();
         removeCookie('accessToken');
         removeCookie('refreshToken');
-        // toasting({ type: 'error', txt: toastMessage.ko.userStatusLoggedOut });
-
         isRefreshing = true;
-
-        // 토스트 메세지 후 리다이렉트 시키는게 맞는지 확인
-        // setTimeout(() => {
-        //   location.href = '/';
-        // }, 2000);
       }
 
       if (!isRefreshing) {
@@ -77,13 +75,9 @@ axiosInstance.interceptors.response.use(
         } catch (error) {
           // refreshToken 생성 실패 시,
           useUser.getState().logoutUser();
-          removeCookie('accessToken'); // TODO removeCookieAll
+          removeCookie('accessToken');
           removeCookie('refreshToken');
           toasting({ type: 'error', txt: toastMessage.ko.userStatusLoggedOut });
-
-          // setTimeout(() => {
-          //   location.href = '/';
-          // }, 2000);
         } finally {
           isRefreshing = false;
         }
