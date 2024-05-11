@@ -1,6 +1,5 @@
 import axios from 'axios';
 
-import { getCookie, removeCookie, setCookie } from '../utils/cookie';
 import toasting from '../utils/toasting';
 import { useUser } from '@/store/useUser';
 import toastMessage from '../constants/toastMessage';
@@ -37,46 +36,24 @@ const axiosInstance = axios.create({
 
 let isRefreshing = false;
 
-// interceptors header로 보내기 버전 - 방법 2
+// interceptors 쿠키로 보내기 버전 - 방법 1
 axiosInstance.interceptors.response.use(
   (res) => res,
   async (error) => {
     const originalRequest = error.config;
-    const refreshToken = getCookie('refreshToken');
 
     if (error.response?.status === 401 && error.response?.data.error === 'UNAUTHORIZED') {
-      if (!isRefreshing && refreshToken === undefined) {
-        console.log('로그인이 다시 필요한 회원');
-
-        // accessToken 만료되었는데, refreshToken 없는 경우, storage 비우기
-        useUser.getState().logoutUser();
-        removeCookie('accessToken');
-        removeCookie('refreshToken');
-        isRefreshing = true;
-      }
-
       if (!isRefreshing) {
         isRefreshing = true;
 
         try {
-          // instance 대신 axios 요청
-          // refreshtToken으로 accessToken 재발급 요청
-          const { data } = await axios.get(`${process.env.NEXT_PUBLIC_SERVER_DOMAIN}/auth/token`, {
-            headers: {
-              Authorization: `Bearer ${refreshToken}`,
-            },
+          await axiosInstance.get(`${process.env.NEXT_PUBLIC_SERVER_DOMAIN}/auth/token`, {
+            withCredentials: true,
           });
-
-          const newAccessToken = data.accessToken;
-          setCookie('accessToken', newAccessToken, 'AT');
-
-          originalRequest.headers.authorization = `Bearer ${newAccessToken}`;
           return axiosInstance(originalRequest);
         } catch (error) {
-          // refreshToken 생성 실패 시,
+          // refreshToken 생성 실패 시, 사용자 로그아웃 후 재로그인 유도
           useUser.getState().logoutUser();
-          removeCookie('accessToken');
-          removeCookie('refreshToken');
           toasting({ type: 'error', txt: toastMessage.ko.userStatusLoggedOut });
         } finally {
           isRefreshing = false;
@@ -87,28 +64,61 @@ axiosInstance.interceptors.response.use(
   }
 );
 
-// interceptors 쿠키로 보내기 버전 - 방법 1
+export default axiosInstance;
+
+/**
+ * RefreshToken으로 AccessToken을 재발급 받는 로직
+ * 재발급 받는 토큰을 리액트 쿠키에 저장하고, 토큰을 Authorization header로 보내기
+ * 최종 Set-cookie header로 토큰을 주고 받는 방법을 선택함에 따라 참고 목적으로 주석처리 해둔 코드
+ */
+// let isRefreshing = false;
+
+// interceptors header로 보내기 버전 - 방법 2
 // axiosInstance.interceptors.response.use(
 //   (res) => res,
 //   async (error) => {
-//     const originalRequest = error.config as AxiosRequestConfig & { _retry?: boolean };
-//     if (error.response?.status === 401 && !originalRequest._retry) {
-//       const response = await axiosInstance.get('/auth/token', {
-//         _retry: true,
-//         withCredentials: true,
-//       });
-//       console.log('여기');
+//     const originalRequest = error.config;
+//     const refreshToken = getCookie('refreshToken');
 
-//       console.log(response.data);
+//     if (error.response?.status === 401 && error.response?.data.error === 'UNAUTHORIZED') {
+//       if (!isRefreshing && refreshToken === undefined) {
+//         console.log('로그인이 다시 필요한 회원');
 
-//       useUser.getState().updateUser({ id: 13, accessToken: response.data.accessToken });
+//         // accessToken 만료되었는데, refreshToken 없는 경우, storage 비우기
+//         useUser.getState().logoutUser();
+//         removeCookie('accessToken');
+//         removeCookie('refreshToken');
+//         isRefreshing = true;
+//       }
 
-//       originalRequest._retry = true;
-//       axiosInstance.defaults.headers.common['Authorization'] = `Bearer ${response.data.accessToken}`;
-//       return axiosInstance(originalRequest);
+//       if (!isRefreshing) {
+//         isRefreshing = true;
+
+//         try {
+//           // instance 대신 axios 요청
+//           // refreshtToken으로 accessToken 재발급 요청
+//           const { data } = await axios.get(`${process.env.NEXT_PUBLIC_SERVER_DOMAIN}/auth/token`, {
+//             headers: {
+//               Authorization: `Bearer ${refreshToken}`,
+//             },
+//           });
+
+//           const newAccessToken = data.accessToken;
+//           setCookie('accessToken', newAccessToken, 'AT');
+
+//           originalRequest.headers.authorization = `Bearer ${newAccessToken}`;
+//           return axiosInstance(originalRequest);
+//         } catch (error) {
+//           // refreshToken 생성 실패 시,
+//           useUser.getState().logoutUser();
+//           removeCookie('accessToken');
+//           removeCookie('refreshToken');
+//           toasting({ type: 'error', txt: toastMessage.ko.userStatusLoggedOut });
+//         } finally {
+//           isRefreshing = false;
+//         }
+//       }
 //     }
 //     return Promise.reject(error);
 //   }
 // );
-
-export default axiosInstance;
