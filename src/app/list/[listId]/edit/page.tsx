@@ -45,7 +45,8 @@ export default function EditPage() {
       title: '',
       description: '',
       isPublic: true,
-      backgroundColor: '#ffffff',
+      backgroundPalette: 'PASTEL',
+      backgroundColor: 'PASTEL_PINK',
       items: [],
     },
   });
@@ -123,6 +124,7 @@ export default function EditPage() {
         title: listDetailData.title,
         description: listDetailData.description,
         isPublic: listDetailData.isPublic,
+        backgroundPalette: listDetailData.backgroundPalette,
         backgroundColor: listDetailData.backgroundColor,
         items: listDetailData.items.map(({ id, rank, title, comment, link, imageUrl }) => {
           return {
