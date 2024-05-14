@@ -12,6 +12,7 @@ import SimpleInput from './list/SimpleInput';
 import ButtonSelector from './list/ButtonSelector';
 import LabelInput from './list/LabelInput';
 import MemberSelector from './list/MemberSelector';
+import PaletteSelector from './list/PaletteSelector';
 import ColorSelector from './list/ColorSelector';
 import RadioInput from './list/RadioInput';
 
@@ -21,7 +22,7 @@ import getCategories from '@/app/_api/category/getCategories';
 import getFollowingList from '@/app/_api/follow/getFollowingList';
 import { CategoryType } from '@/lib/types/categoriesType';
 import { FollowingListType } from '@/lib/types/followType';
-import { BACKGROUND_COLOR } from '@/styles/Color';
+import { BACKGROUND_COLOR_PALETTE_TYPE } from '@/styles/Color';
 import { listPlaceholder } from '@/lib/constants/placeholder';
 import { listDescriptionRules, listLabelRules, listTitleRules } from '@/lib/constants/formInputValidationRules';
 
@@ -32,6 +33,11 @@ import { listLocale } from '@/app/list/create/locale';
 interface CreateListProps {
   onNextClick: () => void;
   type: 'create' | 'edit';
+}
+
+interface OptionsProps {
+  value: string;
+  label: string;
 }
 
 /**
@@ -54,6 +60,8 @@ function CreateList({ onNextClick, type }: CreateListProps) {
   const collaboIDs = useWatch({ control, name: 'collaboratorIds' });
   const title = useWatch({ control, name: 'title' });
   const category = useWatch({ control, name: 'category' });
+  const palette = useWatch({ control, name: 'backgroundPalette' });
+  const [selectedPalette, setSelectedPalette] = useState<BACKGROUND_COLOR_PALETTE_TYPE>(palette);
 
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -174,11 +182,19 @@ function CreateList({ onNextClick, type }: CreateListProps) {
 
         {/* 배경 색상 */}
         <Section title={listLocale[language].backgroundcolor} isRequired={true}>
+          <PaletteSelector
+            palette={palette}
+            handleChangePalette={(target: OptionsProps) => {
+              const value: BACKGROUND_COLOR_PALETTE_TYPE = target.value as BACKGROUND_COLOR_PALETTE_TYPE;
+              setSelectedPalette(value);
+            }}
+          />
           <ColorSelector
+            palette={selectedPalette}
             defaultColor={getValues('backgroundColor')}
-            colors={Object.values(BACKGROUND_COLOR)}
             onClick={(color: string) => {
               setValue('backgroundColor', color);
+              setValue('backgroundPalette', palette);
             }}
           />
         </Section>

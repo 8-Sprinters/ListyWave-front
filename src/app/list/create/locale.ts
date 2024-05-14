@@ -73,3 +73,27 @@ export const listLocale = {
     privateMessage: 'Only I can see this list.',
   },
 };
+
+type PaletteLocale = {
+  ko: {
+    [key: string]: string;
+  };
+  en: {
+    [key: string]: string;
+  };
+};
+
+export const paletteLocale: PaletteLocale = {
+  ko: {
+    PASTEL: '파스텔',
+    VIVID: '비비드',
+    GRAY: '그레이',
+    LISTY: '리스티',
+  },
+  en: {
+    PASTEL: 'Pastel',
+    VIVID: 'Vivid',
+    GRAY: 'Gray',
+    LISTY: 'Listy',
+  },
+};

@@ -34,7 +34,8 @@ export default function CreatePage() {
       title: '',
       description: '',
       isPublic: true,
-      backgroundColor: '#FFFFFF',
+      backgroundPalette: 'PASTEL',
+      backgroundColor: 'PASTEL_PINK',
       items: [
         {
           rank: 0,
