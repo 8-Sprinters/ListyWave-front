@@ -1,4 +1,5 @@
 import { UserProfileType } from './userProfileType';
+import { BACKGROUND_COLOR_PALETTE_TYPE } from '@/styles/Color';
 
 // 아이템 생성 타입
 export interface ItemCreateType {
@@ -17,6 +18,7 @@ export interface ListCreateType {
   title: string;
   description: string;
   isPublic: boolean;
+  backgroundPalette: BACKGROUND_COLOR_PALETTE_TYPE;
   backgroundColor: string;
   items: ItemCreateType[];
 }
@@ -29,6 +31,7 @@ export interface ListEditType {
   title: string;
   description: string;
   isPublic: boolean;
+  backgroundPalette: BACKGROUND_COLOR_PALETTE_TYPE;
   backgroundColor: string;
   items: ItemCreateType[];
 }
@@ -105,6 +108,7 @@ export interface ListDetailType {
   items: ItemType[];
   isCollected: boolean;
   isPublic: boolean;
+  backgroundPalette: BACKGROUND_COLOR_PALETTE_TYPE;
   backgroundColor: string;
   collectCount: number;
   viewCount: number;

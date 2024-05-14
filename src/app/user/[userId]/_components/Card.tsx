@@ -5,6 +5,7 @@ import * as styles from './Card.css';
 import useMoveToPage from '@/hooks/useMoveToPage';
 import LockIcon from '/public/icons/lock_alt.svg';
 import { ListType } from '@/lib/types/listType';
+import { BACKGROUND_COLOR_READ } from '@/styles/Color';
 
 interface CardProps {
   list: ListType;
@@ -22,7 +23,7 @@ export default function Card({ list, isOwner }: CardProps) {
       onClick={onClickMoveToPage(`/list/${list.id}`)}
       className={styles.container}
       style={assignInlineVars({
-        [styles.listColor]: `${list.backgroundColor}`,
+        [styles.listColor]: `${BACKGROUND_COLOR_READ[list.backgroundColor as keyof typeof BACKGROUND_COLOR_READ]}`,
       })}
     >
       {isVisibleLockIcon && (

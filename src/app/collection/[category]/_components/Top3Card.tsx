@@ -10,6 +10,7 @@ import Top3CardItem from './Top3CardItem';
 import DefaultProfile from '/public/icons/default_profile.svg';
 import { collectionLocale } from '@/app/collection/locale';
 import { useLanguage } from '@/store/useLanguage';
+import { BACKGROUND_COLOR_READ } from '@/styles/Color';
 
 // TODO: search 아래의 Top3Card와 공통으로 수정하기
 export default function Top3Card({ collectionList }: { collectionList: CollectionType }) {
@@ -26,7 +27,7 @@ export default function Top3Card({ collectionList }: { collectionList: Collectio
       <div
         className={styles.container}
         style={assignInlineVars({
-          [styles.listColor]: `${list.backgroundColor}`,
+          [styles.listColor]: `${BACKGROUND_COLOR_READ[list.backgroundColor as keyof typeof BACKGROUND_COLOR_READ]}`,
           [styles.listBackgroundImage]: `url(${list.representativeImageUrl})`,
         })}
         onClick={handleCardClick}
