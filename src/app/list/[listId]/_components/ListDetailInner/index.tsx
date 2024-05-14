@@ -8,6 +8,7 @@ import { ListDetailType } from '@/lib/types/listType';
 import Header from '@/app/list/[listId]/_components/ListDetailInner/Header';
 import RankList from '@/app/list/[listId]/_components/ListDetailInner/RankList';
 import Footer from '@/app/list/[listId]/_components/ListDetailInner/Footer';
+import { BACKGROUND_COLOR_PALETTE_TYPE, BACKGROUND_COLOR_READ } from '@/styles/Color';
 
 interface OptionsProps {
   value: string;
@@ -47,7 +48,11 @@ function ListDetailInner({ data, listId }: ListDetailInnerProps) {
     <div className={styles.container}>
       <Header handleChangeListType={handleChangeListType} />
       <div className={styles.listAndFooter}>
-        <RankList backgroundColor={data?.backgroundColor} listData={listData} type={listType} />
+        <RankList
+          backgroundColor={BACKGROUND_COLOR_READ[data?.backgroundColor as keyof typeof BACKGROUND_COLOR_READ]}
+          listData={listData}
+          type={listType}
+        />
         <Footer data={footerData} />
       </div>
     </div>

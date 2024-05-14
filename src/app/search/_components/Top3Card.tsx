@@ -10,6 +10,7 @@ import Top3CardItem from './Top3CardItem';
 import DefaultProfile from '/public/icons/default_profile.svg';
 import { searchLocale } from '@/app/search/locale';
 import { useLanguage } from '@/store/useLanguage';
+import { BACKGROUND_COLOR_READ } from '@/styles/Color';
 
 export default function Top3Card({ list }: { list: SearchListType }) {
   const { language } = useLanguage();
@@ -23,7 +24,7 @@ export default function Top3Card({ list }: { list: SearchListType }) {
       <div
         className={styles.container}
         style={assignInlineVars({
-          [styles.listColor]: `${list.backgroundColor}`,
+          [styles.listColor]: `${BACKGROUND_COLOR_READ[list.backgroundColor as keyof typeof BACKGROUND_COLOR_READ]}`,
           [styles.listBackgroundImage]: `url(${list.representImageUrl})`,
         })}
         onClick={handleCardClick}
