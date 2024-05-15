@@ -18,6 +18,7 @@ import oceanEmoji from '/public/images/ocean.png';
 import fallbackProfile from '/public/images/fallback_profileImage.webp';
 import { commonLocale } from '@/components/locale';
 import { useLanguage } from '@/store/useLanguage';
+import { BACKGROUND_COLOR_READ } from '@/styles/Color';
 
 /**@todo 트렌딩 리스트 바뀐 디자인에 맞게 새로 갈아엎을 예정 */
 
@@ -147,9 +148,13 @@ function TrendingListItem({ item, index }: TrendingListItemProps) {
           <div
             className={styles.itemWrapper}
             style={assignInlineVars({
-              [styles.customBackgroundColor]: item?.backgroundColor,
+              [styles.customBackgroundColor]:
+                BACKGROUND_COLOR_READ[item?.backgroundColor as keyof typeof BACKGROUND_COLOR_READ],
               [styles.customBorderRadius]: swiperSliderStyle[STYLE_INDEX(index)]['borderRadius'],
-              [styles.customItemBorder]: item?.backgroundColor === '#FFFFFF' ? `1px solid ${vars.color.gray7}` : '',
+              [styles.customItemBorder]:
+                item?.backgroundColor === 'LISTY_WHITE' || item?.backgroundColor === 'GRAY_LIGHT'
+                  ? `1px solid ${vars.color.gray7}`
+                  : '',
             })}
           >
             <TrendingListInformation item={item} />
