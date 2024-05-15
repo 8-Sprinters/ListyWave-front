@@ -17,7 +17,7 @@ import RegisterItems from './RegisterItems';
 import SkipOnboardingButton from './SkipButton';
 import Spinners from '@/components/loading/Spinners';
 
-import { BACKGROUND_COLOR } from '@/styles/Color';
+import { BACKGROUND_COLOR_READ } from '@/styles/Color';
 import { useLanguage } from '@/store/useLanguage';
 import { startListyLocale } from '@/app/start-listy/locale';
 
@@ -35,10 +35,6 @@ export default function CreateListStep({ nickname }: CreateListStepProps) {
   });
   const [isLoading, setIsLoading] = useState(false);
 
-  // 리스트 생성 배경색상 렌덤하게 적용
-  const listColors = Object.values(BACKGROUND_COLOR);
-  const randomIndex = Math.floor(Math.random() * listColors.length);
-
   const methods = useForm<ListCreateType>({
     mode: 'onChange',
     defaultValues: {
@@ -48,7 +44,7 @@ export default function CreateListStep({ nickname }: CreateListStepProps) {
       title: '',
       description: '',
       isPublic: false,
-      backgroundColor: listColors[randomIndex],
+      backgroundColor: BACKGROUND_COLOR_READ.LISTY_BLUE,
       items: Array.from({ length: 3 }, (_, index) => ({
         rank: index + 1,
         title: '',
