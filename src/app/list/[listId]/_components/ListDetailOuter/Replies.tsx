@@ -82,6 +82,7 @@ function Reply({ reply, listId, currentUserInfo, handleEdit, commentId }: ReplyP
   const { setStatusEdit } = useCommentStatus();
   const { setCommentId } = useCommentId();
   const { setReplyId } = useReplyId();
+
   const deleteReplyMutation = useMutation({
     mutationFn: () => deleteReply({ listId: listId, commentId: reply?.commentId, replyId: reply?.id }),
     onSuccess: () => {
@@ -99,6 +100,7 @@ function Reply({ reply, listId, currentUserInfo, handleEdit, commentId }: ReplyP
   const handleDeleteButtonClick = () => {
     deleteReplyMutation.mutate();
   };
+
   return (
     <>
       <div className={styles.replyWrapper}>
