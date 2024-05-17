@@ -63,9 +63,10 @@ export const commentCreatedTime = style({
 export const commentContent = style({
   fontSize: '1.2rem',
   fontWeight: 500,
-  lineHeight: 'normal',
+  // lineHeight: 'normal',
   letterSpacing: '-0.36px',
   wordBreak: 'break-word',
+  whiteSpace: 'pre-wrap',
 });
 
 export const deletedComment = style({

@@ -262,6 +262,7 @@ function Comments() {
       )}
       <div className={styles.wrapper}>
         <CommentForm
+          setComment={setComment}
           comment={comment}
           handleChange={handleInputChange}
           activeNickname={activeNickname}
