@@ -1,4 +1,4 @@
-import { ChangeEvent, Dispatch, useEffect, SetStateAction, useRef } from 'react';
+import { ChangeEvent, Dispatch, useEffect, SetStateAction } from 'react';
 
 import { useUser } from '@/store/useUser';
 import { useIsEditing, useCommentStatus } from '@/store/useComment';
@@ -16,7 +16,6 @@ import CancelButton from '/public/icons/cancel_button.svg';
 import Airplane from '/public/icons/airplane_send.svg';
 
 interface CommentFormProps {
-  setComment: Dispatch<SetStateAction<string>>;
   comment?: string;
   activeNickname?: string | null;
   handleSubmit: (e: React.FormEvent<HTMLFormElement> | React.KeyboardEvent<HTMLTextAreaElement>) => void;
@@ -29,7 +28,6 @@ interface CommentFormProps {
 }
 
 function CommentForm({
-  setComment,
   comment,
   handleChange,
   activeNickname,
