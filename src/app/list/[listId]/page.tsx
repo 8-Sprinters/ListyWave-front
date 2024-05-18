@@ -4,6 +4,7 @@ import * as styles from './ListDetail.css';
 import ListInformation from '@/app/list/[listId]/_components/ListDetailOuter/ListInformation';
 import axiosInstance from '@/lib/axios/axiosInstance';
 import { ListDetailType } from '@/lib/types/listType';
+import METADATA from '@/lib/constants/metadata';
 
 interface ListDetailProps {
   params: { listId: number };
@@ -15,7 +16,7 @@ export async function generateMetadata({ params }: ListDetailProps, parent: Reso
   const { title, ownerNickname, collaborators, description, items } = data;
 
   const previousImages = (await parent).openGraph?.images || [];
-  const listType = collaborators.length === 0 ? 'Mylist' : 'CollaboList';
+  const listType = collaborators.length === 0 ? 'Mylist' : 'Collabo-list';
 
   return {
     title: {
@@ -26,8 +27,7 @@ export async function generateMetadata({ params }: ListDetailProps, parent: Reso
     openGraph: {
       title: `${title} By.${ownerNickname}`,
       description: `${description || `${ownerNickname}님의 취향을 기록한 리스트입니다.`}`,
-      url: `https://listywave.com/list/${listId}`,
-      type: 'website',
+      url: `${METADATA.url}/list/${listId}`,
       images: [`${items[0].imageUrl}`, ...previousImages],
     },
   };

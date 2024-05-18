@@ -8,6 +8,7 @@ import ArrowUpFloatingButton from '@/components/floatingButton/ArrowUpFloatingBu
 
 import axiosInstance from '@/lib/axios/axiosInstance';
 import { UserType } from '@/lib/types/userProfileType';
+import METADATA from '@/lib/constants/metadata';
 
 interface CollaboListPageProps {
   params: { userId: number };
@@ -21,11 +22,13 @@ export async function generateMetadata({ params }: CollaboListPageProps, parent:
 
   return {
     title: {
-      absolute: `${data.nickname}'s CollaboList`,
+      absolute: `${data.nickname}'s Collabo-list`,
     },
-    description: `${data.nickname}님의 콜라보레이터와 함께 기록한 리스트 입니다.`,
+    authors: [{ name: `${data.nickname}` }],
+    description: METADATA.description.collabolist,
     openGraph: {
-      description: `${data.description ? data.description : `${data.nickname}님의 콜라보레이터와 함께 기록한 리스트 입니다.`}`,
+      description: `${data.description || METADATA.description.collabolist}`,
+      url: `${METADATA.url}/user/${userId}/collabolist`,
       images: [`${data.profileImageUrl}`, ...previousImages],
     },
   };

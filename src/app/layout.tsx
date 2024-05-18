@@ -1,5 +1,7 @@
 import { ReactNode } from 'react';
 import type { Metadata, Viewport } from 'next';
+import { ReferrerEnum } from 'next/dist/lib/metadata/types/metadata-types';
+import { OpenGraphType } from 'next/dist/lib/metadata/types/opengraph-types';
 import { ToastContainer } from 'react-toastify';
 import { GoogleTagManager } from '@next/third-parties/google';
 
@@ -9,6 +11,7 @@ import '@/styles/GlobalStyles.css';
 import * as styles from './layout.css';
 
 import CommonProvider from './_context/CommonProvider';
+import METADATA from '@/lib/constants/metadata';
 
 export const viewport: Viewport = {
   width: 'device-width',
@@ -19,27 +22,24 @@ export const viewport: Viewport = {
 };
 
 export const metadata: Metadata = {
-  //  Template Object
   title: {
-    template: '%s | ListyWave',
-    default: 'ListyWave | 리스티웨이브', // 대체 제목 (required),
+    template: METADATA.title.template,
+    default: METADATA.title.default,
   },
-  description:
-    "나의 취향을 리스트로 기록하고, 공유하고, 발견해요. 리스티웨이브에서 모든 기준은 '나의 취향'이에요. 내 취향 가득한 편안한 공간이 되면 좋겠습니다.",
-  authors: [{ name: '에잇🩷' }],
-  generator: 'Next.js',
-  applicationName: 'ListyWave',
-  referrer: 'origin-when-cross-origin', // Referrer-Policy
-  keywords: ['ListyWave', 'list', '리스티웨이브'],
-  metadataBase: new URL('https://listywave.com'),
+  description: METADATA.description.default,
+  authors: [{ name: METADATA.authors.name, url: METADATA.authors.url }],
+  generator: METADATA.generator,
+  applicationName: METADATA.applicationName,
+  referrer: METADATA.referrer as ReferrerEnum,
+  keywords: METADATA.keywords,
+  metadataBase: new URL(METADATA.url),
   openGraph: {
-    title: 'ListyWave',
-    description:
-      "나의 취향을 리스트로 기록하고, 공유하고, 발견해요. 리스티웨이브에서 모든 기준은 '나의 취향'이에요. 내 취향 가득한 편안한 공간이 되면 좋겠습니다.",
-    url: 'https://listywave.com',
-    type: 'website',
-    siteName: 'ListyWave',
-    locale: 'ko',
+    title: METADATA.title.openGraph,
+    description: METADATA.description.default,
+    url: METADATA.url,
+    type: METADATA.type as OpenGraphType,
+    siteName: METADATA.siteName,
+    locale: METADATA.locale,
   },
 };
 

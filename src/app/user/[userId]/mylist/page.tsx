@@ -8,6 +8,7 @@ import ArrowUpFloatingButton from '@/components/floatingButton/ArrowUpFloatingBu
 
 import axiosInstance from '@/lib/axios/axiosInstance';
 import { UserType } from '@/lib/types/userProfileType';
+import METADATA from '@/lib/constants/metadata';
 
 interface MyListPageProps {
   params: { userId: number };
@@ -23,9 +24,11 @@ export async function generateMetadata({ params }: MyListPageProps, parent: Reso
     title: {
       absolute: `${data.nickname}'s Mylist`,
     },
-    description: `${data.nickname}님의 취향을 기록한 리스트입니다.`,
+    authors: [{ name: `${data.nickname}` }],
+    description: METADATA.description.mylist,
     openGraph: {
-      description: `${data.description ? data.description : `${data.nickname}님의 취향을 기록한 리스트입니다.`}`,
+      description: `${data.description || METADATA.description.mylist}`,
+      url: `${METADATA.url}/user/${userId}/mylist`,
       images: [`${data.profileImageUrl}`, ...previousImages],
     },
   };
