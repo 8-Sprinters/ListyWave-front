@@ -1,7 +1,17 @@
 import type { MetadataRoute } from 'next';
 import DOMAIN_URL from '@/lib/constants/domain';
+import getTrendingLists from './_api/explore/getTrendingLists';
 
-export default function sitemap(): MetadataRoute.Sitemap {
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
+  const result = await getTrendingLists();
+
+  const trendingLists: MetadataRoute.Sitemap = result.map((list) => ({
+    url: `${DOMAIN_URL}/list/${list.id}`,
+    lastModified: new Date(),
+    changeFrequency: 'weekly',
+    priority: 0.6,
+  }));
+
   return [
     {
       url: DOMAIN_URL,
@@ -21,5 +31,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: 'weekly',
       priority: 0.8,
     },
+    ...trendingLists,
   ];
 }
