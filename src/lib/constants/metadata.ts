@@ -1,3 +1,5 @@
+import DOMAIN_URL from './domain';
+
 const METADATA = {
   title: {
     template: '%s | ListyWave', // Template Object
@@ -18,7 +20,7 @@ const METADATA = {
   applicationName: 'ListyWave',
   referrer: 'origin-when-cross-origin', // Referrer-Policy
   keywords: ['ListyWave', 'list', '리스티웨이브'],
-  url: 'https://listywave.com',
+  url: DOMAIN_URL,
   type: 'website',
   siteName: 'ListyWave',
   locale: 'ko',
