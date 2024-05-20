@@ -117,7 +117,7 @@ function CommentForm({
     <>
       {isOn && (
         <Modal handleModalClose={handleSetOff} size="large">
-          <LoginModal id="redirectedLoginBtn" />
+          <LoginModal id="commentLoginBtn" />
         </Modal>
       )}
       <div className={styles.formWrapperOuter}>
