@@ -85,4 +85,5 @@ export const replyContent = style({
   fontWeight: 500,
   lineHeight: 'normal',
   letterSpacing: '-0.36px',
+  whiteSpace: 'pre-wrap',
 });
