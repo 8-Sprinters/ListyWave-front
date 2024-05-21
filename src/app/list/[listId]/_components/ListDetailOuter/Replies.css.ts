@@ -41,7 +41,7 @@ export const deleteButton = style({
 });
 
 export const profileImage = style({
-  flex: '0 0 1',
+  flex: '0 0 0',
 
   borderRadius: '16px',
   backgroundColor: vars.color.gray7,
@@ -85,4 +85,5 @@ export const replyContent = style({
   fontWeight: 500,
   lineHeight: 'normal',
   letterSpacing: '-0.36px',
+  whiteSpace: 'pre-wrap',
 });
