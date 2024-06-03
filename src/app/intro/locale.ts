@@ -138,7 +138,7 @@ export const introLocale = {
   en: {
     start: 'Getting started',
     tour: 'Take a tour',
-    privacy: 'Privacy Statement',
+    privacy: 'Privacy',
     exampleTitles: {
       line1: {
         title1: 'My top 10 favorite celebrities',
