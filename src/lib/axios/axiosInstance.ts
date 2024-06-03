@@ -7,7 +7,6 @@ import toastMessage from '../constants/toastMessage';
 
 const axiosInstance = axios.create({
   baseURL: process.env.NEXT_PUBLIC_SERVER_DOMAIN,
-  // withCredentials: true, // refreshToken을 고려해서 true로 설정
 });
 
 axiosInstance.interceptors.request.use(
@@ -47,14 +46,8 @@ axiosInstance.interceptors.response.use(
         useUser.getState().logoutUser();
         removeCookie('accessToken');
         removeCookie('refreshToken');
-        // toasting({ type: 'error', txt: toastMessage.ko.userStatusLoggedOut });
 
         isRefreshing = true;
-
-        // 토스트 메세지 후 리다이렉트 시키는게 맞는지 확인
-        // setTimeout(() => {
-        //   location.href = '/';
-        // }, 2000);
       }
 
       if (!isRefreshing) {
@@ -77,13 +70,9 @@ axiosInstance.interceptors.response.use(
         } catch (error) {
           // refreshToken 생성 실패 시,
           useUser.getState().logoutUser();
-          removeCookie('accessToken'); // TODO removeCookieAll
+          removeCookie('accessToken');
           removeCookie('refreshToken');
           toasting({ type: 'error', txt: toastMessage.ko.userStatusLoggedOut });
-
-          // setTimeout(() => {
-          //   location.href = '/';
-          // }, 2000);
         } finally {
           isRefreshing = false;
         }

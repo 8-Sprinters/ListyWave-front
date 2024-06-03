@@ -35,7 +35,7 @@ export default function KakaoRedirectPage() {
         });
 
         const { id, accessToken, refreshToken } = res.data;
-        updateUser({ id, accessToken: '' }); // TODO id만 저장하기
+        updateUser({ id });
         setCookie('accessToken', accessToken, 'AT');
         setCookie('refreshToken', refreshToken, 'RT');
 

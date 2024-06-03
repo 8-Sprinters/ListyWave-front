@@ -6,7 +6,7 @@ export const setCookie = (name: string, value: string, type: 'AT' | 'RT') => {
   return cookies.set(name, value, {
     path: '/',
     secure: true,
-    maxAge: type === 'AT' ? 60 * 30 : 60 * 60 * 24, // 현재 refreshToken 쿠키로 전달 도입 전까지, AT는 만료 시간 30분, RT는 24시간으로 설정
+    maxAge: type === 'AT' ? 60 * 30 : 60 * 60 * 24 * 14, // AT는 만료 시간 30분, RT는 14일로 설정
   });
 };
 
