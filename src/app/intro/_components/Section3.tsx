@@ -26,7 +26,7 @@ function Section3() {
               <span>{introLocale[language].section.message6}</span>
             </div>
             <div className={styles.imageWrapper}>
-              <video src={'/videos/video_section3.mp4'} autoPlay loop muted className={styles.video} />
+              <video src={'/videos/video_section3.mp4'} autoPlay loop muted playsInline className={styles.video} />
               <div className={styles.blurBox}></div>
             </div>
           </div>

@@ -4,18 +4,16 @@ import { UserOnLoginType } from '@/lib/types/user';
 
 interface InitialUserType {
   id: null;
-  accessToken: '';
 }
 
 interface UserStateType {
-  user: InitialUserType | Pick<UserOnLoginType, 'id' | 'accessToken'>;
-  updateUser: (user: Pick<UserOnLoginType, 'id' | 'accessToken'>) => void;
+  user: InitialUserType | Pick<UserOnLoginType, 'id'>;
+  updateUser: (user: Pick<UserOnLoginType, 'id'>) => void;
   logoutUser: () => void;
 }
 
 const initialValue: InitialUserType = {
   id: null,
-  accessToken: '',
 };
 
 // 사용자 정보(id) 및 상태(로그인, 로그아웃)를 저장하는 store

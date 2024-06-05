@@ -1,5 +1,6 @@
 'use client';
 import Image from 'next/image';
+import Link from 'next/link';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 
 import DeleteModalButton from '@/app/list/[listId]/_components/ListDetailOuter/DeleteModalButton';
@@ -81,6 +82,7 @@ function Reply({ reply, listId, currentUserInfo, handleEdit, commentId }: ReplyP
   const { setStatusEdit } = useCommentStatus();
   const { setCommentId } = useCommentId();
   const { setReplyId } = useReplyId();
+
   const deleteReplyMutation = useMutation({
     mutationFn: () => deleteReply({ listId: listId, commentId: reply?.commentId, replyId: reply?.id }),
     onSuccess: () => {
@@ -98,32 +100,35 @@ function Reply({ reply, listId, currentUserInfo, handleEdit, commentId }: ReplyP
   const handleDeleteButtonClick = () => {
     deleteReplyMutation.mutate();
   };
+
   return (
     <>
       <div className={styles.replyWrapper}>
-        {reply.userProfileImageUrl ? (
-          <Image
-            src={reply.userProfileImageUrl}
-            className={styles.profileImage}
-            width={20}
-            height={20}
-            alt={replyLocale[language].profileImageAlt}
-            style={{
-              objectFit: 'cover',
-            }}
-          />
-        ) : (
-          <Image
-            src={fallbackProfile}
-            className={styles.profileImage}
-            width={20}
-            height={20}
-            alt={replyLocale[language].profileImageAlt}
-            style={{
-              objectFit: 'cover',
-            }}
-          />
-        )}
+        <Link href={`/user/${reply?.userId}/mylist`}>
+          {reply.userProfileImageUrl ? (
+            <Image
+              src={reply.userProfileImageUrl}
+              className={styles.profileImage}
+              width={20}
+              height={20}
+              alt={replyLocale[language].profileImageAlt}
+              style={{
+                objectFit: 'cover',
+              }}
+            />
+          ) : (
+            <Image
+              src={fallbackProfile}
+              className={styles.profileImage}
+              width={20}
+              height={20}
+              alt={replyLocale[language].profileImageAlt}
+              style={{
+                objectFit: 'cover',
+              }}
+            />
+          )}
+        </Link>
         <div className={styles.replyContainer}>
           <div className={styles.replyInformationWrapper}>
             <span className={styles.replyWriter}>{reply.userNickname}</span>

@@ -1,4 +1,4 @@
-import { ChangeEvent, useEffect } from 'react';
+import { ChangeEvent, Dispatch, useEffect, SetStateAction } from 'react';
 
 import { useUser } from '@/store/useUser';
 import { useIsEditing, useCommentStatus } from '@/store/useComment';
@@ -6,6 +6,9 @@ import { useLanguage } from '@/store/useLanguage';
 import useResizeTextarea from '@/hooks/useResizeTextarea';
 import { commentPlaceholder } from '@/lib/constants/placeholder';
 import { commentLocale } from '@/app/list/[listId]/locale';
+import Modal from '@/components/Modal/Modal';
+import LoginModal from '@/components/login/LoginModal';
+import useBooleanOutput from '@/hooks/useBooleanOutput';
 
 import { vars } from '@/styles/theme.css';
 import * as styles from './Comments.css';
@@ -37,6 +40,7 @@ function CommentForm({
   const { language } = useLanguage();
   const { isEditing } = useIsEditing();
   const { textareaRef, handleResizeHeight } = useResizeTextarea();
+  const { isOn, handleSetOn, handleSetOff } = useBooleanOutput();
 
   const handleResetTextArea = () => {
     if (textareaRef.current !== null) {
@@ -51,13 +55,11 @@ function CommentForm({
 
   const handleSubmitForm = (e: React.FormEvent<HTMLFormElement>) => {
     handleSubmit(e);
-    // handleResizeHeight();
     handleResetTextArea();
   };
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
     if (e.key === 'Enter' && !e.shiftKey && !isPending) {
-      // handleResizeHeight();
       handleResetTextArea();
       e.preventDefault();
       handleSubmit(e);
@@ -67,6 +69,12 @@ function CommentForm({
   const handleCancelForm = () => {
     handleCancel();
     handleResizeHeight();
+  };
+
+  const handleClickInactiveForm = () => {
+    if (!userId) {
+      handleSetOn();
+    }
   };
 
   const textAreaHeight = () => {
@@ -106,61 +114,69 @@ function CommentForm({
   }, [textareaRef, handleResizeHeight]);
 
   return (
-    <div className={styles.formWrapperOuter}>
-      <div
-        className={`${styles.formWrapperInner} ${!!activeNickname || isEditing || textAreaHeight() ? styles.activeFormWrapper : ''}`}
-      >
-        {status === 'createReply' && activeNickname && (
-          <div className={styles.activeReplyWrapper}>
-            <span className={styles.replyNickname}>
-              {language === 'ko'
-                ? `@${activeNickname} ${commentLocale.ko.replyNickname}`
-                : `${commentLocale.en.replyNickname} @${activeNickname}`}
-            </span>
-            <CancelButton
-              className={styles.clearButton}
-              alt={commentLocale[language].cancelButtonAlt}
-              onClick={handleUpdate}
-              width={18}
-              height={18}
-              fill={vars.color.gray7}
-            />
-          </div>
-        )}
-        {status === 'edit' && isEditing && (
-          <div className={styles.activeReplyWrapper}>
-            <span className={styles.replyNickname}>{commentLocale[language].editing}</span>
-            <CancelButton
-              className={styles.clearButton}
-              alt={commentLocale[language].cancelButtonAlt}
-              onClick={handleCancelForm}
-              width={18}
-              height={18}
-              fill={vars.color.gray7}
-            />
-          </div>
-        )}
-        <form className={styles.formContainer} onSubmit={handleSubmitForm}>
-          <textarea
-            rows={1}
-            className={styles.formInput}
-            value={comment}
-            onChange={handleTextareaChange}
-            disabled={!userId}
-            ref={textareaRef}
-            placeholder={
-              userId === null ? commentPlaceholder[language].requiredLogin : commentPlaceholder[language].comment
-            }
-            onKeyDown={handleKeyDown}
-          />
-          {comment && (
-            <button type="submit" disabled={isPending} className={styles.formButton}>
-              <Airplane width={20} height={20} fill={vars.color.blue} />
-            </button>
+    <>
+      {isOn && (
+        <Modal handleModalClose={handleSetOff} size="large">
+          <LoginModal id="commentLoginBtn" />
+        </Modal>
+      )}
+      <div className={styles.formWrapperOuter}>
+        <div
+          className={`${styles.formWrapperInner} ${!!activeNickname || isEditing || textAreaHeight() ? styles.activeFormWrapper : ''}`}
+        >
+          {status === 'createReply' && activeNickname && (
+            <div className={styles.activeReplyWrapper}>
+              <span className={styles.replyNickname}>
+                {language === 'ko'
+                  ? `@${activeNickname} ${commentLocale.ko.replyNickname}`
+                  : `${commentLocale.en.replyNickname} @${activeNickname}`}
+              </span>
+              <CancelButton
+                className={styles.clearButton}
+                alt={commentLocale[language].cancelButtonAlt}
+                onClick={handleUpdate}
+                width={18}
+                height={18}
+                fill={vars.color.gray7}
+              />
+            </div>
           )}
-        </form>
+          {status === 'edit' && isEditing && (
+            <div className={styles.activeReplyWrapper}>
+              <span className={styles.replyNickname}>{commentLocale[language].editing}</span>
+              <CancelButton
+                className={styles.clearButton}
+                alt={commentLocale[language].cancelButtonAlt}
+                onClick={handleCancelForm}
+                width={18}
+                height={18}
+                fill={vars.color.gray7}
+              />
+            </div>
+          )}
+          <form className={styles.formContainer} onSubmit={handleSubmitForm}>
+            <textarea
+              rows={1}
+              className={styles.formInput}
+              value={comment}
+              onChange={handleTextareaChange}
+              readOnly={!userId}
+              ref={textareaRef}
+              placeholder={
+                userId === null ? commentPlaceholder[language].requiredLogin : commentPlaceholder[language].comment
+              }
+              onKeyDown={handleKeyDown}
+              onClick={handleClickInactiveForm}
+            />
+            {comment && (
+              <button type="submit" disabled={isPending} className={styles.formButton}>
+                <Airplane width={20} height={20} fill={vars.color.blue} />
+              </button>
+            )}
+          </form>
+        </div>
       </div>
-    </div>
+    </>
   );
 }
 

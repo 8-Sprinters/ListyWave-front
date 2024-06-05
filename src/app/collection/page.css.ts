@@ -1,6 +1,10 @@
 import { style, keyframes } from '@vanilla-extract/css';
 import * as fonts from '@/styles/font.css';
 
+export const wrapper = style({
+  marginBottom: 70,
+});
+
 export const title = style([
   fonts.headlineSmall,
   {
@@ -9,7 +13,7 @@ export const title = style([
 ]);
 
 export const categoryFolders = style({
-  margin: '18px 16px',
+  padding: '18px 16px',
   display: 'grid',
   gridTemplateColumns: '1fr 1fr',
   gridTemplateRows: 'repeat(5, 1fr)',

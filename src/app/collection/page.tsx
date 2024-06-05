@@ -64,7 +64,7 @@ export default function CollectionPage() {
   };
 
   return (
-    <>
+    <div className={styles.wrapper}>
       <div className={styles.title}>{collectionLocale[language].collection}</div>
       <div className={styles.categoryFolders}>
         {data &&
@@ -89,6 +89,6 @@ export default function CollectionPage() {
             </div>
           ))}
       </div>
-    </>
+    </div>
   );
 }

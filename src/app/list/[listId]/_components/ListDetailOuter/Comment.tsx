@@ -139,7 +139,7 @@ function Comment({
               <span className={styles.commentCreatedTime}>{comment && timeDiff(comment?.updatedDate)}</span>
             </div>
             {!comment?.isDeleted ? (
-              <p className={styles.commentContent}>{comment?.content}</p>
+              <div className={styles.commentContent}>{comment?.content}</div>
             ) : (
               <span className={styles.deletedComment}>{commentLocale[language].deletedMessage}</span>
             )}

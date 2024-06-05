@@ -39,7 +39,12 @@ function Footer() {
             </div>
           </div>
           <div className={styles.policyWrapper}>
-            <p>{introLocale[language].privacy}</p>
+            <Link
+              className={styles.policyWrapper}
+              href={'https://cypress-tv-724.notion.site/2118cc63884e4365b753cac553f3f7ed?pvs=4'}
+            >
+              {introLocale[language].privacy}
+            </Link>
             <p>에잇(Eight)</p>
             <p>Makers : 에잇(Eight, listywave8@gmail.com)</p>
             <p>Copyright ©Listywave - All rights reserved</p>
