@@ -33,7 +33,7 @@ function ListDetailInner({ data, listId }: ListDetailInnerProps) {
     listId: listId,
     ownerId: data?.ownerId,
     items: listData,
-    category: data?.category,
+    category: data?.categoryKorName,
     title: data?.title,
     description: data?.description,
     collaborators: data?.collaborators,

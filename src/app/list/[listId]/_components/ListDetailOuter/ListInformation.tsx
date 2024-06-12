@@ -25,7 +25,6 @@ import NoDataComponent from '@/components/NoData/NoDataComponent';
 import fallbackProfile from '/public/images/fallback_profileImage.webp';
 import { useLanguage } from '@/store/useLanguage';
 import { modalLocale, listLocale } from '@/app/list/[listId]/locale';
-import categoryNameConvert from '@/lib/utils/categoryNameConvert';
 
 import * as styles from './ListInformation.css';
 import * as modalStyles from '@/components/Modal/ModalButton.css';
@@ -79,14 +78,8 @@ function ListInformation() {
     return null;
   }
 
-  const handleCategorySearch = (e: MouseEvent<HTMLDivElement>) => {
-    const labelElement = e.currentTarget.querySelector('div');
-    const labelText = labelElement?.textContent;
-    if (labelText) {
-      // 백엔드 코드 수정 문의중.
-      const category = categoryNameConvert(labelText);
-      router.push(`/search?category=${category}`);
-    }
+  const handleCategorySearch = (categoryEngName: string) => {
+    router.push(`/search?category=${categoryEngName}`);
   };
 
   const handleLabelSearch = (e: MouseEvent<HTMLDivElement>) => {
@@ -125,8 +118,8 @@ function ListInformation() {
         <>
           <div className={styles.wrapper}>
             <div className={styles.categoryWrapper}>
-              <div className={styles.labelWrapper} onClick={handleCategorySearch}>
-                <Label colorType="blue">{list?.category}</Label>
+              <div className={styles.labelWrapper} onClick={() => handleCategorySearch(list?.categoryEngName)}>
+                <Label colorType="blue">{list?.categoryKorName}</Label>
               </div>
               {list?.labels.map((item: LabelType) => {
                 return (
