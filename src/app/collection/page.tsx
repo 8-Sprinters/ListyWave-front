@@ -69,11 +69,11 @@ export default function CollectionPage() {
       <div className={styles.categoryFolders}>
         {data &&
           data.map((category) => (
-            <div key={category.codeValue} className={styles.categoryContainer}>
+            <div key={category.code} className={styles.categoryContainer}>
               <div
                 className={styles.categoryFolder}
                 onClick={() => {
-                  handleCategoryClick(category.nameValue);
+                  handleCategoryClick(category.engName);
                 }}
               >
                 <Image
@@ -81,11 +81,11 @@ export default function CollectionPage() {
                   src={category?.categoryImageUrl ?? ''}
                   width={50}
                   height={50}
-                  alt={`${category.korNameValue} ${categoriesLocale[language].folder}`}
+                  alt={`${category.korName} ${categoriesLocale[language].folder}`}
                 />
-                <div className={styles.folderIcon}>{codeToFolderIcon(category.codeValue, language)}</div>
+                <div className={styles.folderIcon}>{codeToFolderIcon(category.code, language)}</div>
               </div>
-              <p className={styles.categoryLabel}>{language === 'ko' ? category.korNameValue : category.nameValue}</p>
+              <p className={styles.categoryLabel}>{language === 'ko' ? category.korName : category.engName}</p>
             </div>
           ))}
       </div>

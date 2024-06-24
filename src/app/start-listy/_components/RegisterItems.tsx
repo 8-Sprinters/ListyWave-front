@@ -10,7 +10,7 @@ import { ListCreateType } from '@/lib/types/listType';
 import { useLanguage } from '@/store/useLanguage';
 
 interface ItemsStepProps {
-  selectedCategory: Omit<CategoryType, 'codeValue'>;
+  selectedCategory: Omit<CategoryType, 'code'>;
 }
 
 export default function RegisterItems({ selectedCategory }: ItemsStepProps) {
@@ -29,8 +29,8 @@ export default function RegisterItems({ selectedCategory }: ItemsStepProps) {
         {language === 'ko' ? '아이템을 적어주세요.' : 'items to be included in the list'}
       </label>
       <div className={stylesList.container}>
-        <button className={stylesCategory.variants[`${selectedCategory.nameValue}Button`]}>
-          {selectedCategory.korNameValue}
+        <button className={stylesCategory.variants[`${selectedCategory.engName}Button`]}>
+          {selectedCategory.korName}
         </button>
         <p className={stylesList.title}>{getValues('title')}</p>
         <div className={stylesList.items}>

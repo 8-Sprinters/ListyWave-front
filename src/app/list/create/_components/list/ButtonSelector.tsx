@@ -28,14 +28,14 @@ function ButtonSelector({ list, onClick, defaultValue }: ButtonSelectorProps) {
     <div className={styles.container}>
       {list.map((item) => (
         <button
-          key={item.codeValue}
-          className={`${styles.button} ${item.nameValue.toLocaleLowerCase() === selectedButton?.toLocaleLowerCase() ? styles.buttonActive : ''}`}
+          key={item.code}
+          className={`${styles.button} ${item.engName.toLocaleLowerCase() === selectedButton?.toLocaleLowerCase() ? styles.buttonActive : ''}`}
           onClick={() => {
             onClick(item);
-            setSelectedButton(item.nameValue);
+            setSelectedButton(item.engName);
           }}
         >
-          {item.korNameValue}
+          {item.korName}
         </button>
       ))}
     </div>

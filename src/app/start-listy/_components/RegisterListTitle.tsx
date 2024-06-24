@@ -11,7 +11,7 @@ import { startListyLocale } from '@/app/start-listy/locale';
 import { useLanguage } from '@/store/useLanguage';
 
 interface ListTitleStepProps {
-  selectedCategory: Omit<CategoryType, 'codeValue'>;
+  selectedCategory: Omit<CategoryType, 'code'>;
 }
 
 export default function RegisterListTitle({ selectedCategory }: ListTitleStepProps) {
@@ -48,8 +48,8 @@ export default function RegisterListTitle({ selectedCategory }: ListTitleStepPro
         <p className={styles.errorMessage}>{errors.title?.message}</p>
       </div>
       <div className={stylesList.container}>
-        <button className={stylesCategory.variants[`${selectedCategory.nameValue}Button`]}>
-          {selectedCategory.korNameValue}
+        <button className={stylesCategory.variants[`${selectedCategory.engName}Button`]}>
+          {selectedCategory.korName}
         </button>
         <p className={stylesList.title}>{watchForm}</p>
       </div>

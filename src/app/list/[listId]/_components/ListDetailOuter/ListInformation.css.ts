@@ -34,6 +34,7 @@ export const categoryWrapper = style({
 
 export const labelWrapper = style({
   marginRight: '8px',
+  cursor: 'pointer',
 });
 
 export const listTitle = style([

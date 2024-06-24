@@ -30,8 +30,8 @@ export default function CreateListStep({ nickname }: CreateListStepProps) {
   const router = useRouter();
   const [stepIndex, setStepIndex] = useState(0);
   const [selectedCategory, setSelectedCategory] = useState({
-    nameValue: '',
-    korNameValue: '',
+    engName: '',
+    korName: '',
   });
   const [isLoading, setIsLoading] = useState(false);
 
@@ -69,10 +69,10 @@ export default function CreateListStep({ nickname }: CreateListStepProps) {
     }
   };
 
-  const handleChangeCategory = (category: Omit<CategoryType, 'codeValue'>) => {
+  const handleChangeCategory = (category: Omit<CategoryType, 'code'>) => {
     setSelectedCategory({
-      nameValue: category.nameValue,
-      korNameValue: category.korNameValue,
+      engName: category.engName,
+      korName: category.korName,
     });
   };
 
@@ -112,7 +112,7 @@ export default function CreateListStep({ nickname }: CreateListStepProps) {
             <div className={styles.step}>
               <div className={styles.barContainer}>
                 <span className={styles.bar.default}></span>
-                <span className={selectedCategory.nameValue ? styles.statusBar.divide : styles.statusBar.zero}></span>
+                <span className={selectedCategory.engName ? styles.statusBar.divide : styles.statusBar.zero}></span>
               </div>
               <p className={styles.stepText}>step2</p>
             </div>
@@ -134,8 +134,8 @@ export default function CreateListStep({ nickname }: CreateListStepProps) {
               <button
                 type="button"
                 onClick={handleMoveToStep('next')}
-                className={selectedCategory.nameValue ? styles.variant.active : styles.variant.default}
-                disabled={!selectedCategory.nameValue}
+                className={selectedCategory.engName ? styles.variant.active : styles.variant.default}
+                disabled={!selectedCategory.engName}
               >
                 {startListyLocale[language].next}
               </button>

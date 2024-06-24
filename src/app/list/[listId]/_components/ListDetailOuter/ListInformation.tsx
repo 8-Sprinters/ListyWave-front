@@ -1,4 +1,5 @@
 'use client';
+import { MouseEvent } from 'react';
 import Image from 'next/image';
 import { useQuery } from '@tanstack/react-query';
 import { useParams, useRouter } from 'next/navigation';
@@ -77,6 +78,18 @@ function ListInformation() {
     return null;
   }
 
+  const handleCategorySearch = (categoryEngName: string) => {
+    router.push(`/search?category=${categoryEngName}`);
+  };
+
+  const handleLabelSearch = (e: MouseEvent<HTMLDivElement>) => {
+    const labelElement = e.currentTarget.querySelector('div');
+    const labelText = labelElement?.textContent;
+    if (labelText) {
+      router.push(`/search?keyword=${labelText}`);
+    }
+  };
+
   return (
     <>
       {isOn && (
@@ -105,12 +118,12 @@ function ListInformation() {
         <>
           <div className={styles.wrapper}>
             <div className={styles.categoryWrapper}>
-              <div className={styles.labelWrapper}>
-                <Label colorType="blue">{list?.category}</Label>
+              <div className={styles.labelWrapper} onClick={() => handleCategorySearch(list?.categoryEngName)}>
+                <Label colorType="blue">{list?.categoryKorName}</Label>
               </div>
               {list?.labels.map((item: LabelType) => {
                 return (
-                  <div className={styles.labelWrapper} key={item.name}>
+                  <div className={styles.labelWrapper} key={item.name} onClick={handleLabelSearch}>
                     <Label colorType="skyblue">{`${item.name}`}</Label>
                   </div>
                 );

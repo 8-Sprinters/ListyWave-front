@@ -32,18 +32,16 @@ function CategoryArea({ onClick }: { onClick: MouseEventHandler }) {
         ? Array.from({ length: 6 }).map((_, index) => <CategoryAreaSkeleton key={index} />)
         : data &&
           data.map((category) => (
-            <div className={styles.category} key={category.codeValue} onClick={onClick} data-value={category.nameValue}>
+            <div className={styles.category} key={category.code} onClick={onClick} data-value={category.engName}>
               <Image
-                className={categoryValue === category.nameValue ? styles.selectedCategoryImage : styles.categoryImage}
+                className={categoryValue === category.engName ? styles.selectedCategoryImage : styles.categoryImage}
                 src={category.categoryImageUrl ?? ''}
-                alt={category.korNameValue}
+                alt={category.korName}
                 width="60"
                 height="60"
               />
-              <div className={styles.categoryText}>
-                {language === 'ko' ? category.korNameValue : category.nameValue}
-              </div>
-              {categoryValue === category.nameValue && (
+              <div className={styles.categoryText}>{language === 'ko' ? category.korName : category.engName}</div>
+              {categoryValue === category.engName && (
                 <div className={styles.selectedIconWrapper}>
                   <CheckIcon className={styles.selectedIcon} />
                 </div>
