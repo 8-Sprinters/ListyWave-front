@@ -34,11 +34,11 @@ export default function Categories({ handleFetchListsOnCategory, selectedCategor
       ) : (
         data?.map((category) => (
           <button
-            key={category.codeValue}
-            onClick={handleChangeCategory(category.nameValue)}
-            className={`${styles.button} ${category.nameValue === selectedCategory ? styles.variant : ''}`}
+            key={category.code}
+            onClick={handleChangeCategory(category.engName)}
+            className={`${styles.button} ${category.engName === selectedCategory ? styles.variant : ''}`}
           >
-            {category.korNameValue}
+            {category.korName}
           </button>
         ))
       )}

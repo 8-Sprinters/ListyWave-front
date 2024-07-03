@@ -95,7 +95,8 @@ export interface LabelType {
 
 export interface ListDetailType {
   id?: number;
-  category: string;
+  categoryKorName: string; // 기존 : category
+  categoryEngName: string; // 추가됨
   labels: LabelType[];
   title: string;
   description: string;
