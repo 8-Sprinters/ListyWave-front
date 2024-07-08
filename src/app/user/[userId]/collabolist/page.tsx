@@ -1,4 +1,4 @@
-import { Metadata } from 'next';
+import { Metadata, ResolvingMetadata } from 'next';
 
 import Profile from '../_components/Profile';
 import Content from '../_components/Content';
@@ -6,16 +6,33 @@ import FloatingContainer from '@/components/floatingButton/FloatingContainer';
 import PlusOptionFloatingButton from '@/components/floatingButton/PlusOptionFloatingButton';
 import ArrowUpFloatingButton from '@/components/floatingButton/ArrowUpFloatingButton';
 
+import axiosInstance from '@/lib/axios/axiosInstance';
+import { UserType } from '@/lib/types/userProfileType';
+import METADATA from '@/lib/constants/metadata';
+
 interface CollaboListPageProps {
-  params: {
-    userId: number;
-  };
+  params: { userId: number };
 }
 
-export const metadata: Metadata = {
-  title: 'Collabo List',
-  description: '콜라보레이터와 함께 기록한 리스트 입니다.',
-};
+export async function generateMetadata({ params }: CollaboListPageProps, parent: ResolvingMetadata): Promise<Metadata> {
+  const userId = params.userId;
+  const { data } = await axiosInstance.get<UserType>(`/users/${userId}`);
+
+  const previousImages = (await parent).openGraph?.images || [];
+
+  return {
+    title: {
+      absolute: `${data.nickname}'s Collabo-list`,
+    },
+    authors: [{ name: `${data.nickname}` }],
+    description: METADATA.description.collabolist,
+    openGraph: {
+      description: `${data.description || METADATA.description.collabolist}`,
+      url: `${METADATA.url}/user/${userId}/collabolist`,
+      images: [`${data.profileImageUrl}`, ...previousImages],
+    },
+  };
+}
 
 export default function CollaboListPage({ params }: CollaboListPageProps) {
   return (

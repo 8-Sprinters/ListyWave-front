@@ -118,7 +118,7 @@ export default function EditPage() {
   useEffect(() => {
     if (listDetailData) {
       methods.reset({
-        category: categories?.find((c) => c.korNameValue === listDetailData.category)?.nameValue || 'culture',
+        category: categories?.find((c) => c.korName === listDetailData.categoryKorName)?.engName || 'culture',
         labels: listDetailData.labels.map((obj) => obj.name),
         collaboratorIds: listDetailData.collaborators.filter((c) => c.id !== user.id).map((c) => c.id),
         title: listDetailData.title,

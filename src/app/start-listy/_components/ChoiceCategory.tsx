@@ -11,7 +11,7 @@ import { startListyLocale } from '@/app/start-listy/locale';
 import { useLanguage } from '@/store/useLanguage';
 
 interface CategoryProps {
-  handleChangeCategory: (category: Omit<CategoryType, 'codeValue'>) => void;
+  handleChangeCategory: (category: Omit<CategoryType, 'code'>) => void;
 }
 
 export default function ChoiceCategory({ handleChangeCategory }: CategoryProps) {
@@ -23,7 +23,7 @@ export default function ChoiceCategory({ handleChangeCategory }: CategoryProps) 
     queryFn: getCategories,
   });
 
-  const categories = data ? data?.filter((category) => category.korNameValue !== '전체') : [];
+  const categories = data ? data?.filter((category) => category.korName !== '전체') : [];
 
   const onClickChangeCategory = (e: MouseEvent<HTMLDivElement>) => {
     if (e.target === e.currentTarget) {
@@ -31,19 +31,19 @@ export default function ChoiceCategory({ handleChangeCategory }: CategoryProps) 
     }
 
     const targetId = (e.target as HTMLButtonElement).id;
-    const category = data?.find((category) => category.nameValue === targetId);
+    const category = data?.find((category) => category.engName === targetId);
 
     if (category) {
       handleChangeCategory({
-        nameValue: category.nameValue,
-        korNameValue: category.korNameValue,
+        engName: category.engName,
+        korName: category.korName,
       });
-      setValue('category', category.nameValue);
+      setValue('category', category.engName);
     } else {
       console.log(startListyLocale[language].notFountCategory);
       handleChangeCategory({
-        nameValue: '',
-        korNameValue: '',
+        engName: '',
+        korName: '',
       });
     }
   };
@@ -54,16 +54,16 @@ export default function ChoiceCategory({ handleChangeCategory }: CategoryProps) 
       <div onClick={onClickChangeCategory} className={styles.container}>
         {categories.map((category) => (
           <button
-            key={category.codeValue}
-            id={category.nameValue}
+            key={category.code}
+            id={category.engName}
             type="button"
             className={
-              category.nameValue === getValues('category')
-                ? `${styles.variants[`${category.nameValue}Button`]} ${styles.selected}`
-                : styles.variants[`${category.nameValue}Button`]
+              category.engName === getValues('category')
+                ? `${styles.variants[`${category.engName}Button`]} ${styles.selected}`
+                : styles.variants[`${category.engName}Button`]
             }
           >
-            {category.korNameValue}
+            {category.korName}
           </button>
         ))}
       </div>

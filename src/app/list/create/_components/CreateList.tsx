@@ -81,7 +81,7 @@ function CreateList({ onNextClick, type }: CreateListProps) {
     const handleQueryParams = () => {
       if (isTemplateCreation) {
         setValue('title', searchParams?.get('title'));
-        const c = categories?.find((c) => c.korNameValue === searchParams?.get('category'))?.nameValue;
+        const c = categories?.find((c) => c.korName === searchParams?.get('category'))?.engName;
         setValue('category', c);
       }
     };
@@ -143,9 +143,9 @@ function CreateList({ onNextClick, type }: CreateListProps) {
         {/* 카테고리 */}
         <Section title={listLocale[language].category} isRequired={true}>
           <ButtonSelector
-            list={categories?.filter((category: CategoryType) => category.codeValue !== '0') || []}
+            list={categories?.filter((category: CategoryType) => category.code !== '0') || []}
             onClick={(item: CategoryType) => {
-              setValue('category', item.nameValue);
+              setValue('category', item.engName);
             }}
             defaultValue={category}
           />
