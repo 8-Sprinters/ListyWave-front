@@ -12,7 +12,7 @@ import { QUERY_KEYS } from '@/lib/constants/queryKeys';
 import { TrendingListType } from '@/lib/types/exploreType';
 
 import * as styles from './TrendingLists.css';
-import { vars } from '@/styles/theme.css';
+import { vars } from '@/styles/__theme.css';
 import { TrendingListsSkeleton } from './Skeleton';
 import oceanEmoji from '/public/images/ocean.png';
 import fallbackProfile from '/public/images/fallback_profileImage.webp';
