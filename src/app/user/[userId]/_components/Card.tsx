@@ -27,7 +27,7 @@ export default function Card({ list, isOwner }: CardProps) {
     >
       {isOwner && (
         <div className={styles.label}>
-          <div className={styles.labelText}>비공개</div>
+          <div className={styles.labelText}>{list.isPublic ? '공개' : '비공개'}</div>
           <button>
             <PopupMenuIcon alt="리스트 공개, 비공개 옵션" />
           </button>
