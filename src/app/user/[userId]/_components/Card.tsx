@@ -3,7 +3,7 @@ import { assignInlineVars } from '@vanilla-extract/dynamic';
 import * as styles from './Card.css';
 
 import useMoveToPage from '@/hooks/useMoveToPage';
-import LockIcon from '/public/icons/lock_alt.svg';
+import PopupMenuIcon from '/public/icons/popup_menu.svg';
 import { ListType } from '@/lib/types/listType';
 import { BACKGROUND_COLOR_READ } from '@/styles/Color';
 
@@ -15,7 +15,6 @@ interface CardProps {
 
 export default function Card({ list, isOwner }: CardProps) {
   const { onClickMoveToPage } = useMoveToPage();
-  const isVisibleLockIcon = isOwner && !list.isPublic;
 
   return (
     // MasonryGrid 라이브러리에서는 ul로 감싸줘야 하므로 Link태그 미사용
@@ -26,10 +25,12 @@ export default function Card({ list, isOwner }: CardProps) {
         [styles.listColor]: `${BACKGROUND_COLOR_READ[list.backgroundColor as keyof typeof BACKGROUND_COLOR_READ]}`,
       })}
     >
-      {isVisibleLockIcon && (
-        <div className={styles.lockIcon}>
-          <span className={styles.lockText}>비공개</span>
-          <LockIcon alt="비공개 리스트 표시" />
+      {isOwner && (
+        <div className={styles.label}>
+          <div className={styles.labelText}>비공개</div>
+          <button>
+            <PopupMenuIcon alt="리스트 공개, 비공개 옵션" />
+          </button>
         </div>
       )}
       <h2 className={styles.title}>{list.title}</h2>
