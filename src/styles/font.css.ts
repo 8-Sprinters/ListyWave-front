@@ -29,3 +29,9 @@ export const Label = style({
   fontWeight: '400',
   letterSpacing: '-0.42rem',
 });
+
+export const LabelSmall = style({
+  fontSize: '1.1rem',
+  fontWeight: '400',
+  letterSpacing: '-0.0221rem',
+});

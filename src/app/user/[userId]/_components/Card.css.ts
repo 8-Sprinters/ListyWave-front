@@ -1,6 +1,9 @@
 import { style, createVar } from '@vanilla-extract/css';
-import { vars } from '@/styles/__theme.css';
-import { bodyMedium } from '@/styles/__font.css';
+
+import { bodyMedium } from '@/styles/__font.css'; // TODO 새로운 폰트로 변경하기
+
+import { vars } from '@/styles/theme.css';
+import { LabelSmall } from '@/styles/font.css';
 
 export const listColor = createVar();
 
@@ -11,7 +14,6 @@ export const container = style({
 
   borderRadius: '1.5rem',
   backgroundColor: listColor,
-  border: `1px solid ${vars.color.gray5}`,
 
   cursor: 'pointer',
   transition: 'all 200ms ease',
@@ -65,19 +67,29 @@ export const list = style({
   letterSpacing: '-0.36px',
 });
 
-export const lockIcon = style({
+export const label = style({
   display: 'flex',
-  justifyContent: 'flex-end',
+  justifyContent: 'space-between',
   alignItems: 'center',
-  gap: '2px',
 });
 
-export const lockText = style({
-  fontSize: '1.1rem',
-  fontWeight: '400',
-  letterSpacing: '-0.33px',
-  color: vars.color.gray7,
-});
+export const labelText = style([
+  LabelSmall,
+  {
+    padding: '0.4rem 1rem',
+    height: '2.6rem',
+
+    display: 'inline-flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    gap: '0.5rem',
+
+    color: vars.color.blue,
+
+    borderRadius: '1.7rem',
+    backgroundColor: vars.color.lightblue,
+  },
+]);
 
 export const item = style({
   display: 'flex',
