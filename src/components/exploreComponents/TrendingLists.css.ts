@@ -1,6 +1,6 @@
 import { style, createVar } from '@vanilla-extract/css';
-import { vars } from '@/styles/theme.css';
-import { headlineSmall, titleMedium, caption } from '@/styles/font.css';
+import { vars } from '@/styles/__theme.css';
+import { headlineSmall, titleMedium, caption } from '@/styles/__font.css';
 
 /**@todo 트렌딩 리스트 바뀐 디자인에 맞게 새로 갈아엎을 예정 */
 
@@ -47,7 +47,7 @@ export const listWrapper = style({
   },
 });
 
-export const test = style({
+export const sliderItem = style({
   height: 'auto',
 });
 

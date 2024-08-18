@@ -1,6 +1,6 @@
 import { style, createVar } from '@vanilla-extract/css';
-import { vars } from '@/styles/theme.css';
-import { bodyMedium } from '@/styles/font.css';
+import { vars } from '@/styles/__theme.css';
+import { bodyMedium } from '@/styles/__font.css';
 
 export const listColor = createVar();
 

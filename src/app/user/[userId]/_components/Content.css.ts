@@ -1,6 +1,6 @@
 import { style } from '@vanilla-extract/css';
-import { vars } from '@/styles/theme.css';
-import { bodyLarge } from '@/styles/font.css';
+import { vars } from '@/styles/__theme.css';
+import { bodyLarge } from '@/styles/__font.css';
 
 export const container = style({
   width: '100%',

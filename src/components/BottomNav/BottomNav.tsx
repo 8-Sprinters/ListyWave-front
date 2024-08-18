@@ -14,7 +14,7 @@ import { useUser } from '@/store/useUser';
 import toasting from '@/lib/utils/toasting';
 import toastMessage from '@/lib/constants/toastMessage';
 
-import { vars } from '@/styles/theme.css';
+import { vars } from '@/styles/__theme.css';
 import * as styles from './BottomNav.css';
 
 import Modal from '../Modal/Modal';

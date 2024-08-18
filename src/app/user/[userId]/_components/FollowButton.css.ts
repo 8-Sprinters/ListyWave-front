@@ -1,5 +1,5 @@
 import { style, styleVariants } from '@vanilla-extract/css';
-import { vars } from '@/styles/theme.css';
+import { vars } from '@/styles/__theme.css';
 
 export const button = style({
   padding: '0.8rem 1.2rem',
