@@ -1,5 +1,7 @@
 import { style } from '@vanilla-extract/css';
+
 import { vars } from '@/styles/theme.css';
+import { LabelSmall } from '@/styles/font.css';
 
 export const labelOption = style({
   width: '50%',
@@ -11,7 +13,6 @@ export const labelOption = style({
 });
 
 export const optionMenu = style({
-  padding: '1.6rem',
   position: 'absolute',
   top: '4.6rem',
   right: 0,
@@ -23,3 +24,43 @@ export const optionMenu = style({
   background: vars.color.white,
   boxShadow: '0px 0px 4px 0px rgba(180, 180, 180, 0.04), 0px 8px 16px 0px rgba(136, 136, 136, 0.08)',
 });
+
+export const optionTop = style([
+  LabelSmall,
+  {
+    paddingTop: '1.6rem',
+    paddingLeft: '1.6rem',
+    paddingRight: '1.6rem',
+    paddingBottom: '0.6rem',
+
+    borderTopLeftRadius: '1.2rem',
+    borderTopRightRadius: '1.2rem',
+
+    selectors: {
+      '&:hover': {
+        backgroundColor: vars.color.lightblue,
+      },
+    },
+  },
+]);
+
+export const optionBottom = style([
+  LabelSmall,
+  {
+    paddingTop: '0.6rem',
+    paddingLeft: '1.6rem',
+    paddingRight: '1.6rem',
+    paddingBottom: '1.6rem',
+
+    borderBottomLeftRadius: '1.2rem',
+    borderBottomRightRadius: '1.2rem',
+
+    color: vars.color.red,
+
+    selectors: {
+      '&:hover': {
+        backgroundColor: vars.color.lightblue,
+      },
+    },
+  },
+]);
