@@ -25,9 +25,9 @@ export default function OptionToggleButton() {
     <div ref={popupRef} className={styles.labelOption} onClick={handleOpenMenu}>
       <OptionMenuIcon alt="리스트 공개, 비공개 옵션" />
       {isPopupOpen && (
-        <div className={styles.optionMenu}>
-          <button onClick={handleToggleVisibilityList}>비공개</button>
-        </div>
+        <button className={styles.optionMenu} onClick={handleToggleVisibilityList}>
+          비공개
+        </button>
       )}
     </div>
   );
