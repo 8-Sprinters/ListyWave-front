@@ -14,6 +14,7 @@ export const vars = createThemeContract({
     lightgray: 'color-lightgray',
     gray: 'color-gray',
     black: 'color-black',
+    red: 'color-red',
   },
   // TODO 반응형 코드 수정 필요
   breakpoints: {
@@ -38,6 +39,7 @@ createGlobalTheme(':root', vars, {
     lightgray: '#B6BBBF',
     gray: '#7A7B7D',
     black: '#323A43',
+    red: '#FF0000',
   },
   // TODO 반응형 코드 수정 필요
   breakpoints: {

@@ -22,18 +22,28 @@ export default function OptionToggleButton({ isPublicCurrent }: OptionToggleButt
     popupToggle();
   };
 
-  // 리스트 공개, 비공개 기능
-  const handleToggleVisibilityList = (e: MouseEvent<HTMLButtonElement>) => {
+  const handleClickOption = (e: MouseEvent<HTMLDivElement>) => {
     e.stopPropagation();
+    console.log((e.target as HTMLButtonElement).id);
   };
+
+  // 리스트 공개, 비공개 기능
+  // const handleToggleVisibilityList = (e: MouseEvent<HTMLDivElement>) => {
+  //   e.stopPropagation();
+  // };
 
   return (
     <div ref={popupRef} className={styles.labelOption} onClick={handleOpenMenu}>
       <OptionMenuIcon alt="리스트 공개, 비공개 옵션" />
       {isPopupOpen && (
-        <button className={styles.optionMenu} onClick={handleToggleVisibilityList}>
-          {publicAction}
-        </button>
+        <div className={styles.optionMenu} onClick={handleClickOption}>
+          <button id="visibility" className={styles.optionTop}>
+            {publicAction}
+          </button>
+          <button id="delete" className={styles.optionBottom}>
+            삭제하기
+          </button>
+        </div>
       )}
     </div>
   );
