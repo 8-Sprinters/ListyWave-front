@@ -1,9 +1,19 @@
 import { style } from '@vanilla-extract/css';
 import { vars } from '@/styles/theme.css';
 
+export const labelOption = style({
+  width: '50%',
+  height: '2.6rem',
+
+  display: 'flex',
+  justifyContent: 'end',
+  alignItems: 'center',
+});
+
 export const optionMenu = style({
   padding: '1.6rem',
   position: 'absolute',
+  top: '4.6rem',
   right: 0,
 
   display: 'flex',

@@ -91,15 +91,6 @@ export const labelText = style([
   },
 ]);
 
-export const labelOption = style({
-  width: '50%',
-  height: '2.6rem',
-
-  display: 'flex',
-  justifyContent: 'end',
-  alignItems: 'center',
-});
-
 export const item = style({
   display: 'flex',
   alignItems: 'center',
