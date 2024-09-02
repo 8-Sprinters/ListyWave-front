@@ -37,7 +37,7 @@ export default function Card({ list, isOwner }: CardProps) {
       {isOwner && (
         <div className={styles.label}>
           <div className={styles.labelText}>{list.isPublic ? '공개' : '비공개'}</div>
-          <OptionToggleButton />
+          <OptionToggleButton isPublicCurrent={list.isPublic} />
         </div>
       )}
       <h2 className={styles.title}>{list.title}</h2>
