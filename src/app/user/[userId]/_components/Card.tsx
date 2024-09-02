@@ -18,11 +18,14 @@ interface CardProps {
 TODO
 - [x] 팝오버 메뉴 토글 기능
 - [x] 외부 클릭 시 팝오버 닫히는 기능
-- [ ] 팝오버 메뉴에 삭제하기 추가
-- [ ] 리스트 삭제하기 기능
+- [x] 팝오버 메뉴에 삭제하기 추가
+- [x] 리스트 삭제하기 기능
+- [ ] 삭제 시 컨펌모달
+- [ ] 토스트 메세지
+- [ ] 리스트 공개, 비공개 기능
  */
 
-export default function Card({ list, isOwner }: CardProps) {
+export default function Card({ list, isOwner, userId }: CardProps) {
   const { onClickMoveToPage } = useMoveToPage();
 
   return (
@@ -37,7 +40,7 @@ export default function Card({ list, isOwner }: CardProps) {
       {isOwner && (
         <div className={styles.label}>
           <div className={styles.labelText}>{list.isPublic ? '공개' : '비공개'}</div>
-          <OptionToggleButton isPublicCurrent={list.isPublic} />
+          <OptionToggleButton listId={String(list.id)} userId={userId} isPublicCurrent={list.isPublic} />
         </div>
       )}
       <h2 className={styles.title}>{list.title}</h2>
