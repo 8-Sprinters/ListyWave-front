@@ -1,6 +1,7 @@
 import { style } from '@vanilla-extract/css';
-import { vars } from '@/styles/__theme.css';
-import { bodyLarge } from '@/styles/__font.css';
+
+import { BodyLarge } from '@/styles/font.css';
+import { vars } from '@/styles/theme.css';
 
 export const container = style({
   width: '100%',
@@ -9,7 +10,7 @@ export const container = style({
   position: 'absolute',
   top: 0,
 
-  backgroundColor: vars.color.white,
+  backgroundColor: vars.color.bgblue,
   borderTopLeftRadius: '2.5rem',
   borderTopRightRadius: '2.5rem',
 });
@@ -35,7 +36,7 @@ export const link = style({
 });
 
 export const button = style([
-  bodyLarge,
+  BodyLarge,
   {
     height: '100%',
 
@@ -44,7 +45,7 @@ export const button = style([
     alignItems: 'center',
     justifyContent: 'center',
 
-    backgroundColor: vars.color.white,
+    backgroundColor: vars.color.bgblue,
   },
 ]);
 

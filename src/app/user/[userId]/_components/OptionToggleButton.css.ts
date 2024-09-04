@@ -1,7 +1,7 @@
 import { style } from '@vanilla-extract/css';
 
 import { vars } from '@/styles/theme.css';
-import { LabelSmall } from '@/styles/font.css';
+import { BodyMedium } from '@/styles/font.css';
 
 export const labelOption = style({
   width: '50%',
@@ -10,6 +10,8 @@ export const labelOption = style({
   display: 'flex',
   justifyContent: 'end',
   alignItems: 'center',
+
+  color: vars.color.black,
 });
 
 export const optionMenu = style({
@@ -26,7 +28,7 @@ export const optionMenu = style({
 });
 
 export const optionTop = style([
-  LabelSmall,
+  BodyMedium,
   {
     paddingTop: '1.6rem',
     paddingLeft: '1.6rem',
@@ -35,6 +37,8 @@ export const optionTop = style([
 
     borderTopLeftRadius: '1.2rem',
     borderTopRightRadius: '1.2rem',
+
+    fontWeight: '300',
 
     selectors: {
       '&:hover': {
@@ -45,7 +49,7 @@ export const optionTop = style([
 ]);
 
 export const optionBottom = style([
-  LabelSmall,
+  BodyMedium,
   {
     paddingTop: '0.6rem',
     paddingLeft: '1.6rem',
@@ -56,6 +60,7 @@ export const optionBottom = style([
     borderBottomRightRadius: '1.2rem',
 
     color: vars.color.red,
+    fontWeight: '300',
 
     selectors: {
       '&:hover': {
