@@ -10,14 +10,16 @@ import useBooleanOutput from '@/hooks/useBooleanOutput';
 import deleteList from '@/app/_api/list/deleteList';
 import { QUERY_KEYS } from '@/lib/constants/queryKeys';
 
-interface OptionToggleButton {
+interface OptionToggleButtonType {
   listId: string;
   userId: number;
   isPublicCurrent: boolean;
 }
 
+type SelectOptionType = 'visibility' | 'delete';
+
 // memoization
-export default function OptionToggleButton({ listId, userId, isPublicCurrent }: OptionToggleButton) {
+export default function OptionToggleButton({ listId, userId, isPublicCurrent }: OptionToggleButtonType) {
   const queryClient = useQueryClient();
   const { isOn: isPopupOpen, toggle: popupToggle, handleSetOff: handlePopupOff } = useBooleanOutput();
   const { ref: popupRef } = useOnClickOutside(handlePopupOff);
@@ -41,15 +43,14 @@ export default function OptionToggleButton({ listId, userId, isPublicCurrent }: 
 
   const handleClickOption = (e: MouseEvent<HTMLDivElement>) => {
     e.stopPropagation();
-    console.log((e.target as HTMLButtonElement).id);
+    const selectOption = (e.target as HTMLButtonElement).id as SelectOptionType;
 
-    deleteListMutation.mutate();
+    if (selectOption === 'delete') {
+      deleteListMutation.mutate();
+    } else {
+      // TODO 비공개, 공개 설정
+    }
   };
-
-  // 리스트 공개, 비공개 기능
-  // const handleToggleVisibilityList = (e: MouseEvent<HTMLDivElement>) => {
-  //   e.stopPropagation();
-  // };
 
   return (
     <div ref={popupRef} className={styles.labelOption} onClick={handleOpenMenu}>
