@@ -1,6 +1,8 @@
 // 리스트 배경색은 없어질 예정이므로 우선 주석처리 해둠
 // import { assignInlineVars } from '@vanilla-extract/dynamic';
 
+import { memo } from 'react';
+
 import * as styles from './Card.css';
 
 import useMoveToPage from '@/hooks/useMoveToPage';
@@ -26,7 +28,7 @@ TODO
 - [ ] 리스트 공개, 비공개 기능
  */
 
-export default function Card({ list, isOwner, userId }: CardProps) {
+function Card({ list, isOwner, userId }: CardProps) {
   const { onClickMoveToPage } = useMoveToPage();
 
   return (
@@ -59,3 +61,5 @@ export default function Card({ list, isOwner, userId }: CardProps) {
     </ul>
   );
 }
+
+export default memo(Card);

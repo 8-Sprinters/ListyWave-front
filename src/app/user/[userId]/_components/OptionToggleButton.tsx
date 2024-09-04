@@ -1,4 +1,4 @@
-import { MouseEvent } from 'react';
+import { memo, MouseEvent } from 'react';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 
 import * as styles from './OptionToggleButton.css';
@@ -18,8 +18,7 @@ interface OptionToggleButtonType {
 
 type SelectOptionType = 'visibility' | 'delete';
 
-// memoization
-export default function OptionToggleButton({ listId, userId, isPublicCurrent }: OptionToggleButtonType) {
+function OptionToggleButton({ listId, userId, isPublicCurrent }: OptionToggleButtonType) {
   const queryClient = useQueryClient();
   const { isOn: isPopupOpen, toggle: popupToggle, handleSetOff: handlePopupOff } = useBooleanOutput();
   const { ref: popupRef } = useOnClickOutside(handlePopupOff);
@@ -68,3 +67,5 @@ export default function OptionToggleButton({ listId, userId, isPublicCurrent }: 
     </div>
   );
 }
+
+export default memo(OptionToggleButton);
