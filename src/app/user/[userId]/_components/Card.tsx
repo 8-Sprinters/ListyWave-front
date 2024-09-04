@@ -1,10 +1,11 @@
-import { assignInlineVars } from '@vanilla-extract/dynamic';
+// 리스트 배경색은 없어질 예정이므로 우선 주석처리 해둠
+// import { assignInlineVars } from '@vanilla-extract/dynamic';
 
 import * as styles from './Card.css';
 
 import useMoveToPage from '@/hooks/useMoveToPage';
 import { ListType } from '@/lib/types/listType';
-import { BACKGROUND_COLOR_READ } from '@/styles/Color';
+// import { BACKGROUND_COLOR_READ } from '@/styles/Color';
 
 import OptionToggleButton from './OptionToggleButton';
 
@@ -33,9 +34,9 @@ export default function Card({ list, isOwner, userId }: CardProps) {
     <ul
       onClick={onClickMoveToPage(`/list/${list.id}`)}
       className={styles.container}
-      style={assignInlineVars({
-        [styles.listColor]: `${BACKGROUND_COLOR_READ[list.backgroundColor as keyof typeof BACKGROUND_COLOR_READ]}`,
-      })}
+      // style={assignInlineVars({
+      //   [styles.listColor]: `${BACKGROUND_COLOR_READ[list.backgroundColor as keyof typeof BACKGROUND_COLOR_READ]}`,
+      // })}
     >
       {isOwner && (
         <div className={styles.label}>

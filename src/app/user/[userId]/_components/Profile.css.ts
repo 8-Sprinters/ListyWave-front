@@ -1,11 +1,12 @@
 import { style, createVar } from '@vanilla-extract/css';
-import { vars } from '@/styles/__theme.css';
-import { bodySmall, caption, titleMedium } from '@/styles/__font.css';
+
+import { BodyLarge, BodySmall } from '@/styles/font.css';
+import { vars } from '@/styles/theme.css';
 
 export const imageUrl = createVar();
 
 export const container = style({
-  padding: '2.1rem 1.9rem 6.4rem 1.5rem',
+  padding: '2.1rem 2rem 6.4rem 2rem',
   width: '100%',
   height: '440px',
 
@@ -29,7 +30,7 @@ export const header = style({
 });
 
 export const profileContainer = style({
-  padding: '0 3.3rem',
+  paddingBottom: '2rem',
 
   display: 'flex',
   flexDirection: 'column',
@@ -49,7 +50,7 @@ export const profileContainer = style({
 });
 
 export const skeletonProfileContainer = style({
-  paddingBottom: '3rem',
+  paddingBottom: '2rem',
   display: 'flex',
   alignItems: 'center',
   gap: '1.2rem',
@@ -71,16 +72,16 @@ export const profile = style({
 });
 
 export const profileImageWrapper = style({
-  width: '5rem',
-  height: '5rem',
+  width: '4.8rem',
+  height: '4.8rem',
 
   borderRadius: '50%',
   backgroundColor: vars.color.white,
 });
 
 export const profileImage = style({
-  width: '5rem',
-  height: '5rem',
+  width: '4.8rem',
+  height: '4.8rem',
   padding: '2px',
   borderRadius: '50%',
 });
@@ -88,19 +89,19 @@ export const profileImage = style({
 export const info = style({
   display: 'flex',
   flexDirection: 'column',
-  gap: '0.8rem',
+  gap: '0.5rem',
 });
 
 export const user = style({
   display: 'flex',
-  alignItems: 'center',
-  gap: '1.2rem',
+  alignItems: 'baseline',
+  gap: '1rem',
 });
 
 export const nickName = style([
-  titleMedium,
+  BodyLarge,
   {
-    color: vars.color.white,
+    color: vars.color.black,
 
     '@media': {
       'screen and (max-width: 414px)': {
@@ -112,40 +113,32 @@ export const nickName = style([
 
 export const follow = style({
   display: 'flex',
-  gap: '1.6rem',
+  gap: '1rem',
 });
 
-export const text = style({
-  display: 'flex',
-  alignItems: 'center',
-  gap: '0.5rem',
-
-  cursor: 'pointer',
-});
-
-export const count = style([
-  bodySmall,
+export const text = style([
+  BodySmall,
   {
-    color: vars.color.white,
-  },
-]);
+    display: 'flex',
+    alignItems: 'center',
+    gap: '0.5rem',
 
-export const captionText = style([
-  caption,
-  {
-    color: vars.color.white,
+    color: vars.color.black,
+
+    cursor: 'pointer',
   },
 ]);
 
 export const description = style([
-  bodySmall,
+  BodySmall,
   {
-    paddingLeft: '2.5rem',
-    marginBottom: '2.5rem',
+    padding: '0.3rem 0.8rem',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    gap: '1rem',
 
-    width: '100%',
-    maxHeight: '80px',
-
-    color: vars.color.white,
+    borderRadius: '2rem',
+    backgroundColor: 'rgba(255, 255, 255, 0.50)',
   },
 ]);

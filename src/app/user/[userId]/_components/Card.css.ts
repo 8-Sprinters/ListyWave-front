@@ -1,19 +1,15 @@
-import { style, createVar } from '@vanilla-extract/css';
-
-import { bodyMedium } from '@/styles/__font.css'; // TODO 새로운 폰트로 변경하기
+import { style } from '@vanilla-extract/css';
 
 import { vars } from '@/styles/theme.css';
-import { LabelSmall } from '@/styles/font.css';
-
-export const listColor = createVar();
+import { BodyMedium, Caption } from '@/styles/font.css';
 
 export const container = style({
   maxWidth: '185px',
   width: '100%',
-  padding: '2rem 2rem 3rem 2rem',
+  padding: '1.2rem',
 
-  borderRadius: '1.5rem',
-  backgroundColor: listColor,
+  borderRadius: '2.4rem',
+  backgroundColor: vars.color.white,
 
   cursor: 'pointer',
   transition: 'all 200ms ease',
@@ -74,7 +70,7 @@ export const label = style({
 });
 
 export const labelText = style([
-  LabelSmall,
+  Caption,
   {
     padding: '0.4rem 1rem',
     height: '2.6rem',
@@ -98,14 +94,14 @@ export const item = style({
 });
 
 export const rank = style([
-  bodyMedium,
+  BodyMedium,
   {
     width: '1.2rem',
   },
 ]);
 
 export const itemTitle = style([
-  bodyMedium,
+  BodyMedium,
   {
     overflow: 'hidden',
     textOverflow: 'ellipsis',
