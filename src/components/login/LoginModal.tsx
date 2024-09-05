@@ -22,8 +22,8 @@ interface LoginModalProps {
   id: string;
 }
 
-export default function LoginModal({ id }: LoginModalProps) {
-  const { language } = useLanguage();
+/** FE 개발을 위한 로컬용 로그인 컴포넌트 입니다. */
+function LoginButtonForLocal() {
   const { updateUser } = useUser();
 
   const handleLoginLocal = async () => {
@@ -44,6 +44,16 @@ export default function LoginModal({ id }: LoginModalProps) {
       console.log('Request canceled:', error);
     }
   };
+
+  return (
+    <button onClick={handleLoginLocal} className={styles.buttonForLocal}>
+      FE 개발용 로그인
+    </button>
+  );
+}
+
+export default function LoginModal({ id }: LoginModalProps) {
+  const { language } = useLanguage();
 
   return (
     <section className={styles.container}>
@@ -67,11 +77,7 @@ export default function LoginModal({ id }: LoginModalProps) {
         <Link id={id} href={`${process.env.NEXT_PUBLIC_SERVER_DOMAIN}/auth/${oauthType.kakao}`}>
           <KakaoLoginIcon />
         </Link>
-        {process.env.NODE_ENV === 'development' && (
-          <button onClick={handleLoginLocal} className={styles.buttonForLocal}>
-            FE 개발용 로그인
-          </button>
-        )}
+        {process.env.NODE_ENV === 'development' && <LoginButtonForLocal />}
       </div>
     </section>
   );
