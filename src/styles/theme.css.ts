@@ -13,6 +13,7 @@ export const vars = createThemeContract({
     bluegray10: 'color-bluegray10',
     lightgray: 'color-lightgray',
     gray: 'color-gray',
+    bggray: 'color-bggray',
     black: 'color-black',
   },
   // TODO 반응형 코드 수정 필요
@@ -37,6 +38,7 @@ createGlobalTheme(':root', vars, {
     bluegray10: '#637587',
     lightgray: '#B6BBBF',
     gray: '#7A7B7D',
+    bggray: '#F5F6FA',
     black: '#323A43',
   },
   // TODO 반응형 코드 수정 필요
