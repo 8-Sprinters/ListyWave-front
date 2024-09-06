@@ -1,13 +1,12 @@
 'use client';
 
 import { usePathname, useRouter } from 'next/navigation';
+import Link from 'next/link';
 
-import ExploreIcon from '/public/icons/explore.svg';
+import HomeIcon from '/public/icons/explore.svg';
 import MyFeedIcon from '/public/icons/my_feed.svg';
 
-import useMoveToPage from '@/hooks/useMoveToPage';
 import useBooleanOutput from '@/hooks/useBooleanOutput';
-
 import { useUser } from '@/store/useUser';
 
 import { vars } from '@/styles/__theme.css';
@@ -20,7 +19,6 @@ export default function BottomNav() {
   const { user } = useUser();
   const router = useRouter();
   const pathname = usePathname() as string;
-  const { onClickMoveToPage } = useMoveToPage();
   const { isOn, handleSetOff, handleSetOn } = useBooleanOutput();
 
   const userId = user.id;
@@ -57,15 +55,15 @@ export default function BottomNav() {
     <>
       <nav>
         <ul className={styles.navDiv}>
-          {/* TODO Link 태그로 대체하기 */}
-          <li className={styles.buttonDiv} onClick={onClickMoveToPage('/')}>
-            <ExploreIcon fill={selectedItem === 'home' ? vars.color.blue : vars.color.gray7} />
-          </li>
+          <Link href="/" className={styles.buttonDiv}>
+            <HomeIcon fill={selectedItem === 'home' ? vars.color.blue : vars.color.gray7} />
+          </Link>
           <li className={styles.buttonDiv} onClick={handleMoveToPageOnLogin}>
             <MyFeedIcon fill={selectedItem === 'my-feed' ? vars.color.blue : vars.color.gray7} />
           </li>
         </ul>
       </nav>
+
       {isOn && (
         <Modal handleModalClose={handleSetOff} size="large">
           <LoginModal id="bottomNavLoginBtn" />
