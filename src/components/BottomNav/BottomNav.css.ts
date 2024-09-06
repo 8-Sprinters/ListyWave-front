@@ -13,7 +13,9 @@ export const bottomTapContainer = style({
   backgroundColor: vars.color.bggray,
 });
 
-export const bottomTap = style({
+const bottomTap = style({
+  width: '40%',
+
   flexGrow: 1,
   paddingTop: '0.7rem',
   paddingBottom: '2.1rem',
@@ -28,6 +30,11 @@ export const bottomTap = style({
   cursor: 'pointer',
 });
 
+export const bottomTapVariant = styleVariants({
+  left: [bottomTap, { paddingLeft: '1.5rem' }],
+  right: [bottomTap, { paddingRight: '1.5rem' }],
+});
+
 export const bottomTapText = styleVariants({
   default: {
     fontSize: '1.2rem',
@@ -40,8 +47,13 @@ export const bottomTapText = styleVariants({
 });
 
 export const addButtonTap = style({
+  width: '20%',
+
   paddingTop: '0.7rem',
   paddingBottom: '2.1rem',
+
+  display: 'flex',
+  justifyContent: 'center',
 });
 
 export const addButton = style({
