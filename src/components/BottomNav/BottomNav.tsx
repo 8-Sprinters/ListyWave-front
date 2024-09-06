@@ -68,7 +68,7 @@ export default function BottomNav() {
     <>
       <nav>
         <div className={styles.bottomTapContainer}>
-          <Link href="/" className={styles.bottomTap}>
+          <Link href="/" className={styles.bottomTapVariant.left}>
             <HomeIcon fill={selectedItem === bottomNavTapPath.home ? vars.color.blue : vars.color.lightgray} />
             <span
               className={
@@ -83,7 +83,7 @@ export default function BottomNav() {
               <AddIcon />
             </button>
           </div>
-          <button className={styles.bottomTap} onClick={handleMoveToPageOnLogin(bottomNavTapPath.feed)}>
+          <button className={styles.bottomTapVariant.right} onClick={handleMoveToPageOnLogin(bottomNavTapPath.feed)}>
             <MyFeedIcon fill={selectedItem === bottomNavTapPath.feed ? vars.color.blue : vars.color.lightgray} />
             <span
               className={
