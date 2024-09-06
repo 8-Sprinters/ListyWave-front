@@ -44,14 +44,14 @@ export default function BottomNav() {
   }
 
   // 네브바 탭 현재위치를 표시하기 위한 분기처리
-  const selectedItem = (() => {
+  const selectedTap = (() => {
     switch (pathname) {
       case '/':
         return bottomNavTapPath.home;
       case `/user/${userId}/mylist`:
         return bottomNavTapPath.feed;
       default:
-        return null;
+        return bottomNavTapPath.home;
     }
   })();
 
@@ -64,19 +64,23 @@ export default function BottomNav() {
     path === bottomNavTapPath.feed ? router.push(`/user/${userId}/mylist`) : router.push('/list/create');
   };
 
+  // 탭 아이콘 색상을 정하는 함수
+  const getIconColor = (selectedTap: string, path: string) => {
+    return selectedTap === path ? vars.color.blue : vars.color.lightgray;
+  };
+
+  // 탭 text 스타일을 정하는 함수
+  const getTextStyle = (selectedTap: string, path: string) => {
+    return selectedTap === path ? styles.bottomTapText.variant : styles.bottomTapText.default;
+  };
+
   return (
     <>
       <nav>
         <div className={styles.bottomTapContainer}>
           <Link href="/" className={styles.bottomTapVariant.left}>
-            <HomeIcon fill={selectedItem === bottomNavTapPath.home ? vars.color.blue : vars.color.lightgray} />
-            <span
-              className={
-                selectedItem === bottomNavTapPath.home ? styles.bottomTapText.variant : styles.bottomTapText.default
-              }
-            >
-              홈
-            </span>
+            <HomeIcon fill={getIconColor(selectedTap, bottomNavTapPath.home)} />
+            <span className={getTextStyle(selectedTap, bottomNavTapPath.home)}>홈</span>
           </Link>
           <div className={styles.addButtonTap}>
             <button className={styles.addButton} onClick={handleMoveToPageOnLogin(bottomNavTapPath.list)}>
@@ -84,14 +88,8 @@ export default function BottomNav() {
             </button>
           </div>
           <button className={styles.bottomTapVariant.right} onClick={handleMoveToPageOnLogin(bottomNavTapPath.feed)}>
-            <MyFeedIcon fill={selectedItem === bottomNavTapPath.feed ? vars.color.blue : vars.color.lightgray} />
-            <span
-              className={
-                selectedItem === bottomNavTapPath.feed ? styles.bottomTapText.variant : styles.bottomTapText.default
-              }
-            >
-              내 피드
-            </span>
+            <MyFeedIcon fill={getIconColor(selectedTap, bottomNavTapPath.feed)} />
+            <span className={getTextStyle(selectedTap, bottomNavTapPath.feed)}>내 피드</span>
           </button>
         </div>
       </nav>
