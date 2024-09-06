@@ -1,82 +1,68 @@
 'use client';
 
-import { usePathname } from 'next/navigation';
-import { useRouter } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 
 import ExploreIcon from '/public/icons/explore.svg';
 import MyFeedIcon from '/public/icons/my_feed.svg';
-import CollectionIcon from '/public/icons/collection.svg';
 
 import useMoveToPage from '@/hooks/useMoveToPage';
 import useBooleanOutput from '@/hooks/useBooleanOutput';
 
 import { useUser } from '@/store/useUser';
-import toasting from '@/lib/utils/toasting';
-import toastMessage from '@/lib/constants/toastMessage';
 
 import { vars } from '@/styles/__theme.css';
 import * as styles from './BottomNav.css';
 
-import Modal from '../Modal/Modal';
-import LoginModal from '../login/LoginModal';
+import Modal from '@/components/Modal/Modal';
+import LoginModal from '@/components/login/LoginModal';
 
 export default function BottomNav() {
   const { user } = useUser();
   const router = useRouter();
-  const userId = user.id;
   const pathname = usePathname() as string;
   const { onClickMoveToPage } = useMoveToPage();
   const { isOn, handleSetOff, handleSetOn } = useBooleanOutput();
 
-  // 숨기고 싶은 경로 패턴 배열
-  const hiddenPaths = [
-    '/list',
-    '/intro',
-    '/start-listy',
-    '/account',
-    '/followings',
-    '/followers',
-    '/notification',
-    '/withdrawn-account',
-  ];
-  const isHidden = hiddenPaths.some((path) => pathname.includes(path));
+  const userId = user.id;
 
-  if (isHidden) return;
+  const visiblePaths = ['/', '/mylist', 'collection'];
+  const isVisible = visiblePaths.some((path) => pathname.endsWith(path));
 
-  //파란색 선택 표시를 위한 분기처리
+  if (!isVisible) {
+    return <></>;
+  }
+
+  // 네브바 탭 현재위치를 표시하기 위한 분기처리
   const selectedItem = (() => {
-    if (pathname === '/' || pathname.includes('/search')) {
-      return 'explore';
-    } else if (pathname === `/user/${userId}/mylist` || pathname === `/user/${userId}/collabolist`) {
-      return 'my-feed';
-    } else if (pathname.startsWith('/collection')) {
-      return 'collection';
-    } else {
-      return null;
+    switch (pathname) {
+      case '/':
+        return 'home';
+      case `/user/${userId}/mylist`:
+        return 'my-feed';
+      default:
+        return null;
     }
   })();
 
-  // 로그인한 사용자 검증
-  const handleMoveToPageOnLogin = (path: string) => () => {
+  // 로그인한 사용자 검증 후, 마이피드로 이동
+  const handleMoveToPageOnLogin = () => {
     if (!userId) {
       handleSetOn();
       return;
     }
-    path === 'my-feed' ? router.push(`/user/${userId}/mylist`) : router.push('/collection');
+    router.push(`/user/${userId}/mylist`);
   };
 
   return (
     <>
       <nav>
         <ul className={styles.navDiv}>
+          {/* TODO Link 태그로 대체하기 */}
           <li className={styles.buttonDiv} onClick={onClickMoveToPage('/')}>
-            <ExploreIcon fill={selectedItem === 'explore' ? vars.color.blue : vars.color.gray7} />
+            <ExploreIcon fill={selectedItem === 'home' ? vars.color.blue : vars.color.gray7} />
           </li>
-          <li className={styles.buttonDiv} onClick={handleMoveToPageOnLogin('my-feed')}>
+          <li className={styles.buttonDiv} onClick={handleMoveToPageOnLogin}>
             <MyFeedIcon fill={selectedItem === 'my-feed' ? vars.color.blue : vars.color.gray7} />
-          </li>
-          <li className={styles.buttonDiv} onClick={handleMoveToPageOnLogin('collection')}>
-            <CollectionIcon fill={selectedItem === 'collection' ? vars.color.blue : vars.color.gray7} />
           </li>
         </ul>
       </nav>
