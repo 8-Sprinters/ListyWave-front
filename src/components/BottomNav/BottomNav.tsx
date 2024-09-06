@@ -10,7 +10,7 @@ import MyFeedIcon from '/public/icons/new/bottom_nav_feed.svg';
 import useBooleanOutput from '@/hooks/useBooleanOutput';
 import { useUser } from '@/store/useUser';
 
-import { vars } from '@/styles/__theme.css';
+import { vars } from '@/styles/theme.css';
 import * as styles from './BottomNav.css';
 
 import Modal from '@/components/Modal/Modal';
@@ -27,8 +27,6 @@ const bottomNavTapPath: Record<BottomNavTapPathType, string> = {
   feed,
   list,
 };
-
-// TODO 하드코딩된 path를 줄이는 방법이 없을까?
 
 export default function BottomNav() {
   const { user } = useUser();
@@ -69,15 +67,31 @@ export default function BottomNav() {
   return (
     <>
       <nav>
-        <div className={styles.navDiv}>
-          <Link href="/" className={styles.buttonDiv}>
-            <HomeIcon fill={selectedItem === bottomNavTapPath.home ? vars.color.blue : vars.color.gray7} />
+        <div className={styles.bottomTapContainer}>
+          <Link href="/" className={styles.bottomTap}>
+            <HomeIcon fill={selectedItem === bottomNavTapPath.home ? vars.color.blue : vars.color.lightgray} />
+            <span
+              className={
+                selectedItem === bottomNavTapPath.home ? styles.bottomTapText.variant : styles.bottomTapText.default
+              }
+            >
+              홈
+            </span>
           </Link>
-          <button className={styles.buttonDiv} onClick={handleMoveToPageOnLogin(bottomNavTapPath.list)}>
-            <AddIcon fill={selectedItem === bottomNavTapPath.list ? vars.color.blue : vars.color.gray7} />
-          </button>
-          <button className={styles.buttonDiv} onClick={handleMoveToPageOnLogin(bottomNavTapPath.feed)}>
-            <MyFeedIcon fill={selectedItem === bottomNavTapPath.feed ? vars.color.blue : vars.color.gray7} />
+          <div className={styles.addButtonTap}>
+            <button className={styles.addButton} onClick={handleMoveToPageOnLogin(bottomNavTapPath.list)}>
+              <AddIcon />
+            </button>
+          </div>
+          <button className={styles.bottomTap} onClick={handleMoveToPageOnLogin(bottomNavTapPath.feed)}>
+            <MyFeedIcon fill={selectedItem === bottomNavTapPath.feed ? vars.color.blue : vars.color.lightgray} />
+            <span
+              className={
+                selectedItem === bottomNavTapPath.feed ? styles.bottomTapText.variant : styles.bottomTapText.default
+              }
+            >
+              내 피드
+            </span>
           </button>
         </div>
       </nav>
