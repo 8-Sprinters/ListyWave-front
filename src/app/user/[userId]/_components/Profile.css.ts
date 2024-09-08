@@ -1,6 +1,6 @@
 import { style, createVar } from '@vanilla-extract/css';
 
-import { BodyLarge, BodySmall } from '@/styles/font.css';
+import { BodyBold, LabelSmall } from '@/styles/font.css';
 import { vars } from '@/styles/theme.css';
 
 export const imageUrl = createVar();
@@ -99,7 +99,7 @@ export const user = style({
 });
 
 export const nickName = style([
-  BodyLarge,
+  BodyBold,
   {
     color: vars.color.black,
 
@@ -117,7 +117,7 @@ export const follow = style({
 });
 
 export const text = style([
-  BodySmall,
+  LabelSmall,
   {
     display: 'flex',
     alignItems: 'center',
@@ -130,7 +130,7 @@ export const text = style([
 ]);
 
 export const description = style([
-  BodySmall,
+  LabelSmall,
   {
     padding: '0.3rem 0.8rem',
     display: 'flex',
