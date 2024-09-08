@@ -1,6 +1,6 @@
 import { style } from '@vanilla-extract/css';
 
-export const header = style({
+export const Header = style({
   fontSize: '2rem',
   fontWeight: '700',
   letterSpacing: '-0.6rem',
@@ -28,4 +28,11 @@ export const Label = style({
   fontSize: '1.4rem',
   fontWeight: '400',
   letterSpacing: '-0.42rem',
+});
+
+export const LabelSmall = style({
+  fontSize: '1.2rem',
+  fontWeight: '300',
+  lineHeight: '1.6rem',
+  letterSpacing: '0.6rem',
 });

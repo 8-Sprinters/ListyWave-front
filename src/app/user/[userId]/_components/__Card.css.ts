@@ -1,15 +1,17 @@
-import { style } from '@vanilla-extract/css';
+import { style, createVar } from '@vanilla-extract/css';
+import { vars } from '@/styles/__theme.css';
+import { bodyMedium } from '@/styles/__font.css';
 
-import { vars } from '@/styles/theme.css';
-import { Label, LabelSmall } from '@/styles/font.css';
+export const listColor = createVar();
 
 export const container = style({
   maxWidth: '185px',
   width: '100%',
-  padding: '1.2rem',
+  padding: '2rem 2rem 3rem 2rem',
 
-  borderRadius: '2.4rem',
-  backgroundColor: vars.color.white,
+  borderRadius: '1.5rem',
+  backgroundColor: listColor,
+  border: `1px solid ${vars.color.gray5}`,
 
   cursor: 'pointer',
   transition: 'all 200ms ease',
@@ -63,29 +65,19 @@ export const list = style({
   letterSpacing: '-0.36px',
 });
 
-export const label = style({
+export const lockIcon = style({
   display: 'flex',
-  justifyContent: 'space-between',
+  justifyContent: 'flex-end',
   alignItems: 'center',
+  gap: '2px',
 });
 
-export const labelText = style([
-  LabelSmall,
-  {
-    padding: '0.4rem 1rem',
-    height: '2.6rem',
-
-    display: 'inline-flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-    gap: '0.5rem',
-
-    color: vars.color.blue,
-
-    borderRadius: '1.7rem',
-    backgroundColor: vars.color.lightblue,
-  },
-]);
+export const lockText = style({
+  fontSize: '1.1rem',
+  fontWeight: '400',
+  letterSpacing: '-0.33px',
+  color: vars.color.gray7,
+});
 
 export const item = style({
   display: 'flex',
@@ -94,14 +86,14 @@ export const item = style({
 });
 
 export const rank = style([
-  Label,
+  bodyMedium,
   {
     width: '1.2rem',
   },
 ]);
 
 export const itemTitle = style([
-  Label,
+  bodyMedium,
   {
     overflow: 'hidden',
     textOverflow: 'ellipsis',
