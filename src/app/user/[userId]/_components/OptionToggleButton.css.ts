@@ -1,7 +1,7 @@
 import { style } from '@vanilla-extract/css';
 
 import { vars } from '@/styles/theme.css';
-import { BodyMedium } from '@/styles/font.css';
+import { Label } from '@/styles/font.css';
 
 export const labelOption = style({
   width: '50%',
@@ -28,7 +28,7 @@ export const optionMenu = style({
 });
 
 export const optionTop = style([
-  BodyMedium,
+  Label,
   {
     paddingTop: '1.6rem',
     paddingLeft: '1.6rem',
@@ -49,7 +49,7 @@ export const optionTop = style([
 ]);
 
 export const optionBottom = style([
-  BodyMedium,
+  Label,
   {
     paddingTop: '0.6rem',
     paddingLeft: '1.6rem',

@@ -1,6 +1,6 @@
 import { style } from '@vanilla-extract/css';
 
-import { BodyLarge } from '@/styles/font.css';
+import { BodyBold } from '@/styles/font.css';
 import { vars } from '@/styles/theme.css';
 
 export const container = style({
@@ -36,7 +36,7 @@ export const link = style({
 });
 
 export const button = style([
-  BodyLarge,
+  BodyBold,
   {
     height: '100%',
 

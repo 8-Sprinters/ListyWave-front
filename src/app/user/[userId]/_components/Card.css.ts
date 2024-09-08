@@ -1,7 +1,7 @@
 import { style } from '@vanilla-extract/css';
 
 import { vars } from '@/styles/theme.css';
-import { BodyMedium, Caption } from '@/styles/font.css';
+import { Label, LabelSmall } from '@/styles/font.css';
 
 export const container = style({
   maxWidth: '185px',
@@ -70,7 +70,7 @@ export const label = style({
 });
 
 export const labelText = style([
-  Caption,
+  LabelSmall,
   {
     padding: '0.4rem 1rem',
     height: '2.6rem',
@@ -94,14 +94,14 @@ export const item = style({
 });
 
 export const rank = style([
-  BodyMedium,
+  Label,
   {
     width: '1.2rem',
   },
 ]);
 
 export const itemTitle = style([
-  BodyMedium,
+  Label,
   {
     overflow: 'hidden',
     textOverflow: 'ellipsis',
