@@ -23,7 +23,7 @@ function OptionToggleButton({ listId, userId, isPublicCurrent }: OptionToggleBut
   const { isOn: isPopupOpen, toggle: popupToggle, handleSetOff: handlePopupOff } = useBooleanOutput();
   const { ref: popupRef } = useOnClickOutside(handlePopupOff);
 
-  const publicAction = isPublicCurrent ? '비공개' : '공개';
+  const publicAction = isPublicCurrent ? '비공개하기' : '공개하기';
 
   const deleteListMutation = useMutation({
     mutationFn: () => deleteList(listId),
@@ -52,8 +52,10 @@ function OptionToggleButton({ listId, userId, isPublicCurrent }: OptionToggleBut
   };
 
   return (
-    <div ref={popupRef} className={styles.labelOption} onClick={handleOpenMenu}>
-      <OptionMenuIcon alt="리스트 공개, 비공개 옵션" />
+    <>
+      <div ref={popupRef} className={styles.labelOption} onClick={handleOpenMenu}>
+        <OptionMenuIcon alt="리스트 공개, 비공개 옵션" />
+      </div>
       {isPopupOpen && (
         <div className={styles.optionMenu} onClick={handleClickOption}>
           <button id="visibility" className={styles.optionTop}>
@@ -64,7 +66,7 @@ function OptionToggleButton({ listId, userId, isPublicCurrent }: OptionToggleBut
           </button>
         </div>
       )}
-    </div>
+    </>
   );
 }
 

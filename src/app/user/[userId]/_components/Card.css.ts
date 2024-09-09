@@ -4,6 +4,10 @@ import { vars } from '@/styles/theme.css';
 import { Label, LabelSmall } from '@/styles/font.css';
 
 export const container = style({
+  display: 'flex',
+  flexDirection: 'column',
+  gap: '1.1rem',
+
   maxWidth: '185px',
   width: '100%',
   padding: '1.2rem',
@@ -28,7 +32,7 @@ export const container = style({
     },
     'screen and (max-width: 400px)': {
       // 중간 point
-      maxWidth: '170px',
+      maxWidth: '171px',
     },
     'screen and (max-width: 390px)': {
       // iPhone 12 Pro
@@ -42,12 +46,10 @@ export const container = style({
 });
 
 export const title = style({
-  padding: '1.2rem 0 2rem 0',
-
   fontSize: '1.7rem',
   fontWeight: '600',
   color: vars.color.black,
-  textAlign: 'center',
+  textAlign: 'start',
   letterSpacing: '-0.51px',
   wordBreak: 'break-all',
 });
@@ -55,12 +57,9 @@ export const title = style({
 export const list = style({
   display: 'flex',
   flexDirection: 'column',
+  gap: '0.8rem',
 
-  fontSize: '1.2rem',
-  fontWeight: '400',
   color: vars.color.black,
-  lineHeight: '2.5rem',
-  letterSpacing: '-0.36px',
 });
 
 export const label = style({
@@ -69,21 +68,21 @@ export const label = style({
   alignItems: 'center',
 });
 
-export const labelText = style([
+export const visibilityLabel = style([
   LabelSmall,
   {
     padding: '0.4rem 1rem',
     height: '2.6rem',
 
-    display: 'inline-flex',
+    display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
-    gap: '0.5rem',
+    gap: '0.2rem',
 
     color: vars.color.blue,
 
     borderRadius: '1.7rem',
-    backgroundColor: vars.color.lightblue,
+    backgroundColor: '#F4F8FD',
   },
 ]);
 
@@ -96,7 +95,7 @@ export const item = style({
 export const rank = style([
   Label,
   {
-    width: '1.2rem',
+    width: '1.6rem',
   },
 ]);
 
