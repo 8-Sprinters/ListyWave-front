@@ -40,9 +40,16 @@ export const collectionButton = style([
 ]);
 
 export const cards = style({
-  padding: '2.1rem',
+  padding: '0.1rem 2.1rem',
+  height: '52rem',
   marginBottom: '84px',
   textAlign: 'center',
+  overflowY: 'auto',
+
+  msOverflowStyle: 'none',
+  '::-webkit-scrollbar': {
+    display: 'none',
+  },
 });
 
 export const gridSkeletonContainer = style({
