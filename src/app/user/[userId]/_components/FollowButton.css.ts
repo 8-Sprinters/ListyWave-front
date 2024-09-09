@@ -1,12 +1,13 @@
 import { style, styleVariants } from '@vanilla-extract/css';
-import { vars } from '@/styles/__theme.css';
+import { vars } from '@/styles/theme.css';
 
 export const button = style({
-  padding: '0.8rem 1.2rem',
-  borderRadius: '5rem',
-  fontSize: '1.1rem',
+  padding: '0.4rem 0.6rem',
+  borderRadius: '2rem',
+
+  fontSize: '1.2rem',
   fontWeight: '400',
-  lineHeight: '1.6rem',
+  letterSpacing: '-0.036rem',
 });
 
 export const variant = styleVariants({
@@ -17,11 +18,11 @@ export const variant = styleVariants({
       color: vars.color.white,
     },
   ],
-  gray: [
+  white: [
     button,
     {
-      backgroundColor: vars.color.gray7,
-      color: vars.color.white,
+      backgroundColor: vars.color.white,
+      color: vars.color.blue,
     },
   ],
 });

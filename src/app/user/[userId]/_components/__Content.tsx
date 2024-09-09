@@ -6,9 +6,7 @@ import { useInfiniteQuery, useQuery } from '@tanstack/react-query';
 import { MasonryGrid } from '@egjs/react-grid';
 import { Skeleton } from '@mui/material';
 
-import * as styles from './Content.css';
-import { vars } from '@/styles/theme.css';
-import BookmarkIcon from '/public/icons/new/bookmark.svg';
+import * as styles from './__Content.css';
 
 import Card from './Card';
 import Categories from './Categories';
@@ -74,18 +72,16 @@ export default function Content({ userId, type }: ContentProps) {
     setSelectedCategory(category);
   };
 
-  // TODO 사용자 정보 로딩중일때 스켈레톤 UI
-  if (!userData) {
-    return <></>;
-  }
-
   return (
     <div className={styles.container}>
-      <div className={styles.contentInfo}>
-        <h2 className={styles.infoTitle}>{`${userData?.nickname}님의 리스트`}</h2>
-        <Link href="/" className={styles.collectionButton}>
-          <BookmarkIcon fill={vars.color.blue} />
-          <span>콜렉션</span>
+      <div className={styles.options}>
+        <Link href={`/user/${userData?.id}/mylist`} className={styles.link}>
+          <span className={styles.button}>{userLocale[language].myList}</span>
+          <div className={type === 'my' ? styles.currentLine : styles.line}></div>
+        </Link>
+        <Link href={`/user/${userData?.id}/collabolist`} className={styles.link}>
+          <button className={styles.button}>{userLocale[language].collaboList}</button>
+          <div className={type === 'collabo' ? styles.currentLine : styles.line}></div>
         </Link>
       </div>
       <Categories handleFetchListsOnCategory={handleFetchListsOnCategory} selectedCategory={selectedCategory} />
