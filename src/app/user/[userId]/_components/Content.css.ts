@@ -1,64 +1,41 @@
 import { style } from '@vanilla-extract/css';
 
-import { BodyBold } from '@/styles/font.css';
+import { Subtitle, Label } from '@/styles/font.css';
 import { vars } from '@/styles/theme.css';
 
 export const container = style({
-  width: '100%',
-  marginTop: '37.6rem',
-
-  position: 'absolute',
-  top: 0,
-
   backgroundColor: vars.color.bgblue,
-  borderTopLeftRadius: '2.5rem',
-  borderTopRightRadius: '2.5rem',
 });
 
-export const options = style({
-  height: '6.4rem',
-  display: 'flex',
-  borderBottom: '1px solid rgba(0, 0, 0, 0.10)',
-  borderTopLeftRadius: '2.5rem',
-  borderTopRightRadius: '2.5rem',
-});
+export const contentInfo = style({
+  padding: '1.1rem 1.6rem 1.2rem 1.9rem',
 
-export const link = style({
-  padding: '0 1.5rem',
   display: 'flex',
-  flexDirection: 'column',
+  justifyContent: 'space-between',
   alignItems: 'center',
-  justifyContent: 'center',
-
-  flexGrow: '1',
-  textDecoration: 'none',
-  color: vars.color.black,
 });
 
-export const button = style([
-  BodyBold,
+export const infoTitle = style([
+  Subtitle,
   {
-    height: '100%',
-
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-    justifyContent: 'center',
-
-    backgroundColor: vars.color.bgblue,
+    color: vars.color.deepblue10,
   },
 ]);
 
-export const line = style({
-  width: '60%',
-  height: '5px',
-  borderRadius: '50px',
-});
-
-export const currentLine = style([
-  line,
+export const collectionButton = style([
+  Label,
   {
-    backgroundColor: vars.color.blue,
+    padding: '0.9rem 1.2rem',
+
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    gap: ' 0.7rem',
+
+    color: vars.color.blue,
+
+    borderRadius: '2rem',
+    backgroundColor: vars.color.white,
   },
 ]);
 
