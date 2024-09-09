@@ -4,20 +4,33 @@ import { vars } from '@/styles/theme.css';
 import { Label } from '@/styles/font.css';
 
 export const labelOption = style({
-  width: '50%',
-  height: '2.6rem',
+  width: '2.4rem',
+  height: '2.4rem',
+
+  position: 'relative',
+  padding: '0.7rem 1.1rem',
 
   display: 'flex',
-  justifyContent: 'end',
+  justifyContent: 'center',
   alignItems: 'center',
 
-  color: vars.color.black,
+  color: vars.color.deepblue10,
+  borderRadius: '100%',
+
+  selectors: {
+    '&:hover': {
+      boxShadow: '0px 8px 16px rgba(0, 0, 0, 0.08), 0px 0px 4px rgba(0, 0, 0, 0.02)',
+    },
+  },
 });
 
 export const optionMenu = style({
+  width: '9.1rem',
+  padding: '0.4rem',
+
   position: 'absolute',
-  top: '4.6rem',
-  right: 0,
+  top: '4.4rem',
+  right: '-8px',
 
   display: 'flex',
   flexDirection: 'column',
@@ -30,19 +43,15 @@ export const optionMenu = style({
 export const optionTop = style([
   Label,
   {
-    paddingTop: '1.6rem',
-    paddingLeft: '1.6rem',
-    paddingRight: '1.6rem',
-    paddingBottom: '0.6rem',
+    textAlign: 'left',
 
-    borderTopLeftRadius: '1.2rem',
-    borderTopRightRadius: '1.2rem',
-
-    fontWeight: '300',
+    width: '100%',
+    padding: '0.9rem 1.2rem',
+    borderRadius: '0.8rem',
 
     selectors: {
       '&:hover': {
-        backgroundColor: vars.color.lightblue,
+        backgroundColor: 'rgba(149, 158, 176, 0.11)',
       },
     },
   },
@@ -51,20 +60,17 @@ export const optionTop = style([
 export const optionBottom = style([
   Label,
   {
-    paddingTop: '0.6rem',
-    paddingLeft: '1.6rem',
-    paddingRight: '1.6rem',
-    paddingBottom: '1.6rem',
+    textAlign: 'left',
 
-    borderBottomLeftRadius: '1.2rem',
-    borderBottomRightRadius: '1.2rem',
+    width: '100%',
+    padding: '0.9rem 1.2rem',
+    borderRadius: '0.8rem',
 
     color: vars.color.red,
-    fontWeight: '300',
 
     selectors: {
       '&:hover': {
-        backgroundColor: vars.color.lightblue,
+        backgroundColor: 'rgba(149, 158, 176, 0.11)',
       },
     },
   },

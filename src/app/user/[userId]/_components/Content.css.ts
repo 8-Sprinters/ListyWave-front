@@ -8,7 +8,7 @@ export const container = style({
 });
 
 export const contentInfo = style({
-  padding: '1.1rem 1.6rem 1.2rem 1.9rem',
+  padding: '1.1rem 1.6rem 0.65rem 1.9rem',
 
   display: 'flex',
   justifyContent: 'space-between',
@@ -41,15 +41,14 @@ export const collectionButton = style([
 
 export const cards = style({
   padding: '2.1rem',
-  marginBottom: '70px',
+  marginBottom: '84px',
   textAlign: 'center',
 });
 
 export const gridSkeletonContainer = style({
   display: 'grid',
   gridTemplateColumns: 'repeat(2, 1fr)',
-  rowGap: '1.6rem',
-  columnGap: '1.2rem',
+  gap: '1.6rem',
 });
 
 export const nodataContainer = style({
