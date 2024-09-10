@@ -106,10 +106,11 @@ export default function Content({ userId, type }: ContentProps) {
             {lists.map((list) => (
               <Card key={list.id} list={list} isOwner={!!userData?.isOwner} userId={userId} />
             ))}
+            <div className={styles.target} ref={ref}></div>
           </MasonryGrid>
         )}
       </div>
-      <div className={styles.target} ref={ref}></div>
+      {/* <div className={styles.scrollDiv}></div> */}
     </div>
   );
 }
