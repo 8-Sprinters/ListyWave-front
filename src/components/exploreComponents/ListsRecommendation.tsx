@@ -85,7 +85,7 @@ function ListRecommendation() {
                         <Label colorType="blue">{item.category}</Label>
                       </div>
                       <ul className={styles.labelsWrapper}>
-                        {item.labels.map((label) => {
+                        {item?.labels?.map((label) => {
                           return (
                             <div key={label.id}>
                               <Label colorType="white">{label.name}</Label>
