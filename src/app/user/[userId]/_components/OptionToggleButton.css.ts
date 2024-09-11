@@ -29,8 +29,8 @@ export const optionMenu = style({
   padding: '0.4rem',
 
   position: 'absolute',
-  top: '4.4rem',
-  right: '-8px',
+  top: '3.2rem',
+  right: '-20px',
 
   display: 'flex',
   flexDirection: 'column',
