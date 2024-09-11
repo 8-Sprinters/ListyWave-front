@@ -18,8 +18,8 @@ interface CardProps {
 /**
 TODO
 - [ ] 삭제 시 컨펌모달
-- [ ] 토스트 메세지
-- [ ] 리스트 공개, 비공개 기능
+- [x] 토스트 메세지
+- [x] 리스트 공개, 비공개 기능
  */
 
 function Card({ list, isOwner, userId }: CardProps) {
