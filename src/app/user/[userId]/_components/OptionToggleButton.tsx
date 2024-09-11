@@ -8,7 +8,12 @@ import useOnClickOutside from '@/hooks/useOnClickOutside';
 import useBooleanOutput from '@/hooks/useBooleanOutput';
 
 import deleteList from '@/app/_api/list/deleteList';
+import updateVisibilityList from '@/app/_api/list/updateVisibilityList';
+
 import { QUERY_KEYS } from '@/lib/constants/queryKeys';
+import toasting from '@/lib/utils/toasting';
+import toastMessage from '@/lib/constants/toastMessage';
+import { useLanguage } from '@/store/useLanguage';
 
 interface OptionToggleButtonType {
   listId: string;
@@ -20,6 +25,7 @@ type SelectOptionType = 'visibility' | 'delete';
 
 function OptionToggleButton({ listId, userId, isPublicCurrent }: OptionToggleButtonType) {
   const queryClient = useQueryClient();
+  const { language } = useLanguage();
   const { isOn: isPopupOpen, toggle: popupToggle, handleSetOff: handlePopupOff } = useBooleanOutput();
   const { ref: popupRef } = useOnClickOutside(handlePopupOff);
 
@@ -29,9 +35,22 @@ function OptionToggleButton({ listId, userId, isPublicCurrent }: OptionToggleBut
     mutationFn: () => deleteList(listId),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: [QUERY_KEYS.getAllList, userId] });
+      toasting({ type: 'success', txt: toastMessage[language].deleteListSuccess });
     },
     onError: () => {
-      // TODO 에러핸들링 - 토스트메세지
+      toasting({ type: 'error', txt: toastMessage[language].deleteListError });
+    },
+  });
+
+  const updateVisibilityMutation = useMutation({
+    mutationFn: () => updateVisibilityList(listId),
+    onSuccess: () => {
+      handlePopupOff();
+      queryClient.invalidateQueries({ queryKey: [QUERY_KEYS.getAllList, userId] });
+      toasting({ type: 'success', txt: toastMessage[language].visibilityListSuccess });
+    },
+    onError: () => {
+      toasting({ type: 'error', txt: toastMessage[language].visibilityListError });
     },
   });
 
@@ -46,8 +65,8 @@ function OptionToggleButton({ listId, userId, isPublicCurrent }: OptionToggleBut
 
     if (selectOption === 'delete') {
       deleteListMutation.mutate();
-    } else {
-      // TODO 비공개, 공개 설정
+    } else if (selectOption === 'visibility') {
+      updateVisibilityMutation.mutate();
     }
   };
 
