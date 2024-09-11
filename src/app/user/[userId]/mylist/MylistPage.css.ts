@@ -4,8 +4,7 @@ import { vars } from '@/styles/theme.css';
 
 export const container = style({
   width: '100%',
-  height: '100%',
+  height: '100vh',
 
-  position: 'fixed',
   backgroundColor: vars.color.bgblue,
 });

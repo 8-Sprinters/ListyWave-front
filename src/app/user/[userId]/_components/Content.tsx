@@ -33,6 +33,9 @@ interface ContentProps {
 const DEFAULT_CATEGORY = 'entire';
 
 export default function Content({ userId, type }: ContentProps) {
+  const [visibleTopGradient, setVisibleTopGradient] = useState(false);
+  const [visibleBottomGradient, setVisibleBottomGradient] = useState(true);
+
   const { language } = useLanguage();
   const [selectedCategory, setSelectedCategory] = useState(DEFAULT_CATEGORY);
 
@@ -64,11 +67,35 @@ export default function Content({ userId, type }: ContentProps) {
       : [];
   }, [listsData, userData]);
 
-  const ref = useIntersectionObserver(() => {
+  const ref = useIntersectionObserver((entry) => {
     if (hasNextPage) {
       fetchNextPage();
     }
   });
+
+  const stickyContainer = useIntersectionObserver(
+    (entry) => {
+      if (entry.intersectionRatio < 1) {
+        // 메뉴가 상단에 sticky 되었을 떄
+        setVisibleTopGradient(true);
+      } else if (entry.intersectionRatio === 1) {
+        // sticky가 해제되었을 뗴
+        setVisibleTopGradient(false);
+      }
+    },
+    [0, 1]
+  );
+
+  const scrollBottomTarget = useIntersectionObserver(
+    (entry) => {
+      if (entry.intersectionRatio < 1) {
+        setVisibleBottomGradient(true);
+      } else {
+        setVisibleBottomGradient(false);
+      }
+    },
+    [0, 1]
+  );
 
   const handleFetchListsOnCategory = (category: string) => {
     setSelectedCategory(category);
@@ -81,14 +108,18 @@ export default function Content({ userId, type }: ContentProps) {
 
   return (
     <div className={styles.container}>
-      <div className={styles.contentInfo}>
-        <h2 className={styles.infoTitle}>{`${userData?.nickname}님의 리스트`}</h2>
-        <Link href="/" className={styles.collectionButton}>
-          <BookmarkIcon fill={vars.color.blue} />
-          <span>콜렉션</span>
-        </Link>
+      <div ref={stickyContainer} className={styles.stickyContainer}>
+        <div className={styles.contentInfo}>
+          <h2 className={styles.infoTitle}>{`${userData?.nickname}님의 리스트`}</h2>
+          <Link href="/" className={styles.collectionButton}>
+            <BookmarkIcon fill={vars.color.blue} />
+            <span>콜렉션</span>
+          </Link>
+        </div>
+        <Categories handleFetchListsOnCategory={handleFetchListsOnCategory} selectedCategory={selectedCategory} />
+        <div className={`${styles.scrollDivTop} ${visibleTopGradient ? styles.visibleScrollDiv : ''}`}></div>
       </div>
-      <Categories handleFetchListsOnCategory={handleFetchListsOnCategory} selectedCategory={selectedCategory} />
+
       {!isLoading && !lists.length && (
         <div className={styles.nodataContainer}>
           <NoDataComponent message={userLocale[language].noListMessage} />
@@ -110,7 +141,8 @@ export default function Content({ userId, type }: ContentProps) {
           </MasonryGrid>
         )}
       </div>
-      {/* <div className={styles.scrollDiv}></div> */}
+      <div ref={scrollBottomTarget} className={styles.scrollBottomTarget}></div>
+      <div className={`${styles.scrollDivBottom} ${visibleBottomGradient ? styles.visibleScrollDiv : ''}`}></div>
     </div>
   );
 }

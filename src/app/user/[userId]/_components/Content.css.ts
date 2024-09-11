@@ -4,13 +4,15 @@ import { Subtitle, Label } from '@/styles/font.css';
 import { vars } from '@/styles/theme.css';
 
 export const container = style({
-  // 상하단 요소 크기에 맞춰 높이 조정 (100vh - 프로필 영역 제외)
-  height: 'calc(100vh - 225px)',
+  position: 'absolute',
+
+  // (참고 - 내부 카드 영역만 스크롤되도록 구현 시) 상하단 요소 크기에 맞춰 높이 조정 (100vh - 프로필 영역 제외)
+  // height: 'calc(100vh - 225px)',
   backgroundColor: vars.color.bgblue,
 });
 
 export const contentInfo = style({
-  padding: '1.1rem 1.6rem 0.65rem 1.9rem',
+  padding: '1.65rem 1.6rem 0.65rem 1.9rem',
 
   display: 'flex',
   justifyContent: 'space-between',
@@ -42,25 +44,39 @@ export const collectionButton = style([
 ]);
 
 export const cards = style({
-  position: 'sticky',
-  top: '1rem',
-
-  padding: '0.1rem 2.1rem',
+  padding: '0.1rem 2.1rem 1rem 2.1rem',
   marginBottom: '84px',
 
-  // 상하단 요소 크기에 맞춰 높이 조정 (100vh - 타이틀, 카테고리 영역 제외)
-  height: 'calc(100% - 100px)',
-
   textAlign: 'center',
-  overflowY: 'auto',
 
-  msOverflowStyle: 'none',
-  '::-webkit-scrollbar': {
-    display: 'none',
-  },
+  // (참고 - 내부 카드 영역만 스크롤되도록 구현 시) 상하단 요소 크기에 맞춰 높이 조정 (100vh - 타이틀, 카테고리 영역 제외)
+  // height: 'calc(100% - 100px)',
+  // overflowY: 'auto',
 });
 
-export const scrollDiv = style({
+export const stickyContainer = style({
+  position: 'sticky',
+  top: '-1px', // observer API로 sticky 영역이 stuck 상태임을 감지하기 위해
+
+  zIndex: 1,
+  background: vars.color.bgblue,
+});
+
+export const scrollDivTop = style({
+  position: 'absolute',
+  top: '100px',
+
+  width: '100%',
+  height: '83px',
+
+  background: 'linear-gradient(360deg, rgba(245, 246, 250, 0.00) 35.68%, #F5F6FA 92.16%)',
+  zIndex: '1',
+  opacity: 0,
+
+  transition: 'opacity 0.3s ease',
+});
+
+export const scrollDivBottom = style({
   position: 'fixed',
   bottom: '84px',
 
@@ -68,6 +84,13 @@ export const scrollDiv = style({
   height: '83px',
 
   background: 'linear-gradient(180deg, rgba(245, 246, 250, 0.00) 0%, #F5F6FA 100%)',
+  opacity: 0,
+
+  transition: 'opacity 0.3s ease',
+});
+
+export const visibleScrollDiv = style({
+  opacity: 1,
 });
 
 export const gridSkeletonContainer = style({
@@ -83,4 +106,9 @@ export const nodataContainer = style({
 export const target = style({
   width: '100%',
   height: '2px',
+});
+
+export const scrollBottomTarget = style({
+  height: '2px',
+  width: '100%',
 });

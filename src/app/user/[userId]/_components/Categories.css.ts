@@ -5,7 +5,7 @@ import { Label } from '@/styles/font.css';
 
 export const container = style({
   padding: '0 1.6rem',
-  marginBottom: '1.6rem',
+  paddingBottom: '1.6rem',
 
   display: 'flex',
   alignItems: 'flex-start',

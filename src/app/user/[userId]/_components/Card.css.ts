@@ -45,6 +45,10 @@ export const container = style({
   },
 });
 
+export const visible = style({
+  backgroundColor: vars.color.lightblue,
+});
+
 export const title = style({
   fontSize: '1.7rem',
   fontWeight: '600',
