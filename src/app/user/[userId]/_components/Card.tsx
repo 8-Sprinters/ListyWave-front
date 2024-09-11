@@ -15,13 +15,6 @@ interface CardProps {
   userId: number;
 }
 
-/**
-TODO
-- [ ] 삭제 시 컨펌모달
-- [x] 토스트 메세지
-- [x] 리스트 공개, 비공개 기능
- */
-
 function Card({ list, isOwner, userId }: CardProps) {
   const { onClickMoveToPage } = useMoveToPage();
 
