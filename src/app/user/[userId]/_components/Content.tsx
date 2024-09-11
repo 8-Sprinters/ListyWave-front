@@ -67,12 +67,13 @@ export default function Content({ userId, type }: ContentProps) {
       : [];
   }, [listsData, userData]);
 
-  const ref = useIntersectionObserver((entry) => {
+  const ref = useIntersectionObserver(() => {
     if (hasNextPage) {
       fetchNextPage();
     }
   });
 
+  /** 콘텐츠 상단 영역(sticky)이 붙어있음을 감지하여 그라데이션 스타일 적용 */
   const stickyContainer = useIntersectionObserver(
     (entry) => {
       if (entry.intersectionRatio < 1) {
@@ -86,6 +87,7 @@ export default function Content({ userId, type }: ContentProps) {
     [0, 1]
   );
 
+  /** 스크롤이 끝났음을 감지하여 하단 영역 그라데이션 스타일 적용 */
   const scrollBottomTarget = useIntersectionObserver(
     (entry) => {
       if (entry.intersectionRatio < 1) {
@@ -137,9 +139,9 @@ export default function Content({ userId, type }: ContentProps) {
             {lists.map((list) => (
               <Card key={list.id} list={list} isOwner={!!userData?.isOwner} userId={userId} />
             ))}
-            <div className={styles.target} ref={ref}></div>
           </MasonryGrid>
         )}
+        <div className={styles.target} ref={ref}></div>
       </div>
       <div ref={scrollBottomTarget} className={styles.scrollBottomTarget}></div>
       <div className={`${styles.scrollDivBottom} ${visibleBottomGradient ? styles.visibleScrollDiv : ''}`}></div>
