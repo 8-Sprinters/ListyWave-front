@@ -70,7 +70,6 @@ export const scrollDivTop = style({
   height: '83px',
 
   background: 'linear-gradient(360deg, rgba(245, 246, 250, 0.00) 35.68%, #F5F6FA 92.16%)',
-  zIndex: '1',
   opacity: 0,
 
   transition: 'opacity 0.3s ease',
