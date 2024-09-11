@@ -117,7 +117,7 @@ export default function Content({ userId, type }: ContentProps) {
           </Link>
         </div>
         <Categories handleFetchListsOnCategory={handleFetchListsOnCategory} selectedCategory={selectedCategory} />
-        <div className={`${styles.scrollDivTop} ${visibleTopGradient ? styles.visibleScrollDiv : ''}`}></div>
+        <div className={`${styles.scrollDivTop} ${visibleTopGradient ? styles.visibleScrollDivTop : ''}`}></div>
       </div>
 
       {!isLoading && !lists.length && (

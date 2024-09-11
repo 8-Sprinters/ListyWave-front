@@ -64,7 +64,7 @@ export const stickyContainer = style({
 
 export const scrollDivTop = style({
   position: 'absolute',
-  top: '100px',
+  top: 0,
 
   width: '100%',
   height: '83px',
@@ -87,6 +87,11 @@ export const scrollDivBottom = style({
   opacity: 0,
 
   transition: 'opacity 0.3s ease',
+});
+
+export const visibleScrollDivTop = style({
+  top: '100px',
+  opacity: 1,
 });
 
 export const visibleScrollDiv = style({
