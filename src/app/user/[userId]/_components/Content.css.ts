@@ -4,7 +4,7 @@ import { Subtitle, Label } from '@/styles/font.css';
 import { vars } from '@/styles/theme.css';
 
 export const container = style({
-  position: 'absolute',
+  // position: 'absolute',
 
   // (참고 - 내부 카드 영역만 스크롤되도록 구현 시) 상하단 요소 크기에 맞춰 높이 조정 (100vh - 프로필 영역 제외)
   // height: 'calc(100vh - 225px)',
