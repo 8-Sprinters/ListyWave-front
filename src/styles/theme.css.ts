@@ -4,6 +4,7 @@ export const vars = createThemeContract({
   color: {
     white: 'color-white',
     lightblue: 'color-lightblue',
+    lightblue2: 'color-lightblue2',
     whiteblue: 'color-whiteblue',
     skyblue: 'color-skyblue',
     blue: 'color-blue',
@@ -31,6 +32,7 @@ createGlobalTheme(':root', vars, {
   color: {
     white: '#FFFFFF',
     lightblue: '#E5EEFE',
+    lightblue2: '#E3EEFF',
     whiteblue: '#EEF6FF',
     skyblue: '#C5DFFF',
     blue: '#3D95FF',
