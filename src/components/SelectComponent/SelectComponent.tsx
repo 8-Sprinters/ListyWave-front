@@ -18,7 +18,7 @@ const selectStyles = {
   control: (provided: object, state: { isFocused: boolean }) => ({
     ...provided,
     maxWidth: '320px',
-    backgroundColor: 'white',
+    backgroundColor: 'transparent',
     boxShadow: 'none',
     border: 0,
     borderRadius: '8px',
