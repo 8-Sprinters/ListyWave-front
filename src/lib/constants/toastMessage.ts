@@ -19,9 +19,9 @@ const toastMessage: Record<string, { [key: string]: string }> = {
     withdrawError: '탈퇴에 실패했어요. 다시 시도해주세요.',
     failedCollect: '콜렉트에 실패했어요. 다시 시도해주세요.🥲',
     deleteListSuccess: '리스트를 삭제했어요.',
-    deleteListError: '리스트 삭제에 실패했어요. 다시 시도해주세요.🥲',
-    visibilityListSuccess: '리스트 변경사항을 저장했어요.',
-    visibilityListError: '리스트 변경사항 저장에 실패했어요. 다시 시도해주세요.🥲',
+    deleteListError: '리스트 삭제에 실패했어요.',
+    visibilityListSuccess: '리스트 공개/비공개 변경을 완료했어요.',
+    visibilityListError: '리스트 공개/비공개 변경에 실패했어요.',
   },
   en: {
     requiredLogin: 'Login is required.',
@@ -42,8 +42,8 @@ const toastMessage: Record<string, { [key: string]: string }> = {
     failedCollect: 'Failed to collect. Please try again.🥲',
     deleteListSuccess: 'Successfully deleted the list.',
     deleteListError: 'Failed to delete the list. Please try again.🥲',
-    visibilityListSuccess: 'Changes to the list have been saved.',
-    visibilityListError: 'Failed to save changes to the list. Please try again.🥲',
+    visibilityListSuccess: 'List visibility updated successfully.',
+    visibilityListError: 'Failed to update list visibility. Please try again.🥲',
   },
 };
 
