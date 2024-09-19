@@ -67,7 +67,7 @@ export const scrollDivTop = style({
   top: 0,
 
   width: '100%',
-  height: '83px',
+  height: '1px',
 
   background: 'linear-gradient(360deg, rgba(245, 246, 250, 0.00) 35.68%, #F5F6FA 92.16%)',
   opacity: 0,
@@ -90,6 +90,7 @@ export const scrollDivBottom = style({
 
 export const visibleScrollDivTop = style({
   top: '100px',
+  height: '83px',
   opacity: 1,
 });
 
