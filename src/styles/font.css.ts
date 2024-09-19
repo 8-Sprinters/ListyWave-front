@@ -3,7 +3,7 @@ import { style } from '@vanilla-extract/css';
 export const Header = style({
   fontSize: '2rem',
   fontWeight: '700',
-  letterSpacing: '-0.6rem',
+  letterSpacing: '-0.06rem',
 });
 
 export const Subtitle = style({

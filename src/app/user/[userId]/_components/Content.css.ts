@@ -8,7 +8,7 @@ export const container = style({
 
   // (참고 - 내부 카드 영역만 스크롤되도록 구현 시) 상하단 요소 크기에 맞춰 높이 조정 (100vh - 프로필 영역 제외)
   // height: 'calc(100vh - 225px)',
-  backgroundColor: vars.color.bgblue,
+  backgroundColor: vars.color.bggray,
 });
 
 export const contentInfo = style({
@@ -59,7 +59,7 @@ export const stickyContainer = style({
   top: '-1px', // observer API로 sticky 영역이 stuck 상태임을 감지하기 위해
 
   zIndex: 1,
-  background: vars.color.bgblue,
+  background: vars.color.bggray,
 });
 
 export const scrollDivTop = style({

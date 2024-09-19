@@ -10,7 +10,7 @@ export const container = style({
   position: 'absolute',
   top: 0,
 
-  backgroundColor: vars.color.bgblue,
+  backgroundColor: vars.color.bggray,
   borderTopLeftRadius: '2.5rem',
   borderTopRightRadius: '2.5rem',
 });
@@ -45,7 +45,7 @@ export const button = style([
     alignItems: 'center',
     justifyContent: 'center',
 
-    backgroundColor: vars.color.bgblue,
+    backgroundColor: vars.color.bggray,
   },
 ]);
 
