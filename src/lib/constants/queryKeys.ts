@@ -27,4 +27,5 @@ export const QUERY_KEYS = {
   collect: 'collect',
   getCollection: 'getCollection',
   getCollectionCategories: 'getCollectionCategories',
+  getTopics: 'getTopics',
 };
