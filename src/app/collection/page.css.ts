@@ -10,6 +10,7 @@ export const folders = style({
   gridRowGap: 34,
 });
 
+// 폴더
 export const folder = style({
   display: 'flex',
   flexDirection: 'column',
@@ -78,3 +79,33 @@ export const title = style([
     color: vars.color.black,
   },
 ]);
+
+// 폴더 버튼
+export const addFolderButtonContainer = style({
+  position: 'sticky',
+  bottom: 0,
+  padding: '1.6rem',
+
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center',
+});
+
+export const addFolderButton = style({
+  padding: '16px 10px 14px 10px',
+  width: '100%',
+  maxWidth: 358,
+
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center',
+  gap: 10,
+
+  border: '1px solid rgba(61, 149, 255, 0.50)',
+  borderRadius: 18,
+  backgroundColor: vars.color.white,
+
+  color: vars.color.blue,
+  fontSize: '1.6rem',
+  fontWeight: 700,
+});
