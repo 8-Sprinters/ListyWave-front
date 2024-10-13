@@ -5,6 +5,8 @@ import Header from '@/components/Header/Header';
 
 import * as styles from './page.css';
 import { FOLDERS } from './mockData';
+import useBooleanOutput from '@/hooks/useBooleanOutput';
+import BottomSheet from './_components/BottomSheet';
 
 export default function CollectionPage() {
   //   const { data } = useQuery<FoldersType[]>({
@@ -14,6 +16,8 @@ export default function CollectionPage() {
 
   const folders = FOLDERS;
   console.log(folders);
+
+  const { isOn, handleSetOn, handleSetOff } = useBooleanOutput(false);
 
   return (
     <section>
@@ -34,11 +38,12 @@ export default function CollectionPage() {
         ))}
       </div>
       <div className={styles.addFolderButtonContainer}>
-        <button className={styles.addFolderButton}>
+        <button className={styles.addFolderButton} onClick={handleSetOn}>
           <Image src={'/icons/new/add.svg'} width={16} height={16} alt="폴더 추가하기" />
           <span>폴더 추가하기</span>
         </button>
       </div>
+      <BottomSheet isOn={isOn} onClose={handleSetOff} />
     </section>
   );
 }
