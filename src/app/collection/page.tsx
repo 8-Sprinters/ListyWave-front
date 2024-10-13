@@ -1,5 +1,6 @@
 'use client';
 
+import Image from 'next/image';
 import Header from '@/components/Header/Header';
 
 import * as styles from './page.css';
@@ -31,6 +32,12 @@ export default function CollectionPage() {
             </p>
           </div>
         ))}
+      </div>
+      <div className={styles.addFolderButtonContainer}>
+        <button className={styles.addFolderButton}>
+          <Image src={'/icons/new/add.svg'} width={16} height={16} alt="폴더 추가하기" />
+          <span>폴더 추가하기</span>
+        </button>
       </div>
     </section>
   );
