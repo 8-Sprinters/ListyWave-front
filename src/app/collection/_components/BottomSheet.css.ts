@@ -1,5 +1,6 @@
 import { style, styleVariants } from '@vanilla-extract/css';
 import { vars } from '@/styles/theme.css';
+import { Subtitle } from '@/styles/font.css';
 
 const containerStyle = style({
   position: 'fixed',
@@ -26,5 +27,56 @@ export const container = styleVariants({
 });
 
 export const contents = style({
-  padding: '4rem',
+  paddingTop: '3.3rem',
+  paddingLeft: '2rem',
+  paddingRight: '2rem',
+
+  width: '100%',
+  height: '100%',
+
+  display: 'flex',
+  flexDirection: 'column',
+  gap: 12,
+});
+
+export const contentTitle = style([
+  Subtitle,
+  {
+    color: vars.color.black,
+    textAlign: 'center',
+  },
+]);
+
+export const contentInput = style({
+  padding: '2rem 2.4rem',
+  backgroundColor: '#F5F6FA',
+  borderRadius: 18,
+
+  color: vars.color.black,
+  fontSize: '1.6rem',
+  fontWeight: 400,
+});
+
+export const optionButtons = style({
+  margin: 12,
+  display: 'flex',
+  justifyContent: 'space-between',
+  height: '100%',
+});
+
+const button = style({
+  flexGrow: 1,
+
+  display: 'flex',
+  alignItems: 'flex-start',
+  justifyContent: 'center',
+
+  fontSize: '1.6rem',
+  fontWeight: 400,
+  color: vars.color.black,
+});
+
+export const variantButton = styleVariants({
+  default: [button],
+  active: [button, { color: vars.color.blue }],
 });
