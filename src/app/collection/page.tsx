@@ -1,6 +1,7 @@
 'use client';
 
 import Image from 'next/image';
+import { useRouter } from 'next/navigation';
 import { useQuery } from '@tanstack/react-query';
 
 import * as styles from './page.css';
@@ -12,6 +13,7 @@ import getFolders, { FoldersResponseType } from '../_api/folder/getFolders';
 import { QUERY_KEYS } from '@/lib/constants/queryKeys';
 
 export default function CollectionPage() {
+  const router = useRouter();
   const { data } = useQuery<FoldersResponseType>({
     queryKey: [QUERY_KEYS.getFolders],
     queryFn: getFolders,
@@ -22,7 +24,7 @@ export default function CollectionPage() {
 
   return (
     <section>
-      <Header title="콜렉션" left="back" />
+      <Header title="콜렉션" left="back" leftClick={() => router.back()} />
       <div className={styles.container}>
         <div className={styles.folders}>
           {data?.folders.map((folder) => (
@@ -33,7 +35,7 @@ export default function CollectionPage() {
                 <div className={styles.bottomShape}></div>
               </div>
               <p className={styles.title}>
-                <span>{folder.folderName}</span>
+                <span className={styles.folderName}>{folder.folderName}</span>
                 <span>{`(${folder.listCount})`}</span>
               </p>
             </div>

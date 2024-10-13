@@ -11,9 +11,9 @@ export const container = style({
 export const folders = style({
   padding: '2.4rem 4.8rem',
   display: 'grid',
-  gridTemplateColumns: '1fr 1fr',
+  gridTemplateColumns: 'repeat(2, 1fr)',
   gridColumnGap: 34,
-  gridRowGap: 34,
+  gridRowGap: 24,
 });
 
 // 폴더
@@ -79,12 +79,19 @@ export const bottomShape = style({
 export const title = style([
   Label,
   {
+    maxWidth: 130,
     display: 'flex',
     gap: 6,
     alignItems: 'center',
     color: vars.color.black,
   },
 ]);
+
+export const folderName = style({
+  overflow: 'hidden',
+  textOverflow: 'ellipsis',
+  whiteSpace: 'nowrap',
+});
 
 // 폴더 버튼
 export const addFolderButtonContainer = style({
