@@ -1,21 +1,22 @@
 'use client';
 
 import Image from 'next/image';
-import Header from '@/components/Header/Header';
+import { useQuery } from '@tanstack/react-query';
 
 import * as styles from './page.css';
-import { FOLDERS } from './mockData';
-import useBooleanOutput from '@/hooks/useBooleanOutput';
+
+import Header from '@/components/Header/Header';
 import BottomSheet from './_components/BottomSheet';
+import useBooleanOutput from '@/hooks/useBooleanOutput';
+import getFolders, { FoldersResponseType } from '../_api/folder/getFolders';
+import { QUERY_KEYS } from '@/lib/constants/queryKeys';
 
 export default function CollectionPage() {
-  //   const { data } = useQuery<FoldersType[]>({
-  //     queryKey: [QUERY_KEYS.getFolders],
-  //     queryFn: getFolders,
-  //   });
-
-  const folders = FOLDERS;
-  console.log(folders);
+  const { data } = useQuery<FoldersResponseType>({
+    queryKey: [QUERY_KEYS.getFolders],
+    queryFn: getFolders,
+    staleTime: 1000 * 60 * 5, // 5분 설정
+  });
 
   const { isOn, handleSetOn, handleSetOff } = useBooleanOutput(false);
 
@@ -24,7 +25,7 @@ export default function CollectionPage() {
       <Header title="콜렉션" left="back" />
       <div className={styles.container}>
         <div className={styles.folders}>
-          {folders.map((folder) => (
+          {data?.folders.map((folder) => (
             <div key={folder.folderId} className={styles.folder}>
               <div className={styles.folderShape}>
                 <div className={styles.topLeftShape}></div>

@@ -1,5 +1,5 @@
 import { ChangeEvent, useState } from 'react';
-import { useMutation } from '@tanstack/react-query';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { isAxiosError } from 'axios';
 
 import * as styles from './BottomSheet.css';
@@ -10,6 +10,7 @@ import { useLanguage } from '@/store/useLanguage';
 import Modal from '@/components/Modal/Modal';
 import LoginModal from '@/components/login/LoginModal';
 import useBooleanOutput from '@/hooks/useBooleanOutput';
+import { QUERY_KEYS } from '@/lib/constants/queryKeys';
 
 interface BottomSheetProps {
   isOn: boolean;
@@ -17,6 +18,7 @@ interface BottomSheetProps {
 }
 
 export default function BottomSheet({ isOn, onClose }: BottomSheetProps) {
+  const queryClient = useQueryClient();
   const { language } = useLanguage();
   const { isOn: isLoginModalOn, handleSetOn: loginModalOn, handleSetOff: loginModalOff } = useBooleanOutput();
 
@@ -24,8 +26,8 @@ export default function BottomSheet({ isOn, onClose }: BottomSheetProps) {
 
   const createFolderMutation = useMutation({
     mutationFn: createCollectionFolder,
-    onSuccess: (data) => {
-      // TODO update folder list
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: [QUERY_KEYS.getFolders] });
       setValue('');
       onClose();
     },
