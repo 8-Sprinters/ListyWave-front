@@ -22,26 +22,28 @@ export default function CollectionPage() {
   return (
     <section>
       <Header title="콜렉션" left="back" />
-      <div className={styles.folders}>
-        {folders.map((folder) => (
-          <div key={folder.folderId} className={styles.folder}>
-            <div className={styles.folderShape}>
-              <div className={styles.topLeftShape}></div>
-              <div className={styles.topShape}></div>
-              <div className={styles.bottomShape}></div>
+      <div className={styles.container}>
+        <div className={styles.folders}>
+          {folders.map((folder) => (
+            <div key={folder.folderId} className={styles.folder}>
+              <div className={styles.folderShape}>
+                <div className={styles.topLeftShape}></div>
+                <div className={styles.topShape}></div>
+                <div className={styles.bottomShape}></div>
+              </div>
+              <p className={styles.title}>
+                <span>{folder.folderName}</span>
+                <span>{`(${folder.listCount})`}</span>
+              </p>
             </div>
-            <p className={styles.title}>
-              <span>{folder.folderName}</span>
-              <span>{`(${folder.listCount})`}</span>
-            </p>
-          </div>
-        ))}
-      </div>
-      <div className={styles.addFolderButtonContainer}>
-        <button className={styles.addFolderButton} onClick={handleSetOn}>
-          <Image src={'/icons/new/add.svg'} width={16} height={16} alt="폴더 추가하기" />
-          <span>폴더 추가하기</span>
-        </button>
+          ))}
+        </div>
+        <div className={styles.addFolderButtonContainer}>
+          <button className={styles.addFolderButton} onClick={handleSetOn}>
+            <Image src={'/icons/new/add.svg'} width={16} height={16} alt="폴더 추가하기" />
+            <span>폴더 추가하기</span>
+          </button>
+        </div>
       </div>
       <BottomSheet isOn={isOn} onClose={handleSetOff} />
     </section>

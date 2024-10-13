@@ -2,6 +2,12 @@ import { style } from '@vanilla-extract/css';
 import { vars } from '@/styles/theme.css';
 import { Label } from '@/styles/font.css';
 
+export const container = style({
+  position: 'relative',
+  paddingBottom: 83,
+  height: 'calc(100% - 70px)',
+});
+
 export const folders = style({
   padding: '2.4rem 4.8rem',
   display: 'grid',
@@ -82,9 +88,10 @@ export const title = style([
 
 // 폴더 버튼
 export const addFolderButtonContainer = style({
-  position: 'sticky',
+  position: 'fixed',
   bottom: 0,
   padding: '1.6rem',
+  width: '100%',
 
   display: 'flex',
   justifyContent: 'center',
