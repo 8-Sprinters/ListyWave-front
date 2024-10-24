@@ -7,9 +7,10 @@ import useBooleanOutput from '@/hooks/useBooleanOutput';
 
 interface HeaderContainerProps {
   handleSetOnBottomSheet: () => void;
+  handleSetOnDeleteOption: () => void;
 }
 
-export default function HeaderContainer({ handleSetOnBottomSheet }: HeaderContainerProps) {
+export default function HeaderContainer({ handleSetOnBottomSheet, handleSetOnDeleteOption }: HeaderContainerProps) {
   const { isOn, handleSetOn, handleSetOff } = useBooleanOutput();
 
   const bottomSheetOptionList = [
@@ -21,7 +22,7 @@ export default function HeaderContainer({ handleSetOnBottomSheet }: HeaderContai
     {
       key: 'deleteFolder',
       title: '폴더 삭제하기',
-      onClick: () => {},
+      onClick: handleSetOnDeleteOption,
     },
   ];
 
