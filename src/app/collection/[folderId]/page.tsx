@@ -1,5 +1,6 @@
 'use client';
 
+import { useRouter } from 'next/navigation';
 import { ChangeEvent, useState } from 'react';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { isAxiosError } from 'axios';
@@ -16,6 +17,7 @@ import toasting from '@/lib/utils/toasting';
 import toastMessage from '@/lib/constants/toastMessage';
 import { QUERY_KEYS } from '@/lib/constants/queryKeys';
 import updateCollectionFolder from '@/app/_api/folder/updateFolder';
+import deleteFolder from '@/app/_api/folder/deleteFolder';
 
 interface ParamType {
   params: { folderId: string };
@@ -32,9 +34,11 @@ export default function CollectionDetailPage({ params }: ParamType) {
   } = useBooleanOutput();
   const queryClient = useQueryClient();
   const { language } = useLanguage();
+  const router = useRouter();
 
   const [value, setValue] = useState('');
 
+  // 폴더 수정하기 mutation
   const editFolderMutation = useMutation({
     mutationFn: updateCollectionFolder,
     onSuccess: () => {
@@ -58,6 +62,25 @@ export default function CollectionDetailPage({ params }: ParamType) {
     },
   });
 
+  // 폴더 삭제하기 mutation
+  const deleteFolderMutation = useMutation({
+    mutationFn: deleteFolder,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: [QUERY_KEYS.getFolders] });
+      handleSetOffDeleteOption();
+      router.push('/collection');
+    },
+    onError: (error) => {
+      if (isAxiosError(error)) {
+        const errorData = error.response?.data;
+        if (errorData.error === 'UNAUTHORIZED') {
+          toasting({ type: 'error', txt: toastMessage[language].requiredLogin });
+          return;
+        }
+      }
+    },
+  });
+
   const handleChangeInput = (e: ChangeEvent<HTMLInputElement>) => {
     setValue(e.target.value);
   };
@@ -68,6 +91,10 @@ export default function CollectionDetailPage({ params }: ParamType) {
       return;
     }
     editFolderMutation.mutate({ folderId, folderName: value });
+  };
+
+  const handleDeleteFolder = () => {
+    deleteFolderMutation.mutate(folderId);
   };
 
   return (
@@ -92,7 +119,7 @@ export default function CollectionDetailPage({ params }: ParamType) {
           <p>정말 삭제하시나요?</p>
           <p>폴더와 안에 있었던 리스트가 모두 삭제돼요</p>
         </div>
-        <BottomSheet.Button onClose={handleSetOffDeleteOption} isDelete={true} onClick={() => {}}>
+        <BottomSheet.Button onClose={handleSetOffDeleteOption} isDelete={true} onClick={handleDeleteFolder}>
           삭제
         </BottomSheet.Button>
       </BottomSheet>
