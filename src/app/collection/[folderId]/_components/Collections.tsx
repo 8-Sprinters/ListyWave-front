@@ -34,7 +34,7 @@ export default function Collections({ folderId }: CollectionsProps) {
             href={`/list/${list.id}`}
             className={styles.contentVariant[hasImage ? 'round' : 'square']}
             style={assignInlineVars({
-              [styles.imageUrl]: `url(${hasImage ? list.representativeImageUrl : null})`,
+              [styles.imageUrl]: `url(${hasImage ? list.representativeImageUrl : ''})`,
             })}
           >
             <div className={styles.category}>{list.category}</div>
