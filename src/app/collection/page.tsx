@@ -75,7 +75,7 @@ export default function CollectionPage() {
   };
 
   return (
-    <section>
+    <section className={styles.wrapper}>
       <Header title="콜렉션" left="back" leftClick={() => router.push(`/user/${userMe.id}/mylist`)} />
       <div className={styles.container}>
         <div className={styles.folders}>
