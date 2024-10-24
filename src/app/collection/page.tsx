@@ -11,8 +11,6 @@ import * as styles from './page.css';
 
 import Header from '@/components/Header/Header';
 import BottomSheet from './_components/BottomSheet';
-import Modal from '@/components/Modal/Modal';
-import LoginModal from '@/components/login/LoginModal';
 
 import useBooleanOutput from '@/hooks/useBooleanOutput';
 import { useLanguage } from '@/store/useLanguage';
@@ -35,7 +33,6 @@ export default function CollectionPage() {
   });
 
   const { isOn, handleSetOn, handleSetOff } = useBooleanOutput(false);
-  const { isOn: isLoginModalOn, handleSetOn: loginModalOn, handleSetOff: loginModalOff } = useBooleanOutput();
   const [value, setValue] = useState('');
 
   const createFolderMutation = useMutation({
@@ -49,7 +46,7 @@ export default function CollectionPage() {
       if (isAxiosError(error)) {
         const errorData = error.response?.data;
         if (errorData.error === 'UNAUTHORIZED') {
-          loginModalOn();
+          toasting({ type: 'error', txt: toastMessage[language].requiredLogin });
           return;
         }
         if (errorData.code.split('_')[0] === 'DUPLICATE') {
@@ -112,12 +109,6 @@ export default function CollectionPage() {
         />
         <BottomSheet.Button onClose={handleSetOff} onClick={handleCreateFolder} />
       </BottomSheet>
-
-      {isLoginModalOn && (
-        <Modal handleModalClose={loginModalOff} size="large">
-          <LoginModal id="followLoginBtn" />
-        </Modal>
-      )}
     </section>
   );
 }
