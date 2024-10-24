@@ -5,14 +5,18 @@ import Header from '@/components/Header/Header';
 
 import useBooleanOutput from '@/hooks/useBooleanOutput';
 
-export default function HeaderContainer() {
+interface HeaderContainerProps {
+  handleSetOnBottomSheet: () => void;
+}
+
+export default function HeaderContainer({ handleSetOnBottomSheet }: HeaderContainerProps) {
   const { isOn, handleSetOn, handleSetOff } = useBooleanOutput();
 
   const bottomSheetOptionList = [
     {
       key: 'editFolder',
-      title: '폴더 이름 바꾸기',
-      onClick: () => {},
+      title: '폴더 이름 바꾸기', // TODO locale 적용
+      onClick: handleSetOnBottomSheet,
     },
     {
       key: 'deleteFolder',
