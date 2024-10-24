@@ -1,6 +1,8 @@
-import { style } from '@vanilla-extract/css';
+import { createVar, style, styleVariants } from '@vanilla-extract/css';
 import { vars } from '@/styles/theme.css';
 import { Label, LabelSmall } from '@/styles/font.css';
+
+export const imageUrl = createVar();
 
 export const container = style({
   padding: '2.4rem 1.6rem',
@@ -9,17 +11,26 @@ export const container = style({
   gridTemplateRows: 'max-content',
   gridGap: 12,
   alignContent: 'flex-start',
+  justifyItems: 'center',
   backgroundColor: vars.color.bggray,
 });
 
-export const content = style({
+const content = style({
+  width: 173,
   height: 173,
   display: 'flex',
   flexDirection: 'column',
   justifyContent: 'center',
   alignItems: 'center',
+
+  backgroundImage: imageUrl,
+  backgroundPosition: 'center',
   backgroundColor: vars.color.white,
-  borderRadius: 20,
+});
+
+export const contentVariant = styleVariants({
+  round: [content, { borderRadius: '100%' }],
+  square: [content, { borderRadius: 20 }],
 });
 
 export const category = style([
@@ -41,19 +52,25 @@ export const info = style({
   gap: 4,
 });
 
-export const title = style([
+// 배경이미지 유무에 따른 스타일 variants
+const fontColor = {
+  white: vars.color.white,
+  black: vars.color.black,
+};
+
+export const title = styleVariants(fontColor, (color) => [
   Label,
   {
+    color,
     fontWeight: 600,
-    color: vars.color.black,
   },
 ]);
 
-export const owner = style([
+export const owner = styleVariants(fontColor, (color) => [
   LabelSmall,
   {
+    color,
     fontWeight: 400,
-    color: vars.color.black,
   },
 ]);
 
@@ -64,15 +81,30 @@ export const items = style({
   gap: 5,
 });
 
-export const item = style({
+const item = style({
   padding: '0.45rem 0.62rem',
-  backgroundColor: '#F5FAFF',
   borderRadius: 18,
-  color: vars.color.blue,
 });
 
-export const date = style({
+export const itemVariant = styleVariants({
+  white: [
+    item,
+    {
+      backgroundColor: '#F5FAFF',
+      color: vars.color.blue,
+    },
+  ],
+  blue: [
+    item,
+    {
+      backgroundColor: 'rgba(245, 250, 255, 0.30)',
+      color: vars.color.white,
+    },
+  ],
+});
+
+export const date = styleVariants(fontColor, (color) => ({
   paddingTop: '0.8rem',
   fontSize: '0.9rem',
-  color: vars.color.black,
-});
+  color,
+}));
