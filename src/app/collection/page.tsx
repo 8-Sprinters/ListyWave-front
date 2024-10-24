@@ -14,6 +14,7 @@ import BottomSheet from './_components/BottomSheet';
 
 import useBooleanOutput from '@/hooks/useBooleanOutput';
 import { useLanguage } from '@/store/useLanguage';
+import { useUser } from '@/store/useUser';
 
 import createCollectionFolder from '../_api/folder/createFolder';
 import getFolders, { FoldersResponseType } from '../_api/folder/getFolders';
@@ -24,6 +25,7 @@ import { QUERY_KEYS } from '@/lib/constants/queryKeys';
 
 export default function CollectionPage() {
   const router = useRouter();
+  const { user: userMe } = useUser();
   const queryClient = useQueryClient();
   const { language } = useLanguage();
   const { data } = useQuery<FoldersResponseType>({
@@ -74,7 +76,7 @@ export default function CollectionPage() {
 
   return (
     <section>
-      <Header title="콜렉션" left="back" leftClick={() => router.back()} />
+      <Header title="콜렉션" left="back" leftClick={() => router.push(`/user/${userMe.id}/mylist`)} />
       <div className={styles.container}>
         <div className={styles.folders}>
           {data?.folders.map((folder) => (
