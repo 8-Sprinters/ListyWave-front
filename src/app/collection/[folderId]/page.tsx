@@ -5,6 +5,8 @@
 import HeaderContainer from './_components/HeaderContainer';
 import Collections from './_components/Collections';
 
+import * as styles from './page.css';
+
 interface ParamType {
   params: { folderId: string };
 }
@@ -13,7 +15,7 @@ export default function CollectionDetailPage({ params }: ParamType) {
   const folderId = params.folderId;
 
   return (
-    <section>
+    <section className={styles.container}>
       <HeaderContainer />
       <Collections folderId={folderId} />
     </section>

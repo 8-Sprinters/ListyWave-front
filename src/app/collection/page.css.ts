@@ -6,6 +6,7 @@ export const container = style({
   position: 'relative',
   paddingBottom: 83,
   height: 'calc(100% - 70px)',
+  backgroundColor: vars.color.bggray,
 });
 
 export const folders = style({
