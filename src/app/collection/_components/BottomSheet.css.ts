@@ -47,16 +47,6 @@ export const contentTitle = style([
   },
 ]);
 
-export const contentInput = style({
-  padding: '2rem 2.4rem',
-  backgroundColor: '#F5F6FA',
-  borderRadius: 18,
-
-  color: vars.color.black,
-  fontSize: '1.6rem',
-  fontWeight: 400,
-});
-
 export const optionButtons = style({
   margin: 12,
   display: 'flex',
