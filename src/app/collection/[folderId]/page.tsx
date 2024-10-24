@@ -25,6 +25,11 @@ interface ParamType {
 export default function CollectionDetailPage({ params }: ParamType) {
   const folderId = params.folderId;
   const { isOn, handleSetOn, handleSetOff } = useBooleanOutput();
+  const {
+    isOn: isDeleteOption,
+    handleSetOn: handleSetOnDeleteOption,
+    handleSetOff: handleSetOffDeleteOption,
+  } = useBooleanOutput();
   const queryClient = useQueryClient();
   const { language } = useLanguage();
 
@@ -67,7 +72,7 @@ export default function CollectionDetailPage({ params }: ParamType) {
 
   return (
     <section className={styles.container}>
-      <HeaderContainer handleSetOnBottomSheet={handleSetOn} />
+      <HeaderContainer handleSetOnBottomSheet={handleSetOn} handleSetOnDeleteOption={handleSetOnDeleteOption} />
       <Collections folderId={folderId} />
       <BottomSheet isOn={isOn}>
         <BottomSheet.Title>폴더 이름 바꾸기</BottomSheet.Title>
@@ -78,7 +83,18 @@ export default function CollectionDetailPage({ params }: ParamType) {
           onChange={handleChangeInput}
           className={styles.contentInput}
         />
-        <BottomSheet.Button onClose={handleSetOff} onClick={handleEditFolder} />
+        <BottomSheet.Button onClose={handleSetOff} onClick={handleEditFolder}>
+          만들기
+        </BottomSheet.Button>
+      </BottomSheet>
+      <BottomSheet isOn={isDeleteOption}>
+        <div className={styles.content}>
+          <p>정말 삭제하시나요?</p>
+          <p>폴더와 안에 있었던 리스트가 모두 삭제돼요</p>
+        </div>
+        <BottomSheet.Button onClose={handleSetOffDeleteOption} isDelete={true} onClick={() => {}}>
+          삭제
+        </BottomSheet.Button>
       </BottomSheet>
     </section>
   );

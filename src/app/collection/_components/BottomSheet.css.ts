@@ -69,4 +69,5 @@ const button = style({
 export const variantButton = styleVariants({
   default: [button],
   active: [button, { color: vars.color.blue }],
+  delete: [button, { color: vars.color.red }],
 });
