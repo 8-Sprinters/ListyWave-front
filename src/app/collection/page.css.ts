@@ -2,14 +2,18 @@ import { style } from '@vanilla-extract/css';
 import { vars } from '@/styles/theme.css';
 import { Label } from '@/styles/font.css';
 
+export const wrapper = style({
+  height: '100vh',
+});
+
 export const container = style({
   position: 'relative',
-  paddingBottom: 83,
   height: 'calc(100% - 70px)',
+  backgroundColor: vars.color.bggray,
 });
 
 export const folders = style({
-  padding: '2.4rem 4.8rem',
+  padding: '2.4rem 4.8rem 8.3rem 4.8rem',
   display: 'grid',
   gridTemplateColumns: 'repeat(2, 1fr)',
   gridColumnGap: 34,
@@ -122,4 +126,15 @@ export const addFolderButton = style({
   color: vars.color.blue,
   fontSize: '1.6rem',
   fontWeight: 700,
+});
+
+// BottomSheet Input
+export const contentInput = style({
+  padding: '2rem 2.4rem',
+  backgroundColor: '#F5F6FA',
+  borderRadius: 18,
+
+  color: vars.color.black,
+  fontSize: '1.6rem',
+  fontWeight: 400,
 });
