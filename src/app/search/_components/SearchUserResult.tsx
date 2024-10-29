@@ -11,6 +11,7 @@ import getSearchUserResult from '@/app/_api/search/getSearchUserResult';
 import SearchUserProfileSkeleton from '@/app/search/_components/SearchUserProfileSkeleton';
 import { searchLocale } from '@/app/search/locale';
 import { useLanguage } from '@/store/useLanguage';
+import NoDataContainer from '@/app/search/_components/NoDataContainer';
 
 function SearchUserResult() {
   const { language } = useLanguage();
@@ -39,19 +40,21 @@ function SearchUserResult() {
           <SearchUserProfileSkeleton />
         </div>
       ) : (
-        searchUserData?.users &&
-        searchUserData?.users.length > 0 && (
-          <>
-            <div className={styles.header}>
-              <div
-                className={styles.countText}
-              >{`${searchLocale[language].userCountFirst} ${searchUserData?.totalCount} ${searchLocale[language].userCountLast}`}</div>
-            </div>
+        <div className={styles.container}>
+          <div className={styles.header}>
+            <h3 className={styles.titleText}>{searchLocale[language].userCountFirst}</h3>
+            <div
+              className={styles.countText}
+            >{`${searchUserData?.totalCount} ${searchLocale[language].userCountLast}`}</div>
+          </div>
+          {searchUserData?.users && searchUserData?.users.length > 0 ? (
             <div className={styles.userProfiles}>
               {searchUserData?.users.map((user) => <SearchUserProfile key={user.id} user={user} />)}
             </div>
-          </>
-        )
+          ) : (
+            <NoDataContainer type={'lister'} />
+          )}
+        </div>
       )}
     </div>
   );

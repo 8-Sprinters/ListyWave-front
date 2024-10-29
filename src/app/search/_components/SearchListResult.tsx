@@ -12,10 +12,10 @@ import Top3Card from '@/app/search/_components/Top3Card';
 import Top3CardSkeleton from '@/app/search/_components/Top3CardSkeleton';
 import SelectComponent from '@/components/SelectComponent/SelectComponent';
 import getSearchListResult from '@/app/_api/search/getSearchListResult';
-import NoData from '@/app/search/_components/NoData';
 import makeSearhUrl from '@/app/search/util/makeSearchUrl';
 import { searchLocale } from '@/app/search/locale';
 import { useLanguage } from '@/store/useLanguage';
+import NoDataContainer from '@/app/search/_components/NoDataContainer';
 
 interface OptionsProps {
   value: string;
@@ -113,21 +113,11 @@ function SearchListResult() {
   }, [keyword]);
 
   const Result = () => {
-    const { language } = useLanguage();
-
     return (
-      <div className={styles.container}>
-        <div className={styles.header}>
-          <div
-            className={styles.countText}
-          >{`${searchLocale[language].listCountFirst} ${result.totalCount} ${searchLocale[language].listCountLast}`}</div>
-          <SortDropdown defaultSort={sort} handleChangeSortType={handleChangeSortType} hasKeyword={!!keyword} />
-        </div>
-        <div className={styles.cardsWrapper}>
-          <div className={styles.cards}>
-            {result?.resultList?.map((list: SearchListType) => <Top3Card key={list.id} list={list} />)}
-            {isFetchingNextPage && result?.resultList?.map((_, index) => <Top3CardSkeleton key={index} />)}
-          </div>
+      <div className={styles.cardsWrapper}>
+        <div className={styles.cards}>
+          {result?.resultList?.map((list: SearchListType) => <Top3Card key={list.id} list={list} />)}
+          {isFetchingNextPage && result?.resultList?.map((_, index) => <Top3CardSkeleton key={index} />)}
         </div>
       </div>
     );
@@ -143,11 +133,22 @@ function SearchListResult() {
             ))}
           </div>
         </div>
-      ) : result.totalCount > 0 ? ( // 데이터가 있는 경우
-        <Result />
       ) : (
-        // 데이터가 없는 경우
-        <NoData />
+        <div className={styles.container}>
+          <div className={styles.header}>
+            <div className={styles.countWrapper}>
+              <h3 className={styles.titleText}>{searchLocale[language].listCountFirst}</h3>
+              <div className={styles.countText}>{`${result.totalCount} ${searchLocale[language].listCountLast}`}</div>
+            </div>
+            <SortDropdown defaultSort={sort} handleChangeSortType={handleChangeSortType} hasKeyword={!!keyword} />
+          </div>
+          {result.totalCount > 0 ? ( // 데이터가 있는 경우
+            <Result />
+          ) : (
+            // 데이터가 없는 경우
+            <NoDataContainer type={'list'} category={category} />
+          )}
+        </div>
       )}
       {hasNextPage && <div ref={ref}></div>}
     </>

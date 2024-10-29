@@ -1,138 +1,161 @@
-import { style, createVar } from '@vanilla-extract/css';
+import { style, createVar, styleVariants, globalStyle } from '@vanilla-extract/css';
 import { vars } from '@/styles/__theme.css';
+import { Label, LabelSmall } from '@/styles/font.css';
 
-export const listColor = createVar();
-export const listBackgroundImage = createVar();
+export const imageUrl = createVar();
 
-export const container = style({
-  minWidth: '17rem',
-
+const content = style({
+  width: 173,
+  height: 173,
   display: 'flex',
   flexDirection: 'column',
-  justifyContent: 'flex-start',
+  justifyContent: 'center',
   alignItems: 'center',
+
+  position: 'relative',
+
+  backgroundImage: imageUrl,
+  backgroundPosition: 'center',
+  backgroundColor: vars.color.white,
+
+  zIndex: 2,
 });
 
-export const card = style({
-  width: '100%',
+export const contentVariant = styleVariants({
+  round: [
+    content,
+    {
+      borderRadius: '100%',
+      '::before': {
+        content: '""',
+        position: 'absolute',
+        top: 0,
+        left: 0,
+        right: 0,
+        bottom: 0,
+        backgroundColor: 'rgba(0, 0, 0, 0.5)',
+        zIndex: -10,
+        borderRadius: '50%',
+      },
+    },
+  ],
+  square: [content, { borderRadius: 20 }],
+});
 
+export const category = style([
+  LabelSmall,
+  {
+    width: 'fit-content',
+    padding: '2px 6px',
+    backgroundColor: vars.color.blue,
+    borderRadius: 20,
+    color: vars.color.white,
+  },
+]);
+
+export const info = style({
+  width: '100%',
+  paddingTop: '0.6rem',
+  paddingBottom: '0.5rem',
   display: 'flex',
   flexDirection: 'column',
-  rowGap: '1rem',
-  columnGap: '1.6rem',
+  alignItems: 'center',
+  gap: 4,
+
+  textAlign: 'center',
 });
 
-export const listWrapper = style({
+// 배경이미지 유무에 따른 스타일 variants
+const fontColor = {
+  white: vars.color.white,
+  black: vars.color.black,
+};
+
+const textOneLine = style({
   width: '100%',
-  height: '26rem',
-  padding: '3rem 1.8rem',
+  whiteSpace: 'nowrap',
+  overflow: 'hidden',
+  textOverflow: 'ellipsis',
+});
+export const title = styleVariants(fontColor, (color) => [
+  Label,
+  textOneLine,
+  {
+    color,
+    fontWeight: 600,
+  },
+]);
+
+export const owner = styleVariants(fontColor, (color) => [
+  LabelSmall,
+  textOneLine,
+  {
+    color,
+    fontWeight: 400,
+    // textAlign: 'center',
+  },
+]);
+
+export const items = style([
+  {
+    width: '100%',
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    gap: 5,
+  },
+]);
+
+const item = style([
+  {
+    width: 'fit-content',
+    maxWidth: '100%',
+    padding: '0.45rem 0.62rem',
+    borderRadius: 18,
+    display: 'flex',
+    gap: 2,
+    alignItems: 'center',
+  },
+  textOneLine,
+]);
+
+globalStyle(`${item} span`, {
+  whiteSpace: 'nowrap',
+  overflow: 'hidden',
+  textOverflow: 'ellipsis',
+});
+
+export const itemVariant = styleVariants({
+  white: [
+    item,
+    {
+      backgroundColor: '#F5FAFF',
+      color: vars.color.blue,
+    },
+  ],
+  blue: [
+    item,
+    {
+      backgroundColor: 'rgba(245, 250, 255, 0.30)',
+      color: vars.color.white,
+    },
+  ],
+});
+
+export const date = styleVariants(fontColor, (color) => ({
+  paddingTop: '0.8rem',
+  fontSize: '0.9rem',
+  color,
+}));
+
+export const itemWrapper = style({
+  width: '100%',
+  padding: '32px',
 
   position: 'relative',
 
   display: 'flex',
   flexDirection: 'column',
   justifyContent: 'center',
-
-  border: `1px solid ${vars.color.gray5}`,
-  borderRadius: '10px',
-
-  backgroundColor: listColor,
-  backgroundImage: `linear-gradient(to top, rgba(0, 0, 0, 0.5), transparent), ${listBackgroundImage}`,
-  backgroundSize: 'cover',
-  backgroundPosition: 'center',
-  cursor: 'pointer',
-
-  ':hover': {
-    boxShadow: 'rgba(0, 0, 0, 0.3) 3px 3px 2px;',
-    borderWidth: '1.5px',
-  },
-});
-
-export const skeletonListWrapper = style([
-  listWrapper,
-  {
-    cursor: 'default',
-    ':hover': {
-      boxShadow: 'none',
-      borderWidth: '1px',
-    },
-  },
-]);
-
-export const userProfiles = style({
-  width: '80%',
-
-  position: 'absolute',
-  bottom: '1rem',
-
-  display: 'flex',
   alignItems: 'center',
-  gap: '.8rem',
-});
-
-export const userImageWrapper = style({
-  width: '3rem',
-  height: '3rem',
-
-  border: `1px solid ${vars.color.gray5}`,
-  borderRadius: '50px',
-
-  flexShrink: 0,
-
-  overflow: 'hidden',
-});
-
-export const userImage = style({
-  width: '100%',
-  height: '100%',
-
-  borderRadius: '50px',
-  backgroundColor: vars.color.gray7,
-  objectFit: 'cover',
-});
-
-export const userTextWrapper = style({
-  width: '100%',
-
-  display: 'flex',
-  flexDirection: 'column',
-  justifyContent: 'center',
-});
-
-export const nameText = style({
-  width: '100%',
-
-  fontSize: '1.2rem',
-  fontWeight: '400',
-  color: vars.color.white,
-
-  wordWrap: 'break-word',
-});
-
-export const updatedDateText = style({
-  fontSize: '1.1rem',
-  color: vars.color.white,
-});
-
-export const title = style({
-  fontSize: '1.8rem',
-  fontWeight: '600',
-  color: 'var(--text-text-grey-dark, #202020)',
-  textAlign: 'left',
-  letterSpacing: '0.14px',
-  wordWrap: 'break-word',
-});
-
-export const list = style({
-  padding: '1rem 0',
-
-  display: 'flex',
-  flexDirection: 'column',
-  gap: '.8rem',
-
-  fontSize: '1.2rem',
-  fontWeight: '400',
-  color: vars.color.white,
-  lineHeight: '2.5rem',
-  letterSpacing: '-0.36px',
 });
