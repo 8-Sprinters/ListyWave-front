@@ -10,8 +10,8 @@ export const keywordWrapper = style({
   flexDirection: 'column',
   gap: '1.6rem',
 
-  backgroundColor: vars.color.gray5,
-  borderRadius: '50px',
+  backgroundColor: vars.color.white,
+  borderRadius: '12px',
 });
 
 const moveInputRight = keyframes({
@@ -35,7 +35,7 @@ const moveIconLeft = keyframes({
 });
 
 export const keywordInput = style({
-  padding: '0.5rem 1.5rem 0.5rem 4rem',
+  padding: '8px 16px',
 
   backgroundColor: 'transparent',
 

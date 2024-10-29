@@ -5,7 +5,7 @@ export const searchLocale: Record<string, { [key: string]: string }> = {
     goToExplore: '다른 리스트 보러가기',
     listCountFirst: '리스트',
     listCountLast: '건',
-    userCountFirst: '사용자',
+    userCountFirst: '리스터',
     userCountLast: '건',
     profileImageAlt: '프로필 이미지',
     backButtonAlt: '뒤로 가기 버튼',

@@ -18,6 +18,8 @@ export const container = style({
 const content = style({
   width: 173,
   height: 173,
+  padding: 10,
+
   display: 'flex',
   flexDirection: 'column',
   justifyContent: 'center',
