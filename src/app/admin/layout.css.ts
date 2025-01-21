@@ -28,3 +28,10 @@ export const title = style([
 export const main = style({
   flexGrow: 1,
 });
+
+export const page = style({
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+  minHeight: '100vh',
+});
