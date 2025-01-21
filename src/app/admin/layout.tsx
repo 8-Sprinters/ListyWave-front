@@ -1,10 +1,12 @@
 'use client';
 
+import { usePathname } from 'next/navigation';
 import { ReactNode } from 'react';
 
 import * as styles from './layout.css';
+
 import NavLinks from './_components/NavLinks';
-import { usePathname } from 'next/navigation';
+import { removeCookie } from '@/lib/utils/cookie';
 
 interface AdminNoticeLayoutProps {
   children: ReactNode;
@@ -15,6 +17,13 @@ const HIDE_PATH = ['/admin', '/admin/login'];
 export default function AdminNoticeLayout({ children }: AdminNoticeLayoutProps) {
   const path = usePathname();
   const isHideNav = path && HIDE_PATH.includes(path);
+
+  const handleClickLogout = () => {
+    removeCookie('admin-accessToken');
+    removeCookie('admin-refreshToken');
+
+    location.href = '/admin';
+  };
 
   return (
     <section className={styles.container}>
@@ -33,6 +42,9 @@ export default function AdminNoticeLayout({ children }: AdminNoticeLayoutProps) 
               },
             ]}
           />
+          <button onClick={handleClickLogout} className={styles.logout}>
+            로그아웃
+          </button>
         </div>
       )}
 

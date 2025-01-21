@@ -1,5 +1,5 @@
 import { style } from '@vanilla-extract/css';
-import { Header } from '@/styles/font.css';
+import { Header, Body } from '@/styles/font.css';
 import { vars } from '@/styles/theme.css';
 
 export const container = style({
@@ -35,3 +35,17 @@ export const page = style({
   justifyContent: 'center',
   minHeight: '100vh',
 });
+
+export const logout = style([
+  Body,
+  {
+    padding: '1rem 2rem',
+    backgroundColor: vars.color.bluegray6,
+    borderRadius: '0.8rem',
+    opacity: 0.6,
+
+    ':hover': {
+      opacity: 1,
+    },
+  },
+]);
