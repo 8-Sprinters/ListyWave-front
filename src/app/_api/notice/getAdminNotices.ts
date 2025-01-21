@@ -1,8 +1,8 @@
-import axiosInstance from '@/lib/axios/axiosInstance';
+import axiosInstanceForAdmin from '@/lib/axios/axiosInstanceForAdmin';
 import { AdminNoticeType } from '@/lib/types/noticeType';
 
 const getAdminNotices = async () => {
-  const result = await axiosInstance.get<AdminNoticeType[]>('/admin/notices');
+  const result = await axiosInstanceForAdmin.get<AdminNoticeType[]>('/admin/notices');
 
   return result.data;
 };

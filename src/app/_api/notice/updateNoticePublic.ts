@@ -1,7 +1,7 @@
-import axiosInstance from '@/lib/axios/axiosInstance';
+import axiosInstanceForAdmin from '@/lib/axios/axiosInstanceForAdmin';
 
 const updateNoticePublic = async (noticeId: number) => {
-  await axiosInstance.patch(`/admin/notices/${noticeId}`);
+  await axiosInstanceForAdmin.patch(`/admin/notices/${noticeId}`);
 };
 
 export default updateNoticePublic;

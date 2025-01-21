@@ -1,7 +1,7 @@
-import axiosInstance from '@/lib/axios/axiosInstance';
+import axiosInstanceForAdmin from '@/lib/axios/axiosInstanceForAdmin';
 
 const deleteNotice = async (noticeId: number) => {
-  await axiosInstance.delete(`/admin/notices/${noticeId}`);
+  await axiosInstanceForAdmin.delete(`/admin/notices/${noticeId}`);
 };
 
 export default deleteNotice;

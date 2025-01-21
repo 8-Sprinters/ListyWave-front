@@ -1,4 +1,4 @@
-import axiosInstance from '@/lib/axios/axiosInstance';
+import axiosInstanceForAdmin from '@/lib/axios/axiosInstanceForAdmin';
 import { NoticeCreateType } from '@/lib/types/noticeType';
 
 interface ResponseType {
@@ -6,7 +6,7 @@ interface ResponseType {
 }
 
 const createNotice = async (data: NoticeCreateType) => {
-  const response = await axiosInstance.post<ResponseType>('/admin/notices', data);
+  const response = await axiosInstanceForAdmin.post<ResponseType>('/admin/notices', data);
 
   return response.data;
 };

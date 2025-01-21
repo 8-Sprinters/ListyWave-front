@@ -1,5 +1,5 @@
 import axios from 'axios';
-import axiosInstance from '@/lib/axios/axiosInstance';
+import axiosInstanceForAdmin from '@/lib/axios/axiosInstanceForAdmin';
 
 interface UploadImageType {
   order: number;
@@ -19,7 +19,7 @@ interface PresignedResponseType {
 
 const uploadNoticeImages = async ({ noticeId, imageFileData, imageExtensionData }: UploadNoticeImagesProps) => {
   // 1. Presigned url 발급 요청
-  const presignedResponse = await axiosInstance.post<PresignedResponseType[]>(
+  const presignedResponse = await axiosInstanceForAdmin.post<PresignedResponseType[]>(
     `/admin/notices/${noticeId}/presigned-url`,
     imageExtensionData
   );
@@ -34,7 +34,7 @@ const uploadNoticeImages = async ({ noticeId, imageFileData, imageExtensionData 
   });
 
   // 3. 이미지 업로드 완료 서버에 알림
-  await axiosInstance.post(`/admin/notices/${noticeId}/upload-complete`, imageExtensionData);
+  await axiosInstanceForAdmin.post(`/admin/notices/${noticeId}/upload-complete`, imageExtensionData);
 };
 
 export default uploadNoticeImages;

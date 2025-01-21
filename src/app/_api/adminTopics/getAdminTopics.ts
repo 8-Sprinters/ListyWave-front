@@ -1,4 +1,4 @@
-import axiosInstance from '@/lib/axios/axiosInstance';
+import axiosInstanceForAdmin from '@/lib/axios/axiosInstanceForAdmin';
 
 interface GetTopicsType {
   cursorId?: number | null;
@@ -13,7 +13,7 @@ const getAdminTopics = async ({ cursorId }: GetTopicsType) => {
     params.append('cursorId', cursorId.toString());
   }
 
-  const response = await axiosInstance.get(`/admin/topics?${params.toString()}`);
+  const response = await axiosInstanceForAdmin.get(`/admin/topics?${params.toString()}`);
 
   return response.data;
 };

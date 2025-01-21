@@ -1,4 +1,4 @@
-import axiosInstance from '@/lib/axios/axiosInstance';
+import axiosInstanceForAdmin from '@/lib/axios/axiosInstanceForAdmin';
 import { NoticeCreateType } from '@/lib/types/noticeType';
 
 interface UpdateNoticeRequestType {
@@ -7,7 +7,7 @@ interface UpdateNoticeRequestType {
 }
 
 const updateNotice = async ({ noticeData, noticeId }: UpdateNoticeRequestType) => {
-  await axiosInstance.put<ResponseType>(`/admin/notices/${noticeId}`, noticeData);
+  await axiosInstanceForAdmin.put<ResponseType>(`/admin/notices/${noticeId}`, noticeData);
 };
 
 export default updateNotice;
