@@ -36,6 +36,9 @@ axiosInstanceForAdmin.interceptors.response.use(
         removeCookie('admin-refreshToken');
 
         isRefreshing = true;
+
+        alert('다시 로그인해주세요.');
+        location.href = '/admin';
       }
 
       if (!isRefreshing) {
@@ -59,6 +62,9 @@ axiosInstanceForAdmin.interceptors.response.use(
           // refreshToken 생성 실패 시,
           removeCookie('admin-accessToken');
           removeCookie('admin-refreshToken');
+
+          alert('다시 로그인해주세요.');
+          location.href = '/admin';
         } finally {
           isRefreshing = false;
         }
