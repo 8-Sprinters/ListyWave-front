@@ -15,7 +15,7 @@ const NoDataContainer = ({ type, category }: { type: 'list' | 'lister'; category
           {type === 'list' ? '일치하는 리스트가 없어요' : '일치하는 리스터가 없어요'} 💦
         </span>
         {category !== 'entire' && type === 'list' && (
-          <Link href={{ pathname: '/search', query: { category: 'entire', keyword } }} className={styles.button}>
+          <Link href={{ pathname: '/search', query: { categoryCode: '0', keyword } }} className={styles.button}>
             전체 카테고리에서 검색하기
           </Link>
         )}

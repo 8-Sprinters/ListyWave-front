@@ -272,10 +272,13 @@ function Comments() {
           handleCancel={handleCancelEdit}
           isPending={isPending}
         />
-        <div
-          id="commentRef"
-          className={styles.totalCount}
-        >{`${comments?.totalCount} ${commentLocale[language].commentCount}`}</div>
+        <div id="commentRef" className={styles.totalCount}>
+          <div className={styles.titleAndCountWrapper}>
+            <div className={styles.title}>{commentLocale[language].comment}</div>
+            <div className={styles.count}>{`${comments?.totalCount}${commentLocale[language].unit}`}</div>
+          </div>
+          <div>{/*<button className={styles.moreButton}>더보기</button>*/}</div>
+        </div>
         {comments?.commentsList?.map((item: CommentType) => {
           return (
             <div key={item.id} className={styles.commentWrapper}>

@@ -29,6 +29,7 @@ export const headerTitle = style([
   fonts.Subtitle,
   {
     textAlign: 'center',
+    color: vars.color.black,
   },
 ]);
 
@@ -38,7 +39,7 @@ export const leftChild = style([
     display: 'flex',
     flex: 1,
     justifyContent: 'left',
-    color: vars.color.bluegray10,
+    color: vars.color.black2,
   },
 ]);
 

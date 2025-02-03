@@ -1,4 +1,4 @@
-const makeSearhUrl = ({ keyword, category, sort }: { keyword: string; category: string; sort?: string }) => {
+const makeSearhUrl = ({ keyword, categoryCode, sort }: { keyword: string; categoryCode: string; sort?: string }) => {
   const searchUrl = '/search?';
   const searchParams = [];
 
@@ -6,8 +6,8 @@ const makeSearhUrl = ({ keyword, category, sort }: { keyword: string; category: 
     searchParams.push(`keyword=${keyword}`);
   }
 
-  if (category) {
-    searchParams.push(`category=${category}`);
+  if (categoryCode) {
+    searchParams.push(`categoryCode=${categoryCode}`);
   } else {
     searchParams.push('category=entire');
   }

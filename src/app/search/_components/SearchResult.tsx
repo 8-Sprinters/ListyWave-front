@@ -8,11 +8,11 @@ import { useSearchParams } from 'next/navigation';
 function SearchResult() {
   const searchParams = useSearchParams();
   const keyword = searchParams?.get('keyword');
-  const category = searchParams?.get('category');
+  const categoryCode = searchParams?.get('categoryCode');
 
   return (
     <div className={styles.container}>
-      {category === 'entire' && keyword && <SearchUserResult />}
+      {categoryCode === '0' && keyword && <SearchUserResult />}
       <SearchListResult />
     </div>
   );

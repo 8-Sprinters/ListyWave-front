@@ -1,4 +1,4 @@
-import { keyframes, style } from '@vanilla-extract/css';
+import { createVar, keyframes, style } from '@vanilla-extract/css';
 import { vars } from '@/styles/__theme.css';
 
 export const backGround = style({
@@ -70,11 +70,15 @@ export const checkIcon = style({
   },
 });
 
+export const titleColor = createVar();
+
 export const sheetItem = style({
   width: '100%',
-  fontSize: '1.4rem',
+  fontSize: '1.6rem',
+  fontWeight: 500,
   cursor: 'pointer',
   padding: '2.5rem 2.8rem 2.5rem',
+  color: titleColor,
 
   selectors: {
     [`${sheetItemWrapper}:hover &`]: {

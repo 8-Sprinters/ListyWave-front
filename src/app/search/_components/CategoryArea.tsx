@@ -19,7 +19,7 @@ function CategoryArea({ onClick }: { onClick: MouseEventHandler }) {
   const { language } = useLanguage();
 
   const searchParams = useSearchParams();
-  const categoryValue = searchParams?.get('category');
+  const categoryValue = searchParams?.get('categoryCode');
 
   const { data, isFetching } = useQuery<CategoryType[]>({
     queryKey: [QUERY_KEYS.getCategories],
@@ -33,10 +33,10 @@ function CategoryArea({ onClick }: { onClick: MouseEventHandler }) {
         : data &&
           data.map((category) => (
             <div
-              className={`${styles.category} ${categoryValue === category.engName ? 'selected' : ''}`}
+              className={`${styles.category} ${categoryValue === category.code ? 'selected' : ''}`}
               key={category.code}
               onClick={onClick}
-              data-value={category.engName}
+              data-value={category.code}
             >
               {/*<Image*/}
               {/*  className={categoryValue === category.engName ? styles.selectedCategoryImage : styles.categoryImage}*/}

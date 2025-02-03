@@ -18,6 +18,8 @@ const selectStyles = {
   control: (provided: object, state: { isFocused: boolean }) => ({
     ...provided,
     maxWidth: '320px',
+    minWidth: '70px',
+    textAlign: 'center',
     backgroundColor: 'transparent',
     boxShadow: 'none',
     border: 0,
@@ -46,8 +48,9 @@ const selectStyles = {
     maxWidth: '320px',
     boxShadow: '0px 2px 12px 0px rgba(0, 0, 0, 0.08)',
     borderRadius: '8px',
-    border: `1px solid ${vars.color.gray7}`,
+    // border: `1px solid ${vars.color.gray7}`,
     overflow: 'hidden',
+    top: '30px',
   }),
 };
 
@@ -63,6 +66,7 @@ function SelectComponent({ name, options, defaultValue, isSearchable = false, on
       onChange={onChange}
       components={{
         IndicatorSeparator: () => null,
+        DropdownIndicator: () => null,
       }}
     />
   );

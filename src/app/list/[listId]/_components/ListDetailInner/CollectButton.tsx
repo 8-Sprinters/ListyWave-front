@@ -8,8 +8,8 @@ import { useUser } from '@/store/useUser';
 import numberFormatter from '@/lib/utils/numberFormatter';
 import collectList from '@/app/_api/collect/__collectList';
 import toasting from '@/lib/utils/toasting';
-import CollectIcon from '/public/icons/collect.svg';
-import CollectedIcon from '/public/icons/collected.svg';
+import BookmarkIcon from '/public/icons/ver3/bookmark.svg';
+import BookmarkedIcon from '/public/icons/collected.svg';
 import Modal from '@/components/Modal/Modal';
 import LoginModal from '@/components/login/LoginModal';
 import useBooleanOutput from '@/hooks/useBooleanOutput';
@@ -74,7 +74,7 @@ const CollectButton = ({ data }: { data: CollectProps }) => {
     return (
       <>
         <div className={styles.collectWrapper}>
-          <CollectIcon onClick={handleSetOn} />
+          <BookmarkIcon onClick={handleSetOn} />
         </div>
         {isOn && (
           <Modal handleModalClose={handleSetOff} size="large">
@@ -89,15 +89,22 @@ const CollectButton = ({ data }: { data: CollectProps }) => {
   if (loginUser?.id === data.ownerId) {
     return (
       <div className={styles.myCollectWrapper}>
-        <CollectedIcon />
-        <div>{numberFormatter(data.collectCount, 'ko') ?? 0}</div>
+        <BookmarkIcon />
+
+        <div className={styles.collectTextWrapper}>
+          <p>콜렉트</p>
+          {loginUser?.id === data.ownerId && <p>({numberFormatter(data.collectCount, 'ko') ?? 0})</p>}
+        </div>
       </div>
     );
   }
 
   return (
     <div className={styles.collectWrapper} onClick={handleCollect}>
-      {data.isCollected ? <CollectedIcon /> : <CollectIcon />}
+      {data.isCollected ? <BookmarkedIcon width={24} height={24} /> : <BookmarkIcon />}
+      <div className={styles.collectTextWrapper}>
+        <p>콜렉트</p>
+      </div>
     </div>
   );
 };
