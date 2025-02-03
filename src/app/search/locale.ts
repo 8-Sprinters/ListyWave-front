@@ -1,5 +1,6 @@
 export const searchLocale: Record<string, { [key: string]: string }> = {
   ko: {
+    search: '검색',
     rightScrollMessage: '오른쪽으로 스크롤해보세요',
     noList: '일치하는 리스트가 없어요',
     goToExplore: '다른 리스트 보러가기',
@@ -15,6 +16,7 @@ export const searchLocale: Record<string, { [key: string]: string }> = {
     collect: '콜렉트순',
   },
   en: {
+    search: 'Search',
     rightScrollMessage: 'Scroll to the right',
     noList: 'There are no matching lists',
     goToExplore: 'See other lists',

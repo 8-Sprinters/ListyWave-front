@@ -10,9 +10,12 @@ import ArrowUpButton from '@/components/floatingButton/ArrowUpButton';
 import FloatingContainer from '@/components/floatingButton/FloatingContainer';
 import ShareLinkButton from '@/components/floatingButton/ShareLinkButton';
 import makeSearchUrl from '@/app/search/util/makeSearchUrl';
-import Header from '@/app/search/_components/Header';
+import { searchLocale } from '@/app/search/locale';
+import { useLanguage } from '@/store/useLanguage';
+import Header from '@/components/Header/Header';
 
 export default function Search() {
+  const { language } = useLanguage();
   const router = useRouter();
 
   const [keyword, setKeyword] = useState('');
@@ -25,24 +28,26 @@ export default function Search() {
 
   const handleKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter') {
-      router.push(makeSearchUrl({ keyword, category, sort }));
+      router.push(makeSearchUrl({ keyword, categoryCode: category, sort }));
     }
   };
 
   const handeSearchClick = () => {
-    router.push(makeSearchUrl({ keyword, category, sort }));
+    router.push(makeSearchUrl({ keyword, categoryCode: category, sort }));
   };
 
   const handelCategoryClick = (e: MouseEvent<HTMLDivElement>) => {
     const newCategory = e.currentTarget.dataset.value ?? '';
     setCategory(newCategory);
-    router.push(makeSearchUrl({ keyword, category: newCategory, sort }));
+    router.push(makeSearchUrl({ keyword, categoryCode: newCategory, sort }));
   };
 
   return (
     <div className={styles.container}>
       <div className={styles.contents}>
-        <Header title={'검색'} canGoBack />
+        {/*<Header title={'검색'} canGoBack />*/}
+        <Header title={searchLocale[language].search} left="back" leftClick={() => router.back()} />
+
         <div className={styles.searchArea}>
           <div className={styles.keywordWrapper}>
             <KeywordArea onClick={handeSearchClick} onInput={handleKeywordChange} onKeyDown={handleKeyDown} />

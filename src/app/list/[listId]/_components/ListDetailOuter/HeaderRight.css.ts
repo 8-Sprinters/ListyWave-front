@@ -13,5 +13,6 @@ export const headerRightWrapper = style({
 
   display: 'flex',
   alignItems: 'center',
+  justifyContent: 'center',
   gap: '15px',
 });

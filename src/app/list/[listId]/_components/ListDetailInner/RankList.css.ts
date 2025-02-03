@@ -1,18 +1,17 @@
 import { createVar, style } from '@vanilla-extract/css';
-import { vars } from '@/styles/__theme.css';
+import { vars } from '@/styles/theme.css';
 
 export const listColor = createVar();
 
 export const background = style({
   width: '100%',
-  padding: '2.4rem 1.8rem',
+  padding: '2.4rem 0',
 
   backgroundColor: listColor,
 });
 
 export const container = style({
   width: '100%',
-  padding: '2.7rem',
 
   display: 'flex',
   justifyContent: 'left',
@@ -30,12 +29,12 @@ export const listWrapper = style({
   flexDirection: 'column',
   justifyContent: 'center',
   alignItems: 'left',
-  gap: '1.6rem',
+  // gap: '1.6rem',
 });
 
 export const simpleItemWrapper = style({
   width: '100%',
-  height: '7rem',
+  height: '6rem',
 
   display: 'flex',
   justifyContent: 'space-between',
@@ -45,11 +44,11 @@ export const simpleItemWrapper = style({
 
 export const detailItemWrapper = style({
   width: '100%',
-  marginBottom: '6rem',
+  marginBottom: '40px',
 
   display: 'flex',
   flexDirection: 'column',
-  gap: '1.6rem',
+  gap: '4px',
   alignItems: 'left',
 
   ':last-child': {
@@ -59,14 +58,14 @@ export const detailItemWrapper = style({
 
 export const commentText = style({
   width: '100%',
-  padding: '2rem',
+  padding: '10px',
 
   backgroundColor: vars.color.white,
-
-  border: `1px solid ${vars.color.gray5}`,
-  borderRadius: '10px',
+  // border: `1px solid ${vars.color.lightgray}`,
+  // borderRadius: '10px',
 
   fontSize: '1.4rem',
+  color: vars.color.black,
 });
 
 export const rankAndTitle = style({
@@ -115,6 +114,10 @@ export const firstRankTextWrapper = style({
   fontWeight: 'bold',
   color: vars.color.white,
   textAlign: 'center',
+
+  background: `url('${'/icons/ver3/blue_heart.svg'}') no-repeat center`,
+  backgroundSize: 'contain',
+  backgroundPosition: 'center',
 });
 
 export const crownIcon = style({
@@ -131,9 +134,6 @@ export const top3RankTextWrapper = style({
   justifyContent: 'center',
   flexShrink: 0,
 
-  backgroundColor: vars.color.lightblue,
-  borderRadius: '99px',
-
   fontSize: '2.4rem',
   fontWeight: 'bold',
   color: vars.color.blue,
@@ -142,15 +142,38 @@ export const top3RankTextWrapper = style({
 
 export const rankText = style({
   position: 'relative',
+
+  fontSize: '1.8rem',
+  fontWeight: 500,
+  lineHeight: '1.8rem',
+
+  color: vars.color.gray4,
 });
+
+export const firstRankText = style([
+  rankText,
+  {
+    color: vars.color.blue,
+  },
+]);
 
 export const titleText = style({
-  fontSize: '2rem',
+  fontSize: '1.6rem',
+  color: vars.color.black3,
 });
 
+export const firstRankTitleText = style([
+  titleText,
+  {
+    color: vars.color.blue,
+    fontWeight: 600,
+    letterSpacing: '-0.48',
+  },
+]);
+
 export const simpleImageWrapper = style({
-  width: '7rem',
-  height: '7rem',
+  width: '5rem',
+  height: '5rem',
 
   display: 'flex',
   justifyContent: 'center',
@@ -173,11 +196,10 @@ export const detailImageWrapper = style({
 });
 
 export const simpleImage = style({
-  width: '7rem',
-  height: '7rem',
+  width: '5rem',
+  height: '5rem',
 
   borderRadius: '10px',
-  boxShadow: '0px 8px 15px rgba(0, 0, 0, 0.15)',
 
   objectFit: 'cover',
 });
@@ -187,7 +209,7 @@ export const detailImage = style({
   maxHeight: '35rem',
   height: 'fit-content',
 
-  border: `1px solid ${vars.color.gray5}`,
+  border: `1px solid ${vars.color.lightgray}`,
   borderRadius: '10px',
 
   objectFit: 'cover',

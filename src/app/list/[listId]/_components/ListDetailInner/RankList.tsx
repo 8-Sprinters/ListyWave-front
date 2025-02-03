@@ -23,20 +23,12 @@ function SimpleList({ listData }: RankListProps) {
     return (
       <div key={item.id} className={styles.simpleItemWrapper}>
         <div className={styles.rankAndTitle}>
-          <div
-            className={
-              index === 0
-                ? styles.firstRankTextWrapper
-                : index < 3
-                  ? styles.top3RankTextWrapper
-                  : styles.rankTextWrapper
-            }
-          >
+          <div className={index === 0 ? styles.firstRankTextWrapper : styles.rankTextWrapper}>
             <div className={styles.rankWrapper}>
-              <div className={styles.rankText}>{item.rank === 1 ? <CrownIcon /> : item.rank}</div>
+              <div className={index === 0 ? styles.firstRankText : styles.rankText}>{item.rank}</div>
             </div>
           </div>
-          <div className={styles.titleText}>{item.title}</div>
+          <div className={index === 0 ? styles.firstRankTitleText : styles.titleText}>{item.title}</div>
         </div>
         {item.imageUrl && (
           <div className={styles.simpleImageWrapper}>
@@ -86,10 +78,10 @@ function DetailList({ listData }: RankListProps) {
             }
           >
             <div className={styles.rankWrapper}>
-              <div className={styles.rankText}>{item.rank === 1 ? <CrownIcon /> : item.rank}</div>
+              <div className={index === 0 ? styles.firstRankText : styles.rankText}>{item.rank}</div>
             </div>
           </div>
-          <div className={styles.titleText}>{item.title}</div>
+          <div className={index === 0 ? styles.firstRankTitleText : styles.titleText}>{item.title}</div>
         </div>
         {item.comment && <div className={styles.commentText}>{item.comment}</div>}
 
@@ -111,9 +103,10 @@ function RankList({ listData, type, backgroundColor }: RankListProps) {
     <div
       id="rankList"
       className={styles.background}
-      style={assignInlineVars({
-        [styles.listColor]: `${backgroundColor}`,
-      })}
+      // TODO: 이제 backgroundColor는 이미지로 저장시에만 사용된다. 하지만 어딘가 적용시킬 좋은 방법이 없을까?
+      // style={assignInlineVars({
+      //   [styles.listColor]: `${backgroundColor}`,
+      // })}
     >
       <div className={styles.container}>
         <div className={styles.listWrapper}>

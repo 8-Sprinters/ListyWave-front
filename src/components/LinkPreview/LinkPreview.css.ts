@@ -50,3 +50,15 @@ export const description = style({
 export const url = style({
   color: vars.color.gray7,
 });
+
+export const linkButton = style({
+  width: '100%',
+  padding: '10px 20px',
+  textAlign: 'center',
+  background: vars.color.skyblue,
+  borderRadius: '20px',
+  color: vars.color.white,
+
+  fontSize: '1.2rem',
+  fontWeight: 500,
+});

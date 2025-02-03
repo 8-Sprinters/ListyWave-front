@@ -1,4 +1,5 @@
 import { style } from '@vanilla-extract/css';
+import { LabelSmall } from '@/styles/font.css';
 /**
  * @todo 공용 폰트 스타일로 지정
  */
@@ -26,6 +27,8 @@ export const message = style({
   letterSpacing: '-3%',
   color: '#3C4F76',
 });
+
+export const description = style([LabelSmall, {}]);
 
 export const button = style({
   padding: '7px 14px',

@@ -18,9 +18,7 @@ export default function Top3Card({ list }: { list: SearchListType }) {
         })}
       >
         <div className={styles.itemWrapper}>
-          {/* TODO: category를 추가로 받아야함. 백엔드에 요청필요*/}
-          {/*<div className={styles.category}>{list.category}</div>*/}
-          <div className={styles.category}>음악</div>
+          <div className={styles.category}>{list.categoryKorName}</div>
           <div className={styles.info}>
             <h3 className={styles.title[hasImage ? 'white' : 'black']}>{list.title}</h3>
             <p className={styles.owner[hasImage ? 'white' : 'black']}>{list.ownerNickname}</p>

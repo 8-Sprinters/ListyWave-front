@@ -1,5 +1,6 @@
 import { UserProfileType } from './userProfileType';
 import { BACKGROUND_COLOR_PALETTE_TYPE } from '@/styles/Color';
+import { ReactionType } from '@/lib/types/reactionType';
 
 // 아이템 생성 타입
 export interface ItemCreateType {
@@ -103,6 +104,7 @@ export interface ListDetailType {
   description: string;
   createdDate: Date;
   lastUpdatedDate: Date;
+  updateCount: number;
   ownerId: number;
   ownerNickname: string;
   ownerProfileImageUrl: string;
@@ -114,7 +116,25 @@ export interface ListDetailType {
   backgroundColor: string;
   collectCount: number;
   viewCount: number;
+  reactions: Reaction[];
+  totalCommentCount: number;
+  newestComment?: NewestCommentType;
 }
+
+export type NewestCommentType = {
+  userId: number;
+  userNickname: string;
+  userProfileImageUrl: string;
+  createdDate: Date;
+  content: string;
+  totalReplyCount: number;
+};
+
+export type Reaction = {
+  reaction: ReactionType;
+  count: number | null;
+  isReacted: boolean;
+};
 
 export interface ListItemType {
   id: number;
@@ -135,6 +155,9 @@ export interface SearchListType {
   ownerNickname: string;
   ownerProfileImageUrl: string;
   representImageUrl: string;
+  categoryCode: string;
+  categoryKorName: string;
+  categoryEngName: string;
 }
 
 export interface SearchResultType {

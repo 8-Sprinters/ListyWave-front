@@ -51,7 +51,7 @@ export const searchPlaceholer = {
 export const commentPlaceholder = {
   ko: {
     requiredLogin: '로그인 후 댓글을 작성할 수 있습니다.',
-    comment: '댓글을 입력해주세요',
+    comment: '댓글을 작성해주세요',
   },
   en: {
     requiredLogin: 'You can create comments after logging in.',

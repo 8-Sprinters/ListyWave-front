@@ -41,6 +41,7 @@ export const sort = style({
   justifyContent: 'flex-end',
   alignItems: 'center',
   flexShrink: 0,
+  zIndex: 100,
 });
 
 export const cardsWrapper = style({

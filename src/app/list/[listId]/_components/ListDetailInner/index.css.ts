@@ -20,5 +20,4 @@ export const listAndFooter = style({
   gap: '1rem',
 
   borderTop: '1px solid #D9D9D9',
-  borderBottom: '1px solid #D9D9D9',
 });

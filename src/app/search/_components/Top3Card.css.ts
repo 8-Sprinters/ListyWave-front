@@ -5,8 +5,8 @@ import { Label, LabelSmall } from '@/styles/font.css';
 export const imageUrl = createVar();
 
 const content = style({
-  width: 173,
-  height: 173,
+  width: '100%',
+  height: '191px',
   display: 'flex',
   flexDirection: 'column',
   justifyContent: 'center',

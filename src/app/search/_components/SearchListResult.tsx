@@ -53,7 +53,7 @@ function SearchListResult() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const keyword = searchParams?.get('keyword') ?? '';
-  const category = searchParams?.get('category') ?? '';
+  const categoryCode = searchParams?.get('categoryCode') ?? '';
   const defaultSort = !keyword ? 'new' : 'related';
   const [sort, setSort] = useState(defaultSort);
 
@@ -61,7 +61,7 @@ function SearchListResult() {
     const value: string = target.value;
     setSort(value);
     // Url 변경하기
-    router.push(makeSearhUrl({ keyword, category, sort: value }));
+    router.push(makeSearhUrl({ keyword, categoryCode, sort: value }));
   };
 
   // 리스트 검색결과
@@ -74,7 +74,7 @@ function SearchListResult() {
   } = useInfiniteQuery({
     queryKey: [QUERY_KEYS.searchListResult],
     queryFn: ({ pageParam: cursorId }) => {
-      return getSearchListResult({ keyword, category, sort, cursorId });
+      return getSearchListResult({ keyword, categoryCode, sort, cursorId });
     },
     initialPageParam: null,
     getNextPageParam: (lastPage) => (lastPage.hasNext ? lastPage.cursorId : null),
@@ -102,7 +102,7 @@ function SearchListResult() {
         exact: true,
       });
     };
-  }, [queryClient, sort, keyword, category]);
+  }, [queryClient, sort, keyword, categoryCode]);
 
   useEffect(() => {
     if (!keyword)
@@ -146,7 +146,7 @@ function SearchListResult() {
             <Result />
           ) : (
             // 데이터가 없는 경우
-            <NoDataContainer type={'list'} category={category} />
+            <NoDataContainer type={'list'} category={categoryCode} />
           )}
         </div>
       )}

@@ -4,10 +4,10 @@ interface GetSearchListResultType {
   cursorId: number | undefined | null;
   sort: string;
   keyword: string;
-  category: string;
+  categoryCode: string;
 }
 
-async function getSearchListResult({ sort, keyword, category, cursorId }: GetSearchListResultType) {
+async function getSearchListResult({ sort, keyword, categoryCode, cursorId }: GetSearchListResultType) {
   const params = new URLSearchParams({
     size: '6',
   });
@@ -17,7 +17,7 @@ async function getSearchListResult({ sort, keyword, category, cursorId }: GetSea
   }
 
   const response = await axiosInstance.get(
-    `/lists/search?keyword=${keyword}&sort=${sort}&category=${category}&${params.toString()}`
+    `/lists/search?keyword=${keyword}&sort=${sort}&categoryCode=${categoryCode}&${params.toString()}`
   );
 
   return response.data;
