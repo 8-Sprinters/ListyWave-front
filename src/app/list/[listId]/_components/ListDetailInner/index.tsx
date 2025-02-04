@@ -42,11 +42,17 @@ function ListDetailInner({ data, listId }: ListDetailInnerProps) {
     viewCount: data?.viewCount,
     isCollected: data?.isCollected,
     isPublic: data?.isPublic,
+    reactions: data?.reactions,
+  };
+
+  const headerData = {
+    updateCount: data?.updateCount,
+    lastUpdatedDate: data?.lastUpdatedDate,
   };
 
   return (
     <div className={styles.container}>
-      <Header handleChangeListType={handleChangeListType} />
+      <Header handleChangeListType={handleChangeListType} headerData={headerData} />
       <div className={styles.listAndFooter}>
         <RankList
           backgroundColor={BACKGROUND_COLOR_READ[data?.backgroundColor as keyof typeof BACKGROUND_COLOR_READ]}

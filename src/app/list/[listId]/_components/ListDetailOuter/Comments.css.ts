@@ -1,11 +1,14 @@
 import { style } from '@vanilla-extract/css';
-import { vars } from '@/styles/__theme.css';
+import { vars } from '@/styles/theme.css';
 
 /**@todo 공용폰트 스타일 적용 */
 
 export const wrapper = style({
   height: 'auto',
-  padding: '0 27.5px 94px',
+  padding: '24px',
+
+  background: vars.color.white,
+  borderRadius: '20px',
 });
 
 export const formWrapperOuter = style({
@@ -32,15 +35,15 @@ export const formWrapperOuter = style({
 export const formWrapperInner = style({
   width: '100%',
   height: 'auto',
-  padding: '7px 12px',
+  padding: '10px 12px',
 
   display: 'flex',
   flexDirection: 'column',
   gap: '4px',
 
   borderRadius: '50px',
-  border: `1px solid ${vars.color.gray5}`,
-  backgroundColor: vars.color.gray3,
+  // border: `1px solid ${vars.color.gray}`,
+  backgroundColor: vars.color.bggray,
 });
 
 export const activeFormWrapper = style({
@@ -68,7 +71,7 @@ export const formInput = style({
   wordBreak: 'break-all',
   wordWrap: 'break-word',
   whiteSpace: 'pre-wrap',
-  backgroundColor: vars.color.gray3,
+  backgroundColor: vars.color.bggray,
   '::-webkit-scrollbar': {
     display: 'none',
   },
@@ -81,7 +84,7 @@ export const replyNickname = style({
 
   fontSize: '1.2rem',
   fontWeight: 400,
-  color: vars.color.gray7,
+  color: vars.color.gray,
 });
 
 export const formButton = style({
@@ -96,8 +99,35 @@ export const formButton = style({
 export const totalCount = style({
   marginBottom: '15px',
 
+  display: 'flex',
+  justifyContent: 'space-between',
+  alignItems: 'center',
+
   fontSize: '1.2rem',
   fontWeight: 600,
+});
+
+export const titleAndCountWrapper = style({
+  display: 'flex',
+  gap: '8px',
+  alignItems: 'center',
+
+  fontSize: '1.2rem',
+  fontWeight: 600,
+});
+
+export const title = style({
+  fontSize: '1.6rem',
+  fontWeight: 600,
+  lineHeight: '1.6rem',
+  color: vars.color.black3,
+});
+
+export const count = style({
+  fontSize: '1.4rem',
+  fontWeight: 400,
+  lineHeight: '1.4rem',
+  color: vars.color.gray3,
 });
 
 export const profileImageParent = style({
@@ -108,7 +138,7 @@ export const profileImageParent = style({
 
 export const profileImage = style({
   borderRadius: '16px',
-  backgroundColor: vars.color.gray9,
+  backgroundColor: vars.color.gray,
 });
 
 export const commentWrapper = style({
@@ -128,4 +158,11 @@ export const replyNicknameWrapper = style({
 
 export const clearButton = style({
   cursor: 'pointer',
+});
+
+export const moreButton = style({
+  color: vars.color.black2,
+  fontSize: '1.3rem',
+  fontWeight: 400,
+  lineHeight: '1.3rem',
 });

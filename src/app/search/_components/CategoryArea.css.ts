@@ -1,5 +1,5 @@
 import { keyframes, style } from '@vanilla-extract/css';
-import { vars } from '@/styles/__theme.css';
+import { vars } from '@/styles/theme.css';
 
 export const categoryWrapper = style({
   paddingLeft: '1.6rem',
@@ -7,6 +7,7 @@ export const categoryWrapper = style({
   position: 'relative',
 
   display: 'flex',
+  flexWrap: 'wrap',
   gap: '1rem',
 
   overflow: 'auto',
@@ -17,15 +18,29 @@ export const categoryWrapper = style({
 });
 
 export const category = style({
-  position: 'relative',
+  // position: 'relative',
 
-  display: 'flex',
-  flexDirection: 'column',
-  alignItems: 'center',
+  // display: 'flex',
+  // flexDirection: 'column',
+  // alignItems: 'center',
+  // justifyContent: 'center',
+  // gap: '1.5rem',
+  padding: '6px 12px',
   justifyContent: 'center',
-  gap: '1.5rem',
+  alignItems: 'center',
+  gap: '8px',
+  borderRadius: '20px',
+  background: vars.color.white,
+  color: vars.color.bluegray8,
 
   cursor: 'pointer',
+
+  selectors: {
+    '&.selected': {
+      background: vars.color.lightblue2,
+      color: vars.color.blue,
+    },
+  },
 });
 
 export const skeletonCategory = style([
@@ -35,103 +50,109 @@ export const skeletonCategory = style([
   },
 ]);
 
-export const categoryImage = style({
-  width: '6rem',
-  height: '6rem',
+// export const categoryImage = style({
+//   width: '6rem',
+//   height: '6rem',
+//
+//   borderRadius: '8px',
+//
+//   ':hover': { filter: 'opacity(50%)' },
+// });
 
-  borderRadius: '8px',
+// export const selectedCategoryImage = style([categoryImage, { filter: 'opacity(50%)' }]);
 
-  ':hover': { filter: 'opacity(50%)' },
+export const categoryText = style({
+  fontSize: '1.4rem',
+  fontStyle: 'normal',
+  fontWeight: 500,
+  lineHeight: 'normal',
+  letterSpacing: '-0.42px',
 });
 
-export const selectedCategoryImage = style([categoryImage, { filter: 'opacity(50%)' }]);
+// const slide = keyframes({
+//   '0%': {
+//     transform: 'translateY(10px)',
+//   },
+//   '50%': {
+//     transform: 'translateY(-10px)',
+//   },
+//   '100%': {
+//     transform: 'translateY(0)',
+//   },
+// });
+//
+// export const selectedIconWrapper = style({
+//   width: '2.5rem',
+//   height: '2.5rem',
+//
+//   position: 'absolute',
+//   top: '2rem',
+//   zIndex: '2',
+//
+//   display: 'flex',
+//   alignItems: 'center',
+//   justifyContent: 'center',
+//
+//   backgroundColor: 'rgba(0,0,0, 0.5)',
+//   borderRadius: '20px',
+//
+//   animation: `${slide} 0.2s ease-in-out`,
+// });
+//
+// const slideInRight = keyframes({
+//   '0%': {
+//     opacity: 0,
+//     right: '-100%',
+//   },
+//   '100%': {
+//     opacity: 1,
+//     right: '10px',
+//   },
+// });
+//
+// const moveLeftRight = keyframes({
+//   '0%': {
+//     right: '10px',
+//   },
+//   '25%': {
+//     right: '0',
+//   },
+//   '50%': {
+//     right: '10px',
+//   },
+//   '75%': {
+//     right: '0',
+//   },
+//   '100%': {
+//     right: '10px',
+//   },
+// });
+//
+// const slideOutRight = keyframes({
+//   '0%': {
+//     right: '10px',
+//   },
+//   '100%': {
+//     right: '-100%',
+//     display: 'none',
+//   },
+// });
 
-export const categoryText = style({});
-
-const slide = keyframes({
-  '0%': {
-    transform: 'translateY(10px)',
-  },
-  '50%': {
-    transform: 'translateY(-10px)',
-  },
-  '100%': {
-    transform: 'translateY(0)',
-  },
-});
-
-export const selectedIconWrapper = style({
-  width: '2.5rem',
-  height: '2.5rem',
-
-  position: 'absolute',
-  top: '2rem',
-  zIndex: '2',
-
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'center',
-
-  backgroundColor: 'rgba(0,0,0, 0.5)',
-  borderRadius: '20px',
-
-  animation: `${slide} 0.2s ease-in-out`,
-});
-
-const slideInRight = keyframes({
-  '0%': {
-    opacity: 0,
-    right: '-100%',
-  },
-  '100%': {
-    opacity: 1,
-    right: '10px',
-  },
-});
-
-const moveLeftRight = keyframes({
-  '0%': {
-    right: '10px',
-  },
-  '25%': {
-    right: '0',
-  },
-  '50%': {
-    right: '10px',
-  },
-  '75%': {
-    right: '0',
-  },
-  '100%': {
-    right: '10px',
-  },
-});
-
-const slideOutRight = keyframes({
-  '0%': {
-    right: '10px',
-  },
-  '100%': {
-    right: '-100%',
-    display: 'none',
-  },
-});
-
-export const scrollMessage = style({
-  position: 'absolute',
-  top: '25%',
-  right: '-10px',
-
-  color: vars.color.white,
-
-  borderRadius: '5px',
-  animationName: `${slideInRight}, ${moveLeftRight}, ${slideOutRight}`,
-  animationDuration: '3s, 4s, 1s',
-  animationTimingFunction: 'ease-in-out, linear, ease-in-out',
-  animationFillMode: 'forwards',
-  animationDelay: '0s, 0s, 4s',
-});
-
-export const selectedIcon = style({
-  fill: vars.color.white,
-});
+// export const scrollMessage = style({
+//   position: 'absolute',
+//   top: '25%',
+//   right: '-10px',
+//
+//   color: vars.color.white,
+//
+//   borderRadius: '5px',
+//   animationName: `${slideInRight}, ${moveLeftRight}, ${slideOutRight}`,
+//   animationDuration: '3s, 4s, 1s',
+//   animationTimingFunction: 'ease-in-out, linear, ease-in-out',
+//   animationFillMode: 'forwards',
+//   animationDelay: '0s, 0s, 4s',
+// });
+//
+// export const selectedIcon = style({
+//   fill: vars.color.white,
+// });

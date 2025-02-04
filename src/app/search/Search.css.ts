@@ -2,12 +2,22 @@ import { style } from '@vanilla-extract/css';
 
 export const container = style({
   width: '100%',
-  // padding: '1.6rem',
+  height: '100%',
+  minHeight: '100vh',
+
+  display: 'flex',
+  alignItems: 'flex-start',
+
+  background: '#F5F6FA',
+});
+
+export const contents = style({
+  width: '100%',
 
   display: 'flex',
   flexDirection: 'column',
   justifyContent: 'center',
-  gap: '3rem',
+  gap: '1.7rem',
 });
 
 export const searchArea = style({
@@ -21,11 +31,12 @@ export const searchArea = style({
 
 export const keywordWrapper = style({
   width: '100%',
-  padding: '1.6rem 1.6rem 0 1.6rem',
+  padding: '0 1.6rem',
 
   display: 'flex',
   flexDirection: 'row',
   alignItems: 'center',
+  justifyContent: 'center',
   gap: '1.3rem',
 
   // 검색창이 화면밖으로 나오는 이슈로 추가
@@ -44,8 +55,8 @@ export const logoWrapper = style({
 });
 
 export const backButton = style({
-  width: '16px',
-  height: '28px',
+  width: '24px',
+  height: '24px',
 
   display: 'flex',
   justifyContent: 'center',

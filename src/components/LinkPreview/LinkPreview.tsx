@@ -35,17 +35,22 @@ const LinkPreview = (linkUrl: string) => {
 
   if (isSuccess && data) {
     const { url, title, description, image } = data;
+    console.log(title, description, url, title || description);
 
     return (
       <a href={linkUrl} rel="noreferrer" id="link" target="_blank" className={styles.container}>
-        <div className={styles.wrapper}>
-          {data.image && <img src={image} alt={title} className={styles.image} />}
-          <div className={styles.contentWrapper}>
-            <h2 className={styles.title}>{title || commonLocale[language].noTitle}</h2>
-            <p className={styles.description}>{description || commonLocale[language].noDescription}</p>
-            <p className={styles.url}>{url}</p>
+        {title || description ? (
+          <div className={styles.wrapper}>
+            {data.image && <img src={image} alt={title} className={styles.image} />}
+            <div className={styles.contentWrapper}>
+              <h2 className={styles.title}>{title || commonLocale[language].noTitle}</h2>
+              <p className={styles.description}>{description || commonLocale[language].noDescription}</p>
+              <p className={styles.url}>{url}</p>
+            </div>
           </div>
-        </div>
+        ) : (
+          <div className={styles.linkButton}>링크 바로가기</div>
+        )}
       </a>
     );
   }

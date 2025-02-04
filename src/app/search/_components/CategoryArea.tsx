@@ -19,7 +19,7 @@ function CategoryArea({ onClick }: { onClick: MouseEventHandler }) {
   const { language } = useLanguage();
 
   const searchParams = useSearchParams();
-  const categoryValue = searchParams?.get('category');
+  const categoryValue = searchParams?.get('categoryCode');
 
   const { data, isFetching } = useQuery<CategoryType[]>({
     queryKey: [QUERY_KEYS.getCategories],
@@ -32,26 +32,31 @@ function CategoryArea({ onClick }: { onClick: MouseEventHandler }) {
         ? Array.from({ length: 6 }).map((_, index) => <CategoryAreaSkeleton key={index} />)
         : data &&
           data.map((category) => (
-            <div className={styles.category} key={category.code} onClick={onClick} data-value={category.engName}>
-              <Image
-                className={categoryValue === category.engName ? styles.selectedCategoryImage : styles.categoryImage}
-                src={category.categoryImageUrl ?? ''}
-                alt={category.korName}
-                width="60"
-                height="60"
-              />
+            <div
+              className={`${styles.category} ${categoryValue === category.code ? 'selected' : ''}`}
+              key={category.code}
+              onClick={onClick}
+              data-value={category.code}
+            >
+              {/*<Image*/}
+              {/*  className={categoryValue === category.engName ? styles.selectedCategoryImage : styles.categoryImage}*/}
+              {/*  src={category.categoryImageUrl ?? ''}*/}
+              {/*  alt={category.korName}*/}
+              {/*  width="60"*/}
+              {/*  height="60"*/}
+              {/*/>*/}
               <div className={styles.categoryText}>{language === 'ko' ? category.korName : category.engName}</div>
-              {categoryValue === category.engName && (
-                <div className={styles.selectedIconWrapper}>
-                  <CheckIcon className={styles.selectedIcon} />
-                </div>
-              )}
+              {/*{categoryValue === category.engName && (*/}
+              {/*  <div className={styles.selectedIconWrapper}>*/}
+              {/*    <CheckIcon className={styles.selectedIcon} />*/}
+              {/*  </div>*/}
+              {/*)}*/}
             </div>
           ))}
       {/*<div className={styles.scrollMessage}>{searchLocale[language].rightScrollMessage}</div>*/}
-      <div className={styles.scrollMessage}>
-        <ChevronRight width={20} height={20} />
-      </div>
+      {/*<div className={styles.scrollMessage}>*/}
+      {/*  <ChevronRight width={20} height={20} />*/}
+      {/*</div>*/}
     </div>
   );
 }

@@ -1,6 +1,7 @@
 import { style, styleVariants } from '@vanilla-extract/css';
 import * as fonts from '@/styles/__font.css';
 import { vars } from '@/styles/__theme.css';
+import { Label, LabelBold } from '@/styles/font.css';
 
 export const readAllButton = style([
   fonts.labelMedium,
@@ -39,10 +40,31 @@ export const noData = style({
 
 export const noDataMessage = style([fonts.titleRegular]);
 
+export const alignEndWrapper = style({
+  display: 'flex',
+  justifyContent: 'flex-end',
+});
+
+export const infoLabel = style({
+  padding: '4px 8px',
+
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+
+  // border: `1px solid ${vars.color.blue}`,
+  borderRadius: '20px',
+  background: vars.color.white,
+  color: vars.color.blue,
+});
+
 export const label = style([
   fonts.labelLarge,
+  infoLabel,
   {
+    width: 'fit-content',
     margin: '18px 16px',
+    padding: '5px 10px',
   },
 ]);
 
@@ -107,3 +129,17 @@ export const separator = style({
 
   backgroundColor: vars.color.gray5,
 });
+
+export const columnWrapper = style({
+  display: 'flex',
+  flexDirection: 'column',
+  gap: '4px',
+});
+
+export const noticeTitleWrapper = style({
+  display: 'flex',
+  gap: '8px',
+});
+
+export const noticeTitle = style([LabelBold, {}]);
+export const noticeDescription = style([Label, {}]);

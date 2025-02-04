@@ -56,4 +56,7 @@ export const QUERY_KEYS = {
   getAllNotices: 'getAllNotices',
   getNoticeCategories: 'getNoticeCategories',
   getNoticeDetail: 'getNoticeDetail',
+
+  // 리액션
+  reaction: 'reaction',
 };
