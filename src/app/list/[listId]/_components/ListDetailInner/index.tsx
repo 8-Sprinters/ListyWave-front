@@ -38,6 +38,7 @@ function ListDetailInner({ data, listId }: ListDetailInnerProps) {
     description: data?.description,
     collaborators: data?.collaborators,
     ownerNickname: data?.ownerNickname,
+    ownerProfileImageUrl: data?.ownerProfileImageUrl,
     collectCount: data?.collectCount,
     viewCount: data?.viewCount,
     isCollected: data?.isCollected,
@@ -48,6 +49,7 @@ function ListDetailInner({ data, listId }: ListDetailInnerProps) {
   const headerData = {
     updateCount: data?.updateCount,
     lastUpdatedDate: data?.lastUpdatedDate,
+    backgroundColor: data?.backgroundColor,
   };
 
   return (
