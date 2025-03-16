@@ -44,12 +44,13 @@ function ListDetailInner({ data, listId }: ListDetailInnerProps) {
     isCollected: data?.isCollected,
     isPublic: data?.isPublic,
     reactions: data?.reactions,
+    lastUpdatedDate: data?.lastUpdatedDate,
+    backgroundColor: data?.backgroundColor,
   };
 
   const headerData = {
     updateCount: data?.updateCount,
     lastUpdatedDate: data?.lastUpdatedDate,
-    backgroundColor: data?.backgroundColor,
   };
 
   return (
