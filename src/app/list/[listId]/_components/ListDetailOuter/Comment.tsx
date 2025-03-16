@@ -19,6 +19,7 @@ import { vars } from '@/styles/__theme.css';
 import fallbackProfile from '/public/images/fallback_profileImage.webp';
 import EditPen from '/public/icons/edit_pen.svg';
 import { useLanguage } from '@/store/useLanguage';
+import { NewestCommentType } from '@/lib/types/listType';
 
 /**
  * @todo 타입 정리 필요

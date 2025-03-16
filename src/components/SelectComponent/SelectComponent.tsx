@@ -1,4 +1,4 @@
-import Select from 'react-select';
+import Select, { StylesConfig } from 'react-select';
 import { vars } from '@/styles/__theme.css';
 
 interface OptionsProps {
@@ -14,7 +14,7 @@ interface SelectProps {
   onChange?: any;
 }
 
-const selectStyles = {
+const selectStyles: StylesConfig<OptionsProps, false> = {
   control: (provided: object, state: { isFocused: boolean }) => ({
     ...provided,
     maxWidth: '320px',
@@ -22,7 +22,7 @@ const selectStyles = {
     textAlign: 'center',
     backgroundColor: 'transparent',
     boxShadow: 'none',
-    border: 0,
+    border: 'none',
     borderRadius: '8px',
     cursor: 'pointer',
     '&:hover': {

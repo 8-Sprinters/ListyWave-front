@@ -36,30 +36,42 @@ import getBottomSheetOptionList from '@/app/list/[listId]/_components/ListDetail
 import ModalPortal from '@/components/modal-portal';
 import BottomSheet from '@/components/BottomSheet/BottomSheet';
 import Comment from '@/app/list/[listId]/_components/ListDetailOuter/Comment';
+import { CommentType } from '@/lib/types/commentType';
 
 interface BottomSheetOptionsProps {
   key: string;
   title: string;
   onClick: () => void;
 }
+const convertToCommentType = (data: NewestCommentType): CommentType => ({
+  id: 0, // 💡 `id`가 없으므로 기본값 0 설정
+  userId: data.userId,
+  userNickname: data.userNickname,
+  userProfileImageUrl: data.userProfileImageUrl,
+  createdDate: data.createdDate instanceof Date ? data.createdDate.toISOString() : new Date().toISOString(), // 💡 Date → string 변환
+  updatedDate: new Date().toISOString(), // 💡 최신 상태로 기본값 추가
+  content: data.content,
+  replies: [], // 💡 `replies`가 없으므로 빈 배열 설정
+  isDeleted: false, // 💡 기본값 false 설정
+});
 
-const NewestComment = (data: NewestCommentType) => {
-  return (
-    <div>
-      <Comment
-        comment={data}
-        setActiveNickname={() => {}}
-        activeNickname={''}
-        handleSetCommentId={() => {}}
-        handleSetComment={() => {}}
-        listId={11}
-        commentId={22}
-        // currentUserInfo={id: number,nickname: string   description?: string   profileImageUrl?: string   backgroundImageUrl?: string   followerCount: number   followingCount: number   isFollowed: boolean   isOwner: boolean}
-        handleEdit={() => {}}
-      />
-    </div>
-  );
-};
+// const NewestComment = ({ data }: { data: NewestCommentType }) => {
+//   return (
+//     <div>
+//       <Comment
+//         comment={convertToCommentType(data)}
+//         setActiveNickname={() => {}}
+//         activeNickname={''}
+//         handleSetCommentId={() => {}}
+//         handleSetComment={() => {}}
+//         listId={11}
+//         commentId={22}
+//         // currentUserInfo={id: number,nickname: string   description?: string   profileImageUrl?: string   backgroundImageUrl?: string   followerCount: number   followingCount: number   isFollowed: boolean   isOwner: boolean}
+//         handleEdit={() => {}}
+//       />
+//     </div>
+//   );
+// };
 
 function ListInformation() {
   const { language } = useLanguage();
@@ -247,7 +259,8 @@ function ListInformation() {
                 </div>
               </div>
               {/* TODO: 가장 최신 댓글 불러오는 부분 */}
-              <NewestComment data={list?.newestComment} />
+              {/* <NewestComment data={list?.newestComment} /> */}
+              <div> list?.newestComment.content </div>{' '}
             </div>
           )}
           {isSheetActive && (
