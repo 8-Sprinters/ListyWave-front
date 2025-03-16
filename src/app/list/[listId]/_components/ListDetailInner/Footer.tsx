@@ -29,6 +29,7 @@ import { QUERY_KEYS } from '@/lib/constants/queryKeys';
 import { AxiosError } from 'axios';
 import reaction from '@/app/_api/reaction/Reaction';
 import { ReactionType } from '@/lib/types/reactionType';
+import SaveImageModal from './SaveImageModal';
 
 interface BottomSheetOptionsProps {
   key: string;
@@ -45,11 +46,14 @@ interface FooterProps {
   items: ItemType[];
   collaborators: UserProfileType[];
   ownerNickname: string;
+  ownerProfileImageUrl: string;
   isCollected: boolean;
   viewCount: number;
   collectCount: number;
   isPublic: boolean;
   reactions: Reaction[];
+  lastUpdatedDate: Date;
+  backgroundColor: string;
 }
 
 declare global {
@@ -90,6 +94,7 @@ function Footer({ data }: { data: FooterProps }) {
   const path = usePathname();
   const { user: loginUser } = useUser();
   const { isOn, handleSetOff, handleSetOn } = useBooleanOutput();
+  const [isSavedImgModalOn, setIsSavedImgModalOn] = useState(false);
   const [isSheetActive, setSheetActive] = useState<boolean>(false);
   const [sheetOptionList, setSheetOptionList] = useState<BottomSheetOptionsProps[]>([]);
   const listUrl = `https://listywave.com${path}`;
@@ -177,7 +182,15 @@ function Footer({ data }: { data: FooterProps }) {
   };
 
   const handleSheetActive = ({ type }: { type: 'share' | 'etc' }) => {
-    const optionList = getBottomSheetOptionList({ type, data, closeBottomSheet, listUrl, goToCreateList, language });
+    const optionList = getBottomSheetOptionList({
+      type,
+      data,
+      closeBottomSheet,
+      listUrl,
+      goToCreateList,
+      language,
+      openImageModal: () => setIsSavedImgModalOn(true),
+    });
     setSheetOptionList(optionList);
     setSheetActive((prev: boolean) => !prev);
   };
@@ -228,6 +241,7 @@ function Footer({ data }: { data: FooterProps }) {
           <LoginModal id="duplicateListLoginBtn" />
         </Modal>
       )}
+      {isSavedImgModalOn && <SaveImageModal data={data} onClose={() => setIsSavedImgModalOn(false)} />}
       <div className={styles.container}>
         <div className={styles.reactionContainer}>
           {(['COOL', 'AGREE', 'THANKS'] as ReactionType[]).map((type) => {

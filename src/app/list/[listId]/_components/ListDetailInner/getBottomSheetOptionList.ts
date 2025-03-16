@@ -2,7 +2,6 @@ import { ItemType } from '@/lib/types/listType';
 import { UserProfileType } from '@/lib/types/userProfileType';
 import kakaotalkShare from '@/components/KakaotalkShare/kakaotalkShare';
 import copyUrl from '@/lib/utils/copyUrl';
-import saveImageFromHtml from '@/lib/utils/saveImageFromHtml';
 import { listLocale } from '@/app/list/[listId]/locale';
 
 interface OptionDataProps {
@@ -13,7 +12,10 @@ interface OptionDataProps {
   items: ItemType[];
   collaborators: UserProfileType[];
   ownerNickname: string;
+  ownerProfileImageUrl: string;
   isPublic: boolean;
+  lastUpdatedDate: Date;
+  backgroundColor: string;
 }
 
 interface SheetTypeProps {
@@ -23,6 +25,7 @@ interface SheetTypeProps {
   listUrl: string;
   data: OptionDataProps;
   language: string;
+  openImageModal: () => void;
 }
 
 const getBottomSheetOptionList = ({
@@ -32,16 +35,8 @@ const getBottomSheetOptionList = ({
   listUrl,
   goToCreateList,
   language,
+  openImageModal,
 }: SheetTypeProps) => {
-  // TODO: 테스트용 > 이미지저장 로직 수정예정입니다.
-  function imageSaveTest() {
-    const listContent = document.querySelector('#rankList');
-    const tempDiv = document.createElement('div');
-    // tempDiv.innerHTML = listContent.innerHTML;
-    // console.log(tempDiv);
-    return tempDiv;
-  }
-
   if (type === 'share') {
     const optionList = [
       {
@@ -77,16 +72,15 @@ const getBottomSheetOptionList = ({
   }
 
   if (type === 'etc') {
-    const optionList = [
-      // 이미지저장시 이슈가 있어 잠시 주석합니다.
-      // {
-      //   key: 'saveToImg',
-      //   title: listLocale[language].saveListToImage,
-      //   onClick: () => {
-      //     closeBottomSheet();
-      //     saveImageFromHtml({ filename: `${data.category}_${data.listId}`, element: imageSaveTest() });
-      //   },
-      // },
+    return [
+      {
+        key: 'saveToImg',
+        title: listLocale[language].saveListToImage,
+        onClick: () => {
+          closeBottomSheet();
+          openImageModal();
+        },
+      },
       {
         key: 'copyAndCreateList',
         title: listLocale[language].createListToThisTitle,
@@ -95,7 +89,6 @@ const getBottomSheetOptionList = ({
         },
       },
     ];
-    return optionList;
   }
 
   return [];

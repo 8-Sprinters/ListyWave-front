@@ -38,11 +38,14 @@ function ListDetailInner({ data, listId }: ListDetailInnerProps) {
     description: data?.description,
     collaborators: data?.collaborators,
     ownerNickname: data?.ownerNickname,
+    ownerProfileImageUrl: data?.ownerProfileImageUrl,
     collectCount: data?.collectCount,
     viewCount: data?.viewCount,
     isCollected: data?.isCollected,
     isPublic: data?.isPublic,
     reactions: data?.reactions,
+    lastUpdatedDate: data?.lastUpdatedDate,
+    backgroundColor: data?.backgroundColor,
   };
 
   const headerData = {
