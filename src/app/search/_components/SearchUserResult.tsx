@@ -106,7 +106,11 @@ function SearchUserResult() {
             <div className={styles.userProfiles}>
               {result?.users?.map((user) => (
                 // TODO: getSearchUserResult에서 following여부를 같이 내려주게되면 isFollowing프롭 삭제
-                <SearchUserProfile key={user.id} user={user} isFollowed={followingSet?.has(user.id) ?? false} />
+                <SearchUserProfile
+                  key={user.id}
+                  user={user}
+                  isFollowed={followingSet instanceof Set ? followingSet.has(user.id) : false}
+                />
               ))}
               {hasNextPage && <div ref={ref}></div>}
             </div>

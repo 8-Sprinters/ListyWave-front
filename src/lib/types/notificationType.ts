@@ -10,9 +10,9 @@ export interface NotificationType {
   notice?: Notice;
 }
 
-// export interface NotificationsType {
-//   alarmList: NotificationType[];
-// }
+export interface NotificationsType {
+  alarmList: NotificationType[];
+}
 
 export type User = {
   id: number;
