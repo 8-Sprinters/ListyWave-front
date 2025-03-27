@@ -31,7 +31,7 @@ import * as styles from './ListInformation.css';
 import * as modalStyles from '@/components/Modal/ModalButton.css';
 import LockIcon from '/public/icons/ver3/lock.svg';
 import VisibilityIcon from '/public/icons/ver3/visibility.svg';
-import FollowButton from '@/app/user/[userId]/_components/FollowButton';
+import FollowButton from '@/components/FollowButton/FollowButton';
 import getBottomSheetOptionList from '@/app/list/[listId]/_components/ListDetailInner/getBottomSheetOptionList';
 import ModalPortal from '@/components/modal-portal';
 import BottomSheet from '@/components/BottomSheet/BottomSheet';
@@ -79,9 +79,9 @@ function ListInformation() {
   const router = useRouter();
   const { onClickMoveToPage } = useMoveToPage();
   const { isOn, handleSetOn, handleSetOff } = useBooleanOutput();
-  const [isFollowed, setIsFollowed] = useState(true);
   const [sheetOptionList, setSheetOptionList] = useState<BottomSheetOptionsProps[]>([]);
   const [isSheetActive, setSheetActive] = useState<boolean>(false);
+  const [isFollowed, setIsFollowed] = useState<boolean>(false);
 
   //zustand로 관리하는 user정보 불러오기
   const { user } = useUser();
@@ -209,7 +209,17 @@ function ListInformation() {
                   <div className={styles.listOwnerNickname}>{list?.ownerNickname}</div>
                 </div>
               </div>
-              <div>{userId !== list?.ownerId && <FollowButton userId={list?.ownerId} isFollowed={isFollowed} />}</div>
+              {/*isFollowed={list?.isFollowing}로 변경해야함 */}
+              <div>
+                {userId && userId !== list?.ownerId && (
+                  <FollowButton
+                    isFollowing={isFollowed}
+                    onClick={() => setIsFollowed(!isFollowed)}
+                    userId={userId}
+                    targetId={list?.ownerId}
+                  />
+                )}
+              </div>
               {/* TODO: 콜라보레이터 기능 주석 */}
               {/*<div className={styles.collaboratorWrapper} onClick={handleSetOn}>*/}
               {/*  <Collaborators collaborators={filteredCollaborators} />*/}
