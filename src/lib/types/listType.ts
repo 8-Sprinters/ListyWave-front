@@ -112,6 +112,7 @@ export interface ListDetailType {
   items: ItemType[];
   isCollected: boolean;
   isPublic: boolean;
+  isFollowing: boolean;
   backgroundPalette: BACKGROUND_COLOR_PALETTE_TYPE;
   backgroundColor: string;
   collectCount: number;

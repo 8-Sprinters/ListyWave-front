@@ -55,23 +55,25 @@ const convertToCommentType = (data: NewestCommentType): CommentType => ({
   isDeleted: false, // 💡 기본값 false 설정
 });
 
-// const NewestComment = ({ data }: { data: NewestCommentType }) => {
-//   return (
-//     <div>
-//       <Comment
-//         comment={convertToCommentType(data)}
-//         setActiveNickname={() => {}}
-//         activeNickname={''}
-//         handleSetCommentId={() => {}}
-//         handleSetComment={() => {}}
-//         listId={11}
-//         commentId={22}
-//         // currentUserInfo={id: number,nickname: string   description?: string   profileImageUrl?: string   backgroundImageUrl?: string   followerCount: number   followingCount: number   isFollowed: boolean   isOwner: boolean}
-//         handleEdit={() => {}}
-//       />
-//     </div>
-//   );
-// };
+`
+const NewestComment = ({ data }: { data: NewestCommentType }) => {
+  return (
+    <div>
+      <Comment
+        comment={convertToCommentType(data)}
+        setActiveNickname={() => {}}
+        activeNickname={''}
+        handleSetCommentId={() => {}}
+        handleSetComment={() => {}}
+        listId={11}
+        commentId={22}
+        // currentUserInfo={id: number,nickname: string   description?: string   profileImageUrl?: string   backgroundImageUrl?: string   followerCount: number   followingCount: number   isFollowed: boolean   isOwner: boolean}
+        handleEdit={() => {}}
+      />
+    </div>
+  );
+};
+`;
 
 function ListInformation() {
   const { language } = useLanguage();
@@ -81,7 +83,6 @@ function ListInformation() {
   const { isOn, handleSetOn, handleSetOff } = useBooleanOutput();
   const [sheetOptionList, setSheetOptionList] = useState<BottomSheetOptionsProps[]>([]);
   const [isSheetActive, setSheetActive] = useState<boolean>(false);
-  const [isFollowed, setIsFollowed] = useState<boolean>(false);
 
   //zustand로 관리하는 user정보 불러오기
   const { user } = useUser();
@@ -91,10 +92,10 @@ function ListInformation() {
     data: list,
     error,
     isError,
+    refetch,
   } = useQuery<ListDetailType>({
     queryKey: [QUERY_KEYS.getListDetail, params?.listId],
     queryFn: () => getListDetail(Number(params?.listId)),
-    enabled: !!params?.listId,
     retry: 0,
   });
 
@@ -209,15 +210,9 @@ function ListInformation() {
                   <div className={styles.listOwnerNickname}>{list?.ownerNickname}</div>
                 </div>
               </div>
-              {/*isFollowed={list?.isFollowing}로 변경해야함 */}
               <div>
                 {userId && userId !== list?.ownerId && (
-                  <FollowButton
-                    isFollowing={isFollowed}
-                    onClick={() => setIsFollowed(!isFollowed)}
-                    userId={userId}
-                    targetId={list?.ownerId}
-                  />
+                  <FollowButton isFollowed={list?.isFollowing} userId={list?.ownerId} />
                 )}
               </div>
               {/* TODO: 콜라보레이터 기능 주석 */}

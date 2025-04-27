@@ -128,7 +128,7 @@ function UserRecommendListItem({ data, handleScrollToRight, userId }: UserRecomm
           </div>
         </Link>
         <h6 className={styles.recommendUserNickname}>{data.nickname}</h6>
-        <FollowButton isFollowing={isFollowing} onClick={handleFollowButtonClick} userId={userId} targetId={data.id} />
+        <FollowButton isFollowed={isFollowing} onClick={handleFollowButtonClick} userId={data.id} />
       </div>
     </>
   );

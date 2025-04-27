@@ -9,9 +9,9 @@ import getUserOne from '@/app/_api/user/getUserOne';
 
 import { QUERY_KEYS } from '@/lib/constants/queryKeys';
 import { UserType } from '@/lib/types/userProfileType';
+import { useUser } from '@/store/useUser';
 import toasting from '@/lib/utils/toasting';
 import toastMessage, { MAX_FOLLOWING } from '@/lib/constants/toastMessage';
-
 import useBooleanOutput from '@/hooks/useBooleanOutput';
 import Modal from '@/components/Modal/Modal';
 import LoginModal from '@/components/login/LoginModal';
@@ -21,40 +21,31 @@ import { commonLocale } from '@/components/locale';
 import * as styles from './FollowButton.css';
 
 interface FollowButtonProps {
-  isFollowing: boolean;
-  onClick: () => void;
+  isFollowed: boolean;
+  onClick?: () => void;
   userId: number;
-  targetId: number;
 }
 
-function FollowButton({ isFollowing, onClick, userId, targetId }: FollowButtonProps) {
-  const { language } = useLanguage();
+function FollowButton({ isFollowed, onClick, userId }: FollowButtonProps) {
   const queryClient = useQueryClient();
+  const { language } = useLanguage();
+  const { user: userMe } = useUser();
   const { isOn, handleSetOff, handleSetOn } = useBooleanOutput();
 
   const { data: userMeData } = useQuery<UserType>({
-    queryKey: [QUERY_KEYS.userOne, userId],
-    queryFn: () => getUserOne(userId),
-    enabled: !!userId,
-    retry: 1,
+    queryKey: [QUERY_KEYS.userOne, userMe.id],
+    queryFn: () => getUserOne(userMe.id as number),
+    enabled: !!userMe.id,
   });
 
   const followUserMutation = useMutation({
-    mutationKey: [isFollowing ? QUERY_KEYS.deleteFollow : QUERY_KEYS.follow, targetId],
-    mutationFn: isFollowing ? () => deleteFollowUser(targetId) : () => createFollowUser(targetId),
+    mutationKey: [isFollowed ? QUERY_KEYS.deleteFollow : QUERY_KEYS.follow, userId],
+    mutationFn: isFollowed ? () => deleteFollowUser(userId) : () => createFollowUser(userId),
     onMutate: async () => {
       await queryClient.cancelQueries({ queryKey: [QUERY_KEYS.userOne, userId] });
       const previousFollower: UserType | undefined = queryClient.getQueryData([QUERY_KEYS.userOne, userId]);
 
       if (!previousFollower) return;
-
-      const nextData = {
-        ...previousFollower,
-        isFollowed: !isFollowing,
-        followerCount: isFollowing ? previousFollower.followerCount - 1 : previousFollower.followerCount + 1,
-      };
-
-      queryClient.setQueryData([QUERY_KEYS.userOne, userId], nextData);
 
       return { previousFollower };
     },
@@ -68,27 +59,31 @@ function FollowButton({ isFollowing, onClick, userId, targetId }: FollowButtonPr
       queryClient.invalidateQueries({
         queryKey: [QUERY_KEYS.userOne, userId],
       });
+      queryClient.invalidateQueries({
+        queryKey: [QUERY_KEYS.getListDetail],
+      });
     },
   });
 
-  const handleFollowUser = (isFollowing: boolean) => () => {
-    if (!isFollowing) {
+  const handleFollowUser = (isFollowed: boolean) => () => {
+    if (!isFollowed) {
       if (userMeData && userMeData?.followingCount >= MAX_FOLLOWING) {
         toasting({ type: 'warning', txt: toastMessage[language].limitFollow });
         return;
       }
     }
     followUserMutation.mutate(userId);
-    onClick();
+    if (onClick) onClick();
   };
 
   return (
     <>
       <button
-        className={`${styles.followButtonDefault} ${isFollowing === true ? styles.followButtonFollowing : ''}`}
-        onClick={handleFollowUser(isFollowing)}
+        className={`${styles.followButtonDefault} ${isFollowed === true && styles.followButtonFollowing}`}
+        onClick={handleFollowUser(isFollowed)}
+        disabled={followUserMutation.isPending}
       >
-        <span>{isFollowing ? commonLocale[language].following : commonLocale[language].follow}</span>
+        <span>{isFollowed ? commonLocale[language].following : commonLocale[language].follow}</span>
       </button>
       {isOn && (
         <Modal handleModalClose={handleSetOff} size="large">
