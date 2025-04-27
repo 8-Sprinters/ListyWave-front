@@ -31,7 +31,7 @@ import * as styles from './ListInformation.css';
 import * as modalStyles from '@/components/Modal/ModalButton.css';
 import LockIcon from '/public/icons/ver3/lock.svg';
 import VisibilityIcon from '/public/icons/ver3/visibility.svg';
-import FollowButton from '@/app/user/[userId]/_components/FollowButton';
+import FollowButton from '@/components/FollowButton/FollowButton';
 import getBottomSheetOptionList from '@/app/list/[listId]/_components/ListDetailInner/getBottomSheetOptionList';
 import ModalPortal from '@/components/modal-portal';
 import BottomSheet from '@/components/BottomSheet/BottomSheet';
@@ -55,23 +55,25 @@ const convertToCommentType = (data: NewestCommentType): CommentType => ({
   isDeleted: false, // 💡 기본값 false 설정
 });
 
-// const NewestComment = ({ data }: { data: NewestCommentType }) => {
-//   return (
-//     <div>
-//       <Comment
-//         comment={convertToCommentType(data)}
-//         setActiveNickname={() => {}}
-//         activeNickname={''}
-//         handleSetCommentId={() => {}}
-//         handleSetComment={() => {}}
-//         listId={11}
-//         commentId={22}
-//         // currentUserInfo={id: number,nickname: string   description?: string   profileImageUrl?: string   backgroundImageUrl?: string   followerCount: number   followingCount: number   isFollowed: boolean   isOwner: boolean}
-//         handleEdit={() => {}}
-//       />
-//     </div>
-//   );
-// };
+`
+const NewestComment = ({ data }: { data: NewestCommentType }) => {
+  return (
+    <div>
+      <Comment
+        comment={convertToCommentType(data)}
+        setActiveNickname={() => {}}
+        activeNickname={''}
+        handleSetCommentId={() => {}}
+        handleSetComment={() => {}}
+        listId={11}
+        commentId={22}
+        // currentUserInfo={id: number,nickname: string   description?: string   profileImageUrl?: string   backgroundImageUrl?: string   followerCount: number   followingCount: number   isFollowed: boolean   isOwner: boolean}
+        handleEdit={() => {}}
+      />
+    </div>
+  );
+};
+`;
 
 function ListInformation() {
   const { language } = useLanguage();
@@ -79,7 +81,6 @@ function ListInformation() {
   const router = useRouter();
   const { onClickMoveToPage } = useMoveToPage();
   const { isOn, handleSetOn, handleSetOff } = useBooleanOutput();
-  const [isFollowed, setIsFollowed] = useState(true);
   const [sheetOptionList, setSheetOptionList] = useState<BottomSheetOptionsProps[]>([]);
   const [isSheetActive, setSheetActive] = useState<boolean>(false);
 
@@ -91,10 +92,10 @@ function ListInformation() {
     data: list,
     error,
     isError,
+    refetch,
   } = useQuery<ListDetailType>({
     queryKey: [QUERY_KEYS.getListDetail, params?.listId],
     queryFn: () => getListDetail(Number(params?.listId)),
-    enabled: !!params?.listId,
     retry: 0,
   });
 
@@ -209,7 +210,11 @@ function ListInformation() {
                   <div className={styles.listOwnerNickname}>{list?.ownerNickname}</div>
                 </div>
               </div>
-              <div>{userId !== list?.ownerId && <FollowButton userId={list?.ownerId} isFollowed={isFollowed} />}</div>
+              <div>
+                {userId && userId !== list?.ownerId && (
+                  <FollowButton isFollowed={list?.isFollowing} userId={list?.ownerId} />
+                )}
+              </div>
               {/* TODO: 콜라보레이터 기능 주석 */}
               {/*<div className={styles.collaboratorWrapper} onClick={handleSetOn}>*/}
               {/*  <Collaborators collaborators={filteredCollaborators} />*/}

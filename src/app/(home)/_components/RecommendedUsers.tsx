@@ -7,7 +7,7 @@ import { useQuery } from '@tanstack/react-query';
 import { QUERY_KEYS } from '@/lib/constants/queryKeys';
 import getRecommendedUsers from '@/app/_api/home/getRecommendedUsers';
 import { useUser } from '@/store/useUser';
-import FollowButton from './FollowButton';
+import FollowButton from '@/components/FollowButton/FollowButton';
 import { UserProfileType } from '@/lib/types/userProfileType';
 
 import fallbackProfile from '/public/images/fallback_profileImage.webp';
@@ -128,7 +128,7 @@ function UserRecommendListItem({ data, handleScrollToRight, userId }: UserRecomm
           </div>
         </Link>
         <h6 className={styles.recommendUserNickname}>{data.nickname}</h6>
-        <FollowButton isFollowing={isFollowing} onClick={handleFollowButtonClick} userId={userId} targetId={data.id} />
+        <FollowButton isFollowed={isFollowing} onClick={handleFollowButtonClick} userId={data.id} />
       </div>
     </>
   );
